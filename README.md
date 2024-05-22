@@ -8,30 +8,30 @@
 
 ## More Bin:
 
-![Bin](C:\Users\10565\Desktop\Bin.jpg)
+![Bin](pic\Bin.jpg)
 
 ## More Energy Cube:
 
-![Cube](C:\Users\10565\Desktop\Cube.jpg)
+![Cube](pic\Cube.jpg)
 
 ## More Fluid Tank:
 
-![Fluid](C:\Users\10565\Desktop\Fluid.jpg)
+![Fluid](pic\Fluid.jpg)
 
 ## More Chemical Tank:
 
-![Chemical](C:\Users\10565\Desktop\Chemical.jpg)
+![Chemical](pic\Chemical.jpg)
 
 ## More Pipe:
 
-![Pipe](C:\Users\10565\Desktop\Pipe.jpg)
+![Pipe](pic\Pipe.jpg)
 
 ## More Item:
 
-![Item](C:\Users\10565\Desktop\Item.jpg)
+![Item](pic\Item.jpg)
 
 ## BIG!!!!!
 
-![BIG](C:\Users\10565\Desktop\BIG.png)
+![BIG](pic\BIG.png)
 
 **Of course, there are also some small bugs that I know, and I will try my best to fix them as soon as possible(maybe).**
