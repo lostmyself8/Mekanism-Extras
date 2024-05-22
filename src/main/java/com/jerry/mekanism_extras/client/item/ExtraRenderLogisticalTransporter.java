@@ -31,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -62,8 +63,8 @@ public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<Extr
     }
 
     @Override
-    protected void render(ExtraTileEntityLogisticalTransporterBase tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight,
-                          ProfilerFiller profiler) {
+    protected void render(ExtraTileEntityLogisticalTransporterBase tile, float partialTick, PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight,
+                          @NotNull ProfilerFiller profiler) {
         ExtraLogisticalTransporterBase transporter = tile.getTransmitter();
         Collection<TransporterStack> inTransit = transporter.getTransit();
         BlockPos pos = tile.getBlockPos();

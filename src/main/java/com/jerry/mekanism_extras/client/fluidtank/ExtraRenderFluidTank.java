@@ -33,13 +33,13 @@ public class ExtraRenderFluidTank extends MekanismTileEntityRenderer<ExtraTileEn
         super(context);
     }
 
-    public static void resetCachedModels() {
-        cachedCenterFluids.clear();
-        cachedValveFluids.clear();
-    }
+//    public static void resetCachedModels() {
+//        cachedCenterFluids.clear();
+//        cachedValveFluids.clear();
+//    }
 
     @Override
-    protected void render(ExtraTileEntityFluidTank tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight, ProfilerFiller profiler) {
+    protected void render(ExtraTileEntityFluidTank tile, float partialTick, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight, @NotNull ProfilerFiller profiler) {
         FluidStack fluid = tile.fluidTank.getFluid();
         float fluidScale = tile.prevScale;
         Lazy<VertexConsumer> buffer = Lazy.of(() -> renderer.getBuffer(Sheets.translucentCullBlockSheet()));
@@ -55,7 +55,7 @@ public class ExtraRenderFluidTank extends MekanismTileEntityRenderer<ExtraTileEn
     }
 
     @Override
-    protected String getProfilerSection() {
+    protected @NotNull String getProfilerSection() {
         return ProfilerConstants.FLUID_TANK;
     }
 

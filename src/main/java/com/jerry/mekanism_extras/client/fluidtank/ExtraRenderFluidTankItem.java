@@ -6,8 +6,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.RenderResizableCuboid;
 import mekanism.client.render.item.MekanismISTER;
-import mekanism.common.item.block.machine.ItemBlockFluidTank;
-import mekanism.common.tier.FluidTankTier;
 import mekanism.common.util.StorageUtils;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;

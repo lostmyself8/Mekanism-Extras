@@ -43,7 +43,7 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
     }
 
     @Override
-    protected void render(ExtraTileEntityBin tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight, ProfilerFiller profiler) {
+    protected void render(ExtraTileEntityBin tile, float partialTick, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight, @NotNull ProfilerFiller profiler) {
         Level world = tile.getLevel();
         ExtraBinInventorySlot binSlot = tile.getBinSlot();
         if (world != null && (!binSlot.isEmpty() || binSlot.isLocked())) {
@@ -89,15 +89,12 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
     }
 
     protected Component getCount(ExtraTileEntityBin bin) {
-//        if (bin.getTier() == BinTier.CREATIVE) {
-//            return MekanismLang.INFINITE.translateColored(EnumColor.WHITE);
-//        }
         final ExtraBinInventorySlot slot = bin.getBinSlot();
         return TextComponentUtil.build(slot.isLocked() ? EnumColor.AQUA : EnumColor.WHITE, slot.getCount());
     }
 
     @Override
-    protected String getProfilerSection() {
+    protected @NotNull String getProfilerSection() {
         return ProfilerConstants.BIN;
     }
 
@@ -149,7 +146,7 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
         int realWidth = (int) Math.floor(displayWidth / scale);
         int offsetX = (realWidth - requiredWidth) / 2;
         int offsetY = (realHeight - requiredHeight) / 2;
-        font.drawInBatch(text, offsetX - realWidth / 2, 1 + offsetY - realHeight / 2, overlayLight,
+        font.drawInBatch(text, offsetX - (float) realWidth / 2, 1 + offsetY - (float) realHeight / 2, overlayLight,
                 false, matrix.last().pose(), renderer, Font.DisplayMode.POLYGON_OFFSET, 0, light);
         matrix.popPose();
     }

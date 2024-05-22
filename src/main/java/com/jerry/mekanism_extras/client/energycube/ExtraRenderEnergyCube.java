@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 public class ExtraRenderEnergyCube extends ModelTileEntityRenderer<ExtraTileEntityEnergyCube, ExtraModelEnergyCore> {
@@ -25,7 +26,7 @@ public class ExtraRenderEnergyCube extends ModelTileEntityRenderer<ExtraTileEnti
     }
 
     @Override
-    protected void render(ExtraTileEntityEnergyCube tile, float partialTicks, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight, ProfilerFiller profiler) {
+    protected void render(ExtraTileEntityEnergyCube tile, float partialTicks, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight, @NotNull ProfilerFiller profiler) {
         float energyScale = tile.getEnergyScale();
         Vec3 renderPos = Vec3.atCenterOf(tile.getBlockPos());
         RenderTickHandler.addTransparentRenderer(ExtraModelEnergyCore.BATCHED_RENDER_TYPE, new RenderTickHandler.LazyRender() {
@@ -55,13 +56,14 @@ public class ExtraRenderEnergyCube extends ModelTileEntityRenderer<ExtraTileEnti
         });
     }
 
+    @NotNull
     @Override
     protected String getProfilerSection() {
         return ProfilerConstants.ENERGY_CUBE;
     }
 
     @Override
-    public boolean shouldRender(ExtraTileEntityEnergyCube tile, Vec3 camera) {
+    public boolean shouldRender(ExtraTileEntityEnergyCube tile, @NotNull Vec3 camera) {
         return ECTier.getMaxEnergy(tile.getTier()).intValue() > 0 && super.shouldRender(tile, camera);
     }
 }

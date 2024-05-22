@@ -4,7 +4,11 @@
 
 **This module is a ported version of Mekanism Evolution's 1.20.1 and has added more.**
 
+**This is the link to Mekanism-Evolution:https://github.com/Pocky-l/Mekanism-Evolution**
+
 **My material drawing may not be very good. If you want to provide better materials, you can contact me.**
+
+### **All textures of Cosmic and Infinite are flickering, please do not use them if you are sensitive to glare.** ###
 
 ## More Bin:
 
