@@ -8,30 +8,30 @@
 
 ## More Bin:
 
-![微信图片_202405221345572](C:\Users\10565\Desktop\微信图片_202405221345572.jpg)
+![Bin](C:\Users\10565\Desktop\Bin.jpg)
 
 ## More Energy Cube:
 
-![微信图片_202405221345581](C:\Users\10565\Desktop\微信图片_202405221345581.jpg)
+![Cube](C:\Users\10565\Desktop\Cube.jpg)
 
 ## More Fluid Tank:
 
-![微信图片_20240522134558](C:\Users\10565\Desktop\微信图片_20240522134558.jpg)
+![Fluid](C:\Users\10565\Desktop\Fluid.jpg)
 
 ## More Chemical Tank:
 
-![微信图片_202405221345571](C:\Users\10565\Desktop\微信图片_202405221345571.jpg)
+![Chemical](C:\Users\10565\Desktop\Chemical.jpg)
 
 ## More Pipe:
 
-![微信图片_20240522134557](C:\Users\10565\Desktop\微信图片_20240522134557.jpg)
+![Pipe](C:\Users\10565\Desktop\Pipe.jpg)
 
 ## More Item:
 
-## ![微信图片_202405221345573](C:\Users\10565\Desktop\微信图片_202405221345573.jpg)
+![Item](C:\Users\10565\Desktop\Item.jpg)
 
 ## BIG!!!!!
 
-![微信图片_20240522134540](C:\Users\10565\Desktop\微信图片_20240522134540.png)
+![BIG](C:\Users\10565\Desktop\BIG.png)
 
 **Of course, there are also some small bugs that I know, and I will try my best to fix them as soon as possible(maybe).**
