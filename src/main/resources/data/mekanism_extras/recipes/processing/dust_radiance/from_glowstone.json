@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:compressing",
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:uranium_oxide"
+  },
+  "itemInput": {
+    "ingredient": {
+      "tag": "forge:dusts/glowstone"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:dust_radiance"
+  }
+}

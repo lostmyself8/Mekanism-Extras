@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "mekanism_extras:alloy_shining"
+    },
+    "P": {
+      "item": "mekanism_extras:supreme_logistical_transporter"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PAP",
+    "PPP"
+  ],
+  "result": {
+    "count": 8,
+    "item": "mekanism_extras:cosmic_logistical_transporter"
+  }
+}

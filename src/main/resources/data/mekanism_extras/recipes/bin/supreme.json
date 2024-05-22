@@ -1,0 +1,25 @@
+{
+  "type": "mekanism:mek_data",
+  "key": {
+    "A": {
+      "item": "mekanism_extras:alloy_thermonuclear"
+    },
+    "C": {
+      "item": "mekanism_extras:supreme_control_circuit"
+    },
+    "P": {
+      "item": "mekanism_extras:absolute_bin"
+    },
+    "_": {
+      "tag": "forge:cobblestone/normal"
+    }
+  },
+  "pattern": [
+    "_C_",
+    "APA",
+    "___"
+  ],
+  "result": {
+    "item": "mekanism_extras:supreme_bin"
+  }
+}

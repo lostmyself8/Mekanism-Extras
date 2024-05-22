@@ -1,0 +1,12 @@
+{
+  "type": "mekanism:infusion_conversion",
+  "input": {
+    "ingredient": {
+      "item": "mekanism_extras:enriched_radiance"
+    }
+  },
+  "output": {
+    "amount": 80,
+    "infuse_type": "mekanism_extras:radiance"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemicalInput": {
+    "amount": 40,
+    "infuse_type": "mekanism_extras:radiance"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "mekanism:alloy_atomic"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:alloy_radiance"
+  }
+}

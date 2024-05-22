@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "ops": [
+                {
+                  "op": "replace",
+                  "source": "GasTanks",
+                  "target": "mekData.GasTanks"
+                }
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "mekanism_extras:expand_radioactive_waste_barrel"
+        }
+      ],
+      "name": "main",
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "mekanism_extras:blocks/expand_radioactive_waste_barrel"
+}

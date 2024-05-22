@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:nucleosynthesizing",
+  "duration": 2000,
+  "gasInput": {
+    "amount":1,
+    "gas":"mekanism:antimatter"
+  },
+  "itemInput":{
+    "ingredient":{
+      "item":"mekanism_extras:enriched_thermonuclear"
+    }
+  },
+  "output":{
+    "item":"mekanism_extras:enriched_shining"
+  }
+}

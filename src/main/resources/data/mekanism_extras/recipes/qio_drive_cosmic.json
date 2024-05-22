@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "forge:pellets/antimatter"
+    },
+    "C": {
+      "item": "mekanism_extras:qio_drive_supreme"
+    },
+    "I": {
+      "tag": "forge:ingots/lead"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "C#C",
+    "ICI"
+  ],
+  "result": {
+    "item": "mekanism_extras:qio_drive_cosmic"
+  }
+}

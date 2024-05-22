@@ -1,0 +1,9 @@
+{
+  "parent": "mekanism:block/transmitter/small/small",
+  "textures": {
+    "side": "mekanism_extras:block/models/multipart/supreme_universal_cable_vertical",
+    "center_down": "mekanism_extras:block/models/multipart/supreme_universal_cable",
+    "side_opaque": "mekanism_extras:block/models/multipart/opaque/supreme_universal_cable_vertical",
+    "center_opaque": "mekanism_extras:block/models/multipart/supreme_universal_cable"
+  }
+}

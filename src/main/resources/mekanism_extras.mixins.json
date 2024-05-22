@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.jerry.mekanism_extras.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "Mekanism_Extras.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

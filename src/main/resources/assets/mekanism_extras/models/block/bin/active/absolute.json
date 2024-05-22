@@ -1,0 +1,11 @@
+{
+  "parent":"mekanism_extras:block/bin/active/base",
+  "textures":{
+    "led":"mekanism_extras:block/bin/absolute_led",
+    "front":"mekanism_extras:block/bin/front",
+    "side":"mekanism_extras:block/bin/absolute_side",
+    "top":"mekanism_extras:block/bin/absolute_top_active",
+    "back":"mekanism_extras:block/bin/absolute_back",
+    "bottom":"mekanism_extras:block/bin/bottom_active"
+  }
+}

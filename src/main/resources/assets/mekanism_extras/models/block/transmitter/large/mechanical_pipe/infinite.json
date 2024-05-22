@@ -1,0 +1,9 @@
+{
+  "parent": "mekanism:block/transmitter/large/large",
+  "textures": {
+    "side": "mekanism_extras:block/models/multipart/infinite_mechanical_pipe_vertical",
+    "center_down": "mekanism_extras:block/models/multipart/infinite_mechanical_pipe",
+    "side_opaque": "mekanism_extras:block/models/multipart/opaque/infinite_mechanical_pipe_vertical",
+    "center_opaque": "mekanism_extras:block/models/multipart/opaque/infinite_mechanical_pipe"
+  }
+}

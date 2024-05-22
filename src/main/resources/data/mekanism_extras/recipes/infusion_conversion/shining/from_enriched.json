@@ -1,0 +1,12 @@
+{
+  "type": "mekanism:infusion_conversion",
+  "input": {
+    "ingredient": {
+      "item": "mekanism_extras:enriched_shining"
+    }
+  },
+  "output": {
+    "amount": 40,
+    "infuse_type": "mekanism_extras:shining"
+  }
+}

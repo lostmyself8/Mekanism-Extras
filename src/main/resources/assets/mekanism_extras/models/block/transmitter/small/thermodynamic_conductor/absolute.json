@@ -1,0 +1,9 @@
+{
+  "parent": "mekanism:block/transmitter/small/small",
+  "textures": {
+    "side": "mekanism_extras:block/models/multipart/absolute_thermodynamic_conductor_vertical",
+    "center_down": "mekanism_extras:block/models/multipart/absolute_thermodynamic_conductor",
+    "side_opaque": "mekanism_extras:block/models/multipart/opaque/absolute_thermodynamic_conductor_vertical",
+    "center_opaque": "mekanism_extras:block/models/multipart/absolute_thermodynamic_conductor"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:compressing",
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:antimatter"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "mekanism_extras:enriched_shining"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:enriched_spectrum"
+  }
+}

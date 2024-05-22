@@ -1,0 +1,9 @@
+{
+  "parent": "mekanism:block/transmitter/large/logistical_transporter/transporter",
+  "textures": {
+    "side": "mekanism_extras:block/models/multipart/supreme_logistical_transporter_vertical",
+    "center_down": "mekanism_extras:block/models/multipart/supreme_logistical_transporter",
+    "side_opaque": "mekanism_extras:block/models/multipart/opaque/supreme_logistical_transporter_vertical",
+    "center_opaque": "mekanism_extras:block/models/multipart/opaque/supreme_logistical_transporter"
+  }
+}

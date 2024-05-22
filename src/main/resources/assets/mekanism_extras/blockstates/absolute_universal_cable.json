@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mekanism_extras:block/transmitter/small/universal_cable/absolute"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mekanism_extras:block/chemical_tank/absolute"
+    },
+    "facing=south": {
+      "model": "mekanism_extras:block/chemical_tank/absolute",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "mekanism_extras:block/chemical_tank/absolute",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "mekanism_extras:block/chemical_tank/absolute",
+      "y": -90
+    }
+  }
+}
