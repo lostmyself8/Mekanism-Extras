@@ -1,12 +1,18 @@
 package com.jerry.mekanism_extras.config;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.block.storage.bin.BTier;
+import com.jerry.mekanism_extras.common.block.storage.chemicaltank.CTTier;
+import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
+import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import mekanism.api.heat.HeatAPI;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.config.BaseMekanismConfig;
 import mekanism.common.config.value.*;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
+
+import java.util.Locale;
 
 public class ExtraConfig extends BaseMekanismConfig {
     private final ForgeConfigSpec configSpec;
@@ -62,17 +68,19 @@ public class ExtraConfig extends BaseMekanismConfig {
 
     public ExtraConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        builder.comment("Config").push(MekanismExtras.MODID);
 
         final String noteUC = "Internal buffer in Joules of each 'TIER' universal cable";
-        builder.comment("Universal Cables").push(MekanismExtras.MODID);
+        builder.comment("Universal Cables").push("universal cables");
         this.absoluteUniversalCableCapacity = CachedFloatingLongValue.define(this, builder, noteUC, "absoluteUniversalCable", FloatingLong.createConst(65536000L));
         this.supremeUniversalCableCapacity = CachedFloatingLongValue.define(this, builder, noteUC, "supremeUniversalCable", FloatingLong.createConst(524288000L));
         this.cosmicUniversalCableCapacity = CachedFloatingLongValue.define(this, builder, noteUC, "cosmicUniversalCable", FloatingLong.createConst(4194304000L));
         this.infiniteUniversalCableCapacity = CachedFloatingLongValue.define(this, builder, noteUC, "infiniteUniversalCable", FloatingLong.createConst(33554432000L));
+        builder.pop();
 
         final String noteMP = "Capacity of 'TIER' mechanical pipes in mB.";
         final String noteMP2 = "Pump rate of 'TIER' mechanical pipes in mB/t.";
-        builder.comment("Mechanical Pipes").push(MekanismExtras.MODID);
+        builder.comment("Mechanical Pipes").push("mechanical pipes");
         this.absoluteMechanicalPipeCapacity = CachedFloatingLongValue.define(this, builder, noteMP, "absoluteMechanicalPipesCapacity", FloatingLong.createConst(512000L));
         this.absoluteMechanicalPipePullAmount = CachedFloatingLongValue.define(this, builder, noteMP2, "absoluteMechanicalPipesPullAmount", FloatingLong.createConst(128000));
         this.supremeMechanicalPipeCapacity = CachedFloatingLongValue.define(this, builder, noteMP, "supremeMechanicalPipesCapacity", FloatingLong.createConst(2048000L));
@@ -81,10 +89,11 @@ public class ExtraConfig extends BaseMekanismConfig {
         this.cosmicMechanicalPipePullAmount = CachedFloatingLongValue.define(this, builder, noteMP2, "cosmicMechanicalPipesPullAmount", FloatingLong.createConst(2048000));
         this.infiniteMechanicalPipeCapacity = CachedFloatingLongValue.define(this, builder, noteMP, "infiniteMechanicalPipesCapacity", FloatingLong.createConst(32768000L));
         this.infiniteMechanicalPipePullAmount = CachedFloatingLongValue.define(this, builder, noteMP2, "infiniteMechanicalPipesPullAmount", FloatingLong.createConst(8192000));
+        builder.pop();
 
         final String notePT = "Capacity of 'TIER' pressurized tubes in mB.";
         final String notePT2 = "Pump rate of 'TIER' pressurized tubes in mB/t.";
-        builder.comment("Pressurized Tubes").push(MekanismExtras.MODID);
+        builder.comment("Pressurized Tubes").push("pressurized tubes");
         this.absolutePressurizedTubeCapacity = CachedFloatingLongValue.define(this, builder, notePT, "absolutePressurizedTubesCapacity", FloatingLong.createConst(4096000L));
         this.absolutePressurizedTubePullAmount = CachedFloatingLongValue.define(this, builder, notePT2, "absolutePressurizedTubesPullAmount", FloatingLong.createConst(1024000L));
         this.supremePressurizedTubeCapacity = CachedFloatingLongValue.define(this, builder, notePT, "supremePressurizedTubesCapacity", FloatingLong.createConst(16384000L));
@@ -93,10 +102,11 @@ public class ExtraConfig extends BaseMekanismConfig {
         this.cosmicPressurizedTubePullAmount = CachedFloatingLongValue.define(this, builder, notePT2, "cosmicPressurizedTubesPullAmount", FloatingLong.createConst(16384000L));
         this.infinitePressurizedTubeCapacity = CachedFloatingLongValue.define(this, builder, notePT, "infinitePressurizedTubesCapacity", FloatingLong.createConst(262144000L));
         this.infinitePressurizedTubePullAmount = CachedFloatingLongValue.define(this, builder, notePT2, "infinitePressurizedTubesPullAmount", FloatingLong.createConst(65536000L));
+        builder.pop();
 
         final String noteLT = "Five times the travel speed in m/s of 'TIER' logistical transporter.";
         final String noteLT2 = "Item throughput rate of 'TIER' logistical transporters in items/half second.";
-        builder.comment("Logistical Transporters").push(MekanismExtras.MODID);
+        builder.comment("Logistical Transporters").push("logistical transporters");
         this.absoluteLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "absoluteLogisticalTransporterSpeed", FloatingLong.createConst(100));
         this.absoluteLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2, "absoluteLogisticalTransporterPullAmount", FloatingLong.createConst(128));
         this.supremeLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "supremeLogisticalTransporterSpeed", FloatingLong.createConst(200));
@@ -105,11 +115,12 @@ public class ExtraConfig extends BaseMekanismConfig {
         this.cosmicLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2, "cosmicLogisticalTransporterPullAmount", FloatingLong.createConst(512));
         this.infiniteLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "infiniteLogisticalTransporterSpeed", FloatingLong.createConst(800));
         this.infiniteLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2, "infiniteLogisticalTransporterPullAmount", FloatingLong.createConst(1024));
+        builder.pop();
 
         final String noteTC = "Conduction value of 'TIER' thermodynamic conductors.";//热导
         final String noteTC2 = "Heat capacity of 'TIER' thermodynamic conductors.";//热容
         final String noteTC3 = "Insulation value of 'TIER' thermodynamic conductor.";//热阻
-        builder.comment("Thermodynamic Conductors").push(MekanismExtras.MODID);
+        builder.comment("Thermodynamic Conductors").push("thermodynamic conductors");
         this.absoluteThermodynamicConductorConduction = CachedFloatingLongValue.define(this, builder, noteTC, "absoluteThermodynamicConductorConduction", FloatingLong.createConst(10L));
         this.absoluteThermodynamicConductornCapacity = CachedFloatingLongValue.define(this, builder, noteTC2, "absoluteThermodynamicConductornCapacity", FloatingLong.createConst(HeatAPI.DEFAULT_HEAT_CAPACITY));
         this.absoluteThermodynamicConductornInsulation = CachedFloatingLongValue.define(this, builder, noteTC3, "absoluteThermodynamicConductornInsulation", FloatingLong.createConst(400000L));
@@ -122,37 +133,64 @@ public class ExtraConfig extends BaseMekanismConfig {
         this.infiniteThermodynamicConductorConduction = CachedFloatingLongValue.define(this, builder, noteTC, "infiniteThermodynamicConductorConduction", FloatingLong.createConst(25L));
         this.infiniteThermodynamicConductornCapacity = CachedFloatingLongValue.define(this, builder, noteTC2, "infiniteThermodynamicConductornCapacity", FloatingLong.createConst(HeatAPI.DEFAULT_HEAT_CAPACITY));
         this.infiniteThermodynamicConductornInsulation = CachedFloatingLongValue.define(this, builder, noteTC3, "infiniteThermodynamicConductornInsulation", FloatingLong.createConst(4000000L));
+        builder.pop();
 
+        builder.comment("Expand Radioactive Waste Barrel").push("expand radioactive waste barrel");
         this.radioactiveWasteBarrelMaxGas = CachedLongValue.wrap(this, builder.comment("Amount of gas (mB) that can be stored in a Radioactive Waste Barrel.")
                 .defineInRange("radioactiveWasteBarrelMaxGas", 2_048_000, 1, Long.MAX_VALUE));
         this.radioactiveWasteBarrelProcessTicks = CachedIntValue.wrap(this, builder.comment("Number of ticks required for radioactive gas stored in a Radioactive Waste Barrel to decay radioactiveWasteBarrelDecayAmount mB.")
                 .defineInRange("radioactiveWasteBarrelProcessTicks", 5, 1, Integer.MAX_VALUE));
         this.radioactiveWasteBarrelDecayAmount = CachedLongValue.wrap(this, builder.comment("Number of mB of gas that decay every radioactiveWasteBarrelProcessTicks ticks when stored in a Radioactive Waste Barrel. Set to zero to disable decay all together. (Gases in the mekanism:waste_barrel_decay_blacklist tag will not decay).")
                 .defineInRange("radioactiveWasteBarrelDecayAmount", 4, 0, Long.MAX_VALUE));
-//        this.radioactiveWasteBarrelMaxGas = CachedLongValue.wrap(this, builder.comment("Amount of gas (mB) that can be stored in a Radioactive Waste Barrel.")
-//                .defineInRange("radioactiveWasteBarrelMaxGas", 1_024_000, 1, Long.MAX_VALUE));
-//        this.radioactiveWasteBarrelProcessTicks = CachedIntValue.wrap(this, builder.comment("Number of ticks required for radioactive gas stored in a Radioactive Waste Barrel to decay radioactiveWasteBarrelDecayAmount mB.")
-//                .defineInRange("radioactiveWasteBarrelProcessTicks", 10, 1, Integer.MAX_VALUE));
-//        this.radioactiveWasteBarrelDecayAmount = CachedLongValue.wrap(this, builder.comment("Number of mB of gas that decay every radioactiveWasteBarrelProcessTicks ticks when stored in a Radioactive Waste Barrel. Set to zero to disable decay all together. (Gases in the mekanism:waste_barrel_decay_blacklist tag will not decay).")
-//                .defineInRange("radioactiveWasteBarrelDecayAmount", 1, 0, Long.MAX_VALUE));
-//        this.radioactiveWasteBarrelMaxGas = CachedLongValue.wrap(this, builder.comment("Amount of gas (mB) that can be stored in a Radioactive Waste Barrel.")
-//                .defineInRange("radioactiveWasteBarrelMaxGas", 1_024_000, 1, Long.MAX_VALUE));
-//        this.radioactiveWasteBarrelProcessTicks = CachedIntValue.wrap(this, builder.comment("Number of ticks required for radioactive gas stored in a Radioactive Waste Barrel to decay radioactiveWasteBarrelDecayAmount mB.")
-//                .defineInRange("radioactiveWasteBarrelProcessTicks", 10, 1, Integer.MAX_VALUE));
-//        this.radioactiveWasteBarrelDecayAmount = CachedLongValue.wrap(this, builder.comment("Number of mB of gas that decay every radioactiveWasteBarrelProcessTicks ticks when stored in a Radioactive Waste Barrel. Set to zero to disable decay all together. (Gases in the mekanism:waste_barrel_decay_blacklist tag will not decay).")
-//                .defineInRange("radioactiveWasteBarrelDecayAmount", 1, 0, Long.MAX_VALUE));
-//        this.radioactiveWasteBarrelMaxGas = CachedLongValue.wrap(this, builder.comment("Amount of gas (mB) that can be stored in a Radioactive Waste Barrel.")
-//                .defineInRange("radioactiveWasteBarrelMaxGas", 1_024_000, 1, Long.MAX_VALUE));
-//        this.radioactiveWasteBarrelProcessTicks = CachedIntValue.wrap(this, builder.comment("Number of ticks required for radioactive gas stored in a Radioactive Waste Barrel to decay radioactiveWasteBarrelDecayAmount mB.")
-//                .defineInRange("radioactiveWasteBarrelProcessTicks", 10, 1, Integer.MAX_VALUE));
-//        this.radioactiveWasteBarrelDecayAmount = CachedLongValue.wrap(this, builder.comment("Number of mB of gas that decay every radioactiveWasteBarrelProcessTicks ticks when stored in a Radioactive Waste Barrel. Set to zero to disable decay all together. (Gases in the mekanism:waste_barrel_decay_blacklist tag will not decay).")
-//                .defineInRange("radioactiveWasteBarrelDecayAmount", 1, 0, Long.MAX_VALUE));
+        builder.pop();
 
+        builder.comment("Alloy Upgrade").push("alloy upgrade");
         this.transmitterAlloyUpgrade = CachedBooleanValue.wrap(this, builder.comment("Allow right clicking on Cables/Pipes/Tubes with alloys to upgrade the tier.")
                 .define("transmitterAlloyUpgrade", true));
+        builder.pop();
 
+        addFluidTankCategory(builder);
+        addGasTankCategory(builder);
+        addBinCategory(builder);
         builder.pop();
         this.configSpec = builder.build();
+    }
+
+    private void addFluidTankCategory(ForgeConfigSpec.Builder builder) {
+        builder.comment("Fluid Tanks").push("fluid tanks");
+        for (FTTier tier : ExtraEnumUtils.FLUID_TANK_TIERS) {
+            String tierName = tier.getBaseTier().getSimpleName();
+            CachedIntValue storageReference = CachedIntValue.wrap(this, builder.comment("Storage size of " + tierName + " fluid tanks in mB.")
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseStorage(), 1, Integer.MAX_VALUE));
+            CachedIntValue outputReference = CachedIntValue.wrap(this, builder.comment("Output rate of " + tierName + " fluid tanks in mB.")
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getBaseOutput(), 1, Integer.MAX_VALUE));
+            tier.setConfigReference(storageReference, outputReference);
+        }
+        builder.pop();
+    }
+
+    private void addGasTankCategory(ForgeConfigSpec.Builder builder) {
+        builder.comment("Chemical Tanks").push("chemical tanks");
+        for (CTTier tier : ExtraEnumUtils.CHEMICAL_TANK_TIERS) {
+            String tierName = tier.getBaseTier().getSimpleName();
+            CachedLongValue storageReference = CachedLongValue.wrap(this, builder.comment("Storage size of " + tierName + " chemical tanks in mB.")
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseStorage(), 1, Long.MAX_VALUE));
+            CachedLongValue outputReference = CachedLongValue.wrap(this, builder.comment("Output rate of " + tierName + " chemical tanks in mB.")
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getBaseOutput(), 1, Long.MAX_VALUE));
+            tier.setConfigReference(storageReference, outputReference);
+        }
+        builder.pop();
+    }
+
+    private void addBinCategory(ForgeConfigSpec.Builder builder) {
+        builder.comment("Bins").push("bins");
+        for (BTier tier : ExtraEnumUtils.BIN_TIERS) {
+            String tierName = tier.getBaseTier().getSimpleName();
+            CachedIntValue storageReference = CachedIntValue.wrap(this, builder.comment("The number of items " + tierName + " bins can store.")
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseStorage(), 1, Integer.MAX_VALUE));
+            tier.setConfigReference(storageReference);
+        }
+        builder.pop();
     }
 
     public String getFileName() {
