@@ -7,7 +7,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class ExtraTileEntityTransmitter extends TileEntityTransmitter {
-
     public ExtraTileEntityTransmitter(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
     }
