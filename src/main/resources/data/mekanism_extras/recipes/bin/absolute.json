@@ -2,10 +2,10 @@
   "type": "mekanism:mek_data",
   "key": {
     "A": {
-      "item": "mekanism_extras:alloy_radiance"
+      "tag": "mekanism_extras:alloys/radiance"
     },
     "C": {
-      "item": "mekanism_extras:absolute_control_circuit"
+      "tag": "forge:circuits/absolute"
     },
     "P": {
       "item": "mekanism:ultimate_bin"

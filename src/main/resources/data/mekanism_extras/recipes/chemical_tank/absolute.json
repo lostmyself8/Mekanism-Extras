@@ -2,7 +2,7 @@
   "type": "mekanism:mek_data",
   "key": {
     "A": {
-      "item": "mekanism_extras:alloy_radiance"
+      "tag": "mekanism_extras:alloys/radiance"
     },
     "O": {
       "tag": "forge:ingots/osmium"

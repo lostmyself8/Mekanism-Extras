@@ -2,7 +2,7 @@
   "type": "mekanism:mek_data",
   "key": {
     "A": {
-      "item": "mekanism_extras:alloy_thermonuclear"
+      "tag": "mekanism_extras:alloys/thermonuclear"
     },
     "O": {
       "tag": "forge:ingots/osmium"

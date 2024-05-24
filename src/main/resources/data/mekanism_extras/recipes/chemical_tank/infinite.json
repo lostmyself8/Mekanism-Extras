@@ -2,7 +2,7 @@
   "type": "mekanism:mek_data",
   "key": {
     "A": {
-      "item": "mekanism_extras:alloy_spectrum"
+      "tag": "mekanism_extras:alloys/spectrum"
     },
     "O": {
       "tag": "forge:ingots/osmium"

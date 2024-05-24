@@ -2,10 +2,10 @@
   "type": "mekanism:mek_data",
   "key": {
     "A": {
-      "item": "mekanism_extras:alloy_thermonuclear"
+      "tag": "mekanism_extras:alloys/thermonuclear"
     },
     "C": {
-      "item": "mekanism_extras:supreme_control_circuit"
+      "tag": "forge:circuits/supreme"
     },
     "P": {
       "item": "mekanism_extras:absolute_bin"
