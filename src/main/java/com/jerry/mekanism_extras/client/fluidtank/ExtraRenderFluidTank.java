@@ -33,10 +33,10 @@ public class ExtraRenderFluidTank extends MekanismTileEntityRenderer<ExtraTileEn
         super(context);
     }
 
-//    public static void resetCachedModels() {
-//        cachedCenterFluids.clear();
-//        cachedValveFluids.clear();
-//    }
+    public static void resetCachedModels() {
+        cachedCenterFluids.clear();
+        cachedValveFluids.clear();
+    }
 
     @Override
     protected void render(ExtraTileEntityFluidTank tile, float partialTick, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight, @NotNull ProfilerFiller profiler) {
