@@ -10,6 +10,12 @@
 
 ### **All textures of Cosmic and Infinite are flickering, please do not use them if you are sensitive to glare.** ###
 
+## A KNOWN BUG:
+
+**Note: It is known that energy and chemical pipes will not save the contents of the pipes after exiting the game. Please export the contents of the pipes before exiting the game.**
+
+**Fluid pipes and their code are almost the same. I don't know why fluid pipes can store things inside pipes while they can't (annoy), but the original mod also has this bug(happy).**
+
 ## More Bin:
 
 ![Bin](pic\Bin.jpg)
