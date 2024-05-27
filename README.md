@@ -10,6 +10,8 @@
 
 ### **All textures of Cosmic and Infinite are flickering, please do not use them if you are sensitive to glare.** ###
 
+**The configuration file can be modified in the "mekanism_extras.toml" file located in the "Mekanism" folder.**
+
 ## A KNOWN BUG:
 
 **Note: It is known that energy and chemical pipes will not save the contents of the pipes after exiting the game. Please export the contents of the pipes before exiting the game.**

@@ -4,7 +4,7 @@ import mekanism.api.tier.BaseTier;
 
 public enum ExtraQIODriverTier {
     ABSOLUTE(BaseTier.BASIC, 128_000_000_000L, 32768),
-    SUPREME(BaseTier.ADVANCED, 1_048_000_000_000L, 1310722),
+    SUPREME(BaseTier.ADVANCED, 1_048_000_000_000L, 131072),
     COSMIC(BaseTier.ELITE, 8_000_000_000_000L, 524288),
     INFINITE(BaseTier.ULTIMATE, 16_000_000_000_000L, 2097152);
 
