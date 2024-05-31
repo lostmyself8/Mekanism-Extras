@@ -1,6 +1,6 @@
 # Mekanism_Extras
 
-**For the first time writing a module, there may be some deficiencies in the numerical value of the item and the quality of the module. If there are any areas that you feel are inappropriate, please report them on GitHub.**
+**For the first time writing a mod, there may be some deficiencies in the numerical value of the item and the quality of the module. If there are any areas that you feel are inappropriate, please report them on GitHub.**
 
 **This module is a ported version of Mekanism Evolution's 1.20.1 and has added more.**
 

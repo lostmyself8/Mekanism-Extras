@@ -5,7 +5,7 @@
       "tag": "mekanism_extras:alloys/shining"
     },
     "C": {
-      "tag": "mekanism_extras:circuits/supreme"
+      "tag": "forge:circuits/supreme"
     }
   },
   "pattern": [

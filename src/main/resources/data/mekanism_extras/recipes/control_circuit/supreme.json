@@ -5,7 +5,7 @@
       "tag": "mekanism_extras:alloys/thermonuclear"
     },
     "C": {
-      "tag": "mekanism_extras:circuits/absolute"
+      "tag": "forge:circuits/absolute"
     }
   },
   "pattern": [
