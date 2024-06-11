@@ -4,12 +4,18 @@ import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.block.storage.bin.BTier;
 import com.jerry.mekanism_extras.common.block.storage.chemicaltank.CTTier;
 import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
+import com.jerry.mekanism_extras.common.tile.multiblock.cell.ICTier;
+import com.jerry.mekanism_extras.common.tile.multiblock.provider.IPTier;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import mekanism.api.heat.HeatAPI;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.config.BaseMekanismConfig;
 import mekanism.common.config.value.*;
+import mekanism.common.tier.InductionCellTier;
+import mekanism.common.tier.InductionProviderTier;
+import mekanism.common.util.EnumUtils;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.config.ModConfig;
 
 import java.util.Locale;
@@ -65,6 +71,8 @@ public class ExtraConfig extends BaseMekanismConfig {
     public final CachedLongValue radioactiveWasteBarrelMaxGas;
     public final CachedIntValue radioactiveWasteBarrelProcessTicks;
     public final CachedLongValue radioactiveWasteBarrelDecayAmount;
+    //Pump
+    public final CachedIntValue pumpHeavyWaterAmount;
 
     public ExtraConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -149,9 +157,15 @@ public class ExtraConfig extends BaseMekanismConfig {
                 .define("transmitterAlloyUpgrade", true));
         builder.pop();
 
+        builder.comment("Faster Electric Pump").push("faster electric pump");
+        this.pumpHeavyWaterAmount = CachedIntValue.wrap(this, builder.comment("mB of Heavy Water that is extracted per block of Water by the Electric Pump with a Filter Upgrade.")
+                .defineInRange("pumpHeavyWaterAmount", FluidType.BUCKET_VOLUME , 1, FluidType.BUCKET_VOLUME));
+        builder.pop();
+
         addFluidTankCategory(builder);
         addGasTankCategory(builder);
         addBinCategory(builder);
+        addInductionCategory(builder);
         builder.pop();
         this.configSpec = builder.build();
     }
@@ -160,9 +174,9 @@ public class ExtraConfig extends BaseMekanismConfig {
         builder.comment("Fluid Tanks").push("fluid tanks");
         for (FTTier tier : ExtraEnumUtils.FLUID_TANK_TIERS) {
             String tierName = tier.getBaseTier().getSimpleName();
-            CachedIntValue storageReference = CachedIntValue.wrap(this, builder.comment("Storage size of " + tierName + " fluid tanks in mB.")
+            CachedIntValue storageReference = CachedIntValue.wrap(this, builder.comment("Storage size of " + tier.toString().toLowerCase() + " fluid tanks in mB.")
                     .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseStorage(), 1, Integer.MAX_VALUE));
-            CachedIntValue outputReference = CachedIntValue.wrap(this, builder.comment("Output rate of " + tierName + " fluid tanks in mB.")
+            CachedIntValue outputReference = CachedIntValue.wrap(this, builder.comment("Output rate of " + tier.toString().toLowerCase() + " fluid tanks in mB.")
                     .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getBaseOutput(), 1, Integer.MAX_VALUE));
             tier.setConfigReference(storageReference, outputReference);
         }
@@ -173,9 +187,9 @@ public class ExtraConfig extends BaseMekanismConfig {
         builder.comment("Chemical Tanks").push("chemical tanks");
         for (CTTier tier : ExtraEnumUtils.CHEMICAL_TANK_TIERS) {
             String tierName = tier.getBaseTier().getSimpleName();
-            CachedLongValue storageReference = CachedLongValue.wrap(this, builder.comment("Storage size of " + tierName + " chemical tanks in mB.")
+            CachedLongValue storageReference = CachedLongValue.wrap(this, builder.comment("Storage size of " + tier.toString().toLowerCase() + " chemical tanks in mB.")
                     .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseStorage(), 1, Long.MAX_VALUE));
-            CachedLongValue outputReference = CachedLongValue.wrap(this, builder.comment("Output rate of " + tierName + " chemical tanks in mB.")
+            CachedLongValue outputReference = CachedLongValue.wrap(this, builder.comment("Output rate of " + tier.toString().toLowerCase() + " chemical tanks in mB.")
                     .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getBaseOutput(), 1, Long.MAX_VALUE));
             tier.setConfigReference(storageReference, outputReference);
         }
@@ -186,9 +200,26 @@ public class ExtraConfig extends BaseMekanismConfig {
         builder.comment("Bins").push("bins");
         for (BTier tier : ExtraEnumUtils.BIN_TIERS) {
             String tierName = tier.getBaseTier().getSimpleName();
-            CachedIntValue storageReference = CachedIntValue.wrap(this, builder.comment("The number of items " + tierName + " bins can store.")
+            CachedIntValue storageReference = CachedIntValue.wrap(this, builder.comment("The number of items " + tier.toString().toLowerCase() + " bins can store.")
                     .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseStorage(), 1, Integer.MAX_VALUE));
             tier.setConfigReference(storageReference);
+        }
+        builder.pop();
+    }
+
+    private void addInductionCategory(ForgeConfigSpec.Builder builder) {
+        builder.comment("Induction").push("induction");
+        for (ICTier tier : ExtraEnumUtils.INDUCTION_CELL_TIERS) {
+            String tierName = tier.getBaseTier().getSimpleName();
+            CachedFloatingLongValue storageReference = CachedFloatingLongValue.define(this, builder, "Maximum number of Joules " + tier.toString().toLowerCase() + " induction cells can store.",
+                    tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseMaxEnergy(), CachedFloatingLongValue.POSITIVE);
+            tier.setConfigReference(storageReference);
+        }
+        for (IPTier tier : ExtraEnumUtils.INDUCTION_PROVIDER_TIERS) {
+            String tierName = tier.getBaseTier().getSimpleName();
+            CachedFloatingLongValue outputReference = CachedFloatingLongValue.define(this, builder, "Maximum number of Joules " + tier.toString().toLowerCase() + " induction providers can output or accept.",
+                    tierName.toLowerCase(Locale.ROOT) + "Output", tier.getBaseOutput(), CachedFloatingLongValue.POSITIVE);
+            tier.setConfigReference(outputReference);
         }
         builder.pop();
     }

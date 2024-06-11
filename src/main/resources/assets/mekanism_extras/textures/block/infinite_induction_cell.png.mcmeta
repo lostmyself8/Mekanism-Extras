@@ -1,0 +1,51 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "SOLID",
+    "textures": [
+      "mekanism_extras:ctm/infinite_induction_cell"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "mekanism_extras:absolute_induction_cell"
+        },
+        {
+          "block": "mekanism_extras:supreme_induction_cell"
+        },
+        {
+          "block": "mekanism_extras:cosmic_induction_cell"
+        },
+        {
+          "block": "mekanism_extras:infinite_induction_cell"
+        },
+        {
+          "block": "mekanism_extras:absolute_induction_provider"
+        },
+        {
+          "block": "mekanism_extras:supreme_induction_provider"
+        },
+        {
+          "block": "mekanism_extras:cosmic_induction_provider"
+        },
+        {
+          "block": "mekanism_extras:infinite_induction_provider"
+        }
+      ],
+      "connect_inside": true
+    }
+  },
+  "animation": {
+    "frametime": 7,
+    "interpolate": true,
+    "frames": [
+      {"index": 0},
+      {"index": 1},
+      {"index": 2},
+      {"index": 3},
+      {"index": 4},
+      {"index": 5}
+    ]
+  }
+}

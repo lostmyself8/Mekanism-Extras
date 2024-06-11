@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "mekanism_extras:hard_induction_casing"
+    },
+    "C": {
+      "tag": "forge:circuits/elite"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#C#",
+    " # "
+  ],
+  "result": {
+    "count": 2,
+    "item": "mekanism_extras:hard_induction_port"
+  }
+}

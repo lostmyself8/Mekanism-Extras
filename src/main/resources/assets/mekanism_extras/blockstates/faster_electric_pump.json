@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mekanism_extras:block/faster_electric_pump",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "mekanism_extras:block/faster_electric_pump"
+    },
+    "facing=east": {
+      "model": "mekanism_extras:block/faster_electric_pump",
+      "y": -90
+    },
+    "facing=west": {
+      "model": "mekanism_extras:block/faster_electric_pump",
+      "y": 90
+    }
+  }
+}

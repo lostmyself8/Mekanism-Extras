@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "forge:alloys/cosmic"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "O": {
+      "tag": "forge:storage_blocks/osmium"
+    },
+    "X": {
+      "item": "mekanism:electric_pump"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "AXA",
+    "OOO"
+  ],
+  "result": {
+    "item": "mekanism_extras:faster_electric_pump"
+  }
+}

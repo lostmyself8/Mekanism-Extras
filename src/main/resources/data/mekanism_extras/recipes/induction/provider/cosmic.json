@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "mekanism_extras:cosmic_energy_cube"
+    },
+    "C": {
+      "tag": "forge:circuits/cosmic"
+    },
+    "P": {
+      "item": "mekanism_extras:supreme_induction_provider"
+    }
+  },
+  "pattern": [
+    "CPC",
+    "P#P",
+    "CPC"
+  ],
+  "result": {
+    "item": "mekanism_extras:cosmic_induction_provider"
+  }
+}

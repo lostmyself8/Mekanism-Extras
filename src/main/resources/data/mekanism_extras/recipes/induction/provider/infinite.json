@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "mekanism_extras:infinite_energy_cube"
+    },
+    "C": {
+      "tag": "forge:circuits/infinite"
+    },
+    "P": {
+      "item": "mekanism_extras:cosmic_induction_provider"
+    }
+  },
+  "pattern": [
+    "CPC",
+    "P#P",
+    "CPC"
+  ],
+  "result": {
+    "item": "mekanism_extras:infinite_induction_provider"
+  }
+}

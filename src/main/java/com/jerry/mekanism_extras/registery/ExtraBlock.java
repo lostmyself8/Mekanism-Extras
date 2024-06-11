@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.registery;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.block.machine.ElectricPump.ExtraTileEntityElectricPump;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraBlockBin;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraItemBlockBin;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraTileEntityBin;
@@ -24,20 +25,33 @@ import com.jerry.mekanism_extras.common.block.transmitter.thermodynamicconductor
 import com.jerry.mekanism_extras.common.block.transmitter.thermodynamicconductor.ExtraItemBlockThermodynamicConductor;
 import com.jerry.mekanism_extras.common.block.transmitter.tube.ExtraBlockPressurizedTube;
 import com.jerry.mekanism_extras.common.block.transmitter.tube.ExtraItemBlockPressurizedTube;
+import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
+import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionPort;
+import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityColliderCasing;
+import com.jerry.mekanism_extras.common.tile.multiblock.cell.ExtraItemBlockInductionCell;
+import com.jerry.mekanism_extras.common.tile.multiblock.cell.ExtraTileEntityInductionCell;
+import com.jerry.mekanism_extras.common.tile.multiblock.provider.ExtraItemBlockInductionProvider;
+import com.jerry.mekanism_extras.common.tile.multiblock.provider.ExtraTileEntityInductionProvider;
 import mekanism.api.tier.ITier;
 import mekanism.common.block.attribute.AttributeTier;
+import mekanism.common.block.interfaces.IHasDescription;
+import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.Machine;
+import mekanism.common.item.block.ItemBlockTooltip;
+import mekanism.common.item.block.machine.ItemBlockMachine;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
+import mekanism.common.resource.BlockResourceInfo;
 import mekanism.common.tier.*;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -48,12 +62,8 @@ public class ExtraBlock {
         return EXTRA_BLOCK.register(tierName + suffix, blockSupplier, itemCreator);
     }
 
-    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(String registerName, Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
-        return EXTRA_BLOCK.register(registerName, blockSupplier, itemCreator);
-    }
-
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(BlockType type, String registerName, Function<MapColor, ? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
-        ITier tier = type.get(AttributeTier.class).tier();
+        ITier tier = Objects.requireNonNull(type.get(AttributeTier.class)).tier();
         return EXTRA_BLOCK.register(registerName, () -> blockSupplier.apply(tier.getBaseTier().getMapColor()), itemCreator);
     }
 
@@ -62,6 +72,19 @@ public class ExtraBlock {
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> SUPREME_BIN = registerBin("supreme", ExtraBlockType.SUPREME_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> COSMIC_BIN = registerBin("cosmic", ExtraBlockType.COSMIC_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> INFINITE_BIN = registerBin("infinite", ExtraBlockType.INFINITE_BIN);
+    //induction casing port
+    public static final BlockRegistryObject<BlockBasicMultiblock<ExtraTileEntityInductionCasing>, ItemBlockTooltip<BlockBasicMultiblock<ExtraTileEntityInductionCasing>>> HARD_INDUCTION_CASING = registerBlock("hard_induction_casing", () -> new BlockBasicMultiblock<>(ExtraBlockType.INDUCTION_CASING, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)));
+    public static final BlockRegistryObject<BlockBasicMultiblock<ExtraTileEntityInductionPort>, ItemBlockTooltip<BlockBasicMultiblock<ExtraTileEntityInductionPort>>> HARD_INDUCTION_PORT = registerBlock("hard_induction_port", () -> new BlockBasicMultiblock<>(ExtraBlockType.INDUCTION_PORT, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)));
+    //cell
+    public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> ABSOLUTE_INDUCTION_CELL = registerInductionCell("absolute", ExtraBlockType.ABSOLUTE_INDUCTION_CELL);
+    public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> SUPREME_INDUCTION_CELL = registerInductionCell("supreme", ExtraBlockType.SUPREME_INDUCTION_CELL);
+    public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> COSMIC_INDUCTION_CELL = registerInductionCell("cosmic", ExtraBlockType.COSMIC_INDUCTION_CELL);
+    public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> INFINITE_INDUCTION_CELL = registerInductionCell("infinite", ExtraBlockType.INFINITE_INDUCTION_CELL);
+    //provider
+    public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> ABSOLUTE_INDUCTION_PROVIDER = registerInductionProvider("absolute", ExtraBlockType.ABSOLUTE_INDUCTION_PROVIDER);
+    public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> SUPREME_INDUCTION_PROVIDER = registerInductionProvider("supreme", ExtraBlockType.SUPREME_INDUCTION_PROVIDER);
+    public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> COSMIC_INDUCTION_PROVIDER = registerInductionProvider("cosmic", ExtraBlockType.COSMIC_INDUCTION_PROVIDER);
+    public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> INFINITE_INDUCTION_PROVIDER = registerInductionProvider("infinite", ExtraBlockType.INFINITE_INDUCTION_PROVIDER);
     //fluid tank
     public static final BlockRegistryObject<ExtraBlockFluidTank, ExtraItemBlockFluidTank> ABSOLUTE_FLUID_TANK = registerFluidTank("absolute", ExtraBlockType.ABSOLUTE_FLUID_TANK);
     public static final BlockRegistryObject<ExtraBlockFluidTank, ExtraItemBlockFluidTank> SUPREME_FLUID_TANK = registerFluidTank("supreme", ExtraBlockType.SUPREME_FLUID_TANK);
@@ -102,15 +125,25 @@ public class ExtraBlock {
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> SUPREME_CHEMICAL_TANK = registerChemicalTank("supreme", ExtraBlockType.SUPREME_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> COSMIC_CHEMICAL_TANK = registerChemicalTank("cosmic", ExtraBlockType.COSMIC_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> INFINITE_CHEMICAL_TANK = registerChemicalTank("infinite", ExtraBlockType.INFINITE_CHEMICAL_TANK);
-    //
+    //other
     public static final BlockRegistryObject<ExtraBlockRadioactiveWasteBarrel, ExtraItemBlockRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = EXTRA_BLOCK.registerDefaultProperties("expand_radioactive_waste_barrel", ExtraBlockRadioactiveWasteBarrel::new, ExtraItemBlockRadioactiveWasteBarrel::new);
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityElectricPump, Machine<ExtraTileEntityElectricPump>>, ItemBlockMachine> FASTER_ELECTRIC_PUMP = EXTRA_BLOCK.register("faster_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockType.FASTER_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);
+    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityColliderCasing>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityColliderCasing>>> COLLIDER_CASING = registerBlock("collider_casing", () -> new BlockBasicMultiblock<>(ExtraBlockType.COLLIDER_CASING, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())));
 
     private static BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> registerBin(String tileName, BlockTypeTile<ExtraTileEntityBin> type) {
         return registerTieredBlock(type, tileName + "_bin", color -> new ExtraBlockBin(type, properties -> properties.mapColor(color)), ExtraItemBlockBin::new);
     }
 
+    private static BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> registerInductionCell(String tileName, BlockTypeTile<ExtraTileEntityInductionCell> type) {
+        return registerTieredBlock(type, tileName + "_induction_cell", color -> new BlockTile<>(type, properties -> properties.mapColor(color)), ExtraItemBlockInductionCell::new);
+    }
+
+    private static BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> registerInductionProvider(String tileName, BlockTypeTile<ExtraTileEntityInductionProvider> type) {
+        return registerTieredBlock(type, tileName + "_induction_provider", color -> new BlockTile<>(type, properties -> properties.mapColor(color)), ExtraItemBlockInductionProvider::new);
+    }
+
     private static BlockRegistryObject<ExtraBlockFluidTank, ExtraItemBlockFluidTank> registerFluidTank(String tileName, Machine<ExtraTileEntityFluidTank> type) {
-        return registerTieredBlock(tileName + "_fluid_tank", () -> new ExtraBlockFluidTank(type), ExtraItemBlockFluidTank::new);
+        return registerTieredBlock(tileName, "_fluid_tank", () -> new ExtraBlockFluidTank(type), ExtraItemBlockFluidTank::new);
     }
 
     private static BlockRegistryObject<ExtraBlockEnergyCube, ExtraItemBlockEnergyCube> registerEnergyCube(String tileName, Machine<ExtraTileEntityEnergyCube> type) {
@@ -139,6 +172,10 @@ public class ExtraBlock {
 
     private static BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> registerChemicalTank(String tileName, Machine<ExtraTileEntityChemicalTank> type) {
         return registerTieredBlock(type, tileName + "_chemical_tank", color -> new BlockTile.BlockTileModel<>(type, properties -> properties.mapColor(color)), ExtraItemBlockChemicalTank::new);
+    }
+
+    private static <BLOCK extends Block & IHasDescription> BlockRegistryObject<BLOCK, ItemBlockTooltip<BLOCK>> registerBlock(String name, Supplier<? extends BLOCK> blockSupplier) {
+        return EXTRA_BLOCK.registerDefaultProperties(name, blockSupplier, ItemBlockTooltip::new);
     }
 
     public static void register(IEventBus eventBus) {

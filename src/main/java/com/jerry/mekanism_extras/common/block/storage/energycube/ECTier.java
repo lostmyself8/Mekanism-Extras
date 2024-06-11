@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.block.storage.energycube;
 
 import mekanism.api.math.FloatingLong;
+import mekanism.api.tier.ITier;
 import mekanism.common.tier.EnergyCubeTier;
 
 public class ECTier {

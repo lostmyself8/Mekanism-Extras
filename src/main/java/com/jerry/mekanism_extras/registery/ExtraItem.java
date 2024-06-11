@@ -19,12 +19,12 @@ public class ExtraItem {
     public static final ItemRegistryObject<ExtraItemQIODrive> SUPREME_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.SUPREME);
     public static final ItemRegistryObject<ExtraItemQIODrive> COSMIC_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.COSMIC);
     public static final ItemRegistryObject<ExtraItemQIODrive> INFINITE_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.INFINITE);
-    public static final ItemRegistryObject<Item> ABSOLUTE_CONTROL_CIRCUIT = registerCircuit("absolute", Rarity.UNCOMMON);
-    public static final ItemRegistryObject<Item> SUPREME_CONTROL_CIRCUIT = registerCircuit("supreme", Rarity.COMMON);
+    public static final ItemRegistryObject<Item> ABSOLUTE_CONTROL_CIRCUIT = registerCircuit("absolute", Rarity.COMMON);
+    public static final ItemRegistryObject<Item> SUPREME_CONTROL_CIRCUIT = registerCircuit("supreme", Rarity.UNCOMMON);
     public static final ItemRegistryObject<Item> COSMIC_CONTROL_CIRCUIT = registerCircuit("cosmic", Rarity.RARE);
     public static final ItemRegistryObject<Item> INFINITE_CONTROL_CIRCUIT = registerCircuit("infinite", Rarity.EPIC);
-    public static final ItemRegistryObject<Item> RADIANCE_ALLOY = EXTRA_ITEM.register("alloy_radiance", properties -> new Item(properties.rarity(Rarity.UNCOMMON)));
-    public static final ItemRegistryObject<Item> THERMONUCLEAR_ALLOY = EXTRA_ITEM.register("alloy_thermonuclear", properties -> new Item(properties.rarity(Rarity.COMMON)));
+    public static final ItemRegistryObject<Item> RADIANCE_ALLOY = EXTRA_ITEM.register("alloy_radiance", properties -> new Item(properties.rarity(Rarity.COMMON)));
+    public static final ItemRegistryObject<Item> THERMONUCLEAR_ALLOY = EXTRA_ITEM.register("alloy_thermonuclear", properties -> new Item(properties.rarity(Rarity.UNCOMMON)));
     public static final ItemRegistryObject<Item> SHINING_ALLOY = EXTRA_ITEM.register("alloy_shining", properties -> new Item(properties.rarity(Rarity.RARE)));
     public static final ItemRegistryObject<Item> SPECTRUM_ALLOY = EXTRA_ITEM.register("alloy_spectrum", properties -> new Item(properties.rarity(Rarity.EPIC)));
 //    public static final ItemRegistryObject<ItemAlloy> THERMONUCLEAR_ALLOY = registerAlloy("thermonuclear", AlloyTier.INFUSED, Rarity.UNCOMMON);

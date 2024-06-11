@@ -1,0 +1,20 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "SOLID",
+    "textures": [
+      "mekanism_extras:ctm/induction_port"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "mekanism_extras:induction_casing"
+        },
+        {
+          "block": "mekanism_extras:induction_port"
+        }
+      ]
+    }
+  }
+}
