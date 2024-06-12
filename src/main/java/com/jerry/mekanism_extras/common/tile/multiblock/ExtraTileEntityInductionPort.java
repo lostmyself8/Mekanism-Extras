@@ -27,7 +27,7 @@ public class ExtraTileEntityInductionPort extends ExtraTileEntityInductionCasing
     private Set<Direction> outputDirections = Collections.emptySet();
 
     public ExtraTileEntityInductionPort(BlockPos pos, BlockState state) {
-        super(ExtraBlock.HARD_INDUCTION_PORT, pos, state);
+        super(ExtraBlock.REINFORCED_INDUCTION_PORT, pos, state);
         delaySupplier = NO_DELAY;
     }
 

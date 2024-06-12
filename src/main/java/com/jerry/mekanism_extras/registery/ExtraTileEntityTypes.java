@@ -35,8 +35,8 @@ public class ExtraTileEntityTypes {
     }
 
     public static final TileEntityTypeRegistryObject<ExtraTileEntityRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = TILE_ENTITY_TYPES.register(ExtraBlock.EXPAND_RADIOACTIVE_WASTE_BARREL, ExtraTileEntityRadioactiveWasteBarrel::new);
-    public static final TileEntityTypeRegistryObject<ExtraTileEntityInductionCasing> HARD_INDUCTION_CASING = TILE_ENTITY_TYPES.register(ExtraBlock.HARD_INDUCTION_CASING, ExtraTileEntityInductionCasing::new);
-    public static final TileEntityTypeRegistryObject<ExtraTileEntityInductionPort> HARD_INDUCTION_PORT = TILE_ENTITY_TYPES.register(ExtraBlock.HARD_INDUCTION_PORT, ExtraTileEntityInductionPort::new);
+    public static final TileEntityTypeRegistryObject<ExtraTileEntityInductionCasing> HARD_INDUCTION_CASING = TILE_ENTITY_TYPES.register(ExtraBlock.REINFORCED_INDUCTION_CASING, ExtraTileEntityInductionCasing::new);
+    public static final TileEntityTypeRegistryObject<ExtraTileEntityInductionPort> HARD_INDUCTION_PORT = TILE_ENTITY_TYPES.register(ExtraBlock.REINFORCED_INDUCTION_PORT, ExtraTileEntityInductionPort::new);
     //bin
     public static final TileEntityTypeRegistryObject<ExtraTileEntityBin> ABSOLUTE_BIN = TILE_ENTITY_TYPES.register(ExtraBlock.ABSOLUTE_BIN, (pos, state) -> new ExtraTileEntityBin(ExtraBlock.ABSOLUTE_BIN, pos, state));
     public static final TileEntityTypeRegistryObject<ExtraTileEntityBin> SUPREME_BIN = TILE_ENTITY_TYPES.register(ExtraBlock.SUPREME_BIN, (pos, state) -> new ExtraTileEntityBin(ExtraBlock.SUPREME_BIN, pos, state));

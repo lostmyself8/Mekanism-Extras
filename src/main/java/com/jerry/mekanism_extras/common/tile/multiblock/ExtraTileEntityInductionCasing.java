@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class ExtraTileEntityInductionCasing extends TileEntityMultiblock<ExtraMatrixMultiblockData> {
 
     public ExtraTileEntityInductionCasing(BlockPos pos, BlockState state) {
-        this(ExtraBlock.HARD_INDUCTION_CASING, pos, state);
+        this(ExtraBlock.REINFORCED_INDUCTION_CASING, pos, state);
         //Disable item handler caps if we are the induction casing, don't disable it for the subclassed port though
         addDisabledCapabilities(ForgeCapabilities.ITEM_HANDLER);
     }
