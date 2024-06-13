@@ -8,7 +8,6 @@ import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
 import mekanism.common.content.network.BoxedChemicalNetwork;
-import mekanism.common.content.network.transmitter.BoxedPressurizedTube;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;

@@ -2,10 +2,7 @@ package com.jerry.mekanism_extras.common.content.collider;
 
 import com.jerry.mekanism_extras.registery.ExtraBlockType;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import mekanism.common.MekanismLang;
 import mekanism.common.content.blocktype.BlockType;
-import mekanism.common.content.sps.SPSMultiblockData;
 import mekanism.common.lib.math.voxel.VoxelCuboid;
 import mekanism.common.lib.multiblock.*;
 import mekanism.common.registries.MekanismBlockTypes;

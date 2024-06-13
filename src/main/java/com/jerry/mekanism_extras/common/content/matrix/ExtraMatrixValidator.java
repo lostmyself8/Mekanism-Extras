@@ -7,7 +7,6 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.multiblock.CuboidStructureValidator;
 import mekanism.common.lib.multiblock.FormationProtocol;
-import mekanism.common.registries.MekanismBlockTypes;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;

@@ -6,8 +6,6 @@ import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.item.block.ItemBlockTooltip;
-import mekanism.common.tier.InductionCellTier;
-import mekanism.common.tile.multiblock.TileEntityInductionCell;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.EnergyDisplay;
 import net.minecraft.network.chat.Component;

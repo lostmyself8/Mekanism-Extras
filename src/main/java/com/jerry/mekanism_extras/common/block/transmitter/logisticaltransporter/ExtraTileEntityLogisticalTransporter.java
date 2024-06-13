@@ -3,9 +3,7 @@ package com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.tier.BaseTier;
 import mekanism.client.model.data.TransmitterModelData;
-import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
-import com.jerry.mekanism_extras.registery.ExtraBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;

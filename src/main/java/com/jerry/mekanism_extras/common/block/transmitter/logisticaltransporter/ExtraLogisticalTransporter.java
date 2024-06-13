@@ -9,8 +9,6 @@ import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.PathfinderCache;
 import mekanism.common.tier.TransporterTier;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
-import mekanism.common.upgrade.transmitter.LogisticalTransporterUpgradeData;
-import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.Direction;
@@ -19,7 +17,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ExtraLogisticalTransporter extends ExtraLogisticalTransporterBase {
 
