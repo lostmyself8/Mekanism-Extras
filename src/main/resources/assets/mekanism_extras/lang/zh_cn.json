@@ -86,5 +86,7 @@
   "container.mekanism_extras.absolute_chemical_tank": "绝对化学品储罐",
   "container.mekanism_extras.supreme_chemical_tank": "至尊化学品储罐",
   "container.mekanism_extras.cosmic_chemical_tank": "寰宇支配化学品储罐",
-  "container.mekanism_extras.infinite_chemical_tank": "悖论无限化学品储罐"
+  "container.mekanism_extras.infinite_chemical_tank": "悖论无限化学品储罐",
+
+  "plasma.mekanism_extras.hydrogen": "氢等离子体"
 }
