@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mekanism_Extras.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Mekanism_Extras.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mekanism_Extras.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Mekanism_Extras.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.jerry.Mekanism_Extras.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.jerry.Mekanism_Extras.test.iml" />
     </modules>
   </component>
 </project>
