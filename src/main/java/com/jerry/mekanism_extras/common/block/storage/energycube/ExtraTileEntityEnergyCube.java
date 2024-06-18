@@ -14,7 +14,6 @@ import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.inventory.container.slot.SlotOverlay;
 import mekanism.common.inventory.slot.EnergyInventorySlot;
 import mekanism.common.lib.transmitter.TransmissionType;
-import mekanism.common.tier.EnergyCubeTier;
 import mekanism.common.tile.base.SubstanceType;
 import mekanism.common.tile.component.ITileComponent;
 import mekanism.common.tile.component.TileComponentConfig;
@@ -45,7 +44,7 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
     /**
      * This Energy Cube's tier.
      */
-    private EnergyCubeTier tier;
+    private ECTier tier;
     private float prevScale;
 
     private ExtraEnergyCubeEnergyContainer energyContainer;
@@ -62,14 +61,14 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
         configComponent = new TileComponentConfig(this, TransmissionType.ENERGY, TransmissionType.ITEM);
         configComponent.setupIOConfig(TransmissionType.ITEM, chargeSlot, dischargeSlot, RelativeSide.FRONT, true).setCanEject(false);
         configComponent.setupIOConfig(TransmissionType.ENERGY, energyContainer, RelativeSide.FRONT).setEjecting(true);
-        ejectorComponent = new TileComponentEjector(this, () -> ECTier.getOutput(tier));
+        ejectorComponent = new TileComponentEjector(this, () -> tier.getOutput());
         ejectorComponent.setOutputData(configComponent, TransmissionType.ENERGY).setCanEject(type -> MekanismUtils.canFunction(this));
     }
 
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = Attribute.getTier(getBlockType(), EnergyCubeTier.class);
+        tier = Attribute.getTier(getBlockType(), ECTier.class);
     }
 
     @Nonnull
@@ -91,7 +90,7 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
         return builder.build();
     }
 
-    public EnergyCubeTier getTier() {
+    public ECTier getTier() {
         return tier;
     }
 

@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.config;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.block.storage.bin.BTier;
 import com.jerry.mekanism_extras.common.block.storage.chemicaltank.CTTier;
+import com.jerry.mekanism_extras.common.block.storage.energycube.ECTier;
 import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
 import com.jerry.mekanism_extras.common.tile.multiblock.cell.ICTier;
 import com.jerry.mekanism_extras.common.tile.multiblock.provider.IPTier;
@@ -11,9 +12,6 @@ import mekanism.api.heat.HeatAPI;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.config.BaseMekanismConfig;
 import mekanism.common.config.value.*;
-import mekanism.common.tier.InductionCellTier;
-import mekanism.common.tier.InductionProviderTier;
-import mekanism.common.util.EnumUtils;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.config.ModConfig;
@@ -162,12 +160,28 @@ public class ExtraConfig extends BaseMekanismConfig {
                 .defineInRange("pumpHeavyWaterAmount", FluidType.BUCKET_VOLUME , 1, FluidType.BUCKET_VOLUME));
         builder.pop();
 
+        addEnergyCubeCategory(builder);
         addFluidTankCategory(builder);
         addGasTankCategory(builder);
         addBinCategory(builder);
         addInductionCategory(builder);
         builder.pop();
         this.configSpec = builder.build();
+    }
+
+    private void addEnergyCubeCategory(ForgeConfigSpec.Builder builder) {
+        builder.comment("Energy Cubes").push("energy cube");
+        for (ECTier tier : ExtraEnumUtils.ENERGY_CUBE_TIERS) {
+            String tierName = tier.getBaseTier().getSimpleName();
+            CachedFloatingLongValue storageReference = CachedFloatingLongValue.define(this, builder,
+                    "Maximum number of Joules " + tierName + " energy cubes can store.", tier.toString().toLowerCase() + "Storage", tier.getBaseMaxEnergy(),
+                    CachedFloatingLongValue.POSITIVE);
+            CachedFloatingLongValue outputReference = CachedFloatingLongValue.define(this, builder,
+                    "Output rate in Joules of " + tierName + " energy cubes.", tier.toString().toLowerCase() + "Output", tier.getBaseOutput(),
+                    CachedFloatingLongValue.POSITIVE);
+            tier.setConfigReference(storageReference, outputReference);
+        }
+        builder.pop();
     }
 
     private void addFluidTankCategory(ForgeConfigSpec.Builder builder) {
