@@ -44,7 +44,7 @@ public class MekanismExtras {
         ExtraContainerTypes.register(modEventBus);
         ExtraGases.register(modEventBus);
         ExtraInfuseTypes.register(modEventBus);
-        ExtraPlasma.register(modEventBus);
+//        ExtraPlasma.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(new ClientTick());
         MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
     }
