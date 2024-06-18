@@ -6,7 +6,7 @@ import mekanism.common.block.interfaces.ITypeBlock;
 import mekanism.common.block.transmitter.BlockLargeTransmitter;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
-import com.jerry.mekanism_extras.registery.ExtraTileEntityTypes;
+import com.jerry.mekanism_extras.registry.ExtraTileEntityTypes;
 import mekanism.common.tier.TransporterTier;
 
 public class ExtraBlockLogisticalTransporter extends BlockLargeTransmitter implements IHasTileEntity<ExtraTileEntityLogisticalTransporterBase>, ITypeBlock {

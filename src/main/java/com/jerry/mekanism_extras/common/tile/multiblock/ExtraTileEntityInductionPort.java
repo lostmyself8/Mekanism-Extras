@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.common.tile.multiblock;
 
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
-import com.jerry.mekanism_extras.registery.ExtraBlock;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.api.IContentsListener;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;

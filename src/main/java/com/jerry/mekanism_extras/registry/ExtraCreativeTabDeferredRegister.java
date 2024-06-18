@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.registery;
+package com.jerry.mekanism_extras.registry;
 
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.providers.IItemProvider;

@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.registery;
+package com.jerry.mekanism_extras.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.content.plasma.Plasma;
@@ -15,7 +15,7 @@ public class ExtraPlasma {
     public static final PlasmaRegistryObject<Plasma> HYDROGEN = PLASMA.register(PlasmaConstants.HYDROGEN);
 
     public static void register(IEventBus eventBus) {
-        PLASMA.register(eventBus);
+        PLASMA.createAndRegister(eventBus);
     }
 
 }

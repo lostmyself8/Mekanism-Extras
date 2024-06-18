@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block.storage.radioactivewastebarrel;
 
-import com.jerry.mekanism_extras.registery.ExtraBlockType;
+import com.jerry.mekanism_extras.registry.ExtraBlockType;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;

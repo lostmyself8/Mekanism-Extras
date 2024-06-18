@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.common.block.machine.ElectricPump;
 
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.registery.ExtraBlock;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.*;
 import mekanism.api.math.FloatingLong;

@@ -2,27 +2,21 @@ package com.jerry.mekanism_extras.common.content.plasma;
 
 import com.jerry.mekanism_extras.api.MekanismExtraAPI;
 import com.jerry.mekanism_extras.api.NBTConstants;
+import com.jerry.mekanism_extras.util.ChemicalTagHelper;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.Chemical;
-import mekanism.api.chemical.ChemicalTags;
 import mekanism.api.chemical.ChemicalUtils;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.function.Supplier;
-
 @NothingNullByDefault
 public class Plasma extends Chemical<Plasma> implements IPlasmaProvider {
 
-    public Plasma(PlasmaBuilder builder) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        super(builder, ChemicalTags.class
-                .getDeclaredConstructor(ResourceKey.class, Supplier.class)  // Fuck! Why can't define a chemical type by myself?!
-                .newInstance(MekanismExtraAPI.PLASMA_REGISTRY_NAME, (Supplier<IForgeRegistry<Plasma>>) MekanismExtraAPI::plasmaRegistry));
+    public Plasma(PlasmaBuilder builder) {
+        super(builder, ChemicalTagHelper.PLASMA);
     }
 
     public static Plasma readFromNBT(@Nullable CompoundTag nbtTags) {

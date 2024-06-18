@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.content.collider;
 
-import com.jerry.mekanism_extras.registery.ExtraBlockType;
+import com.jerry.mekanism_extras.registry.ExtraBlockType;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.math.voxel.VoxelCuboid;
@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 
 import java.util.EnumSet;
-import java.util.Set;
 
 public class ColliderValidator extends CuboidStructureValidator<ColliderMultiblockData> {
 

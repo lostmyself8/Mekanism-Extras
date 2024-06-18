@@ -5,7 +5,6 @@ import mekanism.api.chemical.attribute.ChemicalAttribute;
 import mekanism.common.base.IChemicalConstant;
 import mekanism.common.registration.WrappedDeferredRegister;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.function.Supplier;
 
 public class PlasmaDeferredRegister extends WrappedDeferredRegister<Plasma> {
@@ -24,16 +23,11 @@ public class PlasmaDeferredRegister extends WrappedDeferredRegister<Plasma> {
             for (ChemicalAttribute attribute : attributes) {
                 builder.with(attribute);
             }
-            try {
-                return new Plasma(builder);
-            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
-                     IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
+            return new Plasma(builder);
         });
     }
 
-    public <GAS extends Plasma> PlasmaRegistryObject<GAS> register(String name, Supplier<? extends GAS> sup) {
+    public <PLASMA extends Plasma> PlasmaRegistryObject<PLASMA> register(String name, Supplier<? extends PLASMA> sup) {
         return register(name, sup, PlasmaRegistryObject::new);
     }
 

@@ -8,7 +8,7 @@ import com.jerry.mekanism_extras.client.fluidtank.gui.ExtraGuiFluidTank;
 import com.jerry.mekanism_extras.client.gui.ExtraGuiInductionMatrix;
 import com.jerry.mekanism_extras.client.gui.ExtraGuiMatrixStats;
 import com.jerry.mekanism_extras.client.gui.GuiCollider;
-import com.jerry.mekanism_extras.registery.ExtraContainerTypes;
+import com.jerry.mekanism_extras.registry.ExtraContainerTypes;
 import mekanism.client.ClientRegistrationUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.api.distmarker.Dist;
