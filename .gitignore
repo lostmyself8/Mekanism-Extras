@@ -3,5 +3,8 @@
 /build/
 /build/classes/java/main/
 /run
+/run/logs
+/run/config
+/run/crash-reports
 /run-data
 /libs
