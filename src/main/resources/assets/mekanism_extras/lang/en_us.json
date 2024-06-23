@@ -88,5 +88,12 @@
   "container.mekanism_extras.cosmic_chemical_tank": "Cosmic Chemical Tank",
   "container.mekanism_extras.infinite_chemical_tank": "Infinite Chemical Tank",
 
-  "plasma.mekanism_extras.hydrogen": "Hydrogen Plasma"
+  "plasma.mekanism_extras.hydrogen": "Hydrogen Plasma",
+
+  "forcefield.mekanism_extras.failed.wrong_quantity_of_generators": "There aren't correct quantity of generators. Exactly 8 generators are needed.",
+  "forcefield.mekanism_extras.failed.cross_dimension": "Force Field Matrix cannot work across dimensions.",
+  "forcefield.mekanism_extras.failed.invalid_cuboid": "The Force Field Matrix must be a cuboid.",
+  "forcefield.mekanism_extras.success": "The Force Field Matrix is ready!",
+
+  "description.mekanism_extras.forcefield_generator": "The machine which is capable of creating a powerful force field that can keep massive machines from the universe working."
 }

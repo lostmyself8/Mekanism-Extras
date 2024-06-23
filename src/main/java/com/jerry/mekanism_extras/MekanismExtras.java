@@ -38,6 +38,7 @@ public class MekanismExtras {
         ModContainer modContainer = ModLoadingContext.get().getActiveContainer();
         MekanismConfigHelper.registerConfig(modContainer, config);
         ExtraBlock.register(modEventBus);
+        ExtraBlockEntities.register(modEventBus);
         ExtraItem.register(modEventBus);
         ExtraTab.register(modEventBus);
         ExtraTileEntityTypes.register(modEventBus);

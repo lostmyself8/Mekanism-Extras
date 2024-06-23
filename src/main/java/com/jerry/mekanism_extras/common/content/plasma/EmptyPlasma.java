@@ -3,11 +3,10 @@ package com.jerry.mekanism_extras.common.content.plasma;
 import net.minecraftforge.registries.tags.IReverseTag;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 public class EmptyPlasma extends Plasma {
-    public EmptyPlasma() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public EmptyPlasma() {
         super(PlasmaBuilder.builder().hidden());
     }
 

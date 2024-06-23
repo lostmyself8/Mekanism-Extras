@@ -88,5 +88,10 @@
   "container.mekanism_extras.cosmic_chemical_tank": "寰宇支配化学品储罐",
   "container.mekanism_extras.infinite_chemical_tank": "悖论无限化学品储罐",
 
-  "plasma.mekanism_extras.hydrogen": "氢等离子体"
+  "plasma.mekanism_extras.hydrogen": "氢等离子体",
+  "forcefield.mekanism_extras.failed.wrong_quantity_of_generators": "力场发生器的数量不正确，需要精确的8个力场发生器。",
+  "forcefield.mekanism_extras.failed.cross_dimension": "力场矩阵不能跨维度工作。",
+  "forcefield.mekanism_extras.failed.invalid_cuboid": "力场矩阵必须是一个长方体。",
+  "forcefield.mekanism_extras.success": "力场矩阵已就绪！",
+  "description.mekanism_extras.forcefield_generator": "一台能够产生足以维持来自寰宇之宏伟机器运行的力场的机器"
 }

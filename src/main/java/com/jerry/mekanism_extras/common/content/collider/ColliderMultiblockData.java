@@ -19,7 +19,6 @@ import mekanism.common.inventory.container.sync.dynamic.ContainerSync;
 import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.registries.MekanismGases;
-import mekanism.common.tile.multiblock.TileEntitySPSPort;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.BlockPos;
@@ -171,21 +170,6 @@ public class ColliderMultiblockData extends MultiblockData implements IValveHand
         }
     }
 
-    public boolean canSupplyCoilEnergy(TileEntitySPSPort tile) {
-        //We allow supplying coil energy for one tick more than the structure "canOperate" so that tick order does not
-        // make it so that some coils are unable to supply energy
-        return (couldOperate || canOperate()) && coilData.coilMap.containsKey(tile.getBlockPos());
-    }
-
-    public void addCoil(BlockPos portPos, Direction side) {
-        coilData.coilMap.put(portPos, new CoilData(portPos, side));
-    }
-
-    public void supplyCoilEnergy(TileEntitySPSPort tile, FloatingLong energy) {
-        receivedEnergy = receivedEnergy.plusEqual(energy);
-        coilData.coilMap.get(tile.getBlockPos()).receiveEnergy(energy);
-    }
-
     private boolean canOperate() {
         return !inputTank.isEmpty() && outputTank.getNeeded() > 0;
     }
@@ -211,11 +195,6 @@ public class ColliderMultiblockData extends MultiblockData implements IValveHand
                 tile.getBlockPos().equals(getMaxPos().offset(-3, 0, 0));
     }
 
-    //Computer related methods
-    @ComputerMethod
-    int getCoils() {
-        return coilData.coilMap.size();
-    }
     //End computer related methods
 
     public static class SyncableCoilData {

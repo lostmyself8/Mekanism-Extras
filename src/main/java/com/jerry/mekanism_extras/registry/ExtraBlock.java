@@ -2,6 +2,9 @@ package com.jerry.mekanism_extras.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.block.machine.ElectricPump.ExtraTileEntityElectricPump;
+import com.jerry.mekanism_extras.common.block.machine.forcefield.ForceFieldGeneratorBlock;
+import com.jerry.mekanism_extras.common.block.machine.forcefield.ForceFieldGeneratorEntity;
+import com.jerry.mekanism_extras.common.block.machine.forcefield.ForceFieldGeneratorItem;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraBlockBin;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraItemBlockBin;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraTileEntityBin;
@@ -42,12 +45,16 @@ import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.item.block.machine.ItemBlockMachine;
+import mekanism.common.item.block.machine.ItemBlockTeleporter;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
+import mekanism.common.registries.MekanismBlockTypes;
 import mekanism.common.resource.BlockResourceInfo;
 import mekanism.common.tier.*;
+import mekanism.common.tile.TileEntityTeleporter;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 
@@ -125,6 +132,8 @@ public class ExtraBlock {
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> SUPREME_CHEMICAL_TANK = registerChemicalTank("supreme", ExtraBlockType.SUPREME_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> COSMIC_CHEMICAL_TANK = registerChemicalTank("cosmic", ExtraBlockType.COSMIC_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> INFINITE_CHEMICAL_TANK = registerChemicalTank("infinite", ExtraBlockType.INFINITE_CHEMICAL_TANK);
+    // forcefield generator
+    public static final BlockRegistryObject<BlockTile<ForceFieldGeneratorEntity, BlockTypeTile<ForceFieldGeneratorEntity>>, ForceFieldGeneratorItem> FORCEFIELD_GENERATOR = EXTRA_BLOCK.register("forcefield_generator", () -> new BlockTile<>(ExtraBlockType.FORCEFIELD_GENERATOR, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ForceFieldGeneratorItem::new);
     //other
     public static final BlockRegistryObject<ExtraBlockRadioactiveWasteBarrel, ExtraItemBlockRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = EXTRA_BLOCK.registerDefaultProperties("expand_radioactive_waste_barrel", ExtraBlockRadioactiveWasteBarrel::new, ExtraItemBlockRadioactiveWasteBarrel::new);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityElectricPump, Machine<ExtraTileEntityElectricPump>>, ItemBlockMachine> FASTER_ELECTRIC_PUMP = EXTRA_BLOCK.register("faster_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockType.FASTER_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);

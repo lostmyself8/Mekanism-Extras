@@ -73,6 +73,8 @@ public class ExtraConfig extends BaseMekanismConfig {
     public final CachedLongValue radioactiveWasteBarrelDecayAmount;
     //Pump
     public final CachedIntValue pumpHeavyWaterAmount;
+    // Force Field Generator
+    public final CachedFloatingLongValue forcefieldGenerator;
 
     public ExtraConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -167,6 +169,10 @@ public class ExtraConfig extends BaseMekanismConfig {
         addBinCategory(builder);
         addInductionCategory(builder);
         builder.pop();
+
+        this.forcefieldGenerator = CachedFloatingLongValue.define(this, builder, "Base energy storage (Joules).", "forcefield_generator",
+                FloatingLong.createConst(1_000_000_000_000D));
+
         this.configSpec = builder.build();
     }
 

@@ -1,6 +1,10 @@
 package com.jerry.mekanism_extras.registry;
 
+import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.ExtraLang;
 import com.jerry.mekanism_extras.common.block.machine.ElectricPump.ExtraTileEntityElectricPump;
+import com.jerry.mekanism_extras.common.block.machine.forcefield.ForceFieldGeneratorBlock;
+import com.jerry.mekanism_extras.common.block.machine.forcefield.ForceFieldGeneratorEntity;
 import com.jerry.mekanism_extras.common.block.storage.bin.BTier;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraTileEntityBin;
 import com.jerry.mekanism_extras.common.block.storage.chemicaltank.CTTier;
@@ -17,8 +21,10 @@ import com.jerry.mekanism_extras.common.tile.multiblock.cell.ExtraTileEntityIndu
 import com.jerry.mekanism_extras.common.tile.multiblock.cell.ICTier;
 import com.jerry.mekanism_extras.common.tile.multiblock.provider.ExtraTileEntityInductionProvider;
 import com.jerry.mekanism_extras.common.tile.multiblock.provider.IPTier;
+import com.jerry.mekanism_extras.config.ExtraConfig;
 import com.jerry.mekanism_extras.util.ExtraFloatingLong;
 import mekanism.api.Upgrade;
+import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
 import mekanism.common.config.MekanismConfig;
@@ -27,7 +33,9 @@ import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
+import mekanism.common.registries.MekanismContainerTypes;
 import mekanism.common.tier.EnergyCubeTier;
+import net.minecraft.world.level.block.Block;
 
 import java.util.EnumSet;
 import java.util.function.Supplier;
@@ -102,6 +110,15 @@ public class ExtraBlockType {
             .createBlock(() -> ExtraTileEntityTypes.COLLIDER_CASING, MekanismLang.DESCRIPTION_BOILER_CASING)
             .withGui(() -> ExtraContainerTypes.COLLIDER_CASING, MekanismLang.BOILER)
             .externalMultiblock()
+            .build();
+
+    // Force Field Generator
+    public static final BlockTypeTile<ForceFieldGeneratorEntity> FORCEFIELD_GENERATOR = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraTileEntityTypes.FORCEFIELD_GENERATOR, ExtraLang.DESCRIPTION_FORCEFIELD_GENERATOR)
+            .withGui(() -> MekanismContainerTypes.TELEPORTER)
+            .withEnergyConfig(MekanismExtras.getConfig().forcefieldGenerator)
+            .withSupportedUpgrades(EnumSet.of(Upgrade.ANCHOR))
+            .withLight(15)
             .build();
 
     private static <TILE extends ExtraTileEntityInductionCell> BlockTypeTile<TILE> createInductionCell(ICTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile) {
