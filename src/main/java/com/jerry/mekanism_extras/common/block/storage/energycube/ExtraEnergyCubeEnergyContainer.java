@@ -5,7 +5,6 @@ import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
-import mekanism.common.tier.EnergyCubeTier;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,15 +18,15 @@ public class ExtraEnergyCubeEnergyContainer extends BasicEnergyContainer {
 
     private final FloatingLong rate;
 
-    public static ExtraEnergyCubeEnergyContainer create(EnergyCubeTier tier, @Nullable IContentsListener listener) {
+    public static ExtraEnergyCubeEnergyContainer create(ECTier tier, @Nullable IContentsListener listener) {
         Objects.requireNonNull(tier, "Energy cube tier cannot be null");
         return new ExtraEnergyCubeEnergyContainer(tier, listener);
     }
 
-    private ExtraEnergyCubeEnergyContainer(EnergyCubeTier tier, @Nullable IContentsListener listener) {
-        super(ECTier.getMaxEnergy(tier), alwaysTrue, alwaysTrue, listener);
+    private ExtraEnergyCubeEnergyContainer(ECTier tier, @Nullable IContentsListener listener) {
+        super(tier.getMaxEnergy(), alwaysTrue, alwaysTrue, listener);
         Objects.requireNonNull(tier);
-        this.rate = ECTier.getOutput(tier);
+        this.rate = tier.getOutput();
     }
 
     protected @NotNull FloatingLong getRate(@Nullable AutomationType automationType) {

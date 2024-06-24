@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "mekanism_extras:hard_induction_casing"
+      "item": "mekanism_extras:reinforced_induction_casing"
     },
     "C": {
       "tag": "forge:circuits/elite"
@@ -15,6 +15,6 @@
   ],
   "result": {
     "count": 2,
-    "item": "mekanism_extras:hard_induction_port"
+    "item": "mekanism_extras:reinforced_induction_port"
   }
 }

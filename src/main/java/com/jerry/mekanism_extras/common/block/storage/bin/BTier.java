@@ -11,17 +11,17 @@ public enum BTier implements ITier {
     INFINITE(BaseTier.ULTIMATE, 1_073_741_824);
 
     private final int baseStorage;
-    private final BaseTier baseTier;
+    private final BaseTier advanceTier;
     private CachedIntValue storageReference;
 
     BTier(BaseTier tier, int s) {
-        baseTier = tier;
+        advanceTier = tier;
         baseStorage = s;
     }
 
     @Override
     public BaseTier getBaseTier() {
-        return baseTier;
+        return advanceTier;
     }
 
     public int getStorage() {

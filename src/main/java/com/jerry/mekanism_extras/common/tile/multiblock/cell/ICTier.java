@@ -10,7 +10,7 @@ public enum ICTier implements ITier {
     ABSOLUTE(BaseTier.BASIC, FloatingLong.createConst(32_768_000_000_000L)),
     SUPREME(BaseTier.ADVANCED, FloatingLong.createConst(262_144_000_000_000L)),
     COSMIC(BaseTier.ELITE, FloatingLong.createConst(2_097_152_000_000_000L)),
-    INFINITE(BaseTier.ULTIMATE, FloatingLong.createConst(16_777_216_000_000_000_000D));
+    INFINITE(BaseTier.ULTIMATE, FloatingLong.createConst(Long.MAX_VALUE));
 
     private final FloatingLong baseMaxEnergy;
     private final BaseTier baseTier;
