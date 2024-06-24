@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.command;
 
-import com.jerry.mekanism_extras.registery.ExtraBlock;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.common.command.builders.StructureBuilder;
 import mekanism.common.registries.MekanismBlocks;
 import net.minecraft.core.BlockPos;

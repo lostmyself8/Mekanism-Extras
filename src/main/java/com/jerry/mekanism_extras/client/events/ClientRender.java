@@ -14,8 +14,8 @@ import com.jerry.mekanism_extras.common.block.storage.energycube.EnergyCubeColor
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraItemBlockEnergyCube;
 import com.jerry.mekanism_extras.common.block.storage.fluidtank.ExtraItemBlockFluidTank;
 import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
-import com.jerry.mekanism_extras.registery.ExtraBlock;
-import com.jerry.mekanism_extras.registery.ExtraTileEntityTypes;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
+import com.jerry.mekanism_extras.registry.ExtraTileEntityTypes;
 import mekanism.api.tier.BaseTier;
 import mekanism.client.ClientRegistrationUtil;
 import mekanism.client.render.MekanismRenderer;

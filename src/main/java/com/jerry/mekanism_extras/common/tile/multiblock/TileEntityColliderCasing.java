@@ -2,7 +2,7 @@ package com.jerry.mekanism_extras.common.tile.multiblock;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.content.collider.ColliderMultiblockData;
-import com.jerry.mekanism_extras.registery.ExtraBlock;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.lib.multiblock.MultiblockManager;
 import mekanism.common.tile.prefab.TileEntityMultiblock;

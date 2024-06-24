@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.registery;
+package com.jerry.mekanism_extras.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.item.qio.ExtraItemQIODrive;
