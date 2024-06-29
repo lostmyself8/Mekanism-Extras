@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:crushing",
+  "input": {
+    "ingredient": {
+      "tag": "forge:ingots/naquadah"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:dust_naquadah"
+  }
+}

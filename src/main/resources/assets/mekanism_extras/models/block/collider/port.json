@@ -1,0 +1,7 @@
+{
+  "parent": "mekanism:block/template/cube_all_led",
+  "textures": {
+    "all": "mekanism_extras:block/collider_port",
+    "led": "mekanism_extras:block/collider_port_led"
+  }
+}

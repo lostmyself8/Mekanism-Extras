@@ -1,6 +1,8 @@
 package com.jerry.mekanism_extras.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.block.ExtraBlockOre;
+import com.jerry.mekanism_extras.common.block.basic.ExtraBlockResource;
 import com.jerry.mekanism_extras.common.block.machine.ElectricPump.ExtraTileEntityElectricPump;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraBlockBin;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraItemBlockBin;
@@ -25,6 +27,10 @@ import com.jerry.mekanism_extras.common.block.transmitter.thermodynamicconductor
 import com.jerry.mekanism_extras.common.block.transmitter.thermodynamicconductor.ExtraItemBlockThermodynamicConductor;
 import com.jerry.mekanism_extras.common.block.transmitter.tube.ExtraBlockPressurizedTube;
 import com.jerry.mekanism_extras.common.block.transmitter.tube.ExtraItemBlockPressurizedTube;
+import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockResource;
+import com.jerry.mekanism_extras.common.resource.ExtraBlockResourceInfo;
+import com.jerry.mekanism_extras.common.resource.ore.ExtraOreBlockType;
+import com.jerry.mekanism_extras.common.resource.ore.ExtraOreType;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionPort;
 import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityColliderCasing;
@@ -32,31 +38,49 @@ import com.jerry.mekanism_extras.common.tile.multiblock.cell.ExtraItemBlockInduc
 import com.jerry.mekanism_extras.common.tile.multiblock.cell.ExtraTileEntityInductionCell;
 import com.jerry.mekanism_extras.common.tile.multiblock.provider.ExtraItemBlockInductionProvider;
 import com.jerry.mekanism_extras.common.tile.multiblock.provider.ExtraTileEntityInductionProvider;
+import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import mekanism.api.tier.ITier;
+import mekanism.common.block.BlockOre;
 import mekanism.common.block.attribute.AttributeTier;
+import mekanism.common.block.basic.BlockResource;
 import mekanism.common.block.interfaces.IHasDescription;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.Machine;
+import mekanism.common.item.block.ItemBlockResource;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.item.block.machine.ItemBlockMachine;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.resource.BlockResourceInfo;
+import mekanism.common.resource.ore.OreBlockType;
+import mekanism.common.resource.ore.OreType;
 import mekanism.common.tier.*;
+import mekanism.common.util.EnumUtils;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ExtraBlock {
+//    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MekanismExtras.MODID);
     public static final BlockDeferredRegister EXTRA_BLOCK = new BlockDeferredRegister(MekanismExtras.MODID);
+
+    public static final Map<ExtraOreType, ExtraOreBlockType> ORES = new LinkedHashMap<>();
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(String tierName, String suffix, Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
         return EXTRA_BLOCK.register(tierName + suffix, blockSupplier, itemCreator);
@@ -67,6 +91,20 @@ public class ExtraBlock {
         return EXTRA_BLOCK.register(registerName, () -> blockSupplier.apply(tier.getBaseTier().getMapColor()), itemCreator);
     }
 
+    public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> NAQUADAH_BLOCK = registerResourceBlock(ExtraBlockResourceInfo.NAQUADAH);
+    public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> RAW_NAQUADAH_BLOCK = registerResourceBlock(ExtraBlockResourceInfo.RAW_NAQUADAH);
+
+    static {
+        // ores
+        for (ExtraOreType ore : ExtraEnumUtils.ORE_TYPES) {
+            ORES.put(ore, registerOre(ore));
+        }
+    }
+
+//    public static final RegistryObject<Block> NAQUADAH_ORE = BLOCKS.register("naquadah_ore",
+//            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK)));
+//    public static final RegistryObject<Block> END_NAQUADAH_ORE = BLOCKS.register("end_naquadah_ore",
+//            () -> new Block(BlockBehaviour.Properties.copy(Blocks.END_STONE)));
     //bin
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> ABSOLUTE_BIN = registerBin("absolute", ExtraBlockType.ABSOLUTE_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> SUPREME_BIN = registerBin("supreme", ExtraBlockType.SUPREME_BIN);
@@ -125,13 +163,24 @@ public class ExtraBlock {
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> SUPREME_CHEMICAL_TANK = registerChemicalTank("supreme", ExtraBlockType.SUPREME_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> COSMIC_CHEMICAL_TANK = registerChemicalTank("cosmic", ExtraBlockType.COSMIC_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> INFINITE_CHEMICAL_TANK = registerChemicalTank("infinite", ExtraBlockType.INFINITE_CHEMICAL_TANK);
-    //resources
-//    public static final BlockRegistryObject<Block, Item> NAQUADAH_ORE = EXTRA_BLOCK.register("naquadah_ore", () -> new Block(BlockBehaviour.Properties.of(), new BlockItem()));
     //other
     public static final BlockRegistryObject<ExtraBlockRadioactiveWasteBarrel, ExtraItemBlockRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = EXTRA_BLOCK.registerDefaultProperties("expand_radioactive_waste_barrel", ExtraBlockRadioactiveWasteBarrel::new, ExtraItemBlockRadioactiveWasteBarrel::new);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityElectricPump, Machine<ExtraTileEntityElectricPump>>, ItemBlockMachine> FASTER_ELECTRIC_PUMP = EXTRA_BLOCK.register("faster_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockType.FASTER_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);
     public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityColliderCasing>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityColliderCasing>>> COLLIDER_CASING = registerBlock("collider_casing", () -> new BlockBasicMultiblock<>(ExtraBlockType.COLLIDER_CASING, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())));
 
+    private static ExtraOreBlockType registerOre(ExtraOreType ore) {
+        String name = ore.getResource().getRegistrySuffix() + "_ore";
+        BlockRegistryObject<ExtraBlockOre, ItemBlockTooltip<ExtraBlockOre>> stoneOre = registerBlock(name, () -> new ExtraBlockOre(ore));
+        return new ExtraOreBlockType(stoneOre);
+    }
+    private static BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> registerResourceBlock(ExtraBlockResourceInfo resource) {
+        return EXTRA_BLOCK.registerDefaultProperties("block_" + resource.getRegistrySuffix(), () -> new ExtraBlockResource(resource), (block, properties) -> {
+            if (!block.getResourceInfo().burnsInFire()) {
+                properties = properties.fireResistant();
+            }
+            return new ExtraItemBlockResource(block, properties);
+        });
+    }
     private static BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> registerBin(String tileName, BlockTypeTile<ExtraTileEntityBin> type) {
         return registerTieredBlock(type, tileName + "_bin", color -> new ExtraBlockBin(type, properties -> properties.mapColor(color)), ExtraItemBlockBin::new);
     }
@@ -181,6 +230,7 @@ public class ExtraBlock {
     }
 
     public static void register(IEventBus eventBus) {
+//        BLOCKS.register(eventBus);
         EXTRA_BLOCK.register(eventBus);
     }
 }

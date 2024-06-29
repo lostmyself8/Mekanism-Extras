@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#is_end",
+  "features": "mekanism_extras:end_naquadah_ore_placed",
+  "step": "underground_ores"
+}

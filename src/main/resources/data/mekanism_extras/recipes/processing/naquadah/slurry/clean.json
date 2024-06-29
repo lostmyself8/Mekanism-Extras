@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:washing",
+  "fluidInput": {
+    "amount": 5,
+    "tag": "minecraft:water"
+  },
+  "output": {
+    "amount": 1,
+    "slurry": "mekanism_extras:clean_naquadah"
+  },
+  "slurryInput": {
+    "amount": 1,
+    "slurry": "mekanism_extras:dirty_naquadah"
+  }
+}

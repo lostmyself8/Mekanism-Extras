@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:purifying",
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:oxygen"
+  },
+  "itemInput": {
+    "ingredient": {
+      "tag": "forge:raw_materials/naquadah"
+    }
+  },
+  "output": {
+    "count": 2,
+    "item": "mekanism:clump_iron"
+  }
+}

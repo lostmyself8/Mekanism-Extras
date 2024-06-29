@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:dissolution",
+  "gasInput": {
+    "amount": 1,
+    "gas": "mekanism:sulfuric_acid"
+  },
+  "itemInput": {
+    "ingredient": {
+      "tag": "forge:ores/naquadah"
+    }
+  },
+  "output": {
+    "amount": 1000,
+    "chemicalType": "slurry",
+    "slurry": "mekanism_extras:dirty_naquadah"
+  }
+}
