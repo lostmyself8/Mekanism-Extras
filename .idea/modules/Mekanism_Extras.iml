@@ -12,6 +12,8 @@
       <excludeFolder url="file://$MODULE_DIR$/../../run/resourcepacks" />
       <excludeFolder url="file://$MODULE_DIR$/../../run/saves" />
       <excludeFolder url="file://$MODULE_DIR$/../../libs" />
+      <excludeFolder url="file://$MODULE_DIR$/.." />
+      <excludeFolder url="file://$MODULE_DIR$/../../gradle" />
     </content>
   </component>
 </module>

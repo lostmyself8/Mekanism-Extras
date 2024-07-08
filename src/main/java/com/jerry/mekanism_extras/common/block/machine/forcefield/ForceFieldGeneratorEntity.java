@@ -1,10 +1,10 @@
 package com.jerry.mekanism_extras.common.block.machine.forcefield;
 
-import com.jerry.mekanism_extras.registry.ExtraBlockEntities;
-import mekanism.api.providers.IBlockProvider;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.common.tile.base.TileEntityMekanism;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class ForceFieldGeneratorEntity extends TileEntityMekanism {
@@ -12,11 +12,7 @@ public class ForceFieldGeneratorEntity extends TileEntityMekanism {
     private boolean available = false;
 
     public ForceFieldGeneratorEntity(BlockPos pos, BlockState state) {
-        this(ExtraBlockEntities.FORCEFIELD_GENERATOR_ENTITY.get(), pos, state);
-    }
-
-    public ForceFieldGeneratorEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super((IBlockProvider) type, pos, state);
+        super(ExtraBlock.FORCEFIELD_GENERATOR, pos, state);
     }
 
     public String getFreq() {

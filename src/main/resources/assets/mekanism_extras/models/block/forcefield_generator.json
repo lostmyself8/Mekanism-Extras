@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "mekanism_extras:block/forcefield_generator"
+  }
+}
