@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.client.energycube;
 
-import com.jerry.mekanism_extras.common.block.storage.energycube.ECTier;
+import com.jerry.mekanism_extras.common.block.storage.energycube.EnergyCubeColor;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraTileEntityEnergyCube;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -40,7 +40,7 @@ public class ExtraRenderEnergyCube extends ModelTileEntityRenderer<ExtraTileEnti
                 poseStack.translate(0, Math.sin(Math.toRadians(3 * ticks)) / 7, 0);
                 poseStack.mulPose(Axis.YP.rotationDegrees(scaledTicks));
                 poseStack.mulPose(coreVec.rotationDegrees(36F + scaledTicks));
-                model.render(poseStack, buffer, LightTexture.FULL_BRIGHT, overlayLight, ECTier.getColor(tile.getTier()), energyScale);
+                model.render(poseStack, buffer, LightTexture.FULL_BRIGHT, overlayLight, EnergyCubeColor.getColor(tile.getTier()), energyScale);
                 poseStack.popPose();
             }
 
@@ -64,6 +64,6 @@ public class ExtraRenderEnergyCube extends ModelTileEntityRenderer<ExtraTileEnti
 
     @Override
     public boolean shouldRender(ExtraTileEntityEnergyCube tile, @NotNull Vec3 camera) {
-        return ECTier.getMaxEnergy(tile.getTier()).intValue() > 0 && super.shouldRender(tile, camera);
+        return tile.getTier().getMaxEnergy().intValue() > 0 && super.shouldRender(tile, camera);
     }
 }

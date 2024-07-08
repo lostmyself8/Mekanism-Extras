@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.client.energycube;
 
 import com.jerry.mekanism_extras.common.block.storage.energycube.ECTier;
+import com.jerry.mekanism_extras.common.block.storage.energycube.EnergyCubeColor;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraItemBlockEnergyCube;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraTileEntityEnergyCube;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,7 +11,6 @@ import mekanism.api.RelativeSide;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.item.MekanismISTER;
 import mekanism.common.lib.transmitter.TransmissionType;
-import mekanism.common.tier.EnergyCubeTier;
 import mekanism.common.tile.component.config.DataType;
 import mekanism.common.util.EnumUtils;
 import mekanism.common.util.ItemDataUtils;
@@ -38,7 +38,7 @@ public class ExtraRenderEnergyCubeItem extends MekanismISTER {
     @Override
     public void renderByItem(@NotNull ItemStack stack, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer,
                              int light, int overlayLight) {
-        EnergyCubeTier tier = ((ExtraItemBlockEnergyCube) stack.getItem()).getTier();
+        ECTier tier = ((ExtraItemBlockEnergyCube) stack.getItem()).getTier();
 
         ExtraTileEntityEnergyCube.CubeSideState[] sideStates = new ExtraTileEntityEnergyCube.CubeSideState[EnumUtils.SIDES.length];
         CompoundTag configData = ItemDataUtils.getDataMapIfPresent(stack);
@@ -55,7 +55,7 @@ public class ExtraRenderEnergyCubeItem extends MekanismISTER {
             }
         } else {
             for (RelativeSide side : EnumUtils.SIDES) {
-                sideStates[side.ordinal()] = tier == EnergyCubeTier.CREATIVE || side == RelativeSide.FRONT ? ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_LIT : ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_UNLIT;
+                sideStates[side.ordinal()] = side == RelativeSide.FRONT ? ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_LIT : ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_UNLIT;
             }
         }
         ModelData modelData = ModelData.builder().with(ExtraTileEntityEnergyCube.SIDE_STATE_PROPERTY, sideStates).build();
@@ -70,7 +70,7 @@ public class ExtraRenderEnergyCubeItem extends MekanismISTER {
             matrix.translate(0, Math.sin(Math.toRadians(3 * ticks)) / 7, 0);
             matrix.mulPose(Axis.YP.rotationDegrees(scaledTicks));
             matrix.mulPose(ExtraRenderEnergyCube.coreVec.rotationDegrees(36F + scaledTicks));
-            core.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, ECTier.getColor(tier), (float) energyPercentage);
+            core.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, EnergyCubeColor.getColor(tier), (float) energyPercentage);
             matrix.popPose();
         }
     }

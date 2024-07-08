@@ -84,10 +84,10 @@ public class ExtraBlockType {
     public static final Machine<ExtraTileEntityFluidTank> COSMIC_FLUID_TANK = createFluidTank(FTTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_FLUID_TANK, null);
     public static final Machine<ExtraTileEntityFluidTank> INFINITE_FLUID_TANK = createFluidTank(FTTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_FLUID_TANK, null);
     //energy cube
-    public static final Machine<ExtraTileEntityEnergyCube> ABSOLUTE_ENERGY_CUBE = createEnergyCube(EnergyCubeTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_ENERGY_CUBE, null);
-    public static final Machine<ExtraTileEntityEnergyCube> SUPREME_ENERGY_CUBE = createEnergyCube(EnergyCubeTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_ENERGY_CUBE, null);
-    public static final Machine<ExtraTileEntityEnergyCube> COSMIC_ENERGY_CUBE = createEnergyCube(EnergyCubeTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_ENERGY_CUBE, null);
-    public static final Machine<ExtraTileEntityEnergyCube> INFINITE_ENERGY_CUBE = createEnergyCube(EnergyCubeTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_ENERGY_CUBE, null);
+    public static final Machine<ExtraTileEntityEnergyCube> ABSOLUTE_ENERGY_CUBE = createEnergyCube(ECTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_ENERGY_CUBE, null);
+    public static final Machine<ExtraTileEntityEnergyCube> SUPREME_ENERGY_CUBE = createEnergyCube(ECTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_ENERGY_CUBE, null);
+    public static final Machine<ExtraTileEntityEnergyCube> COSMIC_ENERGY_CUBE = createEnergyCube(ECTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_ENERGY_CUBE, null);
+    public static final Machine<ExtraTileEntityEnergyCube> INFINITE_ENERGY_CUBE = createEnergyCube(ECTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_ENERGY_CUBE, null);
     //chemical tank
     public static final Machine<ExtraTileEntityChemicalTank> ABSOLUTE_CHEMICAL_TANK = createChemicalTank(CTTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_CHEMICAL_TANK, null);
     public static final Machine<ExtraTileEntityChemicalTank> SUPREME_CHEMICAL_TANK = createChemicalTank(CTTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_CHEMICAL_TANK, null);
@@ -154,10 +154,10 @@ public class ExtraBlockType {
                 .build();
     }
 
-    private static <TILE extends ExtraTileEntityEnergyCube> Machine<TILE> createEnergyCube(EnergyCubeTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
+    private static <TILE extends ExtraTileEntityEnergyCube> Machine<TILE> createEnergyCube(ECTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
         return Machine.MachineBuilder.createMachine(tile, MekanismLang.DESCRIPTION_ENERGY_CUBE)
                 .withGui(() -> ExtraContainerTypes.ENERGY_CUBE)
-                .withEnergyConfig(new ExtraFloatingLong(ECTier.getMaxEnergy(tier)))
+                .withEnergyConfig(new ExtraFloatingLong(tier.getMaxEnergy()))
                 .with(new AttributeTier<>(tier), new AttributeUpgradeable(upgradeBlock))
                 .without(AttributeParticleFX.class, AttributeStateActive.class, AttributeUpgradeSupport.class)
                 .withComputerSupport(tier, "EnergyCube")

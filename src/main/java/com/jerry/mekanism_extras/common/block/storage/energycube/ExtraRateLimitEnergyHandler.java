@@ -19,14 +19,13 @@ import mekanism.api.math.FloatingLongSupplier;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import mekanism.common.capabilities.energy.VariableCapacityEnergyContainer;
 import mekanism.common.capabilities.energy.item.ItemStackEnergyHandler;
-import mekanism.common.tier.EnergyCubeTier;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ExtraRateLimitEnergyHandler extends ItemStackEnergyHandler {
-    public static ExtraRateLimitEnergyHandler create(EnergyCubeTier tier) {
+    public static ExtraRateLimitEnergyHandler create(ECTier tier) {
         Objects.requireNonNull(tier, "Energy cube tier cannot be null");
         return new ExtraRateLimitEnergyHandler(handler -> new EnergyCubeRateLimitEnergyContainer(tier, handler));
     }
@@ -76,9 +75,9 @@ public class ExtraRateLimitEnergyHandler extends ItemStackEnergyHandler {
 
         private final boolean isCreative;
 
-        private EnergyCubeRateLimitEnergyContainer(EnergyCubeTier tier, @Nullable IContentsListener listener) {
-            super(new ExtraFloatingLong(ECTier.getOutput(tier)), new ExtraFloatingLong(ECTier.getMaxEnergy(tier)), BasicEnergyContainer.alwaysTrue, BasicEnergyContainer.alwaysTrue, listener);
-            isCreative = tier == EnergyCubeTier.CREATIVE;
+        private EnergyCubeRateLimitEnergyContainer(ECTier tier, @Nullable IContentsListener listener) {
+            super(new ExtraFloatingLong(tier.getOutput()), new ExtraFloatingLong(tier.getMaxEnergy()), BasicEnergyContainer.alwaysTrue, BasicEnergyContainer.alwaysTrue, listener);
+            isCreative = false;
         }
 
         @Override

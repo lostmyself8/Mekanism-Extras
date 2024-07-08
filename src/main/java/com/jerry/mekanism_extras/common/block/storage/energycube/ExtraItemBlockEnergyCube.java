@@ -14,7 +14,6 @@ import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.item.interfaces.IItemSustainedInventory;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
-import mekanism.common.tier.EnergyCubeTier;
 import mekanism.common.tile.component.config.DataType;
 import mekanism.common.util.EnumUtils;
 import mekanism.common.util.ItemDataUtils;
@@ -51,14 +50,14 @@ public class ExtraItemBlockEnergyCube extends ItemBlockTooltip<ExtraBlockEnergyC
 
     @Nonnull
     @Override
-    public EnergyCubeTier getTier() {
-        return Objects.requireNonNull(Attribute.getTier(getBlock(), EnergyCubeTier.class));
+    public ECTier getTier() {
+        return Objects.requireNonNull(Attribute.getTier(getBlock(), ECTier.class));
     }
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         StorageUtils.addStoredEnergy(stack, tooltip, true);
-        tooltip.add(MekanismLang.CAPACITY.translateColored(EnumColor.INDIGO, EnumColor.GRAY, EnergyDisplay.of(ECTier.getMaxEnergy(getTier()))));
+        tooltip.add(MekanismLang.CAPACITY.translateColored(EnumColor.INDIGO, EnumColor.GRAY, EnergyDisplay.of(getTier().getMaxEnergy())));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 
@@ -84,12 +83,12 @@ public class ExtraItemBlockEnergyCube extends ItemBlockTooltip<ExtraBlockEnergyC
 
     @Override
     public void addItems(CreativeModeTab.Output tabOutput) {
-        tabOutput.accept(StorageUtils.getFilledEnergyVariant(new ItemStack(this), ECTier.getMaxEnergy(getTier())));
+        tabOutput.accept(StorageUtils.getFilledEnergyVariant(new ItemStack(this), getTier().getMaxEnergy()));
     }
 
     @Override
     public boolean addDefault() {
-        return getTier() != EnergyCubeTier.CREATIVE;
+        return true;
     }
 
     private ItemStack withEnergyCubeSideConfig(DataType dataType) {

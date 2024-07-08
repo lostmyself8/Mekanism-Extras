@@ -10,6 +10,7 @@ import com.jerry.mekanism_extras.client.energycube.ExtraRenderEnergyCubeItem;
 import com.jerry.mekanism_extras.client.fluidtank.ExtraRenderFluidTank;
 import com.jerry.mekanism_extras.client.item.*;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ECTier;
+import com.jerry.mekanism_extras.common.block.storage.energycube.EnergyCubeColor;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraItemBlockEnergyCube;
 import com.jerry.mekanism_extras.common.block.storage.fluidtank.ExtraItemBlockFluidTank;
 import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
@@ -26,7 +27,6 @@ import mekanism.common.registries.*;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.PrimaryResource;
 import mekanism.common.resource.ResourceType;
-import mekanism.common.tier.EnergyCubeTier;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
@@ -102,9 +102,9 @@ public class ClientRender {
 
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, index) -> {
                     if (index == 1) {
-                        EnergyCubeTier tier = Attribute.getTier(state.getBlock(), EnergyCubeTier.class);
+                        ECTier tier = Attribute.getTier(state.getBlock(), ECTier.class);
                         if (tier != null) {
-                            float[] color = ECTier.getColor(tier);
+                            float[] color = EnergyCubeColor.getColor(tier);
                             return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
                         }
                     }
@@ -130,7 +130,7 @@ public class ClientRender {
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ExtraItemBlockEnergyCube cube) {
-                float[] color = ECTier.getColor(cube.getTier());
+                float[] color = EnergyCubeColor.getColor(cube.getTier());
                 return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
             }
             return -1;
