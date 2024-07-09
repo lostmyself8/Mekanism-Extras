@@ -50,6 +50,7 @@
     "mekanism_extras:supreme_chemical_tank",
     "mekanism_extras:cosmic_chemical_tank",
     "mekanism_extras:infinite_chemical_tank",
-    "mekanism_extras:expand_radioactive_waste_barrel"
+    "mekanism_extras:expand_radioactive_waste_barrel",
+    "mekanism_extras:faster_electric_pump"
   ]
 }
