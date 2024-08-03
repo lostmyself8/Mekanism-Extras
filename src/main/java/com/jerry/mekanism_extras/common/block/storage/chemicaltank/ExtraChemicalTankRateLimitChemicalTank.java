@@ -22,6 +22,7 @@ import mekanism.api.chemical.slurry.ISlurryHandler;
 import mekanism.api.chemical.slurry.ISlurryTank;
 import mekanism.api.chemical.slurry.Slurry;
 import mekanism.api.chemical.slurry.SlurryStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class ExtraChemicalTankRateLimitChemicalTank<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends ExtraRateLimitChemicalTank<CHEMICAL, STACK> {
@@ -33,12 +34,12 @@ public abstract class ExtraChemicalTankRateLimitChemicalTank<CHEMICAL extends Ch
     }
 
     @Override
-    public STACK insert(STACK stack, Action action, AutomationType automationType) {
+    public @NotNull STACK insert(@NotNull STACK stack, Action action, @NotNull AutomationType automationType) {
         return super.insert(stack, action.combine(!isCreative), automationType);
     }
 
     @Override
-    public STACK extract(long amount, Action action, AutomationType automationType) {
+    public @NotNull STACK extract(long amount, Action action, @NotNull AutomationType automationType) {
         return super.extract(amount, action.combine(!isCreative), automationType);
     }
 

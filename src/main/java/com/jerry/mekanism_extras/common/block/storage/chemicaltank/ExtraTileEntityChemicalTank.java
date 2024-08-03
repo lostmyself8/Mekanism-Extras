@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.block.storage.chemicaltank;
 
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import mekanism.api.*;
 import mekanism.api.annotations.NothingNullByDefault;
@@ -22,7 +23,6 @@ import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.IHasTextComponent;
 import mekanism.api.text.ILangEntry;
 import mekanism.common.MekanismLang;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
@@ -87,7 +87,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = Attribute.getTier(getBlockType(), CTTier.class);
+        tier = ExtraAttribute.getTier(getBlockType(), CTTier.class);
         chemicalTank = ExtraChemicalTankChemicalTank.create(tier, this);
     }
 

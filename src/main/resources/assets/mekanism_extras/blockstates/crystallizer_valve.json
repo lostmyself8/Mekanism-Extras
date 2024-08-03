@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "mekanism_extras:block/crystallizer/valve"
+    },
+    "active=true": {
+      "model": "mekanism_extras:block/crystallizer/valve_output"
+    }
+  }
+}

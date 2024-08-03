@@ -9,10 +9,10 @@
     "extra": {
       "connect_to": [
         {
-          "block": "mekanism_extras:induction_casing"
+          "block": "mekanism_extras:reinforced_induction_casing"
         },
         {
-          "block": "mekanism_extras:induction_port"
+          "block": "mekanism_extras:reinforced_induction_port"
         }
       ]
     }

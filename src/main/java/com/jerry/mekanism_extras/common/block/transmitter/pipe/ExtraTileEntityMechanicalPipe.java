@@ -1,10 +1,12 @@
 package com.jerry.mekanism_extras.common.block.transmitter.pipe;
 
-import com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter.ExtraTileEntityTransmitter;
+import com.jerry.mekanism_extras.common.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.api.NBTConstants;
 import mekanism.api.fluid.IExtendedFluidTank;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.api.tier.BaseTier;
+import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.capabilities.fluid.DynamicFluidHandler;
 import mekanism.common.capabilities.resolver.manager.FluidHandlerManager;
@@ -65,22 +67,15 @@ public class ExtraTileEntityMechanicalPipe extends ExtraTileEntityTransmitter im
         return TransmitterType.MECHANICAL_PIPE;
     }
 
-//    @NotNull
-//    @Override
-//    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-//        return BlockStateHelper.copyStateData(current, switch (tier) {
-//            case BASIC -> ExtraBlock.ABSOLUTE_MECHANICAL_PIPE;
-//            case ADVANCED -> ExtraBlock.SUPREME_MECHANICAL_PIPE;
-//            case ELITE -> ExtraBlock.COSMIC_MECHANICAL_PIPE;
-//            case ULTIMATE -> ExtraBlock.INFINITE_MECHANICAL_PIPE;
-//            default -> null;
-//        });
-//    }
-
     @NotNull
     @Override
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-        return current;
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+        return BlockStateHelper.copyStateData(current, switch (tier) {
+            case ABSOLUTE -> ExtraBlock.ABSOLUTE_MECHANICAL_PIPE;
+            case SUPREME -> ExtraBlock.SUPREME_MECHANICAL_PIPE;
+            case COSMIC -> ExtraBlock.COSMIC_MECHANICAL_PIPE;
+            case INFINITE -> ExtraBlock.INFINITE_MECHANICAL_PIPE;
+        });
     }
 
     @NotNull

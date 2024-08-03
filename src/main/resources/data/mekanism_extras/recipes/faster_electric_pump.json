@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
-      "tag": "forge:alloys/cosmic"
+      "tag": "forge:alloys/supreme"
     },
     "B": {
       "item": "minecraft:bucket"

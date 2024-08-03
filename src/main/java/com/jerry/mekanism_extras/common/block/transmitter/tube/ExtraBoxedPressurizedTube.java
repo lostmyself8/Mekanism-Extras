@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.block.transmitter.tube;
 
+import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.chemical.*;
@@ -9,14 +10,17 @@ import mekanism.common.capabilities.chemical.BoxedChemicalHandler;
 import mekanism.common.content.network.transmitter.BoxedPressurizedTube;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
+import mekanism.common.upgrade.transmitter.PressurizedTubeUpgradeData;
+import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.EnumUtils;
 import net.minecraft.core.Direction;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class ExtraBoxedPressurizedTube extends BoxedPressurizedTube{
+public class ExtraBoxedPressurizedTube extends BoxedPressurizedTube implements IExtraUpgradeableTransmitter<PressurizedTubeUpgradeData> {
 
     public ExtraBoxedPressurizedTube(IBlockProvider blockProvider, TileEntityTransmitter tile) {
         super(blockProvider, tile);
@@ -94,5 +98,21 @@ public class ExtraBoxedPressurizedTube extends BoxedPressurizedTube{
             tank = (IChemicalTank<CHEMICAL, STACK>) chemicalTank.getTankForType(type);
         }
         return tank.insert(stack, action, AutomationType.INTERNAL);
+    }
+
+    @Nullable
+    @Override
+    public PressurizedTubeUpgradeData getUpgradeData() {
+        return super.getUpgradeData();
+    }
+
+    @Override
+    public boolean dataTypeMatches(@NotNull TransmitterUpgradeData data) {
+        return super.dataTypeMatches(data);
+    }
+
+    @Override
+    public void parseUpgradeData(@NotNull PressurizedTubeUpgradeData data) {
+        super.parseUpgradeData(data);
     }
 }

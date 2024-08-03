@@ -1,0 +1,6 @@
+{
+  "parent": "mekanism_extras:block/reactor/port",
+  "textures": {
+    "all": "mekanism_extras:block/naquadah_reactor_port_output"
+  }
+}

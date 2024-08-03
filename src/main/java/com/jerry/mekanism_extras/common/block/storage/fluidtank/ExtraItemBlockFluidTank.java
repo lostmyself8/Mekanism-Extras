@@ -1,6 +1,8 @@
 package com.jerry.mekanism_extras.common.block.storage.fluidtank;
 
-import com.jerry.mekanism_extras.client.fluidtank.ExtraRenderFluidTankItem;
+import com.jerry.mekanism_extras.client.render.item.block.ExtraRenderFluidTankItem;
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekanism_extras.common.item.block.machine.ExtraItemBlockMachine;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.NBTConstants;
@@ -11,9 +13,7 @@ import mekanism.api.text.EnumColor;
 import mekanism.client.render.RenderPropertiesProvider;
 import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.ItemCapabilityWrapper;
-import mekanism.common.item.block.machine.ItemBlockMachine;
 import mekanism.common.item.interfaces.IModeItem;
 import mekanism.common.util.*;
 import mekanism.common.util.text.BooleanStateDisplay;
@@ -63,7 +63,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class ExtraItemBlockFluidTank extends ItemBlockMachine implements IModeItem {
+public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IModeItem {
     public ExtraItemBlockFluidTank(ExtraBlockFluidTank block) {
         super(block);
     }
@@ -76,13 +76,13 @@ public class ExtraItemBlockFluidTank extends ItemBlockMachine implements IModeIt
 
     @NotNull
     @Override
-    public FTTier getTier() {
-        return Objects.requireNonNull(Attribute.getTier(getBlock(), FTTier.class));
+    public FTTier getAdvanceTier() {
+        return Objects.requireNonNull(ExtraAttribute.getTier(getBlock(), FTTier.class));
     }
 
     @Override
     protected void addStats(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        FTTier tier = getTier();
+        FTTier tier = getAdvanceTier();
         FluidStack fluidStack = StorageUtils.getStoredFluidFromNBT(stack);
         if (fluidStack.isEmpty()) {
             tooltip.add(MekanismLang.EMPTY.translateColored(EnumColor.DARK_RED));
@@ -235,7 +235,7 @@ public class ExtraItemBlockFluidTank extends ItemBlockMachine implements IModeIt
     @Override
     protected void gatherCapabilities(List<ItemCapabilityWrapper.ItemCapability> capabilities, ItemStack stack, CompoundTag nbt) {
         super.gatherCapabilities(capabilities, stack, nbt);
-        capabilities.add(ExtraRateLimitFluidHandler.create(getTier()));
+        capabilities.add(ExtraRateLimitFluidHandler.create(getAdvanceTier()));
     }
 
     @Override

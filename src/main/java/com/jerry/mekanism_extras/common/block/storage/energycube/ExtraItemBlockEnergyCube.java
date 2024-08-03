@@ -1,16 +1,16 @@
 package com.jerry.mekanism_extras.common.block.storage.energycube;
 
-import com.jerry.mekanism_extras.client.energycube.ExtraRenderEnergyCubeItem;
+import com.jerry.mekanism_extras.client.render.item.block.ExtraRenderEnergyCubeItem;
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockTooltip;
 import mekanism.api.NBTConstants;
 import mekanism.api.RelativeSide;
 import mekanism.api.text.EnumColor;
 import mekanism.client.render.RenderPropertiesProvider;
 import mekanism.common.MekanismLang;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.ItemCapabilityWrapper;
 import mekanism.common.capabilities.energy.item.ItemStackEnergyHandler;
 import mekanism.common.config.MekanismConfig;
-import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.item.interfaces.IItemSustainedInventory;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
@@ -37,7 +37,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
-public class ExtraItemBlockEnergyCube extends ItemBlockTooltip<ExtraBlockEnergyCube> implements IItemSustainedInventory, CreativeTabDeferredRegister.ICustomCreativeTabContents {
+public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEnergyCube> implements IItemSustainedInventory, CreativeTabDeferredRegister.ICustomCreativeTabContents {
     public ExtraItemBlockEnergyCube(ExtraBlockEnergyCube block) {
         super(block);
     }
@@ -50,14 +50,14 @@ public class ExtraItemBlockEnergyCube extends ItemBlockTooltip<ExtraBlockEnergyC
 
     @Nonnull
     @Override
-    public ECTier getTier() {
-        return Objects.requireNonNull(Attribute.getTier(getBlock(), ECTier.class));
+    public ECTier getAdvanceTier() {
+        return Objects.requireNonNull(ExtraAttribute.getTier(getBlock(), ECTier.class));
     }
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         StorageUtils.addStoredEnergy(stack, tooltip, true);
-        tooltip.add(MekanismLang.CAPACITY.translateColored(EnumColor.INDIGO, EnumColor.GRAY, EnergyDisplay.of(getTier().getMaxEnergy())));
+        tooltip.add(MekanismLang.CAPACITY.translateColored(EnumColor.INDIGO, EnumColor.GRAY, EnergyDisplay.of(getAdvanceTier().getMaxEnergy())));
         super.appendHoverText(stack, world, tooltip, flag);
     }
 
@@ -83,7 +83,7 @@ public class ExtraItemBlockEnergyCube extends ItemBlockTooltip<ExtraBlockEnergyC
 
     @Override
     public void addItems(CreativeModeTab.Output tabOutput) {
-        tabOutput.accept(StorageUtils.getFilledEnergyVariant(new ItemStack(this), getTier().getMaxEnergy()));
+        tabOutput.accept(StorageUtils.getFilledEnergyVariant(new ItemStack(this), getAdvanceTier().getMaxEnergy()));
     }
 
     @Override
@@ -106,7 +106,7 @@ public class ExtraItemBlockEnergyCube extends ItemBlockTooltip<ExtraBlockEnergyC
     @Override
     protected void gatherCapabilities(List<ItemCapabilityWrapper.ItemCapability> capabilities, ItemStack stack, CompoundTag nbt) {
         super.gatherCapabilities(capabilities, stack, nbt);
-        ItemCapabilityWrapper.ItemCapability capability = ExtraRateLimitEnergyHandler.create(getTier());
+        ItemCapabilityWrapper.ItemCapability capability = ExtraRateLimitEnergyHandler.create(getAdvanceTier());
         int index = IntStream.range(0, capabilities.size()).filter(i -> capabilities.get(i) instanceof ItemStackEnergyHandler).findFirst().orElse(-1);
         if (index != -1) {
             //This is likely always the path that will be taken

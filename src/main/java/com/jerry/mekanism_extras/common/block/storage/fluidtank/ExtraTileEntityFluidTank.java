@@ -1,12 +1,12 @@
 package com.jerry.mekanism_extras.common.block.storage.fluidtank;
 
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import mekanism.api.Action;
 import mekanism.api.IConfigurable;
 import mekanism.api.IContentsListener;
 import mekanism.api.NBTConstants;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.holder.fluid.FluidTankHelper;
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder;
@@ -81,7 +81,7 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = Attribute.getTier(getBlockType(), FTTier.class);
+        tier = ExtraAttribute.getTier(getBlockType(), FTTier.class);
     }
 
     @NotNull

@@ -172,12 +172,12 @@ public class ExtraConfig extends BaseMekanismConfig {
     private void addEnergyCubeCategory(ForgeConfigSpec.Builder builder) {
         builder.comment("Energy Cubes").push("energy cube");
         for (ECTier tier : ExtraEnumUtils.ENERGY_CUBE_TIERS) {
-            String tierName = tier.getBaseTier().getSimpleName();
+            String tierName = tier.getAdvanceTier().getSimpleName();
             CachedFloatingLongValue storageReference = CachedFloatingLongValue.define(this, builder,
-                    "Maximum number of Joules " + tierName + " energy cubes can store.", tier.toString().toLowerCase() + "Storage", tier.getBaseMaxEnergy(),
+                    "Maximum number of Joules " + tierName + " energy cubes can store.", tier.toString().toLowerCase() + "Storage", tier.getAdvanceMaxEnergy(),
                     CachedFloatingLongValue.POSITIVE);
             CachedFloatingLongValue outputReference = CachedFloatingLongValue.define(this, builder,
-                    "Output rate in Joules of " + tierName + " energy cubes.", tier.toString().toLowerCase() + "Output", tier.getBaseOutput(),
+                    "Output rate in Joules of " + tierName + " energy cubes.", tier.toString().toLowerCase() + "Output", tier.getAdvanceOutput(),
                     CachedFloatingLongValue.POSITIVE);
             tier.setConfigReference(storageReference, outputReference);
         }
@@ -187,11 +187,11 @@ public class ExtraConfig extends BaseMekanismConfig {
     private void addFluidTankCategory(ForgeConfigSpec.Builder builder) {
         builder.comment("Fluid Tanks").push("fluid tanks");
         for (FTTier tier : ExtraEnumUtils.FLUID_TANK_TIERS) {
-            String tierName = tier.getBaseTier().getSimpleName();
+            String tierName = tier.getAdvanceTier().getSimpleName();
             CachedIntValue storageReference = CachedIntValue.wrap(this, builder.comment("Storage size of " + tier.toString().toLowerCase() + " fluid tanks in mB.")
-                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseStorage(), 1, Integer.MAX_VALUE));
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getAdvanceStorage(), 1, Integer.MAX_VALUE));
             CachedIntValue outputReference = CachedIntValue.wrap(this, builder.comment("Output rate of " + tier.toString().toLowerCase() + " fluid tanks in mB.")
-                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getBaseOutput(), 1, Integer.MAX_VALUE));
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getAdvanceOutput(), 1, Integer.MAX_VALUE));
             tier.setConfigReference(storageReference, outputReference);
         }
         builder.pop();
@@ -200,11 +200,11 @@ public class ExtraConfig extends BaseMekanismConfig {
     private void addGasTankCategory(ForgeConfigSpec.Builder builder) {
         builder.comment("Chemical Tanks").push("chemical tanks");
         for (CTTier tier : ExtraEnumUtils.CHEMICAL_TANK_TIERS) {
-            String tierName = tier.getBaseTier().getSimpleName();
+            String tierName = tier.getAdvanceTier().getSimpleName();
             CachedLongValue storageReference = CachedLongValue.wrap(this, builder.comment("Storage size of " + tier.toString().toLowerCase() + " chemical tanks in mB.")
-                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseStorage(), 1, Long.MAX_VALUE));
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getAdvanceStorage(), 1, Long.MAX_VALUE));
             CachedLongValue outputReference = CachedLongValue.wrap(this, builder.comment("Output rate of " + tier.toString().toLowerCase() + " chemical tanks in mB.")
-                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getBaseOutput(), 1, Long.MAX_VALUE));
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getAdvanceOutput(), 1, Long.MAX_VALUE));
             tier.setConfigReference(storageReference, outputReference);
         }
         builder.pop();
@@ -213,9 +213,9 @@ public class ExtraConfig extends BaseMekanismConfig {
     private void addBinCategory(ForgeConfigSpec.Builder builder) {
         builder.comment("Bins").push("bins");
         for (BTier tier : ExtraEnumUtils.BIN_TIERS) {
-            String tierName = tier.getBaseTier().getSimpleName();
+            String tierName = tier.getAdvanceTier().getSimpleName();
             CachedIntValue storageReference = CachedIntValue.wrap(this, builder.comment("The number of items " + tier.toString().toLowerCase() + " bins can store.")
-                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getBaseStorage(), 1, Integer.MAX_VALUE));
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getAdvanceStorage(), 1, Integer.MAX_VALUE));
             tier.setConfigReference(storageReference);
         }
         builder.pop();

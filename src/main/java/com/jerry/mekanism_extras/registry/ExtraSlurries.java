@@ -12,11 +12,11 @@ public class ExtraSlurries {
     }
 
     private static final ExtraResource resource = ExtraResource.NAQUADAH;
-    public static final SlurryDeferredRegister EXTRA_SLURRIES = new SlurryDeferredRegister(MekanismExtras.MODID);
+    public static final SlurryDeferredRegister EXTRA_GEN_SLURRIES = new SlurryDeferredRegister(MekanismExtras.MODID);
 
-    public static final SlurryRegistryObject<Slurry, Slurry> DIRTY_AND_CLEAN_SLURRIES_NAQUADAH = EXTRA_SLURRIES.register("naquadah",
+    public static final SlurryRegistryObject<Slurry, Slurry> DIRTY_AND_CLEAN_SLURRIES_NAQUADAH = EXTRA_GEN_SLURRIES.register("naquadah",
             builder -> builder.tint(resource.getTint()).ore(resource.getOreTag()));
     public static void register(IEventBus eventBus) {
-        EXTRA_SLURRIES.register(eventBus);
+        EXTRA_GEN_SLURRIES.register(eventBus);
     }
 }

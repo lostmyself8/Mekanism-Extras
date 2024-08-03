@@ -1,9 +1,9 @@
 package com.jerry.mekanism_extras.common.block.storage.bin;
 
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockTooltip;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
-import mekanism.common.block.attribute.Attribute;
-import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.item.interfaces.IItemSustainedInventory;
 import mekanism.common.util.text.TextUtils;
 import net.minecraft.network.chat.Component;
@@ -15,20 +15,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ExtraItemBlockBin extends ItemBlockTooltip<ExtraBlockBin> implements IItemSustainedInventory {
+public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> implements IItemSustainedInventory {
     public ExtraItemBlockBin(ExtraBlockBin block) {
         super(block, new Item.Properties().stacksTo(1));
     }
 
     @Override
-    public BTier getTier() {
-        return Attribute.getTier(getBlock(), BTier.class);
+    public BTier getAdvanceTier() {
+        return ExtraAttribute.getTier(getBlock(), BTier.class);
     }
 
     @Override
     protected void addStats(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         ExtraBinMekanismInventory inventory = ExtraBinMekanismInventory.create(stack);
-        BTier tier = getTier();
+        BTier tier = getAdvanceTier();
         if (inventory != null && tier != null) {
             ExtraBinInventorySlot slot = inventory.getBinSlot();
             if (slot.isEmpty()) {

@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.common.block.storage.energycube;
 
+import com.jerry.mekanism_extras.common.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.common.api.tier.IAdvanceTier;
 import mekanism.api.math.FloatingLong;
-import mekanism.api.tier.BaseTier;
-import mekanism.api.tier.ITier;
 import mekanism.common.config.value.CachedFloatingLongValue;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
@@ -10,30 +10,30 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 
-public enum ECTier implements ITier, StringRepresentable {
+public enum ECTier implements IAdvanceTier, StringRepresentable {
 
-    ABSOLUTE(BaseTier.BASIC, FloatingLong.createConst(1_024_000_000), FloatingLong.createConst(1_024_000)),
-    SUPREME(BaseTier.ADVANCED, FloatingLong.createConst(4_096_000_000L), FloatingLong.createConst(4_096_000)),
-    COSMIC(BaseTier.ELITE, FloatingLong.createConst(16_384_000_000L), FloatingLong.createConst(16_384_000)),
-    INFINITE(BaseTier.ULTIMATE, FloatingLong.createConst(65_536_000_000L), FloatingLong.createConst(65_536_000));
+    ABSOLUTE(AdvanceTier.ABSOLUTE, FloatingLong.createConst(1_024_000_000), FloatingLong.createConst(1_024_000)),
+    SUPREME(AdvanceTier.SUPREME, FloatingLong.createConst(4_096_000_000L), FloatingLong.createConst(4_096_000)),
+    COSMIC(AdvanceTier.COSMIC, FloatingLong.createConst(16_384_000_000L), FloatingLong.createConst(16_384_000)),
+    INFINITE(AdvanceTier.INFINITE, FloatingLong.createConst(65_536_000_000L), FloatingLong.createConst(65_536_000));
 
-    private final FloatingLong baseMaxEnergy;
-    private final FloatingLong baseOutput;
-    private final BaseTier baseTier;
+    private final FloatingLong advanceMaxEnergy;
+    private final FloatingLong advanceOutput;
+    private final AdvanceTier advanceTier;
     @Nullable
     private CachedFloatingLongValue storageReference;
     @Nullable
     private CachedFloatingLongValue outputReference;
 
-    ECTier(BaseTier tier, FloatingLong max, FloatingLong out) {
-        baseMaxEnergy = max;
-        baseOutput = out;
-        baseTier = tier;
+    ECTier(AdvanceTier tier, FloatingLong max, FloatingLong out) {
+        advanceMaxEnergy = max;
+        advanceOutput = out;
+        advanceTier = tier;
     }
 
     @Override
-    public BaseTier getBaseTier() {
-        return baseTier;
+    public AdvanceTier getAdvanceTier() {
+        return advanceTier;
     }
 
     @Override
@@ -43,19 +43,19 @@ public enum ECTier implements ITier, StringRepresentable {
     }
 
     public FloatingLong getMaxEnergy() {
-        return storageReference == null ? getBaseMaxEnergy() : storageReference.getOrDefault();
+        return storageReference == null ? getAdvanceMaxEnergy() : storageReference.getOrDefault();
     }
 
     public FloatingLong getOutput() {
-        return outputReference == null ? getBaseOutput() : outputReference.getOrDefault();
+        return outputReference == null ? getAdvanceOutput() : outputReference.getOrDefault();
     }
 
-    public FloatingLong getBaseMaxEnergy() {
-        return baseMaxEnergy;
+    public FloatingLong getAdvanceMaxEnergy() {
+        return advanceMaxEnergy;
     }
 
-    public FloatingLong getBaseOutput() {
-        return baseOutput;
+    public FloatingLong getAdvanceOutput() {
+        return advanceOutput;
     }
 
     /**

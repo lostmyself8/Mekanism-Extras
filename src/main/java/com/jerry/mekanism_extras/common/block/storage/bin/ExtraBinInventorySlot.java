@@ -6,7 +6,6 @@ import mekanism.api.IContentsListener;
 import mekanism.api.NBTConstants;
 import mekanism.common.inventory.container.slot.InventoryContainerSlot;
 import mekanism.common.inventory.slot.BasicInventorySlot;
-import mekanism.common.item.block.ItemBlockBin;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +17,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 public class ExtraBinInventorySlot extends BasicInventorySlot {
-    private static final Predicate<@NotNull ItemStack> validator = stack -> !(stack.getItem() instanceof ItemBlockBin);
+    private static final Predicate<@NotNull ItemStack> validator = stack -> !(stack.getItem() instanceof ExtraItemBlockBin);
 
     public static ExtraBinInventorySlot create(@Nullable IContentsListener listener, BTier tier) {
         Objects.requireNonNull(tier, "Bin tier cannot be null");

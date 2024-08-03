@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.block.transmitter.cable;
 
+import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.NBTConstants;
@@ -10,14 +11,17 @@ import mekanism.common.content.network.EnergyNetwork;
 import mekanism.common.content.network.transmitter.UniversalCable;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
+import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
+import mekanism.common.upgrade.transmitter.UniversalCableUpgradeData;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class ExtraUniversalCable extends UniversalCable {
+public class ExtraUniversalCable extends UniversalCable implements IExtraUpgradeableTransmitter<UniversalCableUpgradeData> {
 
     public ExtraUniversalCable(IBlockProvider blockProvider, TileEntityTransmitter tile) {
         super(blockProvider, tile);
@@ -71,5 +75,21 @@ public class ExtraUniversalCable extends UniversalCable {
         super.handleContentsUpdateTag(network, tag);
         NBTUtils.setFloatingLongIfPresent(tag, NBTConstants.ENERGY_STORED, network.energyContainer::setEnergy);
         NBTUtils.setFloatIfPresent(tag, NBTConstants.SCALE, scale -> network.currentScale = scale);
+    }
+
+    @Nullable
+    @Override
+    public UniversalCableUpgradeData getUpgradeData() {
+        return super.getUpgradeData();
+    }
+
+    @Override
+    public boolean dataTypeMatches(@NotNull TransmitterUpgradeData data) {
+        return super.dataTypeMatches(data);
+    }
+
+    @Override
+    public void parseUpgradeData(@NotNull UniversalCableUpgradeData data) {
+        super.parseUpgradeData(data);
     }
 }

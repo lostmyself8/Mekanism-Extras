@@ -1,10 +1,12 @@
 package com.jerry.mekanism_extras.common.block.transmitter.thermodynamicconductor;
 
-import com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter.ExtraTileEntityTransmitter;
+import com.jerry.mekanism_extras.common.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IMekanismHeatHandler;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.api.tier.BaseTier;
+import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.resolver.manager.HeatHandlerManager;
@@ -62,22 +64,15 @@ public class ExtraTileEntityThermodynamicConductor extends ExtraTileEntityTransm
         return TransmitterType.THERMODYNAMIC_CONDUCTOR;
     }
 
-//    @NotNull
-//    @Override
-//    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-//        return BlockStateHelper.copyStateData(current, switch (tier) {
-//            case BASIC -> ExtraBlock.ABSOLUTE_THERMODYNAMIC_CONDUCTOR;
-//            case ADVANCED -> ExtraBlock.SUPREME_THERMODYNAMIC_CONDUCTOR;
-//            case ELITE -> ExtraBlock.COSMIC_THERMODYNAMIC_CONDUCTOR;
-//            case ULTIMATE -> ExtraBlock.INFINITE_THERMODYNAMIC_CONDUCTOR;
-//            default -> null;
-//        });
-//    }
-
     @NotNull
     @Override
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-        return current;
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+        return BlockStateHelper.copyStateData(current, switch (tier) {
+            case ABSOLUTE -> ExtraBlock.ABSOLUTE_THERMODYNAMIC_CONDUCTOR;
+            case SUPREME -> ExtraBlock.SUPREME_THERMODYNAMIC_CONDUCTOR;
+            case COSMIC -> ExtraBlock.COSMIC_THERMODYNAMIC_CONDUCTOR;
+            case INFINITE -> ExtraBlock.INFINITE_THERMODYNAMIC_CONDUCTOR;
+        });
     }
 
     @Override
