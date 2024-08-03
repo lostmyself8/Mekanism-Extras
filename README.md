@@ -14,12 +14,6 @@
 
 **The configuration file can be modified in the "mekanism_extras.toml" file located in the "Mekanism" folder.**
 
-## A KNOWN BUG:
-
-**Note: It is known that energy and chemical pipes will not save the contents of the pipes after exiting the game. Please export the contents of the pipes before exiting the game.**
-
-**Fluid pipes and their code are almost the same. I don't know why fluid pipes can store things inside pipes while they can't (annoy), but the original mod also has this bug(happy).**
-
 ## More Bin:
 
 ![image](https://media.forgecdn.net/attachments/description/1026040/description_ef73c2f0-4b1d-44ef-825a-c956558e1bd9.png)
