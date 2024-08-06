@@ -7,7 +7,6 @@ import mekanism.common.MekanismLang;
 import mekanism.common.item.interfaces.IItemSustainedInventory;
 import mekanism.common.util.text.TextUtils;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> implements IItemSustainedInventory {
     public ExtraItemBlockBin(ExtraBlockBin block) {
-        super(block, new Item.Properties().stacksTo(1));
+        super(block);
     }
 
     @Override
