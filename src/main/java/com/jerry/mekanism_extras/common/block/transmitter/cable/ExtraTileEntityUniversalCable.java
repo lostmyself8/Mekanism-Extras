@@ -1,11 +1,13 @@
 package com.jerry.mekanism_extras.common.block.transmitter.cable;
 
-import com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter.ExtraTileEntityTransmitter;
+import com.jerry.mekanism_extras.common.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.api.NBTConstants;
 import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.math.FloatingLong;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.api.tier.BaseTier;
+import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.capabilities.energy.DynamicStrictEnergyHandler;
 import mekanism.common.capabilities.resolver.manager.EnergyHandlerManager;
@@ -65,22 +67,15 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
         return TransmitterType.UNIVERSAL_CABLE;
     }
 
-//    @NotNull
-//    @Override
-//    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-//        return BlockStateHelper.copyStateData(current, switch (tier) {
-//            case BASIC -> ExtraBlock.ABSOLUTE_UNIVERSAL_CABLE;
-//            case ADVANCED -> ExtraBlock.SUPREME_UNIVERSAL_CABLE;
-//            case ELITE -> ExtraBlock.COSMIC_UNIVERSAL_CABLE;
-//            case ULTIMATE -> ExtraBlock.INFINITE_UNIVERSAL_CABLE;
-//            default -> null;
-//        });
-//    }
-
     @NotNull
     @Override
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-        return current;
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+        return BlockStateHelper.copyStateData(current, switch (tier) {
+            case ABSOLUTE -> ExtraBlock.ABSOLUTE_UNIVERSAL_CABLE;
+            case SUPREME -> ExtraBlock.SUPREME_UNIVERSAL_CABLE;
+            case COSMIC -> ExtraBlock.COSMIC_UNIVERSAL_CABLE;
+            case INFINITE -> ExtraBlock.INFINITE_UNIVERSAL_CABLE;
+        });
     }
 
     @NotNull

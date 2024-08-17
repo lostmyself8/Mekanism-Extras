@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 public class ExtraBinInventorySlot extends BasicInventorySlot {
-    private static final Predicate<@NotNull ItemStack> validator = stack -> !(stack.getItem() instanceof ItemBlockBin);
+    private static final Predicate<@NotNull ItemStack> validator = stack -> !(stack.getItem() instanceof ExtraItemBlockBin || stack.getItem() instanceof ItemBlockBin);
 
     public static ExtraBinInventorySlot create(@Nullable IContentsListener listener, BTier tier) {
         Objects.requireNonNull(tier, "Bin tier cannot be null");
@@ -35,7 +35,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     }
 
     @Override
-    public ItemStack insertItem(ItemStack stack, Action action, AutomationType automationType) {
+    public @NotNull ItemStack insertItem(@NotNull ItemStack stack, @NotNull Action action, @NotNull AutomationType automationType) {
         if (isEmpty()) {
             if (isLocked() && !ItemHandlerHelper.canItemStacksStack(lockStack, stack)) {
                 // When locked, we need to make sure the correct item type is being inserted
@@ -55,7 +55,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     }
 
     @Override
-    public ItemStack extractItem(int amount, Action action, AutomationType automationType) {
+    public @NotNull ItemStack extractItem(int amount, Action action, @NotNull AutomationType automationType) {
         return super.extractItem(amount, action.combine(!isCreative), automationType);
     }
 
@@ -129,7 +129,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public @NotNull CompoundTag serializeNBT() {
         CompoundTag nbt = super.serializeNBT();
         if (isLocked()) {
             nbt.put(NBTConstants.LOCK_STACK, lockStack.serializeNBT());
@@ -138,7 +138,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(@NotNull CompoundTag nbt) {
         NBTUtils.setItemStackOrEmpty(nbt, NBTConstants.LOCK_STACK, s -> this.lockStack = s);
         super.deserializeNBT(nbt);
     }

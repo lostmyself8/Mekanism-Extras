@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block.storage.radioactivewastebarrel;
 
-import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.config.LoadConfig;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.item.block.ItemBlockTooltip;
@@ -23,9 +23,9 @@ public class ExtraItemBlockRadioactiveWasteBarrel extends ItemBlockTooltip<Extra
 
     @Override
     protected void addStats(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        tooltip.add(MekanismLang.CAPACITY_MB.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(MekanismExtras.getConfig().radioactiveWasteBarrelMaxGas.get())));
-        int ticks = MekanismExtras.getConfig().radioactiveWasteBarrelProcessTicks.get();
-        long decayAmount = MekanismExtras.getConfig().radioactiveWasteBarrelDecayAmount.get();
+        tooltip.add(MekanismLang.CAPACITY_MB.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(LoadConfig.extraConfig.radioactiveWasteBarrelMaxGas.get())));
+        int ticks = LoadConfig.extraConfig.radioactiveWasteBarrelProcessTicks.get();
+        long decayAmount = LoadConfig.extraConfig.radioactiveWasteBarrelDecayAmount.get();
         if (decayAmount == 0 || ticks == 1) {
             tooltip.add(MekanismLang.WASTE_BARREL_DECAY_RATE.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(decayAmount)));
         } else {

@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:crystallizing",
+  "chemicalType": "slurry",
+  "input": {
+    "amount": 200,
+    "slurry": "mekanism_extras:clean_naquadah"
+  },
+  "output": {
+    "item": "mekanism_extras:crystal_naquadah"
+  }
+}

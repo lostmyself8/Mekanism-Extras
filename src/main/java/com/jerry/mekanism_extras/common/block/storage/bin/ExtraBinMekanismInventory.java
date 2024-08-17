@@ -19,7 +19,7 @@ public class ExtraBinMekanismInventory extends ItemStackMekanismInventory {
     @NotNull
     @Override
     protected List<IInventorySlot> getInitialInventory() {
-        binSlot = ExtraBinInventorySlot.create(this, ((ExtraItemBlockBin) stack.getItem()).getTier());
+        binSlot = ExtraBinInventorySlot.create(this, ((ExtraItemBlockBin) stack.getItem()).getAdvanceTier());
         return Collections.singletonList(binSlot);
     }
 

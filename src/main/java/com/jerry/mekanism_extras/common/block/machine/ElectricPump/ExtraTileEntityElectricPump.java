@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block.machine.ElectricPump;
 
-import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.registry.ExtraBlock;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.*;
@@ -162,7 +162,7 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     }
 
     public int estimateIncrementAmount() {
-        return fluidTank.getFluid().getFluid() == MekanismFluids.HEAVY_WATER.getFluid() ? MekanismExtras.getConfig().pumpHeavyWaterAmount.get() : FluidType.BUCKET_VOLUME;
+        return fluidTank.getFluid().getFluid() == MekanismFluids.HEAVY_WATER.getFluid() ? LoadConfig.extraConfig.pumpHeavyWaterAmount.get() : FluidType.BUCKET_VOLUME;
     }
 
     private boolean suck() {
@@ -249,7 +249,7 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
         if (sourceFluid == Fluids.WATER) {
             if (hasFilter) {
                 //The speed of pumping heavy water
-                return MekanismFluids.HEAVY_WATER.getFluidStack(MekanismExtras.getConfig().pumpHeavyWaterAmount.get());
+                return MekanismFluids.HEAVY_WATER.getFluidStack(LoadConfig.extraConfig.pumpHeavyWaterAmount.get());
             }
             //The speed of pumping water
             return MekanismConfig.general.pumpWaterSources.get() ? new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME)

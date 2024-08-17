@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block.storage.radioactivewastebarrel;
 
-import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.api.*;
 import mekanism.api.chemical.gas.Gas;
@@ -59,11 +59,11 @@ public class ExtraTileEntityRadioactiveWasteBarrel extends TileEntityMekanism im
         if (level.getGameTime() > lastProcessTick) {
             //If we are not on the same tick do stuff, otherwise ignore it (anti tick accelerator protection)
             lastProcessTick = level.getGameTime();
-            if (MekanismExtras.getConfig().radioactiveWasteBarrelDecayAmount.get() > 0 && !gasTank.isEmpty() &&
+            if (LoadConfig.extraConfig.radioactiveWasteBarrelDecayAmount.get() > 0 && !gasTank.isEmpty() &&
                     !MekanismTags.Gases.WASTE_BARREL_DECAY_LOOKUP.contains(gasTank.getType()) &&
-                    ++processTicks >= MekanismExtras.getConfig().radioactiveWasteBarrelProcessTicks.get()) {
+                    ++processTicks >= LoadConfig.extraConfig.radioactiveWasteBarrelProcessTicks.get()) {
                 processTicks = 0;
-                gasTank.shrinkStack(MekanismExtras.getConfig().radioactiveWasteBarrelDecayAmount.get(), Action.EXECUTE);
+                gasTank.shrinkStack(LoadConfig.extraConfig.radioactiveWasteBarrelDecayAmount.get(), Action.EXECUTE);
             }
             if (getActive()) {
                 ChemicalUtil.emit(Collections.singleton(Direction.DOWN), gasTank, this);

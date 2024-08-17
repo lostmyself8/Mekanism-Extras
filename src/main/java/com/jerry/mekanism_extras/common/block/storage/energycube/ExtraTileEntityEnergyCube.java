@@ -1,10 +1,10 @@
 package com.jerry.mekanism_extras.common.block.storage.energycube;
 
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import mekanism.api.IContentsListener;
 import mekanism.api.NBTConstants;
 import mekanism.api.RelativeSide;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper;
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder;
 import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
@@ -68,7 +68,7 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = Attribute.getTier(getBlockType(), ECTier.class);
+        tier = ExtraAttribute.getTier(getBlockType(), ECTier.class);
     }
 
     @Nonnull

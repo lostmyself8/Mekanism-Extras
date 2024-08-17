@@ -1,8 +1,10 @@
 package com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter;
 
+import com.jerry.mekanism_extras.common.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.api.tier.BaseTier;
 import mekanism.client.model.data.TransmitterModelData;
+import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,21 +37,14 @@ public class ExtraTileEntityLogisticalTransporter extends ExtraTileEntityLogisti
         modelData.setHasColor(getTransmitter().getColor() != null);
     }
 
-//    @NotNull
-//    @Override
-//    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-//        return BlockStateHelper.copyStateData(current, switch (tier) {
-//            case BASIC -> ExtraBlock.ABSOLUTE_LOGISTICAL_TRANSPORTER;
-//            case ADVANCED -> ExtraBlock.SUPREME_LOGISTICAL_TRANSPORTER;
-//            case ELITE -> ExtraBlock.COSMIC_LOGISTICAL_TRANSPORTER;
-//            case ULTIMATE -> ExtraBlock.INFINITE_LOGISTICAL_TRANSPORTER;
-//            default -> null;
-//        });
-//    }
-
     @NotNull
     @Override
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-        return current;
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+        return BlockStateHelper.copyStateData(current, switch (tier) {
+            case ABSOLUTE -> ExtraBlock.ABSOLUTE_LOGISTICAL_TRANSPORTER;
+            case SUPREME -> ExtraBlock.SUPREME_LOGISTICAL_TRANSPORTER;
+            case COSMIC -> ExtraBlock.COSMIC_LOGISTICAL_TRANSPORTER;
+            case INFINITE -> ExtraBlock.INFINITE_LOGISTICAL_TRANSPORTER;
+        });
     }
 }

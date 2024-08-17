@@ -1,0 +1,12 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "ingredient": {
+      "tag": "forge:storage_blocks/raw_naquadah"
+    }
+  },
+  "output": {
+    "count": 12,
+    "item": "mekanism_extras:dust_naquadah"
+  }
+}

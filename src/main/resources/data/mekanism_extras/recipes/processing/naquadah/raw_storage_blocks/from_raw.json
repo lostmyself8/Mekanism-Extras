@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "forge:raw_materials/naquadah"
+    },
+    "P": {
+      "item": "mekanism_extras:raw_naquadah"
+    }
+  },
+  "pattern": [
+    "###",
+    "#P#",
+    "###"
+  ],
+  "result": {
+    "item": "mekanism_extras:block_raw_naquadah"
+  }
+}

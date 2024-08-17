@@ -2,13 +2,15 @@ package com.jerry.mekanism_extras.client.events;
 
 import com.google.common.collect.Table;
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.client.bin.ExtraRenderBin;
-import com.jerry.mekanism_extras.client.energycube.ExtraEnergyCubeModelLoader;
-import com.jerry.mekanism_extras.client.energycube.ExtraModelEnergyCore;
-import com.jerry.mekanism_extras.client.energycube.ExtraRenderEnergyCube;
-import com.jerry.mekanism_extras.client.energycube.ExtraRenderEnergyCubeItem;
-import com.jerry.mekanism_extras.client.fluidtank.ExtraRenderFluidTank;
-import com.jerry.mekanism_extras.client.item.*;
+import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderBin;
+import com.jerry.mekanism_extras.client.model.energycube.ExtraEnergyCubeModelLoader;
+import com.jerry.mekanism_extras.client.model.ExtraModelEnergyCore;
+import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderEnergyCube;
+import com.jerry.mekanism_extras.client.render.item.block.ExtraRenderEnergyCubeItem;
+import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderFluidTank;
+import com.jerry.mekanism_extras.client.render.transmitter.*;
+import com.jerry.mekanism_extras.common.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ECTier;
 import com.jerry.mekanism_extras.common.block.storage.energycube.EnergyCubeColor;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraItemBlockEnergyCube;
@@ -16,11 +18,9 @@ import com.jerry.mekanism_extras.common.block.storage.fluidtank.ExtraItemBlockFl
 import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
 import com.jerry.mekanism_extras.registry.ExtraBlock;
 import com.jerry.mekanism_extras.registry.ExtraTileEntityTypes;
-import mekanism.api.tier.BaseTier;
 import mekanism.client.ClientRegistrationUtil;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.item.TransmitterTypeDecorator;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.ItemRegistryObject;
 import mekanism.common.registries.*;
@@ -91,7 +91,7 @@ public class ClientRender {
     public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, tintIndex) -> {
             if (tintIndex == 1) {
-                BaseTier tier = Attribute.getBaseTier(state.getBlock());
+                AdvanceTier tier = ExtraAttribute.getAdvanceTier(state.getBlock());
                 if (tier != null) {
                     float[] color = FTTier.getColor(tier);
                     return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
@@ -102,7 +102,7 @@ public class ClientRender {
 
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, index) -> {
                     if (index == 1) {
-                        ECTier tier = Attribute.getTier(state.getBlock(), ECTier.class);
+                        ECTier tier = ExtraAttribute.getTier(state.getBlock(), ECTier.class);
                         if (tier != null) {
                             float[] color = EnergyCubeColor.getColor(tier);
                             return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
@@ -119,7 +119,7 @@ public class ClientRender {
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ExtraItemBlockFluidTank tank) {
-                float[] color = FTTier.getColor(tank.getTier().getBaseTier());
+                float[] color = FTTier.getColor(tank.getAdvanceTier().getAdvanceTier());
                 return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
             }
             return -1;
@@ -130,7 +130,7 @@ public class ClientRender {
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ExtraItemBlockEnergyCube cube) {
-                float[] color = EnergyCubeColor.getColor(cube.getTier());
+                float[] color = EnergyCubeColor.getColor(cube.getAdvanceTier());
                 return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
             }
             return -1;

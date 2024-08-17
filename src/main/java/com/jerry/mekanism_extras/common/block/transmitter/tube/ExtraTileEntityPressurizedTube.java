@@ -1,6 +1,8 @@
 package com.jerry.mekanism_extras.common.block.transmitter.tube;
 
-import com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter.ExtraTileEntityTransmitter;
+import com.jerry.mekanism_extras.common.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.api.NBTConstants;
 import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
@@ -13,7 +15,7 @@ import mekanism.api.chemical.slurry.ISlurryTank;
 import mekanism.api.math.MathUtils;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.radiation.IRadiationManager;
-import mekanism.api.tier.BaseTier;
+import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.DynamicHandler;
@@ -92,22 +94,15 @@ public class ExtraTileEntityPressurizedTube extends ExtraTileEntityTransmitter i
         return TransmitterType.PRESSURIZED_TUBE;
     }
 
-//    @NotNull
-//    @Override
-//    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-//        return BlockStateHelper.copyStateData(current, switch (tier) {
-//            case BASIC -> ExtraBlock.ABSOLUTE_PRESSURIZED_TUBE;
-//            case ADVANCED -> ExtraBlock.SUPREME_PRESSURIZED_TUBE;
-//            case ELITE -> ExtraBlock.COSMIC_PRESSURIZED_TUBE;
-//            case ULTIMATE -> ExtraBlock.INFINITE_PRESSURIZED_TUBE;
-//            default -> null;
-//        });
-//    }
-
     @NotNull
     @Override
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull BaseTier tier) {
-        return current;
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+        return BlockStateHelper.copyStateData(current, switch (tier) {
+            case ABSOLUTE -> ExtraBlock.ABSOLUTE_PRESSURIZED_TUBE;
+            case SUPREME -> ExtraBlock.SUPREME_PRESSURIZED_TUBE;
+            case COSMIC -> ExtraBlock.COSMIC_PRESSURIZED_TUBE;
+            case INFINITE -> ExtraBlock.INFINITE_PRESSURIZED_TUBE;
+        });
     }
 
     @NotNull

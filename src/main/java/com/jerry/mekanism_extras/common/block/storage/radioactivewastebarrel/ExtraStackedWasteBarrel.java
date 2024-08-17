@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block.storage.radioactivewastebarrel;
 
-import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.config.LoadConfig;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -29,7 +29,7 @@ public class ExtraStackedWasteBarrel extends VariableCapacityChemicalTank<Gas, G
     private final ExtraTileEntityRadioactiveWasteBarrel tile;
 
     protected ExtraStackedWasteBarrel(ExtraTileEntityRadioactiveWasteBarrel tile, @Nullable IContentsListener listener) {
-        super(MekanismExtras.getConfig().radioactiveWasteBarrelMaxGas, ChemicalTankBuilder.GAS.alwaysTrueBi, ChemicalTankBuilder.GAS.alwaysTrueBi,
+        super(LoadConfig.extraConfig.radioactiveWasteBarrelMaxGas, ChemicalTankBuilder.GAS.alwaysTrueBi, ChemicalTankBuilder.GAS.alwaysTrueBi,
                 ChemicalTankBuilder.GAS.alwaysTrue, ATTRIBUTE_VALIDATOR, listener);
         this.tile = tile;
     }

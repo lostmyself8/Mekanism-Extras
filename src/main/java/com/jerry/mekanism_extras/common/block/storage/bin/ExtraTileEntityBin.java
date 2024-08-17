@@ -1,11 +1,11 @@
 package com.jerry.mekanism_extras.common.block.storage.bin;
 
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import mekanism.api.Action;
 import mekanism.api.IConfigurable;
 import mekanism.api.IContentsListener;
 import mekanism.api.NBTConstants;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
@@ -53,7 +53,7 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = Attribute.getTier(getBlockType(), BTier.class);
+        tier = ExtraAttribute.getTier(getBlockType(), BTier.class);
     }
 
     @NotNull

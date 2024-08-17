@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter;
 
+import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import mekanism.api.NBTConstants;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.EnumColor;
@@ -9,6 +10,8 @@ import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.PathfinderCache;
 import mekanism.common.tier.TransporterTier;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
+import mekanism.common.upgrade.transmitter.LogisticalTransporterUpgradeData;
+import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.Direction;
@@ -17,8 +20,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-public class ExtraLogisticalTransporter extends ExtraLogisticalTransporterBase {
+public class ExtraLogisticalTransporter extends ExtraLogisticalTransporterBase implements IExtraUpgradeableTransmitter<LogisticalTransporterUpgradeData> {
 
     private EnumColor color;
 
@@ -64,25 +68,27 @@ public class ExtraLogisticalTransporter extends ExtraLogisticalTransporterBase {
         return false;
     }
 
-//    @Nullable
-//    public LogisticalTransporterUpgradeData getUpgradeData() {
-//        return new LogisticalTransporterUpgradeData(this.redstoneReactive, this.getConnectionTypesRaw(), this.getColor(), this.transit, this.needsSync, this.nextId, this.delay, this.delayCount);
-//    }
-//
-//    public boolean dataTypeMatches(@Nonnull TransmitterUpgradeData data) {
-//        return data instanceof LogisticalTransporterUpgradeData;
-//    }
-//
-//    public void parseUpgradeData(@Nonnull LogisticalTransporterUpgradeData data) {
-//        this.redstoneReactive = data.redstoneReactive;
-//        this.setConnectionTypesRaw(data.connectionTypes);
-//        this.setColor(data.color);
-//        this.transit.putAll(data.transit);
-//        this.needsSync.putAll(data.needsSync);
-//        this.nextId = data.nextId;
-//        this.delay = data.delay;
-//        this.delayCount = data.delayCount;
-//    }
+    @Override
+    @Nullable
+    public LogisticalTransporterUpgradeData getUpgradeData() {
+        return new LogisticalTransporterUpgradeData(this.redstoneReactive, this.getConnectionTypesRaw(), this.getColor(), this.transit, this.needsSync, this.nextId, this.delay, this.delayCount);
+    }
+
+    @Override
+    public boolean dataTypeMatches(@Nonnull TransmitterUpgradeData data) {
+        return data instanceof LogisticalTransporterUpgradeData;
+    }
+
+    public void parseUpgradeData(@Nonnull LogisticalTransporterUpgradeData data) {
+        this.redstoneReactive = data.redstoneReactive;
+        this.setConnectionTypesRaw(data.connectionTypes);
+        this.setColor(data.color);
+        this.transit.putAll(data.transit);
+        this.needsSync.putAll(data.needsSync);
+        this.nextId = data.nextId;
+        this.delay = data.delay;
+        this.delayCount = data.delayCount;
+    }
 
     protected void readFromNBT(CompoundTag nbtTags) {
         super.readFromNBT(nbtTags);

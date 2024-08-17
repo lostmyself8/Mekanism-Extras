@@ -11,13 +11,11 @@ import com.jerry.mekanism_extras.common.block.storage.radioactivewastebarrel.Ext
 import com.jerry.mekanism_extras.common.block.transmitter.cable.ExtraTileEntityUniversalCable;
 import com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter.ExtraTileEntityLogisticalTransporter;
 import com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter.ExtraTileEntityLogisticalTransporterBase;
-import com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter.ExtraTileEntityTransmitter;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraTileEntityTransmitter;
 import com.jerry.mekanism_extras.common.block.transmitter.pipe.ExtraTileEntityMechanicalPipe;
 import com.jerry.mekanism_extras.common.block.transmitter.thermodynamicconductor.ExtraTileEntityThermodynamicConductor;
 import com.jerry.mekanism_extras.common.block.transmitter.tube.ExtraTileEntityPressurizedTube;
-import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
-import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionPort;
-import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityColliderCasing;
+import com.jerry.mekanism_extras.common.tile.multiblock.*;
 import com.jerry.mekanism_extras.common.tile.multiblock.cell.ExtraTileEntityInductionCell;
 import com.jerry.mekanism_extras.common.tile.multiblock.provider.ExtraTileEntityInductionProvider;
 import mekanism.common.registration.impl.BlockRegistryObject;
@@ -97,7 +95,6 @@ public class ExtraTileEntityTypes {
     public static final TileEntityTypeRegistryObject<ForceFieldGeneratorEntity> FORCEFIELD_GENERATOR = TILE_ENTITY_TYPES.register(ExtraBlock.FORCEFIELD_GENERATOR, ForceFieldGeneratorEntity::new);
 
     public static final TileEntityTypeRegistryObject<ExtraTileEntityElectricPump> FASTER_ELECTRIC_PUMP = TILE_ENTITY_TYPES.register(ExtraBlock.FASTER_ELECTRIC_PUMP, ExtraTileEntityElectricPump::new);
-    public static final TileEntityTypeRegistryObject<TileEntityColliderCasing> COLLIDER_CASING = TILE_ENTITY_TYPES.register(ExtraBlock.COLLIDER_CASING, TileEntityColliderCasing::new);
 
     public static void register(IEventBus eventBus) {
         TILE_ENTITY_TYPES.register(eventBus);

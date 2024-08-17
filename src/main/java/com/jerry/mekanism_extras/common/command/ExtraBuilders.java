@@ -1,8 +1,10 @@
 package com.jerry.mekanism_extras.common.command;
 
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlock;
 import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.common.command.builders.StructureBuilder;
 import mekanism.common.registries.MekanismBlocks;
+import mekanism.generators.common.registries.GeneratorsBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -13,54 +15,28 @@ public class ExtraBuilders {
 
     }
 
-    public static class ColliderBuilder extends StructureBuilder {
+    public static class NaquadahReactorBuilder extends StructureBuilder {
 
-        public ColliderBuilder() {
-            super(4, 4, 4);
+        public NaquadahReactorBuilder() {
+            super(5, 5, 5);
         }
 
         @Override
-        public void build(Level world, BlockPos start, boolean empty) {
-            buildFrame(world, start);
+        protected void build(Level world, BlockPos start, boolean empty) {
+            buildPartialFrame(world, start, 1);
             buildWalls(world, start);
-//            world.setBlockAndUpdate(start.offset(6, 1, 1), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(7, 1, 1), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(8, 1, 1), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(4, 1, 2), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(5, 1, 2), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(9, 1, 2), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(10, 1, 2), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(3, 1, 3), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(11, 1, 3), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(2, 1, 4), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(12, 1, 4), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(2, 1, 5), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(12, 1, 5), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(1, 1, 6), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(13, 1, 6), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(1, 1, 7), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(13, 1, 7), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(1, 1, 8), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(13, 1, 8), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(2, 1, 9), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(12, 1, 9), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(2, 1, 10), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(12, 1, 10), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(3, 1, 11), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(11, 1, 11), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(4, 1, 12), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(10, 1, 12), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(5, 1, 12), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(9, 1, 12), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(6, 1, 13), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(7, 1, 13), Blocks.AIR.defaultBlockState());
-//            world.setBlockAndUpdate(start.offset(8, 1, 13), Blocks.AIR.defaultBlockState());
-
+            buildInteriorLayers(world, start, 1, 3, Blocks.AIR);
+            world.setBlockAndUpdate(start.offset(2, 4, 2), ExtraGenBlock.NAQUADAH_REACTOR_CONTROLLER.getBlock().defaultBlockState());
         }
 
         @Override
-        public Block getCasing() {
-            return ExtraBlock.COLLIDER_CASING.getBlock();
+        protected Block getWallBlock(BlockPos pos) {
+            return GeneratorsBlocks.REACTOR_GLASS.getBlock();
+        }
+
+        @Override
+        protected Block getCasing() {
+            return ExtraGenBlock.NAQUADAH_REACTOR_CASING.getBlock();
         }
     }
 
@@ -87,4 +63,5 @@ public class ExtraBuilders {
             return MekanismBlocks.INDUCTION_CASING.getBlock();
         }
     }
+
 }

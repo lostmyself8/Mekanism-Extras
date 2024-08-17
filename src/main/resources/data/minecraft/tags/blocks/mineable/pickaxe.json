@@ -1,5 +1,19 @@
 {
   "values": [
+    "mekanism_extras:block_naquadah",
+    "mekanism_extras:block_raw_naquadah",
+    "mekanism_extras:naquadah_ore",
+    "mekanism_extras:end_naquadah_ore",
+    "mekanism_extras:absolute_induction_cell",
+    "mekanism_extras:absolute_induction_provider",
+    "mekanism_extras:supreme_induction_cell",
+    "mekanism_extras:supreme_induction_provider",
+    "mekanism_extras:cosmic_induction_cell",
+    "mekanism_extras:cosmic_induction_provider",
+    "mekanism_extras:infinite_induction_cell",
+    "mekanism_extras:infinite_induction_provider",
+    "mekanism_extras:reinforced_induction_casing",
+    "mekanism_extras:reinforced_induction_port",
     "mekanism_extras:absolute_bin",
     "mekanism_extras:supreme_bin",
     "mekanism_extras:cosmic_bin",
@@ -36,6 +50,7 @@
     "mekanism_extras:supreme_chemical_tank",
     "mekanism_extras:cosmic_chemical_tank",
     "mekanism_extras:infinite_chemical_tank",
-    "mekanism_extras:expand_radioactive_waste_barrel"
+    "mekanism_extras:expand_radioactive_waste_barrel",
+    "mekanism_extras:faster_electric_pump"
   ]
 }

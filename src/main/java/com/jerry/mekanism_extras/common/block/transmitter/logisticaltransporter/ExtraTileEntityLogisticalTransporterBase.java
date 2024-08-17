@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter;
 
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraTileEntityTransmitter;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.capabilities.item.CursedTransporterItemHandler;

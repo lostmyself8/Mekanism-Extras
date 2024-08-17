@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Objects;
 
 public class ExtraItemBlockLogisticalTransporter extends ItemBlockMekanism<ExtraBlockLogisticalTransporter> {
 
@@ -24,7 +25,7 @@ public class ExtraItemBlockLogisticalTransporter extends ItemBlockMekanism<Extra
 
     @Nonnull
     public TransporterTier getTier() {
-        return Attribute.getTier(this.getBlock(), TransporterTier.class);
+        return Objects.requireNonNull(Attribute.getTier(this.getBlock(), TransporterTier.class));
     }
 
     public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {

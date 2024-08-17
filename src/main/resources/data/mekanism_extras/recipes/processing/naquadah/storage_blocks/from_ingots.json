@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/naquadah"
+    },
+    "P": {
+      "item": "mekanism_extras:ingot_naquadah"
+    }
+  },
+  "pattern": [
+    "###",
+    "#P#",
+    "###"
+  ],
+  "result": {
+    "item": "mekanism_extras:block_naquadah"
+  }
+}

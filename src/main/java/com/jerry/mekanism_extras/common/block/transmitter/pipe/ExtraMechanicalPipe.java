@@ -1,17 +1,22 @@
 package com.jerry.mekanism_extras.common.block.transmitter.pipe;
 
+import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import mekanism.api.Action;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.content.network.transmitter.MechanicalPipe;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
+import mekanism.common.upgrade.transmitter.MechanicalPipeUpgradeData;
+import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import net.minecraft.core.Direction;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
-public class ExtraMechanicalPipe extends MechanicalPipe {
+public class ExtraMechanicalPipe extends MechanicalPipe implements IExtraUpgradeableTransmitter<MechanicalPipeUpgradeData> {
     public ExtraMechanicalPipe(IBlockProvider blockProvider, TileEntityTransmitter tile) {
         super(blockProvider, tile);
     }
@@ -45,5 +50,21 @@ public class ExtraMechanicalPipe extends MechanicalPipe {
     @Override
     public long getCapacity() {
         return PTier.getPipeCapacity(this.tier);
+    }
+
+    @Nullable
+    @Override
+    public MechanicalPipeUpgradeData getUpgradeData() {
+        return super.getUpgradeData();
+    }
+
+    @Override
+    public boolean dataTypeMatches(@NotNull TransmitterUpgradeData data) {
+        return super.dataTypeMatches(data);
+    }
+
+    @Override
+    public void parseUpgradeData(@NotNull MechanicalPipeUpgradeData data) {
+        super.parseUpgradeData(data);
     }
 }
