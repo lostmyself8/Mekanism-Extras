@@ -173,6 +173,10 @@ public class ExtraConfig extends BaseMekanismConfig {
         addBinCategory(builder);
         addInductionCategory(builder);
         builder.pop();
+
+        this.forcefieldGenerator = CachedFloatingLongValue.define(this, builder, "Base energy storage (Joules).", "forcefield_generator",
+                FloatingLong.createConst(1_000_000_000_000D));
+
         this.configSpec = builder.build();
     }
 
