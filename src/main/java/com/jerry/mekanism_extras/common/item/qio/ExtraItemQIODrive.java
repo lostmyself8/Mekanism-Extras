@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ExtraItemQIODrive extends Item implements IQIODriveItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, List<Component> components, @NotNull TooltipFlag tooltipFlag) {
         DriveMetadata meta = DriveMetadata.load(itemStack);
         components.add(MekanismLang.QIO_ITEMS_DETAIL.translateColored(EnumColor.GRAY, EnumColor.INDIGO,
                 TextUtils.format(meta.count()), TextUtils.format(getCountCapacity(itemStack))));
@@ -33,7 +34,7 @@ public class ExtraItemQIODrive extends Item implements IQIODriveItem {
     }
 
     @Override
-    public Component getName(ItemStack itemStack) {
+    public @NotNull Component getName(@NotNull ItemStack itemStack) {
         return TextComponentUtil.build(this.tier.getBaseTier().getColor(), super.getName(itemStack));
     }
 
