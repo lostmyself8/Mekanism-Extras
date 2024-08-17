@@ -18,7 +18,7 @@ import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraRenderFluidTankItem extends MekanismISTER {
-    public static final ExtraRenderFluidTankItem RENDERER = new ExtraRenderFluidTankItem();
+    public static final ExtraRenderFluidTankItem EXTRA_RENDERER = new ExtraRenderFluidTankItem();
 
     @Override
     public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {

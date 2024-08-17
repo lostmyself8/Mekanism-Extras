@@ -1,8 +1,7 @@
 package com.jerry.mekanism_extras.client.events;
 
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.common.block.storage.energycube.EnergyCubeColor;
-import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
+import com.jerry.mekanism_extras.common.block.storage.TierColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,7 +12,6 @@ public class ClientTick {
 
     @SubscribeEvent
     public void onTickClientTick(TickEvent.ClientTickEvent event) {
-        EnergyCubeColor.tick();
-        FTTier.tick();
+        TierColor.tick();
     }
 }

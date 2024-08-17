@@ -18,7 +18,7 @@
     </facet>
   </component>
   <component name="McpModuleSettings">
-    <option name="mappingFile" value="D:\mc\Mekanism-Extras\build\createMcpToSrg\output.tsrg" />
+    <option name="mappingFile" value="D:\project\IDEA\workforge\Mekanism Extras\build\createMcpToSrg\output.tsrg" />
     <option name="mcpVersion" value="official_1.20.1" />
     <option name="minecraftVersion" value="1.20.1" />
     <option name="platformVersion" value="47.2.32" />

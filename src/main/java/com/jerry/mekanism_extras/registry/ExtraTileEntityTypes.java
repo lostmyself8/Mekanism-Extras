@@ -2,7 +2,7 @@ package com.jerry.mekanism_extras.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.block.machine.ElectricPump.ExtraTileEntityElectricPump;
-import com.jerry.mekanism_extras.common.block.machine.forcefield.ForceFieldGeneratorEntity;
+
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraTileEntityBin;
 import com.jerry.mekanism_extras.common.block.storage.chemicaltank.ExtraTileEntityChemicalTank;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraTileEntityEnergyCube;
@@ -92,7 +92,8 @@ public class ExtraTileEntityTypes {
     public static final TileEntityTypeRegistryObject<ExtraTileEntityChemicalTank> COSMIC_CHEMICAL_TANK = TILE_ENTITY_TYPES.register(ExtraBlock.COSMIC_CHEMICAL_TANK, (pos, state) -> new ExtraTileEntityChemicalTank(ExtraBlock.COSMIC_CHEMICAL_TANK, pos, state));
     public static final TileEntityTypeRegistryObject<ExtraTileEntityChemicalTank> INFINITE_CHEMICAL_TANK = TILE_ENTITY_TYPES.register(ExtraBlock.INFINITE_CHEMICAL_TANK, (pos, state) -> new ExtraTileEntityChemicalTank(ExtraBlock.INFINITE_CHEMICAL_TANK, pos, state));
 
-    public static final TileEntityTypeRegistryObject<ForceFieldGeneratorEntity> FORCEFIELD_GENERATOR = TILE_ENTITY_TYPES.register(ExtraBlock.FORCEFIELD_GENERATOR, ForceFieldGeneratorEntity::new);
+
+
 
     public static final TileEntityTypeRegistryObject<ExtraTileEntityElectricPump> FASTER_ELECTRIC_PUMP = TILE_ENTITY_TYPES.register(ExtraBlock.FASTER_ELECTRIC_PUMP, ExtraTileEntityElectricPump::new);
 

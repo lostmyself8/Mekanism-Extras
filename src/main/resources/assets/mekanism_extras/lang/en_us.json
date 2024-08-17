@@ -83,6 +83,10 @@
   "block.mekanism_extras.infinite_chemical_tank": "Infinite Chemical Tank",
   "block.mekanism_extras.expand_radioactive_waste_barrel": "Expand Radioactive Waste Barrel",
   "block.mekanism_extras.faster_electric_pump": "Faster Electric Pump",
+  "block.mekanism_extras.naquadah_reactor_controller": "Naquadah Reactor Controller",
+  "block.mekanism_extras.naquadah_reactor_casing": "Naquadah Reactor Casing",
+  "block.mekanism_extras.naquadah_reactor_port": "Naquadah Reactor Port",
+  "block.mekanism_extras.naquadah_reactor_logic_adapter": "Naquadah Reactor Logic Adapter",
 
   "gas.mekanism_extras.molten_thermonuclear": "Molten Thermonuclear",
   "gas.mekanism_extras.spectrum_pigments": "Spectrum Pigments",
@@ -108,12 +112,10 @@
   "container.mekanism_extras.cosmic_chemical_tank": "Cosmic Chemical Tank",
   "container.mekanism_extras.infinite_chemical_tank": "Infinite Chemical Tank",
 
-  "plasma.mekanism_extras.hydrogen": "Hydrogen Plasma",
+  "reactor.mekanism_extras.naquadah_reactor": "Naquadah Reactor",
+  "description.mekanism_extras.naquadah_reactor_casing": "Radiation-proof framing that can be used in the Naquadah Reactor multiblock.",
+  "description.mekanism_extras.naquadah_reactor_port": "A block of radiation-proof framing that is capable of managing both the gas and energy transfer of the Naquadah Reactor.",
+  "description.mekanism_extras.naquadah_reactor_controller": "The controlling block for the entire Naquadah Reactor structure.",
 
-  "forcefield.mekanism_extras.failed.wrong_quantity_of_generators": "There aren't correct quantity of generators. Exactly 8 generators are needed.",
-  "forcefield.mekanism_extras.failed.cross_dimension": "Force Field Matrix cannot work across dimensions.",
-  "forcefield.mekanism_extras.failed.invalid_cuboid": "The Force Field Matrix must be a cuboid.",
-  "forcefield.mekanism_extras.success": "The Force Field Matrix is ready!",
-
-  "description.mekanism_extras.forcefield_generator": "The machine which is capable of creating a powerful force field that can keep massive machines from the universe working."
+  "plasma.mekanism_extras.hydrogen": "Hydrogen Plasma"
 }

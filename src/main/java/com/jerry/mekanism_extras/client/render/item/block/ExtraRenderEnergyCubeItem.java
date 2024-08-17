@@ -3,7 +3,7 @@ package com.jerry.mekanism_extras.client.render.item.block;
 import com.jerry.mekanism_extras.client.model.ExtraModelEnergyCore;
 import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderEnergyCube;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ECTier;
-import com.jerry.mekanism_extras.common.block.storage.energycube.EnergyCubeColor;
+import com.jerry.mekanism_extras.common.block.storage.TierColor;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraItemBlockEnergyCube;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraTileEntityEnergyCube;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -29,7 +29,7 @@ import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraRenderEnergyCubeItem extends MekanismISTER {
-    public static final ExtraRenderEnergyCubeItem RENDERER = new ExtraRenderEnergyCubeItem();
+    public static final ExtraRenderEnergyCubeItem EXTRA_RENDERER = new ExtraRenderEnergyCubeItem();
     private ExtraModelEnergyCore core;
 
     @Override
@@ -72,7 +72,7 @@ public class ExtraRenderEnergyCubeItem extends MekanismISTER {
             matrix.translate(0, Math.sin(Math.toRadians(3 * ticks)) / 7, 0);
             matrix.mulPose(Axis.YP.rotationDegrees(scaledTicks));
             matrix.mulPose(ExtraRenderEnergyCube.coreVec.rotationDegrees(36F + scaledTicks));
-            core.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, EnergyCubeColor.getColor(tier), (float) energyPercentage);
+            core.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, TierColor.getColor(tier), (float) energyPercentage);
             matrix.popPose();
         }
     }

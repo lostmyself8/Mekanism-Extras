@@ -16,6 +16,7 @@ public class ExtraPlasma {
 
     public static void register(IEventBus eventBus) {
         PLASMA.createAndRegister(eventBus);
+        PLASMA.register(eventBus);
     }
 
 }

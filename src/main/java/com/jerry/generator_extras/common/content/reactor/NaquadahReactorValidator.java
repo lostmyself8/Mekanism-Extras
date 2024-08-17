@@ -6,6 +6,7 @@ import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.math.voxel.VoxelCuboid;
 import mekanism.common.lib.multiblock.*;
 import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlockType;
+import mekanism.generators.common.registries.GeneratorsBlockTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -53,7 +54,7 @@ public class NaquadahReactorValidator extends CuboidStructureValidator<NaquadahR
     @Override
     protected FormationProtocol.CasingType getCasingType(BlockState state) {
         Block block = state.getBlock();
-        if (BlockType.is(block, ExtraGenBlockType.NAQUADAH_REACTOR_CASING)) {
+        if (BlockType.is(block, ExtraGenBlockType.NAQUADAH_REACTOR_CASING, GeneratorsBlockTypes.REACTOR_GLASS)) {
             return FormationProtocol.CasingType.FRAME;
         } else if (BlockType.is(block, ExtraGenBlockType.NAQUADAH_REACTOR_PORT)) {
             return FormationProtocol.CasingType.VALVE;

@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.api;
+package com.jerry.mekanism_extras.common.api;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.content.plasma.EmptyPlasma;

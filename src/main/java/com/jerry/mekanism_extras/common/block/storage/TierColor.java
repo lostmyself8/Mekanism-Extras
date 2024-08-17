@@ -1,11 +1,13 @@
-package com.jerry.mekanism_extras.common.block.storage.energycube;
+package com.jerry.mekanism_extras.common.block.storage;
 
-public class EnergyCubeColor {
+import com.jerry.mekanism_extras.common.api.tier.IAdvanceTier;
+
+public class TierColor {
     private static final int[] cosmicColor = new int[]{255, 255, 255};
     private static final int[] infiniteColor = new int[]{1, 2, 3};
 
-    public static float[] getColor(ECTier tier) {
-        return switch (tier) {
+    public static float[] getColor(IAdvanceTier tier) {
+        return switch (tier.getAdvanceTier()) {
             case ABSOLUTE -> new float[]{255/255.0F, 255/255.0F, 0/255.0F};
             case SUPREME -> new float[]{255/255.0F, 0/255.0F, 0/255.0F};
             case COSMIC -> new float[]{cosmicColor[0]/255.0F, cosmicColor[1]/255.0F, cosmicColor[2]/255.0F};

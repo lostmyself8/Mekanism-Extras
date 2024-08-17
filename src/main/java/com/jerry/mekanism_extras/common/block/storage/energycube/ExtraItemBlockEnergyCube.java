@@ -1,12 +1,11 @@
 package com.jerry.mekanism_extras.common.block.storage.energycube;
 
-import com.jerry.mekanism_extras.client.render.item.block.ExtraRenderEnergyCubeItem;
+import com.jerry.mekanism_extras.client.render.ExtraRenderPropertiesProvider;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockTooltip;
 import mekanism.api.NBTConstants;
 import mekanism.api.RelativeSide;
 import mekanism.api.text.EnumColor;
-import mekanism.client.render.RenderPropertiesProvider;
 import mekanism.common.MekanismLang;
 import mekanism.common.capabilities.ItemCapabilityWrapper;
 import mekanism.common.capabilities.energy.item.ItemStackEnergyHandler;
@@ -26,8 +25,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,9 +40,8 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new RenderPropertiesProvider.MekRenderProperties(ExtraRenderEnergyCubeItem.RENDERER));
+        consumer.accept(ExtraRenderPropertiesProvider.extraEnergyCube());
     }
 
     @Nonnull
