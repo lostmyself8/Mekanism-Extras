@@ -83,6 +83,10 @@
   "block.mekanism_extras.infinite_chemical_tank": "悖论无限化学品储罐",
   "block.mekanism_extras.expand_radioactive_waste_barrel": "增容放射性废料桶",
   "block.mekanism_extras.faster_electric_pump": "快速电动泵",
+  "block.mekanism_extras.naquadah_reactor_controller": "硅岩反应堆控制器",
+  "block.mekanism_extras.naquadah_reactor_casing": "硅岩反应堆外壳",
+  "block.mekanism_extras.naquadah_reactor_port": "硅岩反应堆端口",
+  "block.mekanism_extras.naquadah_reactor_logic_adapter": "硅岩反应堆逻辑适配器",
 
   "gas.mekanism_extras.molten_thermonuclear": "熔融热核",
   "gas.mekanism_extras.spectrum_pigments": "光谱颜料",
@@ -107,6 +111,11 @@
   "container.mekanism_extras.supreme_chemical_tank": "至尊化学品储罐",
   "container.mekanism_extras.cosmic_chemical_tank": "寰宇支配化学品储罐",
   "container.mekanism_extras.infinite_chemical_tank": "悖论无限化学品储罐",
+
+  "reactor.mekanism_extras.naquadah_reactor": "硅岩反应堆",
+  "description.mekanism_extras.naquadah_reactor_casing": "能用于硅岩反应堆的防辐射外壳",
+  "description.mekanism_extras.naquadah_reactor_port": "一个防辐射的框架方块，能处理硅岩反应堆中气体和能量的输送",
+  "description.mekanism_extras.naquadah_reactor_controller": "整个硅岩反应堆结构的控制方块",
 
   "plasma.mekanism_extras.hydrogen": "氢等离子体"
 }

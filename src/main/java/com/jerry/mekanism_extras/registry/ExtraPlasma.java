@@ -15,6 +15,7 @@ public class ExtraPlasma {
     public static final PlasmaRegistryObject<Plasma> HYDROGEN = PLASMA.register(PlasmaConstants.HYDROGEN);
 
     public static void register(IEventBus eventBus) {
+        PLASMA.createAndRegister(eventBus);
         PLASMA.register(eventBus);
     }
 

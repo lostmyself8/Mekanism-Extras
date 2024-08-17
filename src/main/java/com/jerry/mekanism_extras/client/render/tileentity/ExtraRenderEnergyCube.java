@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.render.tileentity;
 
 import com.jerry.mekanism_extras.client.model.ExtraModelEnergyCore;
-import com.jerry.mekanism_extras.common.block.storage.energycube.EnergyCubeColor;
+import com.jerry.mekanism_extras.common.block.storage.TierColor;
 import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraTileEntityEnergyCube;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -41,7 +41,7 @@ public class ExtraRenderEnergyCube extends ModelTileEntityRenderer<ExtraTileEnti
                 poseStack.translate(0, Math.sin(Math.toRadians(3 * ticks)) / 7, 0);
                 poseStack.mulPose(Axis.YP.rotationDegrees(scaledTicks));
                 poseStack.mulPose(coreVec.rotationDegrees(36F + scaledTicks));
-                model.render(poseStack, buffer, LightTexture.FULL_BRIGHT, overlayLight, EnergyCubeColor.getColor(tile.getTier()), energyScale);
+                model.render(poseStack, buffer, LightTexture.FULL_BRIGHT, overlayLight, TierColor.getColor(tile.getTier()), energyScale);
                 poseStack.popPose();
             }
 

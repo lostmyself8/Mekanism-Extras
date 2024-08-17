@@ -6,6 +6,9 @@ import com.jerry.mekanism_extras.common.block.ExtraBlockOre;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockResource;
 import com.jerry.mekanism_extras.common.block.machine.ElectricPump.ExtraTileEntityElectricPump;
+
+
+
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraBlockBin;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraItemBlockBin;
 import com.jerry.mekanism_extras.common.block.storage.bin.ExtraTileEntityBin;
@@ -49,6 +52,16 @@ import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.item.block.machine.ItemBlockMachine;
+
+
+
+
+
+
+
+
+
+
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.resource.BlockResourceInfo;
@@ -155,6 +168,11 @@ public class ExtraBlock {
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> SUPREME_CHEMICAL_TANK = registerChemicalTank("supreme", ExtraBlockType.SUPREME_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> COSMIC_CHEMICAL_TANK = registerChemicalTank("cosmic", ExtraBlockType.COSMIC_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> INFINITE_CHEMICAL_TANK = registerChemicalTank("infinite", ExtraBlockType.INFINITE_CHEMICAL_TANK);
+
+
+
+
+
     //other
     public static final BlockRegistryObject<ExtraBlockRadioactiveWasteBarrel, ExtraItemBlockRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = EXTRA_BLOCK.registerDefaultProperties("expand_radioactive_waste_barrel", ExtraBlockRadioactiveWasteBarrel::new, ExtraItemBlockRadioactiveWasteBarrel::new);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityElectricPump, Machine<ExtraTileEntityElectricPump>>, ItemBlockMachine> FASTER_ELECTRIC_PUMP = EXTRA_BLOCK.register("faster_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockType.FASTER_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);

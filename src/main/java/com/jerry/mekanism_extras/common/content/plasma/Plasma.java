@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.common.content.plasma;
 
-import com.jerry.mekanism_extras.api.MekanismExtraAPI;
-import com.jerry.mekanism_extras.api.NBTConstants;
+import com.jerry.mekanism_extras.common.api.MekanismExtraAPI;
+import com.jerry.mekanism_extras.common.api.NBTConstants;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalTags;

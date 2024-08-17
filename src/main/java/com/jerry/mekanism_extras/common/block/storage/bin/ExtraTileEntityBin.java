@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.block.storage.bin;
 
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter.ExtraTileEntityLogisticalTransporterBase;
 import mekanism.api.Action;
 import mekanism.api.IConfigurable;
 import mekanism.api.IContentsListener;
@@ -17,7 +18,6 @@ import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.lib.inventory.TileTransitRequest;
 import mekanism.common.lib.inventory.TransitRequest;
 import mekanism.common.tile.base.TileEntityMekanism;
-import mekanism.common.tile.transmitter.TileEntityLogisticalTransporterBase;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
@@ -88,7 +88,7 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
                 TileTransitRequest request = new TileTransitRequest(this, Direction.DOWN);
                 request.addItem(binSlot.getBottomStack(), 0);
                 TransitRequest.TransitResponse response;
-                if (tile instanceof TileEntityLogisticalTransporterBase transporter) {
+                if (tile instanceof ExtraTileEntityLogisticalTransporterBase transporter) {
                     response = transporter.getTransmitter().insert(this, request, transporter.getTransmitter().getColor(), true, 0);
                 } else {
                     response = request.addToInventory(tile, Direction.DOWN, 0, false);

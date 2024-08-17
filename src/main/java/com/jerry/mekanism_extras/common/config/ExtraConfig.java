@@ -71,6 +71,8 @@ public class ExtraConfig extends BaseMekanismConfig {
     public final CachedLongValue radioactiveWasteBarrelDecayAmount;
     //Pump
     public final CachedIntValue pumpHeavyWaterAmount;
+    // Force Field Generator
+    public final CachedFloatingLongValue forcefieldGenerator;
 
     public ExtraConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -113,13 +115,13 @@ public class ExtraConfig extends BaseMekanismConfig {
         final String noteLT = "Five times the travel speed in m/s of 'TIER' logistical transporter.";
         final String noteLT2 = "Item throughput rate of 'TIER' logistical transporters in items/half second.";
         builder.comment("Logistical Transporters").push("logistical transporters");
-        this.absoluteLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "absoluteLogisticalTransporterSpeed", FloatingLong.createConst(100));
+        this.absoluteLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "absoluteLogisticalTransporterSpeed", FloatingLong.createConst(55));
         this.absoluteLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2, "absoluteLogisticalTransporterPullAmount", FloatingLong.createConst(128));
-        this.supremeLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "supremeLogisticalTransporterSpeed", FloatingLong.createConst(200));
+        this.supremeLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "supremeLogisticalTransporterSpeed", FloatingLong.createConst(60));
         this.supremeLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2, "supremeLogisticalTransporterPullAmount", FloatingLong.createConst(256));
-        this.cosmicLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "cosmicLogisticalTransporterSpeed", FloatingLong.createConst(400));
+        this.cosmicLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "cosmicLogisticalTransporterSpeed", FloatingLong.createConst(70));
         this.cosmicLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2, "cosmicLogisticalTransporterPullAmount", FloatingLong.createConst(512));
-        this.infiniteLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "infiniteLogisticalTransporterSpeed", FloatingLong.createConst(800));
+        this.infiniteLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT, "infiniteLogisticalTransporterSpeed", FloatingLong.createConst(100));
         this.infiniteLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2, "infiniteLogisticalTransporterPullAmount", FloatingLong.createConst(1024));
         builder.pop();
 
@@ -158,6 +160,11 @@ public class ExtraConfig extends BaseMekanismConfig {
         builder.comment("Faster Electric Pump").push("faster electric pump");
         this.pumpHeavyWaterAmount = CachedIntValue.wrap(this, builder.comment("mB of Heavy Water that is extracted per block of Water by the Electric Pump with a Filter Upgrade.")
                 .defineInRange("pumpHeavyWaterAmount", FluidType.BUCKET_VOLUME , 1, FluidType.BUCKET_VOLUME));
+        builder.pop();
+
+        builder.comment("Faster Electric Pump").push("faster electric pump");
+        this.forcefieldGenerator = CachedFloatingLongValue.define(this, builder, "Base energy storage (Joules).", "forcefield_generator",
+                FloatingLong.createConst(1_000_000_000_000D));
         builder.pop();
 
         addEnergyCubeCategory(builder);

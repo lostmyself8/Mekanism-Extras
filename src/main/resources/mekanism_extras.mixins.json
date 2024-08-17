@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "Mekanism_Extras.refmap.json",
   "mixins": [
+    "MixinGeneratorsPacketHandler",
     "MixinPacketHandler"
   ],
   "client": [

@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block.storage.fluidtank;
 
-import com.jerry.mekanism_extras.client.render.item.block.ExtraRenderFluidTankItem;
+import com.jerry.mekanism_extras.client.render.ExtraRenderPropertiesProvider;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.item.block.machine.ExtraItemBlockMachine;
 import mekanism.api.Action;
@@ -10,7 +10,6 @@ import mekanism.api.fluid.IExtendedFluidTank;
 import mekanism.api.fluid.IMekanismFluidHandler;
 import mekanism.api.security.ISecurityUtils;
 import mekanism.api.text.EnumColor;
-import mekanism.client.render.RenderPropertiesProvider;
 import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
 import mekanism.common.capabilities.ItemCapabilityWrapper;
@@ -71,7 +70,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IM
     @Override
     @OnlyIn(Dist.CLIENT)
     public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new RenderPropertiesProvider.MekRenderProperties(ExtraRenderFluidTankItem.RENDERER));
+        consumer.accept(ExtraRenderPropertiesProvider.extraFluidTank());
     }
 
     @NotNull

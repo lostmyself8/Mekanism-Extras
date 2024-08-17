@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.content.plasma;
 
-import com.jerry.mekanism_extras.api.MekanismExtraAPI;
+import com.jerry.mekanism_extras.common.api.MekanismExtraAPI;
 import mekanism.api.chemical.attribute.ChemicalAttribute;
 import mekanism.common.base.IChemicalConstant;
 import mekanism.common.registration.WrappedDeferredRegister;

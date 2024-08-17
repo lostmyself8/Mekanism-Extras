@@ -83,6 +83,10 @@
   "block.mekanism_extras.infinite_chemical_tank": "Infinite Chemical Tank",
   "block.mekanism_extras.expand_radioactive_waste_barrel": "Expand Radioactive Waste Barrel",
   "block.mekanism_extras.faster_electric_pump": "Faster Electric Pump",
+  "block.mekanism_extras.naquadah_reactor_controller": "Naquadah Reactor Controller",
+  "block.mekanism_extras.naquadah_reactor_casing": "Naquadah Reactor Casing",
+  "block.mekanism_extras.naquadah_reactor_port": "Naquadah Reactor Port",
+  "block.mekanism_extras.naquadah_reactor_logic_adapter": "Naquadah Reactor Logic Adapter",
 
   "gas.mekanism_extras.molten_thermonuclear": "Molten Thermonuclear",
   "gas.mekanism_extras.spectrum_pigments": "Spectrum Pigments",
@@ -107,6 +111,11 @@
   "container.mekanism_extras.supreme_chemical_tank": "Supreme Chemical Tank",
   "container.mekanism_extras.cosmic_chemical_tank": "Cosmic Chemical Tank",
   "container.mekanism_extras.infinite_chemical_tank": "Infinite Chemical Tank",
+
+  "reactor.mekanism_extras.naquadah_reactor": "Naquadah Reactor",
+  "description.mekanism_extras.naquadah_reactor_casing": "Radiation-proof framing that can be used in the Naquadah Reactor multiblock.",
+  "description.mekanism_extras.naquadah_reactor_port": "A block of radiation-proof framing that is capable of managing both the gas and energy transfer of the Naquadah Reactor.",
+  "description.mekanism_extras.naquadah_reactor_controller": "The controlling block for the entire Naquadah Reactor structure.",
 
   "plasma.mekanism_extras.hydrogen": "Hydrogen Plasma"
 }
