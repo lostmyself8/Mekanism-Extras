@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:circuits/cosmic"
+    },
+    "F": {
+      "item": "mekanism_extras:naquadah_reactor_casing"
+    },
+    "G": {
+      "tag": "forge:glass_panes"
+    },
+    "T": {
+      "item": "mekanism_extras:absolute_chemical_tank"
+    }
+  },
+  "pattern": [
+    "CGC",
+    "FTF",
+    "FFF"
+  ],
+  "result": {
+    "item": "mekanism_extras:naquadah_reactor_controller"
+  }
+}

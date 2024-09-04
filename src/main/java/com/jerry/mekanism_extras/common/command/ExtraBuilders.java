@@ -1,10 +1,9 @@
 package com.jerry.mekanism_extras.common.command;
 
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlock;
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlocks;
 import com.jerry.mekanism_extras.registry.ExtraBlock;
 import mekanism.common.command.builders.StructureBuilder;
 import mekanism.common.registries.MekanismBlocks;
-import mekanism.generators.common.registries.GeneratorsBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -26,17 +25,17 @@ public class ExtraBuilders {
             buildPartialFrame(world, start, 1);
             buildWalls(world, start);
             buildInteriorLayers(world, start, 1, 3, Blocks.AIR);
-            world.setBlockAndUpdate(start.offset(2, 4, 2), ExtraGenBlock.NAQUADAH_REACTOR_CONTROLLER.getBlock().defaultBlockState());
+            world.setBlockAndUpdate(start.offset(2, 4, 2), ExtraGenBlocks.NAQUADAH_REACTOR_CONTROLLER.getBlock().defaultBlockState());
         }
 
         @Override
         protected Block getWallBlock(BlockPos pos) {
-            return GeneratorsBlocks.REACTOR_GLASS.getBlock();
+            return ExtraGenBlocks.LEAD_COATED_GLASS.getBlock();
         }
 
         @Override
         protected Block getCasing() {
-            return ExtraGenBlock.NAQUADAH_REACTOR_CASING.getBlock();
+            return ExtraGenBlocks.NAQUADAH_REACTOR_CASING.getBlock();
         }
     }
 

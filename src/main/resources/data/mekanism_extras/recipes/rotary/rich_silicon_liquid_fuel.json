@@ -1,0 +1,19 @@
+{
+  "type": "mekanism:rotary",
+  "fluidInput": {
+    "amount": 1,
+    "fluid": "mekanism_extras:rich_silicon_liquid_fuel"
+  },
+  "fluidOutput": {
+    "amount": 1,
+    "fluid": "mekanism_extras:rich_silicon_liquid_fuel"
+  },
+  "gasInput": {
+    "amount": 1,
+    "gas": "mekanism_extras:rich_silicon_liquid_fuel"
+  },
+  "gasOutput": {
+    "amount": 1,
+    "gas": "mekanism_extras:rich_silicon_liquid_fuel"
+  }
+}

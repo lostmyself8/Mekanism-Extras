@@ -9,10 +9,8 @@ import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgrad
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.Mekanism;
 import mekanism.common.advancements.MekanismCriteriaTriggers;
-import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.proxy.ProxyConfigurable;
 import mekanism.common.capabilities.resolver.BasicCapabilityResolver;
-import mekanism.common.capabilities.resolver.BasicSidedCapabilityResolver;
 import mekanism.common.content.network.transmitter.BufferedTransmitter;
 import mekanism.common.content.network.transmitter.Transmitter;
 import mekanism.common.lib.transmitter.DynamicBufferedNetwork;
@@ -34,9 +32,7 @@ import java.util.List;
 public abstract class ExtraTileEntityTransmitter extends TileEntityTransmitter implements ProxyConfigurable.ISidedConfigurable, IExtraAlloyInteraction {
     public ExtraTileEntityTransmitter(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
-        cacheCoord();
         addCapabilityResolver(BasicCapabilityResolver.constant(ExtraCapabilities.EXTRA_ALLOY_INTERACTION, this));
-        addCapabilityResolver(new BasicSidedCapabilityResolver<>(this, Capabilities.CONFIGURABLE, ProxyConfigurable::new));
     }
 
     public static void extraTickServer(Level level, BlockPos blockPos, BlockState blockState, ExtraTileEntityLogisticalTransporter extraTileEntityLogisticalTransporter) {

@@ -5,8 +5,7 @@ import mekanism.common.MekanismLang;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.math.voxel.VoxelCuboid;
 import mekanism.common.lib.multiblock.*;
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlockType;
-import mekanism.generators.common.registries.GeneratorsBlockTypes;
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlockTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +29,6 @@ public class NaquadahReactorValidator extends CuboidStructureValidator<NaquadahR
         if (relative.isWall()) {
             Structure.Axis axis = Structure.Axis.get(cuboid.getSide(pos));
             Structure.Axis h = axis.horizontal(), v = axis.vertical();
-            //Note: This ends up becoming immutable by doing this but that is fine and doesn't really matter
             pos = pos.subtract(cuboid.getMinPos());
             return FormationProtocol.StructureRequirement.REQUIREMENTS[ALLOWED_GRID[h.getCoord(pos)][v.getCoord(pos)]];
         }
@@ -44,8 +42,6 @@ public class NaquadahReactorValidator extends CuboidStructureValidator<NaquadahR
         if (isControllerPos && !controller) {
             return FormationProtocol.FormationResult.fail(MekanismLang.MULTIBLOCK_INVALID_NO_CONTROLLER);
         } else if (!isControllerPos && controller) {
-            //When the controller is potentially outside the multiblock we need to make sure to not allow ignoring the failure
-            // as otherwise we may allow duplicate controllers
             return FormationProtocol.FormationResult.fail(MekanismLang.MULTIBLOCK_INVALID_CONTROLLER_CONFLICT, true);
         }
         return super.validateFrame(ctx, pos, state, type, needsFrame);
@@ -54,12 +50,12 @@ public class NaquadahReactorValidator extends CuboidStructureValidator<NaquadahR
     @Override
     protected FormationProtocol.CasingType getCasingType(BlockState state) {
         Block block = state.getBlock();
-        if (BlockType.is(block, ExtraGenBlockType.NAQUADAH_REACTOR_CASING, GeneratorsBlockTypes.REACTOR_GLASS)) {
+        if (BlockType.is(block, ExtraGenBlockTypes.NAQUADAH_REACTOR_CASING, ExtraGenBlockTypes.LEAD_COATED_GLASS)) {
             return FormationProtocol.CasingType.FRAME;
-        } else if (BlockType.is(block, ExtraGenBlockType.NAQUADAH_REACTOR_PORT)) {
+        } else if (BlockType.is(block, ExtraGenBlockTypes.NAQUADAH_REACTOR_PORT)) {
             return FormationProtocol.CasingType.VALVE;
-        } else if (BlockType.is(block, ExtraGenBlockType.NAQUADAH_REACTOR_CONTROLLER,
-                ExtraGenBlockType.NAQUADAH_REACTOR_LOGIC_ADAPTER)) {
+        } else if (BlockType.is(block, ExtraGenBlockTypes.NAQUADAH_REACTOR_CONTROLLER,
+                ExtraGenBlockTypes.NAQUADAH_REACTOR_LOGIC_ADAPTER, ExtraGenBlockTypes.LEAD_COATED_LASER_FOCUS_MATRIX)) {
             return FormationProtocol.CasingType.OTHER;
         }
         return FormationProtocol.CasingType.INVALID;
@@ -67,7 +63,6 @@ public class NaquadahReactorValidator extends CuboidStructureValidator<NaquadahR
 
     @Override
     public boolean precheck() {
-        // 72 = (12 missing blocks possible on each face) * (6 sides)
         cuboid = StructureHelper.fetchCuboid(structure, BOUNDS, BOUNDS, EnumSet.allOf(VoxelCuboid.CuboidSide.class), 72);
         return cuboid != null;
     }

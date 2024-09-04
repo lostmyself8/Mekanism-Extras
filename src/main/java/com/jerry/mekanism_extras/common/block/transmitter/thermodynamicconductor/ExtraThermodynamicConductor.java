@@ -3,13 +3,16 @@ package com.jerry.mekanism_extras.common.block.transmitter.thermodynamicconducto
 import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import mekanism.api.DataHandlerUtils;
 import mekanism.api.NBTConstants;
+import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IHeatHandler;
 import mekanism.api.providers.IBlockProvider;
+import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.heat.CachedAmbientTemperature;
 import mekanism.common.content.network.transmitter.ThermodynamicConductor;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.lib.transmitter.acceptor.AcceptorCache;
+import mekanism.common.tier.ConductorTier;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.upgrade.transmitter.ThermodynamicConductorUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
@@ -21,13 +24,22 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
+import java.util.List;
+
 public class ExtraThermodynamicConductor extends ThermodynamicConductor implements IExtraUpgradeableTransmitter<ThermodynamicConductorUpgradeData> {
     private final CachedAmbientTemperature ambientTemperature = new CachedAmbientTemperature(this::getTileWorld, this::getTilePos);
     //Default to negative one, so we know we need to calculate it when needed
+    public final ConductorTier tier;
+    private final List<IHeatCapacitor> capacitors;
+    public final ExtraVariableHeatCapacitor buffer;
     private double clientTemperature = -1;
 
     public ExtraThermodynamicConductor(IBlockProvider blockProvider, TileEntityTransmitter tile) {
         super(blockProvider, tile);
+        this.tier = Attribute.getTier(blockProvider, ConductorTier.class);
+        buffer = ExtraVariableHeatCapacitor.create(TCTier.getHeatCapacity(tier), TCTier.getConduction(tier), TCTier.getConductionInsulation(tier), ambientTemperature, this);
+        capacitors = Collections.singletonList(buffer);
     }
 
     @Override
@@ -61,6 +73,12 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
         updateTag = super.getReducedUpdateTag(updateTag);
         updateTag.putDouble(NBTConstants.TEMPERATURE, buffer.getHeat());
         return updateTag;
+    }
+
+    @NotNull
+    @Override
+    public List<IHeatCapacitor> getHeatCapacitors(Direction side) {
+        return capacitors;
     }
 
     @Override

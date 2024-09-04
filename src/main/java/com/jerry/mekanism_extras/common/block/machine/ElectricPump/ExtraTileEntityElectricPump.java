@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.block.machine.ElectricPump;
 
 import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.registry.ExtraBlock;
+import com.jerry.mekanism_extras.registry.ExtraFluids;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.*;
 import mekanism.api.math.FloatingLong;
@@ -254,6 +255,16 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
             //The speed of pumping water
             return MekanismConfig.general.pumpWaterSources.get() ? new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME)
                 : new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME * 100);
+        }
+        if(sourceFluid == ExtraFluids.SILICON_TETRAFLUORIDE.getFluid()) {
+            if (hasFilter) {
+                return new FluidStack(ExtraFluids.RICH_SILICON_LIQUID_FUEL.getFluid(), FluidType.BUCKET_VOLUME);
+            }
+        }
+        if(sourceFluid == MekanismFluids.URANIUM_HEXAFLUORIDE.getFluid()) {
+            if (hasFilter) {
+                return new FluidStack(ExtraFluids.RICH_URANIUM_LIQUID_FUEL.getFluid(), FluidType.BUCKET_VOLUME);
+            }
         }
         return new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME);
     }

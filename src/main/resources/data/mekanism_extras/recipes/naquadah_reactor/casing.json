@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:nucleosynthesizing",
+  "duration": 3000,
+  "gasInput": {
+    "amount":1,
+    "gas":"mekanism:antimatter"
+  },
+  "itemInput":{
+    "ingredient":{
+      "tag":"forge:storage_blocks/lead"
+    }
+  },
+  "output":{
+    "item":"mekanism_extras:naquadah_reactor_casing"
+  }
+}

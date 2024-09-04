@@ -12,10 +12,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public class ExtraGenContainerTypes {
     public static final ContainerTypeDeferredRegister GEN_CONTAINER_TYPES = new ContainerTypeDeferredRegister(MekanismExtras.MODID);
 
-    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityNaquadahReactorController>> NAQUADAH_REACTOR_CONTROLLER = GEN_CONTAINER_TYPES.register(ExtraGenBlock.NAQUADAH_REACTOR_CONTROLLER, TileEntityNaquadahReactorController.class);
+    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityNaquadahReactorController>> NAQUADAH_REACTOR_CONTROLLER = GEN_CONTAINER_TYPES.register(ExtraGenBlocks.NAQUADAH_REACTOR_CONTROLLER, TileEntityNaquadahReactorController.class);
     public static final ContainerTypeRegistryObject<EmptyTileContainer<TileEntityNaquadahReactorController>> NAQUADAH_REACTOR_FUEL = GEN_CONTAINER_TYPES.registerEmpty("naquadah_reactor_fuel", TileEntityNaquadahReactorController.class);
     public static final ContainerTypeRegistryObject<EmptyTileContainer<TileEntityNaquadahReactorController>> NAQUADAH_REACTOR_HEAT = GEN_CONTAINER_TYPES.registerEmpty("naquadah_reactor_heat", TileEntityNaquadahReactorController.class);
-    public static final ContainerTypeRegistryObject<EmptyTileContainer<TileEntityNaquadahReactorLogicAdapter>> NAQUADAH_REACTOR_LOGIC_ADAPTER = GEN_CONTAINER_TYPES.registerEmpty(ExtraGenBlock.NAQUADAH_REACTOR_LOGIC_ADAPTER, TileEntityNaquadahReactorLogicAdapter.class);
+    public static final ContainerTypeRegistryObject<EmptyTileContainer<TileEntityNaquadahReactorLogicAdapter>> NAQUADAH_REACTOR_LOGIC_ADAPTER = GEN_CONTAINER_TYPES.registerEmpty(ExtraGenBlocks.NAQUADAH_REACTOR_LOGIC_ADAPTER, TileEntityNaquadahReactorLogicAdapter.class);
     public static final ContainerTypeRegistryObject<EmptyTileContainer<TileEntityNaquadahReactorController>> NAQUADAH_REACTOR_STATS = GEN_CONTAINER_TYPES.registerEmpty("naquadah_reactor_stats", TileEntityNaquadahReactorController.class);
 
 

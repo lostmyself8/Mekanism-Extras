@@ -1,12 +1,12 @@
 package com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter;
 
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraTileEntityTransmitter;
 import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import mekanism.api.NBTConstants;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
-import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.PathfinderCache;
 import mekanism.common.tier.TransporterTier;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
@@ -26,7 +26,7 @@ public class ExtraLogisticalTransporter extends ExtraLogisticalTransporterBase i
 
     private EnumColor color;
 
-    public ExtraLogisticalTransporter(IBlockProvider blockProvider, TileEntityTransmitter tile) {
+    public ExtraLogisticalTransporter(IBlockProvider blockProvider, ExtraTileEntityTransmitter tile) {
         super(tile, Attribute.getTier(blockProvider, TransporterTier.class));
     }
 
@@ -60,7 +60,7 @@ public class ExtraLogisticalTransporter extends ExtraLogisticalTransporterBase i
 
     @Override
     public boolean isValidTransmitterBasic(TileEntityTransmitter transmitter, Direction side) {
-        if (transmitter.getTransmitter() instanceof LogisticalTransporterBase transporter) {
+        if (transmitter.getTransmitter() instanceof ExtraLogisticalTransporterBase transporter) {
             if (getColor() == null || transporter.getColor() == null || getColor() == transporter.getColor()) {
                 return super.isValidTransmitterBasic(transmitter, side);
             }

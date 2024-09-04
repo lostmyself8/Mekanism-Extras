@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mekanism_extras:block/reactor/lead_coated_laser_focus_matrix"
+    }
+  }
+}

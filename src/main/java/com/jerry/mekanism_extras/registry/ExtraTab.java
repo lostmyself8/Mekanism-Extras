@@ -3,7 +3,9 @@ package com.jerry.mekanism_extras.registry;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.ExtraLang;
 import com.jerry.mekanism_extras.integration.Addons;
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlock;
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlocks;
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenFluids;
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenItem;
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
 import mekanism.common.registration.impl.CreativeTabRegistryObject;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -19,9 +21,11 @@ public class ExtraTab {
                     builder.displayItems((displayParameters, output) -> {
                         CreativeTabDeferredRegister.addToDisplay(ExtraItem.EXTRA_ITEM, output);
                         CreativeTabDeferredRegister.addToDisplay(ExtraBlock.EXTRA_BLOCK, output);
-//                        CreativeTabDeferredRegister.addToDisplay(MekanismFluids.FLUIDS, output);
+                        CreativeTabDeferredRegister.addToDisplay(ExtraFluids.EXTRA_FLUIDS, output);
                         if (Addons.MEKANISMGENERATORS.isLoaded()) {
-                            CreativeTabDeferredRegister.addToDisplay(ExtraGenBlock.EXTRA_GEN_BLOCK, output);
+                            CreativeTabDeferredRegister.addToDisplay(ExtraGenItem.EXTRA_GEN_ITEMS, output);
+                            CreativeTabDeferredRegister.addToDisplay(ExtraGenBlocks.EXTRA_GEN_BLOCK, output);
+                            CreativeTabDeferredRegister.addToDisplay(ExtraGenFluids.EXTRA_GEN_FLUIDS, output);
                         }
                     })
     );

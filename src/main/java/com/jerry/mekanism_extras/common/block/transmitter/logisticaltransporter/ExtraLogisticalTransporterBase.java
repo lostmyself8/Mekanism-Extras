@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter;
 
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraTileEntityTransmitter;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
@@ -12,7 +13,6 @@ import mekanism.common.lib.inventory.TransitRequest;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.network.to_client.PacketTransporterUpdate;
 import mekanism.common.tier.TransporterTier;
-import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.util.TransporterUtils;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
@@ -28,7 +28,7 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
 
     private static final Logger LOGGER = LogManager.getLogger(ExtraLogisticalTransporterBase.class);
 
-    protected ExtraLogisticalTransporterBase(TileEntityTransmitter tile, TransporterTier tier) {
+    protected ExtraLogisticalTransporterBase(ExtraTileEntityTransmitter tile, TransporterTier tier) {
         super(tile, tier);
     }
 

@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:dissolution",
+  "gasInput": {
+    "amount": 4,
+    "gas": "mekanism:hydrofluoric_acid"
+  },
+  "itemInput": {
+    "ingredient": {
+      "tag": "forge:ingots/naquadah"
+    }
+  },
+  "output": {
+    "amount": 100,
+    "chemicalType": "gas",
+    "gas": "mekanism_extras:silicon_tetrafluoride"
+  }
+}

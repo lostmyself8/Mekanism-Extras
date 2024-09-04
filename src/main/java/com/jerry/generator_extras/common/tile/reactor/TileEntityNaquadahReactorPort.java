@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.tile.reactor;
 
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlock;
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlocks;
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
@@ -41,7 +41,7 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
     private Set<Direction> outputDirections = Collections.emptySet();
 
     public TileEntityNaquadahReactorPort(BlockPos pos, BlockState state) {
-        super(ExtraGenBlock.NAQUADAH_REACTOR_PORT, pos, state);
+        super(ExtraGenBlocks.NAQUADAH_REACTOR_PORT, pos, state);
         delaySupplier = NO_DELAY;
     }
 
@@ -93,7 +93,7 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
     protected boolean onUpdateServer(NaquadahReactorMultiblockData multiblock) {
         boolean needsPacket = super.onUpdateServer(multiblock);
         if (getActive() && multiblock.isFormed()) {
-            ChemicalUtil.emit(outputDirections, multiblock.steamTank, this);
+            ChemicalUtil.emit(outputDirections, multiblock.poloniumTank, this);
             CableUtils.emit(outputDirections, multiblock.energyContainer, this);
         }
         return needsPacket;

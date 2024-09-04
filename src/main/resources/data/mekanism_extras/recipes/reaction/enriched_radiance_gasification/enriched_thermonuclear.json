@@ -1,0 +1,21 @@
+{
+  "type": "mekanism:reaction",
+  "duration": 60,
+  "fluidInput": {
+    "amount": 120,
+    "tag": "minecraft:lava"
+  },
+  "gasInput": {
+    "amount": 120,
+    "gas": "mekanism_extras:molten_thermonuclear"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "mekanism_extras:enriched_radiance"
+    }
+  },
+  "itemOutput": {
+    "count": 1,
+    "item": "mekanism_extras:enriched_thermonuclear"
+  }
+}

@@ -2,7 +2,7 @@ package com.jerry.generator_extras.common.tile.reactor;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlock;
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlocks;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.inventory.container.MekanismContainer;
 import mekanism.common.inventory.container.sync.dynamic.SyncMapper;
@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class TileEntityNaquadahReactorCasing extends TileEntityMultiblock<NaquadahReactorMultiblockData> {
     public TileEntityNaquadahReactorCasing(BlockPos pos, BlockState state) {
-        this(ExtraGenBlock.NAQUADAH_REACTOR_CASING, pos, state);
+        this(ExtraGenBlocks.NAQUADAH_REACTOR_CASING, pos, state);
     }
 
     public TileEntityNaquadahReactorCasing(IBlockProvider blockProvider, BlockPos pos, BlockState state) {

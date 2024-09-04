@@ -43,6 +43,7 @@ public class MekanismExtras {
         modEventBus.addListener(this::commonSetup);
         ExtraBlock.register(modEventBus);
         ExtraItem.register(modEventBus);
+        ExtraFluids.register(modEventBus);
         ExtraTab.register(modEventBus);
         ExtraTileEntityTypes.register(modEventBus);
         ExtraContainerTypes.register(modEventBus);
@@ -72,8 +73,11 @@ public class MekanismExtras {
 
     private static void requireRegistry(IEventBus modEventBus) {
         if (Addons.MEKANISMGENERATORS.isLoaded()) {
-            ExtraGenBlock.register(modEventBus);
+            ExtraGenItem.register(modEventBus);
+            ExtraGenBlocks.register(modEventBus);
+            ExtraGenFluids.register(modEventBus);
             ExtraGenContainerTypes.register(modEventBus);
+            ExtraGenGases.register(modEventBus);
             ExtraGenTileEntityTypes.register(modEventBus);
         }
     }

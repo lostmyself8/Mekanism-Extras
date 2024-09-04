@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.tile.reactor;
 
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlock;
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlocks;
 import mekanism.api.NBTConstants;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.math.MathUtils;
@@ -36,7 +36,7 @@ public class TileEntityNaquadahReactorLogicAdapter extends TileEntityNaquadahRea
     private boolean prevOutputting;
 
     public TileEntityNaquadahReactorLogicAdapter(BlockPos pos, BlockState state) {
-        super(ExtraGenBlock.NAQUADAH_REACTOR_LOGIC_ADAPTER, pos, state);
+        super(ExtraGenBlocks.NAQUADAH_REACTOR_LOGIC_ADAPTER, pos, state);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class TileEntityNaquadahReactorLogicAdapter extends TileEntityNaquadahRea
                     if (multiblock.fuelTank.isEmpty()) {
                         int injectionPortion = multiblock.getInjectionRate() / 2;
                         //No fuel and no injection rate set, or no fuel and not enough of at least one component
-                        yield injectionPortion == 0 || multiblock.deuteriumTank.getStored() < injectionPortion || multiblock.tritiumTank.getStored() < injectionPortion;
+                        yield injectionPortion == 0 || multiblock.siliconTank.getStored() < injectionPortion || multiblock.uraniumTank.getStored() < injectionPortion;
                     }
                     yield false;
                 }

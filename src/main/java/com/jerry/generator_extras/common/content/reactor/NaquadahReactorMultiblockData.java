@@ -1,5 +1,6 @@
 package com.jerry.generator_extras.common.content.reactor;
 
+import com.jerry.generator_extras.common.item.ItemNquadahHohlraum;
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorCasing;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.Action;
@@ -27,15 +28,13 @@ import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.inventory.container.sync.dynamic.ContainerSync;
 import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
-import mekanism.common.registries.MekanismGases;
-import mekanism.common.tags.MekanismTags;
+import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenGases;
 import mekanism.common.util.HeatUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.WorldUtils;
-import mekanism.generators.common.GeneratorTags;
+import com.jerry.mekanism_extras.common.ExtraTag;
 import mekanism.generators.common.config.MekanismGeneratorsConfig;
-import mekanism.generators.common.item.ItemHohlraum;
 import mekanism.generators.common.registries.GeneratorsGases;
 import mekanism.generators.common.slot.ReactorInventorySlot;
 import mekanism.generators.common.tile.fusion.TileEntityFusionReactorPort;
@@ -78,11 +77,11 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
     public IHeatCapacitor heatCapacitor;
 
     @ContainerSync(tags = HEAT_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getWater", "getWaterCapacity", "getWaterNeeded", "getWaterFilledPercentage"}, docPlaceholder = "water tank")
-    public IExtendedFluidTank waterTank;
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getFissile", "getFissileCapacity", "getFissileNeeded", "getFissileFilledPercentage"}, docPlaceholder = "fissile tank")
+    public IExtendedFluidTank fissileTank;
     @ContainerSync(tags = HEAT_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getSteam", "getSteamCapacity", "getSteamNeeded", "getSteamFilledPercentage"}, docPlaceholder = "steam tank")
-    public IGasTank steamTank;
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getPolonium", "getPoloniumcapacity", "getPoloniumneeded", "getPoloniumfilledpercentage"}, docPlaceholder = "plutonium tank")
+    public IGasTank poloniumTank;
 
     private double biomeAmbientTemp;
     @ContainerSync(tags = HEAT_TAB)
@@ -97,15 +96,13 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
     public double lastTransferLoss;
 
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getDeuterium", "getDeuteriumCapacity", "getDeuteriumNeeded",
-            "getDeuteriumFilledPercentage"}, docPlaceholder = "deuterium tank")
-    public IGasTank deuteriumTank;
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getSilicon", "getSiliconCapacity", "getSiliconNeeded", "getSiliconFilledPercentage"}, docPlaceholder = "silicon tank")
+    public IGasTank siliconTank;
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getTritium", "getTritiumCapacity", "getTritiumNeeded",
-            "getTritiumFilledPercentage"}, docPlaceholder = "tritium tank")
-    public IGasTank tritiumTank;
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getUranium", "getUraniumCapacity", "getUraniumNeeded", "getUraniumFilledPercentage"}, docPlaceholder = "uranium tank")
+    public IGasTank uraniumTank;
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getDTFuel", "getDTFuelCapacity", "getDTFuelNeeded", "getDTFuelFilledPercentage"}, docPlaceholder = "fuel tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getSiUFuel", "getSiUFuelCapacity", "getSiUFuelNeeded", "getSiUFuelFilledPercentage"}, docPlaceholder = "fuel tank")
     public IGasTank fuelTank;
     @ContainerSync(tags = {FUEL_TAB, HEAT_TAB, STATS_TAB}, getter = "getInjectionRate", setter = "setInjectionRate")
     private int injectionRate = 2;
@@ -120,8 +117,8 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
     private boolean clientBurning;
     private double clientTemp;
 
-    private int maxWater;
-    private long maxSteam;
+    private int maxFissile;
+    private long maxPolonium;
 
     private AABB deathZone;
 
@@ -132,18 +129,18 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         lastPlasmaTemperature = biomeAmbientTemp;
         lastCaseTemperature = biomeAmbientTemp;
         plasmaTemperature = biomeAmbientTemp;
-        gasTanks.add(deuteriumTank = MultiblockChemicalTankBuilder.GAS.input(this, MekanismGeneratorsConfig.generators.fusionFuelCapacity,
-                GeneratorTags.Gases.DEUTERIUM_LOOKUP::contains, this));
-        gasTanks.add(tritiumTank = MultiblockChemicalTankBuilder.GAS.input(this, MekanismGeneratorsConfig.generators.fusionFuelCapacity,
-                GeneratorTags.Gases.TRITIUM_LOOKUP::contains, this));
+        gasTanks.add(siliconTank = MultiblockChemicalTankBuilder.GAS.input(this, MekanismGeneratorsConfig.generators.fusionFuelCapacity,
+                ExtraTag.Gases.RICH_SILICON_LIQUID_FUEL_LOOKUP::contains, this));
+        gasTanks.add(uraniumTank = MultiblockChemicalTankBuilder.GAS.input(this, MekanismGeneratorsConfig.generators.fusionFuelCapacity,
+                ExtraTag.Gases.RICH_URANIUM_LIQUID_FUEL_LOOKUP::contains, this));
         gasTanks.add(fuelTank = MultiblockChemicalTankBuilder.GAS.input(this, MekanismGeneratorsConfig.generators.fusionFuelCapacity,
-                GeneratorTags.Gases.FUSION_FUEL_LOOKUP::contains, createSaveAndComparator()));
-        gasTanks.add(steamTank = MultiblockChemicalTankBuilder.GAS.output(this, this::getMaxSteam, gas -> gas == MekanismGases.STEAM.getChemical(), this));
-        fluidTanks.add(waterTank = VariableCapacityFluidTank.input(this, this::getMaxWater, fluid -> MekanismTags.Fluids.WATER_LOOKUP.contains(fluid.getFluid()), this));
+                ExtraTag.Gases.SILICON_URANIUM_FUEL_LOOKUP::contains, createSaveAndComparator()));
+        gasTanks.add(poloniumTank = MultiblockChemicalTankBuilder.GAS.output(this, this::getMaxPolonium, gas -> gas == ExtraGenGases.POLONIUM208.getChemical(), this));
+        fluidTanks.add(fissileTank = VariableCapacityFluidTank.input(this, this::getMaxFissile, fluid -> ExtraTag.Fluids.FISSILE_FUEL_LOOKUP.contains(fluid.getFluid()), this));
         energyContainers.add(energyContainer = VariableCapacityEnergyContainer.output(MekanismGeneratorsConfig.generators.fusionEnergyCapacity, this));
         heatCapacitors.add(heatCapacitor = VariableHeatCapacitor.create(caseHeatCapacity, NaquadahReactorMultiblockData::getInverseConductionCoefficient,
                 () -> inverseInsulation, () -> biomeAmbientTemp, this));
-        inventorySlots.add(reactorSlot = ReactorInventorySlot.at(stack -> stack.getItem() instanceof ItemHohlraum, this, 80, 39));
+        inventorySlots.add(reactorSlot = ReactorInventorySlot.at(stack -> stack.getItem() instanceof ItemNquadahHohlraum, this, 80, 39));
     }
 
     @Override
@@ -184,7 +181,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
     private boolean hasHohlraum() {
         if (!reactorSlot.isEmpty()) {
             ItemStack hohlraum = reactorSlot.getStack();
-            if (hohlraum.getItem() instanceof ItemHohlraum) {
+            if (hohlraum.getItem() instanceof ItemNquadahHohlraum) {
                 Optional<IGasHandler> capability = hohlraum.getCapability(Capabilities.GAS_HANDLER).resolve();
                 if (capability.isPresent()) {
                     IGasHandler gasHandlerItem = capability.get();
@@ -274,12 +271,12 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
 
     private void injectFuel() {
         long amountNeeded = fuelTank.getNeeded();
-        long amountAvailable = 2 * Math.min(deuteriumTank.getStored(), tritiumTank.getStored());
+        long amountAvailable = 2 * Math.min(siliconTank.getStored(), uraniumTank.getStored());
         long amountToInject = Math.min(amountNeeded, Math.min(amountAvailable, injectionRate));
         amountToInject -= amountToInject % 2;
         long injectingAmount = amountToInject / 2;
-        MekanismUtils.logMismatchedStackSize(deuteriumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
-        MekanismUtils.logMismatchedStackSize(tritiumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
+        MekanismUtils.logMismatchedStackSize(siliconTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
+        MekanismUtils.logMismatchedStackSize(uraniumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
         fuelTank.insert(GeneratorsGases.FUSION_FUEL.getStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
     }
 
@@ -298,15 +295,15 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
             heatCapacitor.handleHeat(plasmaCaseHeat);
         }
 
-        //Transfer from casing to water if necessary
+        //Transfer from casing to fissile if necessary
         double caseWaterHeat = MekanismGeneratorsConfig.generators.fusionWaterHeatingRatio.get() * (lastCaseTemperature - biomeAmbientTemp);
         if (Math.abs(caseWaterHeat) > HeatAPI.EPSILON) {
-            int waterToVaporize = (int) (HeatUtils.getSteamEnergyEfficiency() * caseWaterHeat / HeatUtils.getWaterThermalEnthalpy());
-            waterToVaporize = Math.min(waterToVaporize, Math.min(waterTank.getFluidAmount(), MathUtils.clampToInt(steamTank.getNeeded())));
-            if (waterToVaporize > 0) {
-                MekanismUtils.logMismatchedStackSize(waterTank.shrinkStack(waterToVaporize, Action.EXECUTE), waterToVaporize);
-                steamTank.insert(MekanismGases.STEAM.getStack(waterToVaporize), Action.EXECUTE, AutomationType.INTERNAL);
-                caseWaterHeat = waterToVaporize * HeatUtils.getWaterThermalEnthalpy() / HeatUtils.getSteamEnergyEfficiency();
+            int fissiletoPolonium = (int) (HeatUtils.getSteamEnergyEfficiency() * caseWaterHeat / HeatUtils.getWaterThermalEnthalpy());
+            fissiletoPolonium = Math.min(fissiletoPolonium, Math.min(fissileTank.getFluidAmount(), MathUtils.clampToInt(poloniumTank.getNeeded())));
+            if (fissiletoPolonium > 0) {
+                MekanismUtils.logMismatchedStackSize(fissileTank.shrinkStack(fissiletoPolonium, Action.EXECUTE), fissiletoPolonium);
+                poloniumTank.insert(ExtraGenGases.POLONIUM208.getStack(fissiletoPolonium), Action.EXECUTE, AutomationType.INTERNAL);
+                caseWaterHeat = fissiletoPolonium * HeatUtils.getWaterThermalEnthalpy() / HeatUtils.getSteamEnergyEfficiency();
                 heatCapacitor.handleHeat(-caseWaterHeat);
             }
         }
@@ -369,26 +366,26 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
     public void setInjectionRate(int rate) {
         if (injectionRate != rate) {
             injectionRate = rate;
-            maxWater = injectionRate * MekanismGeneratorsConfig.generators.fusionWaterPerInjection.get();
-            maxSteam = injectionRate * MekanismGeneratorsConfig.generators.fusionSteamPerInjection.get();
+            maxFissile = injectionRate * MekanismGeneratorsConfig.generators.fusionWaterPerInjection.get();
+            maxPolonium = injectionRate * MekanismGeneratorsConfig.generators.fusionSteamPerInjection.get();
             if (getWorld() != null && !isRemote()) {
-                if (!waterTank.isEmpty()) {
-                    waterTank.setStackSize(Math.min(waterTank.getFluidAmount(), waterTank.getCapacity()), Action.EXECUTE);
+                if (!fissileTank.isEmpty()) {
+                    fissileTank.setStackSize(Math.min(fissileTank.getFluidAmount(), fissileTank.getCapacity()), Action.EXECUTE);
                 }
-                if (!steamTank.isEmpty()) {
-                    steamTank.setStackSize(Math.min(steamTank.getStored(), steamTank.getCapacity()), Action.EXECUTE);
+                if (!poloniumTank.isEmpty()) {
+                    poloniumTank.setStackSize(Math.min(poloniumTank.getStored(), poloniumTank.getCapacity()), Action.EXECUTE);
                 }
             }
             markDirty();
         }
     }
 
-    public int getMaxWater() {
-        return maxWater;
+    public int getMaxFissile() {
+        return maxFissile;
     }
 
-    public long getMaxSteam() {
-        return maxSteam;
+    public long getMaxPolonium() {
+        return maxPolonium;
     }
 
     public boolean isBurning() {
@@ -411,7 +408,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         return MekanismUtils.redstoneLevelFromContents(fuelTank.getStored(), fuelTank.getCapacity());
     }
 
-    @ComputerMethod(methodDescription = "true -> water cooled, false -> air cooled")
+    @ComputerMethod(methodDescription = "true -> fissile cooled, false -> air cooled")
     public int getMinInjectionRate(boolean active) {
         double k = active ? MekanismGeneratorsConfig.generators.fusionWaterHeatingRatio.get() : 0;
         double caseAirConductivity = MekanismGeneratorsConfig.generators.fusionCasingThermalConductivity.get();
@@ -421,7 +418,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         return (int) (2 * Math.ceil(aMin / 2D));
     }
 
-    @ComputerMethod(methodDescription = "true -> water cooled, false -> air cooled")
+    @ComputerMethod(methodDescription = "true -> fissile cooled, false -> air cooled")
     public double getMaxPlasmaTemperature(boolean active) {
         double k = active ? MekanismGeneratorsConfig.generators.fusionWaterHeatingRatio.get() : 0;
         double caseAirConductivity = MekanismGeneratorsConfig.generators.fusionCasingThermalConductivity.get();
@@ -430,7 +427,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
                 (plasmaCaseConductivity + k + caseAirConductivity) / (k + caseAirConductivity);
     }
 
-    @ComputerMethod(methodDescription = "true -> water cooled, false -> air cooled")
+    @ComputerMethod(methodDescription = "true -> fissile cooled, false -> air cooled")
     public double getMaxCasingTemperature(boolean active) {
         double k = active ? MekanismGeneratorsConfig.generators.fusionWaterHeatingRatio.get() : 0;
         long injectionRate = Math.max(this.injectionRate, lastBurned);
@@ -438,7 +435,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
                 .divide(k + MekanismGeneratorsConfig.generators.fusionCasingThermalConductivity.get()).doubleValue();
     }
 
-    @ComputerMethod(methodDescription = "true -> water cooled, false -> air cooled")
+    @ComputerMethod(methodDescription = "true -> fissile cooled, false -> air cooled")
     public double getIgnitionTemperature(boolean active) {
         double k = active ? MekanismGeneratorsConfig.generators.fusionWaterHeatingRatio.get() : 0;
         double caseAirConductivity = MekanismGeneratorsConfig.generators.fusionCasingThermalConductivity.get();

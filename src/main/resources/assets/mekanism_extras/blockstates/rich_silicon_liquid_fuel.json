@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mekanism_extras:block/rich_silicon_liquid_fuel"
+    }
+  }
+}
