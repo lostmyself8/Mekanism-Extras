@@ -1,5 +1,5 @@
 {
-  "parent":"mekanism_extras:block/bin/base",
+  "parent":"mekanism:block/bin/base",
   "textures":{
     "led":"mekanism_extras:block/bin/supreme_led",
     "front":"mekanism_extras:block/bin/front",

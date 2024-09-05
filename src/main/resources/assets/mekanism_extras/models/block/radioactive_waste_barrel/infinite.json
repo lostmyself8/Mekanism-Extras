@@ -1,0 +1,7 @@
+{
+  "parent":"mekanism_extras:block/radioactive_waste_barrel/base",
+  "textures":{
+    "particle": "mekanism_extras:block/models/radioactive_waste_barrel/infinite",
+    "barrel": "mekanism_extras:block/models/radioactive_waste_barrel/infinite"
+  }
+}

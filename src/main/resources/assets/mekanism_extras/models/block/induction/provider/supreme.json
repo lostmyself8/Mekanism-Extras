@@ -1,6 +1,6 @@
 {
   "render_type": "minecraft:cutout",
-  "parent": "mekanism_extras:block/induction/provider/base",
+  "parent": "mekanism:block/induction/provider/base",
   "textures": {
     "particle": "mekanism_extras:block/supreme_induction_provider",
     "all": "mekanism_extras:block/supreme_induction_provider",
