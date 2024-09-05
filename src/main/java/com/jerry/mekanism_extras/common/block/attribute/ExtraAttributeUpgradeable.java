@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block.attribute;
 
-import com.jerry.mekanism_extras.common.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.AdvanceTier;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import net.minecraft.world.level.block.state.BlockState;

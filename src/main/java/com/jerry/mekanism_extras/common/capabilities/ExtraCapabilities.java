@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.capabilities;
 
-import com.jerry.mekanism_extras.common.api.IExtraAlloyInteraction;
+import com.jerry.mekanism_extras.api.IExtraAlloyInteraction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;

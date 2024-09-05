@@ -3,7 +3,7 @@ package com.jerry.mekanism_extras.client.model.energycube;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraTileEntityEnergyCube;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
 import mekanism.api.RelativeSide;
 import mekanism.client.model.baked.ExtensionBakedModel;
 import mekanism.client.render.lib.QuadTransformation;

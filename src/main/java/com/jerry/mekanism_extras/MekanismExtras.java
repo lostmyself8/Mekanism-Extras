@@ -9,9 +9,9 @@ import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblo
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorValidator;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
+import com.jerry.mekanism_extras.common.registry.*;
 import com.jerry.mekanism_extras.integration.Addons;
 import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.*;
-import com.jerry.mekanism_extras.registry.*;
 import com.mojang.logging.LogUtils;
 import mekanism.common.MekanismLang;
 import mekanism.common.command.CommandMek;

@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.common.content.matrix;
 
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
-import com.jerry.mekanism_extras.common.tile.multiblock.cell.ExtraTileEntityInductionCell;
-import com.jerry.mekanism_extras.common.tile.multiblock.provider.ExtraTileEntityInductionProvider;
+import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
+import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.ComputerMethod;

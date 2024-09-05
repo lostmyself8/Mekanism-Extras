@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.mixin;
 
-import com.jerry.mekanism_extras.common.block.storage.bin.ExtraItemBlockBin;
+import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockBin;
 import mekanism.api.IContentsListener;
 import mekanism.common.inventory.slot.BasicInventorySlot;
 import mekanism.common.inventory.slot.BinInventorySlot;

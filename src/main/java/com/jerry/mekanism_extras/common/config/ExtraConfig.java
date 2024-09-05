@@ -1,12 +1,12 @@
 package com.jerry.mekanism_extras.common.config;
 
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.common.block.storage.bin.BTier;
-import com.jerry.mekanism_extras.common.block.storage.chemicaltank.CTTier;
-import com.jerry.mekanism_extras.common.block.storage.energycube.ECTier;
-import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
-import com.jerry.mekanism_extras.common.tile.multiblock.cell.ICTier;
-import com.jerry.mekanism_extras.common.tile.multiblock.provider.IPTier;
+import com.jerry.mekanism_extras.common.tier.BTier;
+import com.jerry.mekanism_extras.common.tier.CTTier;
+import com.jerry.mekanism_extras.common.tier.ECTier;
+import com.jerry.mekanism_extras.common.tier.FTTier;
+import com.jerry.mekanism_extras.common.tier.ICTier;
+import com.jerry.mekanism_extras.common.tier.IPTier;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import mekanism.api.heat.HeatAPI;
 import mekanism.api.math.FloatingLong;

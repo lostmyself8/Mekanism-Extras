@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block.attribute;
 
-import com.jerry.mekanism_extras.common.api.tier.IAdvanceTier;
+import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
 import mekanism.common.MekanismLang;
 import mekanism.common.content.blocktype.BlockType;
 

@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.client.gui.ElectricPump;
 
-import com.jerry.mekanism_extras.common.block.machine.ElectricPump.ExtraTileEntityElectricPump;
+import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiDownArrow;
 import mekanism.client.gui.element.GuiInnerScreen;

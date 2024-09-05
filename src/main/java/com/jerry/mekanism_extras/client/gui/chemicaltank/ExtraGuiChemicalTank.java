@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.client.gui.chemicaltank;
 
-import com.jerry.mekanism_extras.common.block.storage.chemicaltank.ExtraTileEntityChemicalTank;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
 import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.text.ILangEntry;
 import mekanism.client.gui.GuiConfigurableTile;

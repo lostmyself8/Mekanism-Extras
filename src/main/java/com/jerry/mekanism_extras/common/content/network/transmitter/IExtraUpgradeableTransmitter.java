@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.content.network.transmitter;
 
-import com.jerry.mekanism_extras.common.api.tier.ExtraAlloyTier;
+import com.jerry.mekanism_extras.api.tier.ExtraAlloyTier;
 import mekanism.api.tier.ITier;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import org.jetbrains.annotations.NotNull;

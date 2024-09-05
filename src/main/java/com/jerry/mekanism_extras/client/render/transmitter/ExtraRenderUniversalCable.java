@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.render.transmitter;
 
-import com.jerry.mekanism_extras.common.block.transmitter.cable.ExtraTileEntityUniversalCable;
-import com.jerry.mekanism_extras.common.block.transmitter.cable.ExtraUniversalCable;
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityUniversalCable;
+import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraUniversalCable;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;

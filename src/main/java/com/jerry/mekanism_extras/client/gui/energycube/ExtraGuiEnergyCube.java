@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.client.gui.energycube;
 
-import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraTileEntityEnergyCube;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.GuiConfigurableTile;
 import mekanism.client.gui.element.GuiSideHolder;

@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.client.render.tileentity;
 
-import com.jerry.mekanism_extras.common.block.storage.fluidtank.ExtraTileEntityFluidTank;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;

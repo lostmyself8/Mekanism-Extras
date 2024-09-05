@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.common.content.matrix;
 
-import com.jerry.mekanism_extras.common.tile.multiblock.cell.ExtraTileEntityInductionCell;
-import com.jerry.mekanism_extras.common.tile.multiblock.provider.ExtraTileEntityInductionProvider;
-import com.jerry.mekanism_extras.registry.ExtraBlockType;
+import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
+import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.multiblock.CuboidStructureValidator;

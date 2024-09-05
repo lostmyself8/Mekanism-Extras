@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.common.content.matrix;
 
-import com.jerry.mekanism_extras.common.tile.multiblock.cell.ExtraTileEntityInductionCell;
-import com.jerry.mekanism_extras.common.tile.multiblock.provider.ExtraTileEntityInductionProvider;
-import com.jerry.mekanism_extras.common.tile.multiblock.provider.IPTier;
+import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
+import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekanism_extras.common.tier.IPTier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.Action;

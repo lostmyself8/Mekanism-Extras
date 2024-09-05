@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.item.block;
 
-import com.jerry.mekanism_extras.common.api.tier.IAdvanceTier;
+import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
 import mekanism.api.AutomationType;
 import mekanism.api.NBTConstants;
 import mekanism.api.Upgrade;

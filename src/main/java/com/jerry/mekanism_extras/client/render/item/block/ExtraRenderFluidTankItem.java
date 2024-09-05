@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.client.render.item.block;
 
 import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderFluidTank;
-import com.jerry.mekanism_extras.common.block.storage.fluidtank.ExtraItemBlockFluidTank;
-import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
+import com.jerry.mekanism_extras.common.item.block.machine.ExtraItemBlockFluidTank;
+import com.jerry.mekanism_extras.common.tier.FTTier;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.RenderResizableCuboid;

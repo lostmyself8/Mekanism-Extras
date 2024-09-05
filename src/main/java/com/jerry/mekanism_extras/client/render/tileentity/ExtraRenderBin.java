@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.render.tileentity;
 
-import com.jerry.mekanism_extras.common.block.storage.bin.ExtraBinInventorySlot;
-import com.jerry.mekanism_extras.common.block.storage.bin.ExtraTileEntityBin;
+import com.jerry.mekanism_extras.common.inventory.slot.ExtraBinInventorySlot;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import mekanism.api.math.MathUtils;

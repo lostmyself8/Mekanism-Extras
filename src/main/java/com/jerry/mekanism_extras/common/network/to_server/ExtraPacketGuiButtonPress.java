@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.common.network.to_server;
 
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
-import com.jerry.mekanism_extras.registry.ExtraContainerTypes;
+import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.attribute.AttributeGui;

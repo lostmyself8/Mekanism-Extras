@@ -1,6 +1,9 @@
 package com.jerry.mekanism_extras.client.render.transmitter;
 
-import com.jerry.mekanism_extras.common.block.transmitter.logisticaltransporter.*;
+import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraLogisticalTransporterBase;
+import com.jerry.mekanism_extras.common.tier.transmitter.TPTier;
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityLogisticalTransporterBase;
+import com.jerry.mekanism_extras.common.util.ExtraTransporterUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.text.EnumColor;

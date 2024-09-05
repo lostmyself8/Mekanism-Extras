@@ -2,10 +2,10 @@ package com.jerry.mekanism_extras.client.render.item.block;
 
 import com.jerry.mekanism_extras.client.model.ExtraModelEnergyCore;
 import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderEnergyCube;
-import com.jerry.mekanism_extras.common.block.storage.energycube.ECTier;
-import com.jerry.mekanism_extras.common.block.storage.TierColor;
-import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraItemBlockEnergyCube;
-import com.jerry.mekanism_extras.common.block.storage.energycube.ExtraTileEntityEnergyCube;
+import com.jerry.mekanism_extras.common.tier.ECTier;
+import com.jerry.mekanism_extras.common.tier.TierColor;
+import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockEnergyCube;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import mekanism.api.NBTConstants;

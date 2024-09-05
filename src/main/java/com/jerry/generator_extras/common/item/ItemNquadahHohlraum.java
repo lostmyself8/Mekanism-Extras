@@ -1,6 +1,6 @@
 package com.jerry.generator_extras.common.item;
 
-import com.jerry.mekanism_extras.registry.ExtraGases;
+import com.jerry.mekanism_extras.common.registry.ExtraGases;
 import mekanism.api.chemical.ChemicalTankBuilder;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.gas.IGasHandler;

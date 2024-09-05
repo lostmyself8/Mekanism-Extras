@@ -7,7 +7,7 @@ import com.jerry.mekanism_extras.client.gui.energycube.ExtraGuiEnergyCube;
 import com.jerry.mekanism_extras.client.gui.fluidtank.ExtraGuiFluidTank;
 import com.jerry.mekanism_extras.client.gui.ExtraGuiInductionMatrix;
 import com.jerry.mekanism_extras.client.gui.ExtraGuiMatrixStats;
-import com.jerry.mekanism_extras.registry.ExtraContainerTypes;
+import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
 import mekanism.client.ClientRegistrationUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.api.distmarker.Dist;

@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.render.transmitter;
 
-import com.jerry.mekanism_extras.common.block.transmitter.thermodynamicconductor.ExtraThermodynamicConductor;
-import com.jerry.mekanism_extras.common.block.transmitter.thermodynamicconductor.ExtraTileEntityThermodynamicConductor;
+import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraThermodynamicConductor;
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityThermodynamicConductor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;

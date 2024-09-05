@@ -1,12 +1,12 @@
 package com.jerry.mekanism_extras.common.util;
 
-import com.jerry.mekanism_extras.common.block.storage.bin.BTier;
-import com.jerry.mekanism_extras.common.block.storage.chemicaltank.CTTier;
-import com.jerry.mekanism_extras.common.block.storage.energycube.ECTier;
-import com.jerry.mekanism_extras.common.block.storage.fluidtank.FTTier;
+import com.jerry.mekanism_extras.common.tier.BTier;
+import com.jerry.mekanism_extras.common.tier.CTTier;
+import com.jerry.mekanism_extras.common.tier.ECTier;
+import com.jerry.mekanism_extras.common.tier.FTTier;
 import com.jerry.mekanism_extras.common.resource.ore.ExtraOreType;
-import com.jerry.mekanism_extras.common.tile.multiblock.cell.ICTier;
-import com.jerry.mekanism_extras.common.tile.multiblock.provider.IPTier;
+import com.jerry.mekanism_extras.common.tier.ICTier;
+import com.jerry.mekanism_extras.common.tier.IPTier;
 
 public class ExtraEnumUtils {
     public static final ECTier[] ENERGY_CUBE_TIERS = ECTier.values();

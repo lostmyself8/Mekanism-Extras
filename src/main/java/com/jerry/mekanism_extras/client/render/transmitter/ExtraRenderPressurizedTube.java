@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.render.transmitter;
 
-import com.jerry.mekanism_extras.common.block.transmitter.tube.ExtraBoxedPressurizedTube;
-import com.jerry.mekanism_extras.common.block.transmitter.tube.ExtraTileEntityPressurizedTube;
+import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraBoxedPressurizedTube;
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.api.chemical.Chemical;
 import mekanism.client.render.MekanismRenderer;

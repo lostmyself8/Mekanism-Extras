@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.client.gui.fluidtank;
 
-import com.jerry.mekanism_extras.common.block.storage.fluidtank.ExtraTileEntityFluidTank;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiSideHolder;
 import mekanism.client.gui.element.gauge.GaugeType;

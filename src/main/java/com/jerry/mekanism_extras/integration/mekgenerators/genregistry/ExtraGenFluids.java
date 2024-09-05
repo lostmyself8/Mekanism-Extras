@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.integration.mekgenerators.genregistry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.registry.ExtraChemicalConstants;
+import com.jerry.mekanism_extras.common.registry.ExtraChemicalConstants;
 import mekanism.common.registration.impl.FluidDeferredRegister;
 import mekanism.common.registration.impl.FluidRegistryObject;
 import net.minecraft.world.item.BucketItem;
