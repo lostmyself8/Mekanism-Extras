@@ -1,13 +1,15 @@
 # **Mekanism Extras**
 
-[![CurseForge Total Downloads][badge_curseforge]][curseforge]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Modrinth Total Downloads][badge_modrinth]][modrinth]
+[//]: # ([![CurseForge Total Downloads][badge_curseforge]][curseforge])
 
-[badge_curseforge]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.cfwidget.com%2F1026040&query=downloads.total&style=for-the-badge&logo=curseforge&label=CurseForge&color=e04e14
+[//]: # ([![Modrinth Total Downloads][badge_modrinth]][modrinth])
+
+[badge_curseforge]: https://img.shields.io/badge/dynamic/json?color=e04e14&label=CurseForge&style=for-the-badge&query=downloads.total&url=https%3A%2F%2Fapi.cfwidget.com%2F622112&logo=curseforge
 [curseforge]: https://www.curseforge.com/minecraft/mc-mods/mekanism-extras
-[badge_modrinth]: https://img.shields.io/modrinth/dt/HUZkxNTQ?color=5da545&label=Modrinth&style=for-the-badge&logo=modrinth
+[badge_modrinth]: https://img.shields.io/modrinth/dt/jjuIRIVr?color=5da545&label=Modrinth&style=for-the-badge&logo=modrinth
 [modrinth]: https://modrinth.com/mod/mekanism_extra
 
-**Ported [Mekanism Evolution](https://github.com/Pocky-l/Mekanism-Evolution) to 1.20.1 and added some other things**
+**Ported [Mekanism Evolution](https://github.com/Pocky-l/Mekanism-Evolution) to a higher version and added some other things**
 
 **My textures drawing may not be very good. If you want to provide better textures, you can contact me.**
 
