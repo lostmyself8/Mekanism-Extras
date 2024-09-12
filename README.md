@@ -1,14 +1,13 @@
 # **Mekanism Extras**
 
-[![CurseForge Total Downloads][badge_curseforge]][curseforge]
-[![Modrinth Total Downloads][badge_modrinth]][modrinth]
+[//]: # ([![CurseForge Total Downloads][badge_curseforge]][curseforge])
+
+[//]: # ([![Modrinth Total Downloads][badge_modrinth]][modrinth])
 
 [badge_curseforge]: https://img.shields.io/badge/dynamic/json?color=e04e14&label=CurseForge&style=for-the-badge&query=downloads.total&url=https%3A%2F%2Fapi.cfwidget.com%2F622112&logo=curseforge
 [curseforge]: https://www.curseforge.com/minecraft/mc-mods/mekanism-extras
 [badge_modrinth]: https://img.shields.io/modrinth/dt/jjuIRIVr?color=5da545&label=Modrinth&style=for-the-badge&logo=modrinth
 [modrinth]: https://modrinth.com/mod/mekanism_extra
-
-**For the first time writing a mod, there may be some deficiencies in the numerical value of the item and the quality of the module. If there are any areas that you feel are inappropriate, please report them on GitHub.**
 
 **Ported [Mekanism Evolution](https://github.com/Pocky-l/Mekanism-Evolution) to 1.20.1 and added some other things**
 
