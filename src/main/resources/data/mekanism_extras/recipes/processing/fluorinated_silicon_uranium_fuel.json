@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:chemical_infusing",
+  "leftInput": {
+    "amount": 1,
+    "gas": "mekanism:uranium_hexafluoride"
+  },
+  "output": {
+    "amount": 2,
+    "gas": "mekanism_extras:fluorinated_silicon_uranium_fuel"
+  },
+  "rightInput": {
+    "amount": 1,
+    "gas": "mekanism_extras:silicon_tetrafluoride"
+  }
+}

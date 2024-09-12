@@ -1,0 +1,25 @@
+{
+  "type": "mekanism:reaction",
+  "duration": 60,
+  "energyRequired": 1000,
+  "fluidInput": {
+    "amount": 200,
+    "fluid": "mekanism_extras:fluorinated_silicon_uranium_fuel"
+  },
+  "gasInput": {
+    "amount": 200,
+    "gas": "mekanism:osmium"
+  },
+  "itemInput": {
+    "ingredient": {
+      "tag": "forge:dusts/osmium"
+    }
+  },
+  "itemOutput": {
+    "item": "mekanism:shard_osmium"
+  },
+  "gasOutput": {
+    "amount": 200,
+    "gas": "mekanism_extras:silicon_uranium_fuel"
+  }
+}

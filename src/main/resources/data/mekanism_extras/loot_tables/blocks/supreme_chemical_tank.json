@@ -8,66 +8,35 @@
           "type": "minecraft:item",
           "functions": [
             {
+              "function": "mekanism:copy_security"
+            },
+            {
+              "function": "mekanism:copy_side_config"
+            },
+            {
               "function": "minecraft:copy_name",
               "source": "block_entity"
             },
             {
-              "function": "minecraft:copy_nbt",
+              "function": "mekanism:copy_containers",
+              "types": [
+                "mekanism:gas_tanks",
+                "mekanism:infusion_tanks",
+                "mekanism:inventory_slots",
+                "mekanism:pigment_tanks",
+                "mekanism:slurry_tanks"
+              ]
+            },
+            {
+              "function": "mekanism:copy_to_attachments",
               "ops": [
                 {
-                  "op": "replace",
-                  "source": "componentSecurity.owner",
-                  "target": "mekData.owner"
-                },
-                {
-                  "op": "replace",
-                  "source": "componentSecurity.securityMode",
-                  "target": "mekData.securityMode"
-                },
-                {
-                  "op": "replace",
-                  "source": "componentConfig",
-                  "target": "mekData.componentConfig"
-                },
-                {
-                  "op": "replace",
-                  "source": "componentEjector",
-                  "target": "mekData.componentEjector"
-                },
-                {
-                  "op": "replace",
-                  "source": "dumping",
-                  "target": "mekData.dumping"
-                },
-                {
-                  "op": "replace",
                   "source": "controlType",
-                  "target": "mekData.controlType"
+                  "target": "mekanism:redstone_control"
                 },
                 {
-                  "op": "replace",
-                  "source": "GasTanks",
-                  "target": "mekData.GasTanks"
-                },
-                {
-                  "op": "replace",
-                  "source": "InfusionTanks",
-                  "target": "mekData.InfusionTanks"
-                },
-                {
-                  "op": "replace",
-                  "source": "PigmentTanks",
-                  "target": "mekData.PigmentTanks"
-                },
-                {
-                  "op": "replace",
-                  "source": "SlurryTanks",
-                  "target": "mekData.SlurryTanks"
-                },
-                {
-                  "op": "replace",
-                  "source": "Items",
-                  "target": "mekData.Items"
+                  "source": "dumping",
+                  "target": "mekanism:dump_mode"
                 }
               ],
               "source": "block_entity"

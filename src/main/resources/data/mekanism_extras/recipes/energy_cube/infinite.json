@@ -8,10 +8,7 @@
       "item": "mekanism:energy_tablet"
     },
     "I": {
-      "tag": "forge:pellets/plutonium"
-    },
-    "J": {
-      "tag": "forge:pellets/polonium"
+      "tag": "forge:ingots/osmium"
     },
     "P": {
       "item": "mekanism_extras:cosmic_energy_cube"
@@ -19,7 +16,7 @@
   },
   "pattern": [
     "AEA",
-    "IPJ",
+    "IPI",
     "AEA"
   ],
   "result": {

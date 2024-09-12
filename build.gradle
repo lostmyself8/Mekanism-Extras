@@ -3,101 +3,96 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    alias libs.plugins.modDevGradle
-    alias libs.plugins.spotless
-    alias libs.plugins.lombok
+    id 'net.neoforged.gradle.userdev' version '7.0.74'
 }
 
-group = maven_group
-boolean isSnapshot = System.getenv("SNAPSHOT")
-version = "${mod_version}" + (isSnapshot ? "-SNAPSHOT" : "")
-boolean isCI = System.getenv("CI") != null
+version = mod_version
+group = mod_group_id
 
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+repositories {
+    mavenLocal()
 }
 
-sourceSets {
-    main.resources {
-        srcDir 'src/generated/resources'
+base {
+    archivesName = mod_id
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+
+        systemProperty 'forge.logging.console.level', 'debug'
+
+        modSource project.sourceSets.main
     }
 
     client {
-        compileClasspath += main.output
-        runtimeClasspath += main.output + main.runtimeClasspath
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
     }
 
-    test {
-        compileClasspath += main.output
-        runtimeClasspath += main.output + main.runtimeClasspath
+    server {
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        programArgument '--nogui'
     }
 
-    extra {
-        compileClasspath += main.output
-        runtimeClasspath += main.output + main.runtimeClasspath
+    gameTestServer {
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
     }
 
-    clientExtra {
-        compileClasspath += client.output + extra.compileClasspath
-        runtimeClasspath += client.output + client.runtimeClasspath + extra.runtimeClasspath
+    data {
+        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
 
-configurations {
-    library
-    implementation.extendsFrom library
-    // set these as unresolvable so we don't accidentally force all dependents to use them with us
-    clientRuntimeOnly.canBeResolved = false
-    extraRuntimeOnly.canBeResolved = false
-    clientExtraRuntimeOnly.canBeResolved = false
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-    runtimeClasspath.extendsFrom localRuntime
-    extraRuntimeClasspath.extendsFrom extraLocalRuntime
-    clientRuntimeClasspath.extendsFrom clientLocalRuntime
-    extraClientRuntimeClasspath.extendsFrom clientExtraLocalRuntime
+repositories {
+    maven { url 'https://modmaven.dev/' }
+}
 
-    renderNurseCfg {
-        canBeConsumed = false
+dependencies {
+    implementation "net.neoforged:neoforge:${neo_version}"
+
+//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+//    compileOnly "mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    implementation "mekanism:Mekanism:${mekanism_version}"
+    runtimeOnly "mekanism:Mekanism:${mekanism_version}:additions"
+    runtimeOnly "mekanism:Mekanism:${mekanism_version}:generators"
+    runtimeOnly "mekanism:Mekanism:${mekanism_version}:tools"
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
+            neo_version         : neo_version, neo_version_range: neo_version_range,
+            loader_version_range: loader_version_range,
+            mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_authors         : mod_authors, mod_description: mod_description,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml']) {
+        expand replaceProperties + [project: project]
     }
 }
 
-afterEvaluate {
-    configurations {
-        // same as above but for the modRuntimeOnly configurations
-        modClientRuntimeOnly.canBeResolved = false
-        modExtraRuntimeOnly.canBeResolved = false
-        modClientExtraRuntimeOnly.canBeResolved = false
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
     }
-}
-
-obfuscation {
-    createRemappingConfiguration(configurations.localRuntime)
-    createRemappingConfiguration(configurations.clientLocalRuntime)
-
-    createRemappingConfiguration(configurations.extraLocalRuntime)
-    createRemappingConfiguration(configurations.clientExtraLocalRuntime)
-}
-
-apply from: "$rootDir/gradle/scripts/jars.gradle"
-apply from: "$rootDir/gradle/scripts/moddevgradle.gradle"
-apply from: "$rootDir/gradle/scripts/repositories.gradle"
-apply from: "$rootDir/dependencies.gradle"
-apply from: "$rootDir/gradle/scripts/resources.gradle"
-apply from: "$rootDir/gradle/scripts/publishing.gradle"
-apply from: "$rootDir/gradle/scripts/spotless.gradle"
-
-generateModMetadata.doFirst {
-    mkdir('run/client')
-    mkdir('run/server')
-    mkdir('run/data')
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = "UTF-8"
-    options.compilerArgs << "-Xlint:-removal"
-    options.compilerArgs << "-Aquiet=true" // Suppress mixin notes
-}
-
-lombok {
-    version = "1.18.38"
+    options.encoding = 'UTF-8'
 }
