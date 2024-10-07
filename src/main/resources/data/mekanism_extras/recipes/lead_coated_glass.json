@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemicalInput": {
+    "amount": 10,
+    "infuse_type": "mekanism_extras:lead"
+  },
+  "itemInput": {
+    "amount": 1,
+    "ingredient": {
+      "item": "mekanismgenerators:reactor_glass"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:lead_coated_glass"
+  }
+}

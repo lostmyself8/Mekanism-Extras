@@ -1,0 +1,20 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "TRANSLUCENT",
+    "textures": [
+      "mekanism_extras:ctm/lead_coated_glass"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "mekanism_extras:lead_coated_glass"
+        },
+        {
+          "block": "mekanism_extras:lead_coated_laser_focus_matrix"
+        }
+      ]
+    }
+  }
+}

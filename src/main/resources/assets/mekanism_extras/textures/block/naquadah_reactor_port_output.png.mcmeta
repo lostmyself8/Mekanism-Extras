@@ -1,0 +1,32 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "SOLID",
+    "textures": [
+      "mekanism_extras:ctm/naquadah_reactor_port_output"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "mekanism_extras:naquadah_reactor_casing"
+        },
+        {
+          "block": "mekanism_extras:naquadah_reactor_controller"
+        },
+        {
+          "block": "mekanism_extras:naquadah_reactor_controller_on"
+        },
+        {
+          "block": "mekanism_extras:naquadah_reactor_logic_adapter"
+        },
+        {
+          "block": "mekanism_extras:naquadah_reactor_port"
+        },
+        {
+          "block": "mekanism_extras:naquadah_reactor_port_output"
+        }
+      ]
+    }
+  }
+}

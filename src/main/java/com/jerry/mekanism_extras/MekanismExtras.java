@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras;
 
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorCache;
+import com.jerry.generator_extras.common.genregistry.*;
 import com.jerry.mekanism_extras.client.events.ClientTick;
 import com.jerry.mekanism_extras.common.ExtraTag;
 import com.jerry.mekanism_extras.common.command.ExtraBuilders;
@@ -11,7 +12,6 @@ import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.registry.*;
 import com.jerry.mekanism_extras.integration.Addons;
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.*;
 import com.mojang.logging.LogUtils;
 import mekanism.common.MekanismLang;
 import mekanism.common.command.CommandMek;

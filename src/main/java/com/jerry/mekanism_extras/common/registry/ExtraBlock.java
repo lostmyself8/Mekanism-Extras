@@ -157,7 +157,7 @@ public class ExtraBlock {
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> INFINITE_CHEMICAL_TANK = registerChemicalTank("infinite", ExtraBlockType.INFINITE_CHEMICAL_TANK);
     //other
     public static final BlockRegistryObject<ExtraBlockRadioactiveWasteBarrel, ExtraItemBlockRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = EXTRA_BLOCK.registerDefaultProperties("expand_radioactive_waste_barrel", ExtraBlockRadioactiveWasteBarrel::new, ExtraItemBlockRadioactiveWasteBarrel::new);
-    public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityElectricPump, Machine<ExtraTileEntityElectricPump>>, ItemBlockMachine> FASTER_ELECTRIC_PUMP = EXTRA_BLOCK.register("faster_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockType.FASTER_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityElectricPump, Machine<ExtraTileEntityElectricPump>>, ItemBlockMachine> ADVANCE_ELECTRIC_PUMP = EXTRA_BLOCK.register("advance_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockType.ADVANCE_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);
 
     private static ExtraOreBlockType registerOre(ExtraOreType ore) {
         String name = ore.getResource().getRegistrySuffix() + "_ore";

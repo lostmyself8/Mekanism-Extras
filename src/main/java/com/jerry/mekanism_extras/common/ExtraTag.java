@@ -12,7 +12,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ExtraTag {
 
@@ -50,8 +49,6 @@ public class ExtraTag {
         public static final TagKey<Fluid> FLUORINATED_SILICON_URANIUM_FUEL = forgeTag("fluorinated_silicon_uranium_fuel");
         public static final TagKey<Fluid> RICH_SILICON_LIQUID_FUEL = forgeTag("rich_silicon_liquid_fuel");
         public static final TagKey<Fluid> RICH_URANIUM_LIQUID_FUEL = forgeTag("rich_uranium_liquid_fuel");
-        public static final TagKey<Fluid> FISSILE_FUEL = forgeTag("fissile_fuel");
-        public static final LazyTagLookup<Fluid> FISSILE_FUEL_LOOKUP = LazyTagLookup.create(ForgeRegistries.FLUIDS, FISSILE_FUEL);
 
         private static TagKey<Fluid> forgeTag(String name) {
             return FluidTags.create(new ResourceLocation("forge", name));
@@ -73,10 +70,10 @@ public class ExtraTag {
         public static final TagKey<Gas> MOLTEN_THERMONUCLEAR = tag("molten_thermonuclear");
         public static final TagKey<Gas> SILICON_TETRAFLUORIDE = tag("silicon_tetrafluoride");
         public static final TagKey<Gas> FLUORINATED_SILICON_URANIUM_FUEL = tag("fluorinated_silicon_uranium_fuel");
-        public static final TagKey<Gas> RICH_SILICON_LIQUID_FUEL = tag("rich_silicon_liquid_fuel");
-        public static final LazyTagLookup<Gas> RICH_SILICON_LIQUID_FUEL_LOOKUP = LazyTagLookup.create(ChemicalTags.GAS, RICH_SILICON_LIQUID_FUEL);
-        public static final TagKey<Gas> RICH_URANIUM_LIQUID_FUEL = tag("rich_uranium_liquid_fuel");
-        public static final LazyTagLookup<Gas> RICH_URANIUM_LIQUID_FUEL_LOOKUP = LazyTagLookup.create(ChemicalTags.GAS, RICH_URANIUM_LIQUID_FUEL);
+        public static final TagKey<Gas> RICH_SILICON_FUEL = tag("rich_silicon_fuel");
+        public static final LazyTagLookup<Gas> RICH_SILICON_FUEL_LOOKUP = LazyTagLookup.create(ChemicalTags.GAS, RICH_SILICON_FUEL);
+        public static final TagKey<Gas> RICH_URANIUM_FUEL = tag("rich_uranium_fuel");
+        public static final LazyTagLookup<Gas> RICH_URANIUM_FUEL_LOOKUP = LazyTagLookup.create(ChemicalTags.GAS, RICH_URANIUM_FUEL);
         public static final TagKey<Gas> SILICON_URANIUM_FUEL = tag("silicon_uranium_fuel");
         public static final LazyTagLookup<Gas> SILICON_URANIUM_FUEL_LOOKUP = LazyTagLookup.create(ChemicalTags.GAS, SILICON_URANIUM_FUEL);
 

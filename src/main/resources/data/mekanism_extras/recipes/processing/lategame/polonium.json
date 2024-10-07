@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:activating",
+  "input": {
+    "amount": 10,
+    "gas": "mekanism_extras:polonium-208"
+  },
+  "output": {
+    "amount": 1,
+    "gas": "mekanism:polonium"
+  }
+}

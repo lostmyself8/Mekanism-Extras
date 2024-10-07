@@ -2,6 +2,6 @@
   "render_type": "minecraft:translucent",
   "parent": "block/cube_all",
   "textures": {
-    "all": "mekanismgenerators:block/reactor_glass"
+    "all": "mekanism_extras:block/lead_coated_glass"
   }
 }

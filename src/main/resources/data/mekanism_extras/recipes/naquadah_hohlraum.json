@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemicalInput": {
+    "amount": 10,
+    "infuse_type": "mekanism_extras:lead"
+  },
+  "itemInput": {
+    "amount": 4,
+    "ingredient": {
+      "tag": "forge:dusts/naquadah"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:naquadah_hohlraum"
+  }
+}

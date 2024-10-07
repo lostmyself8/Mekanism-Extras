@@ -90,7 +90,7 @@ public class ExtraTileEntityTypes {
     public static final TileEntityTypeRegistryObject<ExtraTileEntityChemicalTank> SUPREME_CHEMICAL_TANK = TILE_ENTITY_TYPES.register(ExtraBlock.SUPREME_CHEMICAL_TANK, (pos, state) -> new ExtraTileEntityChemicalTank(ExtraBlock.SUPREME_CHEMICAL_TANK, pos, state));
     public static final TileEntityTypeRegistryObject<ExtraTileEntityChemicalTank> COSMIC_CHEMICAL_TANK = TILE_ENTITY_TYPES.register(ExtraBlock.COSMIC_CHEMICAL_TANK, (pos, state) -> new ExtraTileEntityChemicalTank(ExtraBlock.COSMIC_CHEMICAL_TANK, pos, state));
     public static final TileEntityTypeRegistryObject<ExtraTileEntityChemicalTank> INFINITE_CHEMICAL_TANK = TILE_ENTITY_TYPES.register(ExtraBlock.INFINITE_CHEMICAL_TANK, (pos, state) -> new ExtraTileEntityChemicalTank(ExtraBlock.INFINITE_CHEMICAL_TANK, pos, state));
-    public static final TileEntityTypeRegistryObject<ExtraTileEntityElectricPump> FASTER_ELECTRIC_PUMP = TILE_ENTITY_TYPES.register(ExtraBlock.FASTER_ELECTRIC_PUMP, ExtraTileEntityElectricPump::new);
+    public static final TileEntityTypeRegistryObject<ExtraTileEntityElectricPump> ADVANCE_ELECTRIC_PUMP = TILE_ENTITY_TYPES.register(ExtraBlock.ADVANCE_ELECTRIC_PUMP, ExtraTileEntityElectricPump::new);
 
     public static void register(IEventBus eventBus) {
         TILE_ENTITY_TYPES.register(eventBus);

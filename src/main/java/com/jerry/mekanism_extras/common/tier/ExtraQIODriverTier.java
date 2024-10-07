@@ -3,10 +3,10 @@ package com.jerry.mekanism_extras.common.tier;
 import mekanism.api.tier.BaseTier;
 
 public enum ExtraQIODriverTier {
-    ABSOLUTE(BaseTier.BASIC, 128_000_000_000L, 16384),
-    SUPREME(BaseTier.ADVANCED, 1_048_000_000_000L, 65536),
-    COSMIC(BaseTier.ELITE, 8_000_000_000_000L, 262144),
-    INFINITE(BaseTier.ULTIMATE, 16_000_000_000_000L, 1048576);
+    COLLAPSE(BaseTier.BASIC, 128_000_000_000L, 16384),
+    GAMMA(BaseTier.ADVANCED, 1_048_000_000_000L, 65536),
+    BLACK_HOLE(BaseTier.ELITE, 8_000_000_000_000L, 262144),
+    SINGULARITY(BaseTier.ULTIMATE, 16_000_000_000_000L, 1048576);
 
     private final BaseTier baseTier;
     private final long count;

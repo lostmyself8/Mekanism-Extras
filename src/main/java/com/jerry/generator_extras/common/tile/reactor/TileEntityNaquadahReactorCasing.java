@@ -2,13 +2,13 @@ package com.jerry.generator_extras.common.tile.reactor;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlocks;
+import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.inventory.container.MekanismContainer;
 import mekanism.common.inventory.container.sync.dynamic.SyncMapper;
 import mekanism.common.lib.multiblock.MultiblockManager;
 import mekanism.common.tile.prefab.TileEntityMultiblock;
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenContainerTypes;
+import com.jerry.generator_extras.common.genregistry.ExtraGenContainerTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;

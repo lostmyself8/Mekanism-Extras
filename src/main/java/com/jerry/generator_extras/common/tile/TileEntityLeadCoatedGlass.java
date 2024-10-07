@@ -1,6 +1,6 @@
 package com.jerry.generator_extras.common.tile;
 
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlocks;
+import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import mekanism.common.lib.multiblock.MultiblockManager;
 import mekanism.common.tile.prefab.TileEntityStructuralMultiblock;
 import net.minecraft.core.BlockPos;
@@ -15,4 +15,5 @@ public class TileEntityLeadCoatedGlass extends TileEntityStructuralMultiblock {
     public boolean canInterface(MultiblockManager<?> manager) {
         return true;
     }
+
 }

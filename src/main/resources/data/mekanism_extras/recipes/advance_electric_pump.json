@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "forge:alloys/supreme"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "O": {
+      "tag": "forge:storage_blocks/osmium"
+    },
+    "X": {
+      "item": "mekanism:electric_pump"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "AXA",
+    "OOO"
+  ],
+  "result": {
+    "item": "mekanism_extras:advance_electric_pump"
+  }
+}

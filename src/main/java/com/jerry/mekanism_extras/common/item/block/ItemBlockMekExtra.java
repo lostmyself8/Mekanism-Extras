@@ -113,6 +113,7 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
         return Attribute.has(block, AttributeEnergy.class) && !stack.isStackable();
     }
 
+    //TODO: 到时候记得改一下
     protected boolean areCapabilityConfigsLoaded(ItemStack stack) {
         if (exposesEnergyCap(stack)) {
             return MekanismConfig.storage.isLoaded() && MekanismConfig.usage.isLoaded();

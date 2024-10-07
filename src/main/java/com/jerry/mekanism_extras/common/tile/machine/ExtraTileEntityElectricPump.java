@@ -94,7 +94,7 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     EnergyInventorySlot energySlot;
 
     public ExtraTileEntityElectricPump(BlockPos pos, BlockState state) {
-        super(ExtraBlock.FASTER_ELECTRIC_PUMP, pos, state);
+        super(ExtraBlock.ADVANCE_ELECTRIC_PUMP, pos, state);
         addCapabilityResolver(BasicCapabilityResolver.constant(Capabilities.CONFIGURABLE, this));
         addCapabilityResolver(BasicCapabilityResolver.constant(Capabilities.CONFIG_CARD, this));
     }

@@ -7,6 +7,12 @@ import org.jetbrains.annotations.NotNull;
 
 public enum ExtraLang implements ILangEntry {
     EXTRA_TAB("constants", "mod_name"),
+
+    //JEI
+    JEI_INFO_RICH_SILICON_FUEL("info", "jei.rich_silicon_fuel"),
+    JEI_INFO_RICH_URANIUM_FUEL("info", "jei.rich_uranium_fuel"),
+
+    //Description
     DESCRIPTION_FORCEFIELD_GENERATOR("description", "forcefield_generator");
     private final String key;
 

@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.command;
 
-import com.jerry.mekanism_extras.integration.mekgenerators.genregistry.ExtraGenBlocks;
+import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import mekanism.common.command.builders.StructureBuilder;
 import mekanism.common.registries.MekanismBlocks;
@@ -30,7 +30,7 @@ public class ExtraBuilders {
 
         @Override
         protected Block getWallBlock(BlockPos pos) {
-            return ExtraGenBlocks.LEAD_COATED_GLASS.getBlock();
+            return ExtraGenBlocks.NAQUADAH_REACTOR_CASING.getBlock();
         }
 
         @Override

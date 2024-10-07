@@ -1,1 +1,6 @@
-{"values":["#forge:immovable","#forge:relocation_not_supported"]}
+{
+  "values": [
+    "#forge:immovable",
+    "#forge:relocation_not_supported"
+  ]
+}

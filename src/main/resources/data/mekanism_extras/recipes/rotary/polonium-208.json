@@ -1,0 +1,19 @@
+{
+  "type": "mekanism:rotary",
+  "fluidInput": {
+    "amount": 1,
+    "fluid": "mekanism_extras:polonium-208"
+  },
+  "fluidOutput": {
+    "amount": 1,
+    "fluid": "mekanism_extras:polonium-208"
+  },
+  "gasInput": {
+    "amount": 1,
+    "gas": "mekanism_extras:polonium-208"
+  },
+  "gasOutput": {
+    "amount": 1,
+    "gas": "mekanism_extras:polonium-208"
+  }
+}

@@ -1,5 +1,6 @@
 package com.jerry.generator_extras.common.item;
 
+import com.jerry.mekanism_extras.common.ExtraTag;
 import com.jerry.mekanism_extras.common.registry.ExtraGases;
 import mekanism.api.chemical.ChemicalTankBuilder;
 import mekanism.api.chemical.gas.GasStack;
@@ -13,9 +14,8 @@ import mekanism.common.item.CapabilityItem;
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.StorageUtils;
-import mekanism.generators.common.GeneratorTags;
+import com.jerry.generator_extras.common.config.GenLoadConfig;
 import mekanism.generators.common.GeneratorsLang;
-import mekanism.generators.common.config.MekanismGeneratorsConfig;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -72,18 +72,18 @@ public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDe
 
     @Override
     public void addItems(CreativeModeTab.Output tabOutput) {
-        tabOutput.accept(ChemicalUtil.getFilledVariant(new ItemStack(this), MekanismGeneratorsConfig.generators.hohlraumMaxGas, ExtraGases.SILICON_URANIUM_FUEL));
+        tabOutput.accept(ChemicalUtil.getFilledVariant(new ItemStack(this), GenLoadConfig.generatorConfig.hohlraumMaxGas, ExtraGases.SILICON_URANIUM_FUEL));
     }
 
     @Override
     protected boolean areCapabilityConfigsLoaded() {
-        return super.areCapabilityConfigsLoaded() && MekanismGeneratorsConfig.generators.isLoaded();
+        return super.areCapabilityConfigsLoaded() && GenLoadConfig.generatorConfig.isLoaded();
     }
 
     @Override
     protected void gatherCapabilities(List<ItemCapabilityWrapper.ItemCapability> capabilities, ItemStack stack, CompoundTag nbt) {
         super.gatherCapabilities(capabilities, stack, nbt);
-        capabilities.add(RateLimitGasHandler.create(MekanismGeneratorsConfig.generators.hohlraumFillRate, MekanismGeneratorsConfig.generators.hohlraumMaxGas,
-                ChemicalTankBuilder.GAS.notExternal, ChemicalTankBuilder.GAS.alwaysTrueBi, GeneratorTags.Gases.FUSION_FUEL_LOOKUP::contains));
+        capabilities.add(RateLimitGasHandler.create(GenLoadConfig.generatorConfig.hohlraumFillRate, GenLoadConfig.generatorConfig.hohlraumMaxGas,
+                ChemicalTankBuilder.GAS.notExternal, ChemicalTankBuilder.GAS.alwaysTrueBi, ExtraTag.Gases.SILICON_URANIUM_FUEL_LOOKUP::contains));
     }
 }

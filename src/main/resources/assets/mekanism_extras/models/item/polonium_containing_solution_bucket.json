@@ -1,0 +1,5 @@
+{
+  "parent": "forge:item/bucket",
+  "fluid": "mekanism_extras:polonium_containing_solution",
+  "loader": "forge:fluid_container"
+}

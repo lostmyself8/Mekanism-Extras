@@ -157,7 +157,7 @@ public class ExtraConfig extends BaseMekanismConfig {
                 .define("transmitterAlloyUpgrade", true));
         builder.pop();
 
-        builder.comment("Faster Electric Pump").push("faster electric pump");
+        builder.comment("Advance Electric Pump").push("advance electric pump");
         this.pumpHeavyWaterAmount = CachedIntValue.wrap(this, builder.comment("mB of Heavy Water that is extracted per block of Water by the Electric Pump with a Filter Upgrade.")
                 .defineInRange("pumpHeavyWaterAmount", FluidType.BUCKET_VOLUME , 1, FluidType.BUCKET_VOLUME));
         builder.pop();

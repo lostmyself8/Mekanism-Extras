@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.registry;
 
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeUpgradeable;
+import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
 import com.jerry.mekanism_extras.common.tier.BTier;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
@@ -21,7 +22,6 @@ import com.jerry.mekanism_extras.common.util.ExtraFloatingLong;
 import mekanism.api.Upgrade;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
-import mekanism.common.config.MekanismConfig;
 import mekanism.common.content.blocktype.BlockShapes;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.Machine;
@@ -86,10 +86,10 @@ public class ExtraBlockType {
     public static final Machine<ExtraTileEntityChemicalTank> INFINITE_CHEMICAL_TANK = createChemicalTank(CTTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_CHEMICAL_TANK, null);
 
     // Electric Pump
-    public static final Machine<ExtraTileEntityElectricPump> FASTER_ELECTRIC_PUMP = Machine.MachineBuilder
-            .createMachine(() -> ExtraTileEntityTypes.FASTER_ELECTRIC_PUMP, MekanismLang.DESCRIPTION_ELECTRIC_PUMP)
-            .withGui(() -> ExtraContainerTypes.FASTER_ELECTRIC_PUMP)
-            .withEnergyConfig(MekanismConfig.usage.electricPump, MekanismConfig.storage.electricPump)
+    public static final Machine<ExtraTileEntityElectricPump> ADVANCE_ELECTRIC_PUMP = Machine.MachineBuilder
+            .createMachine(() -> ExtraTileEntityTypes.ADVANCE_ELECTRIC_PUMP, MekanismLang.DESCRIPTION_ELECTRIC_PUMP)
+            .withGui(() -> ExtraContainerTypes.ADVANCE_ELECTRIC_PUMP)
+            .withEnergyConfig(LoadConfig.extraUsage.advanceElectricPump, LoadConfig.extraStorage.advanceElectricPump)
             .withSupportedUpgrades(EnumSet.of(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.FILTER))
             .withCustomShape(BlockShapes.ELECTRIC_PUMP)
             .withComputerSupport("electricPump")

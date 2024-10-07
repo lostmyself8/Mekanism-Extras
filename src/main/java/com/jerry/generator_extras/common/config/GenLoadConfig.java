@@ -9,10 +9,10 @@ public class GenLoadConfig {
 
     }
 
-    public static final ReactorConfig reactorConfig = new ReactorConfig();
+    public static final GeneratorConfig generatorConfig = new GeneratorConfig();
 
     public static void registerConfigs(ModLoadingContext modLoadingContext) {
         ModContainer modContainer = modLoadingContext.getActiveContainer();
-        ExtraConfigHelper.registerConfig(modContainer, reactorConfig);
+        ExtraConfigHelper.registerConfig(modContainer, generatorConfig);
     }
 }
