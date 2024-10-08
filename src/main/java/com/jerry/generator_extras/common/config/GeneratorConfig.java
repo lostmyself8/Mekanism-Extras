@@ -41,17 +41,17 @@ public class GeneratorConfig extends BaseMekanismConfig {
         builder.comment("Reactor Settings").push(NAQUADAH_CATEGORY);
         reactorThermocoupleEfficiency = CachedDoubleValue.wrap(this, builder.comment("The fraction of the heat dissipated from the case that is converted to Joules.")
                 .defineInRange("thermocoupleEfficiency", 0.1D, 0D, 1D));
-        reactorCasingThermalConductivity = CachedDoubleValue.wrap(this, builder.comment("The fraction fraction of heat from the casing that can be transferred to all sources that are not fissile. Will impact max heat, heat transfer to thermodynamic conductors, and power generation.")
+        reactorCasingThermalConductivity = CachedDoubleValue.wrap(this, builder.comment("The fraction fraction of heat from the casing that can be transferred to all sources that are not water. Will impact max heat, heat transfer to thermodynamic conductors, and power generation.")
                 .defineInRange("casingThermalConductivity", 0.1D, 0.001D, 1D));
-        reactorWaterHeatingRatio = CachedDoubleValue.wrap(this, builder.comment("The fraction of the heat from the casing that is dissipated to fissile when fissile medium is in use. Will impact max heat, and polonium generation.")
-                .defineInRange("fissileHeatingRatio", 0.3D, 0D, 1D));
+        reactorWaterHeatingRatio = CachedDoubleValue.wrap(this, builder.comment("The fraction of the heat from the casing that is dissipated to water when water medium is in use. Will impact max heat, and polonium generation.")
+                .defineInRange("waterHeatingRatio", 0.3D, 0D, 1D));
         reactorFuelCapacity = CachedLongValue.wrap(this, builder.comment("Amount of fuel (mB) that the reactor reactor can store.")
                 .defineInRange("fuelCapacity", FluidType.BUCKET_VOLUME, 2, 1_000L * FluidType.BUCKET_VOLUME));
         reactorEnergyCapacity = CachedFloatingLongValue.define(this, builder, "Amount of energy (J) the reactor reactor can store.",
                 "energyCapacity", FloatingLong.createConst(10_000_000_000L), CachedFloatingLongValue.POSITIVE);
         int baseMaxFissile = 1_000 * FluidType.BUCKET_VOLUME;
-        reactorWaterPerInjection = CachedIntValue.wrap(this, builder.comment("Amount of water (mB) per injection rate that the naquadah reactor can store. Max = injectionRate * fissilePerInjection")
-                .defineInRange("fissilePerInjection", 1_000 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE / NaquadahReactorMultiblockData.MAX_INJECTION));
+        reactorWaterPerInjection = CachedIntValue.wrap(this, builder.comment("Amount of water (mB) per injection rate that the naquadah reactor can store. Max = injectionRate * waterPerInjection")
+                .defineInRange("waterPerInjection", 1_000 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE / NaquadahReactorMultiblockData.MAX_INJECTION));
         reactorSteamPerInjection = CachedLongValue.wrap(this, builder.comment("Amount of polonium (mB) per injection rate that the naquadah reactor can store. Max = injectionRate * poloniumPerInjection")
                 .defineInRange("poloniumPerInjection", 100L * baseMaxFissile, 1, Long.MAX_VALUE / NaquadahReactorMultiblockData.MAX_INJECTION));
         builder.pop();

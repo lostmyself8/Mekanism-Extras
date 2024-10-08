@@ -137,9 +137,12 @@
   "container.mekanism_extras.naquadah_reactor_logic_adapter": "硅岩反应堆逻辑适配器",
 
   "reactor.mekanism_extras.naquadah_reactor": "硅岩反应堆",
-  "description.mekanism_extras.naquadah_reactor_casing": "能用于硅岩反应堆的防辐射外壳",
-  "description.mekanism_extras.naquadah_reactor_port": "一个防辐射的框架方块，能处理硅岩反应堆中气体和能量的输送",
-  "description.mekanism_extras.naquadah_reactor_controller": "整个硅岩反应堆结构的控制方块",
+  "reactor.mekanism_extras.stats.pcs_production": "含钋蒸汽产出：%1$s mB/t",
+  "description.mekanism_extras.naquadah_reactor_casing": "能用于硅岩反应堆的防辐射外壳。",
+  "description.mekanism_extras.naquadah_reactor_port": "一个防辐射的框架方块，能处理硅岩反应堆中气体和能量的输送。",
+  "description.mekanism_extras.naquadah_reactor_controller": "整个硅岩反应堆结构的控制方块。",
+  "description.mekanism_extras.lead_coated_laser_focus_matrix": "与激光聚焦矩阵相比它可以防辐射。",
+  "description.mekanism_extras.lead_coated_glass": "可以防止反应堆释放辐射的强化玻璃。",
 
   "plasma.mekanism_extras.hydrogen": "氢等离子体",
 

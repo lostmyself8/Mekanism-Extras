@@ -137,13 +137,16 @@
   "container.mekanism_extras.naquadah_reactor_logic_adapter": "Naquadah Reactor Logic Adapter",
 
   "reactor.mekanism_extras.naquadah_reactor": "Naquadah Reactor",
+  "reactor.mekanism_extras.stats.pcs_production": "PCS Production: %1$s mB/t",
   "description.mekanism_extras.naquadah_reactor_casing": "Radiation-proof framing that can be used in the Naquadah Reactor multiblock.",
   "description.mekanism_extras.naquadah_reactor_port": "A block of radiation-proof framing that is capable of managing both the gas and energy transfer of the Naquadah Reactor.",
   "description.mekanism_extras.naquadah_reactor_controller": "The controlling block for the entire Naquadah Reactor structure.",
+  "description.mekanism_extras.lead_coated_laser_focus_matrix": "Compared to the laser focusing matrix, it can prevent radiation.",
+  "description.mekanism_extras.lead_coated_glass": "Reactor glass that can prevent the radiation from the reactor.",
 
   "plasma.mekanism_extras.hydrogen": "Hydrogen Plasma",
 
   "info.mekanism_extras.jei.rich_silicon_fuel": "Rich Silicon Fuel can be extracted from a Silicon Tetrafluoride source block via an advance electric pump with a filter upgrade installed.",
   "info.mekanism_extras.jei.rich_uranium_fuel": "Rich Uranium Fuel can be extracted from a Uranium Hexafluoride source block via an advance electric pump with a filter upgrade installed.",
-  "info.mekanism_extras.jei.polonium_containing_solution": "When coolant is injected into a silicate reactor, the generated steam will capture polonium-208 that does not decay in the reactor, resulting in polonium-containing steam."
+  "info.mekanism_extras.jei.polonium_containing_solution": "When coolant is injected into a Naquadah Reactor, the generated steam will capture polonium-208 that does not decay in the reactor, resulting in polonium containing steam."
 }

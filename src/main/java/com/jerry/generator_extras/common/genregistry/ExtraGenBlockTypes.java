@@ -41,12 +41,12 @@ public class ExtraGenBlockTypes {
             .build();
     // Reactor Glass
     public static final BlockTypeTile<TileEntityLeadCoatedGlass> LEAD_COATED_GLASS = BlockTypeTile.BlockTileBuilder
-            .createBlock(() -> ExtraGenTileEntityTypes.LEAD_COATED_GLASS, GeneratorsLang.DESCRIPTION_REACTOR_GLASS)
+            .createBlock(() -> ExtraGenTileEntityTypes.LEAD_COATED_GLASS, ExtraGenLang.DESCRIPTION_LEAD_COATED_GLASS)
             .with(AttributeMultiblock.STRUCTURAL, Attributes.AttributeMobSpawn.NEVER)
             .build();
     // Laser Focus Matrix
     public static final BlockTypeTile<TileEntityLeadCoatedLaserFocusMatrix> LEAD_COATED_LASER_FOCUS_MATRIX = BlockTypeTile.BlockTileBuilder
-            .createBlock(() -> ExtraGenTileEntityTypes.LEAD_COATED_LASER_FOCUS_MATRIX, GeneratorsLang.DESCRIPTION_LASER_FOCUS_MATRIX)
+            .createBlock(() -> ExtraGenTileEntityTypes.LEAD_COATED_LASER_FOCUS_MATRIX, ExtraGenLang.DESCRIPTION_LEAD_COATED_LASER_FOCUS_MATRIX)
             .with(AttributeMultiblock.EXTERNAL, Attributes.AttributeMobSpawn.NEVER)
             .build();
 }

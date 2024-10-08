@@ -1,6 +1,7 @@
 package com.jerry.generator_extras.client.gui;
 
 import com.jerry.generator_extras.client.gui.element.GuiNaquadahReactorTab;
+import com.jerry.generator_extras.common.ExtraGenLang;
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
 import mekanism.api.text.EnumColor;
@@ -66,7 +67,7 @@ public class GuiNaquadahReactorStats extends GuiNaquadahReactorInfo{
             drawTextScaledBound(guiGraphics, GeneratorsLang.REACTOR_PASSIVE_RATE.translate(EnergyDisplay.of(multiblock.getPassiveGeneration(true, false))),
                     16, 142, titleTextColor(), 156);
             //蒸汽产出
-            drawTextScaledBound(guiGraphics, GeneratorsLang.REACTOR_STEAM_PRODUCTION.translate(TextUtils.format(multiblock.getSteamPerTick(false))),
+            drawTextScaledBound(guiGraphics, ExtraGenLang.PCS_PRODUCTION.translate(TextUtils.format(multiblock.getSteamPerTick(false))),
                     16, 152, titleTextColor(), 156);
         }
         super.drawForegroundText(guiGraphics, mouseX, mouseY);
