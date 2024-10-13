@@ -51,7 +51,7 @@ public class ExtraItemTierInstaller extends Item {
     @NotNull
     @Override
     public Component getName(@NotNull ItemStack stack) {
-        return TextComponentUtil.build(toTier.getColor(), super.getName(stack));
+        return TextComponentUtil.build(toTier.getTextColor(), super.getName(stack));
     }
 
     @NotNull

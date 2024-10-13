@@ -43,10 +43,10 @@ public class ExtraMatrixMultiblockData extends MultiblockData {
     private int clientCells;
 
     @NotNull
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItem", docPlaceholder = "input slot")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItem")
     final EnergyInventorySlot energyInputSlot;
     @NotNull
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem", docPlaceholder = "output slot")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem")
     final EnergyInventorySlot energyOutputSlot;
 
     public ExtraMatrixMultiblockData(ExtraTileEntityInductionCasing tile) {

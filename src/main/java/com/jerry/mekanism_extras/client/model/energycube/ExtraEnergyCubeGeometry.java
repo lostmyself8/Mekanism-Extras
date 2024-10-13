@@ -1,10 +1,12 @@
 package com.jerry.mekanism_extras.client.model.energycube;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Transformation;
 import mekanism.api.RelativeSide;
 import mekanism.client.render.lib.QuadTransformation;
 import mekanism.client.render.lib.QuadUtils;
 import net.minecraft.client.renderer.block.model.*;
+import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
@@ -30,7 +32,7 @@ public class ExtraEnergyCubeGeometry implements IUnbakedGeometry<ExtraEnergyCube
     }
 
     @Override
-    public BakedModel bake(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState,
+    public BakedModel bake(IGeometryBakingContext context, ModelBakery baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState,
                            ItemOverrides overrides, ResourceLocation modelLocation) {
         TextureAtlasSprite particle = spriteGetter.apply(context.getMaterial("particle"));
 
@@ -71,6 +73,35 @@ public class ExtraEnergyCubeGeometry implements IUnbakedGeometry<ExtraEnergyCube
             }
         }
         return data;
+    }
+
+    @Override
+    public Collection<Material> getMaterials(IGeometryBakingContext context, Function<ResourceLocation, UnbakedModel> modelGetter,
+                                             Set<Pair<String, String>> missingTextureErrors) {
+        Set<Material> textures = new HashSet<>();
+        if (context.hasMaterial("particle")) {
+            textures.add(context.getMaterial("particle"));
+        }
+        addMaterials(context, missingTextureErrors, frame, textures);
+        for (List<BlockElement> elements : leds.values()) {
+            addMaterials(context, missingTextureErrors, elements, textures);
+        }
+        for (List<BlockElement> elements : ports.values()) {
+            addMaterials(context, missingTextureErrors, elements, textures);
+        }
+        return textures;
+    }
+
+    private void addMaterials(IGeometryBakingContext context, Set<Pair<String, String>> missingTextureErrors, List<BlockElement> elements, Set<Material> textures) {
+        for (BlockElement part : elements) {
+            for (BlockElementFace face : part.faces.values()) {
+                Material texture = context.getMaterial(face.texture);
+                if (texture.texture().equals(MissingTextureAtlasSprite.getLocation())) {
+                    missingTextureErrors.add(Pair.of(face.texture, context.getModelName()));
+                }
+                textures.add(texture);
+            }
+        }
     }
 
     static class FaceData {

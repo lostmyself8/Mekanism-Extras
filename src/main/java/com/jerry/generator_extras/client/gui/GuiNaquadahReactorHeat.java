@@ -3,6 +3,7 @@ package com.jerry.generator_extras.client.gui;
 import com.jerry.generator_extras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.gui.element.gauge.*;
 import mekanism.client.gui.element.progress.GuiProgress;
 import mekanism.client.gui.element.progress.ProgressType;
@@ -11,7 +12,6 @@ import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.UnitDisplayUtils;
 import mekanism.generators.common.GeneratorsLang;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -86,8 +86,8 @@ public class GuiNaquadahReactorHeat extends GuiNaquadahReactorInfo{
     }
 
     @Override
-    protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        renderTitleText(guiGraphics);
-        super.drawForegroundText(guiGraphics, mouseX, mouseY);
+    protected void drawForegroundText(@NotNull PoseStack matrix, int mouseX, int mouseY) {
+        renderTitleText(matrix);
+        super.drawForegroundText(matrix, mouseX, mouseY);
     }
 }

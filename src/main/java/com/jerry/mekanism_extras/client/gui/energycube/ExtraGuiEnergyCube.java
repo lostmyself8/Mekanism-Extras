@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.client.gui.energycube;
 
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.GuiConfigurableTile;
 import mekanism.client.gui.element.GuiSideHolder;
@@ -11,7 +12,6 @@ import mekanism.client.gui.element.tab.GuiSecurityTab;
 import mekanism.common.MekanismLang;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.util.text.EnergyDisplay;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -41,9 +41,9 @@ public class ExtraGuiEnergyCube extends GuiConfigurableTile<ExtraTileEntityEnerg
     }
 
     @Override
-    protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        renderTitleText(guiGraphics);
-        drawString(guiGraphics, playerInventoryTitle, inventoryLabelX, inventoryLabelY, titleTextColor());
-        super.drawForegroundText(guiGraphics, mouseX, mouseY);
+    protected void drawForegroundText(@NotNull PoseStack matrix, int mouseX, int mouseY) {
+        renderTitleText(matrix);
+        drawString(matrix, playerInventoryTitle, inventoryLabelX, inventoryLabelY, titleTextColor());
+        super.drawForegroundText(matrix, mouseX, mouseY);
     }
 }

@@ -15,7 +15,6 @@ public class ExtraBlockPressurizedTube extends BlockSmallTransmitter implements 
     private final TubeTier tier;
 
     public ExtraBlockPressurizedTube(TubeTier tier) {
-        super(properties -> properties.mapColor(tier.getBaseTier().getMapColor()));
         this.tier = tier;
     }
 

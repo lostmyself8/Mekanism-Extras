@@ -18,17 +18,13 @@ import mekanism.generators.common.GeneratorsLang;
 import mekanism.generators.common.base.IReactorLogic;
 import mekanism.generators.common.base.IReactorLogicMode;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.EnumSet;
 
 public class TileEntityNaquadahReactorLogicAdapter extends TileEntityNaquadahReactorCasing implements IReactorLogic<TileEntityNaquadahReactorLogicAdapter.NaquadahReactorLogic>, IHasMode {
     public NaquadahReactorLogic logicType = NaquadahReactorLogic.DISABLED;
@@ -46,21 +42,11 @@ public class TileEntityNaquadahReactorLogicAdapter extends TileEntityNaquadahRea
         if (outputting != prevOutputting) {
             Level world = getLevel();
             if (world != null) {
-                Direction side = multiblock.getOutsideSide(worldPosition);
-                if (side == null) {
-                    //Not formed, just update all sides
-                    world.updateNeighborsAt(getBlockPos(), getBlockType());
-                } else if (!ForgeEventFactory.onNeighborNotify(world, worldPosition, getBlockState(), EnumSet.of(side), false).isCanceled()) {
-                    world.neighborChanged(worldPosition.relative(side), getBlockType(), worldPosition);
-                }
+                world.updateNeighborsAt(getBlockPos(), getBlockType());
             }
             prevOutputting = outputting;
         }
         return needsPacket;
-    }
-
-    public int getRedstoneLevel(Direction side) {
-        return !isRemote() && getMultiblock().isPositionOutsideBounds(worldPosition.relative(side)) && checkMode() ? 15 : 0;
     }
 
     public boolean checkMode() {

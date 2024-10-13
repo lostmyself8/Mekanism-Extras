@@ -10,8 +10,8 @@ import mekanism.client.render.item.MekanismISTER;
 import mekanism.common.util.StorageUtils;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.fluids.FluidStack;
@@ -27,7 +27,7 @@ public class ExtraRenderFluidTankItem extends MekanismISTER {
     }
 
     @Override
-    public void renderByItem(@NotNull ItemStack stack, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer,
+    public void renderByItem(@NotNull ItemStack stack, @NotNull ItemTransforms.TransformType transformType, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer,
                              int light, int overlayLight) {
         FTTier tier = ((ExtraItemBlockFluidTank) stack.getItem()).getAdvanceTier();
         FluidStack fluid = StorageUtils.getStoredFluidFromNBT(stack);
@@ -38,6 +38,6 @@ public class ExtraRenderFluidTankItem extends MekanismISTER {
                         MekanismRenderer.getColorARGB(fluid, fluidScale), MekanismRenderer.calculateGlowLight(light, fluid), overlayLight, RenderResizableCuboid.FaceDisplay.FRONT, getCamera());
             }
         }
-        renderBlockItem(stack, displayContext, matrix, renderer, light, overlayLight, ModelData.EMPTY);
+        renderBlockItem(stack, transformType, matrix, renderer, light, overlayLight, ModelData.EMPTY);
     }
 }

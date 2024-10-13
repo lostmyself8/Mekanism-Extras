@@ -3,6 +3,7 @@ package com.jerry.generator_extras.client.gui;
 import com.jerry.generator_extras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.tab.GuiEnergyTab;
 import mekanism.client.gui.element.tab.GuiHeatTab;
@@ -12,7 +13,6 @@ import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.UnitDisplayUtils;
 import mekanism.common.util.text.EnergyDisplay;
 import mekanism.generators.common.GeneratorsLang;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -50,9 +50,9 @@ public class GuiNaquadahReactorController extends GuiMekanismTile<TileEntityNaqu
     }
 
     @Override
-    protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        renderTitleText(guiGraphics);
-        drawString(guiGraphics, MekanismLang.MULTIBLOCK_FORMED.translate(), 8, 16, titleTextColor());
-        super.drawForegroundText(guiGraphics, mouseX, mouseY);
+    protected void drawForegroundText(@NotNull PoseStack matrix, int mouseX, int mouseY) {
+        renderTitleText(matrix);
+        drawString(matrix, MekanismLang.MULTIBLOCK_FORMED.translate(), 8, 16, titleTextColor());
+        super.drawForegroundText(matrix, mouseX, mouseY);
     }
 }

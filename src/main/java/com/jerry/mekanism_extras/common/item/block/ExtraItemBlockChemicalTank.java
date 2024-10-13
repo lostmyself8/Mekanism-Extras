@@ -32,7 +32,7 @@ public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.
 
     @Override
     public CTTier getAdvanceTier() {
-        return ExtraAttribute.getTier(getBlock(), CTTier.class);
+        return ExtraAttribute.getAdvanceTier(getBlock(), CTTier.class);
     }
 
     @Override

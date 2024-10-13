@@ -6,7 +6,6 @@ import mekanism.common.config.IMekanismConfig;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.config.ConfigFileTypeHandler;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.nio.file.Path;
@@ -28,8 +27,8 @@ public class ExtraModConfig extends ModConfig {
         return EXTRA_TOML;
     }
 
-    public void clearCache(ModConfigEvent event) {
-        mekanismExtraConfig.clearCache(event instanceof ModConfigEvent.Unloading);
+    public void clearCache() {
+        mekanismExtraConfig.clearCache();
     }
 
     private static class ExtraConfigFileTypeHandler extends ConfigFileTypeHandler {

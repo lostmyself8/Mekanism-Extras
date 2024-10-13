@@ -1,31 +1,29 @@
 package com.jerry.mekanism_extras.api.tier;
 
-import mekanism.api.SupportsColorMap;
 import mekanism.api.math.MathUtils;
-import net.minecraft.network.chat.TextColor;
+import mekanism.api.text.EnumColor;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
-public enum AdvanceTier implements StringRepresentable, SupportsColorMap {
-    ABSOLUTE("Absolute", new int[]{95, 255, 184}, MapColor.COLOR_LIGHT_GREEN),
-    SUPREME("Supreme", new int[]{255, 128, 106}, MapColor.TERRACOTTA_PINK),
-    COSMIC("Cosmic", new int[]{75, 248, 255}, MapColor.DIAMOND),
-    INFINITE("Infinite", new int[]{247, 135, 255}, MapColor.COLOR_MAGENTA);
+public enum AdvanceTier implements StringRepresentable {
+    ABSOLUTE("Absolute", EnumColor.BRIGHT_GREEN, EnumColor.BRIGHT_GREEN),
+    SUPREME("Supreme", EnumColor.RED, EnumColor.RED),
+    COSMIC("Cosmic", EnumColor.INDIGO, EnumColor.INDIGO),
+    INFINITE("Infinite", EnumColor.PURPLE, EnumColor.PURPLE);
 
     private static final AdvanceTier[] TIERS = values();
 
     private final String name;
-    private final MapColor mapColor;
-    private TextColor textColor;
+    private final EnumColor color;
+    private final EnumColor textColor;
     private int[] rgbCode;
 
-    AdvanceTier(String name, int[] rgbCode, MapColor mapColor) {
+    AdvanceTier(String name, EnumColor color, EnumColor textColor) {
         this.name = name;
-        this.mapColor = mapColor;
-        setColorFromAtlas(rgbCode);
+        this.color = color;
+        this.textColor = textColor;
     }
 
     public String getSimpleName() {
@@ -36,22 +34,11 @@ public enum AdvanceTier implements StringRepresentable, SupportsColorMap {
         return getSimpleName().toLowerCase(Locale.ROOT);
     }
 
-    public MapColor getMapColor() {
-        return mapColor;
+    public EnumColor getColor() {
+        return color;
     }
 
-    @Override
-    public int[] getRgbCode() {
-        return rgbCode;
-    }
-
-    @Override
-    public void setColorFromAtlas(int[] color) {
-        this.rgbCode = color;
-        this.textColor = TextColor.fromRgb(rgbCode[0] << 16 | rgbCode[1] << 8 | rgbCode[2]);
-    }
-
-    public TextColor getColor() {
+    public EnumColor getTextColor() {
         return this.textColor;
     }
 

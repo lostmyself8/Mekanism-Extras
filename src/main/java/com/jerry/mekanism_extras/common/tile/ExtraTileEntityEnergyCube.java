@@ -50,9 +50,9 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
     private float prevScale;
 
     private ExtraEnergyCubeEnergyContainer energyContainer;
-    @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChargeItem", docPlaceholder = "")
+    @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChargeItem")
     private EnergyInventorySlot chargeSlot;
-    @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getDischargeItem", docPlaceholder = "")
+    @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getDischargeItem")
     private EnergyInventorySlot dischargeSlot;
 
     /**
@@ -70,7 +70,7 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getTier(getBlockType(), ECTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockType(), ECTier.class);
     }
 
     @Nonnull

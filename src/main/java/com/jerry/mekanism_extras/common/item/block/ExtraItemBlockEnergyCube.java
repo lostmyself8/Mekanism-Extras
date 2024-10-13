@@ -5,25 +5,16 @@ import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.tier.ECTier;
 import com.jerry.mekanism_extras.common.block.ExtraBlockEnergyCube;
 import com.jerry.mekanism_extras.common.capabilities.energy.item.ExtraRateLimitEnergyHandler;
-import mekanism.api.NBTConstants;
-import mekanism.api.RelativeSide;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.capabilities.ItemCapabilityWrapper;
 import mekanism.common.capabilities.energy.item.ItemStackEnergyHandler;
 import mekanism.common.config.MekanismConfig;
 import mekanism.common.item.interfaces.IItemSustainedInventory;
-import mekanism.common.lib.transmitter.TransmissionType;
-import mekanism.common.registration.impl.CreativeTabDeferredRegister;
-import mekanism.common.tile.component.config.DataType;
-import mekanism.common.util.EnumUtils;
-import mekanism.common.util.ItemDataUtils;
-import mekanism.common.util.NBTUtils;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.EnergyDisplay;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -36,7 +27,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
-public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEnergyCube> implements IItemSustainedInventory, CreativeTabDeferredRegister.ICustomCreativeTabContents {
+public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEnergyCube> implements IItemSustainedInventory {
     public ExtraItemBlockEnergyCube(ExtraBlockEnergyCube block) {
         super(block);
     }
@@ -49,7 +40,7 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
     @Nonnull
     @Override
     public ECTier getAdvanceTier() {
-        return Objects.requireNonNull(ExtraAttribute.getTier(getBlock(), ECTier.class));
+        return Objects.requireNonNull(ExtraAttribute.getAdvanceTier(getBlock(), ECTier.class));
     }
 
     @Override
@@ -77,28 +68,6 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
     @Override
     public int getBarColor(@NotNull ItemStack stack) {
         return MekanismConfig.client.energyColor.get();
-    }
-
-    @Override
-    public void addItems(CreativeModeTab.Output tabOutput) {
-        tabOutput.accept(StorageUtils.getFilledEnergyVariant(new ItemStack(this), getAdvanceTier().getMaxEnergy()));
-    }
-
-    @Override
-    public boolean addDefault() {
-        return true;
-    }
-
-    private ItemStack withEnergyCubeSideConfig(DataType dataType) {
-        CompoundTag sideConfig = new CompoundTag();
-        for (RelativeSide side : EnumUtils.SIDES) {
-            NBTUtils.writeEnum(sideConfig, NBTConstants.SIDE + side.ordinal(), dataType);
-        }
-        CompoundTag configNBT = new CompoundTag();
-        configNBT.put(NBTConstants.CONFIG + TransmissionType.ENERGY.ordinal(), sideConfig);
-        ItemStack stack = new ItemStack(this);
-        ItemDataUtils.setCompound(stack, NBTConstants.COMPONENT_CONFIG, configNBT);
-        return stack;
     }
 
     @Override

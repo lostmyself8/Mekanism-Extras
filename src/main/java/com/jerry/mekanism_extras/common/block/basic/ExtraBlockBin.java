@@ -8,6 +8,7 @@ import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.tile.base.WrenchResult;
 import mekanism.common.util.MekanismUtils;
+import mekanism.common.util.StackUtils;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -26,12 +27,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.UnaryOperator;
-
 public class ExtraBlockBin extends BlockTile<ExtraTileEntityBin, BlockTypeTile<ExtraTileEntityBin>> {
 
-    public ExtraBlockBin(BlockTypeTile<ExtraTileEntityBin> type, UnaryOperator<Properties> propertiesModifier) {
-        super(type, propertiesModifier);
+    public ExtraBlockBin(BlockTypeTile<ExtraTileEntityBin> type) {
+        super(type);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class ExtraBlockBin extends BlockTile<ExtraTileEntityBin, BlockTypeTile<E
                         if (bin.removeTicks == 0) {
                             bin.removeTicks = 3;
                             if (player.isShiftKeyDown()) {
-                                stack = binSlot.getStack().copyWithCount(1);
+                                stack = StackUtils.size(binSlot.getStack(), 1);
                                 MekanismUtils.logMismatchedStackSize(binSlot.shrinkStack(1, Action.EXECUTE), 1);
                             } else {
                                 stack = binSlot.getBottomStack();

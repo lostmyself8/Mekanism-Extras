@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 public interface ExtraAttribute extends Attribute {
     @Nullable
     @SuppressWarnings("unchecked")
-    static <TIER extends IAdvanceTier> TIER getTier(Block block, Class<TIER> tierClass) {
+    static <TIER extends IAdvanceTier> TIER getAdvanceTier(Block block, Class<TIER> tierClass) {
         ExtraAttributeTier<TIER> attr = Attribute.get(block, ExtraAttributeTier.class);
         return attr == null ? null : attr.tier();
     }

@@ -11,11 +11,11 @@ import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.ItemCapabilityWrapper;
 import mekanism.common.capabilities.chemical.item.RateLimitGasHandler;
 import mekanism.common.item.CapabilityItem;
-import mekanism.common.registration.impl.CreativeTabDeferredRegister;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.StorageUtils;
 import com.jerry.generator_extras.common.config.GenLoadConfig;
 import mekanism.generators.common.GeneratorsLang;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDeferredRegister.ICustomCreativeTabContents {
+public class ItemNquadahHohlraum extends CapabilityItem {
     public ItemNquadahHohlraum(Properties properties) {
         super(properties.stacksTo(1));
     }
@@ -71,8 +71,11 @@ public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDe
     }
 
     @Override
-    public void addItems(CreativeModeTab.Output tabOutput) {
-        tabOutput.accept(ChemicalUtil.getFilledVariant(new ItemStack(this), GenLoadConfig.generatorConfig.hohlraumMaxGas, ExtraGases.SILICON_URANIUM_FUEL));
+    public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> items) {
+        super.fillItemCategory(group, items);
+        if (allowedIn(group)) {
+            items.add(ChemicalUtil.getFilledVariant(new ItemStack(this), GenLoadConfig.generatorConfig.hohlraumMaxGas, ExtraGases.SILICON_URANIUM_FUEL));
+        }
     }
 
     @Override

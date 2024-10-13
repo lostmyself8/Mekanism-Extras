@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.tile.transmitter;
 import com.jerry.mekanism_extras.api.tier.AdvanceTier;
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraBoxedPressurizedTube;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+import mekanism.api.MekanismAPI;
 import mekanism.api.NBTConstants;
 import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
@@ -14,7 +15,6 @@ import mekanism.api.chemical.pigment.IPigmentTank;
 import mekanism.api.chemical.slurry.ISlurryTank;
 import mekanism.api.math.MathUtils;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.api.radiation.IRadiationManager;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.capabilities.Capabilities;
@@ -133,7 +133,7 @@ public class ExtraTileEntityPressurizedTube extends ExtraTileEntityTransmitter i
 
     @Override
     public float getRadiationScale() {
-        if (IRadiationManager.INSTANCE.isRadiationEnabled()) {
+        if (MekanismAPI.getRadiationManager().isRadiationEnabled()) {
             ExtraBoxedPressurizedTube tube = getTransmitter();
             if (isRemote()) {
                 if (tube.hasTransmitterNetwork()) {

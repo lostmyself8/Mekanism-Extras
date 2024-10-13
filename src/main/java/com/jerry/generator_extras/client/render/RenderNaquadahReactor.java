@@ -4,7 +4,7 @@ import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblo
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
+import com.mojang.math.Vector3f;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.text.EnumColor;
 import mekanism.client.model.ModelEnergyCore;
@@ -32,7 +32,7 @@ public class RenderNaquadahReactor extends MultiblockTileEntityRenderer<Naquadah
     @Override
     protected void render(TileEntityNaquadahReactorController tile, NaquadahReactorMultiblockData multiblock, float partialTicks, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight, ProfilerFiller profiler) {
         long scaledTemp = Math.round(multiblock.getLastPlasmaTemp() / SCALE);
-        float ticks = Minecraft.getInstance().levelRenderer.getTicks() + partialTicks;
+        float ticks = Minecraft.getInstance().levelRenderer.ticks + partialTicks;
         VertexConsumer buffer = renderer.getBuffer(core.RENDER_TYPE);
         matrix.pushPose();
         matrix.translate(0.5, -3.5, 0.5);
@@ -62,7 +62,7 @@ public class RenderNaquadahReactor extends MultiblockTileEntityRenderer<Naquadah
                             int shift1, int shift2) {
         matrix.pushPose();
         matrix.scale(2 * scale, 2 * scale, 2 * scale);
-        matrix.mulPose(Axis.YP.rotationDegrees(ticks * mult1 + shift1));
+        matrix.mulPose(Vector3f.YP.rotationDegrees(ticks * mult1 + shift1));
         matrix.mulPose(RenderEnergyCube.coreVec.rotationDegrees(ticks * mult2 + shift2));
         core.render(matrix, buffer, LightTexture.FULL_BRIGHT, overlayLight, color, 1);
         matrix.popPose();

@@ -36,7 +36,7 @@ import java.util.Collections;
 public class ExtraTileEntityRadioactiveWasteBarrel extends TileEntityMekanism implements IConfigurable {
 
     private long lastProcessTick;
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded", "getFilledPercentage"}, docPlaceholder = "barrel")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded", "getFilledPercentage"})
     ExtraStackedWasteBarrel gasTank;
     private float prevScale;
     private int processTicks;
@@ -94,7 +94,7 @@ public class ExtraTileEntityRadioactiveWasteBarrel extends TileEntityMekanism im
             setActive(!getActive());
             Level world = getLevel();
             if (world != null) {
-                world.playSound(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), SoundEvents.UI_BUTTON_CLICK.get(), SoundSource.BLOCKS, 0.3F, 1);
+                world.playSound(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.BLOCKS, 0.3F, 1);
             }
         }
         return InteractionResult.SUCCESS;

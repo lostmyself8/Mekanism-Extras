@@ -67,7 +67,7 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     /**
      * This pump's tank
      */
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getFluid", "getFluidCapacity", "getFluidNeeded", "getFluidFilledPercentage"}, docPlaceholder = "buffer tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getFluid", "getFluidCapacity", "getFluidNeeded", "getFluidFilledPercentage"})
     public BasicFluidTank fluidTank;
     /**
      * The type of fluid this pump is pumping
@@ -86,11 +86,11 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     private final Set<BlockPos> recurringNodes = new ObjectOpenHashSet<>();
 
     private MachineEnergyContainer<ExtraTileEntityElectricPump> energyContainer;
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItem", docPlaceholder = "input slot")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItem")
     FluidInventorySlot inputSlot;
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem", docPlaceholder = "output slot")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem")
     OutputInventorySlot outputSlot;
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getEnergyItem", docPlaceholder = "energy slot")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getEnergyItem")
     EnergyInventorySlot energySlot;
 
     public ExtraTileEntityElectricPump(BlockPos pos, BlockState state) {
@@ -389,7 +389,7 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     }
 
     //Methods relating to IComputerTile
-    @ComputerMethod(nameOverride = "reset", requiresPublicSecurity = true)
+    @ComputerMethod(nameOverride = "reset")
     void resetPump() throws ComputerException {
         validateSecurityIsPublic();
         reset();

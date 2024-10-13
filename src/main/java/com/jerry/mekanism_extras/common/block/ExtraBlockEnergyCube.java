@@ -1,6 +1,9 @@
 package com.jerry.mekanism_extras.common.block;
 
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekanism_extras.common.tier.ECTier;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
+import mekanism.api.NBTConstants;
 import mekanism.api.RelativeSide;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.attribute.AttributeStateFacing;
@@ -8,16 +11,20 @@ import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.tile.component.config.ConfigInfo;
+import mekanism.common.tile.component.config.DataType;
 import mekanism.common.tile.component.config.slot.ISlotInfo;
 import mekanism.common.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -122,15 +129,28 @@ public class ExtraBlockEnergyCube extends BlockTile.BlockTileModel<ExtraTileEnti
     public ExtraBlockEnergyCube(Machine<ExtraTileEntityEnergyCube> type) {
         //Note: We require setting variable opacity so that the block state does not cache the ability of if blocks can be placed on top of the energy cube
         // this may change based on what sides are enabled. Torches cannot be placed on the sides due to vanilla checking the incorrect shape
-        super(type, BlockBehaviour.Properties.of().strength(2, 2.4F).requiresCorrectToolForDrops().dynamicShape().mapColor(MapColor.DEEPSLATE));
+        super(type, BlockBehaviour.Properties.of(Material.METAL).strength(2, 2.4F).requiresCorrectToolForDrops().dynamicShape());
+    }
+
+    private ItemStack withSideConfig(DataType dataType) {
+        CompoundTag sideConfig = new CompoundTag();
+        for (RelativeSide side : EnumUtils.SIDES) {
+            NBTUtils.writeEnum(sideConfig, NBTConstants.SIDE + side.ordinal(), dataType);
+        }
+        CompoundTag configNBT = new CompoundTag();
+        configNBT.put(NBTConstants.CONFIG + TransmissionType.ENERGY.ordinal(), sideConfig);
+        ItemStack stack = new ItemStack(this);
+        ItemDataUtils.setCompound(stack, NBTConstants.COMPONENT_CONFIG, configNBT);
+        return stack;
     }
 
     @Override
-    @Deprecated
-    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull PathComputationType pathType) {
-        //If we have a custom shape which means we are not a full block then mark that movement is not
-        // allowed through this block it is not a full block. Otherwise, use the normal handling for if movement is allowed
-        return false;
+    public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> items) {
+        ECTier tier = ExtraAttribute.getAdvanceTier(this, ECTier.class);
+        super.fillItemCategory(group, items);
+        if (tier != null) {
+            items.add(StorageUtils.getFilledEnergyVariant(new ItemStack(this), tier.getMaxEnergy()));
+        }
     }
 
     @NotNull

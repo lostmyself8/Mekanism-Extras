@@ -3,6 +3,7 @@ package com.jerry.generator_extras.client.gui;
 import com.jerry.generator_extras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.generator_extras.common.network.to_server.ExtraPacketGeneratorsGuiInteract;
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.gui.element.gauge.GaugeType;
 import mekanism.client.gui.element.gauge.GuiGasGauge;
 import mekanism.client.gui.element.progress.GuiProgress;
@@ -12,7 +13,6 @@ import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.util.text.InputValidator;
 import mekanism.generators.common.GeneratorsLang;
 import mekanism.generators.common.MekanismGenerators;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -42,11 +42,11 @@ public class GuiNaquadahReactorFuel extends GuiNaquadahReactorInfo{
     }
 
     @Override
-    protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        renderTitleText(guiGraphics);
-        drawCenteredText(guiGraphics, GeneratorsLang.REACTOR_INJECTION_RATE.translate(tile.getMultiblock().getInjectionRate()), 0, imageWidth, 35, titleTextColor());
-        drawString(guiGraphics, GeneratorsLang.REACTOR_EDIT_RATE.translate(), 50, 117, titleTextColor());
-        super.drawForegroundText(guiGraphics, mouseX, mouseY);
+    protected void drawForegroundText(@NotNull PoseStack matrix, int mouseX, int mouseY) {
+        renderTitleText(matrix);
+        drawCenteredText(matrix, GeneratorsLang.REACTOR_INJECTION_RATE.translate(tile.getMultiblock().getInjectionRate()), 0, imageWidth, 35, titleTextColor());
+        drawString(matrix, GeneratorsLang.REACTOR_EDIT_RATE.translate(), 50, 117, titleTextColor());
+        super.drawForegroundText(matrix, mouseX, mouseY);
     }
 
     private void setInjection() {

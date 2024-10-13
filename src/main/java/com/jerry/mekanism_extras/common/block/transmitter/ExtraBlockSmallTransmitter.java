@@ -4,12 +4,9 @@ import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.util.EnumUtils;
 import mekanism.common.util.VoxelShapeUtils;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.function.UnaryOperator;
-
-public class ExtraBlockSmallTransmitter extends ExtraBlockTransmitter{
+public abstract class ExtraBlockSmallTransmitter extends ExtraBlockTransmitter{
     private static final VoxelShape[] SIDES = new VoxelShape[EnumUtils.DIRECTIONS.length];
     private static final VoxelShape[] SIDES_PULL = new VoxelShape[EnumUtils.DIRECTIONS.length];
     private static final VoxelShape[] SIDES_PUSH = new VoxelShape[EnumUtils.DIRECTIONS.length];
@@ -37,10 +34,6 @@ public class ExtraBlockSmallTransmitter extends ExtraBlockTransmitter{
             return SIDES_PULL[side.ordinal()];
         } //else normal
         return SIDES[side.ordinal()];
-    }
-
-    protected ExtraBlockSmallTransmitter(UnaryOperator<BlockBehaviour.Properties> propertiesModifier) {
-        super(propertiesModifier);
     }
 
     @Override

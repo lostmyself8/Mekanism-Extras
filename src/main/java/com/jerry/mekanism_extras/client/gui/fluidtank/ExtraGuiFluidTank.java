@@ -1,13 +1,13 @@
 package com.jerry.mekanism_extras.client.gui.fluidtank;
 
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiSideHolder;
 import mekanism.client.gui.element.gauge.GaugeType;
 import mekanism.client.gui.element.gauge.GuiFluidGauge;
 import mekanism.client.gui.element.tab.GuiContainerEditModeTab;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -28,9 +28,9 @@ public class ExtraGuiFluidTank extends GuiMekanismTile<ExtraTileEntityFluidTank,
     }
 
     @Override
-    protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        renderTitleText(guiGraphics);
-        drawString(guiGraphics, playerInventoryTitle, inventoryLabelX, inventoryLabelY, titleTextColor());
-        super.drawForegroundText(guiGraphics, mouseX, mouseY);
+    protected void drawForegroundText(@NotNull PoseStack matrix, int mouseX, int mouseY) {
+        renderTitleText(matrix);
+        drawString(matrix, playerInventoryTitle, inventoryLabelX, inventoryLabelY, titleTextColor());
+        super.drawForegroundText(matrix, mouseX, mouseY);
     }
 }

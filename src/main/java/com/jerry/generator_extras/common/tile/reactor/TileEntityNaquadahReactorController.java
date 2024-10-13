@@ -16,7 +16,7 @@ public class TileEntityNaquadahReactorController extends TileEntityNaquadahReact
         addDisabledCapabilities(Capabilities.GAS_HANDLER, ForgeCapabilities.FLUID_HANDLER, Capabilities.HEAT_HANDLER);
         addDisabledCapabilities(EnergyCompatUtils.getEnabledEnergyCapabilities());
         addSemiDisabledCapability(ForgeCapabilities.ITEM_HANDLER, () -> !getMultiblock().isFormed());
-        delaySupplier = NO_DELAY;
+        delaySupplier = () -> 0;
     }
 
     @Override

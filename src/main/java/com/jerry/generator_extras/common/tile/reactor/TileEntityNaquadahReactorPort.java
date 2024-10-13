@@ -42,7 +42,7 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
 
     public TileEntityNaquadahReactorPort(BlockPos pos, BlockState state) {
         super(ExtraGenBlocks.NAQUADAH_REACTOR_PORT, pos, state);
-        delaySupplier = NO_DELAY;
+        delaySupplier = () -> 0;
     }
 
     @NotNull
@@ -73,7 +73,7 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
     @NotNull
     @Override
     protected IInventorySlotHolder getInitialInventory(IContentsListener listener) {
-        return side -> getMultiblock().getInventorySlots(side);
+        return super.getInitialInventory(listener);
     }
 
     @Override
@@ -132,12 +132,12 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
         return false;
     }
 
-    @ComputerMethod(methodDescription = "true -> output, false -> input")
+    @ComputerMethod()
     boolean getMode() {
         return getActive();
     }
 
-    @ComputerMethod(methodDescription = "true -> output, false -> input")
+    @ComputerMethod()
     void setMode(boolean output) {
         setActive(output);
     }

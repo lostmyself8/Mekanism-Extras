@@ -3,7 +3,9 @@ package com.jerry.mekanism_extras.client.render.tileentity;
 import com.jerry.mekanism_extras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
+import com.mojang.math.Matrix3f;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import mekanism.api.math.MathUtils;
 import mekanism.api.text.EnumColor;
 import mekanism.api.text.TextComponentUtil;
@@ -14,18 +16,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix3f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.Optional;
 
@@ -35,7 +34,7 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
     static {
         Vector3f NORMAL = new Vector3f(1, 1, 1);
         NORMAL.normalize();
-        FAKE_NORMALS = new Matrix3f().set(new Quaternionf().setAngleAxis(0, NORMAL.x, NORMAL.y, NORMAL.z));
+        FAKE_NORMALS = new Matrix3f(new Quaternion(NORMAL, 0, true));
     }
 
     public ExtraRenderBin(BlockEntityRendererProvider.Context context) {
@@ -57,20 +56,20 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
                 //TODO: Come up with a better way to do this hack? Basically we adjust the normals so that the lighting
                 // isn't screwy when it tries to apply the diffuse lighting as we aren't able to disable diffuse lighting
                 // ourselves so need to trick it
-                matrix.last().normal().set(FAKE_NORMALS);
+                matrix.last().normal().load(FAKE_NORMALS);
                 switch (facing) {
                     case NORTH -> {
                         matrix.translate(0.71, 0.8, -0.0001);
-                        matrix.mulPose(Axis.YP.rotationDegrees(180));
+                        matrix.mulPose(Vector3f.YP.rotationDegrees(180));
                     }
                     case SOUTH -> matrix.translate(0.29, 0.8, 1.0001);
                     case WEST -> {
                         matrix.translate(-0.0001, 0.8, 0.29);
-                        matrix.mulPose(Axis.YP.rotationDegrees(-90));
+                        matrix.mulPose(Vector3f.YP.rotationDegrees(-90));
                     }
                     case EAST -> {
                         matrix.translate(1.0001, 0.8, 0.71);
-                        matrix.mulPose(Axis.YP.rotationDegrees(90));
+                        matrix.mulPose(Vector3f.YP.rotationDegrees(90));
                     }
                 }
 
@@ -80,7 +79,7 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
                 matrix.scale(16, 16, 16);
                 //Calculate lighting based on the light at the block the bin is facing
                 light = LevelRenderer.getLightColor(world, tile.getBlockPos().relative(facing));
-                Minecraft.getInstance().getItemRenderer().renderStatic(binSlot.getRenderStack(), ItemDisplayContext.GUI, light, overlayLight, matrix, renderer, world,
+                Minecraft.getInstance().getItemRenderer().renderStatic(binSlot.getRenderStack(), ItemTransforms.TransformType.GUI, light, overlayLight, matrix, renderer,
                         MathUtils.clampToInt(tile.getBlockPos().asLong()));
                 matrix.popPose();
                 renderText(matrix, renderer, light, overlayLight, getCount(tile), facing, 0.02F);
@@ -106,29 +105,29 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
         switch (side) {
             case SOUTH -> {
                 matrix.translate(0, 1, 0);
-                matrix.mulPose(Axis.XP.rotationDegrees(90));
+                matrix.mulPose(Vector3f.XP.rotationDegrees(90));
             }
             case NORTH -> {
                 matrix.translate(1, 1, 1);
-                matrix.mulPose(Axis.YP.rotationDegrees(180));
-                matrix.mulPose(Axis.XP.rotationDegrees(90));
+                matrix.mulPose(Vector3f.YP.rotationDegrees(180));
+                matrix.mulPose(Vector3f.XP.rotationDegrees(90));
             }
             case EAST -> {
                 matrix.translate(0, 1, 1);
-                matrix.mulPose(Axis.YP.rotationDegrees(90));
-                matrix.mulPose(Axis.XP.rotationDegrees(90));
+                matrix.mulPose(Vector3f.YP.rotationDegrees(90));
+                matrix.mulPose(Vector3f.XP.rotationDegrees(90));
             }
             case WEST -> {
                 matrix.translate(1, 1, 0);
-                matrix.mulPose(Axis.YP.rotationDegrees(-90));
-                matrix.mulPose(Axis.XP.rotationDegrees(90));
+                matrix.mulPose(Vector3f.YP.rotationDegrees(-90));
+                matrix.mulPose(Vector3f.XP.rotationDegrees(90));
             }
         }
 
         float displayWidth = 1;
         float displayHeight = 1;
         matrix.translate(displayWidth / 2, 1, displayHeight / 2);
-        matrix.mulPose(Axis.XP.rotationDegrees(-90));
+        matrix.mulPose(Vector3f.XP.rotationDegrees(-90));
 
         Font font = context.getFont();
 
@@ -147,7 +146,7 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
         int offsetX = (realWidth - requiredWidth) / 2;
         int offsetY = (realHeight - requiredHeight) / 2;
         font.drawInBatch(text, offsetX - (float) realWidth / 2, 1 + offsetY - (float) realHeight / 2, overlayLight,
-                false, matrix.last().pose(), renderer, Font.DisplayMode.POLYGON_OFFSET, 0, light);
+                false, matrix.last().pose(), renderer, false, 0, light);
         matrix.popPose();
     }
 }

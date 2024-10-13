@@ -2,6 +2,7 @@ package com.jerry.generator_extras.client.gui;
 
 import com.jerry.generator_extras.common.network.to_server.ExtraPacketGeneratorsGuiInteract;
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorLogicAdapter;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.api.text.EnumColor;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiElementHolder;
@@ -15,7 +16,6 @@ import mekanism.common.util.text.BooleanStateDisplay;
 import mekanism.generators.client.gui.element.button.ReactorLogicButton;
 import mekanism.generators.common.GeneratorsLang;
 import mekanism.generators.common.MekanismGenerators;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -48,13 +48,13 @@ public class GuiNaquadahReactorLogicAdapter extends GuiMekanismTile<TileEntityNa
     }
 
     @Override
-    protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        renderTitleText(guiGraphics);
-        drawTextScaledBound(guiGraphics, GeneratorsLang.REACTOR_LOGIC_ACTIVE_COOLING.translate(EnumColor.RED, BooleanStateDisplay.OnOff.of(tile.isActiveCooled())), 29, 20, titleTextColor(), 117);
-        drawTextScaledBound(guiGraphics, GeneratorsLang.REACTOR_LOGIC_REDSTONE_MODE.translate(EnumColor.RED, tile.logicType), 16, 123, titleTextColor(), 144);
-        drawCenteredText(guiGraphics, MekanismLang.STATUS.translate(EnumColor.RED, tile.checkMode() ? GeneratorsLang.REACTOR_LOGIC_OUTPUTTING : MekanismLang.IDLE),
+    protected void drawForegroundText(@NotNull PoseStack matrix, int mouseX, int mouseY) {
+        renderTitleText(matrix);
+        drawTextScaledBound(matrix, GeneratorsLang.REACTOR_LOGIC_ACTIVE_COOLING.translate(EnumColor.RED, BooleanStateDisplay.OnOff.of(tile.isActiveCooled())), 29, 20, titleTextColor(), 117);
+        drawTextScaledBound(matrix, GeneratorsLang.REACTOR_LOGIC_REDSTONE_MODE.translate(EnumColor.RED, tile.logicType), 16, 123, titleTextColor(), 144);
+        drawCenteredText(matrix, MekanismLang.STATUS.translate(EnumColor.RED, tile.checkMode() ? GeneratorsLang.REACTOR_LOGIC_OUTPUTTING : MekanismLang.IDLE),
                 0, imageWidth, 136, titleTextColor());
-        super.drawForegroundText(guiGraphics, mouseX, mouseY);
+        super.drawForegroundText(matrix, mouseX, mouseY);
     }
 
     @Override

@@ -15,7 +15,6 @@ public class ExtraBlockMechanicalPipe extends BlockLargeTransmitter implements I
     private final PipeTier tier;
 
     public ExtraBlockMechanicalPipe(PipeTier tier) {
-        super(properties -> properties.mapColor(tier.getBaseTier().getMapColor()));
         this.tier = tier;
     }
 

@@ -39,7 +39,7 @@ public class ExtraPacketGeneratorsGuiInteract implements IMekanismPacket {
     public void handle(NetworkEvent.Context context) {
         Player player = context.getSender();
         if (player != null) {
-            TileEntityMekanism tile = WorldUtils.getTileEntity(TileEntityMekanism.class, player.level(), tilePosition);
+            TileEntityMekanism tile = WorldUtils.getTileEntity(TileEntityMekanism.class, player.level, tilePosition);
             if (tile != null) {
                 interaction.consume(tile, player, extra);
             }

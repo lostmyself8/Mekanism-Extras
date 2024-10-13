@@ -28,7 +28,7 @@ public class ExtraTileEntityInductionPort extends ExtraTileEntityInductionCasing
 
     public ExtraTileEntityInductionPort(BlockPos pos, BlockState state) {
         super(ExtraBlock.REINFORCED_INDUCTION_PORT, pos, state);
-        delaySupplier = NO_DELAY;
+        delaySupplier = () -> 0;
     }
 
     @NotNull
@@ -77,12 +77,12 @@ public class ExtraTileEntityInductionPort extends ExtraTileEntityInductionCasing
     }
 
     //Methods relating to IComputerTile
-    @ComputerMethod(methodDescription = "true -> output, false -> input.")// TODO change this to enum?
+    @ComputerMethod()
     boolean getMode() {
         return getActive();
     }
 
-    @ComputerMethod(methodDescription = "true -> output, false -> input")
+    @ComputerMethod()
     void setMode(boolean output) {
         setActive(output);
     }

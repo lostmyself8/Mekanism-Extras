@@ -4,7 +4,6 @@ import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.resource.ore.ExtraOreType;
 import mekanism.api.text.ILangEntry;
 import mekanism.common.block.interfaces.IHasDescription;
-import mekanism.common.block.states.BlockStateHelper;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -13,8 +12,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraBlockOre extends Block implements IHasDescription {
@@ -23,8 +21,7 @@ public class ExtraBlockOre extends Block implements IHasDescription {
     private String descriptionTranslationKey;
 
     public ExtraBlockOre(ExtraOreType ore) {
-        this(ore, BlockStateHelper.applyLightLevelAdjustments(BlockBehaviour.Properties.of().strength(3, 3).requiresCorrectToolForDrops()
-                .mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)));
+        this(ore, BlockBehaviour.Properties.of(Material.STONE).strength(3, 3).requiresCorrectToolForDrops());
     }
 
     public ExtraBlockOre(ExtraOreType ore, BlockBehaviour.Properties properties) {

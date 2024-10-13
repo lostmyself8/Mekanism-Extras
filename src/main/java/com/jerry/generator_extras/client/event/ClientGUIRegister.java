@@ -7,7 +7,7 @@ import com.jerry.mekanism_extras.integration.Addons;
 import com.jerry.generator_extras.common.genregistry.ExtraGenContainerTypes;
 import com.jerry.generator_extras.common.genregistry.ExtraGenTileEntityTypes;
 import mekanism.client.ClientRegistrationUtil;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -27,7 +27,7 @@ public class ClientGUIRegister {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void registerContainers(RegisterEvent event) {
-        event.register(Registries.MENU, helper -> {
+        event.register(Registry.MENU_REGISTRY, helper -> {
             if (Addons.MEKANISMGENERATORS.isLoaded()){
                 ClientRegistrationUtil.registerScreen(ExtraGenContainerTypes.NAQUADAH_REACTOR_CONTROLLER, GuiNaquadahReactorController::new);
                 ClientRegistrationUtil.registerScreen(ExtraGenContainerTypes.NAQUADAH_REACTOR_FUEL, GuiNaquadahReactorFuel::new);

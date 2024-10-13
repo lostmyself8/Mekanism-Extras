@@ -10,6 +10,7 @@ import mekanism.common.inventory.container.slot.InventoryContainerSlot;
 import mekanism.common.inventory.slot.BasicInventorySlot;
 import mekanism.common.item.block.ItemBlockBin;
 import mekanism.common.util.NBTUtils;
+import mekanism.common.util.StackUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -48,7 +49,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
                 ItemStack simulatedRemainder = super.insertItem(stack, Action.SIMULATE, automationType);
                 if (simulatedRemainder.isEmpty()) {
                     //If we are able to insert it then set perform the action of setting it to full
-                    setStackUnchecked(stack.copyWithCount(getLimit(stack)));
+                    setStackUnchecked(StackUtils.size(stack, getLimit(stack)));
                 }
                 return simulatedRemainder;
             }
@@ -89,7 +90,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
         if (isEmpty()) {
             return ItemStack.EMPTY;
         }
-        return current.copyWithCount(Math.min(getCount(), current.getMaxStackSize()));
+        return StackUtils.size(current, Math.min(getCount(), current.getMaxStackSize()));
     }
 
     /**
@@ -107,7 +108,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
         if (isCreative || isLocked() == lock || (lock && isEmpty())) {
             return false;
         }
-        lockStack = lock ? current.copyWithCount(1) : ItemStack.EMPTY;
+        lockStack = lock ? StackUtils.size(current, 1) : ItemStack.EMPTY;
         return true;
     }
 
@@ -115,7 +116,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
      * For use by upgrade recipes, do not use this in place of {@link #setLocked(boolean)}
      */
     public void setLockStack(@NotNull ItemStack stack) {
-        lockStack = stack.copyWithCount(1);
+        lockStack = StackUtils.size(current, 1);
     }
 
     public boolean isLocked() {

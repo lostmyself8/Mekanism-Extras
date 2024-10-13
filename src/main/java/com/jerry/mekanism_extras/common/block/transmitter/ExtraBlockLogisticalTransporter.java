@@ -16,7 +16,6 @@ public class ExtraBlockLogisticalTransporter extends BlockLargeTransmitter imple
     private final TransporterTier tier;
 
     public ExtraBlockLogisticalTransporter(TransporterTier tier) {
-        super(properties -> properties.mapColor(tier.getBaseTier().getMapColor()));
         this.tier = tier;
     }
 

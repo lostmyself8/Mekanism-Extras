@@ -9,7 +9,7 @@ import com.jerry.mekanism_extras.client.gui.ExtraGuiInductionMatrix;
 import com.jerry.mekanism_extras.client.gui.ExtraGuiMatrixStats;
 import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
 import mekanism.client.ClientRegistrationUtil;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,7 +20,7 @@ import net.minecraftforge.registries.RegisterEvent;
 public class ClientGUIRegister {
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void registerContainers(RegisterEvent event) {
-        event.register(Registries.MENU, helper -> {
+        event.register(Registry.MENU_REGISTRY, helper -> {
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.FLUID_TANK, ExtraGuiFluidTank::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.ENERGY_CUBE, ExtraGuiEnergyCube::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.CHEMICAL_TANK, ExtraGuiChemicalTank::new);

@@ -7,10 +7,10 @@ import com.jerry.mekanism_extras.common.capabilities.fluid.item.ExtraRateLimitFl
 import com.jerry.mekanism_extras.common.tier.FTTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
+import mekanism.api.MekanismAPI;
 import mekanism.api.NBTConstants;
 import mekanism.api.fluid.IExtendedFluidTank;
 import mekanism.api.fluid.IMekanismFluidHandler;
-import mekanism.api.security.ISecurityUtils;
 import mekanism.api.text.EnumColor;
 import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
@@ -75,7 +75,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IM
     @NotNull
     @Override
     public FTTier getAdvanceTier() {
-        return Objects.requireNonNull(ExtraAttribute.getTier(getBlock(), FTTier.class));
+        return Objects.requireNonNull(ExtraAttribute.getAdvanceTier(getBlock(), FTTier.class));
     }
 
     @Override
@@ -107,9 +107,9 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IM
     public InteractionResultHolder<ItemStack> use(@NotNull Level world, Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (getBucketMode(stack)) {
-            if (SecurityUtils.get().tryClaimItem(world, player, stack)) {
+            if (SecurityUtils.INSTANCE.tryClaimItem(world, player, stack)) {
                 return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
-            } else if (!ISecurityUtils.INSTANCE.canAccessOrDisplayError(player, stack)) {
+            } else if (!MekanismAPI.getSecurityUtils().canAccessOrDisplayError(player, stack)) {
                 return InteractionResultHolder.fail(stack);
             }
             //TODO: At some point maybe try to reduce the duplicate code between this and the dispense behavior
@@ -237,12 +237,14 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IM
     }
 
     @Override
-    public void changeMode(@NotNull Player player, @NotNull ItemStack stack, int shift, DisplayChange displayChange) {
+    public void changeMode(@NotNull Player player, @NotNull ItemStack stack, int shift, boolean displayChangeMessage) {
         if (Math.abs(shift) % 2 == 1) {
             //We are changing by an odd amount, so toggle the mode
             boolean newState = !getBucketMode(stack);
             setBucketMode(stack, newState);
-            displayChange.sendMessage(player, () -> MekanismLang.BUCKET_MODE.translate(BooleanStateDisplay.OnOff.of(newState, true)));
+            if (!displayChangeMessage) {
+                player.sendSystemMessage(MekanismUtils.logFormat(MekanismLang.BUCKET_MODE.translate(BooleanStateDisplay.OnOff.of(newState, true))));
+            }
         }
     }
 

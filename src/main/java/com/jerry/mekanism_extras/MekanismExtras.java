@@ -10,16 +10,23 @@ import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblo
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorValidator;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
+import com.jerry.mekanism_extras.common.item.block.machine.ExtraItemBlockFluidTank;
 import com.jerry.mekanism_extras.common.registry.*;
 import com.jerry.mekanism_extras.integration.Addons;
 import com.mojang.logging.LogUtils;
+import mekanism.api.providers.IItemProvider;
 import mekanism.common.MekanismLang;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.multiblock.MultiblockCache;
 import mekanism.common.lib.multiblock.MultiblockManager;
+import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import mekanism.generators.common.GeneratorsLang;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -44,7 +51,7 @@ public class MekanismExtras {
         ExtraBlock.register(modEventBus);
         ExtraItem.register(modEventBus);
         ExtraFluids.register(modEventBus);
-        ExtraTab.register(modEventBus);
+//        ExtraTab.register(modEventBus);
         ExtraTileEntityTypes.register(modEventBus);
         ExtraContainerTypes.register(modEventBus);
         ExtraGases.register(modEventBus);
@@ -68,7 +75,28 @@ public class MekanismExtras {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(ExtraTag::init);
+        event.enqueueWork(()-> {
+            ExtraTag.init();
+
+            registerFluidTankBehaviors(ExtraBlock.ABSOLUTE_FLUID_TANK, ExtraBlock.SUPREME_FLUID_TANK, ExtraBlock.COSMIC_FLUID_TANK,
+                    ExtraBlock.INFINITE_FLUID_TANK);
+        });
+    }
+
+    private static void registerDispenseBehavior(DispenseItemBehavior behavior, IItemProvider... itemProviders) {
+        for (IItemProvider itemProvider : itemProviders) {
+            DispenserBlock.registerBehavior(itemProvider.asItem(), behavior);
+        }
+    }
+
+    private static void registerFluidTankBehaviors(IItemProvider... itemProviders) {
+        registerDispenseBehavior(ExtraItemBlockFluidTank.FluidTankItemDispenseBehavior.INSTANCE);
+        for (IItemProvider itemProvider : itemProviders) {
+            Item item = itemProvider.asItem();
+            CauldronInteraction.EMPTY.put(item, ExtraItemBlockFluidTank.BasicCauldronInteraction.EMPTY);
+            CauldronInteraction.WATER.put(item, ExtraItemBlockFluidTank.BasicDrainCauldronInteraction.WATER);
+            CauldronInteraction.LAVA.put(item, ExtraItemBlockFluidTank.BasicDrainCauldronInteraction.LAVA);
+        }
     }
 
     private static void requireRegistry(IEventBus modEventBus) {

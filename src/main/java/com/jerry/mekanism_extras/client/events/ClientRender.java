@@ -19,7 +19,6 @@ import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
 import mekanism.client.ClientRegistrationUtil;
 import mekanism.client.render.MekanismRenderer;
-import mekanism.client.render.item.TransmitterTypeDecorator;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.ItemRegistryObject;
 import mekanism.common.registries.*;
@@ -92,7 +91,7 @@ public class ClientRender {
     public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, tintIndex) -> {
             if (tintIndex == 1) {
-                FTTier tier = ExtraAttribute.getTier(state.getBlock(), FTTier.class);
+                FTTier tier = ExtraAttribute.getAdvanceTier(state.getBlock(), FTTier.class);
                 if (tier != null) {
                     float[] color = TierColor.getColor(tier);
                     return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
@@ -103,7 +102,7 @@ public class ClientRender {
 
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, index) -> {
                     if (index == 1) {
-                        ECTier tier = ExtraAttribute.getTier(state.getBlock(), ECTier.class);
+                        ECTier tier = ExtraAttribute.getAdvanceTier(state.getBlock(), ECTier.class);
                         if (tier != null) {
                             float[] color = TierColor.getColor(tier);
                             return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
@@ -149,11 +148,4 @@ public class ClientRender {
         }
     }
 
-    @SubscribeEvent
-    public static void registerItemDecorations(RegisterItemDecorationsEvent event) {
-        TransmitterTypeDecorator.registerDecorators(event, ExtraBlock.ABSOLUTE_PRESSURIZED_TUBE, ExtraBlock.SUPREME_PRESSURIZED_TUBE,
-                ExtraBlock.COSMIC_PRESSURIZED_TUBE, ExtraBlock.INFINITE_PRESSURIZED_TUBE, ExtraBlock.ABSOLUTE_THERMODYNAMIC_CONDUCTOR,
-                ExtraBlock.SUPREME_THERMODYNAMIC_CONDUCTOR, ExtraBlock.COSMIC_THERMODYNAMIC_CONDUCTOR, ExtraBlock.INFINITE_THERMODYNAMIC_CONDUCTOR,
-                ExtraBlock.ABSOLUTE_UNIVERSAL_CABLE, ExtraBlock.SUPREME_UNIVERSAL_CABLE, ExtraBlock.COSMIC_UNIVERSAL_CABLE, ExtraBlock.INFINITE_UNIVERSAL_CABLE);
-    }
 }

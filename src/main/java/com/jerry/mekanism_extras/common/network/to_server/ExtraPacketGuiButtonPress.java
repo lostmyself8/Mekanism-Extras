@@ -46,7 +46,7 @@ public class ExtraPacketGuiButtonPress implements IMekanismPacket {
             return;
         }
         if (type == Type.TILE) {
-            TileEntityMekanism tile = WorldUtils.getTileEntity(TileEntityMekanism.class, player.level(), tilePosition);
+            TileEntityMekanism tile = WorldUtils.getTileEntity(TileEntityMekanism.class, player.level, tilePosition);
             if (tile != null) {
                 MenuProvider provider = tileButton.getProvider(tile, extra);
                 if (provider != null) {

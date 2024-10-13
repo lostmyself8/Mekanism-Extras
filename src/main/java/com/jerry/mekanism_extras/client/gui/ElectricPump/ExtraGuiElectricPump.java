@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.client.gui.ElectricPump;
 
 import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiDownArrow;
 import mekanism.client.gui.element.GuiInnerScreen;
@@ -14,7 +15,6 @@ import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.inventory.warning.WarningTracker;
 import mekanism.common.util.text.EnergyDisplay;
 import mekanism.common.util.text.TextUtils;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fluids.FluidStack;
@@ -63,9 +63,9 @@ public class ExtraGuiElectricPump extends GuiMekanismTile<ExtraTileEntityElectri
     }
 
     @Override
-    protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        renderTitleText(guiGraphics);
-        drawString(guiGraphics, playerInventoryTitle, inventoryLabelX, inventoryLabelY, titleTextColor());
-        super.drawForegroundText(guiGraphics, mouseX, mouseY);
+    protected void drawForegroundText(@NotNull PoseStack matrix, int mouseX, int mouseY) {
+        renderTitleText(matrix);
+        drawString(matrix, playerInventoryTitle, inventoryLabelX, inventoryLabelY, titleTextColor());
+        super.drawForegroundText(matrix, mouseX, mouseY);
     }
 }

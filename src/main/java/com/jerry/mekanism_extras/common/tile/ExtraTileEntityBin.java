@@ -45,7 +45,7 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
 
     private BTier tier;
 
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getStored", docPlaceholder = "bin")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getStored")
     ExtraBinInventorySlot binSlot;
 
     public ExtraTileEntityBin(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
@@ -56,7 +56,7 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getTier(getBlockType(), BTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockType(), BTier.class);
     }
 
     @NotNull
@@ -112,7 +112,7 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
         setActive(!getActive());
         Level world = getLevel();
         if (world != null) {
-            world.playSound(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), SoundEvents.UI_BUTTON_CLICK.get(), SoundSource.BLOCKS, 0.3F, 1);
+            world.playSound(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.BLOCKS, 0.3F, 1);
         }
         return InteractionResult.SUCCESS;
     }
@@ -131,7 +131,7 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
             if (getLevel() != null && !isRemote()) {
                 sendUpdatePacket();
                 markForSave();
-                getLevel().playSound(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), SoundEvents.UI_BUTTON_CLICK.get(), SoundSource.BLOCKS, 0.3F, 1);
+                getLevel().playSound(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.BLOCKS, 0.3F, 1);
             }
             return true;
         }
@@ -179,22 +179,22 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
     }
 
     //Methods relating to IComputerTile
-    @ComputerMethod(methodDescription = "Get the maximum number of items the bin can contain.")
+    @ComputerMethod
     int getCapacity() {
         return binSlot.getLimit(binSlot.getStack());
     }
 
-    @ComputerMethod(methodDescription = "If true, the Bin is locked to a particular item type.")
+    @ComputerMethod
     boolean isLocked() {
         return binSlot.isLocked();
     }
 
-    @ComputerMethod(methodDescription = "Get the type of item the Bin is locked to (or Air if not locked)")
+    @ComputerMethod
     ItemStack getLock() {
         return binSlot.getLockStack();
     }
 
-    @ComputerMethod(methodDescription = "Lock the Bin to the currently stored item type. The Bin must not be creative, empty, or already locked")
+    @ComputerMethod
     void lock() throws ComputerException {
         if (binSlot.isEmpty()) {
             throw new ComputerException("Empty bins cannot be locked!");
@@ -203,7 +203,7 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
         }
     }
 
-    @ComputerMethod(methodDescription = "Unlock the Bin's fixed item type. The Bin must not be creative, or already unlocked")
+    @ComputerMethod
     void unlock() throws ComputerException {
         if (!setLocked(true)) {
             throw new ComputerException("This bin is not locked!");

@@ -6,6 +6,7 @@ import mekanism.api.NBTConstants;
 import mekanism.api.Upgrade;
 import mekanism.api.math.FloatingLong;
 import mekanism.api.math.FloatingLongSupplier;
+import mekanism.api.text.EnumColor;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.attribute.AttributeEnergy;
@@ -21,7 +22,6 @@ import mekanism.common.util.MekanismUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -53,15 +53,15 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
         return null;
     }
 
-    public TextColor getTextColor(ItemStack stack) {
+    public EnumColor getTextColor(ItemStack stack) {
         IAdvanceTier tier = getAdvanceTier();
-        return tier == null ? null : tier.getAdvanceTier().getColor();
+        return tier == null ? null : tier.getAdvanceTier().getTextColor();
     }
 
     @NotNull
     @Override
     public Component getName(@NotNull ItemStack stack) {
-        TextColor color = getTextColor(stack);
+        EnumColor color = getTextColor(stack);
         if (color == null) {
             return super.getName(stack);
         }

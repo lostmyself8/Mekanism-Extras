@@ -52,7 +52,7 @@ import java.util.Collections;
 import java.util.Map;
 
 public class ExtraTileEntityFluidTank extends TileEntityMekanism implements IConfigurable, IFluidContainerManager, ISustainedData {
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded", "getFilledPercentage"}, docPlaceholder = "tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded", "getFilledPercentage"})
     public ExtraFluidTankFluidTank fluidTank;
 
     private ContainerEditMode editMode = ContainerEditMode.BOTH;
@@ -67,9 +67,9 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
 
     private boolean needsPacket;
 
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItem", docPlaceholder = "input slot")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItem")
     FluidInventorySlot inputSlot;
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem", docPlaceholder = "output slot")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem")
     OutputInventorySlot outputSlot;
 
     private boolean updateClientLight = false;
@@ -83,7 +83,7 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getTier(getBlockType(), FTTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockType(), FTTier.class);
     }
 
     @NotNull
@@ -192,7 +192,7 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
             setActive(!getActive());
             Level world = getLevel();
             if (world != null) {
-                world.playSound(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), SoundEvents.UI_BUTTON_CLICK.get(), SoundSource.BLOCKS, 0.3F, 1);
+                world.playSound(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.BLOCKS, 0.3F, 1);
             }
         }
         return InteractionResult.SUCCESS;
@@ -277,7 +277,7 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
     }
 
     //Methods relating to IComputerTile
-    @ComputerMethod(requiresPublicSecurity = true)
+    @ComputerMethod
     void setContainerEditMode(ContainerEditMode mode) throws ComputerException {
         validateSecurityIsPublic();
         if (editMode != mode) {
@@ -286,13 +286,13 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
         }
     }
 
-    @ComputerMethod(requiresPublicSecurity = true)
+    @ComputerMethod
     void incrementContainerEditMode() throws ComputerException {
         validateSecurityIsPublic();
         nextMode();
     }
 
-    @ComputerMethod(requiresPublicSecurity = true)
+    @ComputerMethod
     void decrementContainerEditMode() throws ComputerException {
         validateSecurityIsPublic();
         previousMode();

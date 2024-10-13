@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.item.block;
 
-import mekanism.api.security.ISecurityUtils;
+import mekanism.api.MekanismAPI;
 import mekanism.api.text.EnumColor;
 import mekanism.client.key.MekKeyHandler;
 import mekanism.client.key.MekanismKeyHandler;
@@ -82,14 +82,14 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
 
     protected void addDetails(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         //Note: Security and owner info gets skipped if the stack doesn't expose them
-        ISecurityUtils.INSTANCE.addSecurityTooltip(stack, tooltip);
+        MekanismAPI.getSecurityUtils().addSecurityTooltip(stack, tooltip);
         addTypeDetails(stack, world, tooltip, flag);
         FluidStack fluidStack = StorageUtils.getStoredFluidFromNBT(stack);
         if (!fluidStack.isEmpty()) {
             tooltip.add(MekanismLang.GENERIC_STORED_MB.translateColored(EnumColor.PINK, fluidStack, EnumColor.GRAY, TextUtils.format(fluidStack.getAmount())));
         }
         if (Attribute.has(getBlock(), Attributes.AttributeInventory.class) && stack.getItem() instanceof IItemSustainedInventory inventory) {
-            tooltip.add(MekanismLang.HAS_INVENTORY.translateColored(EnumColor.AQUA, EnumColor.GRAY, BooleanStateDisplay.YesNo.of(inventory.hasSustainedInventory(stack))));
+            tooltip.add(MekanismLang.HAS_INVENTORY.translateColored(EnumColor.AQUA, EnumColor.GRAY, BooleanStateDisplay.YesNo.of(inventory.hasInventory(stack))));
         }
         if (Attribute.has(getBlock(), AttributeUpgradeSupport.class)) {
             MekanismUtils.addUpgradesToTooltip(stack, tooltip);

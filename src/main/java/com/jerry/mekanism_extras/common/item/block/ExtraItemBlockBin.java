@@ -24,7 +24,7 @@ public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> impl
 
     @Override
     public BTier getAdvanceTier() {
-        return ExtraAttribute.getTier(getBlock(), BTier.class);
+        return ExtraAttribute.getAdvanceTier(getBlock(), BTier.class);
     }
 
     @Override
