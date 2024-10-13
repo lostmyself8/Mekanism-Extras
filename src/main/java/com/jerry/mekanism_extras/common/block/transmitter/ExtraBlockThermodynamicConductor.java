@@ -2,7 +2,6 @@ package com.jerry.mekanism_extras.common.block.transmitter;
 
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityThermodynamicConductor;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
-import mekanism.api.tier.BaseTier;
 import mekanism.common.block.attribute.AttributeTier;
 import mekanism.common.block.interfaces.IHasTileEntity;
 import mekanism.common.block.interfaces.ITypeBlock;
@@ -18,11 +17,6 @@ public class ExtraBlockThermodynamicConductor extends BlockSmallTransmitter impl
     public ExtraBlockThermodynamicConductor(ConductorTier tier) {
         super(properties -> properties.mapColor(tier.getBaseTier().getMapColor()));
         this.tier = tier;
-    }
-
-    @Override
-    protected BaseTier getBaseTier() {
-        return this.tier.getBaseTier();
     }
 
     @Override
