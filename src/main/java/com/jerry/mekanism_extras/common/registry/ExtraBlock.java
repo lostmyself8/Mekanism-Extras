@@ -1,9 +1,7 @@
 package com.jerry.mekanism_extras.common.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
 import com.jerry.mekanism_extras.common.block.ExtraBlockOre;
-import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockResource;
 import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockBin;
@@ -42,7 +40,6 @@ import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import mekanism.common.block.interfaces.IHasDescription;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.block.prefab.BlockTile;
-import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.item.block.ItemBlockTooltip;
@@ -56,7 +53,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -68,8 +64,7 @@ public class ExtraBlock {
         return EXTRA_BLOCK.register(tierName + suffix, blockSupplier, itemCreator);
     }
 
-    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(BlockType type, String registerName, Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
-        IAdvanceTier tier = Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
+    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(String registerName, Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
         return EXTRA_BLOCK.register(registerName, blockSupplier, itemCreator);
     }
 
@@ -165,15 +160,15 @@ public class ExtraBlock {
     }
 
     private static BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> registerBin(String tileName, BlockTypeTile<ExtraTileEntityBin> type) {
-        return registerTieredBlock(type, tileName + "_bin", () -> new ExtraBlockBin(type), ExtraItemBlockBin::new);
+        return registerTieredBlock(tileName, "_bin", () -> new ExtraBlockBin(type), ExtraItemBlockBin::new);
     }
 
     private static BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> registerInductionCell(String tileName, BlockTypeTile<ExtraTileEntityInductionCell> type) {
-        return registerTieredBlock(type, tileName + "_induction_cell", () -> new BlockTile<>(type), ExtraItemBlockInductionCell::new);
+        return registerTieredBlock(tileName, "_induction_cell", () -> new BlockTile<>(type), ExtraItemBlockInductionCell::new);
     }
 
     private static BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> registerInductionProvider(String tileName, BlockTypeTile<ExtraTileEntityInductionProvider> type) {
-        return registerTieredBlock(type, tileName + "_induction_provider", () -> new BlockTile<>(type), ExtraItemBlockInductionProvider::new);
+        return registerTieredBlock(tileName, "_induction_provider", () -> new BlockTile<>(type), ExtraItemBlockInductionProvider::new);
     }
 
     private static BlockRegistryObject<ExtraBlockFluidTank, ExtraItemBlockFluidTank> registerFluidTank(String tileName, Machine<ExtraTileEntityFluidTank> type) {
@@ -205,7 +200,7 @@ public class ExtraBlock {
     }
 
     private static BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> registerChemicalTank(String tileName, Machine<ExtraTileEntityChemicalTank> type) {
-        return registerTieredBlock(type, tileName + "_chemical_tank", () -> new BlockTile.BlockTileModel<>(type), ExtraItemBlockChemicalTank::new);
+        return registerTieredBlock(tileName, "_chemical_tank", () -> new BlockTile.BlockTileModel<>(type), ExtraItemBlockChemicalTank::new);
     }
 
     private static <BLOCK extends Block & IHasDescription> BlockRegistryObject<BLOCK, ItemBlockTooltip<BLOCK>> registerBlock(String name, Supplier<? extends BLOCK> blockSupplier) {
