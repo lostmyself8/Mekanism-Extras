@@ -1,0 +1,51 @@
+package com.jerry.mekanism_extras.common.registration.impl;
+
+import mekanism.api.providers.IBlockProvider;
+import mekanism.common.block.states.BlockStateHelper;
+import mekanism.common.registration.DoubleDeferredRegister;
+import mekanism.common.registration.impl.BlockRegistryObject;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+public class ExtraBlockDeferredRegister extends DoubleDeferredRegister<Block, Item> {
+
+    private final List<IBlockProvider> allBlocks = new ArrayList<>();
+
+    public ExtraBlockDeferredRegister(String modid) {
+        super(modid, ForgeRegistries.BLOCKS, ForgeRegistries.ITEMS);
+    }
+
+    public BlockRegistryObject<Block, BlockItem> register(String name, BlockBehaviour.Properties properties) {
+        return registerDefaultProperties(name, () -> new Block(BlockStateHelper.applyLightLevelAdjustments(properties)), BlockItem::new);
+    }
+
+    public <BLOCK extends Block> BlockRegistryObject<BLOCK, BlockItem> register(String name, Supplier<? extends BLOCK> blockSupplier) {
+        return registerDefaultProperties(name, blockSupplier, BlockItem::new);
+    }
+
+    public <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerDefaultProperties(String name, Supplier<? extends BLOCK> blockSupplier,
+                                                                                                                    BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
+        return register(name, blockSupplier, block -> itemCreator.apply(block, ExtraItemDeferredRegister.getMekBaseProperties()));
+    }
+
+    public <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> register(String name, Supplier<? extends BLOCK> blockSupplier,
+                                                                                                   Function<BLOCK, ITEM> itemCreator) {
+        BlockRegistryObject<BLOCK, ITEM> registeredBlock = register(name, blockSupplier, itemCreator, BlockRegistryObject::new);
+        allBlocks.add(registeredBlock);
+        return registeredBlock;
+    }
+
+    public List<IBlockProvider> getAllBlocks() {
+        return Collections.unmodifiableList(allBlocks);
+    }
+}

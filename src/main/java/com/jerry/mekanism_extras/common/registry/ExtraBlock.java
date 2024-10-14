@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.registry;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.block.ExtraBlockOre;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockResource;
+import com.jerry.mekanism_extras.common.registration.impl.ExtraBlockDeferredRegister;
 import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockBin;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockBin;
@@ -44,7 +45,6 @@ import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.item.block.machine.ItemBlockMachine;
-import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.tier.*;
 import net.minecraft.world.item.BlockItem;
@@ -58,14 +58,10 @@ import java.util.function.Supplier;
 
 public class ExtraBlock {
 //    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MekanismExtras.MODID);
-    public static final BlockDeferredRegister EXTRA_BLOCK = new BlockDeferredRegister(MekanismExtras.MODID);
+    public static final ExtraBlockDeferredRegister EXTRA_BLOCK = new ExtraBlockDeferredRegister(MekanismExtras.MODID);
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(String tierName, String suffix, Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
         return EXTRA_BLOCK.register(tierName + suffix, blockSupplier, itemCreator);
-    }
-
-    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(String registerName, Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
-        return EXTRA_BLOCK.register(registerName, blockSupplier, itemCreator);
     }
 
 //    public static final RegistryObject<Block> NAQUADAH_ORE = BLOCKS.register("naquadah_ore",

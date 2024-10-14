@@ -1,7 +1,6 @@
 {
-  "parent": "mekanism:block/template/cube_all_led",
+  "parent": "block/cube_all",
   "textures": {
-    "all": "mekanism_extras:block/induction_port_output",
-    "led": "mekanism_extras:block/induction_port_output_led"
+    "all": "mekanism_extras:block/induction_port_output"
   }
 }

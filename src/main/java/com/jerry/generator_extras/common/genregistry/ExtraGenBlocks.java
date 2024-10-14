@@ -4,11 +4,11 @@ import com.jerry.generator_extras.common.block.reactor.BlockLeadCoatedLaserFocus
 import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
 import com.jerry.generator_extras.common.tile.reactor.*;
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.registration.impl.ExtraBlockDeferredRegister;
 import mekanism.common.block.basic.BlockStructuralGlass;
 import mekanism.common.block.interfaces.IHasDescription;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.item.block.ItemBlockTooltip;
-import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -16,7 +16,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import java.util.function.Supplier;
 
 public class ExtraGenBlocks {
-    public static final BlockDeferredRegister EXTRA_GEN_BLOCK = new BlockDeferredRegister(MekanismExtras.MODID);
+    public static final ExtraBlockDeferredRegister EXTRA_GEN_BLOCK = new ExtraBlockDeferredRegister(MekanismExtras.MODID);
     public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityNaquadahReactorController>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityNaquadahReactorController>>> NAQUADAH_REACTOR_CONTROLLER = registerBlock("naquadah_reactor_controller", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.NAQUADAH_REACTOR_CONTROLLER));
     public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityNaquadahReactorCasing>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityNaquadahReactorCasing>>> NAQUADAH_REACTOR_CASING = registerBlock("naquadah_reactor_casing", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.NAQUADAH_REACTOR_CASING));
     public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityNaquadahReactorPort>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityNaquadahReactorPort>>> NAQUADAH_REACTOR_PORT = registerBlock("naquadah_reactor_port", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.NAQUADAH_REACTOR_PORT));

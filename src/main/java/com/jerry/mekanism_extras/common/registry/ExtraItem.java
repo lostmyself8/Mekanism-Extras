@@ -5,10 +5,10 @@ import com.jerry.mekanism_extras.api.tier.ExtraAlloyTier;
 import com.jerry.mekanism_extras.common.item.ExtraItemAlloy;
 import com.jerry.mekanism_extras.common.item.ExtraItemTierInstaller;
 import com.jerry.mekanism_extras.common.item.ExtraItemQIODrive;
+import com.jerry.mekanism_extras.common.registration.impl.ExtraItemDeferredRegister;
 import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
 import com.jerry.mekanism_extras.api.tier.AdvanceTier;
 import com.jerry.mekanism_extras.common.resource.ExtraResource;
-import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ResourceType;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 
 public class ExtraItem {
-    public static final ItemDeferredRegister EXTRA_ITEM = new ItemDeferredRegister(MekanismExtras.MODID);
+    public static final ExtraItemDeferredRegister EXTRA_ITEM = new ExtraItemDeferredRegister(MekanismExtras.MODID);
 
 //    public static final RegistryObject<Item> NAQUADAH_ORE_ITEM = ITEMS.register("naquadah_ore",
 //            () -> new BlockItem(ExtraBlock.NAQUADAH_ORE.get(), new Item.Properties()));
