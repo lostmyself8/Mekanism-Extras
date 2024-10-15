@@ -5,7 +5,7 @@
       "tag": "forge:pellets/antimatter"
     },
     "C": {
-      "item": "mekanism_extras:qio_drive_absolute"
+      "item": "mekanism_extras:qio_drive_collapse"
     },
     "I": {
       "tag": "forge:ingots/lead"
@@ -17,6 +17,6 @@
     "ICI"
   ],
   "result": {
-    "item": "mekanism_extras:qio_drive_supreme"
+    "item": "mekanism_extras:qio_drive_gamma"
   }
 }

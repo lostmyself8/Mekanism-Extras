@@ -31,10 +31,10 @@ public class ExtraItem {
 //            () -> new BlockItem(ExtraBlock.END_NAQUADAH_ORE.get(), new Item.Properties()));
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MekanismExtras.MODID);
-    public static final ItemRegistryObject<ExtraItemQIODrive> ABSOLUTE_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.COLLAPSE);
-    public static final ItemRegistryObject<ExtraItemQIODrive> SUPREME_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.GAMMA);
-    public static final ItemRegistryObject<ExtraItemQIODrive> COSMIC_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.BLACK_HOLE);
-    public static final ItemRegistryObject<ExtraItemQIODrive> INFINITE_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.SINGULARITY);
+    public static final ItemRegistryObject<ExtraItemQIODrive> COLLAPSE_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.COLLAPSE);
+    public static final ItemRegistryObject<ExtraItemQIODrive> GAMMA_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.GAMMA);
+    public static final ItemRegistryObject<ExtraItemQIODrive> BLACK_HOLE_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.BLACK_HOLE);
+    public static final ItemRegistryObject<ExtraItemQIODrive> SINGULARITY_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.SINGULARITY);
     public static final ItemRegistryObject<ExtraItemTierInstaller> ABSOLUTE_TIER_INSTALLER = registerInstaller(null, AdvanceTier.ABSOLUTE);
     public static final ItemRegistryObject<ExtraItemTierInstaller> SUPREME_TIER_INSTALLER = registerInstaller(AdvanceTier.ABSOLUTE, AdvanceTier.SUPREME);
     public static final ItemRegistryObject<ExtraItemTierInstaller> COSMIC_TIER_INSTALLER = registerInstaller(AdvanceTier.SUPREME, AdvanceTier.COSMIC);

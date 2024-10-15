@@ -5,7 +5,7 @@
       "tag": "forge:pellets/antimatter"
     },
     "C": {
-      "item": "mekanism_extras:qio_drive_cosmic"
+      "item": "mekanism_extras:qio_drive_black_hole"
     },
     "I": {
       "tag": "forge:ingots/lead"
@@ -17,6 +17,6 @@
     "ICI"
   ],
   "result": {
-    "item": "mekanism_extras:qio_drive_infinite"
+    "item": "mekanism_extras:qio_drive_singularity"
   }
 }
