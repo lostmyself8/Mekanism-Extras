@@ -10,6 +10,7 @@ import mekanism.common.inventory.slot.chemical.MergedChemicalInventorySlot;
 import mekanism.common.tile.component.ITileComponent;
 import mekanism.common.tile.interfaces.IRedstoneControl;
 import mekanism.common.upgrade.IUpgradeData;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
 import java.util.List;
@@ -26,9 +27,9 @@ public class ExtraChemicalTankUpgradeData implements IUpgradeData {
     public final SlurryStack storedSlurry;
     public final CompoundTag components;
 
-    public ExtraChemicalTankUpgradeData(boolean redstone, IRedstoneControl.RedstoneControl controlType, MergedChemicalInventorySlot<MergedChemicalTank> drainSlot,
-                                   MergedChemicalInventorySlot<MergedChemicalTank> fillSlot, ExtraTileEntityChemicalTank.GasMode dumping, GasStack storedGas, InfusionStack storedInfusion, PigmentStack storedPigment,
-                                   SlurryStack storedSlurry, List<ITileComponent> components) {
+    public ExtraChemicalTankUpgradeData(HolderLookup.Provider provider, boolean redstone, IRedstoneControl.RedstoneControl controlType, MergedChemicalInventorySlot<MergedChemicalTank> drainSlot,
+                                        MergedChemicalInventorySlot<MergedChemicalTank> fillSlot, ExtraTileEntityChemicalTank.GasMode dumping, GasStack storedGas, InfusionStack storedInfusion, PigmentStack storedPigment,
+                                        SlurryStack storedSlurry, List<ITileComponent> components) {
         this.redstone = redstone;
         this.controlType = controlType;
         this.drainSlot = drainSlot;
@@ -40,7 +41,7 @@ public class ExtraChemicalTankUpgradeData implements IUpgradeData {
         this.storedSlurry = storedSlurry;
         this.components = new CompoundTag();
         for (ITileComponent component : components) {
-            component.write(this.components);
+            component.write(this.components, provider);
         }
     }
 }

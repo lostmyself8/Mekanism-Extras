@@ -1,6 +1,5 @@
 package com.jerry.mekextras.common.item.block.machine;
 
-import com.jerry.mekextras.client.render.ExtraRenderPropertiesProvider;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.block.basic.ExtraBlockFluidTank;
 import com.jerry.mekextras.common.tier.FTTier;
@@ -17,7 +16,8 @@ import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.item.interfaces.IModeItem;
 import mekanism.common.lib.security.ItemSecurityUtils;
-import mekanism.common.registries.MekanismAttachmentTypes;
+import mekanism.common.registries.MekanismDataComponents;
+import mekanism.common.tile.interfaces.IFluidContainerManager;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.RegistryUtils;
 import mekanism.common.util.StorageUtils;
@@ -26,6 +26,7 @@ import mekanism.common.util.text.BooleanStateDisplay;
 import mekanism.common.util.text.TextUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
@@ -36,11 +37,13 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -54,14 +57,10 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.SoundActions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.IFluidBlock;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -69,16 +68,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, ?>> implements IModeItem.IAttachmentBasedModeItem<Boolean> {
-    public ExtraItemBlockFluidTank(ExtraBlockFluidTank block) {
-        super(block);
-    }
-
-    @Override
-    public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(ExtraRenderPropertiesProvider.extraFluidTank());
+    public ExtraItemBlockFluidTank(ExtraBlockFluidTank block, Item.Properties properties) {
+        super(block, true, properties.component(MekanismDataComponents.BUCKET_MODE, false)
+                .component(MekanismDataComponents.EDIT_MODE, IFluidContainerManager.ContainerEditMode.BOTH));
     }
 
     @NotNull
@@ -88,7 +82,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
     }
 
     @Override
-    protected void addStats(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    protected void addStats(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         FTTier tier = getAdvanceTier();
         FluidStack fluidStack = StorageUtils.getStoredFluidFromAttachment(stack);
         if (fluidStack.isEmpty()) {
@@ -100,9 +94,9 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
     }
 
     @Override
-    protected void addTypeDetails(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    protected void addTypeDetails(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         tooltip.add(MekanismLang.BUCKET_MODE.translateColored(EnumColor.INDIGO, BooleanStateDisplay.YesNo.of(getMode(stack), true)));
-        super.addTypeDetails(stack, world, tooltip, flag);
+        super.addTypeDetails(stack, context, tooltip, flag);
     }
 
     @NotNull
@@ -184,16 +178,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
                         // only allow collecting from non-empty sources
                         Fluid fluid = fluidState.getType();
                         FluidStack fluidStack = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
-                        Block block = blockState.getBlock();
-                        if (block instanceof IFluidBlock fluidBlock) {
-                            fluidStack = fluidBlock.drain(world, pos, IFluidHandler.FluidAction.SIMULATE);
-                            if (!validFluid(fluidTank, fluidStack)) {
-                                //If the fluid is not valid, pass on doing anything
-                                return InteractionResultHolder.pass(stack);
-                            }
-                            //Actually drain it
-                            fluidStack = fluidBlock.drain(world, pos, IFluidHandler.FluidAction.EXECUTE);
-                        } else if (block instanceof BucketPickup bucketPickup && validFluid(fluidTank, fluidStack)) {
+                        if (blockState.getBlock() instanceof BucketPickup bucketPickup && validFluid(fluidTank, fluidStack)) {
                             //If it can be picked up by a bucket, and we actually want to pick it up, do so to update the fluid type we are doing
                             // otherwise we assume the type from the fluid state is correct
                             ItemStack pickedUpStack = bucketPickup.pickupBlock(player, world, pos, blockState);
@@ -202,7 +187,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
                                 return InteractionResultHolder.pass(stack);
                             } else if (pickedUpStack.getItem() instanceof BucketItem bucket) {
                                 //This isn't the best validation check given it may not return a bucket, but it is good enough for now
-                                fluid = bucket.getFluid();
+                                fluid = bucket.content;
                                 //Update the fluid stack in case something somehow changed about the type
                                 // making sure that we replace to heavy water if we got heavy water
                                 fluidStack = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
@@ -266,8 +251,13 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
     }
 
     @Override
-    public AttachmentType<Boolean> getModeAttachment() {
-        return MekanismAttachmentTypes.BUCKET_MODE.get();
+    public DataComponentType<Boolean> getModeDataType() {
+        return MekanismDataComponents.BUCKET_MODE.get();
+    }
+
+    @Override
+    public Boolean getDefaultMode() {
+        return Boolean.FALSE;
     }
 
     @Override
@@ -319,15 +309,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
                     Fluid fluid = fluidState.getType();
                     FluidStack fluidStack = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
                     Block block = blockState.getBlock();
-                    if (block instanceof IFluidBlock fluidBlock) {
-                        fluidStack = fluidBlock.drain(world, pos, IFluidHandler.FluidAction.SIMULATE);
-                        if (!validFluid(fluidTank, fluidStack)) {
-                            //If the fluid is not valid, then eject the stack similar to how vanilla does for buckets
-                            return super.execute(source, stack);
-                        }
-                        //Actually drain it
-                        fluidStack = fluidBlock.drain(world, pos, IFluidHandler.FluidAction.EXECUTE);
-                    } else if (block instanceof BucketPickup bucketPickup && validFluid(fluidTank, fluidStack)) {
+                    if (blockState.getBlock() instanceof BucketPickup bucketPickup && validFluid(fluidTank, fluidStack)) {
                         //If it can be picked up by a bucket, and we actually want to pick it up, do so to update the fluid type we are doing
                         // otherwise we assume the type from the fluid state is correct
                         ItemStack pickedUpStack = bucketPickup.pickupBlock(null, world, pos, blockState);
@@ -336,7 +318,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
                             return super.execute(source, stack);
                         } else if (pickedUpStack.getItem() instanceof BucketItem bucket) {
                             //This isn't the best validation check given it may not return a bucket, but it is good enough for now
-                            fluid = bucket.getFluid();
+                            fluid = bucket.content;
                             //Update the fluid stack in case something somehow changed about the type
                             // making sure that we replace to heavy water if we got heavy water
                             fluidStack = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
@@ -388,8 +370,8 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
 
             @NotNull
             @Override
-            protected InteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
-                                                 @NotNull InteractionHand hand, @NotNull ItemStack stack, @NotNull IExtendedFluidTank fluidTank) {
+            protected ItemInteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
+                                                     @NotNull InteractionHand hand, @NotNull ItemStack stack, @NotNull IExtendedFluidTank fluidTank) {
                 FluidStack fluidStack = fluidTank.getFluid();
                 BlockState endState = getState(fluidStack);
                 if (endState != null && fluidTank.extract(FluidType.BUCKET_VOLUME, Action.SIMULATE, AutomationType.MANUAL).getAmount() >= FluidType.BUCKET_VOLUME) {
@@ -407,15 +389,15 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
                         }
                         level.gameEvent(null, GameEvent.FLUID_PLACE, pos);
                     }
-                    return InteractionResult.sidedSuccess(level.isClientSide);
+                    return ItemInteractionResult.sidedSuccess(level.isClientSide);
                 }
-                return InteractionResult.PASS;
+                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             }
         };
 
         @NotNull
         @Override
-        public final InteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
+        public final ItemInteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
                                                 @NotNull InteractionHand hand, @NotNull ItemStack stack) {
             if (stack.getCount() == 1 && stack.getItem() instanceof ExtraItemBlockFluidTank tank && tank.getMode(stack)) {
                 //If the fluid tank is in bucket mode allow for it to act as a bucket
@@ -423,16 +405,16 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
                 //Get the fluid tank for the stack
                 if (fluidTank == null) {
                     //If there isn't one then there is something wrong with the stack, treat it as a normal stack and skip
-                    return InteractionResult.PASS;
+                    return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
                 }
                 return interact(state, level, pos, player, hand, stack, fluidTank);
             }
             //Otherwise skip
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
         @NotNull
-        protected abstract InteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
+        protected abstract ItemInteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
                                                       @NotNull InteractionHand hand, @NotNull ItemStack stack, @NotNull IExtendedFluidTank fluidTank);
     }
 
@@ -441,14 +423,14 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
         public static final BasicDrainCauldronInteraction WATER = new BasicDrainCauldronInteraction(Fluids.WATER) {
             @NotNull
             @Override
-            protected InteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
+            protected ItemInteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
                                                  @NotNull InteractionHand hand, @NotNull ItemStack stack, @NotNull IExtendedFluidTank fluidTank) {
                 if (state.getValue(LayeredCauldronBlock.LEVEL) == 3) {
                     //When emptying a water cauldron make sure it is full and just ignore handling of partial transfers
                     // as while we can handle them, they come with the added complication of deciding what value to give bottles
                     return super.interact(state, level, pos, player, hand, stack, fluidTank);
                 }
-                return InteractionResult.PASS;
+                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             }
         };
         public static final BasicDrainCauldronInteraction LAVA = new BasicDrainCauldronInteraction(Fluids.LAVA);
@@ -461,7 +443,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
 
         @NotNull
         @Override
-        protected InteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
+        protected ItemInteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
                                              @NotNull InteractionHand hand, @NotNull ItemStack stack, @NotNull IExtendedFluidTank fluidTank) {
             FluidStack fluidStack = new FluidStack(type, FluidType.BUCKET_VOLUME);
             FluidStack remainder = fluidTank.insert(fluidStack, Action.SIMULATE, AutomationType.MANUAL);
@@ -480,9 +462,9 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
                     }
                     level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
                 }
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return ItemInteractionResult.sidedSuccess(level.isClientSide);
             }
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
     }
 }

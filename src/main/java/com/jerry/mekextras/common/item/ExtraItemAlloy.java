@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.item;
 
-import com.jerry.mekextras.common.api.IExtraAlloyInteraction;
-import com.jerry.mekextras.common.api.tier.ExtraAlloyTier;
+import com.jerry.mekextras.api.IExtraAlloyInteraction;
+import com.jerry.mekextras.api.tier.ExtraAlloyTier;
 import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
 import mekanism.common.config.MekanismConfig;
 import mekanism.common.util.WorldUtils;

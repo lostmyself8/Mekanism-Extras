@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.tile.transmitter;
 
-import com.jerry.mekextras.common.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraThermodynamicConductor;
 import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IMekanismHeatHandler;

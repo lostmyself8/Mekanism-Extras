@@ -3,11 +3,9 @@ package com.jerry.mekextras.common.config;
 import com.jerry.mekextras.common.tier.*;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import mekanism.api.heat.HeatAPI;
-import mekanism.api.math.FloatingLong;
 import mekanism.common.config.BaseMekanismConfig;
-import mekanism.common.config.value.CachedFloatingLongValue;
-import mekanism.common.config.value.CachedIntValue;
 import mekanism.common.config.value.CachedLongValue;
+import mekanism.common.config.value.CachedIntValue;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -31,50 +29,50 @@ public class ExtraTierConfig extends BaseMekanismConfig {
     private static final String EXTRA_HEAT_CATEGORY = "heat";
     private final ModConfigSpec configSpec;
 
-    public final CachedFloatingLongValue absoluteUniversalCableCapacity;
-    public final CachedFloatingLongValue supremeUniversalCableCapacity;
-    public final CachedFloatingLongValue cosmicUniversalCableCapacity;
-    public final CachedFloatingLongValue infiniteUniversalCableCapacity;
+    public final CachedLongValue absoluteUniversalCableCapacity;
+    public final CachedLongValue supremeUniversalCableCapacity;
+    public final CachedLongValue cosmicUniversalCableCapacity;
+    public final CachedLongValue infiniteUniversalCableCapacity;
 
-    public final CachedFloatingLongValue absoluteMechanicalPipeCapacity;
-    public final CachedFloatingLongValue absoluteMechanicalPipePullAmount;
-    public final CachedFloatingLongValue supremeMechanicalPipeCapacity;
-    public final CachedFloatingLongValue supremeMechanicalPipePullAmount;
-    public final CachedFloatingLongValue cosmicMechanicalPipeCapacity;
-    public final CachedFloatingLongValue cosmicMechanicalPipePullAmount;
-    public final CachedFloatingLongValue infiniteMechanicalPipeCapacity;
-    public final CachedFloatingLongValue infiniteMechanicalPipePullAmount;
+    public final CachedLongValue absoluteMechanicalPipeCapacity;
+    public final CachedLongValue absoluteMechanicalPipePullAmount;
+    public final CachedLongValue supremeMechanicalPipeCapacity;
+    public final CachedLongValue supremeMechanicalPipePullAmount;
+    public final CachedLongValue cosmicMechanicalPipeCapacity;
+    public final CachedLongValue cosmicMechanicalPipePullAmount;
+    public final CachedLongValue infiniteMechanicalPipeCapacity;
+    public final CachedLongValue infiniteMechanicalPipePullAmount;
 
-    public final CachedFloatingLongValue absolutePressurizedTubeCapacity;
-    public final CachedFloatingLongValue absolutePressurizedTubePullAmount;
-    public final CachedFloatingLongValue supremePressurizedTubeCapacity;
-    public final CachedFloatingLongValue supremePressurizedTubePullAmount;
-    public final CachedFloatingLongValue cosmicPressurizedTubeCapacity;
-    public final CachedFloatingLongValue cosmicPressurizedTubePullAmount;
-    public final CachedFloatingLongValue infinitePressurizedTubeCapacity;
-    public final CachedFloatingLongValue infinitePressurizedTubePullAmount;
+    public final CachedLongValue absolutePressurizedTubeCapacity;
+    public final CachedLongValue absolutePressurizedTubePullAmount;
+    public final CachedLongValue supremePressurizedTubeCapacity;
+    public final CachedLongValue supremePressurizedTubePullAmount;
+    public final CachedLongValue cosmicPressurizedTubeCapacity;
+    public final CachedLongValue cosmicPressurizedTubePullAmount;
+    public final CachedLongValue infinitePressurizedTubeCapacity;
+    public final CachedLongValue infinitePressurizedTubePullAmount;
 
-    public final CachedFloatingLongValue absoluteLogisticalTransporterSpeed;
-    public final CachedFloatingLongValue absoluteLogisticalTransporterPullAmount;
-    public final CachedFloatingLongValue supremeLogisticalTransporterSpeed;
-    public final CachedFloatingLongValue supremeLogisticalTransporterPullAmount;
-    public final CachedFloatingLongValue cosmicLogisticalTransporterSpeed;
-    public final CachedFloatingLongValue cosmicLogisticalTransporterPullAmount;
-    public final CachedFloatingLongValue infiniteLogisticalTransporterSpeed;
-    public final CachedFloatingLongValue infiniteLogisticalTransporterPullAmount;
+    public final CachedLongValue absoluteLogisticalTransporterSpeed;
+    public final CachedLongValue absoluteLogisticalTransporterPullAmount;
+    public final CachedLongValue supremeLogisticalTransporterSpeed;
+    public final CachedLongValue supremeLogisticalTransporterPullAmount;
+    public final CachedLongValue cosmicLogisticalTransporterSpeed;
+    public final CachedLongValue cosmicLogisticalTransporterPullAmount;
+    public final CachedLongValue infiniteLogisticalTransporterSpeed;
+    public final CachedLongValue infiniteLogisticalTransporterPullAmount;
 
-    public final CachedFloatingLongValue absoluteThermodynamicConductorConduction;
-    public final CachedFloatingLongValue absoluteThermodynamicConductornCapacity;
-    public final CachedFloatingLongValue absoluteThermodynamicConductornInsulation;
-    public final CachedFloatingLongValue supremeThermodynamicConductorConduction;
-    public final CachedFloatingLongValue supremeThermodynamicConductornCapacity;
-    public final CachedFloatingLongValue supremeThermodynamicConductornInsulation;
-    public final CachedFloatingLongValue cosmicThermodynamicConductorConduction;
-    public final CachedFloatingLongValue cosmicThermodynamicConductornCapacity;
-    public final CachedFloatingLongValue cosmicThermodynamicConductornInsulation;
-    public final CachedFloatingLongValue infiniteThermodynamicConductorConduction;
-    public final CachedFloatingLongValue infiniteThermodynamicConductornCapacity;
-    public final CachedFloatingLongValue infiniteThermodynamicConductornInsulation;
+    public final CachedLongValue absoluteThermodynamicConductorConduction;
+    public final CachedLongValue absoluteThermodynamicConductornCapacity;
+    public final CachedLongValue absoluteThermodynamicConductornInsulation;
+    public final CachedLongValue supremeThermodynamicConductorConduction;
+    public final CachedLongValue supremeThermodynamicConductornCapacity;
+    public final CachedLongValue supremeThermodynamicConductornInsulation;
+    public final CachedLongValue cosmicThermodynamicConductorConduction;
+    public final CachedLongValue cosmicThermodynamicConductornCapacity;
+    public final CachedLongValue cosmicThermodynamicConductornInsulation;
+    public final CachedLongValue infiniteThermodynamicConductorConduction;
+    public final CachedLongValue infiniteThermodynamicConductornCapacity;
+    public final CachedLongValue infiniteThermodynamicConductornInsulation;
 
     public ExtraTierConfig() {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
@@ -88,10 +86,10 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         final String noteUC1 = "Internal buffer in Joules of each ";
         final String noteUC2 = " universal cable";
         builder.comment("Universal Cables").push(EXTRA_ENERGY_CATEGORY);
-        this.absoluteUniversalCableCapacity = CachedFloatingLongValue.define(this, builder, noteUC1 + "absolute" + noteUC2, "absoluteUniversalCable", FloatingLong.createConst(65536000L));
-        this.supremeUniversalCableCapacity = CachedFloatingLongValue.define(this, builder, noteUC1 + "supreme" + noteUC2, "supremeUniversalCable", FloatingLong.createConst(524288000L));
-        this.cosmicUniversalCableCapacity = CachedFloatingLongValue.define(this, builder, noteUC1 + "cosmic" + noteUC2, "cosmicUniversalCable", FloatingLong.createConst(4194304000L));
-        this.infiniteUniversalCableCapacity = CachedFloatingLongValue.define(this, builder, noteUC1 + "infinite" + noteUC2, "infiniteUniversalCable", FloatingLong.createConst(33554432000L));
+        this.absoluteUniversalCableCapacity = CachedLongValue.define(this, builder, noteUC1 + "absolute" + noteUC2, "absoluteUniversalCable", 65536000L, 1, Long.MAX_VALUE);
+        this.supremeUniversalCableCapacity = CachedLongValue.define(this, builder, noteUC1 + "supreme" + noteUC2, "supremeUniversalCable", 524288000L, 1, Long.MAX_VALUE);
+        this.cosmicUniversalCableCapacity = CachedLongValue.define(this, builder, noteUC1 + "cosmic" + noteUC2, "cosmicUniversalCable", 4194304000L, 1, Long.MAX_VALUE);
+        this.infiniteUniversalCableCapacity = CachedLongValue.define(this, builder, noteUC1 + "infinite" + noteUC2, "infiniteUniversalCable", 33554432000L, 1, Long.MAX_VALUE);
         builder.pop();
 
         final String noteMP1 = "Capacity of ";
@@ -99,14 +97,14 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         final String noteMP2 = "Pump rate of ";
         final String noteMP21 = " mechanical pipes in mB/t.";
         builder.comment("Mechanical Pipes").push(EXTRA_FLUID_CATEGORY);
-        this.absoluteMechanicalPipeCapacity = CachedFloatingLongValue.define(this, builder, noteMP1 + "absolute" + noteMP11, "absoluteMechanicalPipesCapacity", FloatingLong.createConst(512000L));
-        this.absoluteMechanicalPipePullAmount = CachedFloatingLongValue.define(this, builder, noteMP2 + "absolute" + noteMP21, "absoluteMechanicalPipesPullAmount", FloatingLong.createConst(128000));
-        this.supremeMechanicalPipeCapacity = CachedFloatingLongValue.define(this, builder, noteMP1 + "supreme" + noteMP11, "supremeMechanicalPipesCapacity", FloatingLong.createConst(2048000L));
-        this.supremeMechanicalPipePullAmount = CachedFloatingLongValue.define(this, builder, noteMP2 + "supreme" + noteMP21, "supremeMechanicalPipesPullAmount", FloatingLong.createConst(512000));
-        this.cosmicMechanicalPipeCapacity = CachedFloatingLongValue.define(this, builder, noteMP1 + "cosmic" + noteMP11, "cosmicMechanicalPipesCapacity", FloatingLong.createConst(8192000L));
-        this.cosmicMechanicalPipePullAmount = CachedFloatingLongValue.define(this, builder, noteMP2 + "cosmic" + noteMP21, "cosmicMechanicalPipesPullAmount", FloatingLong.createConst(2048000));
-        this.infiniteMechanicalPipeCapacity = CachedFloatingLongValue.define(this, builder, noteMP1 + "infinite" + noteMP11, "infiniteMechanicalPipesCapacity", FloatingLong.createConst(32768000L));
-        this.infiniteMechanicalPipePullAmount = CachedFloatingLongValue.define(this, builder, noteMP2 + "infinite" + noteMP21, "infiniteMechanicalPipesPullAmount", FloatingLong.createConst(8192000));
+        this.absoluteMechanicalPipeCapacity = CachedLongValue.define(this, builder, noteMP1 + "absolute" + noteMP11, "absoluteMechanicalPipesCapacity", 512000L, 1, Long.MAX_VALUE);
+        this.absoluteMechanicalPipePullAmount = CachedLongValue.define(this, builder, noteMP2 + "absolute" + noteMP21, "absoluteMechanicalPipesPullAmount", 128000, 1, Integer.MAX_VALUE);
+        this.supremeMechanicalPipeCapacity = CachedLongValue.define(this, builder, noteMP1 + "supreme" + noteMP11, "supremeMechanicalPipesCapacity", 2048000L, 1, Long.MAX_VALUE);
+        this.supremeMechanicalPipePullAmount = CachedLongValue.define(this, builder, noteMP2 + "supreme" + noteMP21, "supremeMechanicalPipesPullAmount", 512000, 1, Integer.MAX_VALUE);
+        this.cosmicMechanicalPipeCapacity = CachedLongValue.define(this, builder, noteMP1 + "cosmic" + noteMP11, "cosmicMechanicalPipesCapacity", 8192000L, 1, Long.MAX_VALUE);
+        this.cosmicMechanicalPipePullAmount = CachedLongValue.define(this, builder, noteMP2 + "cosmic" + noteMP21, "cosmicMechanicalPipesPullAmount", 2048000, 1, Integer.MAX_VALUE);
+        this.infiniteMechanicalPipeCapacity = CachedLongValue.define(this, builder, noteMP1 + "infinite" + noteMP11, "infiniteMechanicalPipesCapacity", 32768000L, 1, Long.MAX_VALUE);
+        this.infiniteMechanicalPipePullAmount = CachedLongValue.define(this, builder, noteMP2 + "infinite" + noteMP21, "infiniteMechanicalPipesPullAmount", 8192000, 1, Integer.MAX_VALUE);
         builder.pop();
 
         final String notePT1 = "Capacity of ";
@@ -114,14 +112,14 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         final String notePT2 = "Pump rate of ";
         final String notePT21 = " pressurized tubes in mB/t.";
         builder.comment("Pressurized Tubes").push(EXTRA_CHEMICAL_CATEGORY);
-        this.absolutePressurizedTubeCapacity = CachedFloatingLongValue.define(this, builder, notePT1 + "absolute" + notePT11, "absolutePressurizedTubesCapacity", FloatingLong.createConst(4096000L));
-        this.absolutePressurizedTubePullAmount = CachedFloatingLongValue.define(this, builder, notePT2 + "absolute" + notePT21, "absolutePressurizedTubesPullAmount", FloatingLong.createConst(1024000L));
-        this.supremePressurizedTubeCapacity = CachedFloatingLongValue.define(this, builder, notePT1 + "supreme" + notePT11, "supremePressurizedTubesCapacity", FloatingLong.createConst(16384000L));
-        this.supremePressurizedTubePullAmount = CachedFloatingLongValue.define(this, builder, notePT2 + "supreme" + notePT21, "supremePressurizedTubesPullAmount", FloatingLong.createConst(4096000L));
-        this.cosmicPressurizedTubeCapacity = CachedFloatingLongValue.define(this, builder, notePT1 + "cosmic" + notePT11, "cosmicPressurizedTubesCapacity", FloatingLong.createConst(65536000L));
-        this.cosmicPressurizedTubePullAmount = CachedFloatingLongValue.define(this, builder, notePT2 + "cosmic" + notePT21, "cosmicPressurizedTubesPullAmount", FloatingLong.createConst(16384000L));
-        this.infinitePressurizedTubeCapacity = CachedFloatingLongValue.define(this, builder, notePT1 + "infinite" + notePT11, "infinitePressurizedTubesCapacity", FloatingLong.createConst(262144000L));
-        this.infinitePressurizedTubePullAmount = CachedFloatingLongValue.define(this, builder, notePT2 + "infinite" + notePT21, "infinitePressurizedTubesPullAmount", FloatingLong.createConst(65536000L));
+        this.absolutePressurizedTubeCapacity = CachedLongValue.define(this, builder, notePT1 + "absolute" + notePT11, "absolutePressurizedTubesCapacity", 4096000L, 1, Long.MAX_VALUE);
+        this.absolutePressurizedTubePullAmount = CachedLongValue.define(this, builder, notePT2 + "absolute" + notePT21, "absolutePressurizedTubesPullAmount", 1024000L, 1, Long.MAX_VALUE);
+        this.supremePressurizedTubeCapacity = CachedLongValue.define(this, builder, notePT1 + "supreme" + notePT11, "supremePressurizedTubesCapacity", 16384000L, 1, Long.MAX_VALUE);
+        this.supremePressurizedTubePullAmount = CachedLongValue.define(this, builder, notePT2 + "supreme" + notePT21, "supremePressurizedTubesPullAmount", 4096000L, 1, Long.MAX_VALUE);
+        this.cosmicPressurizedTubeCapacity = CachedLongValue.define(this, builder, notePT1 + "cosmic" + notePT11, "cosmicPressurizedTubesCapacity", 65536000L, 1, Long.MAX_VALUE);
+        this.cosmicPressurizedTubePullAmount = CachedLongValue.define(this, builder, notePT2 + "cosmic" + notePT21, "cosmicPressurizedTubesPullAmount", 16384000L, 1, Long.MAX_VALUE);
+        this.infinitePressurizedTubeCapacity = CachedLongValue.define(this, builder, notePT1 + "infinite" + notePT11, "infinitePressurizedTubesCapacity", 262144000L, 1, Long.MAX_VALUE);
+        this.infinitePressurizedTubePullAmount = CachedLongValue.define(this, builder, notePT2 + "infinite" + notePT21, "infinitePressurizedTubesPullAmount", 65536000L, 1, Long.MAX_VALUE);
         builder.pop();
 
         final String noteLT1 = "Five times the travel speed in m/s of ";
@@ -129,14 +127,14 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         final String noteLT2 = "Item throughput rate of ";
         final String noteLT21 = " logistical transporters in items/half second.";
         builder.comment("Logistical Transporters").push(EXTRA_ITEM_CATEGORY);
-        this.absoluteLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT1 + "absolute" + noteLT11, "absoluteLogisticalTransporterSpeed", FloatingLong.createConst(55));
-        this.absoluteLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2 + "absolute" + noteLT21, "absoluteLogisticalTransporterPullAmount", FloatingLong.createConst(128));
-        this.supremeLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT1 + "supreme" + noteLT11, "supremeLogisticalTransporterSpeed", FloatingLong.createConst(60));
-        this.supremeLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2 + "supreme" + noteLT21, "supremeLogisticalTransporterPullAmount", FloatingLong.createConst(256));
-        this.cosmicLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT1 + "cosmic" + noteLT11, "cosmicLogisticalTransporterSpeed", FloatingLong.createConst(70));
-        this.cosmicLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2 + "cosmic" + noteLT21, "cosmicLogisticalTransporterPullAmount", FloatingLong.createConst(512));
-        this.infiniteLogisticalTransporterSpeed = CachedFloatingLongValue.define(this, builder, noteLT1 + "infinite" + noteLT11, "infiniteLogisticalTransporterSpeed", FloatingLong.createConst(100));
-        this.infiniteLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2 + "infinite" + noteLT21, "infiniteLogisticalTransporterPullAmount", FloatingLong.createConst(1024));
+        this.absoluteLogisticalTransporterSpeed = CachedLongValue.define(this, builder, noteLT1 + "absolute" + noteLT11, "absoluteLogisticalTransporterSpeed", 55, 1, Integer.MAX_VALUE);
+        this.absoluteLogisticalTransporterPullAmount = CachedLongValue.define(this, builder, noteLT2 + "absolute" + noteLT21, "absoluteLogisticalTransporterPullAmount", 128, 1, Integer.MAX_VALUE);
+        this.supremeLogisticalTransporterSpeed = CachedLongValue.define(this, builder, noteLT1 + "supreme" + noteLT11, "supremeLogisticalTransporterSpeed", 60, 1, Integer.MAX_VALUE);
+        this.supremeLogisticalTransporterPullAmount = CachedLongValue.define(this, builder, noteLT2 + "supreme" + noteLT21, "supremeLogisticalTransporterPullAmount", 256, 1, Integer.MAX_VALUE);
+        this.cosmicLogisticalTransporterSpeed = CachedLongValue.define(this, builder, noteLT1 + "cosmic" + noteLT11, "cosmicLogisticalTransporterSpeed", 70, 1, Integer.MAX_VALUE);
+        this.cosmicLogisticalTransporterPullAmount = CachedLongValue.define(this, builder, noteLT2 + "cosmic" + noteLT21, "cosmicLogisticalTransporterPullAmount", 512, 1, Integer.MAX_VALUE);
+        this.infiniteLogisticalTransporterSpeed = CachedLongValue.define(this, builder, noteLT1 + "infinite" + noteLT11, "infiniteLogisticalTransporterSpeed", 100, 1, Integer.MAX_VALUE);
+        this.infiniteLogisticalTransporterPullAmount = CachedLongValue.define(this, builder, noteLT2 + "infinite" + noteLT21, "infiniteLogisticalTransporterPullAmount", 1024, 1, Integer.MAX_VALUE);
         builder.pop();
 
         final String noteTC1 = "Conduction value of ";//热导
@@ -146,18 +144,18 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         final String noteTC3 = "Insulation value of ";//热阻
         final String noteTC31 = " thermodynamic conductor.";
         builder.comment("Thermodynamic Conductors").push(EXTRA_HEAT_CATEGORY);
-        this.absoluteThermodynamicConductorConduction = CachedFloatingLongValue.define(this, builder, noteTC1 + "absolute" + noteTC11, "absoluteThermodynamicConductorConduction", FloatingLong.createConst(10L));
-        this.absoluteThermodynamicConductornCapacity = CachedFloatingLongValue.define(this, builder, noteTC2 + "absolute" + noteTC21, "absoluteThermodynamicConductornCapacity", FloatingLong.createConst(HeatAPI.DEFAULT_HEAT_CAPACITY));
-        this.absoluteThermodynamicConductornInsulation = CachedFloatingLongValue.define(this, builder, noteTC3 + "absolute" + noteTC31, "absoluteThermodynamicConductornInsulation", FloatingLong.createConst(400000L));
-        this.supremeThermodynamicConductorConduction = CachedFloatingLongValue.define(this, builder, noteTC1 + "supreme" + noteTC11, "supremeThermodynamicConductorConduction", FloatingLong.createConst(15L));
-        this.supremeThermodynamicConductornCapacity = CachedFloatingLongValue.define(this, builder, noteTC2 + "supreme" + noteTC21, "supremeThermodynamicConductornCapacity", FloatingLong.createConst(HeatAPI.DEFAULT_HEAT_CAPACITY));
-        this.supremeThermodynamicConductornInsulation = CachedFloatingLongValue.define(this, builder, noteTC3 + "supreme" + noteTC31, "supremeThermodynamicConductornInsulation", FloatingLong.createConst(800000L));
-        this.cosmicThermodynamicConductorConduction = CachedFloatingLongValue.define(this, builder, noteTC1 + "cosmic" + noteTC11, "cosmicThermodynamicConductorConduction", FloatingLong.createConst(20L));
-        this.cosmicThermodynamicConductornCapacity = CachedFloatingLongValue.define(this, builder, noteTC2 + "cosmic" + noteTC21, "cosmicThermodynamicConductornCapacity", FloatingLong.createConst(HeatAPI.DEFAULT_HEAT_CAPACITY));
-        this.cosmicThermodynamicConductornInsulation = CachedFloatingLongValue.define(this, builder, noteTC3 + "cosmic" + noteTC31, "cosmicThermodynamicConductornInsulation", FloatingLong.createConst(1000000L));
-        this.infiniteThermodynamicConductorConduction = CachedFloatingLongValue.define(this, builder, noteTC1 + "infinite" + noteTC11, "infiniteThermodynamicConductorConduction", FloatingLong.createConst(25L));
-        this.infiniteThermodynamicConductornCapacity = CachedFloatingLongValue.define(this, builder, noteTC2 + "infinite" + noteTC21, "infiniteThermodynamicConductornCapacity", FloatingLong.createConst(HeatAPI.DEFAULT_HEAT_CAPACITY));
-        this.infiniteThermodynamicConductornInsulation = CachedFloatingLongValue.define(this, builder, noteTC3 + "infinite" + noteTC31, "infiniteThermodynamicConductornInsulation", FloatingLong.createConst(4000000L));
+        this.absoluteThermodynamicConductorConduction = CachedLongValue.define(this, builder, noteTC1 + "absolute" + noteTC11, "absoluteThermodynamicConductorConduction", 10L, 1, Long.MAX_VALUE);
+        this.absoluteThermodynamicConductornCapacity = CachedLongValue.define(this, builder, noteTC2 + "absolute" + noteTC21, "absoluteThermodynamicConductornCapacity", (long) HeatAPI.DEFAULT_HEAT_CAPACITY, 1, Long.MAX_VALUE);
+        this.absoluteThermodynamicConductornInsulation = CachedLongValue.define(this, builder, noteTC3 + "absolute" + noteTC31, "absoluteThermodynamicConductornInsulation", 400000L, 1, Long.MAX_VALUE);
+        this.supremeThermodynamicConductorConduction = CachedLongValue.define(this, builder, noteTC1 + "supreme" + noteTC11, "supremeThermodynamicConductorConduction", 15L, 1, Long.MAX_VALUE);
+        this.supremeThermodynamicConductornCapacity = CachedLongValue.define(this, builder, noteTC2 + "supreme" + noteTC21, "supremeThermodynamicConductornCapacity", (long) HeatAPI.DEFAULT_HEAT_CAPACITY, 1, Long.MAX_VALUE);
+        this.supremeThermodynamicConductornInsulation = CachedLongValue.define(this, builder, noteTC3 + "supreme" + noteTC31, "supremeThermodynamicConductornInsulation", 800000L, 1, Long.MAX_VALUE);
+        this.cosmicThermodynamicConductorConduction = CachedLongValue.define(this, builder, noteTC1 + "cosmic" + noteTC11, "cosmicThermodynamicConductorConduction", 20L, 1, Long.MAX_VALUE);
+        this.cosmicThermodynamicConductornCapacity = CachedLongValue.define(this, builder, noteTC2 + "cosmic" + noteTC21, "cosmicThermodynamicConductornCapacity", (long) HeatAPI.DEFAULT_HEAT_CAPACITY, 1, Long.MAX_VALUE);
+        this.cosmicThermodynamicConductornInsulation = CachedLongValue.define(this, builder, noteTC3 + "cosmic" + noteTC31, "cosmicThermodynamicConductornInsulation", 1000000L, 1, Long.MAX_VALUE);
+        this.infiniteThermodynamicConductorConduction = CachedLongValue.define(this, builder, noteTC1 + "infinite" + noteTC11, "infiniteThermodynamicConductorConduction", 25L, 1, Long.MAX_VALUE);
+        this.infiniteThermodynamicConductornCapacity = CachedLongValue.define(this, builder, noteTC2 + "infinite" + noteTC21, "infiniteThermodynamicConductornCapacity", (long) HeatAPI.DEFAULT_HEAT_CAPACITY, 1, Long.MAX_VALUE);
+        this.infiniteThermodynamicConductornInsulation = CachedLongValue.define(this, builder, noteTC3 + "infinite" + noteTC31, "infiniteThermodynamicConductornInsulation", 4000000L, 1, Long.MAX_VALUE);
         builder.pop();
         builder.pop();
 
@@ -210,14 +208,14 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         builder.comment("Induction").push(INDUCTION_CATEGORY);
         for (ICTier tier : ExtraEnumUtils.INDUCTION_CELL_TIERS) {
             String tierName = tier.getAdvanceTier().getSimpleName();
-            CachedFloatingLongValue storageReference = CachedFloatingLongValue.define(this, builder, "Maximum number of Joules " + tierName + " induction cells can store.",
-                    tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getAdvanceMaxEnergy(), CachedFloatingLongValue.POSITIVE);
+            CachedLongValue storageReference = CachedLongValue.wrap(this, builder.comment("Maximum number of Joules " + tierName + " induction cells can store.")
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getAdvanceMaxEnergy(), 1, Long.MAX_VALUE));
             tier.setConfigReference(storageReference);
         }
         for (IPTier tier : ExtraEnumUtils.INDUCTION_PROVIDER_TIERS) {
             String tierName = tier.getAdvanceTier().getSimpleName();
-            CachedFloatingLongValue outputReference = CachedFloatingLongValue.define(this, builder, "Maximum number of Joules " + tierName + " induction providers can output or accept.",
-                    tierName.toLowerCase(Locale.ROOT) + "Output", tier.getAdvanceOutput(), CachedFloatingLongValue.POSITIVE);
+            CachedLongValue outputReference = CachedLongValue.wrap(this, builder.comment("Maximum number of Joules " + tierName + " induction providers can output or accept.")
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getAdvanceOutput(), 1, Long.MAX_VALUE));
             tier.setConfigReference(outputReference);
         }
         builder.pop();
@@ -227,12 +225,10 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         builder.comment("Energy Cubes").push(ENERGY_CUBE_CATEGORY);
         for (ECTier tier : ExtraEnumUtils.ENERGY_CUBE_TIERS) {
             String tierName = tier.getAdvanceTier().getSimpleName();
-            CachedFloatingLongValue storageReference = CachedFloatingLongValue.define(this, builder,
-                    "Maximum number of Joules " + tierName + " energy cubes can store.", tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getAdvanceMaxEnergy(),
-                    CachedFloatingLongValue.POSITIVE);
-            CachedFloatingLongValue outputReference = CachedFloatingLongValue.define(this, builder,
-                    "Output rate in Joules of " + tierName + " energy cubes.", tierName.toLowerCase(Locale.ROOT) + "Output", tier.getAdvanceOutput(),
-                    CachedFloatingLongValue.POSITIVE);
+            CachedLongValue storageReference = CachedLongValue.wrap(this, builder.comment("Maximum number of Joules " + tierName + " energy cubes can store.")
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Storage", tier.getAdvanceMaxEnergy(), 1, Long.MAX_VALUE));
+            CachedLongValue outputReference = CachedLongValue.wrap(this, builder.comment("Output rate in Joules of " + tierName + " energy cubes.")
+                    .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Output", tier.getAdvanceOutput(), 1, Long.MAX_VALUE));
             tier.setConfigReference(storageReference, outputReference);
         }
         builder.pop();

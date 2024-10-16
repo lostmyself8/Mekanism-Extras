@@ -1,0 +1,12 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "ingredient": {
+      "tag": "c:ores/naquadah"
+    }
+  },
+  "output": {
+    "count": 2,
+    "item": "mekanism_extras:dust_naquadah"
+  }
+}

@@ -7,6 +7,7 @@ import com.jerry.mekextras.client.gui.machine.GuiAdvanceElectricPump;
 import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.client.model.energycube.ExtraEnergyCubeModelLoader;
 import com.jerry.mekextras.client.render.item.block.ExtraRenderEnergyCubeItem;
+import com.jerry.mekextras.client.render.item.block.ExtraRenderFluidTankItem;
 import com.jerry.mekextras.client.render.tileentity.ExtraRenderBin;
 import com.jerry.mekextras.client.render.tileentity.ExtraRenderEnergyCube;
 import com.jerry.mekextras.client.render.tileentity.ExtraRenderFluidTank;
@@ -22,6 +23,7 @@ import com.jerry.mekextras.common.registry.ExtraContainerTypes;
 import mekanism.client.ClientRegistrationUtil;
 import com.jerry.mekextras.common.registry.ExtraTileEntityTypes;
 import mekanism.client.render.MekanismRenderer;
+import mekanism.client.render.RenderPropertiesProvider;
 import mekanism.client.render.item.TransmitterTypeDecorator;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.ItemRegistryObject;
@@ -32,14 +34,15 @@ import mekanism.common.resource.ResourceType;
 import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = MekanismExtras.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MekanismExtras.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class ClientRegistration {
 
     @SubscribeEvent
@@ -162,5 +165,13 @@ public class ClientRegistration {
                 ExtraBlocks.COSMIC_PRESSURIZED_TUBE, ExtraBlocks.INFINITE_PRESSURIZED_TUBE, ExtraBlocks.ABSOLUTE_THERMODYNAMIC_CONDUCTOR,
                 ExtraBlocks.SUPREME_THERMODYNAMIC_CONDUCTOR, ExtraBlocks.COSMIC_THERMODYNAMIC_CONDUCTOR, ExtraBlocks.INFINITE_THERMODYNAMIC_CONDUCTOR,
                 ExtraBlocks.ABSOLUTE_UNIVERSAL_CABLE, ExtraBlocks.SUPREME_UNIVERSAL_CABLE, ExtraBlocks.COSMIC_UNIVERSAL_CABLE, ExtraBlocks.INFINITE_UNIVERSAL_CABLE);
+    }
+
+    @SubscribeEvent
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        ClientRegistrationUtil.registerItemExtensions(event, new RenderPropertiesProvider.MekRenderProperties(ExtraRenderEnergyCubeItem.EXTRA_RENDERER), ExtraBlocks.ABSOLUTE_ENERGY_CUBE,
+                ExtraBlocks.SUPREME_ENERGY_CUBE, ExtraBlocks.COSMIC_ENERGY_CUBE, ExtraBlocks.INFINITE_ENERGY_CUBE);
+        ClientRegistrationUtil.registerItemExtensions(event, new RenderPropertiesProvider.MekRenderProperties(ExtraRenderFluidTankItem.EXTRA_RENDERER), ExtraBlocks.ABSOLUTE_FLUID_TANK,
+                ExtraBlocks.SUPREME_FLUID_TANK, ExtraBlocks.COSMIC_FLUID_TANK, ExtraBlocks.INFINITE_FLUID_TANK);
     }
 }

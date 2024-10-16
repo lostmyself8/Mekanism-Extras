@@ -1,0 +1,10 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "count": 1,
+    "tag": "c:dusts/radiance"
+  },
+  "output": {
+    "id": "mekanism_extras:enriched_radiance"
+  }
+}

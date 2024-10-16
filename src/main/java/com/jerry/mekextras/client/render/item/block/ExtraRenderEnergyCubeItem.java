@@ -2,7 +2,6 @@ package com.jerry.mekextras.client.render.item.block;
 
 import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.client.render.tileentity.ExtraRenderEnergyCube;
-import com.jerry.mekextras.common.tier.TierColor;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockEnergyCube;
 import com.jerry.mekextras.common.tile.ExtraTileEntityEnergyCube;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -40,20 +39,15 @@ public class ExtraRenderEnergyCubeItem extends MekanismISTER {
                              int light, int overlayLight) {
         ECTier tier = ((ExtraItemBlockEnergyCube) stack.getItem()).getAdvanceTier();
         ExtraTileEntityEnergyCube.CubeSideState[] sideStates = new ExtraTileEntityEnergyCube.CubeSideState[EnumUtils.SIDES.length];
-        IPersistentConfigInfo sideConfig = AttachedSideConfig.getStoredConfigInfo(stack, TransmissionType.ENERGY);
-        if (sideConfig != null) {
-            for (RelativeSide side : EnumUtils.SIDES) {
-                DataType dataType = sideConfig.getDataType(side);
-                ExtraTileEntityEnergyCube.CubeSideState state = ExtraTileEntityEnergyCube.CubeSideState.INACTIVE;
-                if (dataType != DataType.NONE) {
-                    state = dataType.canOutput() ? ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_LIT : ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_UNLIT;
-                }
-                sideStates[side.ordinal()] = state;
+        AttachedSideConfig fallback = ExtraItemBlockEnergyCube.SIDE_CONFIG;
+        IPersistentConfigInfo sideConfig = AttachedSideConfig.getStoredConfigInfo(stack, fallback, TransmissionType.ENERGY);
+        for (RelativeSide side : EnumUtils.SIDES) {
+            DataType dataType = sideConfig.getDataType(side);
+            ExtraTileEntityEnergyCube.CubeSideState state = ExtraTileEntityEnergyCube.CubeSideState.INACTIVE;
+            if (dataType != DataType.NONE) {
+                state = dataType.canOutput() ? ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_LIT : ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_UNLIT;
             }
-        } else {
-            for (RelativeSide side : EnumUtils.SIDES) {
-                sideStates[side.ordinal()] = side == RelativeSide.FRONT ? ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_LIT : ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_UNLIT;
-            }
+            sideStates[side.ordinal()] = state;
         }
         ModelData modelData = ModelData.builder().with(ExtraTileEntityEnergyCube.SIDE_STATE_PROPERTY, sideStates).build();
         renderBlockItem(stack, displayContext, matrix, renderer, light, overlayLight, modelData);
@@ -67,7 +61,7 @@ public class ExtraRenderEnergyCubeItem extends MekanismISTER {
             matrix.translate(0, Math.sin(Math.toRadians(3 * ticks)) / 7, 0);
             matrix.mulPose(Axis.YP.rotationDegrees(scaledTicks));
             matrix.mulPose(ExtraRenderEnergyCube.coreVec.rotationDegrees(36F + scaledTicks));
-            core.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, TierColor.getColor(tier), (float) energyPercentage);
+            core.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, tier.getAdvanceTier(), (float) energyPercentage);
             matrix.popPose();
         }
     }

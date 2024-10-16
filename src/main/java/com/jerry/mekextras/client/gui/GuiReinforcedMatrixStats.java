@@ -2,7 +2,7 @@ package com.jerry.mekextras.client.gui;
 
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixMultiblockData;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
-import mekanism.api.math.FloatingLong;
+import mekanism.api.math.MathUtils;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.bar.GuiBar;
 import mekanism.client.gui.element.bar.GuiVerticalRateBar;
@@ -30,12 +30,12 @@ public class GuiReinforcedMatrixStats extends GuiMekanismTile<TileEntityReinforc
         addRenderableWidget(new GuiReinforcedMatrixTab(this, tile, GuiReinforcedMatrixTab.ReinforcedMatrixTab.MAIN));
         addRenderableWidget(new GuiEnergyGauge(new GuiEnergyGauge.IEnergyInfoHandler() {
             @Override
-            public FloatingLong getEnergy() {
+            public long getEnergy() {
                 return tile.getMultiblock().getEnergy();
             }
 
             @Override
-            public FloatingLong getMaxEnergy() {
+            public long getMaxEnergy() {
                 return tile.getMultiblock().getStorageCap();
             }
         }, GaugeType.STANDARD, this, 6, 13));
@@ -48,7 +48,7 @@ public class GuiReinforcedMatrixStats extends GuiMekanismTile<TileEntityReinforc
             @Override
             public double getLevel() {
                 ReinforcedMatrixMultiblockData multiBlock = tile.getMultiblock();
-                return multiBlock.isFormed() ? multiBlock.getLastInput().divideToLevel(multiBlock.getTransferCap()) : 0;
+                return multiBlock.isFormed() ? MathUtils.divideToLevel(multiBlock.getLastInput(), multiBlock.getTransferCap()) : 0;
             }
         }, 30, 13));
         addRenderableWidget(new GuiVerticalRateBar(this, new GuiBar.IBarInfoHandler() {
@@ -63,7 +63,7 @@ public class GuiReinforcedMatrixStats extends GuiMekanismTile<TileEntityReinforc
                 if (!multiBlock.isFormed()) {
                     return 0;
                 }
-                return multiBlock.getLastOutput().divideToLevel(multiBlock.getTransferCap());
+                return MathUtils.divideToLevel(multiBlock.getLastOutput(), multiBlock.getTransferCap());
             }
         }, 38, 13));
         addRenderableWidget(new GuiEnergyTab(this, () -> {

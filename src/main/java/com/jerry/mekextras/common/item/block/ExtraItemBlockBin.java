@@ -6,21 +6,22 @@ import com.jerry.mekextras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekextras.common.block.basic.ExtraBlockBin;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
+import mekanism.common.attachments.LockData;
 import mekanism.common.item.interfaces.IDroppableContents;
+import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.text.TextUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> implements IDroppableContents.IDroppableAttachmentContents {
-    public ExtraItemBlockBin(ExtraBlockBin block) {
-        super(block, new Item.Properties());
+    public ExtraItemBlockBin(ExtraBlockBin block, Item.Properties properties) {
+        super(block, properties.component(MekanismDataComponents.LOCK, LockData.EMPTY));
     }
 
     @Override
@@ -29,7 +30,7 @@ public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> impl
     }
 
     @Override
-    protected void addStats(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         ExtraBinInventorySlot slot = ExtraBinInventorySlot.getForStack(stack);
         BTier tier = getAdvanceTier();
         if (slot != null && tier != null) {

@@ -5,18 +5,18 @@ import com.jerry.mekextras.common.tier.BTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
-import mekanism.api.NBTConstants;
+import mekanism.api.SerializationConstants;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.inventory.IInventorySlot;
-import mekanism.common.attachments.containers.AttachedInventorySlots;
+import mekanism.api.inventory.IMekanismInventory;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.inventory.container.slot.InventoryContainerSlot;
 import mekanism.common.inventory.slot.BasicInventorySlot;
 import mekanism.common.item.block.ItemBlockBin;
 import mekanism.common.util.NBTUtils;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,7 +31,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     @Nullable
     public static ExtraBinInventorySlot getForStack(@NotNull ItemStack stack) {
         if (!stack.isEmpty() && stack.getItem() instanceof ExtraItemBlockBin) {
-            AttachedInventorySlots attachment = ContainerType.ITEM.getAttachment(stack);
+            IMekanismInventory attachment = ContainerType.ITEM.createHandler(stack);
             if (attachment != null) {
                 List<IInventorySlot> slots = attachment.getInventorySlots(null);
                 if (slots.size() == 1) {
@@ -62,7 +62,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     @Override
     public @NotNull ItemStack insertItem(@NotNull ItemStack stack, @NotNull Action action, @NotNull AutomationType automationType) {
         if (isEmpty()) {
-            if (isLocked() && !ItemHandlerHelper.canItemStacksStack(lockStack, stack)) {
+            if (isLocked() && !ItemStack.isSameItemSameComponents(lockStack, stack)) {
                 // When locked, we need to make sure the correct item type is being inserted
                 return stack;
             } else if (isCreative && action.execute() && automationType != AutomationType.EXTERNAL) {
@@ -127,24 +127,17 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag nbt = super.serializeNBT();
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        CompoundTag nbt = super.serializeNBT(provider);
         if (isLocked()) {
-            CompoundTag stackTag = new CompoundTag();
-            lockStack.save(stackTag);
-            nbt.put(NBTConstants.LOCK_STACK, stackTag);
+            nbt.put(SerializationConstants.LOCK_STACK, lockStack.save(provider));
         }
         return nbt;
     }
 
     @Override
-    public boolean isCompatible(IInventorySlot other) {
-        return super.isCompatible(other) && isLocked() == ((ExtraBinInventorySlot) other).isLocked();
-    }
-
-    @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        NBTUtils.setItemStackOrEmpty(nbt, NBTConstants.LOCK_STACK, s -> this.lockStack = s);
-        super.deserializeNBT(nbt);
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+        NBTUtils.setItemStackOrEmpty(provider, nbt, SerializationConstants.LOCK_STACK, s -> this.lockStack = s);
+        super.deserializeNBT(provider, nbt);
     }
 }

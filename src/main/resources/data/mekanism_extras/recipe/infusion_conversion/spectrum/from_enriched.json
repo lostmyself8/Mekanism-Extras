@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:infusion_conversion",
+  "input": {
+    "count": 1,
+    "item": "mekanism_extras:enriched_spectrum"
+  },
+  "output": {
+    "amount": 60,
+    "id": "mekanism_extras:spectrum"
+  }
+}

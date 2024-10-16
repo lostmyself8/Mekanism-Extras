@@ -1,29 +1,51 @@
 package com.jerry.mekextras.common.item.block;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekextras.common.registry.ExtraDataComponents;
 import com.jerry.mekextras.common.tier.CTTier;
 import com.jerry.mekextras.common.tile.ExtraTileEntityChemicalTank;
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
+import mekanism.common.attachments.component.AttachedEjector;
+import mekanism.common.attachments.component.AttachedSideConfig;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.content.blocktype.Machine;
+import mekanism.common.lib.transmitter.TransmissionType;
+import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.TextUtils;
+import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>> {
-    public ExtraItemBlockChemicalTank(BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>> block) {
-        super(block);
+
+    private static final AttachedSideConfig SIDE_CONFIG = Util.make(() -> {
+        Map<TransmissionType, AttachedSideConfig.LightConfigInfo> configInfo = new EnumMap<>(TransmissionType.class);
+        configInfo.put(TransmissionType.ITEM, AttachedSideConfig.LightConfigInfo.FRONT_OUT_NO_EJECT);
+        configInfo.put(TransmissionType.GAS, AttachedSideConfig.LightConfigInfo.FRONT_OUT_EJECT);
+        configInfo.put(TransmissionType.INFUSION, AttachedSideConfig.LightConfigInfo.FRONT_OUT_EJECT);
+        configInfo.put(TransmissionType.PIGMENT, AttachedSideConfig.LightConfigInfo.FRONT_OUT_EJECT);
+        configInfo.put(TransmissionType.SLURRY, AttachedSideConfig.LightConfigInfo.FRONT_OUT_EJECT);
+        return new AttachedSideConfig(configInfo);
+    });
+
+    public ExtraItemBlockChemicalTank(BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>> block, Properties properties) {
+        super(block, true, properties
+                .component(ExtraDataComponents.DUMP_MODE, ExtraTileEntityChemicalTank.GasMode.IDLE)
+                .component(MekanismDataComponents.EJECTOR, AttachedEjector.DEFAULT)
+                .component(MekanismDataComponents.SIDE_CONFIG, SIDE_CONFIG)
+        );
     }
 
     @Override
@@ -32,11 +54,11 @@ public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         CTTier tier = getAdvanceTier();
         StorageUtils.addStoredSubstance(stack, tooltip, false);
         tooltip.add(MekanismLang.CAPACITY_MB.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(tier.getStorage())));
-        super.appendHoverText(stack, world, tooltip, flag);
+        super.appendHoverText(stack, context, tooltip, flag);
     }
 
     @Override

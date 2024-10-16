@@ -1,8 +1,8 @@
 package com.jerry.mekextras.common.registry;
 
 import com.jerry.mekextras.MekanismExtras;
-import com.jerry.mekextras.common.api.tier.AdvanceTier;
-import com.jerry.mekextras.common.api.tier.ExtraAlloyTier;
+import com.jerry.mekextras.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.ExtraAlloyTier;
 import com.jerry.mekextras.common.item.ExtraItemAlloy;
 import com.jerry.mekextras.common.item.ExtraItemTierInstaller;
 import com.jerry.mekextras.common.item.ExtraItemQIODrive;

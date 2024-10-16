@@ -1,11 +1,11 @@
 package com.jerry.mekextras.common.tile.transmitter;
 
-import com.jerry.mekextras.common.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraUniversalCable;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
-import mekanism.api.NBTConstants;
+import mekanism.api.SerializationConstants;
 import mekanism.api.energy.IEnergyContainer;
-import mekanism.api.math.FloatingLong;
+import mekanism.api.math.MathUtils;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
@@ -18,6 +18,7 @@ import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.lib.transmitter.ConnectionType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -74,13 +75,13 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
 
     @NotNull
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
         //Note: We add the stored information to the initial update tag and not to the one we sync on side changes which uses getReducedUpdateTag
-        CompoundTag updateTag = super.getUpdateTag();
+        CompoundTag updateTag = super.getUpdateTag(provider);
         if (getTransmitter().hasTransmitterNetwork()) {
             EnergyNetwork network = getTransmitter().getTransmitterNetwork();
-            updateTag.putString(NBTConstants.ENERGY_STORED, network.energyContainer.getEnergy().toString());
-            updateTag.putFloat(NBTConstants.SCALE, network.currentScale);
+            updateTag.putLong(SerializationConstants.ENERGY, network.energyContainer.getEnergy());
+            updateTag.putFloat(SerializationConstants.SCALE, network.currentScale);
         }
         return updateTag;
     }
@@ -119,23 +120,23 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
     }
 
     @ComputerMethod
-    FloatingLong getBuffer() {
+    long getBuffer() {
         return getTransmitter().getBufferWithFallback();
     }
 
     @ComputerMethod
-    FloatingLong getCapacity() {
+    long getCapacity() {
         ExtraUniversalCable cable = getTransmitter();
-        return cable.hasTransmitterNetwork() ? cable.getTransmitterNetwork().getCapacityAsFloatingLong() : cable.getCapacityAsFloatingLong();
+        return cable.hasTransmitterNetwork() ? cable.getTransmitterNetwork().getCapacity() : cable.getCapacity();
     }
 
     @ComputerMethod
-    FloatingLong getNeeded() {
-        return getCapacity().subtract(getBuffer());
+    long getNeeded() {
+        return getCapacity() - getBuffer();
     }
 
     @ComputerMethod
     double getFilledPercentage() {
-        return getBuffer().divideToLevel(getCapacity());
+        return MathUtils.divideToLevel(getBuffer(), getCapacity());
     }
 }

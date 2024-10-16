@@ -72,7 +72,7 @@ public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTan
                 if (tileAbove != null) {
                     long leftOverToInsert = amount - grownAmount;
                     //Note: We do external so that it is not limited by the internal rate limits
-                    GasStack remainder = tileAbove.getGasTank().insert(new GasStack(stored, leftOverToInsert), action, AutomationType.EXTERNAL);
+                    GasStack remainder = tileAbove.getGasTank().insert(stored.copyWithAmount(leftOverToInsert), action, AutomationType.EXTERNAL);
                     grownAmount += leftOverToInsert - remainder.getAmount();
                 }
             }

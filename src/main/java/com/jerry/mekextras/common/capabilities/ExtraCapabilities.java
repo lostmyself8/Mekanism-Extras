@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.capabilities;
 
-import com.jerry.mekextras.common.api.IExtraAlloyInteraction;
+import com.jerry.mekextras.api.IExtraAlloyInteraction;
 import mekanism.common.Mekanism;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.BlockCapability;

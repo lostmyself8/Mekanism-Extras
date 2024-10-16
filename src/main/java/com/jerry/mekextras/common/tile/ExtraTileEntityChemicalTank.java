@@ -2,9 +2,11 @@ package com.jerry.mekextras.common.tile;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.capabilities.chemical.ExtraChemicalTankChemicalTank;
-import com.jerry.mekextras.common.registry.ExtraAttachmentTypes;
+import com.jerry.mekextras.common.registry.ExtraDataComponents;
 import com.jerry.mekextras.common.tier.CTTier;
 import com.jerry.mekextras.common.upgrade.ExtraChemicalTankUpgradeData;
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
 import mekanism.api.*;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.IChemicalTank;
@@ -51,15 +53,20 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.attachment.AttachmentType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
+import java.util.Locale;
+import java.util.function.IntFunction;
 
 public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine implements IHasGasMode {
 
@@ -218,7 +225,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
     }
 
     @Override
-    public void parseUpgradeData(@NotNull IUpgradeData upgradeData) {
+    public void parseUpgradeData(HolderLookup.Provider provider, @NotNull IUpgradeData upgradeData) {
         if (upgradeData instanceof ExtraChemicalTankUpgradeData data) {
             redstone = data.redstone;
             setControlType(data.controlType);
@@ -230,55 +237,48 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
             getPigmentTank().setStack(data.storedPigment);
             getSlurryTank().setStack(data.storedSlurry);
             for (ITileComponent component : getComponents()) {
-                component.read(data.components);
+                component.read(data.components, provider);
             }
         } else {
-            super.parseUpgradeData(upgradeData);
+            super.parseUpgradeData(provider, upgradeData);
         }
     }
 
     @NotNull
     @Override
-    public ExtraChemicalTankUpgradeData getUpgradeData() {
-        return new ExtraChemicalTankUpgradeData(redstone, getControlType(), drainSlot, fillSlot, dumping, getGasTank().getStack(), getInfusionTank().getStack(),
+    public ExtraChemicalTankUpgradeData getUpgradeData(HolderLookup.Provider provider) {
+        return new ExtraChemicalTankUpgradeData(provider, redstone, getControlType(), drainSlot, fillSlot, dumping, getGasTank().getStack(), getInfusionTank().getStack(),
                 getPigmentTank().getStack(), getSlurryTank().getStack(), getComponents());
     }
 
     @Override
-    public void writeSustainedData(CompoundTag dataMap) {
-        super.writeSustainedData(dataMap);
-        NBTUtils.writeEnum(dataMap, NBTConstants.DUMP_MODE, dumping);
+    public void writeSustainedData(HolderLookup.Provider provider, CompoundTag dataMap) {
+        super.writeSustainedData(provider, dataMap);
+        NBTUtils.writeEnum(dataMap, SerializationConstants.DUMP_MODE, dumping);
     }
 
     @Override
-    public void readSustainedData(CompoundTag dataMap) {
-        super.readSustainedData(dataMap);
-        NBTUtils.setEnumIfPresent(dataMap, NBTConstants.DUMP_MODE, ExtraTileEntityChemicalTank.GasMode::byIndexStatic, mode -> dumping = mode);
+    public void readSustainedData(HolderLookup.Provider provider, CompoundTag dataMap) {
+        super.readSustainedData(provider, dataMap);
+        NBTUtils.setEnumIfPresent(dataMap, SerializationConstants.DUMP_MODE, GasMode.BY_ID, mode -> dumping = mode);
     }
 
     @Override
-    public Map<String, Holder<AttachmentType<?>>> getTileDataAttachmentRemap() {
-        Map<String, Holder<AttachmentType<?>>> remap = super.getTileDataAttachmentRemap();
-        remap.put(NBTConstants.DUMP_MODE, ExtraAttachmentTypes.EXTRA_DUMP_MODE);
-        return remap;
+    protected void collectImplicitComponents(@NotNull DataComponentMap.Builder builder) {
+        super.collectImplicitComponents(builder);
+        builder.set(ExtraDataComponents.DUMP_MODE, dumping);
     }
 
     @Override
-    public void writeToStack(ItemStack stack) {
-        super.writeToStack(stack);
-        stack.setData(ExtraAttachmentTypes.EXTRA_DUMP_MODE, dumping);
-    }
-
-    @Override
-    public void readFromStack(ItemStack stack) {
-        super.readFromStack(stack);
-        dumping = stack.getData(ExtraAttachmentTypes.EXTRA_DUMP_MODE);
+    protected void applyImplicitComponents(@NotNull BlockEntity.DataComponentInput input) {
+        super.applyImplicitComponents(input);
+        dumping = input.getOrDefault(ExtraDataComponents.DUMP_MODE, dumping);
     }
 
     @Override
     public void addContainerTrackers(MekanismContainer container) {
         super.addContainerTrackers(container);
-        container.track(SyncableEnum.create(ExtraTileEntityChemicalTank.GasMode::byIndexStatic, ExtraTileEntityChemicalTank.GasMode.IDLE, () -> dumping, value -> dumping = value));
+        container.track(SyncableEnum.create(ExtraTileEntityChemicalTank.GasMode.BY_ID, ExtraTileEntityChemicalTank.GasMode.IDLE, () -> dumping, value -> dumping = value));
     }
 
     //Methods relating to IComputerTile
@@ -306,15 +306,20 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
     //End methods IComputerTile
 
     @NothingNullByDefault
-    public enum GasMode implements IIncrementalEnum<GasMode>, IHasTextComponent {
+    public enum GasMode implements IIncrementalEnum<GasMode>, IHasTextComponent, StringRepresentable {
         IDLE(MekanismLang.IDLE),
         DUMPING_EXCESS(MekanismLang.DUMPING_EXCESS),
         DUMPING(MekanismLang.DUMPING);
 
-        private static final GasMode[] MODES = values();
+        public static final Codec<ExtraTileEntityChemicalTank.GasMode> CODEC = StringRepresentable.fromEnum(ExtraTileEntityChemicalTank.GasMode::values);
+        public static final IntFunction<ExtraTileEntityChemicalTank.GasMode> BY_ID = ByIdMap.continuous(ExtraTileEntityChemicalTank.GasMode::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+        public static final StreamCodec<ByteBuf, ExtraTileEntityChemicalTank.GasMode> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, ExtraTileEntityChemicalTank.GasMode::ordinal);
+
+        private final String serializedName;
         private final ILangEntry langEntry;
 
         GasMode(ILangEntry langEntry) {
+            this.serializedName = name().toLowerCase(Locale.ROOT);
             this.langEntry = langEntry;
         }
 
@@ -324,12 +329,13 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
         }
 
         @Override
-        public GasMode byIndex(int index) {
-            return byIndexStatic(index);
+        public ExtraTileEntityChemicalTank.GasMode byIndex(int index) {
+            return BY_ID.apply(index);
         }
 
-        public static GasMode byIndexStatic(int index) {
-            return MathUtils.getByIndexMod(MODES, index);
+        @Override
+        public String getSerializedName() {
+            return serializedName;
         }
     }
 }

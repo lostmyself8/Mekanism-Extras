@@ -6,12 +6,12 @@ import mekanism.common.network.BasePacketHandler;
 import mekanism.common.network.to_client.configuration.SyncAllSecurityData;
 import net.minecraft.network.protocol.configuration.ServerConfigurationPacketListener;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.network.event.OnGameConfigurationEvent;
+import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent;
 
 public class ExtraPacketHandler extends BasePacketHandler {
-    public ExtraPacketHandler(IEventBus modEventBus, String modId, Version version) {
-        super(modEventBus, modId, version);
-        modEventBus.addListener(OnGameConfigurationEvent.class, event -> {
+    public ExtraPacketHandler(IEventBus modEventBus, Version version) {
+        super(modEventBus, version);
+        modEventBus.addListener(RegisterConfigurationTasksEvent.class, event -> {
             ServerConfigurationPacketListener listener = event.getListener();
             event.register(new SyncAllSecurityData(listener));
         });
@@ -19,7 +19,7 @@ public class ExtraPacketHandler extends BasePacketHandler {
 
     @Override
     protected void registerClientToServer(PacketRegistrar registrar) {
-        registrar.play(ExtraPacketTileButtonPress.ID, ExtraPacketTileButtonPress::new);
+        registrar.play(ExtraPacketTileButtonPress.TYPE, ExtraPacketTileButtonPress.STREAM_CODEC);
     }
 
     @Override

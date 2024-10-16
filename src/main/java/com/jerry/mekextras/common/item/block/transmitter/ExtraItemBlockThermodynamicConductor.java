@@ -11,7 +11,6 @@ import mekanism.common.tier.ConductorTier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,8 +18,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class ExtraItemBlockThermodynamicConductor extends ItemBlockTooltip<BlockSmallTransmitter<ExtraTileEntityThermodynamicConductor>> {
-    public ExtraItemBlockThermodynamicConductor(BlockSmallTransmitter<ExtraTileEntityThermodynamicConductor> block) {
-        super(block, new Properties());
+    public ExtraItemBlockThermodynamicConductor(BlockSmallTransmitter<ExtraTileEntityThermodynamicConductor> block, Properties properties) {
+        super(block, true, properties);
     }
 
     @NotNull
@@ -30,15 +29,15 @@ public class ExtraItemBlockThermodynamicConductor extends ItemBlockTooltip<Block
     }
 
     @Override
-    protected void addDetails(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.addDetails(stack, world, tooltip, flag);
+    protected void addDetails(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        super.addDetails(stack, context, tooltip, flag);
         tooltip.add(MekanismLang.CAPABLE_OF_TRANSFERRING.translateColored(EnumColor.DARK_GRAY));
         tooltip.add(MekanismLang.HEAT.translateColored(EnumColor.PURPLE, MekanismLang.MEKANISM));
     }
 
     @Override
-    protected void addStats(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.addStats(stack, world, tooltip, flag);
+    protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        super.addStats(stack, context, tooltip, flag);
         ConductorTier tier = getTier();
         tooltip.add(MekanismLang.CONDUCTION.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TCTier.getConduction(tier)));
         tooltip.add(MekanismLang.INSULATION.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TCTier.getConductionInsulation(tier)));

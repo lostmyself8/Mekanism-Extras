@@ -17,7 +17,6 @@ import mekanism.common.lib.inventory.HashedItem;
 import mekanism.common.util.EnumUtils;
 import mekanism.common.util.TransporterUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -73,7 +72,7 @@ public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<Extr
                     itemRenderer.renderAsStack(matrix, renderer, stack.itemStack, light);
                     matrix.popPose();
                     if (stack.color != null) {
-                        modelBox.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, stackPos[0], stackPos[1], stackPos[2], stack.color);
+                        modelBox.render(matrix, renderer, overlayLight, stackPos[0], stackPos[1], stackPos[2], stack.color);
                     }
                 }
                 matrix.popPose();

@@ -42,7 +42,7 @@ public class GuiAdvanceElectricPump extends GuiMekanismTile<TileEntityAdvanceEle
                 if (fallBack.isEmpty()) {
                     list.add(MekanismLang.NO_FLUID.translate());
                 } else {
-                    list.add(fallBack.getDisplayName());
+                    list.add(fallBack.getHoverName());
                 }
             } else {
                 list.add(MekanismLang.GENERIC_STORED_MB.translate(fluidStack, TextUtils.format(fluidStack.getAmount())));
@@ -53,7 +53,7 @@ public class GuiAdvanceElectricPump extends GuiMekanismTile<TileEntityAdvanceEle
         addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), 164, 15))
                 .warning(WarningTracker.WarningType.NOT_ENOUGH_ENERGY, () -> {
                     MachineEnergyContainer<TileEntityAdvanceElectricPump> energyContainer = tile.getEnergyContainer();
-                    return energyContainer.getEnergyPerTick().greaterThan(energyContainer.getEnergy());
+                    return energyContainer.getEnergyPerTick() > energyContainer.getEnergy();
                 });
         addRenderableWidget(new GuiFluidGauge(() -> tile.fluidTank, () -> tile.getFluidTanks(null), GaugeType.STANDARD, this, 6, 13))
                 .warning(WarningTracker.WarningType.NO_SPACE_IN_OUTPUT, () -> tile.fluidTank.getNeeded() < tile.estimateIncrementAmount());

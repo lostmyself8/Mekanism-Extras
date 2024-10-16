@@ -4,7 +4,6 @@ import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionC
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
-import mekanism.api.math.FloatingLong;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
@@ -32,18 +31,18 @@ public class ReinforcedMatrixMultiblockData extends MultiblockData {
     private final ReinforcedMatrixEnergyContainer energyContainer;
 
     @ContainerSync(getter = "getLastOutput")
-    private FloatingLong clientLastOutput = FloatingLong.ZERO;
+    private long clientLastOutput = 0L;
     @ContainerSync(getter = "getLastInput")
-    private FloatingLong clientLastInput = FloatingLong.ZERO;
+    private long clientLastInput = 0L;
 
     @ContainerSync(getter = "getEnergy")
-    private FloatingLong clientEnergy = FloatingLong.ZERO;
+    private long clientEnergy = 0L;
 
     @ContainerSync(tags = STATS_TAB, getter = "getTransferCap")
-    private FloatingLong clientMaxTransfer = FloatingLong.ZERO;
+    private long clientMaxTransfer = 0L;
 
     @ContainerSync(getter = "getStorageCap")
-    private FloatingLong clientMaxEnergy = FloatingLong.ZERO;
+    private long clientMaxEnergy = 0L;
 
     @ContainerSync(tags = STATS_TAB, getter = "getProviderCount")
     private int clientProviders;
@@ -89,7 +88,7 @@ public class ReinforcedMatrixMultiblockData extends MultiblockData {
         return energyContainer;
     }
 
-    public FloatingLong getEnergy() {
+    public long getEnergy() {
         return isRemote() ? clientEnergy : energyContainer.getEnergy();
     }
 
@@ -105,7 +104,7 @@ public class ReinforcedMatrixMultiblockData extends MultiblockData {
         if (!energyOutputTargets.isEmpty() && !energyContainer.isEmpty()) {
             CableUtils.emit(getActiveOutputs(energyOutputTargets), energyContainer, energyContainer.getMaxTransfer());
         }
-        if (!getLastInput().isZero() || !getLastOutput().isZero()) {
+        if (getLastInput() != 0L || getLastOutput() != 0L) {
             // If the stored energy changed, update the comparator
             markDirtyComparator(world);
         }
@@ -129,22 +128,22 @@ public class ReinforcedMatrixMultiblockData extends MultiblockData {
         }
     }
 
-    public FloatingLong getStorageCap() {
+    public long getStorageCap() {
         return isRemote() ? clientMaxEnergy : energyContainer.getMaxEnergy();
     }
 
     @ComputerMethod
-    public FloatingLong getTransferCap() {
+    public long getTransferCap() {
         return isRemote() ? clientMaxTransfer : energyContainer.getMaxTransfer();
     }
 
     @ComputerMethod
-    public FloatingLong getLastInput() {
+    public long getLastInput() {
         return isRemote() ? clientLastInput : energyContainer.getLastInput();
     }
 
     @ComputerMethod
-    public FloatingLong getLastOutput() {
+    public long getLastOutput() {
         return isRemote() ? clientLastOutput : energyContainer.getLastOutput();
     }
 

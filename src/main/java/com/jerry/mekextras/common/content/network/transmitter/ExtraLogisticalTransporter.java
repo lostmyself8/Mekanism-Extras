@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
-import mekanism.api.NBTConstants;
+import mekanism.api.SerializationConstants;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.EnumColor;
 import mekanism.api.tier.ITier;
@@ -14,6 +14,7 @@ import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.TransporterUtils;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -78,33 +79,33 @@ public class ExtraLogisticalTransporter extends ExtraLogisticalTransporterBase i
     }
 
     @Override
-    protected void readFromNBT(CompoundTag nbtTags) {
-        super.readFromNBT(nbtTags);
-        setColor(NBTUtils.getEnum(nbtTags, NBTConstants.COLOR, TransporterUtils::readColor));
+    protected void readFromNBT(HolderLookup.Provider provider, CompoundTag nbtTags) {
+        super.readFromNBT(provider, nbtTags);
+        setColor(NBTUtils.getEnum(nbtTags, SerializationConstants.COLOR, TransporterUtils::readColor));
     }
 
     @Override
-    public void writeToNBT(CompoundTag nbtTags) {
-        super.writeToNBT(nbtTags);
+    public void writeToNBT(HolderLookup.Provider provider, CompoundTag nbtTags) {
+        super.writeToNBT(provider, nbtTags);
         if (getColor() != null) {
-            NBTUtils.writeEnum(nbtTags, NBTConstants.COLOR, getColor());
+            NBTUtils.writeEnum(nbtTags, SerializationConstants.COLOR, getColor());
         }
     }
 
     @NotNull
     @Override
-    public CompoundTag getReducedUpdateTag(CompoundTag updateTag) {
-        updateTag = super.getReducedUpdateTag(updateTag);
+    public CompoundTag getReducedUpdateTag(@NotNull HolderLookup.Provider provider, CompoundTag updateTag) {
+        updateTag = super.getReducedUpdateTag(provider, updateTag);
         if (getColor() != null) {
-            NBTUtils.writeEnum(updateTag, NBTConstants.COLOR, getColor());
+            NBTUtils.writeEnum(updateTag, SerializationConstants.COLOR, getColor());
         }
         return updateTag;
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag) {
-        super.handleUpdateTag(tag);
-        setColor(NBTUtils.getEnum(tag, NBTConstants.COLOR, TransporterUtils::readColor));
+    public void handleUpdateTag(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider provider) {
+        super.handleUpdateTag(tag, provider);
+        setColor(NBTUtils.getEnum(tag, SerializationConstants.COLOR, TransporterUtils::readColor));
     }
 
     @Override

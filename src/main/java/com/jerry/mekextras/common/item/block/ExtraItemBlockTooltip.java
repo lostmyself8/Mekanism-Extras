@@ -2,9 +2,6 @@ package com.jerry.mekextras.common.item.block;
 
 import mekanism.api.AutomationType;
 import mekanism.api.Upgrade;
-import mekanism.api.energy.IEnergyContainer;
-import mekanism.api.math.FloatingLong;
-import mekanism.api.math.FloatingLongSupplier;
 import mekanism.api.security.IItemSecurityUtils;
 import mekanism.api.text.EnumColor;
 import mekanism.client.key.MekKeyHandler;
@@ -13,14 +10,15 @@ import mekanism.common.MekanismLang;
 import mekanism.common.attachments.IAttachmentAware;
 import mekanism.common.attachments.component.UpgradeAware;
 import mekanism.common.attachments.containers.ContainerType;
+import mekanism.common.attachments.containers.energy.ComponentBackedNoClampEnergyContainer;
+import mekanism.common.attachments.containers.energy.EnergyContainersBuilder;
 import mekanism.common.block.attribute.*;
 import mekanism.common.block.interfaces.IHasDescription;
 import mekanism.common.capabilities.ICapabilityAware;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
-import mekanism.common.capabilities.energy.item.NoClampRateLimitEnergyContainer;
-import mekanism.common.capabilities.energy.item.RateLimitEnergyContainer;
+import mekanism.common.capabilities.security.SecurityObject;
 import mekanism.common.config.MekanismConfig;
-import mekanism.common.registries.MekanismAttachmentTypes;
+import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.*;
 import mekanism.common.util.text.BooleanStateDisplay;
 import mekanism.common.util.text.TextUtils;
@@ -32,17 +30,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.LongSupplier;
 import java.util.function.Predicate;
 
 public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extends ItemBlockExtra<BLOCK> implements ICapabilityAware, IAttachmentAware {
@@ -50,10 +47,6 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
 
     public ExtraItemBlockTooltip(BLOCK block, Item.Properties properties) {
         this(block, false, properties);
-    }
-
-    public ExtraItemBlockTooltip(BLOCK block) {
-        this(block, true, new Item.Properties());
     }
 
     protected ExtraItemBlockTooltip(BLOCK block, boolean hasDetails, Properties properties) {
@@ -78,13 +71,13 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         if (MekKeyHandler.isKeyPressed(MekanismKeyHandler.descriptionKey)) {
             tooltip.add(getBlock().getDescription().translate());
         } else if (hasDetails && MekKeyHandler.isKeyPressed(MekanismKeyHandler.detailsKey)) {
-            addDetails(stack, world, tooltip, flag);
+            addDetails(stack, context, tooltip, flag);
         } else {
-            addStats(stack, world, tooltip, flag);
+            addStats(stack, context, tooltip, flag);
             if (hasDetails) {
                 tooltip.add(MekanismLang.HOLD_FOR_DETAILS.translateColored(EnumColor.GRAY, EnumColor.INDIGO, MekanismKeyHandler.detailsKey.getTranslatedKeyMessage()));
             }
@@ -92,13 +85,13 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
         }
     }
 
-    protected void addStats(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    protected void addStats(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
     }
 
-    protected void addDetails(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    protected void addDetails(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         //Note: Security and owner info gets skipped if the stack doesn't expose them
         IItemSecurityUtils.INSTANCE.addSecurityTooltip(stack, tooltip);
-        addTypeDetails(stack, world, tooltip, flag);
+        addTypeDetails(stack, context, tooltip, flag);
         //TODO: Make this support "multiple" fluid types (and maybe display multiple tanks of the same fluid)
         FluidStack fluidStack = StorageUtils.getStoredFluidFromAttachment(stack);
         if (!fluidStack.isEmpty()) {
@@ -108,22 +101,25 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
             tooltip.add(MekanismLang.HAS_INVENTORY.translateColored(EnumColor.AQUA, EnumColor.GRAY, BooleanStateDisplay.YesNo.hasInventory(stack)));
         }
         if (Attribute.has(getBlock(), AttributeUpgradeSupport.class)) {
-            for (Map.Entry<Upgrade, Integer> entry : stack.getData(MekanismAttachmentTypes.UPGRADES).getUpgrades().entrySet()) {
-                tooltip.add(UpgradeDisplay.of(entry.getKey(), entry.getValue()).getTextComponent());
+            UpgradeAware upgradeAware = stack.get(MekanismDataComponents.UPGRADES);
+            if (upgradeAware != null) {
+                for (Map.Entry<Upgrade, Integer> entry : upgradeAware.upgrades().entrySet()) {
+                    tooltip.add(UpgradeDisplay.of(entry.getKey(), entry.getValue()).getTextComponent());
+                }
             }
         }
     }
 
-    protected void addTypeDetails(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    protected void addTypeDetails(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         //Put this here so that energy cubes can skip rendering energy here
-        if (exposesEnergyCap()) {
+        if (exposesEnergyCapOrTooltips()) {
             StorageUtils.addStoredEnergy(stack, tooltip, false);
         }
     }
 
     @Override
     public boolean shouldCauseReequipAnimation(@NotNull ItemStack oldStack, @NotNull ItemStack newStack, boolean slotChanged) {
-        if (exposesEnergyCap()) {
+        if (exposesEnergyCapOrTooltips()) {
             //Ignore NBT for energized items causing re-equip animations
             //TODO: Only ignore the energy attachment?
             return slotChanged || oldStack.getItem() != newStack.getItem();
@@ -133,7 +129,7 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
 
     @Override
     public boolean shouldCauseBlockBreakReset(@NotNull ItemStack oldStack, @NotNull ItemStack newStack) {
-        if (exposesEnergyCap()) {
+        if (exposesEnergyCapOrTooltips()) {
             //Ignore NBT for energized items causing block break reset
             //TODO: Only ignore the energy attachment?
             return oldStack.getItem() != newStack.getItem();
@@ -146,31 +142,37 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
     }
 
     protected boolean exposesEnergyCap() {
+        return exposesEnergyCapOrTooltips();
+    }
+
+    protected boolean exposesEnergyCapOrTooltips() {
         return Attribute.has(getBlock(), AttributeEnergy.class);
     }
 
-    @Nullable
-    protected IEnergyContainer getDefaultEnergyContainer(ItemStack stack) {
+    protected EnergyContainersBuilder addDefaultEnergyContainers(EnergyContainersBuilder builder) {
         BLOCK block = getBlock();
         AttributeEnergy attributeEnergy = Attribute.get(block, AttributeEnergy.class);
         if (attributeEnergy == null) {
             throw new IllegalStateException("Expected block " + RegistryUtils.getName(block) + " to have the energy attribute");
         }
-        FloatingLongSupplier maxEnergy = attributeEnergy::getStorage;
+        LongSupplier maxEnergy = attributeEnergy::getStorage;
         if (Attribute.matches(block, AttributeUpgradeSupport.class, attribute -> attribute.supportedUpgrades().contains(Upgrade.ENERGY))) {
-            //If our block supports energy upgrades, make a more dynamically updating cache for our item's max energy
-            maxEnergy = new ExtraItemBlockTooltip.UpgradeBasedFloatingLongCache(stack, maxEnergy);
-            return NoClampRateLimitEnergyContainer.create(maxEnergy, BasicEnergyContainer.manualOnly, getEnergyCapInsertPredicate());
+            return builder.addContainer((type, attachedTo, containerIndex) -> {
+                //If our block supports energy upgrades, make a more dynamically updating cache for our item's max energy
+                LongSupplier capacity = new ExtraItemBlockTooltip.UpgradeBasedFloatingLongCache(attachedTo, maxEnergy);
+                return new ComponentBackedNoClampEnergyContainer(attachedTo, containerIndex, BasicEnergyContainer.manualOnly, getEnergyCapInsertPredicate(),
+                        () -> MekanismUtils.calculateUsage(capacity.getAsLong()), capacity);
+            });
         }
         //If we don't support energy upgrades, our max energy isn't dependent on another attachment, we can safely clamp to the config values
-        return RateLimitEnergyContainer.create(maxEnergy, BasicEnergyContainer.manualOnly, getEnergyCapInsertPredicate());
+        return builder.addBasic(BasicEnergyContainer.manualOnly, getEnergyCapInsertPredicate(), () -> MekanismUtils.calculateUsage(maxEnergy.getAsLong()), maxEnergy);
     }
 
     @Override
     public void attachCapabilities(RegisterCapabilitiesEvent event) {
         if (Attribute.has(getBlock(), Attributes.AttributeSecurity.class)) {
-            event.registerItem(IItemSecurityUtils.INSTANCE.ownerCapability(), (stack, ctx) -> stack.getData(MekanismAttachmentTypes.SECURITY), this);
-            event.registerItem(IItemSecurityUtils.INSTANCE.securityCapability(), (stack, ctx) -> stack.getData(MekanismAttachmentTypes.SECURITY), this);
+            event.registerItem(IItemSecurityUtils.INSTANCE.ownerCapability(), (stack, ctx) -> new SecurityObject(stack), this);
+            event.registerItem(IItemSecurityUtils.INSTANCE.securityCapability(), (stack, ctx) -> new SecurityObject(stack), this);
         }
     }
 
@@ -179,33 +181,35 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
         if (Attribute.has(getBlock(), AttributeEnergy.class)) {
             //Only expose the capability the required configs are loaded and the item wants to
             IEventBus energyEventBus = exposesEnergyCap() ? eventBus : null;
-            ContainerType.ENERGY.addDefaultContainer(energyEventBus, this, this::getDefaultEnergyContainer, MekanismConfig.storage, MekanismConfig.usage);
+            ContainerType.ENERGY.addDefaultCreators(energyEventBus, this, () -> addDefaultEnergyContainers(EnergyContainersBuilder.builder()).build(),
+                    MekanismConfig.storage, MekanismConfig.usage);
         }
     }
 
-    private static class UpgradeBasedFloatingLongCache implements FloatingLongSupplier {
+    private static class UpgradeBasedFloatingLongCache implements LongSupplier {
 
         //TODO: Eventually fix this, ideally we want this to update the overall cached value if this changes because of the config
         // for how much energy a machine can store changes
-        private final FloatingLongSupplier baseStorage;
-        private final UpgradeAware upgradeAware;
+        private final LongSupplier baseStorage;
+        private final ItemStack stack;
         private int lastInstalled;
-        private FloatingLong value;
+        private long value;
 
-        private UpgradeBasedFloatingLongCache(ItemStack stack, FloatingLongSupplier baseStorage) {
-            this.upgradeAware = stack.getData(MekanismAttachmentTypes.UPGRADES);
-            this.lastInstalled = this.upgradeAware.getUpgradeCount(Upgrade.ENERGY);
+        private UpgradeBasedFloatingLongCache(ItemStack stack, LongSupplier baseStorage) {
+            this.stack = stack;
+            UpgradeAware upgradeAware = this.stack.getOrDefault(MekanismDataComponents.UPGRADES, UpgradeAware.EMPTY);
+            this.lastInstalled = upgradeAware.getUpgradeCount(Upgrade.ENERGY);
             this.baseStorage = baseStorage;
-            this.value = MekanismUtils.getMaxEnergy(this.lastInstalled, this.baseStorage.get());
+            this.value = MekanismUtils.getMaxEnergy(this.lastInstalled, this.baseStorage.getAsLong());
         }
 
-        @NotNull
         @Override
-        public FloatingLong get() {
+        public long getAsLong() {
+            UpgradeAware upgradeAware = stack.getOrDefault(MekanismDataComponents.UPGRADES, UpgradeAware.EMPTY);
             int installed = upgradeAware.getUpgradeCount(Upgrade.ENERGY);
             if (installed != lastInstalled) {
                 lastInstalled = installed;
-                value = MekanismUtils.getMaxEnergy(this.lastInstalled, baseStorage.get());
+                value = MekanismUtils.getMaxEnergy(this.lastInstalled, baseStorage.getAsLong());
             }
             return value;
         }

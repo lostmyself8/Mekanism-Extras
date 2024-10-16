@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "c:pellets/antimatter"
+    },
+    "C": {
+      "item": "mekanism:qio_drive_supermassive"
+    },
+    "I": {
+      "tag": "c:ingots/lead"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "C#C",
+    "ICI"
+  ],
+  "result": {
+    "id": "mekanism_extras:qio_drive_collapse"
+  }
+}

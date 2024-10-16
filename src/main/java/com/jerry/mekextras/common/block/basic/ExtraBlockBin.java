@@ -13,7 +13,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -72,19 +72,18 @@ public class ExtraBlockBin extends BlockTile<ExtraTileEntityBin, BlockTypeTile<E
     @NotNull
     @Override
     @Deprecated
-    public InteractionResult use(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand,
-                                 @NotNull BlockHitResult hit) {
+    public ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull Player player,
+                                           @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ExtraTileEntityBin bin = WorldUtils.getTileEntity(ExtraTileEntityBin.class, world, pos);
         if (bin == null) {
-            return InteractionResult.PASS;
+            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
-        InteractionResult wrenchResult = bin.tryWrench(state, player, hand, hit).getInteractionResult();
-        if (wrenchResult != InteractionResult.PASS) {
+        ItemInteractionResult wrenchResult = bin.tryWrench(state, player, stack).getInteractionResult();
+        if (wrenchResult != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION) {
             return wrenchResult;
         }
-        ItemStack stack = player.getItemInHand(hand);
         if (stack.isEmpty() && player.isShiftKeyDown() && hit.getDirection() == bin.getDirection()) {
-            return bin.toggleLock() ? InteractionResult.sidedSuccess(world.isClientSide) : InteractionResult.FAIL;
+            return bin.toggleLock() ? ItemInteractionResult.sidedSuccess(world.isClientSide) : ItemInteractionResult.FAIL;
         } else if (!world.isClientSide) {
             ExtraBinInventorySlot binSlot = bin.getBinSlot();
             ItemStack storedStack = binSlot.isLocked() ? binSlot.getLockStack() : binSlot.getStack();
@@ -115,6 +114,6 @@ public class ExtraBlockBin extends BlockTile<ExtraTileEntityBin, BlockTypeTile<E
                 }
             }
         }
-        return InteractionResult.sidedSuccess(world.isClientSide);
+        return ItemInteractionResult.sidedSuccess(world.isClientSide);
     }
 }

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "mekanism_extras:absolute_energy_cube"
+    },
+    "C": {
+      "tag": "c:circuits/absolute"
+    },
+    "P": {
+      "item": "mekanism:ultimate_induction_provider"
+    }
+  },
+  "pattern": [
+    "CPC",
+    "P#P",
+    "CPC"
+  ],
+  "result": {
+    "id": "mekanism_extras:absolute_induction_provider"
+  }
+}

@@ -3,10 +3,9 @@ package com.jerry.mekextras.common.content.network.transmitter;
 import com.jerry.mekextras.common.tier.CTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
-import mekanism.api.NBTConstants;
+import mekanism.api.SerializationConstants;
 import mekanism.api.energy.IMekanismStrictEnergyHandler;
 import mekanism.api.energy.IStrictEnergyHandler;
-import mekanism.api.math.FloatingLong;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.content.network.EnergyNetwork;
 import mekanism.common.content.network.transmitter.UniversalCable;
@@ -16,6 +15,7 @@ import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.upgrade.transmitter.UniversalCableUpgradeData;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,33 +33,33 @@ public class ExtraUniversalCable extends UniversalCable implements IMekanismStri
         Set<Direction> connections = getConnections(ConnectionType.PULL);
         if (!connections.isEmpty()) {
             for (IStrictEnergyHandler connectedAcceptor : getAcceptorCache().getConnectedAcceptors(connections)) {
-                FloatingLong received = connectedAcceptor.extractEnergy(getAvailablePull(), Action.SIMULATE);
-                if (!received.isZero() && takeEnergy(received, Action.SIMULATE).isZero()) {
-                    FloatingLong remainder = takeEnergy(received, Action.EXECUTE);
-                    connectedAcceptor.extractEnergy(received.subtract(remainder), Action.EXECUTE);
+                long received = connectedAcceptor.extractEnergy(getAvailablePull(), Action.SIMULATE);
+                if (received > 0L && takeEnergy(received, Action.SIMULATE) == 0L) {
+                    long remainder = takeEnergy(received, Action.EXECUTE);
+                    connectedAcceptor.extractEnergy(received - remainder, Action.EXECUTE);
                 }
             }
         }
     }
 
-    private FloatingLong getAvailablePull() {
+    private long getAvailablePull() {
         if (hasTransmitterNetwork()) {
-            return getCapacityAsFloatingLong().min(getTransmitterNetwork().energyContainer.getNeeded());
+            return Math.min(getCapacity(), getTransmitterNetwork().energyContainer.getNeeded());
         }
-        return getCapacityAsFloatingLong().min(buffer.getNeeded());
+        return Math.min(getCapacity(), buffer.getNeeded());
     }
 
     @NotNull
-    public FloatingLong getCapacityAsFloatingLong() {
-        return CTier.getCapacityAsFloatingLong(tier);
+    public long getCapacityAsFloatingLong() {
+        return CTier.getCapacityAsLong(tier);
     }
 
     @Override
     public long getCapacity() {
-        return getCapacityAsFloatingLong().longValue();
+        return CTier.getCapacityAsLong(tier);
     }
 
-    private FloatingLong takeEnergy(FloatingLong amount, Action action) {
+    private long takeEnergy(long amount, Action action) {
         if (hasTransmitterNetwork()) {
             return getTransmitterNetwork().energyContainer.insert(amount, action, AutomationType.INTERNAL);
         }
@@ -67,10 +67,10 @@ public class ExtraUniversalCable extends UniversalCable implements IMekanismStri
     }
 
     @Override
-    protected void handleContentsUpdateTag(@NotNull EnergyNetwork network, @NotNull CompoundTag tag) {
-        super.handleContentsUpdateTag(network, tag);
-        NBTUtils.setFloatingLongIfPresent(tag, NBTConstants.ENERGY_STORED, network.energyContainer::setEnergy);
-        NBTUtils.setFloatIfPresent(tag, NBTConstants.SCALE, scale -> network.currentScale = scale);
+    protected void handleContentsUpdateTag(@NotNull EnergyNetwork network, @NotNull CompoundTag tag, @NotNull HolderLookup.Provider provider) {
+        super.handleContentsUpdateTag(network, tag, provider);
+        NBTUtils.setLegacyEnergyIfPresent(tag, SerializationConstants.ENERGY, network.energyContainer::setEnergy);
+        NBTUtils.setFloatIfPresent(tag, SerializationConstants.SCALE, scale -> network.currentScale = scale);
     }
 
     @Override

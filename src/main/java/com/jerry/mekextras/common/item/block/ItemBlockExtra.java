@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.item.block;
 
-import com.jerry.mekextras.common.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.IAdvanceTier;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.block.interfaces.IColoredBlock;

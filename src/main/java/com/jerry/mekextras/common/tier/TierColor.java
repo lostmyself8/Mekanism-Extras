@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.tier;
 
-import com.jerry.mekextras.common.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.IAdvanceTier;
 
 public class TierColor {
     private static final int[] cosmicColor = new int[]{255, 255, 255};
@@ -12,6 +12,16 @@ public class TierColor {
             case SUPREME -> new float[]{255/255.0F, 0/255.0F, 0/255.0F};
             case COSMIC -> new float[]{cosmicColor[0]/255.0F, cosmicColor[1]/255.0F, cosmicColor[2]/255.0F};
             case INFINITE -> new float[]{infiniteColor[0]/255.0F, infiniteColor[1]/255.0F, infiniteColor[2]/255.0F};
+        };
+    }
+
+    public static int[] getColor(int tier) {
+        return switch (tier) {
+            case 0 -> new int[]{1, 1, 0/255};
+            case 1 -> new int[]{1, 0/255, 0/255};
+            case 2 -> new int[]{(int) (cosmicColor[0]/255.0F), (int) (cosmicColor[1]/255.0F), (int) (cosmicColor[2]/255.0F)};
+            case 3 -> new int[]{(int) (infiniteColor[0]/255.0F), (int) (infiniteColor[1]/255.0F), (int) (infiniteColor[2]/255.0F)};
+            default -> throw new IllegalStateException("Unexpected value: " + tier);
         };
     }
 

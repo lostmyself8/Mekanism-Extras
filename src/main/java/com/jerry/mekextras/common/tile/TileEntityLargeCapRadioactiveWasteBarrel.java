@@ -15,13 +15,13 @@ import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
-import mekanism.common.tags.MekanismTags;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -76,7 +76,7 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
             //If we are not on the same tick do stuff, otherwise ignore it (anti tick accelerator protection)
             lastProcessTick = level.getGameTime();
             if (tier.getDecayAmount() > 0 && !gasTank.isEmpty() &&
-                    !gasTank.getType().is(MekanismTags.Gases.WASTE_BARREL_DECAY_BLACKLIST) &&
+                    !gasTank.getType().is(MekanismAPITags.Gases.WASTE_BARREL_DECAY_BLACKLIST) &&
                     ++processTicks >= tier.getProcessTicks()) {
                 processTicks = 0;
                 gasTank.shrinkStack(tier.getDecayAmount(), Action.EXECUTE);
@@ -126,18 +126,18 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
 
     @NotNull
     @Override
-    public CompoundTag getReducedUpdateTag() {
-        CompoundTag updateTag = super.getReducedUpdateTag();
-        updateTag.put(NBTConstants.GAS_STORED, gasTank.serializeNBT());
-        updateTag.putInt(NBTConstants.PROGRESS, processTicks);
+    public CompoundTag getReducedUpdateTag(@NotNull HolderLookup.Provider provider) {
+        CompoundTag updateTag = super.getReducedUpdateTag(provider);
+        updateTag.put(SerializationConstants.GAS, gasTank.serializeNBT(provider));
+        updateTag.putInt(SerializationConstants.PROGRESS, processTicks);
         return updateTag;
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag) {
-        super.handleUpdateTag(tag);
-        NBTUtils.setCompoundIfPresent(tag, NBTConstants.GAS_STORED, nbt -> gasTank.deserializeNBT(nbt));
-        NBTUtils.setIntIfPresent(tag, NBTConstants.PROGRESS, val -> processTicks = val);
+    public void handleUpdateTag(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider provider) {
+        super.handleUpdateTag(tag, provider);
+        NBTUtils.setCompoundIfPresent(tag, SerializationConstants.GAS, nbt -> gasTank.deserializeNBT(provider, nbt));
+        NBTUtils.setIntIfPresent(tag, SerializationConstants.PROGRESS, val -> processTicks = val);
     }
 
     @Override

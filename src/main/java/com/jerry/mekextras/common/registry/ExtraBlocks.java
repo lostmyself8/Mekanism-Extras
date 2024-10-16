@@ -1,13 +1,17 @@
 package com.jerry.mekextras.common.registry;
 
 import com.jerry.mekextras.MekanismExtras;
-import com.jerry.mekextras.common.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.IAdvanceTier;
+import com.jerry.mekextras.common.attachments.containers.chemical.gas.ExtraComponentBackedChemicalTankGasTank;
+import com.jerry.mekextras.common.attachments.containers.chemical.infuse_type.ExtraComponentBackedChemicalTankInfusionTank;
+import com.jerry.mekextras.common.attachments.containers.chemical.pigment.ExtraComponentBackedChemicalTankPigmentTank;
+import com.jerry.mekextras.common.attachments.containers.chemical.slurry.ExtraComponentBackedChemicalTankSlurryTank;
+import com.jerry.mekextras.common.attachments.containers.fluid.ExtraComponentBackedFluidTankFluidTank;
+import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
 import com.jerry.mekextras.common.block.BlockLargeCapRadioactiveWasteBarrel;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.basic.ExtraBlockBin;
 import com.jerry.mekextras.common.block.basic.ExtraBlockFluidTank;
-import com.jerry.mekextras.common.capabilities.fluid.item.ExtraFluidTankRateLimitFluidTank;
-import com.jerry.mekextras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekextras.common.item.block.*;
 import com.jerry.mekextras.common.tier.*;
 import com.jerry.mekextras.common.tile.*;
@@ -28,32 +32,33 @@ import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionC
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
-import mekanism.api.chemical.merged.MergedChemicalTank;
 import mekanism.common.attachments.containers.ContainerType;
+import mekanism.common.attachments.containers.chemical.gas.GasTanksBuilder;
+import mekanism.common.attachments.containers.chemical.infuse.InfusionTanksBuilder;
+import mekanism.common.attachments.containers.chemical.merged.MergedTankCreator;
+import mekanism.common.attachments.containers.chemical.pigment.PigmentTanksBuilder;
+import mekanism.common.attachments.containers.chemical.slurry.SlurryTanksBuilder;
+import mekanism.common.attachments.containers.fluid.FluidTanksBuilder;
+import mekanism.common.attachments.containers.item.ItemSlotsBuilder;
 import mekanism.common.block.interfaces.IHasDescription;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.block.transmitter.BlockLargeTransmitter;
 import mekanism.common.block.transmitter.BlockSmallTransmitter;
-import mekanism.common.capabilities.fluid.BasicFluidTank;
-import mekanism.common.capabilities.fluid.item.RateLimitFluidTank;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.Machine;
-import mekanism.common.inventory.slot.EnergyInventorySlot;
-import mekanism.common.inventory.slot.FluidInventorySlot;
-import mekanism.common.inventory.slot.ItemSlotsBuilder;
-import mekanism.common.inventory.slot.chemical.MergedChemicalInventorySlot;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.resource.BlockResourceInfo;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -61,22 +66,22 @@ public class ExtraBlocks {
     public static final BlockDeferredRegister EXTRA_BLOCKS = new BlockDeferredRegister(MekanismExtras.MOD_ID);
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvanceTier tier, String suffix,
-                                                                                                                      Function<MapColor, ? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
+                                                                                                                      Function<MapColor, ? extends BLOCK> blockSupplier, BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
         return registerTieredBlock(tier, suffix, () -> blockSupplier.apply(tier.getAdvanceTier().getMapColor()), itemCreator);
     }
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvanceTier tier, String suffix,
-                                                                                                                      Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
+                                                                                                                      Supplier<? extends BLOCK> blockSupplier, BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
         return EXTRA_BLOCKS.register(tier.getAdvanceTier().getLowerName() + suffix, blockSupplier, itemCreator);
     }
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(String registerName,
-                                                                                                                      Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
+                                                                                                                      Supplier<? extends BLOCK> blockSupplier, BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
         return EXTRA_BLOCKS.register(registerName, blockSupplier, itemCreator);
     }
 
     private static <BLOCK extends Block & IHasDescription> BlockRegistryObject<BLOCK, ItemBlockTooltip<BLOCK>> registerBlock(String name,
                                                                                                                              Supplier<? extends BLOCK> blockSupplier) {
-        return EXTRA_BLOCKS.registerDefaultProperties(name, blockSupplier, ItemBlockTooltip::new);
+        return EXTRA_BLOCKS.register(name, blockSupplier, ItemBlockTooltip::new);
     }
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> ABSOLUTE_BIN = registerBin(ExtraBlockTypes.ABSOLUTE_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> SUPREME_BIN = registerBin(ExtraBlockTypes.SUPREME_BIN);
@@ -144,10 +149,11 @@ public class ExtraBlocks {
     public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvanceElectricPump, Machine<TileEntityAdvanceElectricPump>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityAdvanceElectricPump, Machine<TileEntityAdvanceElectricPump>>>> ADVANCE_ELECTRIC_PUMP =
             EXTRA_BLOCKS.register("advance_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockTypes.ADVANCE_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockTooltip::new)
                     .forItemHolder(holder -> holder
-                            .addAttachmentOnlyContainer(ContainerType.FLUID, stack -> RateLimitFluidTank.createBasicItem(TileEntityAdvanceElectricPump.MAX_FLUID,
-                                    BasicFluidTank.manualOnly, BasicFluidTank.alwaysTrueBi, BasicFluidTank.alwaysTrue
-                            )).addAttachmentOnlyContainers(ContainerType.ITEM, stack -> ItemSlotsBuilder.builder(stack)
-                                    .addFluidSlot(0, FluidInventorySlot::drain)
+                            .addAttachmentOnlyContainers(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
+                                    .addBasic(TileEntityAdvanceElectricPump.MAX_FLUID)
+                                    .build()
+                            ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                    .addFluidDrainSlot(0)
                                     .addOutput()
                                     .addEnergy()
                                     .build()
@@ -156,7 +162,10 @@ public class ExtraBlocks {
     private static BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> registerBin(BlockTypeTile<ExtraTileEntityBin> type) {
         BTier tier = (BTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(tier, "_bin", color -> new ExtraBlockBin(type, properties -> properties.mapColor(color)), ExtraItemBlockBin::new)
-                .forItemHolder(holder -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, stack -> List.of(ExtraBinInventorySlot.create(null, tier))));
+                .forItemHolder(holder -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                        .addSlot(ExtraComponentBackedBinInventorySlot::create)
+                        .build()
+                ));
     }
 
     private static BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> registerInductionCell(BlockTypeTile<ExtraTileEntityInductionCell> type) {
@@ -172,9 +181,9 @@ public class ExtraBlocks {
     private static BlockRegistryObject<ExtraBlockEnergyCube, ExtraItemBlockEnergyCube> registerEnergyCube(Machine<ExtraTileEntityEnergyCube> type) {
         ECTier tier = (ECTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(tier, "_energy_cube", () -> new ExtraBlockEnergyCube(type), ExtraItemBlockEnergyCube::new)
-                .forItemHolder(holder -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, stack -> ItemSlotsBuilder.builder(stack)
+                .forItemHolder(holder -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                         .addEnergy()
-                        .addEnergySlot(0, EnergyInventorySlot::drain)
+                        .addDrainEnergy()
                         .build()
                 ));
     }
@@ -183,9 +192,11 @@ public class ExtraBlocks {
         FTTier tier = (FTTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(tier, "_fluid_tank", () -> new ExtraBlockFluidTank(type), ExtraItemBlockFluidTank::new)
                 .forItemHolder(holder -> holder
-                        .addAttachedContainerCapability(ContainerType.FLUID, stack -> ExtraFluidTankRateLimitFluidTank.create(tier))
-                        .addAttachmentOnlyContainers(ContainerType.ITEM, stack -> ItemSlotsBuilder.builder(stack)
-                                .addFluidSlot(0, FluidInventorySlot::input)
+                        .addAttachedContainerCapabilities(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
+                                .addTank(ExtraComponentBackedFluidTankFluidTank::create)
+                                .build()
+                        ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .addFluidInputSlot(0)
                                 .addOutput()
                                 .build()
                         )
@@ -221,15 +232,23 @@ public class ExtraBlocks {
             Machine<ExtraTileEntityChemicalTank> type) {
         CTTier tier = (CTTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(tier, "_chemical_tank", color -> new BlockTile.BlockTileModel<>(type, properties -> properties.mapColor(color)), ExtraItemBlockChemicalTank::new)
-                .forItemHolder(holder -> holder
-                        .addMissingMergedTanks(ExtraAttachmentTypes.CHEMICAL_TANK_CONTENTS_HANDLER, false, true)
-                        .addAttachmentOnlyContainers(ContainerType.ITEM, stack -> {
-                            MergedChemicalTank tank = stack.getData(ExtraAttachmentTypes.CHEMICAL_TANK_CONTENTS_HANDLER);
-                            return ItemSlotsBuilder.builder(stack)
-                                    .addContainerSlot(tank, MergedChemicalInventorySlot::drain)
-                                    .addContainerSlot(tank, MergedChemicalInventorySlot::fill)
-                                    .build();
-                        })
+                .forItemHolder(holder -> {
+                            final MergedTankCreator mergedTankCreator = new MergedTankCreator(
+                                    ExtraComponentBackedChemicalTankGasTank::create,
+                                    ExtraComponentBackedChemicalTankInfusionTank::create,
+                                    ExtraComponentBackedChemicalTankPigmentTank::create,
+                                    ExtraComponentBackedChemicalTankSlurryTank::create
+                            );
+                            holder.addAttachedContainerCapabilities(ContainerType.GAS, () -> GasTanksBuilder.builder().addTank(mergedTankCreator).build())
+                                    .addAttachedContainerCapabilities(ContainerType.INFUSION, () -> InfusionTanksBuilder.builder().addTank(mergedTankCreator).build())
+                                    .addAttachedContainerCapabilities(ContainerType.PIGMENT, () -> PigmentTanksBuilder.builder().addTank(mergedTankCreator).build())
+                                    .addAttachedContainerCapabilities(ContainerType.SLURRY, () -> SlurryTanksBuilder.builder().addTank(mergedTankCreator).build())
+                                    .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                            .addMergedChemicalDrainSlot(0, 0, 0, 0)
+                                            .addMergedChemicalFillSlot(0, 0, 0, 0)
+                                            .build()
+                                    );
+                        }
                 );
     }
 

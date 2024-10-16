@@ -126,7 +126,7 @@ public class ExtraBlockEnergyCube extends BlockTile.BlockTileModel<ExtraTileEnti
 
     @Override
     @Deprecated
-    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull PathComputationType pathType) {
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType pathType) {
         return false;
     }
 

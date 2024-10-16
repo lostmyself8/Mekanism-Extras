@@ -6,19 +6,19 @@ import mekanism.common.tier.PipeTier;
 public class PTier {
     public static int getPipePullAmount(PipeTier tier) {
         return switch (tier) {
-            case BASIC -> ExtraConfig.extraTierConfig.absoluteMechanicalPipePullAmount.get().intValue();
-            case ADVANCED -> ExtraConfig.extraTierConfig.supremeMechanicalPipePullAmount.get().intValue();
-            case ELITE -> ExtraConfig.extraTierConfig.cosmicMechanicalPipePullAmount.get().intValue();
-            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteMechanicalPipePullAmount.get().intValue();
+            case BASIC -> (int) ExtraConfig.extraTierConfig.absoluteMechanicalPipePullAmount.get();
+            case ADVANCED -> (int) ExtraConfig.extraTierConfig.supremeMechanicalPipePullAmount.get();
+            case ELITE -> (int) ExtraConfig.extraTierConfig.cosmicMechanicalPipePullAmount.get();
+            case ULTIMATE -> (int) ExtraConfig.extraTierConfig.infiniteMechanicalPipePullAmount.get();
         };
     }
 
     public static long getPipeCapacity(PipeTier tier) {
         return switch (tier) {
-            case BASIC -> ExtraConfig.extraTierConfig.absoluteMechanicalPipeCapacity.get().longValue();
-            case ADVANCED -> ExtraConfig.extraTierConfig.supremeMechanicalPipeCapacity.get().longValue();
-            case ELITE -> ExtraConfig.extraTierConfig.cosmicMechanicalPipeCapacity.get().longValue();
-            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteMechanicalPipeCapacity.get().longValue();
+            case BASIC -> ExtraConfig.extraTierConfig.absoluteMechanicalPipeCapacity.get();
+            case ADVANCED -> ExtraConfig.extraTierConfig.supremeMechanicalPipeCapacity.get();
+            case ELITE -> ExtraConfig.extraTierConfig.cosmicMechanicalPipeCapacity.get();
+            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteMechanicalPipeCapacity.get();
         };
     }
 }

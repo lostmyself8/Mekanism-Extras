@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/spectrum"
+    },
+    "C": {
+      "tag": "c:circuits/cosmic"
+    }
+  },
+  "pattern": [
+    "ACA"
+  ],
+  "result": {
+    "id": "mekanism_extras:infinite_control_circuit"
+  }
+}

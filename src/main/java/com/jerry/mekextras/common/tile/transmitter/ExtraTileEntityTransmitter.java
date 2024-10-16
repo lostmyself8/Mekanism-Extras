@@ -1,8 +1,8 @@
 package com.jerry.mekextras.common.tile.transmitter;
 
-import com.jerry.mekextras.common.api.IExtraAlloyInteraction;
-import com.jerry.mekextras.common.api.tier.AdvanceTier;
-import com.jerry.mekextras.common.api.tier.ExtraAlloyTier;
+import com.jerry.mekextras.api.IExtraAlloyInteraction;
+import com.jerry.mekextras.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.ExtraAlloyTier;
 import com.jerry.mekextras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.Mekanism;

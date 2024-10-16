@@ -2,7 +2,6 @@ package com.jerry.mekextras.client.gui;
 
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixMultiblockData;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
-import mekanism.api.math.FloatingLong;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiElementHolder;
@@ -48,12 +47,12 @@ public class GuiReinforcedInductionMatrix extends GuiMekanismTile<TileEntityRein
         addRenderableWidget(new GuiReinforcedMatrixTab(this, tile, GuiReinforcedMatrixTab.ReinforcedMatrixTab.STAT));
         addRenderableWidget(new GuiEnergyGauge(new GuiEnergyGauge.IEnergyInfoHandler() {
             @Override
-            public FloatingLong getEnergy() {
+            public long getEnergy() {
                 return tile.getMultiblock().getEnergy();
             }
 
             @Override
-            public FloatingLong getMaxEnergy() {
+            public long getMaxEnergy() {
                 return tile.getMultiblock().getStorageCap();
             }
         }, GaugeType.MEDIUM, this, 7, 16, 34, 56));

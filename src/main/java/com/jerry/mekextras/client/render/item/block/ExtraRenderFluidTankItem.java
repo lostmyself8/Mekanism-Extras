@@ -2,10 +2,10 @@ package com.jerry.mekextras.client.render.item.block;
 
 import com.jerry.mekextras.client.render.tileentity.ExtraRenderFluidTank;
 import com.mojang.blaze3d.vertex.PoseStack;
+import mekanism.api.fluid.IMekanismFluidHandler;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.RenderResizableCuboid;
 import mekanism.client.render.item.MekanismISTER;
-import mekanism.common.attachments.containers.AttachedFluidTanks;
 import mekanism.common.attachments.containers.ContainerType;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
@@ -29,7 +29,7 @@ public class ExtraRenderFluidTankItem extends MekanismISTER {
     @Override
     public void renderByItem(@NotNull ItemStack stack, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer,
                              int light, int overlayLight) {
-        AttachedFluidTanks attachment = ContainerType.FLUID.getAttachment(stack);
+        IMekanismFluidHandler attachment = ContainerType.FLUID.createHandler(stack);
         if (attachment != null) {
             FluidStack fluid = attachment.getFluidInTank(0);
             if (!fluid.isEmpty()) {

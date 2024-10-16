@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.block.attribute;
 
-import com.jerry.mekextras.common.api.tier.AdvanceTier;
-import com.jerry.mekextras.common.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.IAdvanceTier;
 import mekanism.common.block.attribute.Attribute;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;

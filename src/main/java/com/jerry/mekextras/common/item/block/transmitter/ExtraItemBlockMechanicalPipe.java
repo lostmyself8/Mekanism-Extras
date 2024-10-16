@@ -12,7 +12,6 @@ import mekanism.common.util.text.TextUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,8 +20,8 @@ import java.util.Objects;
 
 public class ExtraItemBlockMechanicalPipe extends ItemBlockTooltip<BlockLargeTransmitter<ExtraTileEntityMechanicalPipe>> {
 
-    public ExtraItemBlockMechanicalPipe(BlockLargeTransmitter<ExtraTileEntityMechanicalPipe> block) {
-        super(block);
+    public ExtraItemBlockMechanicalPipe(BlockLargeTransmitter<ExtraTileEntityMechanicalPipe> block, Properties properties) {
+        super(block, true, properties);
     }
 
     @NotNull
@@ -32,15 +31,15 @@ public class ExtraItemBlockMechanicalPipe extends ItemBlockTooltip<BlockLargeTra
     }
 
     @Override
-    protected void addDetails(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.addDetails(stack, world, tooltip, flag);
+    protected void addDetails(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        super.addDetails(stack, context, tooltip, flag);
         tooltip.add(MekanismLang.CAPABLE_OF_TRANSFERRING.translateColored(EnumColor.DARK_GRAY));
         tooltip.add(MekanismLang.FLUIDS.translateColored(EnumColor.PURPLE, EnumColor.GRAY, MekanismLang.FORGE));
     }
 
     @Override
-    protected void addStats(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.addStats(stack, world, tooltip, flag);
+    protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        super.addStats(stack, context, tooltip, flag);
         PipeTier tier = getTier();
         tooltip.add(MekanismLang.CAPACITY_MB_PER_TICK.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(PTier.getPipeCapacity(tier))));
         tooltip.add(MekanismLang.PUMP_RATE_MB.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(PTier.getPipePullAmount(tier))));

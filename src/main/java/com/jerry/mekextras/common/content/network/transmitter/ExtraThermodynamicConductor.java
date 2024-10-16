@@ -1,9 +1,8 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.common.capabilities.heat.ExtraVariableHeatCapacitor;
-import com.jerry.mekextras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import com.jerry.mekextras.common.tier.TCTier;
-import mekanism.api.NBTConstants;
+import mekanism.api.SerializationConstants;
 import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IHeatHandler;
 import mekanism.api.providers.IBlockProvider;
@@ -21,6 +20,7 @@ import mekanism.common.upgrade.transmitter.ThermodynamicConductorUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -67,23 +67,23 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
 
     @NotNull
     @Override
-    public CompoundTag write(@NotNull CompoundTag tag) {
-        super.write(tag);
-        ContainerType.HEAT.saveTo(tag, getHeatCapacitors(null));
+    public CompoundTag write(HolderLookup.Provider provider, @NotNull CompoundTag tag) {
+        super.write(provider, tag);
+        ContainerType.HEAT.saveTo(provider, tag, getHeatCapacitors(null));
         return tag;
     }
 
     @Override
-    public void read(@NotNull CompoundTag tag) {
-        super.read(tag);
-        ContainerType.HEAT.readFrom(tag, getHeatCapacitors(null));
+    public void read(HolderLookup.Provider provider, @NotNull CompoundTag tag) {
+        super.read(provider, tag);
+        ContainerType.HEAT.readFrom(provider, tag, getHeatCapacitors(null));
     }
 
     @NotNull
     @Override
-    public CompoundTag getReducedUpdateTag(CompoundTag updateTag) {
-        updateTag = super.getReducedUpdateTag(updateTag);
-        updateTag.putDouble(NBTConstants.TEMPERATURE, buffer.getHeat());
+    public CompoundTag getReducedUpdateTag(HolderLookup.@NotNull Provider provider, CompoundTag updateTag) {
+        updateTag = super.getReducedUpdateTag(provider, updateTag);
+        updateTag.putDouble(SerializationConstants.TEMPERATURE, buffer.getHeat());
         return updateTag;
     }
 
@@ -94,9 +94,9 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag) {
-        super.handleUpdateTag(tag);
-        NBTUtils.setDoubleIfPresent(tag, NBTConstants.TEMPERATURE, buffer::setHeat);
+    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
+        super.handleUpdateTag(tag, provider);
+        NBTUtils.setDoubleIfPresent(tag, SerializationConstants.TEMPERATURE, buffer::setHeat);
     }
 
     @Override

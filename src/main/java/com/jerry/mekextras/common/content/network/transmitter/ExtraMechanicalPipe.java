@@ -28,18 +28,16 @@ public class ExtraMechanicalPipe extends MechanicalPipe implements IMekanismFlui
     public void pullFromAcceptors() {
         Set<Direction> connections = this.getConnections(ConnectionType.PULL);
         if (!connections.isEmpty()) {
-
-            for (IFluidHandler connectedAcceptor : this.getAcceptorCache().getConnectedAcceptors(connections)) {
-                FluidStack bufferWithFallback = this.getBufferWithFallback();
+            for (IFluidHandler connectedAcceptor : getAcceptorCache().getConnectedAcceptors(connections)) {
                 FluidStack received;
+                FluidStack bufferWithFallback = getBufferWithFallback();
                 if (bufferWithFallback.isEmpty()) {
-                    received = connectedAcceptor.drain(this.getAvailablePull(), FluidAction.SIMULATE);
+                    received = connectedAcceptor.drain(getAvailablePull(), FluidAction.SIMULATE);
                 } else {
-                    received = connectedAcceptor.drain(new FluidStack(bufferWithFallback, this.getAvailablePull()), FluidAction.SIMULATE);
+                    received = connectedAcceptor.drain(bufferWithFallback.copyWithAmount(getAvailablePull()), FluidAction.SIMULATE);
                 }
-
-                if (!received.isEmpty() && this.takeFluid(received, Action.SIMULATE).isEmpty()) {
-                    this.takeFluid(connectedAcceptor.drain(received, FluidAction.EXECUTE), Action.EXECUTE);
+                if (!received.isEmpty() && takeFluid(received, Action.SIMULATE).isEmpty()) {
+                    takeFluid(connectedAcceptor.drain(received, FluidAction.EXECUTE), Action.EXECUTE);
                 }
             }
         }

@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.tier;
 
-import com.jerry.mekextras.common.api.tier.AdvanceTier;
-import com.jerry.mekextras.common.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.IAdvanceTier;
 import mekanism.common.config.value.CachedLongValue;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;

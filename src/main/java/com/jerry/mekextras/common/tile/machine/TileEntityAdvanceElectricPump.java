@@ -4,8 +4,6 @@ import com.jerry.mekextras.common.config.ExtraConfig;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.*;
-import mekanism.api.math.FloatingLong;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
 import mekanism.common.attachments.containers.ContainerType;
@@ -34,10 +32,8 @@ import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
@@ -56,7 +52,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.IFluidBlock;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -127,10 +122,10 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
         boolean sendUpdatePacket = super.onUpdateServer();
         energySlot.fillContainerOrConvert();
         inputSlot.drainTank(outputSlot);
-        FloatingLong clientEnergyUsed = FloatingLong.ZERO;
+        long clientEnergyUsed = 0L;
         if (canFunction() && (fluidTank.isEmpty() || estimateIncrementAmount() <= fluidTank.getNeeded())) {
-            FloatingLong energyPerTick = energyContainer.getEnergyPerTick();
-            if (energyContainer.extract(energyPerTick, Action.SIMULATE, AutomationType.INTERNAL).equals(energyPerTick)) {
+            long energyPerTick = energyContainer.getEnergyPerTick();
+            if (energyContainer.extract(energyPerTick, Action.SIMULATE, AutomationType.INTERNAL) == energyPerTick) {
                 if (!activeType.isEmpty()) {
                     //If we have an active type of fluid, use energy. This can cause there to be ticks where there isn't actually
                     // anything to suck that use energy, but those will balance out with the first set of ticks where it doesn't
@@ -141,7 +136,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
                 if (operatingTicks >= ticksRequired) {
                     operatingTicks = 0;
                     if (suck()) {
-                        if (clientEnergyUsed.isZero()) {
+                        if (clientEnergyUsed == 0L) {
                             //If it didn't already have an active type (hasn't used energy this tick), then extract energy
                             clientEnergyUsed = energyContainer.extract(energyPerTick, Action.EXECUTE, AutomationType.INTERNAL);
                         }
@@ -151,7 +146,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
                 }
             }
         }
-        usedEnergy = !clientEnergyUsed.isZero();
+        usedEnergy = clientEnergyUsed > 0L;
         if (!fluidTank.isEmpty()) {
             if (fluidHandlerAbove.isEmpty()) {
                 fluidHandlerAbove = List.of(Capabilities.FLUID.createCache((ServerLevel) level, worldPosition.above(), Direction.DOWN));
@@ -205,13 +200,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
                 //Just in case someone does weird things and has a fluid state that is empty and a source
                 // only allow collecting from non-empty sources
                 Block block = blockState.getBlock();
-                if (block instanceof IFluidBlock fluidBlock) {
-                    if (validFluid(fluidBlock.drain(level, pos, FluidAction.SIMULATE))) {
-                        //Actually drain it
-                        suck(fluidBlock.drain(level, pos, FluidAction.EXECUTE), pos, addRecurring);
-                        return true;
-                    }
-                } else if (block instanceof BucketPickup bucketPickup) {
+                if (block instanceof BucketPickup bucketPickup) {
                     Fluid sourceFluid = fluidState.getType();
                     FluidStack fluidStack = getOutput(sourceFluid, hasFilter);
                     if (validFluid(fluidStack)) {
@@ -225,7 +214,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
                                 return false;
                             } else if (pickedUpStack.getItem() instanceof BucketItem bucket) {
                                 //This isn't the best validation check given it may not return a bucket, but it is good enough for now
-                                sourceFluid = bucket.getFluid();
+                                sourceFluid = bucket.content;
                                 //Update the fluid stack in case something somehow changed about the type
                                 // making sure that we replace to heavy water if we got heavy water
                                 fluidStack = getOutput(sourceFluid, hasFilter);
@@ -286,7 +275,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
     }
 
     private boolean validFluid(@NotNull FluidStack fluidStack) {
-        if (!fluidStack.isEmpty() && (activeType.isEmpty() || activeType.isFluidEqual(fluidStack))) {
+        if (!fluidStack.isEmpty() && (activeType.isEmpty() || FluidStack.isSameFluidSameComponents(activeType, fluidStack))) {
             if (fluidTank.isEmpty()) {
                 return true;
             } else if (fluidTank.isFluidEqual(fluidStack)) {
@@ -302,32 +291,23 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
     }
 
     @Override
-    public void saveAdditional(@NotNull CompoundTag nbtTags) {
-        super.saveAdditional(nbtTags);
-        nbtTags.putInt(NBTConstants.PROGRESS, operatingTicks);
+    public void saveAdditional(@NotNull CompoundTag nbtTags, @NotNull HolderLookup.Provider provider) {
+        super.saveAdditional(nbtTags, provider);
+        nbtTags.putInt(SerializationConstants.PROGRESS, operatingTicks);
         if (!activeType.isEmpty()) {
-            nbtTags.put(NBTConstants.FLUID_STORED, activeType.writeToNBT(new CompoundTag()));
+            nbtTags.put(SerializationConstants.FLUID, activeType.save(provider));
         }
         if (!recurringNodes.isEmpty()) {
-            ListTag recurringList = new ListTag();
-            for (BlockPos nodePos : recurringNodes) {
-                recurringList.add(NbtUtils.writeBlockPos(nodePos));
-            }
-            nbtTags.put(NBTConstants.RECURRING_NODES, recurringList);
+            nbtTags.put(SerializationConstants.RECURRING_NODES, NBTUtils.writeBlockPositions(recurringNodes));
         }
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-        operatingTicks = nbt.getInt(NBTConstants.PROGRESS);
-        NBTUtils.setFluidStackIfPresent(nbt, NBTConstants.FLUID_STORED, fluid -> activeType = fluid);
-        if (nbt.contains(NBTConstants.RECURRING_NODES, Tag.TAG_LIST)) {
-            ListTag tagList = nbt.getList(NBTConstants.RECURRING_NODES, Tag.TAG_COMPOUND);
-            for (int i = 0; i < tagList.size(); i++) {
-                recurringNodes.add(NbtUtils.readBlockPos(tagList.getCompound(i)));
-            }
-        }
+    public void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider provider) {
+        super.loadAdditional(nbt, provider);
+        operatingTicks = nbt.getInt(SerializationConstants.PROGRESS);
+        NBTUtils.setFluidStackIfPresent(provider, nbt, SerializationConstants.FLUID, fluid -> activeType = fluid);
+        NBTUtils.readBlockPositions(nbt, SerializationConstants.RECURRING_NODES, recurringNodes);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.jerry.mekextras.common.tile.transmitter;
 
-import com.jerry.mekextras.common.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraBoxedPressurizedTube;
-import mekanism.api.NBTConstants;
+import mekanism.api.SerializationConstants;
 import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalTank;
@@ -27,6 +27,7 @@ import com.jerry.mekextras.common.registry.ExtraBlocks;
 import mekanism.common.tile.interfaces.ITileRadioactive;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.BlockCapability;
@@ -100,13 +101,13 @@ public class ExtraTileEntityPressurizedTube extends ExtraTileEntityTransmitter i
 
     @NotNull
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
         //Note: We add the stored information to the initial update tag and not to the one we sync on side changes which uses getReducedUpdateTag
-        CompoundTag updateTag = super.getUpdateTag();
+        CompoundTag updateTag = super.getUpdateTag(provider);
         if (getTransmitter().hasTransmitterNetwork()) {
             BoxedChemicalNetwork network = getTransmitter().getTransmitterNetwork();
-            updateTag.put(NBTConstants.BOXED_CHEMICAL, network.lastChemical.write(new CompoundTag()));
-            updateTag.putFloat(NBTConstants.SCALE, network.currentScale);
+            updateTag.put(SerializationConstants.BOXED_CHEMICAL, network.lastChemical.saveOptional(provider));
+            updateTag.putFloat(SerializationConstants.SCALE, network.currentScale);
         }
         return updateTag;
     }

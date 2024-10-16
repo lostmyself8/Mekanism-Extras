@@ -1,0 +1,22 @@
+{
+  "type": "mekanism:mek_data",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/thermonuclear"
+    },
+    "O": {
+      "tag": "c:ingots/osmium"
+    },
+    "P": {
+      "item": "mekanism_extras:absolute_chemical_tank"
+    }
+  },
+  "pattern": [
+    "AOA",
+    "OPO",
+    "AOA"
+  ],
+  "result": {
+    "id": "mekanism_extras:supreme_chemical_tank"
+  }
+}

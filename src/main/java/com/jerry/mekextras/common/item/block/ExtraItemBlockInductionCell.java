@@ -13,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,8 +20,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class ExtraItemBlockInductionCell extends ExtraItemBlockTooltip<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>> {
-    public ExtraItemBlockInductionCell(BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>> block) {
-        super(block, new Item.Properties());
+    public ExtraItemBlockInductionCell(BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>> block, Item.Properties properties) {
+        super(block, properties);
     }
 
     @NotNull
@@ -32,7 +31,7 @@ public class ExtraItemBlockInductionCell extends ExtraItemBlockTooltip<BlockTile
     }
 
     @Override
-    protected void addStats(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         ICTier tier = getAdvanceTier();
         tooltip.add(MekanismLang.CAPACITY.translateColored(tier.getAdvanceTier().getColor(), EnumColor.GRAY, EnergyDisplay.of(tier.getMaxEnergy())));
         StorageUtils.addStoredEnergy(stack, tooltip, false);

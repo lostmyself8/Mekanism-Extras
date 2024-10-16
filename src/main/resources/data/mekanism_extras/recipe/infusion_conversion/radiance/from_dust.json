@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:infusion_conversion",
+  "input": {
+    "count": 1,
+    "item": "mekanism_extras:dust_radiance"
+  },
+  "output": {
+    "amount": 10,
+    "id": "mekanism_extras:radiance"
+  }
+}

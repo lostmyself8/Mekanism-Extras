@@ -1,8 +1,8 @@
 package com.jerry.mekextras.common.tile.transmitter;
 
-import com.jerry.mekextras.common.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraMechanicalPipe;
-import mekanism.api.NBTConstants;
+import mekanism.api.SerializationConstants;
 import mekanism.api.fluid.IExtendedFluidTank;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.block.states.BlockStateHelper;
@@ -17,6 +17,7 @@ import mekanism.common.lib.transmitter.ConnectionType;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -73,13 +74,13 @@ public class ExtraTileEntityMechanicalPipe extends ExtraTileEntityTransmitter im
 
     @NotNull
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
         //Note: We add the stored information to the initial update tag and not to the one we sync on side changes which uses getReducedUpdateTag
-        CompoundTag updateTag = super.getUpdateTag();
+        CompoundTag updateTag = super.getUpdateTag(provider);
         if (getTransmitter().hasTransmitterNetwork()) {
             FluidNetwork network = getTransmitter().getTransmitterNetwork();
-            updateTag.put(NBTConstants.FLUID_STORED, network.lastFluid.writeToNBT(new CompoundTag()));
-            updateTag.putFloat(NBTConstants.SCALE, network.currentScale);
+            updateTag.put(SerializationConstants.FLUID, network.lastFluid.saveOptional(provider));
+            updateTag.putFloat(SerializationConstants.SCALE, network.currentScale);
         }
         return updateTag;
     }

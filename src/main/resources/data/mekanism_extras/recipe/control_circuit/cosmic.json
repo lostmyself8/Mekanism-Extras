@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/shining"
+    },
+    "C": {
+      "tag": "c:circuits/supreme"
+    }
+  },
+  "pattern": [
+    "ACA"
+  ],
+  "result": {
+    "id": "mekanism_extras:cosmic_control_circuit"
+  }
+}
