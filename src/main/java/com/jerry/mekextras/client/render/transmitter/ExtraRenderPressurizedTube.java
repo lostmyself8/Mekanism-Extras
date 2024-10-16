@@ -1,5 +1,6 @@
 package com.jerry.mekextras.client.render.transmitter;
 
+import com.jerry.mekextras.common.content.network.transmitter.ExtraPressurizedTube;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mekanism.api.annotations.NothingNullByDefault;
@@ -7,8 +8,7 @@ import mekanism.api.chemical.Chemical;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
-import mekanism.common.content.network.BoxedChemicalNetwork;
-import mekanism.common.content.network.transmitter.BoxedPressurizedTube;
+import mekanism.common.content.network.ChemicalNetwork;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
@@ -25,10 +25,10 @@ public class ExtraRenderPressurizedTube extends RenderTransmitterBase<ExtraTileE
 
     @Override
     protected void render(@NotNull ExtraTileEntityPressurizedTube tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight, ProfilerFiller profiler) {
-        BoxedChemicalNetwork network = tile.getTransmitter().getTransmitterNetwork();
+        ChemicalNetwork network = tile.getTransmitter().getTransmitterNetwork();
         matrix.pushPose();
         matrix.translate(0.5, 0.5, 0.5);
-        Chemical<?> chemical = network.lastChemical.getChemical();
+        Chemical chemical = network.lastChemical.getChemical();
         renderModel(tile, matrix, renderer.getBuffer(Sheets.translucentCullBlockSheet()), chemical.getTint(), Math.max(0.2F, network.currentScale),
                 LightTexture.FULL_BRIGHT, overlayLight, MekanismRenderer.getChemicalTexture(chemical));
         matrix.popPose();
@@ -42,10 +42,10 @@ public class ExtraRenderPressurizedTube extends RenderTransmitterBase<ExtraTileE
     @Override
     protected boolean shouldRenderTransmitter(@NotNull ExtraTileEntityPressurizedTube tile, @NotNull Vec3 camera) {
         if (super.shouldRenderTransmitter(tile, camera)) {
-            BoxedPressurizedTube tube = tile.getTransmitter();
+            ExtraPressurizedTube tube = tile.getTransmitter();
             if (tube.hasTransmitterNetwork()) {
-                BoxedChemicalNetwork network = tube.getTransmitterNetwork();
-                return !network.lastChemical.isEmpty() && !network.isTankEmpty() && network.currentScale > 0;
+                ChemicalNetwork network = tube.getTransmitterNetwork();
+                return !network.lastChemical.isEmptyType() && !network.isEmpty() && network.currentScale > 0;
             }
         }
         return false;

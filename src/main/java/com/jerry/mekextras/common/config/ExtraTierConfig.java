@@ -281,6 +281,11 @@ public class ExtraTierConfig extends BaseMekanismConfig {
     }
 
     @Override
+    public String getTranslation() {
+        return null;
+    }
+
+    @Override
     public ModConfigSpec getConfigSpec() {
         return configSpec;
     }

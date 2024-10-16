@@ -7,29 +7,27 @@ import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.Chemical;
-import mekanism.api.chemical.ChemicalTankBuilder;
+import mekanism.api.chemical.ChemicalStack;
+import mekanism.api.chemical.IChemicalHandler;
+import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.chemical.attribute.ChemicalAttribute;
 import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
-import mekanism.api.chemical.gas.Gas;
-import mekanism.api.chemical.gas.GasStack;
-import mekanism.api.chemical.gas.IGasHandler;
-import mekanism.api.chemical.gas.IGasTank;
-import mekanism.api.chemical.gas.attribute.GasAttributes;
+import mekanism.api.chemical.attribute.ChemicalAttributes;
 import mekanism.common.util.WorldUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 @NothingNullByDefault
-public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTank<Gas, GasStack> implements IGasHandler, IGasTank {
+public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTank implements IChemicalHandler, IChemicalTank {
     private static final ChemicalAttributeValidator ATTRIBUTE_VALIDATOR = new ChemicalAttributeValidator() {
         @Override
         public boolean validate(ChemicalAttribute attr) {
-            return attr instanceof GasAttributes.Radiation;
+            return attr instanceof ChemicalAttributes.Radiation;
         }
 
         @Override
-        public boolean process(Chemical<?> chemical) {
+        public boolean process(Chemical chemical) {
             return chemical.isRadioactive();
         }
     };
@@ -42,14 +40,13 @@ public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTan
     private final TileEntityLargeCapRadioactiveWasteBarrel tile;
 
     protected StackedLargeCapWasteBarrel(TileEntityLargeCapRadioactiveWasteBarrel tile, @Nullable IContentsListener listener) {
-        super(tile.getTier().getStorage(), ChemicalTankBuilder.GAS.alwaysTrueBi, ChemicalTankBuilder.GAS.alwaysTrueBi,
-                ChemicalTankBuilder.GAS.alwaysTrue, ATTRIBUTE_VALIDATOR, listener);
+        super(tile.getTier().getStorage(), alwaysTrueBi, alwaysTrueBi, alwaysTrue, ATTRIBUTE_VALIDATOR, listener);
         this.tile = tile;
     }
 
     @Override
-    public GasStack insert(GasStack stack, Action action, AutomationType automationType) {
-        GasStack remainder = super.insert(stack, action, automationType);
+    public ChemicalStack insert(ChemicalStack stack, Action action, AutomationType automationType) {
+        ChemicalStack remainder = super.insert(stack, action, automationType);
         if (!remainder.isEmpty()) {
             //If we have any leftover check if we can send it to the tank that is above
             TileEntityLargeCapRadioactiveWasteBarrel tileAbove = WorldUtils.getTileEntity(TileEntityLargeCapRadioactiveWasteBarrel.class, tile.getLevel(), tile.getBlockPos().above());
@@ -72,7 +69,7 @@ public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTan
                 if (tileAbove != null) {
                     long leftOverToInsert = amount - grownAmount;
                     //Note: We do external so that it is not limited by the internal rate limits
-                    GasStack remainder = tileAbove.getGasTank().insert(stored.copyWithAmount(leftOverToInsert), action, AutomationType.EXTERNAL);
+                    ChemicalStack remainder = tileAbove.getGasTank().insert(stored.copyWithAmount(leftOverToInsert), action, AutomationType.EXTERNAL);
                     grownAmount += leftOverToInsert - remainder.getAmount();
                 }
             }

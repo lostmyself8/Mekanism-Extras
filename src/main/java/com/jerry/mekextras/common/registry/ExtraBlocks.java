@@ -2,10 +2,7 @@ package com.jerry.mekextras.common.registry;
 
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.tier.IAdvanceTier;
-import com.jerry.mekextras.common.attachments.containers.chemical.gas.ExtraComponentBackedChemicalTankGasTank;
-import com.jerry.mekextras.common.attachments.containers.chemical.infuse_type.ExtraComponentBackedChemicalTankInfusionTank;
-import com.jerry.mekextras.common.attachments.containers.chemical.pigment.ExtraComponentBackedChemicalTankPigmentTank;
-import com.jerry.mekextras.common.attachments.containers.chemical.slurry.ExtraComponentBackedChemicalTankSlurryTank;
+import com.jerry.mekextras.common.attachments.containers.chemical.ExtraComponentBackedChemicalTankTank;
 import com.jerry.mekextras.common.attachments.containers.fluid.ExtraComponentBackedFluidTankFluidTank;
 import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
 import com.jerry.mekextras.common.block.BlockLargeCapRadioactiveWasteBarrel;
@@ -33,11 +30,7 @@ import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionP
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import mekanism.common.attachments.containers.ContainerType;
-import mekanism.common.attachments.containers.chemical.gas.GasTanksBuilder;
-import mekanism.common.attachments.containers.chemical.infuse.InfusionTanksBuilder;
-import mekanism.common.attachments.containers.chemical.merged.MergedTankCreator;
-import mekanism.common.attachments.containers.chemical.pigment.PigmentTanksBuilder;
-import mekanism.common.attachments.containers.chemical.slurry.SlurryTanksBuilder;
+import mekanism.common.attachments.containers.chemical.ChemicalTanksBuilder;
 import mekanism.common.attachments.containers.fluid.FluidTanksBuilder;
 import mekanism.common.attachments.containers.item.ItemSlotsBuilder;
 import mekanism.common.block.interfaces.IHasDescription;
@@ -232,23 +225,14 @@ public class ExtraBlocks {
             Machine<ExtraTileEntityChemicalTank> type) {
         CTTier tier = (CTTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(tier, "_chemical_tank", color -> new BlockTile.BlockTileModel<>(type, properties -> properties.mapColor(color)), ExtraItemBlockChemicalTank::new)
-                .forItemHolder(holder -> {
-                            final MergedTankCreator mergedTankCreator = new MergedTankCreator(
-                                    ExtraComponentBackedChemicalTankGasTank::create,
-                                    ExtraComponentBackedChemicalTankInfusionTank::create,
-                                    ExtraComponentBackedChemicalTankPigmentTank::create,
-                                    ExtraComponentBackedChemicalTankSlurryTank::create
-                            );
-                            holder.addAttachedContainerCapabilities(ContainerType.GAS, () -> GasTanksBuilder.builder().addTank(mergedTankCreator).build())
-                                    .addAttachedContainerCapabilities(ContainerType.INFUSION, () -> InfusionTanksBuilder.builder().addTank(mergedTankCreator).build())
-                                    .addAttachedContainerCapabilities(ContainerType.PIGMENT, () -> PigmentTanksBuilder.builder().addTank(mergedTankCreator).build())
-                                    .addAttachedContainerCapabilities(ContainerType.SLURRY, () -> SlurryTanksBuilder.builder().addTank(mergedTankCreator).build())
-                                    .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
-                                            .addMergedChemicalDrainSlot(0, 0, 0, 0)
-                                            .addMergedChemicalFillSlot(0, 0, 0, 0)
-                                            .build()
-                                    );
-                        }
+                .forItemHolder(holder -> holder
+                        .addAttachedContainerCapabilities(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
+                                .addTank(ExtraComponentBackedChemicalTankTank::create).build()
+                        ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .addChemicalDrainSlot(0)
+                                .addChemicalFillSlot(0)
+                                .build()
+                        )
                 );
     }
 

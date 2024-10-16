@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.block;
 
 import com.jerry.mekextras.common.tile.TileEntityLargeCapRadioactiveWasteBarrel;
-import mekanism.api.chemical.gas.GasStack;
+import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.prefab.BlockTile;
@@ -34,10 +34,10 @@ public class BlockLargeCapRadioactiveWasteBarrel extends BlockTile.BlockTileMode
         if (tile == null) {
             return InteractionResult.PASS;
         } else if (!world.isClientSide()) {
-            GasStack stored = tile.getGas();
+            ChemicalStack stored = tile.getGas();
             Component text;
             if (stored.isEmpty()) {
-                text = MekanismLang.NO_GAS.translateColored(EnumColor.GRAY);
+                text = MekanismLang.NO_CHEMICAL.translateColored(EnumColor.GRAY);
             } else {
                 text = MekanismLang.STORED_MB_PERCENTAGE.translateColored(EnumColor.ORANGE, EnumColor.ORANGE, stored, EnumColor.GRAY,
                         TextUtils.format(stored.getAmount()), TextUtils.getPercent(tile.getGasScale()));

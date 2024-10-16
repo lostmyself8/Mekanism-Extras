@@ -12,15 +12,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiPredicate;
+import java.util.function.LongSupplier;
 import java.util.function.Predicate;
 
 @NothingNullByDefault
-public abstract class ExtraVariableCapacityChemicalTank <CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends BasicChemicalTank<CHEMICAL, STACK> {
+public class ExtraVariableCapacityChemicalTank extends BasicChemicalTank {
+
     private final long capacity;
 
-    protected ExtraVariableCapacityChemicalTank(long capacity, BiPredicate<@NotNull CHEMICAL, @NotNull AutomationType> canExtract,
-                                           BiPredicate<@NotNull CHEMICAL, @NotNull AutomationType> canInsert, Predicate<@NotNull CHEMICAL> validator,
-                                           @Nullable ChemicalAttributeValidator attributeValidator, @Nullable IContentsListener listener) {
+    public ExtraVariableCapacityChemicalTank(long capacity, BiPredicate<Chemical, @NotNull AutomationType> canExtract,
+                                        BiPredicate<Chemical, @NotNull AutomationType> canInsert, Predicate<Chemical> validator,
+                                        @Nullable ChemicalAttributeValidator attributeValidator, @Nullable IContentsListener listener) {
         super(capacity, canExtract, canInsert, validator, attributeValidator, listener);
         this.capacity = capacity;
     }

@@ -10,9 +10,11 @@ import mekanism.api.providers.IBlockProvider;
 import mekanism.common.content.network.EnergyNetwork;
 import mekanism.common.content.network.transmitter.UniversalCable;
 import mekanism.common.lib.transmitter.ConnectionType;
+import mekanism.common.lib.transmitter.acceptor.EnergyAcceptorCache;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.upgrade.transmitter.UniversalCableUpgradeData;
+import mekanism.common.util.EnumUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -30,11 +32,19 @@ public class ExtraUniversalCable extends UniversalCable implements IMekanismStri
 
     @Override
     public void pullFromAcceptors() {
-        Set<Direction> connections = getConnections(ConnectionType.PULL);
-        if (!connections.isEmpty()) {
-            for (IStrictEnergyHandler connectedAcceptor : getAcceptorCache().getConnectedAcceptors(connections)) {
+        if (!hasPullSide || getAvailablePull() <= 0) {
+            return;
+        }
+        EnergyAcceptorCache acceptorCache = getAcceptorCache();
+        for (Direction side : EnumUtils.DIRECTIONS) {
+            if (!isConnectionType(side, ConnectionType.PULL)) {
+                continue;
+            }
+            IStrictEnergyHandler connectedAcceptor = acceptorCache.getConnectedAcceptor(side);
+            if (connectedAcceptor != null) {
                 long received = connectedAcceptor.extractEnergy(getAvailablePull(), Action.SIMULATE);
                 if (received > 0L && takeEnergy(received, Action.SIMULATE) == 0L) {
+                    //If we received some energy and are able to insert it all
                     long remainder = takeEnergy(received, Action.EXECUTE);
                     connectedAcceptor.extractEnergy(received - remainder, Action.EXECUTE);
                 }

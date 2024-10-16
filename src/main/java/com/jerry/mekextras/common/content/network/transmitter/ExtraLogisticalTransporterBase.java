@@ -15,6 +15,7 @@ import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.network.PacketUtils;
 import mekanism.common.network.to_client.transmitter.PacketTransporterBatch;
 import mekanism.common.tier.TransporterTier;
+import mekanism.common.util.EnumUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.TransporterUtils;
 import net.minecraft.core.BlockPos;
@@ -41,7 +42,7 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
                 //Attempt to pull
                 BlockPos.MutableBlockPos inventoryPos = new BlockPos.MutableBlockPos();
                 BlockPos pos = getBlockPos();
-                for (Direction side : getConnections(ConnectionType.PULL)) {
+                for (Direction side : EnumUtils.DIRECTIONS) {
                     inventoryPos.setWithOffset(pos, side);
                     IItemHandler inventory = Capabilities.ITEM.getCapabilityIfLoaded(getLevel(), inventoryPos, side.getOpposite());
                     if (inventory != null) {
@@ -75,7 +76,7 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
                     int stackId = entry.getIntKey();
                     TransporterStack stack = entry.getValue();
                     if (!stack.initiatedPath) {//Initiate any paths and remove things that can't go places
-                        if (stack.itemStack.isEmpty() || !recalculate(stackId, stack, null)) {
+                        if (stack.itemStack.isEmpty() || !recalculate(stackId, stack, Long.MAX_VALUE)) {
                             deletes.add(stackId);
                             continue;
                         }
@@ -84,15 +85,16 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
                     int prevProgress = stack.progress;
                     stack.progress += TPTier.getSpeed(tier);
                     if (stack.progress >= 100) {
-                        BlockPos prevSet = null;
+                        long prevSet = Long.MAX_VALUE;
                         if (stack.hasPath()) {
                             int currentIndex = stack.getPath().indexOf(pos);
                             if (currentIndex == 0) { //Necessary for transition reasons, not sure why
                                 deletes.add(stackId);
                                 continue;
                             }
-                            BlockPos next = stack.getPath().get(currentIndex - 1);
-                            if (next != null) {
+                            long next = stack.getPath().getLong(currentIndex - 1);
+                            if (next != Long.MAX_VALUE) {
+                                BlockPos nextPos = BlockPos.of(next);
                                 if (!stack.isFinal(this)) {
                                     //If this is not the final transporter try transferring it to the next one
                                     ExtraLogisticalTransporterBase transmitter = (ExtraLogisticalTransporterBase) network.getTransmitter(next);
@@ -108,9 +110,9 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
                                     Direction side = stack.getSide(this).getOpposite();
                                     IItemHandler acceptor = network.getCachedAcceptor(next, side);
                                     if (acceptor == null && stack.getPathType().isHome()) {
-                                        acceptor = Capabilities.ITEM.getCapabilityIfLoaded(getLevel(), next, side);
+                                        acceptor = Capabilities.ITEM.getCapabilityIfLoaded(getLevel(), nextPos, side);
                                     }
-                                    TransitRequest.TransitResponse response = TransitRequest.simple(stack.itemStack).addToInventory(getLevel(), next, acceptor, 0,
+                                    TransitRequest.TransitResponse response = TransitRequest.simple(stack.itemStack).addToInventory(getLevel(), nextPos, acceptor, 0,
                                             stack.getPathType().isHome());
                                     if (!response.isEmpty()) {
                                         //We were able to add at least part of the stack to the inventory
@@ -132,7 +134,7 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
                         }
                         if (!recalculate(stackId, stack, prevSet)) {
                             deletes.add(stackId);
-                        } else if (prevSet == null) {
+                        } else if (prevSet == Long.MAX_VALUE) {
                             stack.progress = 50;
                         } else {
                             stack.progress = 0;
@@ -145,14 +147,14 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
                                 Direction side = stack.getSide(this);
                                 ConnectionType connectionType = getConnectionType(side);
                                 tryRecalculate = !connectionType.canSendTo() ||
-                                        !TransporterUtils.canInsert(getLevel(), stack.getDest(), stack.color, stack.itemStack, side, pathType.isHome());
+                                        !TransporterUtils.canInsert(getLevel(), BlockPos.of(stack.getDest()), stack.color, stack.itemStack, side, pathType.isHome());
                             } else {
                                 //Try to recalculate idles once they reach their destination
                                 tryRecalculate = true;
                             }
                         } else {
-                            BlockPos nextPos = stack.getNext(this);
-                            if (nextPos == null) {
+                            long nextPos = stack.getNext(this);
+                            if (nextPos == Long.MAX_VALUE) {
                                 tryRecalculate = true;
                             } else {
                                 Direction nextSide = stack.getSide(pos, nextPos);
@@ -167,7 +169,7 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
                                 }
                             }
                         }
-                        if (tryRecalculate && !recalculate(stackId, stack, null)) {
+                        if (tryRecalculate && !recalculate(stackId, stack, Long.MAX_VALUE)) {
                             deletes.add(stackId);
                         }
                     }
@@ -192,7 +194,7 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
         }
     }
 
-    private boolean recalculate(int stackId, TransporterStack stack, BlockPos from) {
+    private boolean recalculate(int stackId, TransporterStack stack, long from) {
         boolean noPath = stack.getPathType().noTarget() || stack.recalculatePath(TransitRequest.simple(stack.itemStack), this, 0).isEmpty();
         if (noPath && !stack.calculateIdle(this)) {
             TransporterUtils.drop(this, stack);
@@ -200,8 +202,8 @@ public class ExtraLogisticalTransporterBase extends LogisticalTransporterBase {
         }
 
         needsSync.put(stackId, stack);
-        if (from != null) {
-            stack.originalLocation = from;
+        if (from != Long.MAX_VALUE) {
+            stack.originalLocation = BlockPos.of(from);
         }
         return true;
     }

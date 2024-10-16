@@ -175,7 +175,7 @@ public class ExtraBlockTypes {
                 .withGui(() -> ExtraContainerTypes.EXTRA_CHEMICAL_TANK)
                 .withCustomShape(BlockShapes.CHEMICAL_TANK)
                 .with(new ExtraAttributeTier<>(tier), new ExtraAttributeUpgradeable(upgradeBlock))
-                .withSideConfig(TransmissionType.GAS, TransmissionType.INFUSION, TransmissionType.PIGMENT, TransmissionType.SLURRY, TransmissionType.ITEM)
+                .withSideConfig(TransmissionType.CHEMICAL, TransmissionType.ITEM)
                 .without(AttributeParticleFX.class, AttributeStateActive.class, AttributeUpgradeSupport.class)
                 .withComputerSupport(tier.getAdvanceTier().getLowerName() + "ChemicalTank")
                 .build();

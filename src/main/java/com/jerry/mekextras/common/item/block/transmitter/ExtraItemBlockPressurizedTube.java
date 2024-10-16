@@ -33,10 +33,7 @@ public class ExtraItemBlockPressurizedTube extends ItemBlockTooltip<BlockSmallTr
     protected void addDetails(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         super.addDetails(stack, context, tooltip, flag);
         tooltip.add(MekanismLang.CAPABLE_OF_TRANSFERRING.translateColored(EnumColor.DARK_GRAY));
-        tooltip.add(MekanismLang.GASES.translateColored(EnumColor.PURPLE, MekanismLang.MEKANISM));
-        tooltip.add(MekanismLang.INFUSE_TYPES.translateColored(EnumColor.PURPLE, MekanismLang.MEKANISM));
-        tooltip.add(MekanismLang.PIGMENTS.translateColored(EnumColor.PURPLE, MekanismLang.MEKANISM));
-        tooltip.add(MekanismLang.SLURRIES.translateColored(EnumColor.PURPLE, MekanismLang.MEKANISM));
+        tooltip.add(MekanismLang.CHEMICAL.translateColored(EnumColor.PURPLE, MekanismLang.MEKANISM));
     }
 
     @Override

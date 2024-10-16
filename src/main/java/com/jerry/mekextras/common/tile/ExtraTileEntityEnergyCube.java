@@ -69,7 +69,7 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
     @NotNull
     @Override
     protected IEnergyContainerHolder getInitialEnergyContainers(IContentsListener listener) {
-        EnergyContainerHelper builder = EnergyContainerHelper.forSideWithConfig(this::getDirection, this::getConfig);
+        EnergyContainerHelper builder = EnergyContainerHelper.forSideWithConfig(this);
         builder.addContainer(energyContainer = ExtraEnergyCubeEnergyContainer.create(tier, listener));
         return builder.build();
     }
@@ -77,7 +77,7 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
     @NotNull
     @Override
     protected IInventorySlotHolder getInitialInventory(IContentsListener listener) {
-        InventorySlotHelper builder = InventorySlotHelper.forSideWithConfig(this::getDirection, this::getConfig);
+        InventorySlotHelper builder = InventorySlotHelper.forSideWithConfig(this);
         builder.addSlot(dischargeSlot = EnergyInventorySlot.fillOrConvert(energyContainer, this::getLevel, listener, 17, 35));
         builder.addSlot(chargeSlot = EnergyInventorySlot.drain(energyContainer, listener, 143, 35));
         dischargeSlot.setSlotOverlay(SlotOverlay.MINUS);

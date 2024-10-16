@@ -160,10 +160,7 @@ public class ExtraTileEntityTypes {
     }
     private static TileEntityTypeRegistryObject<ExtraTileEntityPressurizedTube> registerTube(BlockRegistryObject<?, ?> block) {
         TileEntityTypeDeferredRegister.BlockEntityTypeBuilder<ExtraTileEntityPressurizedTube> builder = transmitterBuilder(block, ExtraTileEntityPressurizedTube::new)
-                .with(Capabilities.GAS.block(), CapabilityTileEntity.GAS_HANDLER_PROVIDER)
-                .with(Capabilities.INFUSION.block(), CapabilityTileEntity.INFUSION_HANDLER_PROVIDER)
-                .with(Capabilities.PIGMENT.block(), CapabilityTileEntity.PIGMENT_HANDLER_PROVIDER)
-                .with(Capabilities.SLURRY.block(), CapabilityTileEntity.SLURRY_HANDLER_PROVIDER);
+                .with(Capabilities.CHEMICAL.block(), CapabilityTileEntity.CHEMICAL_HANDLER_PROVIDER);
         if (Mekanism.hooks.computerCompatEnabled()) {
             ComputerCapabilityHelper.addComputerCapabilities(builder, ConstantPredicates.ALWAYS_TRUE);
         }
