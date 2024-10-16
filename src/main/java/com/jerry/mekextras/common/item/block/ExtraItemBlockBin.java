@@ -1,5 +1,6 @@
 package com.jerry.mekextras.common.item.block;
 
+import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.tier.BTier;
 import com.jerry.mekextras.common.inventory.slot.ExtraBinInventorySlot;
@@ -31,7 +32,7 @@ public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> impl
 
     @Override
     protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        ExtraBinInventorySlot slot = ExtraBinInventorySlot.getForStack(stack);
+        ExtraComponentBackedBinInventorySlot slot = ExtraBinInventorySlot.getForStack(stack);
         BTier tier = getAdvanceTier();
         if (slot != null && tier != null) {
             if (slot.isEmpty()) {
@@ -40,7 +41,8 @@ public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> impl
                 tooltip.add(MekanismLang.STORING.translateColored(EnumColor.BRIGHT_GREEN, EnumColor.GRAY, slot.getStack()));
                 tooltip.add(MekanismLang.ITEM_AMOUNT.translateColored(EnumColor.PURPLE, EnumColor.GRAY, TextUtils.format(slot.getCount())));
             }
-            if (slot.isLocked()) {
+            ItemStack lockStack = slot.getLockStack();
+            if (!lockStack.isEmpty()) {
                 tooltip.add(MekanismLang.LOCKED.translateColored(EnumColor.AQUA, EnumColor.GRAY, slot.getLockStack()));
             }
             tooltip.add(MekanismLang.CAPACITY_ITEMS.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(tier.getStorage())));

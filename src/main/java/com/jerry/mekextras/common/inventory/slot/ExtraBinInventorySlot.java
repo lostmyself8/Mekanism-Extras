@@ -1,5 +1,6 @@
 package com.jerry.mekextras.common.inventory.slot;
 
+import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockBin;
 import com.jerry.mekextras.common.tier.BTier;
 import mekanism.api.Action;
@@ -29,14 +30,14 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     private static final Predicate<@NotNull ItemStack> validator = stack -> !(stack.getItem() instanceof ExtraItemBlockBin) && !(stack.getItem() instanceof ItemBlockBin);
 
     @Nullable
-    public static ExtraBinInventorySlot getForStack(@NotNull ItemStack stack) {
+    public static ExtraComponentBackedBinInventorySlot getForStack(@NotNull ItemStack stack) {
         if (!stack.isEmpty() && stack.getItem() instanceof ExtraItemBlockBin) {
             IMekanismInventory attachment = ContainerType.ITEM.createHandler(stack);
             if (attachment != null) {
                 List<IInventorySlot> slots = attachment.getInventorySlots(null);
                 if (slots.size() == 1) {
                     IInventorySlot slot = slots.get(0);
-                    if (slot instanceof ExtraBinInventorySlot binSlot) {
+                    if (slot instanceof ExtraComponentBackedBinInventorySlot binSlot) {
                         return binSlot;
                     }
                 }
