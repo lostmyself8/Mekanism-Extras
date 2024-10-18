@@ -1,5 +1,9 @@
 # **Mekanism Extras**
 
+**[My CurseForge Link](https://www.curseforge.com/minecraft/mc-mods/mekanism-extras)**
+
+**[My Modrinth Link](https://modrinth.com/mod/mekanism_extra)**
+
 [//]: # ([![CurseForge Total Downloads][badge_curseforge]][curseforge])
 
 [//]: # ([![Modrinth Total Downloads][badge_modrinth]][modrinth])
