@@ -5,9 +5,9 @@
     "amount": 120,
     "tag": "minecraft:lava"
   },
-  "gas_input": {
+  "chemical_input": {
     "amount": 120,
-    "gas": "mekanism_extras:molten_thermonuclear"
+    "chemical": "mekanism_extras:molten_thermonuclear"
   },
   "item_input": {
     "count": 1,

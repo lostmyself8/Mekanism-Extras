@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.common.capabilities.heat.ExtraVariableHeatCapacitor;
-import com.jerry.mekextras.common.tier.TCTier;
+import com.jerry.mekextras.common.tier.transmitter.TCTier;
 import mekanism.api.SerializationConstants;
 import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IHeatHandler;

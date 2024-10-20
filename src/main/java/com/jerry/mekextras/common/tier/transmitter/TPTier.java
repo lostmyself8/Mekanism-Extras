@@ -1,4 +1,4 @@
-package com.jerry.mekextras.common.tier;
+package com.jerry.mekextras.common.tier.transmitter;
 
 import com.jerry.mekextras.common.config.ExtraConfig;
 import mekanism.common.tier.TransporterTier;

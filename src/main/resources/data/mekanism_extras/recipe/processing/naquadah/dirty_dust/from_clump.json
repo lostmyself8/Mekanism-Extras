@@ -1,11 +1,11 @@
 {
   "type": "mekanism:crushing",
   "input": {
-    "ingredient": {
-      "tag": "mekanism_extras:clumps/naquadah"
-    }
+    "count": 1,
+    "tag": "c:clumps/naquadah"
   },
   "output": {
-    "item": "mekanism_extras:dirty_dust_naquadah"
+    "count":1,
+    "id": "mekanism_extras:dirty_dust_naquadah"
   }
 }

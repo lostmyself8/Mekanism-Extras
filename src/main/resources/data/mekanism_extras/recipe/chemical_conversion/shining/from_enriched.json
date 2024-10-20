@@ -1,5 +1,5 @@
 {
-  "type": "mekanism:infusion_conversion",
+  "type": "mekanism:chemical_conversion",
   "input": {
     "count": 1,
     "item": "mekanism_extras:enriched_shining"

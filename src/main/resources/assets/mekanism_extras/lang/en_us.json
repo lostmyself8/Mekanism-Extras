@@ -103,21 +103,21 @@
   "block.mekanism_extras.lead_coated_laser_focus_matrix": "Lead Coated Laser Focus Matrix",
   "block.mekanism_extras.fissile_fuel": "Fissile Fuel",
 
-  "gas.mekanism_extras.molten_thermonuclear": "Molten Thermonuclear",
-  "gas.mekanism_extras.silicon_tetrafluoride": "silicon Tetrafluoride",
-  "gas.mekanism_extras.fluorinated_silicon_uranium_fuel": "Fluorinated Silicon Uranium Fuel",
-  "gas.mekanism_extras.silicon_uranium_fuel": "Silicon Uranium Fuel",
-  "gas.mekanism_extras.rich_silicon_liquid_fuel": "Rich Silicon Liquid Fuel",
-  "gas.mekanism_extras.rich_uranium_liquid_fuel": "Rich Uranium Liquid Fuel",
-  "gas.mekanism_extras.polonium-208": "Polonium-208",
-  "gas.mekanism_extras.spectrum_pigments": "Spectrum Pigments",
-  "infuse_type.mekanism_extras.radiance": "radiance",
-  "infuse_type.mekanism_extras.thermonuclear": "thermonuclear",
-  "infuse_type.mekanism_extras.shining": "shining",
-  "infuse_type.mekanism_extras.spectrum": "spectrum",
+  "chemical.mekanism_extras.molten_thermonuclear": "Molten Thermonuclear",
+  "chemical.mekanism_extras.silicon_tetrafluoride": "silicon Tetrafluoride",
+  "chemical.mekanism_extras.fluorinated_silicon_uranium_fuel": "Fluorinated Silicon Uranium Fuel",
+  "chemical.mekanism_extras.silicon_uranium_fuel": "Silicon Uranium Fuel",
+  "chemical.mekanism_extras.rich_silicon_liquid_fuel": "Rich Silicon Liquid Fuel",
+  "chemical.mekanism_extras.rich_uranium_liquid_fuel": "Rich Uranium Liquid Fuel",
+  "chemical.mekanism_extras.polonium-208": "Polonium-208",
 
-  "slurry.mekanism_extras.dirty_naquadah": "Dirty Naquadah Slurry",
-  "slurry.mekanism_extras.clean_naquadah": "Clean Naquadah Slurry",
+  "chemical.mekanism_extras.radiance": "radiance",
+  "chemical.mekanism_extras.thermonuclear": "thermonuclear",
+  "chemical.mekanism_extras.shining": "shining",
+  "chemical.mekanism_extras.spectrum": "spectrum",
+
+  "chemical.mekanism_extras.dirty_naquadah": "Dirty Naquadah Slurry",
+  "chemical.mekanism_extras.clean_naquadah": "Clean Naquadah Slurry",
 
   "container.mekanism_extras.advance_electric_pump": "Advance Electric Pump",
   "container.mekanism_extras.absolute_fluid_tank": "Absolute Fluid Tank",
@@ -137,6 +137,29 @@
   "description.mekanism_extras.naquadah_reactor_casing": "Radiation-proof framing that can be used in the Naquadah Reactor multiblock.",
   "description.mekanism_extras.naquadah_reactor_port": "A block of radiation-proof framing that is capable of managing both the gas and energy transfer of the Naquadah Reactor.",
   "description.mekanism_extras.naquadah_reactor_controller": "The controlling block for the entire Naquadah Reactor structure.",
+
+  "tag.item.mekanism_extras.alloys": "High Level Alloys",
+  "tag.item.mekanism_extras.alloys.radiance": "Radiance Alloys",
+  "tag.item.mekanism_extras.alloys.thermonuclear": "Thermonuclear Alloys",
+  "tag.item.mekanism_extras.alloys.shining": "Shining Alloys",
+  "tag.item.mekanism_extras.alloys.spectrum": "Spectrum Alloys",
+  "tag.item.c.alloys.absolute": "Absolute Alloys",
+  "tag.item.c.alloys.supreme": "Supreme Alloys",
+  "tag.item.c.alloys.cosmic": "Cosmic Alloys",
+  "tag.item.c.alloys.infinite": "Infinite Alloys",
+
+  "tag.item.mekanism_extras.enriched": "Enriched",
+  "tag.item.mekanism_extras.enriched.radiance": "Enriched Radiance",
+  "tag.item.mekanism_extras.enriched.thermonuclear": "Enriched Thermonuclear",
+  "tag.item.mekanism_extras.enriched.shining": "Enriched Shining",
+  "tag.item.mekanism_extras.enriched.spectrum": "Enriched Spectrum",
+
+  "tag.item.c.circuits.absolute": "Absolute Circuits",
+  "tag.item.c.circuits.supreme": "Supreme Circuits",
+  "tag.item.c.circuits.cosmic": "Cosmic Circuits",
+  "tag.item.c.circuits.infinite": "Infinite Circuits",
+
+  "tag.item.c.dusts.radiance": "Radiance Dusts",
 
   "plasma.mekanism_extras.hydrogen": "Hydrogen Plasma"
 }

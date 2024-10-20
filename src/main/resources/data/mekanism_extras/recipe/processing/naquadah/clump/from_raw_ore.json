@@ -2,7 +2,7 @@
   "type": "mekanism:purifying",
   "chemicalInput": {
     "amount": 1,
-    "gas": "mekanism:oxygen"
+    "chemical": "mekanism:oxygen"
   },
   "itemInput": {
     "ingredient": {

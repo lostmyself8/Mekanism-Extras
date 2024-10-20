@@ -6,15 +6,15 @@
     "amount": 500,
     "tag": "minecraft:lava"
   },
-  "gas_input": {
+  "chemical_input": {
     "amount": 500,
-    "gas": "mekanism:superheated_sodium"
+    "chemical": "mekanism:superheated_sodium"
   },
   "item_input": {
     "count": 1,
     "item": "minecraft:netherite_ingot"
   },
-  "gas_output": {
+  "chemical_output": {
     "amount": 240,
     "id": "mekanism_extras:molten_thermonuclear"
   }

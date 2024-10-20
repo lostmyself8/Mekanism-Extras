@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
-import com.jerry.mekextras.common.tier.CTier;
+import com.jerry.mekextras.common.tier.transmitter.CTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.SerializationConstants;
@@ -21,8 +21,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Set;
 
 public class ExtraUniversalCable extends UniversalCable implements IMekanismStrictEnergyHandler,
         IExtraUpgradeableTransmitter<UniversalCableUpgradeData> {

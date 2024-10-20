@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
-import com.jerry.mekextras.common.tier.PTier;
+import com.jerry.mekextras.common.tier.transmitter.PTier;
 import mekanism.api.Action;
 import mekanism.api.fluid.IMekanismFluidHandler;
 import mekanism.api.providers.IBlockProvider;
@@ -16,8 +16,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.*;
 
 public class ExtraMechanicalPipe extends MechanicalPipe implements IMekanismFluidHandler,
         IExtraUpgradeableTransmitter<MechanicalPipeUpgradeData> {

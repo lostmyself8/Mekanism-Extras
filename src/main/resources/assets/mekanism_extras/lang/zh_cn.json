@@ -103,21 +103,21 @@
   "block.mekanism_extras.lead_coated_laser_focus_matrix": "铅涂层激光聚焦矩阵",
   "block.mekanism_extras.fissile_fuel": "液态裂变燃料",
 
-  "gas.mekanism_extras.molten_thermonuclear": "熔融热核",
-  "gas.mekanism_extras.silicon_tetrafluoride": "四氟化硅",
-  "gas.mekanism_extras.fluorinated_silicon_uranium_fuel": "含氟硅铀燃料",
-  "gas.mekanism_extras.silicon_uranium_fuel": "硅铀燃料",
-  "gas.mekanism_extras.rich_silicon_liquid_fuel": "富硅液体燃料",
-  "gas.mekanism_extras.rich_uranium_liquid_fuel": "富铀液体燃料",
-  "gas.mekanism_extras.polonium-208": "钋-208",
-  "gas.mekanism_extras.spectrum_pigments": "光谱颜料",
-  "infuse_type.mekanism_extras.radiance": "辐光",
-  "infuse_type.mekanism_extras.thermonuclear": "热核",
-  "infuse_type.mekanism_extras.shining": "闪耀",
-  "infuse_type.mekanism_extras.spectrum": "光谱",
+  "chemical.mekanism_extras.molten_thermonuclear": "熔融热核",
+  "chemical.mekanism_extras.silicon_tetrafluoride": "四氟化硅",
+  "chemical.mekanism_extras.fluorinated_silicon_uranium_fuel": "含氟硅铀燃料",
+  "chemical.mekanism_extras.silicon_uranium_fuel": "硅铀燃料",
+  "chemical.mekanism_extras.rich_silicon_liquid_fuel": "富硅液体燃料",
+  "chemical.mekanism_extras.rich_uranium_liquid_fuel": "富铀液体燃料",
+  "chemical.mekanism_extras.polonium-208": "钋-208",
 
-  "slurry.mekanism_extras.dirty_naquadah": "污浊硅岩浆液",
-  "slurry.mekanism_extras.clean_naquadah": "纯净硅岩浆液",
+  "chemical.mekanism_extras.radiance": "辐光",
+  "chemical.mekanism_extras.thermonuclear": "热核",
+  "chemical.mekanism_extras.shining": "闪耀",
+  "chemical.mekanism_extras.spectrum": "光谱",
+
+  "chemical.mekanism_extras.dirty_naquadah": "污浊硅岩浆液",
+  "chemical.mekanism_extras.clean_naquadah": "纯净硅岩浆液",
 
   "container.mekanism_extras.advance_electric_pump": "先进电动泵",
   "container.mekanism_extras.absolute_fluid_tank": "绝对流体储罐",
@@ -137,6 +137,29 @@
   "description.mekanism_extras.naquadah_reactor_casing": "能用于硅岩反应堆的防辐射外壳",
   "description.mekanism_extras.naquadah_reactor_port": "一个防辐射的框架方块，能处理硅岩反应堆中气体和能量的输送",
   "description.mekanism_extras.naquadah_reactor_controller": "整个硅岩反应堆结构的控制方块",
+
+  "tag.item.mekanism_extras.alloys": "高阶合金",
+  "tag.item.mekanism_extras.alloys.radiance": "辐光合金",
+  "tag.item.mekanism_extras.alloys.thermonuclear": "热核合金",
+  "tag.item.mekanism_extras.alloys.shining": "闪耀合金",
+  "tag.item.mekanism_extras.alloys.spectrum": "光谱合金",
+  "tag.item.c.alloys.absolute": "绝对合金",
+  "tag.item.c.alloys.supreme": "至尊合金",
+  "tag.item.c.alloys.cosmic": "寰宇支配合金",
+  "tag.item.c.alloys.infinite": "悖论无限合金",
+
+  "tag.item.mekanism_extras.enriched": "富集",
+  "tag.item.mekanism_extras.enriched.radiance": "富集辐光",
+  "tag.item.mekanism_extras.enriched.thermonuclear": "富集热核",
+  "tag.item.mekanism_extras.enriched.shining": "富集闪耀",
+  "tag.item.mekanism_extras.enriched.spectrum": "富集光谱",
+
+  "tag.item.c.circuits.absolute": "绝对电路",
+  "tag.item.c.circuits.supreme": "至尊电路",
+  "tag.item.c.circuits.cosmic": "寰宇支配电路",
+  "tag.item.c.circuits.infinite": "悖论无限电路",
+
+  "tag.item.c.dusts.radiance": "辐光粉",
 
   "plasma.mekanism_extras.hydrogen": "氢等离子体"
 }

@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.item.block.transmitter;
 
-import com.jerry.mekextras.common.tier.TPTier;
+import com.jerry.mekextras.common.tier.transmitter.TPTier;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityLogisticalTransporter;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;

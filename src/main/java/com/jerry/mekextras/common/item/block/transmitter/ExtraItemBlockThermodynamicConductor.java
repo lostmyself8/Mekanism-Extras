@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.item.block.transmitter;
 
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityThermodynamicConductor;
-import com.jerry.mekextras.common.tier.TCTier;
+import com.jerry.mekextras.common.tier.transmitter.TCTier;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;

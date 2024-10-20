@@ -1,8 +1,8 @@
 {
-  "type": "mekanism:infusion_conversion",
+  "type": "mekanism:chemical_conversion",
   "input": {
     "count": 1,
-    "item": "mekanism_extras:dust_radiance"
+    "tag": "c:dusts/dust_radiance"
   },
   "output": {
     "amount": 10,

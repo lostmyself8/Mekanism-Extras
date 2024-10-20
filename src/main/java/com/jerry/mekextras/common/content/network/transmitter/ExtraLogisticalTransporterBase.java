@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
-import com.jerry.mekextras.common.tier.TPTier;
+import com.jerry.mekextras.common.tier.transmitter.TPTier;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
