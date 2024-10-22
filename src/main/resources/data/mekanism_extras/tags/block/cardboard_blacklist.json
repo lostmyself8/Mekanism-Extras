@@ -1,7 +1,5 @@
 {
   "values": [
-    "#c:relocation_not_supported",
-    "#minecraft:beds",
-    "#minecraft:doors"
+    "#c:relocation_not_supported"
   ]
 }
