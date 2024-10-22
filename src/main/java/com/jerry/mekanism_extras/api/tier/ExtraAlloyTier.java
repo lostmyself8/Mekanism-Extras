@@ -1,24 +1,24 @@
 package com.jerry.mekanism_extras.api.tier;
 
-import lombok.Getter;
+public enum ExtraAlloyTier implements IAdvanceTier{
+    THERMONUCLEAR("thermonuclear", AdvanceTier.SUPREME),
+    SHINING("shining", AdvanceTier.COSMIC),
+    SPECTRUM("spectrum", AdvanceTier.INFINITE);
 
-public enum ExtraAlloyTier implements IAdvancedTier {
-
-    THERMONUCLEAR("thermonuclear", AdvancedTier.SUPREME),
-    SHINING("shining", AdvancedTier.COSMIC),
-    SPECTRUM("spectrum", AdvancedTier.INFINITE);
-
-    @Getter
     public final String name;
-    public final AdvancedTier advancedTier;
+    public final AdvanceTier advanceTier;
 
-    ExtraAlloyTier(String name, AdvancedTier tier) {
-        this.advancedTier = tier;
+    ExtraAlloyTier(String name, AdvanceTier tier) {
+        this.advanceTier = tier;
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
-    public AdvancedTier getAdvanceTier() {
-        return advancedTier;
+    public AdvanceTier getAdvanceTier() {
+        return advanceTier;
     }
 }

@@ -1,18 +1,27 @@
 package com.jerry.mekanism_extras.common.tier;
 
-import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
+import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
 
 public class TierColor {
+    private static final int[] cosmicColor = new int[]{255, 255, 255};
+    private static final int[] infiniteColor = new int[]{1, 2, 3};
 
-    private static final int[] cosmicColor = new int[] { 255, 255, 255 };
-    private static final int[] infiniteColor = new int[] { 1, 2, 3 };
-
-    public static float[] getColor(IAdvancedTier tier) {
+    public static float[] getColor(IAdvanceTier tier) {
         return switch (tier.getAdvanceTier()) {
-            case ABSOLUTE -> new float[] { 255 / 255.0F, 255 / 255.0F, 0 / 255.0F };
-            case SUPREME -> new float[] { 255 / 255.0F, 0 / 255.0F, 0 / 255.0F };
-            case COSMIC -> new float[] { cosmicColor[0] / 255.0F, cosmicColor[1] / 255.0F, cosmicColor[2] / 255.0F };
-            case INFINITE -> new float[] { infiniteColor[0] / 255.0F, infiniteColor[1] / 255.0F, infiniteColor[2] / 255.0F };
+            case ABSOLUTE -> new float[]{255/255.0F, 255/255.0F, 0/255.0F};
+            case SUPREME -> new float[]{255/255.0F, 0/255.0F, 0/255.0F};
+            case COSMIC -> new float[]{cosmicColor[0]/255.0F, cosmicColor[1]/255.0F, cosmicColor[2]/255.0F};
+            case INFINITE -> new float[]{infiniteColor[0]/255.0F, infiniteColor[1]/255.0F, infiniteColor[2]/255.0F};
+        };
+    }
+
+    public static int[] getColor(int tier) {
+        return switch (tier) {
+            case 0 -> new int[]{1, 1, 0/255};
+            case 1 -> new int[]{1, 0/255, 0/255};
+            case 2 -> new int[]{(int) (cosmicColor[0]/255.0F), (int) (cosmicColor[1]/255.0F), (int) (cosmicColor[2]/255.0F)};
+            case 3 -> new int[]{(int) (infiniteColor[0]/255.0F), (int) (infiniteColor[1]/255.0F), (int) (infiniteColor[2]/255.0F)};
+            default -> throw new IllegalStateException("Unexpected value: " + tier);
         };
     }
 
@@ -21,8 +30,8 @@ public class TierColor {
         editInfiniteColor();
     }
 
-    private static final int[] startColor = new int[] { 255, 255, 255 };
-    private static final int[] endColor = new int[] { 255, 70, 235 };
+    private static final int[] startColor = new int[]{255, 255, 255};
+    private static final int[] endColor = new int[]{255, 70, 235};
     private static double tCosmic = 0.0;
     private static final double deltaTCosmic = 0.01;
     private static int direction = 1;
@@ -41,6 +50,7 @@ public class TierColor {
             direction = 1;
         }
     }
+
 
     private static double tInfinite = 0.0;
     private static final double deltaTInfinite = 0.01;

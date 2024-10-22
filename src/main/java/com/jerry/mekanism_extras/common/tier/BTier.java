@@ -1,36 +1,34 @@
 package com.jerry.mekanism_extras.common.tier;
 
-import com.jerry.mekanism_extras.api.tier.AdvancedTier;
-import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
-
+import com.jerry.mekanism_extras.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
 import mekanism.common.config.value.CachedIntValue;
 
-import lombok.Getter;
+public enum BTier implements IAdvanceTier {
+    ABSOLUTE(AdvanceTier.ABSOLUTE, 2_097_152),
+    SUPREME(AdvanceTier.SUPREME, 16_777_216),
+    COSMIC(AdvanceTier.COSMIC, 134_217_728),
+    INFINITE(AdvanceTier.INFINITE, 1_073_741_824);
 
-public enum BTier implements IAdvancedTier {
-
-    ABSOLUTE(AdvancedTier.ABSOLUTE, 1_048_576),// x4
-    SUPREME(AdvancedTier.SUPREME, 8_388_608),// x8
-    COSMIC(AdvancedTier.COSMIC, 134_217_728),// x16
-    INFINITE(AdvancedTier.INFINITE, Integer.MAX_VALUE); // x16
-
-    @Getter
     private final int advanceStorage;
-    private final AdvancedTier advancedTier;
+    private final AdvanceTier advanceTier;
     private CachedIntValue storageReference;
-
-    BTier(AdvancedTier tier, int s) {
-        advancedTier = tier;
-        advanceStorage = s;
+    BTier(AdvanceTier advanceTier, int i) {
+        this.advanceTier = advanceTier;
+        this.advanceStorage = i;
     }
 
     @Override
-    public AdvancedTier getAdvanceTier() {
-        return advancedTier;
+    public AdvanceTier getAdvanceTier() {
+        return advanceTier;
     }
 
     public int getStorage() {
         return storageReference == null ? getAdvanceStorage() : storageReference.getOrDefault();
+    }
+
+    public int getAdvanceStorage() {
+        return advanceStorage;
     }
 
     /**

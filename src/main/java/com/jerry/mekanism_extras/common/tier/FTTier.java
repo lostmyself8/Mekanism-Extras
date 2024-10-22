@@ -1,36 +1,30 @@
 package com.jerry.mekanism_extras.common.tier;
 
-import com.jerry.mekanism_extras.api.tier.AdvancedTier;
-import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
-
+import com.jerry.mekanism_extras.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
 import mekanism.common.config.value.CachedIntValue;
 
-import lombok.Getter;
+public enum FTTier implements IAdvanceTier {
+    ABSOLUTE(AdvanceTier.ABSOLUTE, 4_096_000, 2_048_000),
+    SUPREME(AdvanceTier.SUPREME, 32_768_000, 16_384_000),
+    COSMIC(AdvanceTier.COSMIC, 262_144_000, 131_072_000),
+    INFINITE(AdvanceTier.INFINITE, 2_097_152_000, 1_048_576_000);
 
-public enum FTTier implements IAdvancedTier {
-
-    ABSOLUTE(AdvancedTier.ABSOLUTE, 4_096_000, 2_048_000),// x16
-    SUPREME(AdvancedTier.SUPREME, 32_768_000, 16_384_000),// x8
-    COSMIC(AdvancedTier.COSMIC, 262_144_000, 131_072_000),// x8
-    INFINITE(AdvancedTier.INFINITE, 2_097_152_000, 1_048_576_000);// x8
-
-    @Getter
     private final int advanceStorage;
-    @Getter
     private final int advanceOutput;
-    private final AdvancedTier advancedTier;
+    private final AdvanceTier advanceTier;
     private CachedIntValue storageReference;
     private CachedIntValue outputReference;
 
-    FTTier(AdvancedTier tier, int s, int o) {
+    FTTier(AdvanceTier tier, int s, int o) {
         advanceStorage = s;
         advanceOutput = o;
-        advancedTier = tier;
+        advanceTier = tier;
     }
 
     @Override
-    public AdvancedTier getAdvanceTier() {
-        return advancedTier;
+    public AdvanceTier getAdvanceTier() {
+        return advanceTier;
     }
 
     public int getStorage() {
@@ -41,6 +35,17 @@ public enum FTTier implements IAdvancedTier {
         return outputReference == null ? getAdvanceOutput() : outputReference.getOrDefault();
     }
 
+    public int getAdvanceStorage() {
+        return advanceStorage;
+    }
+
+    public int getAdvanceOutput() {
+        return advanceOutput;
+    }
+
+    /**
+     * ONLY CALL THIS FROM TierConfig. It is used to give the FluidTankTier a reference to the actual config value object
+     */
     public void setConfigReference(CachedIntValue storageReference, CachedIntValue outputReference) {
         this.storageReference = storageReference;
         this.outputReference = outputReference;

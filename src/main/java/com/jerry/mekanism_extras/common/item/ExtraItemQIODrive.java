@@ -1,54 +1,51 @@
 package com.jerry.mekanism_extras.common.item;
 
-import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
-
+import com.jerry.mekanism_extras.common.tier.QIODriveAdvanceTier;
 import mekanism.api.text.EnumColor;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.MekanismLang;
+import mekanism.common.attachments.qio.DriveMetadata;
 import mekanism.common.content.qio.IQIODriveItem;
+import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.text.TextUtils;
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class ExtraItemQIODrive extends Item implements IQIODriveItem {
+    private final QIODriveAdvanceTier tier;
 
-    private final ExtraQIODriverTier tier;
-
-    public ExtraItemQIODrive(ExtraQIODriverTier tier, Properties properties) {
+    public ExtraItemQIODrive(QIODriveAdvanceTier tier, Properties properties) {
         super(properties.stacksTo(1));
         this.tier = tier;
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, List<Component> components, @NotNull TooltipFlag tooltipFlag) {
-        DriveMetadata meta = DriveMetadata.load(itemStack);
-        components.add(MekanismLang.QIO_ITEMS_DETAIL.translateColored(EnumColor.GRAY, EnumColor.INDIGO,
-                TextUtils.format(meta.count()), TextUtils.format(getCountCapacity(itemStack))));
-        components.add(MekanismLang.QIO_TYPES_DETAIL.translateColored(EnumColor.GRAY, EnumColor.INDIGO,
-                TextUtils.format(meta.types()), TextUtils.format(getTypeCapacity(itemStack))));
+    public void appendHoverText(@NotNull ItemStack stack, Item.@NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        DriveMetadata meta = stack.getOrDefault(MekanismDataComponents.DRIVE_METADATA, DriveMetadata.EMPTY);
+        tooltip.add(MekanismLang.QIO_ITEMS_DETAIL.translateColored(EnumColor.GRAY, EnumColor.INDIGO,
+                TextUtils.format(meta.count()), TextUtils.format(getCountCapacity(stack))));
+        tooltip.add(MekanismLang.QIO_TYPES_DETAIL.translateColored(EnumColor.GRAY, EnumColor.INDIGO,
+                TextUtils.format(meta.types()), TextUtils.format(getTypeCapacity(stack))));
     }
 
+    @NotNull
     @Override
-    public @NotNull Component getName(@NotNull ItemStack itemStack) {
-        return TextComponentUtil.build(this.tier.getBaseTier().getColor(), super.getName(itemStack));
+    public Component getName(@NotNull ItemStack stack) {
+        return TextComponentUtil.build(tier.getAdvanceTier().getColor(), super.getName(stack));
     }
 
     @Override
     public long getCountCapacity(ItemStack stack) {
-        return this.tier.getMaxCount();
+        return tier.getCount();
     }
 
     @Override
     public int getTypeCapacity(ItemStack stack) {
-        return this.tier.getMaxTypes();
+        return tier.getTypes();
     }
 }

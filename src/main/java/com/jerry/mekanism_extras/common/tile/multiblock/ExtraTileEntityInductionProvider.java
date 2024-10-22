@@ -1,11 +1,9 @@
 package com.jerry.mekanism_extras.common.tile.multiblock;
 
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.tier.IPTier;
-
 import mekanism.api.providers.IBlockProvider;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.tile.prefab.TileEntityInternalMultiblock;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -20,6 +18,6 @@ public class ExtraTileEntityInductionProvider extends TileEntityInternalMultiblo
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = Attribute.getTier(getBlockType(), IPTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockType(), IPTier.class);
     }
 }

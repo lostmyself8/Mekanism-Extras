@@ -1,31 +1,25 @@
 package com.jerry.mekanism_extras.common.item.block.transmitter;
 
-import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockThermodynamicConductor;
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityThermodynamicConductor;
 import com.jerry.mekanism_extras.common.tier.transmitter.TCTier;
-
 import mekanism.api.text.EnumColor;
-import mekanism.client.key.MekKeyHandler;
-import mekanism.client.key.MekanismKeyHandler;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
-import mekanism.common.item.block.ItemBlockMekanism;
+import mekanism.common.block.transmitter.BlockSmallTransmitter;
+import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.tier.ConductorTier;
-
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
 
-public class ExtraItemBlockThermodynamicConductor extends ItemBlockMekanism<ExtraBlockThermodynamicConductor> {
-
-    public ExtraItemBlockThermodynamicConductor(ExtraBlockThermodynamicConductor block) {
-        super(block, new Item.Properties());
+public class ExtraItemBlockThermodynamicConductor extends ItemBlockTooltip<BlockSmallTransmitter<ExtraTileEntityThermodynamicConductor>> {
+    public ExtraItemBlockThermodynamicConductor(BlockSmallTransmitter<ExtraTileEntityThermodynamicConductor> block, Properties properties) {
+        super(block, true, properties);
     }
 
     @NotNull
@@ -35,15 +29,18 @@ public class ExtraItemBlockThermodynamicConductor extends ItemBlockMekanism<Extr
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        if (MekKeyHandler.isKeyPressed(MekanismKeyHandler.detailsKey)) {
-            tooltip.add(MekanismLang.CAPABLE_OF_TRANSFERRING.translateColored(EnumColor.DARK_GRAY));
-            tooltip.add(MekanismLang.HEAT.translateColored(EnumColor.PURPLE, MekanismLang.MEKANISM));
-        } else {
-            tooltip.add(MekanismLang.CONDUCTION.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TCTier.getConduction(this.getTier())));
-            tooltip.add(MekanismLang.INSULATION.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TCTier.getConductionInsulation(this.getTier())));
-            tooltip.add(MekanismLang.HEAT_CAPACITY.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TCTier.getHeatCapacity(this.getTier())));
-            tooltip.add(MekanismLang.HOLD_FOR_DETAILS.translateColored(EnumColor.GRAY, EnumColor.INDIGO, MekanismKeyHandler.detailsKey.getTranslatedKeyMessage()));
-        }
+    protected void addDetails(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        super.addDetails(stack, context, tooltip, flag);
+        tooltip.add(MekanismLang.CAPABLE_OF_TRANSFERRING.translateColored(EnumColor.DARK_GRAY));
+        tooltip.add(MekanismLang.HEAT.translateColored(EnumColor.PURPLE, MekanismLang.MEKANISM));
+    }
+
+    @Override
+    protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        super.addStats(stack, context, tooltip, flag);
+        ConductorTier tier = getTier();
+        tooltip.add(MekanismLang.CONDUCTION.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TCTier.getConduction(tier)));
+        tooltip.add(MekanismLang.INSULATION.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TCTier.getConductionInsulation(tier)));
+        tooltip.add(MekanismLang.HEAT_CAPACITY.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TCTier.getHeatCapacity(tier)));
     }
 }

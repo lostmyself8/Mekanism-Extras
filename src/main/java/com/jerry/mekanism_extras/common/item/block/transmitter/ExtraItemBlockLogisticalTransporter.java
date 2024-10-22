@@ -1,47 +1,43 @@
 package com.jerry.mekanism_extras.common.item.block.transmitter;
 
-import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockLogisticalTransporter;
 import com.jerry.mekanism_extras.common.tier.transmitter.TPTier;
-
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityLogisticalTransporter;
 import mekanism.api.text.EnumColor;
-import mekanism.client.key.MekKeyHandler;
-import mekanism.client.key.MekanismKeyHandler;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
-import mekanism.common.item.block.ItemBlockMekanism;
+import mekanism.common.block.transmitter.BlockLargeTransmitter;
 import mekanism.common.tier.TransporterTier;
-
+import mekanism.common.util.MekanismUtils;
+import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.TickRateManager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
 
-import javax.annotation.Nonnull;
-
-public class ExtraItemBlockLogisticalTransporter extends ItemBlockMekanism<ExtraBlockLogisticalTransporter> {
-
-    public ExtraItemBlockLogisticalTransporter(ExtraBlockLogisticalTransporter block) {
-        super(block, new Item.Properties());
+public class ExtraItemBlockLogisticalTransporter extends ExtraItemBlockTransporter<ExtraTileEntityLogisticalTransporter> {
+    public ExtraItemBlockLogisticalTransporter(BlockLargeTransmitter<ExtraTileEntityLogisticalTransporter> block, Properties properties) {
+        super(block, properties);
     }
 
-    @Nonnull
+    @NotNull
+    @Override
     public TransporterTier getTier() {
-        return Objects.requireNonNull(Attribute.getTier(this.getBlock(), TransporterTier.class));
+        return Objects.requireNonNull(Attribute.getTier(getBlock(), TransporterTier.class));
     }
 
-    public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        if (MekKeyHandler.isKeyPressed(MekanismKeyHandler.detailsKey)) {
-            tooltip.add(MekanismLang.CAPABLE_OF_TRANSFERRING.translateColored(EnumColor.DARK_GRAY));
-            tooltip.add(MekanismLang.ITEMS.translateColored(EnumColor.PURPLE, MekanismLang.UNIVERSAL));
-            tooltip.add(MekanismLang.BLOCKS.translateColored(EnumColor.PURPLE, MekanismLang.UNIVERSAL));
-        } else {
-            tooltip.add(MekanismLang.SPEED.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TPTier.getSpeed(this.getTier()) / 5));
-            tooltip.add(MekanismLang.PUMP_RATE.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TPTier.getPullAmount(this.getTier()) * 2));
-            tooltip.add(MekanismLang.HOLD_FOR_DETAILS.translateColored(EnumColor.GRAY, EnumColor.INDIGO, MekanismKeyHandler.detailsKey.getTranslatedKeyMessage()));
-        }
+    @Override
+    protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        super.addStats(stack, context, tooltip, flag);
+        TransporterTier tier = getTier();
+        float tickRate = Math.max(context.tickRate(), TickRateManager.MIN_TICKRATE);
+        float speed = TPTier.getSpeed(tier) / (5 * SharedConstants.TICKS_PER_SECOND / tickRate);
+        float pull = TPTier.getPullAmount(tier) * tickRate / MekanismUtils.TICKS_PER_HALF_SECOND;
+        tooltip.add(MekanismLang.SPEED.translateColored(EnumColor.INDIGO, EnumColor.GRAY, speed));
+        tooltip.add(MekanismLang.PUMP_RATE.translateColored(EnumColor.INDIGO, EnumColor.GRAY, pull));
     }
 }

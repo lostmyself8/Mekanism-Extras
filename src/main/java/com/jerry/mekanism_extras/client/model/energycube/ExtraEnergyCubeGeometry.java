@@ -1,32 +1,42 @@
 package com.jerry.mekanism_extras.client.model.energycube;
 
+import com.mojang.math.Transformation;
 import mekanism.api.RelativeSide;
 import mekanism.client.render.lib.QuadTransformation;
 import mekanism.client.render.lib.QuadUtils;
-
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.*;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBaker;
+import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.RenderTypeGroup;
-import net.minecraftforge.client.model.SimpleModelState;
-import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
-import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
-
-import com.mojang.math.Transformation;
+import net.neoforged.neoforge.client.RenderTypeGroup;
+import net.neoforged.neoforge.client.model.SimpleModelState;
+import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
+import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
 
-public record ExtraEnergyCubeGeometry(List<BlockElement> frame, Map<RelativeSide, List<BlockElement>> leds,
-                                      Map<RelativeSide, List<BlockElement>> ports)
-        implements IUnbakedGeometry<ExtraEnergyCubeGeometry> {
+public class ExtraEnergyCubeGeometry implements IUnbakedGeometry<ExtraEnergyCubeGeometry> {
+
+    private final List<BlockElement> frame;
+    private final Map<RelativeSide, List<BlockElement>> leds;
+    private final Map<RelativeSide, List<BlockElement>> ports;
+
+    ExtraEnergyCubeGeometry(List<BlockElement> frame, Map<RelativeSide, List<BlockElement>> leds, Map<RelativeSide, List<BlockElement>> ports) {
+        this.frame = frame;
+        this.leds = leds;
+        this.ports = ports;
+    }
 
     @Override
-    public BakedModel bake(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState,
-                           ItemOverrides overrides, ResourceLocation modelLocation) {
+    public @NotNull BakedModel bake(IGeometryBakingContext context, @NotNull ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, @NotNull ModelState modelState,
+                                    @NotNull ItemOverrides overrides) {
         TextureAtlasSprite particle = spriteGetter.apply(context.getMaterial("particle"));
 
         ResourceLocation renderTypeHint = context.getRenderTypeHint();
@@ -37,32 +47,31 @@ public record ExtraEnergyCubeGeometry(List<BlockElement> frame, Map<RelativeSide
             modelState = new SimpleModelState(modelState.getRotation().compose(rootTransform), modelState.isUvLocked());
         }
         Function<String, TextureAtlasSprite> rawSpriteGetter = spriteGetter.compose(context::getMaterial);
-        FaceData frame = bakeElement(rawSpriteGetter, modelState, modelLocation, this.frame);
-        Map<RelativeSide, FaceData> leds = bakeElements(rawSpriteGetter, modelState, modelLocation, this.leds);
-        Map<RelativeSide, FaceData> ports = bakeElements(rawSpriteGetter, modelState, modelLocation, this.ports);
+        FaceData frame = bakeElement(rawSpriteGetter, modelState, this.frame);
+        Map<RelativeSide, FaceData> leds = bakeElements(rawSpriteGetter, modelState, this.leds);
+        Map<RelativeSide, FaceData> ports = bakeElements(rawSpriteGetter, modelState, this.ports);
         return new ExtraEnergyCubeBakedModel(context.useAmbientOcclusion(), context.useBlockLight(), context.isGui3d(), context.getTransforms(), overrides, particle, frame, leds, ports,
                 renderTypes);
     }
 
-    private Map<RelativeSide, FaceData> bakeElements(Function<String, TextureAtlasSprite> spriteGetter, ModelState modelState,
-                                                     ResourceLocation modelLocation, Map<RelativeSide, List<BlockElement>> sideBasedElements) {
+    private Map<RelativeSide, FaceData> bakeElements(Function<String, TextureAtlasSprite> spriteGetter, ModelState modelState, Map<RelativeSide, List<BlockElement>> sideBasedElements) {
         Map<RelativeSide, FaceData> sideBasedFaceData = new EnumMap<>(RelativeSide.class);
         for (Map.Entry<RelativeSide, List<BlockElement>> entry : sideBasedElements.entrySet()) {
-            FaceData faceData = bakeElement(spriteGetter, modelState, modelLocation, entry.getValue());
+            FaceData faceData = bakeElement(spriteGetter, modelState, entry.getValue());
             sideBasedFaceData.put(entry.getKey(), faceData);
         }
         return sideBasedFaceData;
     }
 
-    private FaceData bakeElement(Function<String, TextureAtlasSprite> spriteGetter, ModelState modelState, ResourceLocation modelLocation, List<BlockElement> elements) {
+    private FaceData bakeElement(Function<String, TextureAtlasSprite> spriteGetter, ModelState modelState, List<BlockElement> elements) {
         FaceData data = new FaceData();
         for (BlockElement element : elements) {
             for (Map.Entry<Direction, BlockElementFace> faceEntry : element.faces.entrySet()) {
                 BlockElementFace face = faceEntry.getValue();
-                TextureAtlasSprite sprite = spriteGetter.apply(face.texture);
-                // noinspection ConstantConditions (can be null)
-                Direction direction = face.cullForDirection == null ? null : modelState.getRotation().rotateTransform(face.cullForDirection);
-                data.addFace(direction, BlockModel.bakeFace(element, face, sprite, faceEntry.getKey(), modelState, modelLocation));
+                TextureAtlasSprite sprite = spriteGetter.apply(face.texture());
+                //noinspection ConstantConditions (can be null)
+                Direction direction = face.cullForDirection() == null ? null : modelState.getRotation().rotateTransform(face.cullForDirection());
+                data.addFace(direction, BlockModel.bakeFace(element, face, sprite, faceEntry.getKey(), modelState));
             }
         }
         return data;

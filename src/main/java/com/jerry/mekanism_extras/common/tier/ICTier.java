@@ -1,45 +1,45 @@
 package com.jerry.mekanism_extras.common.tier;
 
-import mekanism.api.math.FloatingLong;
-import mekanism.api.tier.BaseTier;
-import mekanism.api.tier.ITier;
-import mekanism.common.config.value.CachedFloatingLongValue;
-
-import lombok.Getter;
+import com.jerry.mekanism_extras.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
+import mekanism.api.annotations.NothingNullByDefault;
+import mekanism.common.config.value.CachedLongValue;
 import org.jetbrains.annotations.Nullable;
 
-public enum ICTier implements ITier {
+@NothingNullByDefault
+public enum ICTier implements IAdvanceTier {
+    ABSOLUTE(AdvanceTier.ABSOLUTE, 32_768_000_000_000L),
+    SUPREME(AdvanceTier.SUPREME, 262_144_000_000_000L),
+    COSMIC(AdvanceTier.COSMIC, 2_097_152_000_000_000L),
+    INFINITE(AdvanceTier.INFINITE, Long.MAX_VALUE);
 
-    ABSOLUTE(BaseTier.BASIC, FloatingLong.createConst(32_768_000_000_000L)),
-    SUPREME(BaseTier.ADVANCED, FloatingLong.createConst(262_144_000_000_000L)),
-    COSMIC(BaseTier.ELITE, FloatingLong.createConst(2_097_152_000_000_000L)),
-    INFINITE(BaseTier.ULTIMATE, FloatingLong.createConst(Long.MAX_VALUE));
-
-    @Getter
-    private final FloatingLong baseMaxEnergy;
-    private final BaseTier baseTier;
+    private final long advanceMaxEnergy;
+    private final AdvanceTier advanceTier;
     @Nullable
-    private CachedFloatingLongValue storageReference;
+    private CachedLongValue storageReference;
 
-    ICTier(BaseTier tier, FloatingLong max) {
-        baseMaxEnergy = max;
-        baseTier = tier;
+    ICTier(AdvanceTier tier, long max) {
+        advanceMaxEnergy = max;
+        advanceTier = tier;
     }
 
     @Override
-    public BaseTier getBaseTier() {
-        return baseTier;
+    public AdvanceTier getAdvanceTier() {
+        return advanceTier;
     }
 
-    public FloatingLong getMaxEnergy() {
-        return storageReference == null ? getBaseMaxEnergy() : storageReference.getOrDefault();
+    public long getMaxEnergy() {
+        return storageReference == null ? getAdvanceMaxEnergy() : storageReference.getOrDefault();
+    }
+
+    public long getAdvanceMaxEnergy() {
+        return advanceMaxEnergy;
     }
 
     /**
-     * ONLY CALL THIS FROM TierConfig. It is used to give the InductionCellTier a reference to the actual config value
-     * object
+     * ONLY CALL THIS FROM TierConfig. It is used to give the InductionCellTier a reference to the actual config value object
      */
-    public void setConfigReference(CachedFloatingLongValue storageReference) {
+    public void setConfigReference(CachedLongValue storageReference) {
         this.storageReference = storageReference;
     }
 }

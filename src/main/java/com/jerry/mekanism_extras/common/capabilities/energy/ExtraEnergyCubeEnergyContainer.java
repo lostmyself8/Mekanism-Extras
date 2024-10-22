@@ -1,48 +1,51 @@
 package com.jerry.mekanism_extras.common.capabilities.energy;
 
 import com.jerry.mekanism_extras.common.tier.ECTier;
-
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
-import mekanism.api.annotations.NothingNullByDefault;
-import mekanism.api.math.FloatingLong;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
-
-import net.minecraft.MethodsReturnNonnullByDefault;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.function.LongSupplier;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@NothingNullByDefault
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class ExtraEnergyCubeEnergyContainer extends BasicEnergyContainer {
-
-    private final FloatingLong rate;
 
     public static ExtraEnergyCubeEnergyContainer create(ECTier tier, @Nullable IContentsListener listener) {
         Objects.requireNonNull(tier, "Energy cube tier cannot be null");
         return new ExtraEnergyCubeEnergyContainer(tier, listener);
     }
 
-    private ExtraEnergyCubeEnergyContainer(ECTier tier, @Nullable IContentsListener listener) {
+    private final boolean isCreative;
+    private final LongSupplier rate;
+
+    protected ExtraEnergyCubeEnergyContainer(ECTier tier, @Nullable IContentsListener listener) {
         super(tier.getMaxEnergy(), alwaysTrue, alwaysTrue, listener);
-        Objects.requireNonNull(tier);
-        this.rate = tier.getOutput();
+        isCreative = false;
+        rate = tier::getOutput;
     }
 
-    protected FloatingLong getRate(@Nullable AutomationType automationType) {
-        return automationType == AutomationType.INTERNAL ? this.rate : super.getRate(automationType);
+    @Override
+    protected long getInsertRate(@Nullable AutomationType automationType) {
+        //Only limit the internal rate to change the speed at which this can be filled from an item
+        return automationType == AutomationType.INTERNAL ? rate.getAsLong() : super.getInsertRate(automationType);
     }
 
-    public FloatingLong insert(FloatingLong amount, Action action, AutomationType automationType) {
-        return super.insert(amount, action.combine(true), automationType);
+    @Override
+    public long getExtractRate(AutomationType automationType) {
+        return automationType == AutomationType.INTERNAL ? rate.getAsLong() : super.getExtractRate(automationType);
     }
 
-    public FloatingLong extract(FloatingLong amount, Action action, AutomationType automationType) {
-        return super.extract(amount, action.combine(true), automationType);
+    @Override
+    public long insert(long amount, Action action, @NotNull AutomationType automationType) {
+        //Note: Unlike other creative items, the creative energy cube does not allow changing it to always full
+        return super.insert(amount, action.combine(!isCreative), automationType);
+    }
+
+    @Override
+    public long extract(long amount, Action action, @NotNull AutomationType automationType) {
+        return super.extract(amount, action.combine(!isCreative), automationType);
     }
 }

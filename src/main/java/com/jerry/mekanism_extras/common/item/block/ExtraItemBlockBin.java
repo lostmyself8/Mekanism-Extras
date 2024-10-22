@@ -1,50 +1,48 @@
 package com.jerry.mekanism_extras.common.item.block;
 
+import com.jerry.mekanism_extras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekanism_extras.common.block.basic.ExtraBlockBin;
-import com.jerry.mekanism_extras.common.inventory.ExtraBinMekanismInventory;
-import com.jerry.mekanism_extras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekanism_extras.common.tier.BTier;
-
+import com.jerry.mekanism_extras.common.inventory.slot.ExtraBinInventorySlot;
+import com.jerry.mekanism_extras.common.block.basic.ExtraBlockBin;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
-import mekanism.common.item.interfaces.IItemSustainedInventory;
+import mekanism.common.attachments.LockData;
+import mekanism.common.item.interfaces.IDroppableContents;
+import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.text.TextUtils;
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> implements IItemSustainedInventory {
-
-    public ExtraItemBlockBin(ExtraBlockBin block) {
-        super(block, new Item.Properties().stacksTo(1));
+public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> implements IDroppableContents.IDroppableAttachmentContents {
+    public ExtraItemBlockBin(ExtraBlockBin block, Item.Properties properties) {
+        super(block, properties.component(MekanismDataComponents.LOCK, LockData.EMPTY));
     }
 
     @Override
     public BTier getAdvanceTier() {
-        return ExtraAttribute.getTier(getBlock(), BTier.class);
+        return ExtraAttribute.getAdvanceTier(getBlock(), BTier.class);
     }
 
     @Override
-    protected void addStats(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        ExtraBinMekanismInventory inventory = ExtraBinMekanismInventory.create(stack);
+    protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        ExtraComponentBackedBinInventorySlot slot = ExtraBinInventorySlot.getForStack(stack);
         BTier tier = getAdvanceTier();
-        if (inventory != null && tier != null) {
-            ExtraBinInventorySlot slot = inventory.getBinSlot();
+        if (slot != null && tier != null) {
             if (slot.isEmpty()) {
                 tooltip.add(MekanismLang.EMPTY.translateColored(EnumColor.DARK_RED));
             } else {
                 tooltip.add(MekanismLang.STORING.translateColored(EnumColor.BRIGHT_GREEN, EnumColor.GRAY, slot.getStack()));
                 tooltip.add(MekanismLang.ITEM_AMOUNT.translateColored(EnumColor.PURPLE, EnumColor.GRAY, TextUtils.format(slot.getCount())));
             }
-            if (slot.isLocked()) {
+            ItemStack lockStack = slot.getLockStack();
+            if (!lockStack.isEmpty()) {
                 tooltip.add(MekanismLang.LOCKED.translateColored(EnumColor.AQUA, EnumColor.GRAY, slot.getLockStack()));
             }
             tooltip.add(MekanismLang.CAPACITY_ITEMS.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(tier.getStorage())));

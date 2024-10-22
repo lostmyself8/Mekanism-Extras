@@ -1,35 +1,33 @@
 package com.jerry.mekanism_extras.common.tier.transmitter;
 
-import com.jerry.mekanism_extras.common.config.LoadConfig;
-
+import com.jerry.mekanism_extras.common.config.ExtraConfig;
 import mekanism.common.tier.ConductorTier;
 
 public class TCTier {
-
-    public static long getConduction(ConductorTier tier) {
+    public static double getConduction(ConductorTier tier) {
         return switch (tier) {
-            case BASIC -> LoadConfig.extraConfig.absoluteThermodynamicConductorConduction.get().longValue();
-            case ADVANCED -> LoadConfig.extraConfig.supremeThermodynamicConductorConduction.get().longValue();
-            case ELITE -> LoadConfig.extraConfig.cosmicThermodynamicConductorConduction.get().longValue();
-            case ULTIMATE -> LoadConfig.extraConfig.infiniteThermodynamicConductorConduction.get().longValue();
+            case BASIC -> ExtraConfig.extraTierConfig.absoluteThermodynamicConductorConduction.get();
+            case ADVANCED -> ExtraConfig.extraTierConfig.supremeThermodynamicConductorConduction.get();
+            case ELITE -> ExtraConfig.extraTierConfig.cosmicThermodynamicConductorConduction.get();
+            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteThermodynamicConductorConduction.get();
         };
     }
 
-    public static long getHeatCapacity(ConductorTier tier) {
+    public static double getHeatCapacity(ConductorTier tier) {
         return switch (tier) {
-            case BASIC -> LoadConfig.extraConfig.absoluteThermodynamicConductornCapacity.get().longValue();
-            case ADVANCED -> LoadConfig.extraConfig.supremeThermodynamicConductornCapacity.get().longValue();
-            case ELITE -> LoadConfig.extraConfig.cosmicThermodynamicConductornCapacity.get().longValue();
-            case ULTIMATE -> LoadConfig.extraConfig.infiniteThermodynamicConductornCapacity.get().longValue();
+            case BASIC -> ExtraConfig.extraTierConfig.absoluteThermodynamicConductornCapacity.get();
+            case ADVANCED -> ExtraConfig.extraTierConfig.supremeThermodynamicConductornCapacity.get();
+            case ELITE -> ExtraConfig.extraTierConfig.cosmicThermodynamicConductornCapacity.get();
+            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteThermodynamicConductornCapacity.get();
         };
     }
 
-    public static long getConductionInsulation(ConductorTier tier) {
+    public static double getConductionInsulation(ConductorTier tier) {
         return switch (tier) {
-            case BASIC -> LoadConfig.extraConfig.absoluteThermodynamicConductornInsulation.get().longValue();
-            case ADVANCED -> LoadConfig.extraConfig.supremeThermodynamicConductornInsulation.get().longValue();
-            case ELITE -> LoadConfig.extraConfig.cosmicThermodynamicConductornInsulation.get().longValue();
-            case ULTIMATE -> LoadConfig.extraConfig.infiniteThermodynamicConductornInsulation.get().longValue();
+            case BASIC -> ExtraConfig.extraTierConfig.absoluteThermodynamicConductornInsulation.get();
+            case ADVANCED -> ExtraConfig.extraTierConfig.supremeThermodynamicConductornInsulation.get();
+            case ELITE -> ExtraConfig.extraTierConfig.cosmicThermodynamicConductornInsulation.get();
+            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteThermodynamicConductornInsulation.get();
         };
     }
 }

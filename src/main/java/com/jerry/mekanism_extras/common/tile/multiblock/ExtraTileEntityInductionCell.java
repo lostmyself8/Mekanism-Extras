@@ -1,32 +1,23 @@
 package com.jerry.mekanism_extras.common.tile.multiblock;
 
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.tier.ICTier;
-
 import mekanism.api.IContentsListener;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.energy.MachineEnergyContainer;
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper;
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder;
-import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.tile.prefab.TileEntityInternalMultiblock;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
-
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraTileEntityInductionCell extends TileEntityInternalMultiblock {
-
-    @Getter
     private MachineEnergyContainer<ExtraTileEntityInductionCell> energyContainer;
     public ICTier tier;
 
     public ExtraTileEntityInductionCell(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
-        // Never externally expose the energy capability
-        addDisabledCapabilities(EnergyCompatUtils.getEnabledEnergyCapabilities());
     }
 
     @NotNull
@@ -40,6 +31,10 @@ public class ExtraTileEntityInductionCell extends TileEntityInternalMultiblock {
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = Attribute.getTier(getBlockType(), ICTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockType(), ICTier.class);
+    }
+
+    public MachineEnergyContainer<ExtraTileEntityInductionCell> getEnergyContainer() {
+        return energyContainer;
     }
 }

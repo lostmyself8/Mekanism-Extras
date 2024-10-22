@@ -1,19 +1,16 @@
 package com.jerry.mekanism_extras.common.tier.transmitter;
 
-import com.jerry.mekanism_extras.common.config.LoadConfig;
-
-import mekanism.api.math.FloatingLong;
+import com.jerry.mekanism_extras.common.config.ExtraConfig;
 import mekanism.common.tier.CableTier;
 
 public class CTier {
-
-    public static FloatingLong getCapacityAsFloatingLong(CableTier tier) {
-        if (tier == null) return FloatingLong.create(8000L);
+    public static long getCapacityAsLong(CableTier tier) {
+        if (tier == null) return 8000L;
         return switch (tier) {
-            case BASIC -> LoadConfig.extraConfig.absoluteUniversalCableCapacity.get();
-            case ADVANCED -> LoadConfig.extraConfig.supremeUniversalCableCapacity.get();
-            case ELITE -> LoadConfig.extraConfig.cosmicUniversalCableCapacity.get();
-            case ULTIMATE -> LoadConfig.extraConfig.infiniteUniversalCableCapacity.get();
+            case BASIC -> ExtraConfig.extraTierConfig.absoluteUniversalCableCapacity.get();
+            case ADVANCED -> ExtraConfig.extraTierConfig.supremeUniversalCableCapacity.get();
+            case ELITE -> ExtraConfig.extraTierConfig.cosmicUniversalCableCapacity.get();
+            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteUniversalCableCapacity.get();
         };
     }
 }

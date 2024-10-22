@@ -1,29 +1,27 @@
 package com.jerry.mekanism_extras.client.model.energycube;
 
-import mekanism.api.RelativeSide;
-import mekanism.common.util.EnumUtils;
-
-import net.minecraft.client.renderer.block.model.BlockElement;
-import net.minecraft.util.GsonHelper;
-import net.minecraftforge.client.model.geometry.IGeometryLoader;
-
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import mekanism.api.RelativeSide;
+import mekanism.common.util.EnumUtils;
+import net.minecraft.client.renderer.block.model.BlockElement;
+import net.minecraft.util.GsonHelper;
+import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 public class ExtraEnergyCubeModelLoader implements IGeometryLoader<ExtraEnergyCubeGeometry> {
-
     public static final ExtraEnergyCubeModelLoader INSTANCE = new ExtraEnergyCubeModelLoader();
 
-    private ExtraEnergyCubeModelLoader() {}
+    private ExtraEnergyCubeModelLoader() {
 
-    @NotNull
+    }
+
     @Override
-    public ExtraEnergyCubeGeometry read(@NotNull JsonObject jsonObject, @NotNull JsonDeserializationContext ctx) {
+    public @NotNull ExtraEnergyCubeGeometry read(@NotNull JsonObject jsonObject, @NotNull JsonDeserializationContext ctx) throws JsonParseException {
         List<BlockElement> frame = readElements(jsonObject, ctx, "frame");
         Map<RelativeSide, List<BlockElement>> leds = new EnumMap<>(RelativeSide.class);
         Map<RelativeSide, List<BlockElement>> ports = new EnumMap<>(RelativeSide.class);

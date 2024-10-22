@@ -1,41 +1,34 @@
 package com.jerry.mekanism_extras.common.tier;
 
-import com.jerry.mekanism_extras.api.tier.AdvancedTier;
-import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
-
+import com.jerry.mekanism_extras.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
 import mekanism.common.config.value.CachedLongValue;
-
 import net.minecraft.util.StringRepresentable;
-
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
-public enum CTTier implements IAdvancedTier, StringRepresentable {
+public enum CTTier implements IAdvanceTier, StringRepresentable {
+    ABSOLUTE(AdvanceTier.ABSOLUTE, 32_768_000, 2_048_000),
+    SUPREME(AdvanceTier.SUPREME, 131_072_000, 8_192_000),
+    COSMIC(AdvanceTier.COSMIC, 524_288_000, 32_768_000),
+    INFINITE(AdvanceTier.INFINITE, 4_194_304_000L, 131_072_000);
 
-    ABSOLUTE(AdvancedTier.ABSOLUTE, 131_072_000, 65_536_000),// x16 1/2
-    SUPREME(AdvancedTier.SUPREME, 4_194_304_000L, 2_097_150_000),// x32 1/2
-    COSMIC(AdvancedTier.COSMIC, 268_435_456_000L, 134_217_728_000L),// x64 3/4
-    INFINITE(AdvancedTier.INFINITE, 34_359_738_368_000L, 17_179_869_184_000L); // x128 3/4
-
-    @Getter
     private final long advanceStorage;
-    @Getter
     private final long advanceOutput;
-    private final AdvancedTier advancedTier;
+    private final AdvanceTier advanceTier;
     private CachedLongValue storageReference;
     private CachedLongValue outputReference;
 
-    CTTier(AdvancedTier tier, long s, long o) {
+    CTTier(AdvanceTier tier, long s, long o) {
         advanceStorage = s;
         advanceOutput = o;
-        advancedTier = tier;
+        advanceTier = tier;
     }
 
     @Override
-    public AdvancedTier getAdvanceTier() {
-        return advancedTier;
+    public AdvanceTier getAdvanceTier() {
+        return advanceTier;
     }
 
     @NotNull
@@ -50,6 +43,14 @@ public enum CTTier implements IAdvancedTier, StringRepresentable {
 
     public long getOutput() {
         return outputReference == null ? getAdvanceOutput() : outputReference.getOrDefault();
+    }
+
+    public long getAdvanceStorage() {
+        return advanceStorage;
+    }
+
+    public long getAdvanceOutput() {
+        return advanceOutput;
     }
 
     /**

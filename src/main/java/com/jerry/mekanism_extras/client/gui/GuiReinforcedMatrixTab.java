@@ -1,38 +1,34 @@
 package com.jerry.mekanism_extras.client.gui;
 
-import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiButtonPress;
+import com.jerry.mekanism_extras.common.network.to_server.button.ExtraPacketTileButtonPress;
 import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
-
 import mekanism.api.text.ILangEntry;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.IGuiWrapper;
 import mekanism.client.gui.element.tab.GuiTabElementType;
 import mekanism.client.gui.element.tab.TabType;
 import mekanism.client.render.lib.ColorAtlas;
-import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
+import mekanism.common.network.PacketUtils;
 import mekanism.common.util.MekanismUtils;
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-public class GuiReinforcedMatrixTab extends GuiTabElementType<TileEntityReinforcedInductionCasing, GuiReinforcedMatrixTab.MatrixTab> {
-
-    public GuiReinforcedMatrixTab(IGuiWrapper gui, TileEntityReinforcedInductionCasing tile, MatrixTab type) {
+public class GuiReinforcedMatrixTab extends GuiTabElementType<TileEntityReinforcedInductionCasing, GuiReinforcedMatrixTab.ReinforcedMatrixTab> {
+    public GuiReinforcedMatrixTab(IGuiWrapper gui, TileEntityReinforcedInductionCasing tile, ReinforcedMatrixTab type) {
         super(gui, tile, type);
     }
 
-    public enum MatrixTab implements TabType<TileEntityReinforcedInductionCasing> {
-
-        MAIN("energy.png", MekanismLang.MAIN_TAB, ExtraPacketGuiButtonPress.ClickedTileButton.TAB_MAIN, SpecialColors.TAB_MULTIBLOCK_MAIN),
-        STAT("stats.png", MekanismLang.MATRIX_STATS, ExtraPacketGuiButtonPress.ClickedTileButton.TAB_STATS, SpecialColors.TAB_MULTIBLOCK_STATS);
+    public enum ReinforcedMatrixTab implements TabType<TileEntityReinforcedInductionCasing> {
+        MAIN("energy.png", MekanismLang.MAIN_TAB, ExtraPacketTileButtonPress.ClickedTileButton.TAB_MAIN, SpecialColors.TAB_MULTIBLOCK_MAIN),
+        STAT("stats.png", MekanismLang.MATRIX_STATS, ExtraPacketTileButtonPress.ClickedTileButton.TAB_STATS, SpecialColors.TAB_MULTIBLOCK_STATS);
 
         private final ColorAtlas.ColorRegistryObject colorRO;
-        private final ExtraPacketGuiButtonPress.ClickedTileButton button;
+        private final ExtraPacketTileButtonPress.ClickedTileButton button;
         private final ILangEntry description;
         private final String path;
 
-        MatrixTab(String path, ILangEntry description, ExtraPacketGuiButtonPress.ClickedTileButton button, ColorAtlas.ColorRegistryObject colorRO) {
+        ReinforcedMatrixTab(String path, ILangEntry description, ExtraPacketTileButtonPress.ClickedTileButton button, ColorAtlas.ColorRegistryObject colorRO) {
             this.path = path;
             this.description = description;
             this.button = button;
@@ -46,7 +42,7 @@ public class GuiReinforcedMatrixTab extends GuiTabElementType<TileEntityReinforc
 
         @Override
         public void onClick(TileEntityReinforcedInductionCasing tile) {
-            Mekanism.packetHandler().sendToServer(new ExtraPacketGuiButtonPress(button, tile));
+            PacketUtils.sendToServer(new ExtraPacketTileButtonPress(button, tile));
         }
 
         @Override

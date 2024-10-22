@@ -1,20 +1,22 @@
 package com.jerry.mekanism_extras.common.block.attribute;
 
-import com.jerry.mekanism_extras.api.tier.AdvancedTier;
-
+import com.jerry.mekanism_extras.api.tier.AdvanceTier;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.registration.impl.BlockRegistryObject;
-
 import net.minecraft.world.level.block.state.BlockState;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public record ExtraAttributeUpgradeable(Supplier<BlockRegistryObject<?, ?>> upgradeBlock) implements ExtraAttribute {
+public class ExtraAttributeUpgradeable implements ExtraAttribute{
+    private final Supplier<BlockRegistryObject<?, ?>> upgradeBlock;
+
+    public ExtraAttributeUpgradeable(Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
+        this.upgradeBlock = upgradeBlock;
+    }
 
     @NotNull
-    public BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvancedTier tier) {
+    public BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
         return BlockStateHelper.copyStateData(current, upgradeBlock.get());
     }
 }

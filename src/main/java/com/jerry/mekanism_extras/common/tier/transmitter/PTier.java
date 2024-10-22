@@ -1,26 +1,24 @@
 package com.jerry.mekanism_extras.common.tier.transmitter;
 
-import com.jerry.mekanism_extras.common.config.LoadConfig;
-
+import com.jerry.mekanism_extras.common.config.ExtraConfig;
 import mekanism.common.tier.PipeTier;
 
 public class PTier {
-
     public static int getPipePullAmount(PipeTier tier) {
         return switch (tier) {
-            case BASIC -> LoadConfig.extraConfig.absoluteMechanicalPipePullAmount.get().intValue();
-            case ADVANCED -> LoadConfig.extraConfig.supremeMechanicalPipePullAmount.get().intValue();
-            case ELITE -> LoadConfig.extraConfig.cosmicMechanicalPipePullAmount.get().intValue();
-            case ULTIMATE -> LoadConfig.extraConfig.infiniteMechanicalPipePullAmount.get().intValue();
+            case BASIC -> (int) ExtraConfig.extraTierConfig.absoluteMechanicalPipePullAmount.get();
+            case ADVANCED -> (int) ExtraConfig.extraTierConfig.supremeMechanicalPipePullAmount.get();
+            case ELITE -> (int) ExtraConfig.extraTierConfig.cosmicMechanicalPipePullAmount.get();
+            case ULTIMATE -> (int) ExtraConfig.extraTierConfig.infiniteMechanicalPipePullAmount.get();
         };
     }
 
     public static long getPipeCapacity(PipeTier tier) {
         return switch (tier) {
-            case BASIC -> LoadConfig.extraConfig.absoluteMechanicalPipeCapacity.get().longValue();
-            case ADVANCED -> LoadConfig.extraConfig.supremeMechanicalPipeCapacity.get().longValue();
-            case ELITE -> LoadConfig.extraConfig.cosmicMechanicalPipeCapacity.get().longValue();
-            case ULTIMATE -> LoadConfig.extraConfig.infiniteMechanicalPipeCapacity.get().longValue();
+            case BASIC -> ExtraConfig.extraTierConfig.absoluteMechanicalPipeCapacity.get();
+            case ADVANCED -> ExtraConfig.extraTierConfig.supremeMechanicalPipeCapacity.get();
+            case ELITE -> ExtraConfig.extraTierConfig.cosmicMechanicalPipeCapacity.get();
+            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteMechanicalPipeCapacity.get();
         };
     }
 }

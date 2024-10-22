@@ -1,9 +1,8 @@
 package com.jerry.mekanism_extras.common.item;
 
-import com.jerry.mekanism_extras.api.tier.AdvancedTier;
+import com.jerry.mekanism_extras.api.tier.AdvanceTier;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeUpgradeable;
-
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.Mekanism;
 import mekanism.common.block.attribute.Attribute;
@@ -12,7 +11,6 @@ import mekanism.common.tile.interfaces.ITierUpgradable;
 import mekanism.common.tile.interfaces.ITileDirectional;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.WorldUtils;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -24,30 +22,28 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtraItemTierInstaller extends Item {
-
     @Nullable
-    private final AdvancedTier fromTier;
+    private final AdvanceTier fromTier;
     @NotNull
-    private final AdvancedTier toTier;
+    private final AdvanceTier toTier;
 
-    public ExtraItemTierInstaller(@Nullable AdvancedTier fromTier, @NotNull AdvancedTier toTier, Properties properties) {
+    public ExtraItemTierInstaller(@Nullable AdvanceTier fromTier, @NotNull AdvanceTier toTier, Properties properties) {
         super(properties);
         this.fromTier = fromTier;
         this.toTier = toTier;
     }
 
     @Nullable
-    public AdvancedTier getFromTier() {
+    public AdvanceTier getFromTier() {
         return fromTier;
     }
 
     @NotNull
-    public AdvancedTier getToTier() {
+    public AdvanceTier getToTier() {
         return toTier;
     }
 
@@ -70,9 +66,8 @@ public class ExtraItemTierInstaller extends Item {
         Block block = state.getBlock();
         ExtraAttributeUpgradeable upgradeableBlock = Attribute.get(block, ExtraAttributeUpgradeable.class);
         if (upgradeableBlock != null) {
-            AdvancedTier baseTier = ExtraAttribute.getAdvanceTier(block);
-            // 这里fromTier在第一级时为null，所以可以指定任意带有ExtraAttributeUpgradeable或者别的AttributeUpgradeable（要继承Attribute）属性的方块
-            if (baseTier == fromTier && baseTier != toTier) {
+            AdvanceTier advanceTier = ExtraAttribute.getAdvanceTier(block);
+            if (advanceTier == fromTier && advanceTier != toTier) {
                 BlockState upgradeState = upgradeableBlock.upgradeResult(state, toTier);
                 if (state == upgradeState) {
                     return InteractionResult.PASS;
@@ -82,7 +77,7 @@ public class ExtraItemTierInstaller extends Item {
                     if (tile instanceof TileEntityMekanism tileMek && !tileMek.playersUsing.isEmpty()) {
                         return InteractionResult.FAIL;
                     }
-                    IUpgradeData upgradeData = tierUpgradable.getUpgradeData();
+                    IUpgradeData upgradeData = tierUpgradable.getUpgradeData(world.registryAccess());
                     if (upgradeData == null) {
                         if (tierUpgradable.canBeUpgraded()) {
                             Mekanism.logger.warn("Got no upgrade data for block {} at position: {} in {} but it said it would be able to provide some.", block, pos, world);
@@ -90,18 +85,22 @@ public class ExtraItemTierInstaller extends Item {
                         }
                     } else {
                         world.setBlockAndUpdate(pos, upgradeState);
-                        // TODO: Make it so it doesn't have to be a TileEntityMekanism?
+                        //TODO: Make it so it doesn't have to be a TileEntityMekanism?
                         TileEntityMekanism upgradedTile = WorldUtils.getTileEntity(TileEntityMekanism.class, world, pos);
                         if (upgradedTile == null) {
                             Mekanism.logger.warn("Error upgrading block at position: {} in {}.", pos, world);
                             return InteractionResult.FAIL;
                         } else {
                             if (tile instanceof ITileDirectional directional && directional.isDirectional()) {
-                                upgradedTile.setFacing(directional.getDirection());
+                                upgradedTile.setFacing(directional.getDirection(), false);
                             }
-                            upgradedTile.parseUpgradeData(upgradeData);
+                            upgradedTile.parseUpgradeData(world.registryAccess(), upgradeData);
                             upgradedTile.sendUpdatePacket();
                             upgradedTile.setChanged();
+                            //Notify the level that the caps at the position are no longer valid
+                            // In general replacing the tile likely will have caused this to be invalidated
+                            // but mark it just to be safe
+                            upgradedTile.invalidateCapabilities();
                             if (!player.isCreative()) {
                                 context.getItemInHand().shrink(1);
                             }

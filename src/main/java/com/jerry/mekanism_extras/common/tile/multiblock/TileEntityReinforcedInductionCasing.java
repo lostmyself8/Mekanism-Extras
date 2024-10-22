@@ -1,50 +1,42 @@
 package com.jerry.mekanism_extras.common.tile.multiblock;
 
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+import com.jerry.mekanism_extras.common.content.matrix.ReinforcedMatrixMultiblockData;
+import com.jerry.mekanism_extras.common.registry.ExtraBlocks;
 import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
-
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.inventory.container.MekanismContainer;
 import mekanism.common.inventory.container.sync.dynamic.SyncMapper;
 import mekanism.common.lib.multiblock.MultiblockManager;
 import mekanism.common.tile.prefab.TileEntityMultiblock;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
-import org.jetbrains.annotations.NotNull;
-
-public class TileEntityReinforcedInductionCasing extends TileEntityMultiblock<ExtraMatrixMultiblockData> {
+public class TileEntityReinforcedInductionCasing extends TileEntityMultiblock<ReinforcedMatrixMultiblockData> {
 
     public TileEntityReinforcedInductionCasing(BlockPos pos, BlockState state) {
-        this(ExtraBlock.REINFORCED_INDUCTION_CASING, pos, state);
-        // Disable item handler caps if we are the induction casing, don't disable it for the subclassed port though
-        addDisabledCapabilities(ForgeCapabilities.ITEM_HANDLER);
+        this(ExtraBlocks.REINFORCED_INDUCTION_CASING, pos, state);
     }
 
     public TileEntityReinforcedInductionCasing(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
     }
 
-    @NotNull
     @Override
-    public ExtraMatrixMultiblockData createMultiblock() {
-        return new ExtraMatrixMultiblockData(this);
+    public ReinforcedMatrixMultiblockData createMultiblock() {
+        return new ReinforcedMatrixMultiblockData(this);
     }
 
     @Override
-    public MultiblockManager<ExtraMatrixMultiblockData> getManager() {
-        return MekanismExtras.extraMatrixManager;
+    public MultiblockManager<ReinforcedMatrixMultiblockData> getManager() {
+        return MekanismExtras.matrixManager;
     }
 
     @Override
     public void addContainerTrackers(MekanismContainer container) {
         super.addContainerTrackers(container);
-        if (container.getType() == ExtraContainerTypes.MATRIX_STATS.get()) {
-            SyncMapper.INSTANCE.setup(container, ExtraMatrixMultiblockData.class, this::getMultiblock, ExtraMatrixMultiblockData.STATS_TAB);
+        if (container.getType() == ExtraContainerTypes.REINFORCED_MATRIX_STATS.get()) {
+            SyncMapper.INSTANCE.setup(container, ReinforcedMatrixMultiblockData.class, this::getMultiblock, ReinforcedMatrixMultiblockData.STATS_TAB);
         }
     }
 }
