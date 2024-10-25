@@ -80,6 +80,10 @@ repositories {
         url = "https://maven.blamejared.com/"
     }
 
+    maven {
+        url "https://cursemaven.com"
+    }
+
 //    maven {
 //        // Shedaniel's maven (Architectury API)
 //        url = "https://maven.architectury.dev"
@@ -105,6 +109,8 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")
+
+    implementation fg.deobf("curse.maven:mekanism-covers-1119874:5831281")
 
     // jei
     implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
