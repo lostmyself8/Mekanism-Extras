@@ -1,6 +1,6 @@
 # **Mekanism Extras**
 
-[![CurseForge Total Downloads][badge_curseforge]][curseforge] [![Modrinth Total Downloads][badge_modrinth]][modrinth]
+[![CurseForge Total Downloads][badge_curseforge]][curseforge]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Modrinth Total Downloads][badge_modrinth]][modrinth]
 
 [badge_curseforge]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.cfwidget.com%2F1026040&query=downloads.total&style=for-the-badge&logo=curseforge&label=CurseForge&color=e04e14
 [curseforge]: https://www.curseforge.com/minecraft/mc-mods/mekanism-extras
