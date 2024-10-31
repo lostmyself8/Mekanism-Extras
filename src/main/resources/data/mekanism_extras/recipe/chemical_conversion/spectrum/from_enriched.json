@@ -5,7 +5,7 @@
     "item": "mekanism_extras:enriched_spectrum"
   },
   "output": {
-    "amount": 60,
+    "amount": 50,
     "id": "mekanism_extras:spectrum"
   }
 }

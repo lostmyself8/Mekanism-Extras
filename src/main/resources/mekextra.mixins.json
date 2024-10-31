@@ -1,12 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.jerry.mekanism_extras.mixin",
+  "package": "com.jerry.mekextra.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "Mekanism_Extras.refmap.json",
   "mixins": [
     "MekExtrasRenderer",
-    "MixinBinInventorySlot"
+    "MixinBinInventorySlot",
+    "MixinLogisticalTransporterBase"
   ],
   "client": [
   ],
