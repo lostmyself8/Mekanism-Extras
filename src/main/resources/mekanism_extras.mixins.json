@@ -7,6 +7,7 @@
   "mixins": [
     "MixinBinInventorySlot",
     "MixinGeneratorsPacketHandler",
+    "MixinLogisticalTransporterBase",
     "MixinPacketHandler"
   ],
   "client": [

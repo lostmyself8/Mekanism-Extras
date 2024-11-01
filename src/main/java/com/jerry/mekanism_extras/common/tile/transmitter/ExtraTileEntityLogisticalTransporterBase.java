@@ -1,6 +1,5 @@
 package com.jerry.mekanism_extras.common.tile.transmitter;
 
-import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraLogisticalTransporterBase;
 import com.jerry.mekanism_extras.common.util.ExtraTransporterUtils;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.providers.IBlockProvider;
@@ -34,11 +33,11 @@ public abstract class ExtraTileEntityLogisticalTransporterBase extends ExtraTile
     }
 
     @Override
-    protected abstract ExtraLogisticalTransporterBase createTransmitter(IBlockProvider blockProvider);
+    protected abstract LogisticalTransporterBase createTransmitter(IBlockProvider blockProvider);
 
     @Override
-    public ExtraLogisticalTransporterBase getTransmitter() {
-        return (ExtraLogisticalTransporterBase) super.getTransmitter();
+    public LogisticalTransporterBase getTransmitter() {
+        return (LogisticalTransporterBase) super.getTransmitter();
     }
 
     public static void tickClient(Level level, BlockPos pos, BlockState state, ExtraTileEntityLogisticalTransporterBase transmitter) {
@@ -55,7 +54,7 @@ public abstract class ExtraTileEntityLogisticalTransporterBase extends ExtraTile
     public void blockRemoved() {
         super.blockRemoved();
         if (!isRemote()) {
-            ExtraLogisticalTransporterBase transporter = getTransmitter();
+            LogisticalTransporterBase transporter = getTransmitter();
             if (!transporter.isUpgrading()) {
                 //If the transporter is not currently being upgraded, drop the contents
                 for (TransporterStack stack : transporter.getTransit()) {
