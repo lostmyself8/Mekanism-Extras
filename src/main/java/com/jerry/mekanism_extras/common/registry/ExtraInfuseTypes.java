@@ -18,7 +18,7 @@ public class ExtraInfuseTypes {
 //    public static final InfuseTypeRegistryObject<InfuseType> SPECTRUM = EXTRA_INFUSE_TYPES.register("spectrum", MekanismExtras.rl("infuse_type/spectrum"), 0x74656A);
     public static final InfuseTypeRegistryObject<InfuseType> SHINING = EXTRA_INFUSE_TYPES.register("shining",0xFBE0FE);
     public static final InfuseTypeRegistryObject<InfuseType> SPECTRUM = EXTRA_INFUSE_TYPES.register("spectrum",0x1D1D29);
-    public static final InfuseTypeRegistryObject<InfuseType> LEAD = EXTRA_INFUSE_TYPES.register("lead",0x62716F);
+    public static final InfuseTypeRegistryObject<InfuseType> LEAD = EXTRA_INFUSE_TYPES.register("lead",0x627370);
 
     public static void register(IEventBus eventBus) {
         EXTRA_INFUSE_TYPES.register(eventBus);

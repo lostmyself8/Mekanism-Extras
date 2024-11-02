@@ -47,10 +47,11 @@ public class ExtraItem {
     public static final ItemRegistryObject<ExtraItemAlloy> THERMONUCLEAR_ALLOY = registerAlloy(ExtraAlloyTier.THERMONUCLEAR, Rarity.UNCOMMON);
     public static final ItemRegistryObject<ExtraItemAlloy> SHINING_ALLOY = registerAlloy(ExtraAlloyTier.SHINING, Rarity.RARE);
     public static final ItemRegistryObject<ExtraItemAlloy> SPECTRUM_ALLOY = registerAlloy(ExtraAlloyTier.SPECTRUM, Rarity.EPIC);
-    public static final ItemRegistryObject<Item> ENRICHED_RADIANCE = registerItem("radiance", Rarity.COMMON);
-    public static final ItemRegistryObject<Item> ENRICHED_THERMONUCLEAR = registerItem("thermonuclear", Rarity.UNCOMMON);
-    public static final ItemRegistryObject<Item> ENRICHED_SHINING = registerItem("shining", Rarity.RARE);
-    public static final ItemRegistryObject<Item> ENRICHED_SPECTRUM = registerItem("spectrum", Rarity.EPIC);
+    public static final ItemRegistryObject<Item> ENRICHED_LEAD = registerEnriched("lead", Rarity.COMMON);
+    public static final ItemRegistryObject<Item> ENRICHED_RADIANCE = registerEnriched("radiance", Rarity.COMMON);
+    public static final ItemRegistryObject<Item> ENRICHED_THERMONUCLEAR = registerEnriched("thermonuclear", Rarity.UNCOMMON);
+    public static final ItemRegistryObject<Item> ENRICHED_SHINING = registerEnriched("shining", Rarity.RARE);
+    public static final ItemRegistryObject<Item> ENRICHED_SPECTRUM = registerEnriched("spectrum", Rarity.EPIC);
     public static final ItemRegistryObject<Item> DUST_RADIANCE = EXTRA_ITEM.register("dust_radiance");
     public static final ItemRegistryObject<Item> NAQUADAH_DUST = registerResource(ResourceType.DUST);
     public static final ItemRegistryObject<Item> SHARD_NAQUADAH = registerResource(ResourceType.SHARD);
@@ -77,7 +78,7 @@ public class ExtraItem {
         return EXTRA_ITEM.register("alloy_" + tier.getName(), properties -> new ExtraItemAlloy(tier, properties.rarity(rarity)));
     }
 
-    private static ItemRegistryObject<Item> registerItem(String name, Rarity rarity) {
+    private static ItemRegistryObject<Item> registerEnriched(String name, Rarity rarity) {
         return EXTRA_ITEM.register("enriched_" + name, properties -> new Item(properties.rarity(rarity)));
     }
 

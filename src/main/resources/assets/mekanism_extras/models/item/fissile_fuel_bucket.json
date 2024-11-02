@@ -1,5 +1,0 @@
-{
-  "parent": "forge:item/bucket",
-  "fluid": "mekanism_extras:fissile_fuel",
-  "loader": "forge:fluid_container"
-}

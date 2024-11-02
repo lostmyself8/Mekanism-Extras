@@ -2,10 +2,10 @@
   "type": "mekanism:enriching",
   "input": {
     "ingredient": {
-      "tag": "forge:dusts/radiance"
+      "tag": "forge:dusts/lead"
     }
   },
   "output": {
-    "item": "mekanism_extras:enriched_radiance"
+    "item": "mekanism_extras:enriched_lead"
   }
 }
