@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.jerry.mekextra.mixin",
+  "package": "com.jerry.mekextras.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "Mekanism_Extras.refmap.json",
   "mixins": [
