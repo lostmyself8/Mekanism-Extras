@@ -17,7 +17,6 @@ import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.TextUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -27,7 +26,7 @@ import java.util.List;
 
 public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>> implements IItemSustainedInventory {
     public ExtraItemBlockChemicalTank(BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>> block) {
-        super(block, new Item.Properties().stacksTo(1));
+        super(block);
     }
 
     @Override

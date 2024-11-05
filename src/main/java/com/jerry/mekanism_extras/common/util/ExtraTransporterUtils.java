@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.common.util;
 
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraLogisticalTransporter;
-import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraLogisticalTransporterBase;
 import mekanism.api.text.EnumColor;
+import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.TransporterManager;
 import mekanism.common.content.transporter.TransporterStack;
 import mekanism.common.util.TransporterUtils;
@@ -30,7 +30,7 @@ public class ExtraTransporterUtils {
         return color == null ? -1 : TransporterUtils.colors.indexOf(color);
     }
 
-    public static void drop(ExtraLogisticalTransporterBase transporter, TransporterStack stack) {
+    public static void drop(LogisticalTransporterBase transporter, TransporterStack stack) {
         BlockPos blockPos = transporter.getTilePos();
         if (stack.hasPath()) {
             float[] pos = ExtraTransporterUtils.getStackPosition(transporter, stack, 0);
@@ -40,7 +40,7 @@ public class ExtraTransporterUtils {
         Block.popResource(transporter.getTileWorld(), blockPos, stack.itemStack);
     }
 
-    public static float[] getStackPosition(ExtraLogisticalTransporterBase transporter, TransporterStack stack, float partial) {
+    public static float[] getStackPosition(LogisticalTransporterBase transporter, TransporterStack stack, float partial) {
         Direction side = stack.getSide(transporter);
         float progress = ((stack.progress + partial) / 100F) - 0.5F;
         return new float[]{0.5F + side.getStepX() * progress, 0.25F + side.getStepY() * progress, 0.5F + side.getStepZ() * progress};

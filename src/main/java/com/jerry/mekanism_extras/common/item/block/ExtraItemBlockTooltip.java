@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.item.block;
 
+import com.jerry.mekanism_extras.common.registration.impl.ExtraItemDeferredRegister;
 import mekanism.api.MekanismAPI;
 import mekanism.api.text.EnumColor;
 import mekanism.client.key.MekKeyHandler;
@@ -41,7 +42,7 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
     }
 
     public ExtraItemBlockTooltip(BLOCK block) {
-        this(block, true, new Item.Properties().stacksTo(1));
+        this(block, true, ExtraItemDeferredRegister.getMekBaseProperties().stacksTo(1));
     }
 
     protected ExtraItemBlockTooltip(BLOCK block, boolean hasDetails, Properties properties) {

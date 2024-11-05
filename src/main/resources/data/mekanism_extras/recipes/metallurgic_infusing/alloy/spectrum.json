@@ -1,7 +1,7 @@
 {
   "type": "mekanism:metallurgic_infusing",
   "chemicalInput": {
-    "amount": 250,
+    "amount": 200,
     "infuse_type": "mekanism_extras:spectrum"
   },
   "itemInput": {

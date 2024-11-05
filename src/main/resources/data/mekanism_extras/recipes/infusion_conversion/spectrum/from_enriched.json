@@ -6,7 +6,7 @@
     }
   },
   "output": {
-    "amount": 60,
+    "amount": 50,
     "infuse_type": "mekanism_extras:spectrum"
   }
 }

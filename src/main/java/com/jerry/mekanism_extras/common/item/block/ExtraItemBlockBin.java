@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.item.block;
 
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekanism_extras.common.registration.impl.ExtraItemDeferredRegister;
 import com.jerry.mekanism_extras.common.tier.BTier;
 import com.jerry.mekanism_extras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekanism_extras.common.inventory.ExtraBinMekanismInventory;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> implements IItemSustainedInventory {
     public ExtraItemBlockBin(ExtraBlockBin block) {
-        super(block);
+        super(block, ExtraItemDeferredRegister.getMekBaseProperties().stacksTo(1));
     }
 
     @Override

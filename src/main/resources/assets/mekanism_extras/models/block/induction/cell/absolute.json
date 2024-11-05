@@ -1,10 +1,6 @@
 {
-  "render_type": "minecraft:cutout",
-  "parent": "mekanism:block/induction/cell/base",
+  "parent": "block/cube_all",
   "textures": {
-    "particle": "mekanism_extras:block/absolute_induction_cell",
-    "all": "mekanism_extras:block/absolute_induction_cell",
-    "glow": "mekanism:block/induction_cell_glow",
-    "led": "mekanism:block/induction_cell_led"
+    "all": "mekanism_extras:block/absolute_induction_cell"
   }
 }

@@ -1,6 +1,5 @@
 package com.jerry.mekanism_extras.client.render.transmitter;
 
-import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraLogisticalTransporterBase;
 import com.jerry.mekanism_extras.common.tier.transmitter.TPTier;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityLogisticalTransporterBase;
 import com.jerry.mekanism_extras.common.util.ExtraTransporterUtils;
@@ -11,6 +10,7 @@ import mekanism.client.model.ModelTransporterBox;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
+import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.TransporterStack;
 import mekanism.common.lib.inventory.HashedItem;
 import net.minecraft.client.Minecraft;
@@ -21,7 +21,6 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -35,16 +34,8 @@ import java.util.*;
 public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<ExtraTileEntityLogisticalTransporterBase> {
 
     private static final Map<Direction, MekanismRenderer.Model3D> cachedOverlays = new EnumMap<>(Direction.class);
-    @javax.annotation.Nullable
-    private static MekanismRenderer.Model3D.SpriteInfo gunpowderIcon;
-    @javax.annotation.Nullable
-    private static MekanismRenderer.Model3D.SpriteInfo torchOffIcon;
-    @javax.annotation.Nullable
-    private static MekanismRenderer.Model3D.SpriteInfo torchOnIcon;
     private final ModelTransporterBox modelBox;
     private final LazyItemRenderer itemRenderer = new LazyItemRenderer();
-
-    private static final int DIVERSION_OVERLAY_ARGB = MekanismRenderer.getColorARGB(255, 255, 255, 0.8F);
 
     public ExtraRenderLogisticalTransporter(BlockEntityRendererProvider.Context context) {
         super(context);
@@ -53,15 +44,12 @@ public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<Extr
 
     public static void onStitch(TextureAtlas map) {
         cachedOverlays.clear();
-        gunpowderIcon = new MekanismRenderer.Model3D.SpriteInfo(map.getSprite(new ResourceLocation("minecraft", "item/gunpowder")), 16);
-        torchOffIcon = new MekanismRenderer.Model3D.SpriteInfo(map.getSprite(new ResourceLocation("minecraft", "block/redstone_torch_off")), 16);
-        torchOnIcon = new MekanismRenderer.Model3D.SpriteInfo(map.getSprite(new ResourceLocation("minecraft", "block/redstone_torch")), 16);
     }
 
     @Override
     protected void render(ExtraTileEntityLogisticalTransporterBase tile, float partialTick, PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight,
                           @NotNull ProfilerFiller profiler) {
-        ExtraLogisticalTransporterBase transporter = tile.getTransmitter();
+        LogisticalTransporterBase transporter = tile.getTransmitter();
         Collection<TransporterStack> inTransit = transporter.getTransit();
         BlockPos pos = tile.getBlockPos();
         if (!inTransit.isEmpty()) {
@@ -151,10 +139,10 @@ public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<Extr
             if (entityItem == null) {
                 entityItem = new ItemEntity(EntityType.ITEM, world);
             } else {
-//                entityItem.setLevel(world);
+                entityItem.level = world;
             }
             entityItem.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-//            entityItem.age = 0;
+            entityItem.age = 0;
         }
 
         private void renderAsStack(PoseStack matrix, MultiBufferSource buffer, ItemStack stack, int light) {

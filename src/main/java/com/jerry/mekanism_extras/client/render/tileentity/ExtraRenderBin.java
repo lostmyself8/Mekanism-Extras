@@ -101,24 +101,24 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
     private void renderText(@NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight, Component text, Direction side,
                             float maxScale) {
         matrix.pushPose();
-        matrix.translate(0, -0.25, 0);
+        matrix.translate(0, -0.3725, 0);
         switch (side) {
             case SOUTH -> {
-                matrix.translate(0, 1, 0);
+                matrix.translate(0, 1, 0.0001);
                 matrix.mulPose(Vector3f.XP.rotationDegrees(90));
             }
             case NORTH -> {
-                matrix.translate(1, 1, 1);
+                matrix.translate(1, 1, 0.9999);
                 matrix.mulPose(Vector3f.YP.rotationDegrees(180));
                 matrix.mulPose(Vector3f.XP.rotationDegrees(90));
             }
             case EAST -> {
-                matrix.translate(0, 1, 1);
+                matrix.translate(0.0001, 1, 1);
                 matrix.mulPose(Vector3f.YP.rotationDegrees(90));
                 matrix.mulPose(Vector3f.XP.rotationDegrees(90));
             }
             case WEST -> {
-                matrix.translate(1, 1, 0);
+                matrix.translate(0.9999, 1, 0);
                 matrix.mulPose(Vector3f.YP.rotationDegrees(-90));
                 matrix.mulPose(Vector3f.XP.rotationDegrees(90));
             }

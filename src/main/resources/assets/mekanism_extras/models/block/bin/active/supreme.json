@@ -1,11 +1,10 @@
 {
-  "parent":"mekanism:block/bin/active/base",
-  "textures":{
-    "led":"mekanism_extras:block/bin/supreme_led",
-    "front":"mekanism_extras:block/bin/front",
-    "side":"mekanism_extras:block/bin/supreme_side",
-    "top":"mekanism_extras:block/bin/supreme_top_active",
-    "back":"mekanism_extras:block/bin/supreme_back",
-    "bottom":"mekanism_extras:block/bin/bottom_active"
+  "parent": "mekanism_extras:block/bin/supreme",
+  "textures": {
+    "front": "mekanism_extras:block/bin/supreme_front_on",
+    "west": "mekanism_extras:block/bin/supreme_side_on",
+    "east": "mekanism_extras:block/bin/supreme_side_on",
+    "south": "mekanism_extras:block/bin/supreme_side_on",
+    "up": "mekanism_extras:block/bin/supreme_top_on"
   }
 }
