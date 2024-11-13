@@ -21,6 +21,8 @@ import com.jerry.mekanism_extras.common.item.block.machine.ExtraItemBlockFluidTa
 import com.jerry.mekanism_extras.common.tier.FTTier;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityLogisticalTransporter;
+import mekanism.api.text.EnumColor;
 import mekanism.client.ClientRegistrationUtil;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.common.registration.impl.BlockRegistryObject;
@@ -29,6 +31,8 @@ import mekanism.common.registries.*;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.PrimaryResource;
 import mekanism.common.resource.ResourceType;
+import mekanism.common.tile.transmitter.TileEntityLogisticalTransporter;
+import mekanism.common.util.WorldUtils;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
@@ -117,6 +121,20 @@ public class ClientRender {
                     return -1;
                 }, ExtraBlock.ABSOLUTE_ENERGY_CUBE, ExtraBlock.SUPREME_ENERGY_CUBE, ExtraBlock.COSMIC_ENERGY_CUBE,
                 ExtraBlock.INFINITE_ENERGY_CUBE);
+        //Logistical Transporter
+        ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, tintIndex) -> {
+                    if (tintIndex == 1 && pos != null) {
+                        ExtraTileEntityLogisticalTransporter transporter = WorldUtils.getTileEntity(ExtraTileEntityLogisticalTransporter.class, world, pos);
+                        if (transporter != null) {
+                            EnumColor renderColor = transporter.getTransmitter().getColor();
+                            if (renderColor != null) {
+                                return MekanismRenderer.getColorARGB(renderColor, 1);
+                            }
+                        }
+                    }
+                    return -1;
+                }, ExtraBlock.ABSOLUTE_LOGISTICAL_TRANSPORTER, ExtraBlock.SUPREME_LOGISTICAL_TRANSPORTER, ExtraBlock.COSMIC_LOGISTICAL_TRANSPORTER,
+                ExtraBlock.INFINITE_LOGISTICAL_TRANSPORTER);
     }
 
     private static void registerBucketColorHandler(RegisterColorHandlersEvent.Item event, ExtraFluidDeferredRegister register) {
