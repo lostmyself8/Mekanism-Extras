@@ -138,6 +138,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
         }
     }
 
+    @Override
     public void onUpdateServer() {
         if (getTransmitterNetwork() != null) {
             //Pull items into the transporter

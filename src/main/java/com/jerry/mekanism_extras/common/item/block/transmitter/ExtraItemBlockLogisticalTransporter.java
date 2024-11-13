@@ -1,16 +1,15 @@
 package com.jerry.mekanism_extras.common.item.block.transmitter;
 
 import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockLogisticalTransporter;
+import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockMultipartAble;
 import com.jerry.mekanism_extras.common.tier.transmitter.TPTier;
 import mekanism.api.text.EnumColor;
 import mekanism.client.key.MekKeyHandler;
 import mekanism.client.key.MekanismKeyHandler;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
-import mekanism.common.item.block.ItemBlockMekanism;
 import mekanism.common.tier.TransporterTier;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -19,10 +18,10 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 
-public class ExtraItemBlockLogisticalTransporter extends ItemBlockMekanism<ExtraBlockLogisticalTransporter> {
+public class ExtraItemBlockLogisticalTransporter extends ExtraItemBlockMultipartAble<ExtraBlockLogisticalTransporter> {
 
     public ExtraItemBlockLogisticalTransporter(ExtraBlockLogisticalTransporter block) {
-        super(block, new Item.Properties());
+        super(block);
     }
 
     @Nonnull
