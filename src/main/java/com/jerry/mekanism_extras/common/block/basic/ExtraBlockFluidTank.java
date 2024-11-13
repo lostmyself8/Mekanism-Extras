@@ -1,10 +1,7 @@
 package com.jerry.mekanism_extras.common.block.basic;
 
-import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
 import mekanism.api.MekanismAPI;
-import mekanism.api.text.EnumColor;
-import mekanism.common.block.interfaces.IColoredBlock;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.tile.base.WrenchResult;
@@ -22,9 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
-public class ExtraBlockFluidTank extends BlockTile.BlockTileModel<ExtraTileEntityFluidTank, Machine<ExtraTileEntityFluidTank>> implements IColoredBlock {
+public class ExtraBlockFluidTank extends BlockTile.BlockTileModel<ExtraTileEntityFluidTank, Machine<ExtraTileEntityFluidTank>> {
     public ExtraBlockFluidTank(Machine<ExtraTileEntityFluidTank> type) {
         super(type);
     }
@@ -71,10 +66,5 @@ public class ExtraBlockFluidTank extends BlockTile.BlockTileModel<ExtraTileEntit
             }
         }
         return tile.openGui(player);
-    }
-
-    @Override
-    public EnumColor getColor() {
-        return Objects.requireNonNull(ExtraAttribute.getAdvanceTier(this)).getColor();
     }
 }

@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.client.events;
 
 import com.google.common.collect.Table;
+import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderBin;
 import com.jerry.mekanism_extras.client.model.energycube.ExtraEnergyCubeModelLoader;
@@ -10,6 +11,9 @@ import com.jerry.mekanism_extras.client.render.item.block.ExtraRenderEnergyCubeI
 import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderFluidTank;
 import com.jerry.mekanism_extras.client.render.transmitter.*;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekanism_extras.common.registration.impl.ExtraFluidDeferredRegister;
+import com.jerry.mekanism_extras.common.registration.impl.ExtraFluidRegistryObject;
+import com.jerry.mekanism_extras.common.registry.ExtraFluids;
 import com.jerry.mekanism_extras.common.tier.ECTier;
 import com.jerry.mekanism_extras.common.tier.TierColor;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockEnergyCube;
@@ -29,6 +33,7 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.model.DynamicFluidContainerModel;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -90,15 +95,16 @@ public class ClientRender {
     @SubscribeEvent
     public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, tintIndex) -> {
-            if (tintIndex == 1) {
-                FTTier tier = ExtraAttribute.getAdvanceTier(state.getBlock(), FTTier.class);
-                if (tier != null) {
-                    float[] color = TierColor.getColor(tier);
-                    return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
-                }
-            }
-            return -1;
-        }, ExtraBlock.ABSOLUTE_FLUID_TANK, ExtraBlock.SUPREME_FLUID_TANK, ExtraBlock.COSMIC_FLUID_TANK, ExtraBlock.INFINITE_FLUID_TANK);
+                    if (tintIndex == 1) {
+                        FTTier tier = ExtraAttribute.getAdvanceTier(state.getBlock(), FTTier.class);
+                        if (tier != null) {
+                            float[] color = TierColor.getColor(tier);
+                            return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                        }
+                    }
+                    return -1;
+                }, ExtraBlock.ABSOLUTE_FLUID_TANK, ExtraBlock.SUPREME_FLUID_TANK, ExtraBlock.COSMIC_FLUID_TANK,
+                ExtraBlock.INFINITE_FLUID_TANK);
 
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, index) -> {
                     if (index == 1) {
@@ -113,8 +119,17 @@ public class ClientRender {
                 ExtraBlock.INFINITE_ENERGY_CUBE);
     }
 
+    private static void registerBucketColorHandler(RegisterColorHandlersEvent.Item event, ExtraFluidDeferredRegister register) {
+        for (ExtraFluidRegistryObject<? extends ExtraFluidDeferredRegister.ExtraFluidType, ?, ?, ?, ?> fluidRO : register.getAllFluids()) {
+            event.register(new DynamicFluidContainerModel.Colors(), fluidRO.getBucket());
+        }
+    }
+
     @SubscribeEvent
     public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
+        //注册流体桶颜色
+        registerBucketColorHandler(event, ExtraFluids.EXTRA_FLUIDS);
+        registerBucketColorHandler(event, ExtraGenFluids.EXTRA_GEN_FLUIDS);
         //fluid tank
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
@@ -124,7 +139,6 @@ public class ClientRender {
             }
             return -1;
         }, ExtraBlock.ABSOLUTE_FLUID_TANK, ExtraBlock.SUPREME_FLUID_TANK, ExtraBlock.COSMIC_FLUID_TANK, ExtraBlock.INFINITE_FLUID_TANK);
-        ClientRegistrationUtil.registerBucketColorHandler(event, MekanismFluids.FLUIDS);
 
         //energy cube
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
@@ -135,17 +149,6 @@ public class ClientRender {
             }
             return -1;
         }, ExtraBlock.ABSOLUTE_ENERGY_CUBE, ExtraBlock.SUPREME_ENERGY_CUBE, ExtraBlock.COSMIC_ENERGY_CUBE, ExtraBlock.INFINITE_ENERGY_CUBE);
-
-        for (Table.Cell<ResourceType, PrimaryResource, ItemRegistryObject<Item>> item : MekanismItems.PROCESSED_RESOURCES.cellSet()) {
-            int tint = item.getColumnKey().getTint();
-            ClientRegistrationUtil.registerItemColorHandler(event, (stack, index) -> index == 1 ? tint : -1, item.getValue());
-        }
-        for (Map.Entry<IResource, BlockRegistryObject<?, ?>> entry : MekanismBlocks.PROCESSED_RESOURCE_BLOCKS.entrySet()) {
-            if (entry.getKey() instanceof PrimaryResource primaryResource) {
-                int tint = primaryResource.getTint();
-                ClientRegistrationUtil.registerItemColorHandler(event, (stack, index) -> index == 1 ? tint : -1, entry.getValue());
-            }
-        }
     }
 
 }
