@@ -2,7 +2,7 @@
   "type": "mekanism:infusion_conversion",
   "input": {
     "ingredient": {
-      "item": "mekanism:ingot_lead"
+      "tag": "forge:dusts/lead"
     }
   },
   "output": {
