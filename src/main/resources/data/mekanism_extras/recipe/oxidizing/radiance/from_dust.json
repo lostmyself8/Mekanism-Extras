@@ -1,5 +1,5 @@
 {
-  "type": "mekanism:chemical_conversion",
+  "type": "mekanism:oxidizing",
   "input": {
     "count": 1,
     "tag": "c:dusts/radiance"

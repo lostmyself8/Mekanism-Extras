@@ -20,6 +20,8 @@ import com.jerry.mekextras.common.item.block.machine.ExtraItemBlockFluidTank;
 import com.jerry.mekextras.common.tier.FTTier;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import com.jerry.mekextras.common.registry.ExtraContainerTypes;
+import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityLogisticalTransporter;
+import mekanism.api.text.EnumColor;
 import mekanism.client.ClientRegistrationUtil;
 import com.jerry.mekextras.common.registry.ExtraTileEntityTypes;
 import mekanism.client.render.MekanismRenderer;
@@ -31,6 +33,7 @@ import mekanism.common.registries.*;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.PrimaryResource;
 import mekanism.common.resource.ResourceType;
+import mekanism.common.util.WorldUtils;
 import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -122,6 +125,20 @@ public class ClientRegistration {
                     return -1;
                 }, ExtraBlocks.ABSOLUTE_ENERGY_CUBE, ExtraBlocks.SUPREME_ENERGY_CUBE, ExtraBlocks.COSMIC_ENERGY_CUBE,
                 ExtraBlocks.INFINITE_ENERGY_CUBE);
+
+        ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, tintIndex) -> {
+                    if (tintIndex == 1 && pos != null) {
+                        ExtraTileEntityLogisticalTransporter transporter = WorldUtils.getTileEntity(ExtraTileEntityLogisticalTransporter.class, world, pos);
+                        if (transporter != null) {
+                            EnumColor renderColor = transporter.getTransmitter().getColor();
+                            if (renderColor != null) {
+                                return renderColor.getPackedColor();
+                            }
+                        }
+                    }
+                    return -1;
+                }, ExtraBlocks.ABSOLUTE_LOGISTICAL_TRANSPORTER, ExtraBlocks.SUPREME_LOGISTICAL_TRANSPORTER, ExtraBlocks.COSMIC_LOGISTICAL_TRANSPORTER,
+                ExtraBlocks.INFINITE_LOGISTICAL_TRANSPORTER);
     }
 
     @SubscribeEvent

@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:oxidizing",
+  "input": {
+    "count": 1,
+    "item": "mekanism_extras:enriched_shining"
+  },
+  "output": {
+    "amount": 40,
+    "id": "mekanism_extras:shining"
+  }
+}
