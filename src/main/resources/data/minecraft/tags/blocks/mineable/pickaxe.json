@@ -52,11 +52,11 @@
     "mekanism_extras:infinite_chemical_tank",
     "mekanism_extras:expand_radioactive_waste_barrel",
     "mekanism_extras:advance_electric_pump",
-    "mekanism_extras:naquadah_reactor_controller",
-    "mekanism_extras:naquadah_reactor_casing",
-    "mekanism_extras:naquadah_reactor_port",
-    "mekanism_extras:naquadah_reactor_logic_adapter",
-    "mekanism_extras:lead_coated_glass",
-    "mekanism_extras:lead_coated_laser_focus_matrix"
+    {"id": "mekanism_extras:naquadah_reactor_controller", "required": false},
+    {"id": "mekanism_extras:naquadah_reactor_casing", "required": false},
+    {"id": "mekanism_extras:naquadah_reactor_port", "required": false},
+    {"id": "mekanism_extras:naquadah_reactor_logic_adapter", "required": false},
+    {"id": "mekanism_extras:lead_coated_glass", "required": false},
+    {"id": "mekanism_extras:lead_coated_laser_focus_matrix", "required": false}
   ]
 }
