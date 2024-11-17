@@ -2,7 +2,6 @@ package com.jerry.generator_extras.client.event;
 
 import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.common.registry.ExtraFluids;
 import com.jerry.mekanism_extras.integration.Addons;
 import mekanism.client.ClientRegistrationUtil;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,7 +16,6 @@ public class ClientRender {
     public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
         if (Addons.MEKANISMGENERATORS.isLoaded()) {
             //Bucket Item Color
-            ClientRegistrationUtil.registerBucketColorHandler(event, ExtraFluids.EXTRA_FLUIDS);
             ClientRegistrationUtil.registerBucketColorHandler(event, ExtraGenFluids.EXTRA_GEN_FLUIDS);
         }
     }

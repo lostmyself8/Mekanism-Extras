@@ -10,6 +10,7 @@ import com.jerry.mekanism_extras.client.render.item.block.ExtraRenderEnergyCubeI
 import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderFluidTank;
 import com.jerry.mekanism_extras.client.render.transmitter.*;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekanism_extras.common.registry.ExtraFluids;
 import com.jerry.mekanism_extras.common.tier.ECTier;
 import com.jerry.mekanism_extras.common.tier.TierColor;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockEnergyCube;
@@ -133,6 +134,8 @@ public class ClientRender {
 
     @SubscribeEvent
     public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
+        //Bucket Item Color
+        ClientRegistrationUtil.registerBucketColorHandler(event, ExtraFluids.EXTRA_FLUIDS);
         //Fluid Tank
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
