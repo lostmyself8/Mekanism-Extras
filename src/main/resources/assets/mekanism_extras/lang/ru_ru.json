@@ -158,11 +158,11 @@
   "tag.item.c.alloys.cosmic": "Cosmic Alloys",
   "tag.item.c.alloys.infinite": "Infinite Alloys",
 
-  "tag.item.mekanism_extras.enriched": "Enriched",
-  "tag.item.mekanism_extras.enriched.radiance": "Enriched Radiance",
-  "tag.item.mekanism_extras.enriched.thermonuclear": "Enriched Thermonuclear",
-  "tag.item.mekanism_extras.enriched.shining": "Enriched Shining",
-  "tag.item.mekanism_extras.enriched.spectrum": "Enriched Spectrum",
+  "tag.item.mekanism_extras.enriched": "Обогащённый",
+  "tag.item.mekanism_extras.enriched.radiance": "Обогащённый сияние",
+  "tag.item.mekanism_extras.enriched.thermonuclear": "Обогащённый натринезерит",
+  "tag.item.mekanism_extras.enriched.shining": "Обогащённый сияющий натринезерит",
+  "tag.item.mekanism_extras.enriched.spectrum": "Обогащённый спектрал",
 
   "tag.item.c.circuits.absolute": "Absolute Circuits",
   "tag.item.c.circuits.supreme": "Supreme Circuits",
