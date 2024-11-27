@@ -23,7 +23,8 @@ public abstract class MixinBinInventorySlot extends BasicInventorySlot {
     @Final
     @Shadow
     @Mutable
-    private static Predicate<ItemStack> validator;
+    public static Predicate<ItemStack> validator;
+
     protected MixinBinInventorySlot(Predicate<@NotNull ItemStack> canExtract, Predicate<@NotNull ItemStack> canInsert, Predicate<@NotNull ItemStack> validator, @Nullable IContentsListener listener, int x, int y) {
         super(canExtract, canInsert, validator, listener, x, y);
     }

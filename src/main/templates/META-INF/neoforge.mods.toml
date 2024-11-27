@@ -12,14 +12,14 @@ license = "${mod_license}"
     config = "mekextra.mixins.json"
     description = '''${mod_description}'''
 
-[[dependencies.mekanism_extras]]
+[[dependencies.${mod_id}]]
     modId = "neoforge"
     type = "required"
     versionRange = "${neo_version_range}"
     ordering = "NONE"
     side = "BOTH"
 
-[[dependencies.mekanism_extras]]
+[[dependencies.${mod_id}]]
     modId = "minecraft"
     type = "required"
     versionRange = "${minecraft_version_range}"

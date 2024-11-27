@@ -163,7 +163,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                     inventoryPos.setWithOffset(pos, side);
                     IItemHandler inventory = Capabilities.ITEM.getCapabilityIfLoaded(getLevel(), inventoryPos, side.getOpposite());
                     if (inventory != null) {
-                        TransitRequest request = TransitRequest.anyItem(inventory, tier.getPullAmount());
+                        TransitRequest request = TransitRequest.anyItem(inventory, TPTier.getPullAmount(tier));
                         //There's a stack available to insert into the network...
                         if (!request.isEmpty()) {
                             TransitRequest.TransitResponse response = insert(null, inventoryPos, request, getColor(), true, 0);
