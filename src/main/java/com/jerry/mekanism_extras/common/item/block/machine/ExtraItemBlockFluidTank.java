@@ -64,7 +64,7 @@ import java.util.function.Consumer;
 
 public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IModeItem {
     public ExtraItemBlockFluidTank(ExtraBlockFluidTank block) {
-        super(block);
+        super(block, new Properties().stacksTo(64));
     }
 
     @Override
@@ -111,6 +111,8 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IM
                 return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
             } else if (!ISecurityUtils.INSTANCE.canAccessOrDisplayError(player, stack)) {
                 return InteractionResultHolder.fail(stack);
+            } else if (stack.getCount() > 1) {
+                return InteractionResultHolder.pass(stack);
             }
             //TODO: At some point maybe try to reduce the duplicate code between this and the dispense behavior
             BlockHitResult result = getPlayerPOVHitResult(world, player, player.isShiftKeyDown() ? ClipContext.Fluid.NONE : ClipContext.Fluid.SOURCE_ONLY);
@@ -262,7 +264,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IM
         @NotNull
         @Override
         public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
-            if (stack.getItem() instanceof ExtraItemBlockFluidTank tank && tank.getBucketMode(stack)) {
+            if (stack.getCount() == 1 && stack.getItem() instanceof ExtraItemBlockFluidTank tank && tank.getBucketMode(stack)) {
                 //If the fluid tank is in bucket mode allow for it to act as a bucket
                 //Note: We don't use DispenseFluidContainer as we have more specific logic for determining if we want it to
                 // act as a bucket that is emptying its contents or one that is picking up contents
@@ -384,7 +386,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IM
         @Override
         public final InteractionResult interact(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
                                                 @NotNull InteractionHand hand, @NotNull ItemStack stack) {
-            if (stack.getItem() instanceof ExtraItemBlockFluidTank tank && tank.getBucketMode(stack)) {
+            if (stack.getCount() == 1 && stack.getItem() instanceof ExtraItemBlockFluidTank tank && tank.getBucketMode(stack)) {
                 //If the fluid tank is in bucket mode allow for it to act as a bucket
                 IExtendedFluidTank fluidTank = getExtendedFluidTank(stack);
                 //Get the fluid tank for the stack

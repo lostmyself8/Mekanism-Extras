@@ -8,7 +8,12 @@
     "MixinBinInventorySlot",
     "MixinGeneratorsPacketHandler",
     "MixinLogisticalTransporterBase",
-    "MixinPacketHandler"
+    "MixinPacketHandler",
+    "MixinStorageUtils",
+    "MixinTurbineGasTank",
+    "MixinTurbineMultiblockData",
+    "item.MixinItemEnergized",
+    "item.block.MixinItemBlockBin"
   ],
   "client": [
   ],

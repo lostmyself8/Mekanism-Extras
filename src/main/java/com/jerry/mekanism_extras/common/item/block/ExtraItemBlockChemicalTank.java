@@ -27,7 +27,7 @@ import java.util.List;
 
 public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>> implements IItemSustainedInventory {
     public ExtraItemBlockChemicalTank(BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>> block) {
-        super(block, new Item.Properties().stacksTo(1));
+        super(block,true, new Item.Properties().stacksTo(64));
     }
 
     @Override
@@ -45,6 +45,9 @@ public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.
 
     @Override
     public boolean isBarVisible(@NotNull ItemStack stack) {
+        if (stack.getCount() > 1) {
+            return false;
+        }
         // No bar for empty containers as bars are drawn on top of stack count number
         return ChemicalUtil.hasGas(stack) ||
                 ChemicalUtil.hasChemical(stack, ConstantPredicates.alwaysTrue(), Capabilities.INFUSION_HANDLER) ||
