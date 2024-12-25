@@ -12,6 +12,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ExtraTag {
 
@@ -49,6 +50,9 @@ public class ExtraTag {
         public static final TagKey<Fluid> FLUORINATED_SILICON_URANIUM_FUEL = forgeTag("fluorinated_silicon_uranium_fuel");
         public static final TagKey<Fluid> RICH_SILICON_LIQUID_FUEL = forgeTag("rich_silicon_liquid_fuel");
         public static final TagKey<Fluid> RICH_URANIUM_LIQUID_FUEL = forgeTag("rich_uranium_liquid_fuel");
+
+        public static final TagKey<Fluid> POLONIUM_CONTAINING_SOLUTION = forgeTag("polonium_containing_solution");
+        public static final LazyTagLookup<Fluid> LAZY_POLONIUM_CONTAINING_SOLUTION = LazyTagLookup.create(ForgeRegistries.FLUIDS, POLONIUM_CONTAINING_SOLUTION);
 
         private static TagKey<Fluid> forgeTag(String name) {
             return FluidTags.create(new ResourceLocation("forge", name));
