@@ -48,7 +48,7 @@ public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<Extr
         BlockPos pos = tile.getBlockPos();
         if (!MekanismConfig.client.opaqueTransmitters.get()) {
             Collection<TransporterStack> inTransit = transporter.getTransit();
-            System.out.println(inTransit);
+//            System.out.println(inTransit);
             if (!inTransit.isEmpty()) {
                 matrix.pushPose();
                 itemRenderer.init(tile.getLevel(), pos);

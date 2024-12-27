@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class ExtraGuiEnergyCube extends GuiConfigurableTile<ExtraTileEntityEnergyCube, MekanismTileContainer<ExtraTileEntityEnergyCube>> {
+
     public ExtraGuiEnergyCube(MekanismTileContainer<ExtraTileEntityEnergyCube> container, Inventory inv, Component title) {
         super(container, inv, title);
         dynamicSlots = true;
@@ -43,7 +44,7 @@ public class ExtraGuiEnergyCube extends GuiConfigurableTile<ExtraTileEntityEnerg
     @Override
     protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
         renderTitleText(guiGraphics);
-        drawString(guiGraphics, playerInventoryTitle, inventoryLabelX, inventoryLabelY, titleTextColor());
+        renderInventoryText(guiGraphics);
         super.drawForegroundText(guiGraphics, mouseX, mouseY);
     }
 }

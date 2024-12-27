@@ -144,6 +144,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
         return tier;
     }
 
+    @Override
     public void onUpdateServer() {
         if (getTransmitterNetwork() != null) {
             //Pull items into the transporter
@@ -182,7 +183,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                 }
             }
             if (!transit.isEmpty()) {
-                BlockPos pos = getBlockPos();
+                long pos = getWorldPositionLong();
                 InventoryNetwork network = getTransmitterNetwork();
                 //Update stack positions
                 IntSet deletes = new IntOpenHashSet();
@@ -204,7 +205,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                     if (stack.progress >= 100) {
                         long prevSet = Long.MAX_VALUE;
                         if (stack.hasPath()) {
-                            int currentIndex = stack.getPath().indexOf(pos.asLong());
+                            int currentIndex = stack.getPath().indexOf(pos);
                             if (currentIndex == 0) { //Necessary for transition reasons, not sure why
                                 deletes.add(stackId);
                                 continue;
@@ -279,7 +280,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                             if (nextPos == Long.MAX_VALUE) {
                                 tryRecalculate = true;
                             } else {
-                                Direction nextSide = stack.getSide(pos, nextPos);
+                                Direction nextSide = stack.getSide(getWorldPositionLong(), nextPos);
                                 LogisticalTransporterBase nextTransmitter = network.getTransmitter(nextPos);
                                 if (nextTransmitter == null && stack.getPathType().noTarget() && stack.getPath().size() == 2) {
                                     //If there is no next transmitter, and it was an idle path, assume that we are idling
@@ -328,7 +329,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
         //Only add to needsSync if true is being returned; otherwise it gets added to deletes
         needsSync.put(stackId, stack);
         if (from != Long.MAX_VALUE) {
-            stack.originalLocation = BlockPos.of(from);
+            stack.originalLocation = from;
         }
         return true;
     }

@@ -9,7 +9,6 @@ import mekanism.common.util.MekanismUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.Supplier;
@@ -21,7 +20,7 @@ public class ExtraGuiGasMode extends MekanismImageButton {
 
     private final Tooltip dumpExcess;
     private final Tooltip dump;
-    private final boolean left;
+    private final TextAlignment textSide;
     private final Supplier<ExtraTileEntityChemicalTank.GasMode> gasModeSupplier;
 
     public ExtraGuiGasMode(IGuiWrapper gui, int x, int y, boolean left, Supplier<ExtraTileEntityChemicalTank.GasMode> gasModeSupplier, BlockPos pos, int tank) {
@@ -30,7 +29,7 @@ public class ExtraGuiGasMode extends MekanismImageButton {
 
     public ExtraGuiGasMode(IGuiWrapper gui, int x, int y, boolean left, Supplier<ExtraTileEntityChemicalTank.GasMode> gasModeSupplier, BlockPos pos, int tank, Tooltip dumpExcess, Tooltip dump) {
         super(gui, x, y, 10, IDLE, (element, mouseX, mouseY) -> PacketUtils.sendToServer(new PacketGuiInteract(PacketGuiInteract.GuiInteraction.GAS_MODE_BUTTON, pos, tank)));
-        this.left = left;
+        this.textSide = left ? TextAlignment.RIGHT : TextAlignment.LEFT;
         this.gasModeSupplier = gasModeSupplier;
         this.dumpExcess = dumpExcess;
         this.dump = dump;
@@ -48,12 +47,8 @@ public class ExtraGuiGasMode extends MekanismImageButton {
     @Override
     public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         //Draw the text next to the button
-        Component component = gasModeSupplier.get().getTextComponent();
-        if (left) {
-            drawTextScaledBound(guiGraphics, component, relativeX - 3 - (int) (getStringWidth(component) * getNeededScale(component, 66)), relativeY + 1, titleTextColor(), 66);
-        } else {
-            drawTextScaledBound(guiGraphics, component, relativeX + width + 5, relativeY + 1, titleTextColor(), 66);
-        }
+        int start = textSide == TextAlignment.RIGHT ? -69 : getWidth();
+        drawScrollingString(guiGraphics, gasModeSupplier.get().getTextComponent(), start, 1, textSide, titleTextColor(), 69, 2, false);
         super.renderForeground(guiGraphics, mouseX, mouseY);
     }
 

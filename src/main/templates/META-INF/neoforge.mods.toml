@@ -25,3 +25,10 @@ license = "${mod_license}"
     versionRange = "${minecraft_version_range}"
     ordering = "NONE"
     side = "BOTH"
+
+[[dependencies.${mod_id}]]
+    modId = "mekanism"
+    type = "required"
+    versionRange = "[10.7.8]"
+    ordering = "AFTER"
+    side = "BOTH"

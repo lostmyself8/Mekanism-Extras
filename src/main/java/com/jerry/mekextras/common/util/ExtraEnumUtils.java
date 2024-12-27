@@ -17,4 +17,5 @@ public class ExtraEnumUtils {
     public static final FTTier[] FLUID_TANK_TIERS = FTTier.values();
     public static final CTTier[] CHEMICAL_TANK_TIERS = CTTier.values();
     public static final RWBTier[] RADIOACTIVE_BARREL_TIER = RWBTier.values();
+    public static final AdvanceFactoryTier[] ADVANCE_FACTORY_TIERS = AdvanceFactoryTier.values();
 }

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraGuiFluidTank extends GuiMekanismTile<ExtraTileEntityFluidTank, MekanismTileContainer<ExtraTileEntityFluidTank>> {
+
     public ExtraGuiFluidTank(MekanismTileContainer<ExtraTileEntityFluidTank> container, Inventory inv, Component title) {
         super(container, inv, title);
         dynamicSlots = true;
@@ -30,7 +31,7 @@ public class ExtraGuiFluidTank extends GuiMekanismTile<ExtraTileEntityFluidTank,
     @Override
     protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
         renderTitleText(guiGraphics);
-        drawString(guiGraphics, playerInventoryTitle, inventoryLabelX, inventoryLabelY, titleTextColor());
+        renderInventoryText(guiGraphics);
         super.drawForegroundText(guiGraphics, mouseX, mouseY);
     }
 }

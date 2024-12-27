@@ -26,6 +26,7 @@ import java.util.List;
 public class GuiAdvanceElectricPump extends GuiMekanismTile<TileEntityAdvanceElectricPump, MekanismTileContainer<TileEntityAdvanceElectricPump>> {
     public GuiAdvanceElectricPump(MekanismTileContainer<TileEntityAdvanceElectricPump> container, Inventory inv, Component title) {
         super(container, inv, title);
+        titleLabelY = 5;
         inventoryLabelY += 2;
         dynamicSlots = true;
     }
@@ -64,7 +65,7 @@ public class GuiAdvanceElectricPump extends GuiMekanismTile<TileEntityAdvanceEle
     @Override
     protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
         renderTitleText(guiGraphics);
-        drawString(guiGraphics, playerInventoryTitle, inventoryLabelX, inventoryLabelY, titleTextColor());
+        renderInventoryText(guiGraphics);
         super.drawForegroundText(guiGraphics, mouseX, mouseY);
     }
 }
