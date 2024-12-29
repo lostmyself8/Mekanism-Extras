@@ -25,7 +25,7 @@ public class ExtraUsageConfig extends BaseMekanismConfig {
 
     @Override
     public String getFileName() {
-        return "extra_machine_usage";
+        return "extras_machine_usage";
     }
 
     @Override

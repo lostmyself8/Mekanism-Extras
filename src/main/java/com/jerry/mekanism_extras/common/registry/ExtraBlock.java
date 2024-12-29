@@ -65,7 +65,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ExtraBlock {
-//    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MekanismExtras.MODID);
     public static final BlockDeferredRegister EXTRA_BLOCK = new BlockDeferredRegister(MekanismExtras.MODID);
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(String tierName, String suffix, Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
@@ -82,9 +81,9 @@ public class ExtraBlock {
         return EXTRA_BLOCK.register(registerName, () -> blockSupplier.apply(tier.getAdvanceTier().getMapColor()), itemCreator);
     }
 
-//    public static final RegistryObject<Block> NAQUADAH_ORE = BLOCKS.register("naquadah_ore",
+//    public static final BlockRegistryObject<Block, BlockItem> NAQUADAH_ORE = EXTRA_BLOCK.register("naquadah_ore",
 //            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK)));
-//    public static final RegistryObject<Block> END_NAQUADAH_ORE = BLOCKS.register("end_naquadah_ore",
+//    public static final BlockRegistryObject<Block, BlockItem> END_NAQUADAH_ORE = EXTRA_BLOCK.register("end_naquadah_ore",
 //            () -> new Block(BlockBehaviour.Properties.copy(Blocks.END_STONE)));
 
     public static final Map<ExtraOreType, ExtraOreBlockType> ORES = new LinkedHashMap<>();

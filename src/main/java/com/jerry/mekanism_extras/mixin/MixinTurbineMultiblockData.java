@@ -46,7 +46,7 @@ public abstract class MixinTurbineMultiblockData extends MultiblockData {
         return fluid -> MekanismTags.Fluids.WATER_LOOKUP.contains(fluid.getFluid()) || ExtraTag.Fluids.LAZY_POLONIUM_CONTAINING_SOLUTION.contains(fluid.getFluid());
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(DD)D", shift = At.Shift.BY), locals = LocalCapture.CAPTURE_FAILSOFT)
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(DD)D", shift = At.Shift.BY, ordinal = 1), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void getRate(Level world, CallbackInfoReturnable<Boolean> cir, boolean needsPacket, long stored, double flowRate, FloatingLong energyNeeded, FloatingLong energyMultiplier, double rate) {
         mekanismExtras$rateMixin = rate;
     }

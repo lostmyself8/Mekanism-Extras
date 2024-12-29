@@ -4,6 +4,7 @@ import mekanism.common.item.CapabilityItem;
 import mekanism.common.item.ItemEnergized;
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,7 +23,7 @@ public abstract class MixinItemEnergized extends CapabilityItem implements Creat
     }
 
     @Inject(method = "isBarVisible", at = @At(value = "RETURN"), cancellable = true)
-    public void isBarVisible(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+    public void isBarVisible(@NotNull ItemStack stack, @NotNull CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(stack.getCount() == 1);
     }
 }

@@ -25,7 +25,7 @@ public class ExtraStorageConfig extends BaseMekanismConfig {
 
     @Override
     public String getFileName() {
-        return "extra_machine_storage";
+        return "extras_machine_storage";
     }
 
     @Override

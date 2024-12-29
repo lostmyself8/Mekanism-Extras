@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.item.block;
 
 import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
+import com.jerry.mekanism_extras.common.config.LoadConfig;
 import mekanism.api.AutomationType;
 import mekanism.api.NBTConstants;
 import mekanism.api.Upgrade;
@@ -15,7 +16,6 @@ import mekanism.common.capabilities.ItemCapabilityWrapper;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import mekanism.common.capabilities.energy.item.RateLimitEnergyHandler;
 import mekanism.common.capabilities.security.item.ItemStackSecurityObject;
-import mekanism.common.config.MekanismConfig;
 import mekanism.common.util.ItemDataUtils;
 import mekanism.common.util.MekanismUtils;
 import net.minecraft.nbt.CompoundTag;
@@ -110,13 +110,12 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
 
     protected boolean exposesEnergyCap(ItemStack stack) {
         //Only expose it if the block can't stack
-        return Attribute.has(block, AttributeEnergy.class) && !stack.isStackable();
+        return Attribute.has(block, AttributeEnergy.class);
     }
 
-    //TODO: 到时候记得改一下
     protected boolean areCapabilityConfigsLoaded(ItemStack stack) {
         if (exposesEnergyCap(stack)) {
-            return MekanismConfig.storage.isLoaded() && MekanismConfig.usage.isLoaded();
+            return LoadConfig.extraStorage.isLoaded() && LoadConfig.extraConfig.isLoaded();
         }
         return true;
     }
