@@ -145,6 +145,8 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "レーザーフォーカスマトリックスを鉛コーティングし、耐放射線を高めたブロックです。",
   "description.mekanism_extras.lead_coated_glass": "ナクアダリアクターからの放射線を遮断してくれる、より優れた反応炉ガラスです。",
 
+  "matrix.mekanism_extras.reinforced_induction_matrix": "Reinforced Induction Matrix",
+
   "plasma.mekanism_extras.hydrogen": "水素プラズマ",
 
   "info.mekanism_extras.jei.rich_silicon_fuel": "リッチケイ素燃料はフィルターアップグレードがインストールされた発展型電動ポンプを使って四フッ化ケイ素液源から抽出することができます。",

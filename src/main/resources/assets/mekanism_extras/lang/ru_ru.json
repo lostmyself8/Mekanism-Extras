@@ -145,6 +145,8 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "По сравнению с матрицей лазерного фокуса она способна предотвращать облучение.",
   "description.mekanism_extras.lead_coated_glass": "Укреплённое реакторное стекло, способное предотвратить облучение от реактора.",
 
+  "matrix.mekanism_extras.reinforced_induction_matrix": "Reinforced Induction Matrix",
+
   "plasma.mekanism_extras.hydrogen": "Водородная плазма",
 
   "info.mekanism_extras.jei.rich_silicon_fuel": "Обогащённое кремниевое топливо можно извлекать из блока-источника тетрафторида кремния с помощью продвинутой электрической помпы с установленным модулем фильтра.",

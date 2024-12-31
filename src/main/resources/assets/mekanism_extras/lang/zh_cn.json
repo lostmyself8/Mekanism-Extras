@@ -145,6 +145,8 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "与激光聚焦矩阵相比它可以防辐射。",
   "description.mekanism_extras.lead_coated_glass": "可以防止反应堆释放辐射的强化玻璃。",
 
+  "matrix.mekanism_extras.reinforced_induction_matrix": "坚固感应矩阵",
+
   "plasma.mekanism_extras.hydrogen": "氢等离子体",
 
   "info.mekanism_extras.jei.rich_silicon_fuel": "液态富硅燃料可以用带过滤升级的先进电动泵抽取四氟化硅获得。",

@@ -145,6 +145,8 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "Compared to the laser focusing matrix, it can prevent radiation.",
   "description.mekanism_extras.lead_coated_glass": "Reactor glass that can prevent the radiation from the reactor.",
 
+  "matrix.mekanism_extras.reinforced_induction_matrix": "Reinforced Induction Matrix",
+
   "plasma.mekanism_extras.hydrogen": "Hydrogen Plasma",
 
   "info.mekanism_extras.jei.rich_silicon_fuel": "Rich Silicon Fuel can be extracted from a Silicon Tetrafluoride source block via an advance electric pump with a filter upgrade installed.",
