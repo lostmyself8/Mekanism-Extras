@@ -56,7 +56,7 @@ public class ExtraBuilders {
             if (empty) {
                 buildInteriorLayers(world, start, 1, 16, Blocks.AIR);
             } else {
-                //数组中[1]-[15]感应存储器
+                //数组中[1]-[15]感应元件
                 buildInteriorLayers(world, start, 1, 15, ExtraBlock.INFINITE_INDUCTION_CELL.getBlock());
                 //[16]放置感应供应器
                 buildInteriorLayer(world, start, 16, ExtraBlock.INFINITE_INDUCTION_PROVIDER.getBlock());

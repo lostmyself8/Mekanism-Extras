@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = StorageUtils.class, remap = false)
 public class MixinStorageUtils {
 
-    @Inject(method = "getEnergyBarWidth", at = @At(value = "TAIL"), cancellable = true)
+    @Inject(method = "getEnergyBarWidth", at = @At(value = "HEAD"), cancellable = true)
     private static void getEnergyBarWidth(@NotNull ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         if (stack.getCount() > 1) {
             cir.setReturnValue(0);
         }
     }
 
-    @Inject(method = "getBarWidth", at = @At(value = "TAIL"), cancellable = true)
+    @Inject(method = "getBarWidth", at = @At(value = "HEAD"), cancellable = true)
     private static void getBarWidth(@NotNull ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         if (stack.getCount() > 1) {
             cir.setReturnValue(0);

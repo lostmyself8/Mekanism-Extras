@@ -7,6 +7,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
+import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.capabilities.energy.MachineEnergyContainer;
@@ -16,6 +17,7 @@ import net.minecraft.nbt.CompoundTag;
 import java.util.Map;
 import java.util.Set;
 
+@NothingNullByDefault
 public class ExtraMatrixEnergyContainer implements IEnergyContainer {
 
     private final Map<BlockPos, IPTier> providers = new Object2ObjectOpenHashMap<>();

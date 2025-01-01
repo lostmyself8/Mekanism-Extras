@@ -9,19 +9,10 @@
     "MixinGeneratorsPacketHandler",
     "MixinLogisticalTransporterBase",
     "MixinPacketHandler",
-    "MixinSecurityUtils",
     "MixinStorageUtils",
     "MixinTileEntityLogisticalSorter",
     "MixinTurbineGasTank",
-    "MixinTurbineMultiblockData",
-    "item.block.MixinItemBlockBin",
-    "item.block.MixinItemBlockChemicalTank",
-    "item.block.MixinItemBlockEnergyCube",
-    "item.block.MixinItemBlockMekanism",
-    "item.block.MixinItemBlockTooltip",
-    "item.block.machine.MixinItemBlockFluidTank",
-    "item.block.machine.MixinItemBlockFluidTank$MixinBasicCauldronInteraction",
-    "item.block.machine.MixinItemBlockFluidTank$MixinFluidTankItemDispenseBehavior"
+    "MixinTurbineMultiblockData"
   ],
   "client": [
   ],

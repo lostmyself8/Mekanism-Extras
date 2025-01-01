@@ -35,7 +35,6 @@ public abstract class MixinTileEntityLogisticalSorter extends TileEntityMekanism
             LogisticalTransporterBase transporter = transporterBase.getTransmitter();
             if (roundRobin) {
                 cir.setReturnValue(transporter.insertRR((TileEntityLogisticalSorter) (Object) this, request, filterColor, true, min));
-                cir.cancel();
                 return;
             }
             cir.setReturnValue(transporter.insert((TileEntityLogisticalSorter) (Object) this, request, filterColor, true, min));

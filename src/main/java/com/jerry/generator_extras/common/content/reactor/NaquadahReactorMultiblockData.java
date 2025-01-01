@@ -209,9 +209,6 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
                 vaporiseHohlraum();
             }
 
-            //检查速率是否小于4，小于4将燃烧状态设置为false
-            if(burning && injectionRate < 4) setBurning(false);
-
             //Only inject fuel if we're burning
             if (isBurning()) {
                 injectFuel();
@@ -224,6 +221,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
             setBurning(false);
         }
 
+        //正常情况都为
         if (lastBurned != fuelBurned) {
             lastBurned = fuelBurned;
         }
@@ -290,6 +288,9 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
 
     //消耗燃料
     private long burnFuel() {
+        //(lastPlasmaTemperature - burnTemperature) * burnRatio < 0 值为 0
+        //(lastPlasmaTemperature - burnTemperature) * burnRatio >= 0 值为 (lastPlasmaTemperature - burnTemperature) * burnRatio 和 fuelTank.getStored() 中较小的一个
+        //当温度低于点燃温度返回0，即后反应堆停机
         long fuelBurned = MathUtils.clampToLong(Mth.clamp((lastPlasmaTemperature - burnTemperature) * burnRatio, 0, fuelTank.getStored()));
         MekanismUtils.logMismatchedStackSize(fuelTank.shrinkStack(fuelBurned, Action.EXECUTE), fuelBurned);
         setPlasmaTemp(getPlasmaTemp() + GenLoadConfig.generatorConfig.energyPerReactorFuel.get().multiply(fuelBurned).divide(plasmaHeatCapacity).doubleValue());
