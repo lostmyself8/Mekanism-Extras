@@ -16,7 +16,7 @@ public class ExtraGenFluids {
 
     }
     public static final FluidDeferredRegister EXTRA_GEN_FLUIDS = new FluidDeferredRegister(MekanismExtras.MODID);
-    public static final FluidRegistryObject<FluidDeferredRegister.MekanismFluidType, ForgeFlowingFluid.Source, ForgeFlowingFluid.Flowing, LiquidBlock, BucketItem> POLONIUM_CONTAINING_SOLUTION = EXTRA_GEN_FLUIDS.register("polonium_containing_solution", properties -> properties.temperature(373).density(0),
+    public static final FluidRegistryObject<FluidDeferredRegister.MekanismFluidType, ForgeFlowingFluid.Source, ForgeFlowingFluid.Flowing, LiquidBlock, BucketItem> POLONIUM_CONTAINING_SOLUTION = EXTRA_GEN_FLUIDS.register("polonium_containing_solution", properties -> properties.temperature(330).density(5_230),
             renderProperties -> renderProperties.texture(Mekanism.rl("liquid/liquid"), Mekanism.rl("liquid/steam_flow")).tint(0xFF47c3a2));
     public static final FluidRegistryObject<FluidDeferredRegister.MekanismFluidType, ForgeFlowingFluid.Source, ForgeFlowingFluid.Flowing, LiquidBlock, BucketItem> POLONIUM208 = EXTRA_GEN_FLUIDS.registerLiquidChemical(ExtraChemicalConstants.POLONIUM208);
 
