@@ -9,6 +9,7 @@ import com.jerry.mekextras.common.network.ExtraPacketHandler;
 import com.jerry.mekextras.common.registry.*;
 import com.mojang.logging.LogUtils;
 import mekanism.common.MekanismLang;
+import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.Version;
 import mekanism.common.lib.multiblock.MultiblockCache;
@@ -62,7 +63,8 @@ public class MekanismExtras {
     }
 
     private void registerCommands(RegisterCommandsEvent event) {
-        BuildCommand.register("reinforcedMatrix", MekanismLang.MATRIX, new ExtraBuilders.ReinforcedMatrixBuilder());
+        BuildCommand.register("reinforced_matrix", MekanismLang.MATRIX, new ExtraBuilders.ReinforcedMatrixBuilder());
+        event.getDispatcher().register(CommandMek.register());
     }
 
 }
