@@ -1,5 +1,7 @@
 {
   "values": [
+    "mekanism_extras:naquadah_ore",
+    "mekanism_extras:end_naquadah_ore",
     "mekanism_extras:absolute_induction_cell",
     "mekanism_extras:absolute_induction_provider",
     "mekanism_extras:supreme_induction_cell",
