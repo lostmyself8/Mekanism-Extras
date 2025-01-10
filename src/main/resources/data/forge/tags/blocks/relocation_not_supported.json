@@ -4,14 +4,6 @@
     "mekanism_extras:absolute_pressurized_tube",
     "mekanism_extras:supreme_pressurized_tube",
     "mekanism_extras:cosmic_pressurized_tube",
-    "mekanism_extras:infinite_pressurized_tube",
-    "mekanism_extras:absolute_mechanical_pipe",
-    "mekanism_extras:supreme_mechanical_pipe",
-    "mekanism_extras:cosmic_mechanical_pipe",
-    "mekanism_extras:infinite_mechanical_pipe",
-    "mekanism_extras:absolute_universal_cable",
-    "mekanism_extras:supreme_universal_cable",
-    "mekanism_extras:cosmic_universal_cable",
-    "mekanism_extras:infinite_universal_cable"
+    "mekanism_extras:infinite_pressurized_tube"
   ]
 }
