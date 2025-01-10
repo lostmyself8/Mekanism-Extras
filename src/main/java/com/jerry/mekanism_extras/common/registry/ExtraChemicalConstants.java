@@ -11,6 +11,7 @@ public enum ExtraChemicalConstants implements IChemicalConstant {
     RICH_SILICON_LIQUID_FUEL("rich_silicon_fuel", 0xFFEFEFEF, 0, 3350F, 4_450),
     RICH_URANIUM_LIQUID_FUEL("rich_uranium_fuel", 0xFF6C864A, 0, 350F, 4_850),
     POLONIUM208("polonium-208", 0xFF1B9E7B, 0, 8532.8F, 4530);
+
     private final String name;
     private final int color;
     private final int lightLevel;

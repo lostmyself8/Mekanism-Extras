@@ -27,9 +27,6 @@ public class ClientGUIRegister {
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.ADVANCE_ELECTRIC_PUMP, ExtraGuiElectricPump::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.INDUCTION_MATRIX, ExtraGuiInductionMatrix::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.MATRIX_STATS, ExtraGuiMatrixStats::new);
-//            if (Addons.MEKANISMGENERATORS.isLoaded()) {
-//                ClientRegistrationUtil.registerScreen(ExtraGenContainerTypes.FISSION_REACTOR, GuiCollider::new);
-//            }
         });
     }
 }
