@@ -162,11 +162,6 @@ public class ExtraConfig extends BaseMekanismConfig {
                 .defineInRange("pumpHeavyWaterAmount", FluidType.BUCKET_VOLUME , 1, FluidType.BUCKET_VOLUME));
         builder.pop();
 
-//        builder.comment("Faster Electric Pump").push("faster electric pump");
-//        this.forcefieldGenerator = CachedFloatingLongValue.define(this, builder, "Base energy storage (Joules).", "forcefield_generator",
-//                FloatingLong.createConst(1_000_000_000_000D));
-//        builder.pop();
-
         addEnergyCubeCategory(builder);
         addFluidTankCategory(builder);
         addGasTankCategory(builder);
