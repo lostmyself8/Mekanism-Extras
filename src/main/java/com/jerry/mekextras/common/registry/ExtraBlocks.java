@@ -47,8 +47,6 @@ import mekanism.common.resource.BlockResourceInfo;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 
@@ -59,11 +57,6 @@ import java.util.function.Supplier;
 
 public class ExtraBlocks {
     public static final BlockDeferredRegister EXTRA_BLOCKS = new BlockDeferredRegister(MekanismExtras.MOD_ID);
-
-    public static final BlockRegistryObject<Block, BlockItem> NAQUADAH_ORE = EXTRA_BLOCKS.register("naquadah_ore",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK)));
-    public static final BlockRegistryObject<Block, BlockItem> END_NAQUADAH_ORE = EXTRA_BLOCKS.register("end_naquadah_ore",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE)));
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvanceTier tier, String suffix,
                                                                                                                       Function<MapColor, ? extends BLOCK> blockSupplier, BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
