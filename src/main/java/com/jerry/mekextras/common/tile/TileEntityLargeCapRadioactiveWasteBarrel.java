@@ -80,7 +80,7 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
             //If we are not on the same tick do stuff, otherwise ignore it (anti tick accelerator protection)
             lastProcessTick = level.getGameTime();
             if (tier.getDecayAmount() > 0 && !chemicalTank.isEmpty() &&
-                    !chemicalTank.getType().is(MekanismAPITags.Chemicals.WASTE_BARREL_DECAY_BLACKLIST) &&
+                    !chemicalTank.getStack().is(MekanismAPITags.Chemicals.WASTE_BARREL_DECAY_BLACKLIST) &&
                     ++processTicks >= tier.getProcessTicks()) {
                 processTicks = 0;
                 chemicalTank.shrinkStack(tier.getDecayAmount(), Action.EXECUTE);

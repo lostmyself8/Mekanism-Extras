@@ -95,9 +95,10 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
-        super.handleUpdateTag(tag, provider);
+    public boolean handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
+        boolean refreshModelData= super.handleUpdateTag(tag, provider);
         NBTUtils.setDoubleIfPresent(tag, SerializationConstants.TEMPERATURE, buffer::setHeat);
+        return refreshModelData;
     }
 
     @Override
