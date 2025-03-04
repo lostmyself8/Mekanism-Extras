@@ -25,13 +25,13 @@ license="${mod_license}"
 [[dependencies.${mod_id}]]
    modId="mekanism"
    mandatory=true
-   versionRange="[10.4.14]"
+   versionRange="[10.4.15]"
    ordering="AFTER"
    side="BOTH"
 
 [[dependencies.${mod_id}]]
    modId="mekanismgenerators"
    mandatory=false
-   versionRange="[10.4.14]"
+   versionRange="[10.4.15]"
    ordering="AFTER"
    side="BOTH"
