@@ -7,11 +7,11 @@ import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.SerializationConstants;
 import mekanism.api.annotations.NothingNullByDefault;
+import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.attachments.LockData;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.item.AttachedItems;
 import mekanism.common.attachments.containers.item.ComponentBackedInventorySlot;
-import mekanism.common.inventory.slot.BasicInventorySlot;
 import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.HolderLookup;
@@ -32,7 +32,7 @@ public class ExtraComponentBackedBinInventorySlot extends ComponentBackedInvento
     }
 
     private ExtraComponentBackedBinInventorySlot(ItemStack attachedTo, int slotIndex, BTier tier) {
-        super(attachedTo, slotIndex, BasicInventorySlot.alwaysTrueBi, BasicInventorySlot.alwaysTrueBi, ExtraBinInventorySlot.validator);
+        super(attachedTo, slotIndex, ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrueBi(), ExtraBinInventorySlot.validator);
         isCreative = false;
     }
 

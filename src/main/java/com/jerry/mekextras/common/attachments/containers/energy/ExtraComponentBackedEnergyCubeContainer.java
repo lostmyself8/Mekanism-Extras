@@ -5,9 +5,9 @@ import com.jerry.mekextras.common.tier.ECTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.annotations.NothingNullByDefault;
+import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.energy.ComponentBackedEnergyContainer;
-import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import net.minecraft.world.item.ItemStack;
 
 @NothingNullByDefault
@@ -23,7 +23,7 @@ public class ExtraComponentBackedEnergyCubeContainer extends ComponentBackedEner
     private final boolean isCreative;
 
     public ExtraComponentBackedEnergyCubeContainer(ItemStack attachedTo, int containerIndex, ECTier tier) {
-        super(attachedTo, containerIndex, BasicEnergyContainer.alwaysTrue, BasicEnergyContainer.alwaysTrue, tier::getOutput, tier::getMaxEnergy);
+        super(attachedTo, containerIndex, ConstantPredicates.alwaysTrue(), ConstantPredicates.alwaysTrue(), tier::getOutput, tier::getMaxEnergy);
         isCreative = false;
     }
 

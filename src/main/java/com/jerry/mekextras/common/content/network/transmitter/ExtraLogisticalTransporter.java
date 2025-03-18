@@ -9,7 +9,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import mekanism.api.SerializationConstants;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.EnumColor;
 import mekanism.api.tier.ITier;
 import mekanism.common.MekanismLang;
@@ -34,11 +33,13 @@ import mekanism.common.util.TransporterUtils;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -48,7 +49,7 @@ import java.util.PrimitiveIterator;
 public class ExtraLogisticalTransporter extends LogisticalTransporterBase implements IExtraUpgradeableTransmitter<LogisticalTransporterUpgradeData> {
     @Nullable
     private EnumColor color;
-    public ExtraLogisticalTransporter(IBlockProvider blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraLogisticalTransporter(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
         super(tile, Attribute.getTier(blockProvider, TransporterTier.class));
     }
 

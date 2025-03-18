@@ -5,7 +5,6 @@ import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
 import com.jerry.mekextras.common.tier.transmitter.PTier;
 import mekanism.api.Action;
 import mekanism.api.fluid.IMekanismFluidHandler;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.content.network.transmitter.MechanicalPipe;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.lib.transmitter.acceptor.AcceptorCache;
@@ -13,6 +12,8 @@ import mekanism.common.upgrade.transmitter.MechanicalPipeUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.EnumUtils;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 public class ExtraMechanicalPipe extends MechanicalPipe implements IMekanismFluidHandler,
         IExtraUpgradeableTransmitter<MechanicalPipeUpgradeData> {
 
-    public ExtraMechanicalPipe(IBlockProvider blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraMechanicalPipe(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
         super(blockProvider, tile);
     }
 

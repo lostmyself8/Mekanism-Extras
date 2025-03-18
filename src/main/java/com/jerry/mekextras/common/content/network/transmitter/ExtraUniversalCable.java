@@ -8,7 +8,6 @@ import mekanism.api.AutomationType;
 import mekanism.api.SerializationConstants;
 import mekanism.api.energy.IMekanismStrictEnergyHandler;
 import mekanism.api.energy.IStrictEnergyHandler;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.content.network.EnergyNetwork;
 import mekanism.common.content.network.transmitter.UniversalCable;
 import mekanism.common.lib.transmitter.ConnectionType;
@@ -18,14 +17,16 @@ import mekanism.common.upgrade.transmitter.UniversalCableUpgradeData;
 import mekanism.common.util.EnumUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtraUniversalCable extends UniversalCable implements IMekanismStrictEnergyHandler,
         IExtraUpgradeableTransmitter<UniversalCableUpgradeData> {
-    public ExtraUniversalCable(IBlockProvider blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraUniversalCable(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
         super(blockProvider, tile);
     }
 

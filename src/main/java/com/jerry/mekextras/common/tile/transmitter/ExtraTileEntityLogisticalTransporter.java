@@ -2,22 +2,23 @@ package com.jerry.mekextras.common.tile.transmitter;
 
 import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraLogisticalTransporter;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.client.model.data.TransmitterModelData;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraTileEntityLogisticalTransporter extends ExtraTileEntityLogisticalTransporterBase {
-    public ExtraTileEntityLogisticalTransporter(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityLogisticalTransporter(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
     }
 
     @Override
-    protected ExtraLogisticalTransporter createTransmitter(IBlockProvider blockProvider) {
+    protected ExtraLogisticalTransporter createTransmitter(Holder<Block> blockProvider) {
         return new ExtraLogisticalTransporter(blockProvider, this);
     }
 

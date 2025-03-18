@@ -4,6 +4,7 @@ import com.jerry.mekextras.common.tier.ECTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
+import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,7 +23,7 @@ public class ExtraEnergyCubeEnergyContainer extends BasicEnergyContainer {
     private final LongSupplier rate;
 
     protected ExtraEnergyCubeEnergyContainer(ECTier tier, @Nullable IContentsListener listener) {
-        super(tier.getMaxEnergy(), alwaysTrue, alwaysTrue, listener);
+        super(tier.getMaxEnergy(), ConstantPredicates.alwaysTrue(), ConstantPredicates.alwaysTrue(), listener);
         isCreative = false;
         rate = tier::getOutput;
     }

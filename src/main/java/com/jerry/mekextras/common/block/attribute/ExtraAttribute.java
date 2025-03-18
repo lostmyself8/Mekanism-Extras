@@ -3,10 +3,16 @@ package com.jerry.mekextras.common.block.attribute;
 import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.api.tier.IAdvanceTier;
 import mekanism.common.block.attribute.Attribute;
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 public interface ExtraAttribute extends Attribute {
+
+    @Nullable
+    static <TIER extends IAdvanceTier> TIER getAdvanceTier(Holder<Block> block, Class<TIER> tierClass) {
+        return getAdvanceTier(block.value(), tierClass);
+    }
 
     @Nullable
     static <TIER extends IAdvanceTier> TIER getAdvanceTier(Block block, Class<TIER> tierClass) {

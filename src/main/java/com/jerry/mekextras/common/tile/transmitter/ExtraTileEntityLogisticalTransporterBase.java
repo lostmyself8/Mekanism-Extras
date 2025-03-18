@@ -1,7 +1,6 @@
 package com.jerry.mekextras.common.tile.transmitter;
 
 import mekanism.api.annotations.NothingNullByDefault;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.item.CursedTransporterItemHandler;
 import mekanism.common.capabilities.resolver.ICapabilityResolver;
@@ -12,7 +11,9 @@ import mekanism.common.util.TransporterUtils;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -25,13 +26,13 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class ExtraTileEntityLogisticalTransporterBase extends ExtraTileEntityTransmitter {
-    public ExtraTileEntityLogisticalTransporterBase(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityLogisticalTransporterBase(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         addCapabilityResolver(new ExtraTileEntityLogisticalTransporterBase.TransporterCapabilityResolver());
     }
 
     @Override
-    protected abstract LogisticalTransporterBase createTransmitter(IBlockProvider blockProvider);
+    protected abstract LogisticalTransporterBase createTransmitter(Holder<Block> blockProvider);
 
     @Override
     public LogisticalTransporterBase getTransmitter() {

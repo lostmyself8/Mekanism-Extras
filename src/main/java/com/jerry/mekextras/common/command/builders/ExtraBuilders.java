@@ -4,8 +4,8 @@ import com.jerry.mekextras.common.registry.ExtraBlocks;
 import mekanism.common.command.builders.StructureBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class ExtraBuilders {
     private ExtraBuilders() {
@@ -23,16 +23,16 @@ public class ExtraBuilders {
             buildFrame(world, start);
             buildWalls(world, start);
             if (empty) {
-                buildInteriorLayers(world, start, 1, 16, Blocks.AIR);
+                buildInteriorLayers(world, start, 1, 16, Blocks.AIR.defaultBlockState());
             } else {
-                buildInteriorLayers(world, start, 1, 15, ExtraBlocks.INFINITE_INDUCTION_CELL.getBlock());
-                buildInteriorLayer(world, start, 16, ExtraBlocks.INFINITE_INDUCTION_PROVIDER.getBlock());
+                buildInteriorLayers(world, start, 1, 15, ExtraBlocks.INFINITE_INDUCTION_CELL.defaultState());
+                buildInteriorLayer(world, start, 16, ExtraBlocks.INFINITE_INDUCTION_PROVIDER.defaultState());
             }
         }
 
         @Override
-        protected Block getCasing() {
-            return ExtraBlocks.REINFORCED_INDUCTION_CASING.getBlock();
+        protected BlockState getCasing() {
+            return ExtraBlocks.REINFORCED_INDUCTION_CASING.defaultState();
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.jerry.mekextras.common.item.block;
 
 import com.jerry.mekextras.api.tier.IAdvanceTier;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.block.interfaces.IColoredBlock;
 import net.minecraft.network.chat.Component;
@@ -10,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-public class ItemBlockExtra <BLOCK extends Block> extends BlockItem implements IBlockProvider {
+public class ItemBlockExtra <BLOCK extends Block> extends BlockItem {
 
     public ItemBlockExtra(Block block, Properties properties) {
         super(block, properties);

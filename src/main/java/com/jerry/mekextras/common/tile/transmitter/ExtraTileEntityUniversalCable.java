@@ -6,7 +6,6 @@ import com.jerry.mekextras.common.registry.ExtraBlocks;
 import mekanism.api.SerializationConstants;
 import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.math.MathUtils;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.capabilities.energy.DynamicStrictEnergyHandler;
@@ -18,8 +17,10 @@ import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.lib.transmitter.ConnectionType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +31,7 @@ import java.util.List;
 public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter implements IComputerTile {
 
     private final EnergyHandlerManager energyHandlerManager;
-    public ExtraTileEntityUniversalCable(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityUniversalCable(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         addCapabilityResolver(energyHandlerManager = new EnergyHandlerManager(direction -> {
             ExtraUniversalCable cable = getTransmitter();
@@ -42,7 +43,7 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
     }
 
     @Override
-    protected ExtraUniversalCable createTransmitter(IBlockProvider blockProvider) {
+    protected ExtraUniversalCable createTransmitter(Holder<Block> blockProvider) {
         return new ExtraUniversalCable(blockProvider, this);
     }
 

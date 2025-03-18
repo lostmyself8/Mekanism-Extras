@@ -157,7 +157,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
     }
 
     public int estimateIncrementAmount() {
-        return fluidTank.getFluid().is(MekanismFluids.HEAVY_WATER.getFluid()) ? ExtraConfig.extraGeneralConfig.pumpHeavyWaterAmount.get() : FluidType.BUCKET_VOLUME;
+        return fluidTank.getFluid().is(MekanismFluids.HEAVY_WATER) ? ExtraConfig.extraGeneralConfig.pumpHeavyWaterAmount.get() : FluidType.BUCKET_VOLUME;
     }
 
     private boolean suck() {
@@ -252,7 +252,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
         if (sourceFluid == Fluids.WATER) {
             if (hasFilter) {
                 //The speed of pumping heavy water
-                return MekanismFluids.HEAVY_WATER.getFluidStack(ExtraConfig.extraGeneralConfig.pumpHeavyWaterAmount.get());
+                return MekanismFluids.HEAVY_WATER.asStack(ExtraConfig.extraGeneralConfig.pumpHeavyWaterAmount.get());
             }
             //The speed of pumping water
             return MekanismConfig.general.pumpInfiniteFluidSources.get() ? new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME)

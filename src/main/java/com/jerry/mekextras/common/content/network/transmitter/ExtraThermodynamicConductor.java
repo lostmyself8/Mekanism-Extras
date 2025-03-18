@@ -7,7 +7,6 @@ import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
 import mekanism.api.SerializationConstants;
 import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IHeatHandler;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.heat.CachedAmbientTemperature;
@@ -21,8 +20,10 @@ import mekanism.common.upgrade.transmitter.ThermodynamicConductorUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,7 +39,7 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
     private double clientTemperature = -1;
     private final List<IHeatCapacitor> capacitors;
     public final ExtraVariableHeatCapacitor buffer;
-    public ExtraThermodynamicConductor(IBlockProvider blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraThermodynamicConductor(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
         super(blockProvider, tile);
         this.tier = Attribute.getTier(blockProvider, ConductorTier.class);
         buffer = ExtraVariableHeatCapacitor.create(TCTier.getHeatCapacity(tier), TCTier.getConduction(tier), TCTier.getConductionInsulation(tier), ambientTemperature, this);

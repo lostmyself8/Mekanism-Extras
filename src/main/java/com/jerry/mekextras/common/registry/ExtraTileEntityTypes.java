@@ -18,7 +18,6 @@ import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionP
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import mekanism.api.functions.ConstantPredicates;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.Mekanism;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.integration.computer.ComputerCapabilityHelper;
@@ -29,6 +28,8 @@ import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.CapabilityTileEntity;
 import mekanism.common.tile.base.TileEntityMekanism;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
@@ -206,7 +207,7 @@ public class ExtraTileEntityTypes {
     @FunctionalInterface
     private interface BlockEntityFactory<BE extends BlockEntity> {
 
-        BE create(IBlockProvider block, BlockPos pos, BlockState state);
+        BE create(Holder<Block> block, BlockPos pos, BlockState state);
     }
     public static void register(IEventBus eventBus) {
         EXTRA_TILE_ENTITY_TYPES.register(eventBus);

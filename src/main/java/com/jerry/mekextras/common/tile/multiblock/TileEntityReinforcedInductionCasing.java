@@ -4,12 +4,13 @@ import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixMultiblockData;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import com.jerry.mekextras.common.registry.ExtraContainerTypes;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.inventory.container.MekanismContainer;
 import mekanism.common.inventory.container.sync.dynamic.SyncMapper;
 import mekanism.common.lib.multiblock.MultiblockManager;
 import mekanism.common.tile.prefab.TileEntityMultiblock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class TileEntityReinforcedInductionCasing extends TileEntityMultiblock<ReinforcedMatrixMultiblockData> {
@@ -18,7 +19,7 @@ public class TileEntityReinforcedInductionCasing extends TileEntityMultiblock<Re
         this(ExtraBlocks.REINFORCED_INDUCTION_CASING, pos, state);
     }
 
-    public TileEntityReinforcedInductionCasing(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityReinforcedInductionCasing(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
     }
 

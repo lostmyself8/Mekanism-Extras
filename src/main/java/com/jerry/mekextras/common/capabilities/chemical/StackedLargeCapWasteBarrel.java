@@ -10,9 +10,10 @@ import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalHandler;
 import mekanism.api.chemical.IChemicalTank;
-import mekanism.api.chemical.attribute.ChemicalAttribute;
 import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
-import mekanism.api.chemical.attribute.ChemicalAttributes;
+import mekanism.api.datamaps.chemical.attribute.ChemicalRadioactivity;
+import mekanism.api.datamaps.chemical.attribute.IChemicalAttribute;
+import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.util.WorldUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,10 +21,12 @@ import java.util.Objects;
 
 @NothingNullByDefault
 public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTank implements IChemicalHandler, IChemicalTank {
-    private static final ChemicalAttributeValidator ATTRIBUTE_VALIDATOR = new ChemicalAttributeValidator() {
+
+    @SuppressWarnings("removal")
+    private static final ChemicalAttributeValidator ATTRIBUTE_VALIDATOR = new ChemicalAttributeValidator.ChemicalAttributeValidatorLegacyAdapter() {
         @Override
-        public boolean validate(ChemicalAttribute attr) {
-            return attr instanceof ChemicalAttributes.Radiation;
+        public boolean validate(IChemicalAttribute attr) {
+            return attr instanceof ChemicalRadioactivity;
         }
 
         @Override
@@ -40,7 +43,7 @@ public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTan
     private final TileEntityLargeCapRadioactiveWasteBarrel tile;
 
     protected StackedLargeCapWasteBarrel(TileEntityLargeCapRadioactiveWasteBarrel tile, @Nullable IContentsListener listener) {
-        super(tile.getTier().getStorage(), alwaysTrueBi, alwaysTrueBi, alwaysTrue, ATTRIBUTE_VALIDATOR, listener);
+        super(tile.getTier().getStorage(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrue(), ATTRIBUTE_VALIDATOR, listener);
         this.tile = tile;
     }
 

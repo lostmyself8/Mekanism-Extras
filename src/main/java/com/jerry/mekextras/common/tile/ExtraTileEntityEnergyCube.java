@@ -6,7 +6,6 @@ import com.jerry.mekextras.common.tier.ECTier;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.SerializationConstants;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper;
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder;
@@ -29,8 +28,10 @@ import mekanism.common.util.EnumUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
@@ -52,7 +53,7 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getDischargeItem", docPlaceholder = "discharge slot")
     EnergyInventorySlot dischargeSlot;
 
-    public ExtraTileEntityEnergyCube(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityEnergyCube(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         configComponent.setupIOConfig(TransmissionType.ITEM, chargeSlot, dischargeSlot, RelativeSide.FRONT, true).setCanEject(false);
         configComponent.setupIOConfig(TransmissionType.ENERGY, energyContainer, RelativeSide.FRONT).setEjecting(true);
@@ -63,7 +64,7 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getAdvanceTier(getBlockType(), ECTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockHolder(), ECTier.class);
     }
 
     @NotNull

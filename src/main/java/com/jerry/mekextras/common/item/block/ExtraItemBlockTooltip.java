@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.item.block;
 
 import mekanism.api.AutomationType;
 import mekanism.api.Upgrade;
+import mekanism.api.functions.ConstantPredicates;
 import mekanism.api.security.IItemSecurityUtils;
 import mekanism.api.text.EnumColor;
 import mekanism.client.key.MekKeyHandler;
@@ -138,7 +139,7 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
     }
 
     protected Predicate<@NotNull AutomationType> getEnergyCapInsertPredicate() {
-        return BasicEnergyContainer.alwaysTrue;
+        return ConstantPredicates.alwaysTrue();
     }
 
     protected boolean exposesEnergyCap() {
@@ -153,7 +154,7 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
         BLOCK block = getBlock();
         AttributeEnergy attributeEnergy = Attribute.get(block, AttributeEnergy.class);
         if (attributeEnergy == null) {
-            throw new IllegalStateException("Expected block " + RegistryUtils.getName(block) + " to have the energy attribute");
+            throw new IllegalStateException("Expected block " + block + " to have the energy attribute");
         }
         LongSupplier maxEnergy = attributeEnergy::getStorage;
         if (Attribute.matches(block, AttributeUpgradeSupport.class, attribute -> attribute.supportedUpgrades().contains(Upgrade.ENERGY))) {

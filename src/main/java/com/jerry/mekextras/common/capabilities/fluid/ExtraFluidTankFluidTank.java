@@ -5,6 +5,7 @@ import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
+import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.capabilities.fluid.BasicFluidTank;
 import mekanism.common.util.WorldUtils;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -26,7 +27,7 @@ public class ExtraFluidTankFluidTank extends BasicFluidTank {
     private final IntSupplier rate;
 
     private ExtraFluidTankFluidTank(ExtraTileEntityFluidTank tile, @Nullable IContentsListener listener) {
-        super(tile.tier.getStorage(), alwaysTrueBi, alwaysTrueBi, alwaysTrue, listener);
+        super(tile.tier.getStorage(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrue(), listener);
         this.tile = tile;
         rate = tile.tier::getOutput;
         isCreative = false;

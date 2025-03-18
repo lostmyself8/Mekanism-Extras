@@ -4,7 +4,6 @@ import com.jerry.mekextras.api.IExtraAlloyInteraction;
 import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.api.tier.IAdvanceTier;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.Mekanism;
 import mekanism.common.advancements.MekanismCriteriaTriggers;
 import mekanism.common.block.states.TransmitterType;
@@ -16,10 +15,12 @@ import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,12 +29,12 @@ import java.util.List;
 
 public class ExtraTileEntityTransmitter extends TileEntityTransmitter implements IExtraAlloyInteraction {
 
-    public ExtraTileEntityTransmitter(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityTransmitter(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
     }
 
     @Override
-    protected Transmitter<?, ?, ?> createTransmitter(IBlockProvider blockProvider) {
+    protected Transmitter<?, ?, ?> createTransmitter(Holder<Block> blockProvider) {
         return null;
     }
 

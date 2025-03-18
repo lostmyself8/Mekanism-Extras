@@ -7,6 +7,7 @@ import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.BasicChemicalTank;
 import mekanism.api.chemical.ChemicalStack;
+import mekanism.api.functions.ConstantPredicates;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -23,7 +24,7 @@ public class ExtraChemicalTankChemicalTank extends BasicChemicalTank {
     private final LongSupplier rate;
 
     private ExtraChemicalTankChemicalTank(CTTier tier, @Nullable IContentsListener listener) {
-        super(tier.getStorage(), alwaysTrueBi, alwaysTrueBi, alwaysTrue, null, listener);
+        super(tier.getStorage(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrue(), null, listener, null);
         isCreative = false;
         rate = tier::getOutput;
     }

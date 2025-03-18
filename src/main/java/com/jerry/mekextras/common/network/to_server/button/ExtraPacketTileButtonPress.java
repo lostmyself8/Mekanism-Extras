@@ -66,7 +66,7 @@ public record ExtraPacketTileButtonPress(ExtraPacketTileButtonPress.ClickedTileB
     public enum ClickedTileButton {
         BACK_BUTTON(tile -> {
             //Special handling to basically reset to the tiles default gui container
-            AttributeGui attributeGui = Attribute.get(tile.getBlockType(), AttributeGui.class);
+            AttributeGui attributeGui = Attribute.get(tile.getBlockHolder(), AttributeGui.class);
             return attributeGui != null ? attributeGui.getProvider(tile, false) : null;
         }),
         TAB_MAIN(tile -> {

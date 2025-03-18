@@ -5,8 +5,8 @@ import com.jerry.mekextras.common.tier.CTTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.annotations.NothingNullByDefault;
-import mekanism.api.chemical.BasicChemicalTank;
 import mekanism.api.chemical.ChemicalStack;
+import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.chemical.AttachedChemicals;
 import mekanism.common.attachments.containers.chemical.ComponentBackedChemicalTank;
@@ -25,7 +25,7 @@ public class ExtraComponentBackedChemicalTankTank extends ComponentBackedChemica
     }
 
     private ExtraComponentBackedChemicalTankTank(ItemStack attachedTo, int tankIndex, CTTier tier) {
-        super(attachedTo, tankIndex, BasicChemicalTank.alwaysTrueBi, BasicChemicalTank.alwaysTrueBi, BasicChemicalTank.alwaysTrue,
+        super(attachedTo, tankIndex, ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrue(),
                 tier::getOutput, tier::getStorage, null);
         isCreative = false;
     }

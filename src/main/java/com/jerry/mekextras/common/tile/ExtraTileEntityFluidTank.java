@@ -9,7 +9,6 @@ import mekanism.api.Action;
 import mekanism.api.IConfigurable;
 import mekanism.api.IContentsListener;
 import mekanism.api.SerializationConstants;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.Mekanism;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.capabilities.Capabilities;
@@ -55,6 +54,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
@@ -95,14 +95,14 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
     private int lastLightLevel;
     private int lightUpdateDelay;
 
-    public ExtraTileEntityFluidTank(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityFluidTank(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
     }
 
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getAdvanceTier(getBlockType(), FTTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockHolder(), FTTier.class);
     }
 
     @NotNull
@@ -134,7 +134,7 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
         if (lightUpdateDelay > 0) {
             lightUpdateDelay--;
             if (lightUpdateDelay == 0) {
-                int lightLevel = getBlockType().getLightEmission(getBlockState(), level, worldPosition);
+                int lightLevel = getBlockState().getLightEmission(level, worldPosition);
                 if (lightLevel != lastLightLevel) {
                     lastLightLevel = lightLevel;
                     level.getLightEngine().checkBlock(worldPosition);

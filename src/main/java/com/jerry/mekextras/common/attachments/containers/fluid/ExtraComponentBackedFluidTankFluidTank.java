@@ -5,10 +5,10 @@ import com.jerry.mekextras.common.tier.FTTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.annotations.NothingNullByDefault;
+import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.fluid.AttachedFluids;
 import mekanism.common.attachments.containers.fluid.ComponentBackedFluidTank;
-import mekanism.common.capabilities.fluid.BasicFluidTank;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +26,7 @@ public class ExtraComponentBackedFluidTankFluidTank extends ComponentBackedFluid
     }
 
     private ExtraComponentBackedFluidTankFluidTank(ItemStack attachedTo, int tankIndex, FTTier tier) {
-        super(attachedTo, tankIndex, BasicFluidTank.alwaysTrueBi, BasicFluidTank.alwaysTrueBi, BasicFluidTank.alwaysTrue, tier::getOutput, tier::getStorage);
+        super(attachedTo, tankIndex, ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrue(), tier::getOutput, tier::getStorage);
         isCreative = false;
     }
 

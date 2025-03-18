@@ -19,6 +19,7 @@ import mekanism.common.util.EnumUtils;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.EnergyDisplay;
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -97,8 +98,8 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
     }
 
     @Override
-    public void addItems(Consumer<ItemStack> tabOutput) {
-        tabOutput.accept(StorageUtils.getFilledEnergyVariant(this));
+    public void addItems(Holder<Item> item, Consumer<ItemStack> tabOutput) {
+        tabOutput.accept(StorageUtils.getFilledEnergyVariant(item));
     }
 
     @Override

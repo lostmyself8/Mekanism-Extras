@@ -3,8 +3,8 @@ package com.jerry.mekextras.client.render.transmitter;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraPressurizedTube;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
 import com.mojang.blaze3d.vertex.PoseStack;
+import mekanism.api.MekanismAPI;
 import mekanism.api.annotations.NothingNullByDefault;
-import mekanism.api.chemical.Chemical;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
@@ -28,9 +28,8 @@ public class ExtraRenderPressurizedTube extends RenderTransmitterBase<ExtraTileE
         ChemicalNetwork network = tile.getTransmitter().getTransmitterNetwork();
         matrix.pushPose();
         matrix.translate(0.5, 0.5, 0.5);
-        Chemical chemical = network.lastChemical.getChemical();
-        renderModel(tile, matrix, renderer.getBuffer(Sheets.translucentCullBlockSheet()), chemical.getTint(), Math.max(0.2F, network.currentScale),
-                LightTexture.FULL_BRIGHT, overlayLight, MekanismRenderer.getChemicalTexture(chemical));
+        renderModel(tile, matrix, renderer.getBuffer(Sheets.translucentCullBlockSheet()), MekanismRenderer.getTint(network.lastChemical), Math.max(0.2F, network.currentScale),
+                LightTexture.FULL_BRIGHT, overlayLight, MekanismRenderer.getChemicalTexture(network.lastChemical));
         matrix.popPose();
     }
 
@@ -45,7 +44,7 @@ public class ExtraRenderPressurizedTube extends RenderTransmitterBase<ExtraTileE
             ExtraPressurizedTube tube = tile.getTransmitter();
             if (tube.hasTransmitterNetwork()) {
                 ChemicalNetwork network = tube.getTransmitterNetwork();
-                return !network.lastChemical.isEmptyType() && !network.isEmpty() && network.currentScale > 0;
+                return !network.lastChemical.is(MekanismAPI.EMPTY_CHEMICAL_KEY) && !network.getChemicalTank().isEmpty() && network.currentScale > 0;
             }
         }
         return false;

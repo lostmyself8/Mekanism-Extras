@@ -19,7 +19,6 @@ import mekanism.common.lib.security.ItemSecurityUtils;
 import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.tile.interfaces.IFluidContainerManager;
 import mekanism.common.util.MekanismUtils;
-import mekanism.common.util.RegistryUtils;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.WorldUtils;
 import mekanism.common.util.text.BooleanStateDisplay;
@@ -193,7 +192,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
                                 fluidStack = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
                                 if (!validFluid(fluidTank, fluidStack)) {
                                     Mekanism.logger.warn("Fluid removed without successfully picking up. Fluid {} at {} in {} was valid, but after picking up was {}.",
-                                            RegistryUtils.getName(fluidState.getType()), pos, world.dimension().location(), RegistryUtils.getName(fluid));
+                                            fluidState.getType(), pos, world.dimension().location(), fluid);
                                     return InteractionResultHolder.fail(stack);
                                 }
                             }
@@ -324,7 +323,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
                             fluidStack = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
                             if (!validFluid(fluidTank, fluidStack)) {
                                 Mekanism.logger.warn("Fluid removed without successfully picking up. Fluid {} at {} in {} was valid, but after picking up was {}.",
-                                        RegistryUtils.getName(fluidState.getType()), pos, world.dimension().location(), RegistryUtils.getName(fluid));
+                                        fluidState.getType(), pos, world.dimension().location(), fluid);
                                 //If we can't insert or extract it, then eject the stack similar to how vanilla does for buckets
                                 return super.execute(source, stack);
                             }

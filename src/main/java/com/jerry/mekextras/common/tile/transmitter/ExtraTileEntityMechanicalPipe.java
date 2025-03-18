@@ -4,7 +4,6 @@ import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraMechanicalPipe;
 import mekanism.api.SerializationConstants;
 import mekanism.api.fluid.IExtendedFluidTank;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.capabilities.Capabilities;
@@ -17,8 +16,10 @@ import mekanism.common.lib.transmitter.ConnectionType;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +30,7 @@ import java.util.List;
 
 public class ExtraTileEntityMechanicalPipe extends ExtraTileEntityTransmitter implements IComputerTile {
     private final FluidHandlerManager fluidHandlerManager;
-    public ExtraTileEntityMechanicalPipe(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityMechanicalPipe(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         addCapabilityResolver(fluidHandlerManager = new FluidHandlerManager(direction -> {
             ExtraMechanicalPipe pipe = getTransmitter();
@@ -41,7 +42,7 @@ public class ExtraTileEntityMechanicalPipe extends ExtraTileEntityTransmitter im
     }
 
     @Override
-    protected ExtraMechanicalPipe createTransmitter(IBlockProvider blockProvider) {
+    protected ExtraMechanicalPipe createTransmitter(Holder<Block> blockProvider) {
         return new ExtraMechanicalPipe(blockProvider, this);
     }
 

@@ -7,7 +7,6 @@ import mekanism.api.AutomationType;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalHandler;
 import mekanism.api.chemical.IChemicalTank;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.content.network.transmitter.PressurizedTube;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.lib.transmitter.acceptor.AcceptorCache;
@@ -15,11 +14,13 @@ import mekanism.common.upgrade.transmitter.PressurizedTubeUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.EnumUtils;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtraPressurizedTube extends PressurizedTube {
-    public ExtraPressurizedTube(IBlockProvider blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraPressurizedTube(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
         super(blockProvider, tile);
     }
 

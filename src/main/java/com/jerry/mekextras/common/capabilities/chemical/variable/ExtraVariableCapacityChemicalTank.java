@@ -5,7 +5,7 @@ import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.BasicChemicalTank;
-import mekanism.api.chemical.Chemical;
+import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,10 +18,10 @@ public class ExtraVariableCapacityChemicalTank extends BasicChemicalTank {
 
     private final long capacity;
 
-    public ExtraVariableCapacityChemicalTank(long capacity, BiPredicate<Chemical, @NotNull AutomationType> canExtract,
-                                        BiPredicate<Chemical, @NotNull AutomationType> canInsert, Predicate<Chemical> validator,
+    public ExtraVariableCapacityChemicalTank(long capacity, BiPredicate<ChemicalStack, @NotNull AutomationType> canExtract,
+                                        BiPredicate<ChemicalStack, @NotNull AutomationType> canInsert, Predicate<ChemicalStack> validator,
                                         @Nullable ChemicalAttributeValidator attributeValidator, @Nullable IContentsListener listener) {
-        super(capacity, canExtract, canInsert, validator, attributeValidator, listener);
+        super(capacity, canExtract, canInsert, validator, attributeValidator, listener, null);
         this.capacity = capacity;
     }
 

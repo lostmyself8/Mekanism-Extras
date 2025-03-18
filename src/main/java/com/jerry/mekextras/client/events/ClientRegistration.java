@@ -5,6 +5,7 @@ import com.jerry.mekextras.client.gui.*;
 import com.jerry.mekextras.client.gui.machine.GuiAdvanceElectricPump;
 import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.client.model.energycube.ExtraEnergyCubeModelLoader;
+import com.jerry.mekextras.client.render.ExtraRenderer;
 import com.jerry.mekextras.client.render.item.block.ExtraRenderEnergyCubeItem;
 import com.jerry.mekextras.client.render.item.block.ExtraRenderFluidTankItem;
 import com.jerry.mekextras.client.render.tileentity.ExtraRenderBin;
@@ -23,7 +24,6 @@ import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityLogisticalTran
 import mekanism.api.text.EnumColor;
 import mekanism.client.ClientRegistrationUtil;
 import com.jerry.mekextras.common.registry.ExtraTileEntityTypes;
-import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.RenderPropertiesProvider;
 import mekanism.client.render.item.TransmitterTypeDecorator;
 import mekanism.common.registries.*;
@@ -100,7 +100,7 @@ public class ClientRegistration {
                 FTTier tier = ExtraAttribute.getAdvanceTier(state.getBlock(), FTTier.class);
                 if (tier != null) {
                     float[] color = TierColor.getColor(tier);
-                    return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                    return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
                 }
             }
             return -1;
@@ -111,7 +111,7 @@ public class ClientRegistration {
                         ECTier tier = ExtraAttribute.getAdvanceTier(state.getBlock(), ECTier.class);
                         if (tier != null) {
                             float[] color = TierColor.getColor(tier);
-                            return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                            return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
                         }
                     }
                     return -1;
@@ -140,7 +140,7 @@ public class ClientRegistration {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ExtraItemBlockFluidTank tank) {
                 float[] color = TierColor.getColor(tank.getAdvanceTier());
-                return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
             }
             return -1;
         }, ExtraBlocks.ABSOLUTE_FLUID_TANK, ExtraBlocks.SUPREME_FLUID_TANK, ExtraBlocks.COSMIC_FLUID_TANK, ExtraBlocks.INFINITE_FLUID_TANK);
@@ -151,7 +151,7 @@ public class ClientRegistration {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ExtraItemBlockEnergyCube cube) {
                 float[] color = TierColor.getColor(cube.getAdvanceTier());
-                return MekanismRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
             }
             return -1;
         }, ExtraBlocks.ABSOLUTE_ENERGY_CUBE, ExtraBlocks.SUPREME_ENERGY_CUBE, ExtraBlocks.COSMIC_ENERGY_CUBE, ExtraBlocks.INFINITE_ENERGY_CUBE);

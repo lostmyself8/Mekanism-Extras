@@ -8,6 +8,7 @@ import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.SerializationConstants;
 import mekanism.api.annotations.NothingNullByDefault;
+import mekanism.api.functions.ConstantPredicates;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.inventory.IMekanismInventory;
 import mekanism.common.attachments.containers.ContainerType;
@@ -55,7 +56,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     private ItemStack lockStack = ItemStack.EMPTY;
 
     private ExtraBinInventorySlot(@Nullable IContentsListener listener, BTier tier) {
-        super(tier.getStorage(), alwaysTrueBi, alwaysTrueBi, validator, listener, 0, 0);
+        super(tier.getStorage(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrueBi(), validator, listener, 0, 0);
         isCreative = false;
         obeyStackLimit = false;
     }

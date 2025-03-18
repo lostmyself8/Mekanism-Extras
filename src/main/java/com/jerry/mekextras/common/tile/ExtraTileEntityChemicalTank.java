@@ -11,7 +11,6 @@ import mekanism.api.*;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.math.MathUtils;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.IHasTextComponent;
 import mekanism.api.text.ILangEntry;
 import mekanism.common.MekanismLang;
@@ -40,6 +39,7 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
@@ -48,6 +48,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -69,7 +70,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getFillItem", docPlaceholder = "fill slot")
     ChemicalInventorySlot fillSlot;
 
-    public ExtraTileEntityChemicalTank(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityChemicalTank(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         configComponent.setupIOConfig(TransmissionType.ITEM, drainSlot, fillSlot, RelativeSide.FRONT, true).setCanEject(false);
         configComponent.setupIOConfig(TransmissionType.CHEMICAL, getChemicalTank(), RelativeSide.FRONT);
@@ -81,7 +82,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getAdvanceTier(getBlockType(), CTTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockHolder(), CTTier.class);
     }
 
     @Override

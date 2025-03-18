@@ -8,7 +8,6 @@ import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalHandler;
 import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.functions.ConstantPredicates;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
@@ -22,6 +21,7 @@ import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -30,6 +30,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import org.jetbrains.annotations.NotNull;
@@ -50,7 +51,7 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
     private RWBTier tier;
     private List<BlockCapabilityCache<IChemicalHandler, @Nullable Direction>> chemicalHandlerBelow = Collections.emptyList();
 
-    public TileEntityLargeCapRadioactiveWasteBarrel(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityLargeCapRadioactiveWasteBarrel(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         delaySupplier = NO_DELAY;
     }
@@ -58,7 +59,7 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getAdvanceTier(getBlockType(), RWBTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockHolder(), RWBTier.class);
     }
 
     @NotNull

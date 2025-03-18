@@ -2,18 +2,22 @@ package com.jerry.mekextras.common.tile.transmitter;
 
 import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraPressurizedTube;
+import com.mojang.serialization.DataResult;
+import mekanism.api.MekanismAPI;
 import mekanism.api.SerializationConstants;
+import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.math.MathUtils;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.api.radiation.IRadiationManager;
+import mekanism.common.Mekanism;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.chemical.DynamicChemicalHandler;
 import mekanism.common.capabilities.resolver.manager.ChemicalHandlerManager;
 import mekanism.common.content.network.ChemicalNetwork;
+import mekanism.common.content.network.transmitter.PressurizedTube;
 import mekanism.common.integration.computer.IComputerTile;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.lib.transmitter.ConnectionType;
@@ -21,8 +25,12 @@ import com.jerry.mekextras.common.registry.ExtraBlocks;
 import mekanism.common.tile.interfaces.ITileRadioactive;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,7 +41,7 @@ import java.util.function.Predicate;
 
 public class ExtraTileEntityPressurizedTube extends ExtraTileEntityTransmitter implements IComputerTile, ITileRadioactive {
     private final ChemicalHandlerManager chemicalHandlerManager;
-    public ExtraTileEntityPressurizedTube(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityPressurizedTube(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         Predicate<@Nullable Direction> canExtract = getExtractPredicate();
         Predicate<@Nullable Direction> canInsert = getInsertPredicate();
@@ -49,7 +57,7 @@ public class ExtraTileEntityPressurizedTube extends ExtraTileEntityTransmitter i
     }
 
     @Override
-    protected ExtraPressurizedTube createTransmitter(IBlockProvider blockProvider) {
+    protected ExtraPressurizedTube createTransmitter(Holder<Block> blockProvider) {
         return new ExtraPressurizedTube(blockProvider, this);
     }
 
@@ -87,7 +95,14 @@ public class ExtraTileEntityPressurizedTube extends ExtraTileEntityTransmitter i
         CompoundTag updateTag = super.getUpdateTag(provider);
         if (getTransmitter().hasTransmitterNetwork()) {
             ChemicalNetwork network = getTransmitter().getTransmitterNetwork();
-            updateTag.put(SerializationConstants.BOXED_CHEMICAL, network.lastChemical.saveOptional(provider));
+            if (!network.lastChemical.is(MekanismAPI.EMPTY_CHEMICAL_KEY)) {
+                DataResult<Tag> encoded = Chemical.HOLDER_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), network.lastChemical);
+                if (encoded.isSuccess()) {
+                    updateTag.put(SerializationConstants.CHEMICAL, encoded.getOrThrow());
+                } else {
+                    encoded.ifError(error -> Mekanism.logger.warn("Failed to encode last chemical: {}", error.message()));
+                }
+            }
             updateTag.putFloat(SerializationConstants.SCALE, network.currentScale);
         }
         return updateTag;
@@ -96,11 +111,11 @@ public class ExtraTileEntityPressurizedTube extends ExtraTileEntityTransmitter i
     @Override
     public float getRadiationScale() {
         if (IRadiationManager.INSTANCE.isRadiationEnabled()) {
-            ExtraPressurizedTube tube = getTransmitter();
+            PressurizedTube tube = getTransmitter();
             if (isRemote()) {
                 if (tube.hasTransmitterNetwork()) {
                     ChemicalNetwork network = tube.getTransmitterNetwork();
-                    if (!network.lastChemical.isEmptyType() && !network.isEmpty() && network.lastChemical.getChemical().isRadioactive()) {
+                    if (!network.lastChemical.is(MekanismAPI.EMPTY_CHEMICAL_KEY) && !network.getChemicalTank().isEmpty() && network.lastChemical.value().isRadioactive()) {
                         //Note: This may act as full when the network isn't actually full if there is radioactive stuff
                         // going through it, but it shouldn't matter too much
                         return network.currentScale;

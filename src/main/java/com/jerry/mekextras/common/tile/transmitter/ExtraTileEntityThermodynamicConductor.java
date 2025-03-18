@@ -4,7 +4,6 @@ import com.jerry.mekextras.api.tier.AdvanceTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraThermodynamicConductor;
 import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IMekanismHeatHandler;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.capabilities.Capabilities;
@@ -13,6 +12,8 @@ import mekanism.common.lib.transmitter.ConnectionType;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class ExtraTileEntityThermodynamicConductor extends ExtraTileEntityTransmitter {
     private final HeatHandlerManager heatHandlerManager;
-    public ExtraTileEntityThermodynamicConductor(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public ExtraTileEntityThermodynamicConductor(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         addCapabilityResolver(heatHandlerManager = new HeatHandlerManager(direction -> {
             ExtraThermodynamicConductor conductor = getTransmitter();
@@ -46,7 +47,7 @@ public class ExtraTileEntityThermodynamicConductor extends ExtraTileEntityTransm
     }
 
     @Override
-    protected ExtraThermodynamicConductor createTransmitter(IBlockProvider blockProvider) {
+    protected ExtraThermodynamicConductor createTransmitter(Holder<Block> blockProvider) {
         return new ExtraThermodynamicConductor(blockProvider, this);
     }
 
