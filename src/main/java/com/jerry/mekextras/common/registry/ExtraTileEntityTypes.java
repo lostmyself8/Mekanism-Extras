@@ -1,15 +1,21 @@
 package com.jerry.mekextras.common.registry;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.block.basic.ExtraBlockBin;
+import com.jerry.mekextras.common.block.prefab.BlockAdvancedFactoryMachine;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockBin;
 import com.jerry.mekextras.common.item.block.ItemBlockLargeCapRadioactiveWasteBarrel;
+import com.jerry.mekextras.common.item.block.machine.ItemBlockAdvancedFactory;
+import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
 import com.jerry.mekextras.common.tile.*;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockChemicalTank;
 import com.jerry.mekextras.common.block.ExtraBlockEnergyCube;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockEnergyCube;
 import com.jerry.mekextras.common.block.basic.ExtraBlockFluidTank;
 import com.jerry.mekextras.common.item.block.machine.ExtraItemBlockFluidTank;
+import com.jerry.mekextras.common.tile.factory.*;
 import com.jerry.mekextras.common.tile.transmitter.*;
 import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
 import com.jerry.mekextras.common.tile.machine.TileEntityAdvanceElectricPump;
@@ -17,9 +23,11 @@ import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionC
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.Mekanism;
 import mekanism.common.capabilities.Capabilities;
+import mekanism.common.content.blocktype.FactoryType;
 import mekanism.common.integration.computer.ComputerCapabilityHelper;
 import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.registration.impl.BlockRegistryObject;
@@ -35,7 +43,34 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 
 public class ExtraTileEntityTypes {
+
     public static final TileEntityTypeDeferredRegister EXTRA_TILE_ENTITY_TYPES = new TileEntityTypeDeferredRegister(MekanismExtras.MOD_ID);
+
+    private static final Table<AdvancedFactoryTier, FactoryType, TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>>> FACTORIES = HashBasedTable.create();
+
+    static {
+        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCE_FACTORY_TIERS) {
+            registerFactory(tier, FactoryType.COMBINING, TileEntityCombiningAdvancedFactory::new);
+            registerFactory(tier, FactoryType.COMPRESSING, TileEntityItemStackChemicalToItemStackAdvancedFactory::new);
+            registerFactory(tier, FactoryType.CRUSHING, TileEntityItemStackToItemStackAdvancedFactory::new);
+            registerFactory(tier, FactoryType.ENRICHING, TileEntityItemStackToItemStackAdvancedFactory::new);
+            registerFactory(tier, FactoryType.INFUSING, TileEntityItemStackChemicalToItemStackAdvancedFactory::new);
+            registerFactory(tier, FactoryType.INJECTING, TileEntityItemStackChemicalToItemStackAdvancedFactory::new);
+            registerFactory(tier, FactoryType.PURIFYING, TileEntityItemStackChemicalToItemStackAdvancedFactory::new);
+            registerFactory(tier, FactoryType.SAWING, TileEntitySawingAdvancedFactory::new);
+            registerFactory(tier, FactoryType.SMELTING, TileEntityItemStackToItemStackAdvancedFactory::new);
+        }
+    }
+
+    private static void registerFactory(AdvancedFactoryTier tier, FactoryType type, BlockEntityFactory<? extends TileEntityAdvancedFactory<?>> factoryConstructor) {
+        BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> block = ExtraBlocks.getAdvancedFactory(tier, type);
+        TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>> tileRO = EXTRA_TILE_ENTITY_TYPES.mekBuilder(block, (pos, state) -> factoryConstructor.create(block, pos, state))
+                .clientTicker(TileEntityMekanism::tickClient)
+                .serverTicker(TileEntityMekanism::tickServer)
+                .withSimple(Capabilities.CONFIG_CARD)
+                .build();
+        FACTORIES.put(tier, type, tileRO);
+    }
 
     public static final TileEntityTypeRegistryObject<TileEntityAdvanceElectricPump> ADVANCE_ELECTRIC_PUMP = EXTRA_TILE_ENTITY_TYPES
             .mekBuilder(ExtraBlocks.ADVANCE_ELECTRIC_PUMP, TileEntityAdvanceElectricPump::new)
@@ -204,6 +239,16 @@ public class ExtraTileEntityTypes {
     public static final TileEntityTypeRegistryObject<ExtraTileEntityInductionProvider> SUPREME_INDUCTION_PROVIDER = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.SUPREME_INDUCTION_PROVIDER, (pos, state) -> new ExtraTileEntityInductionProvider(ExtraBlocks.SUPREME_INDUCTION_PROVIDER, pos, state)).build();
     public static final TileEntityTypeRegistryObject<ExtraTileEntityInductionProvider> COSMIC_INDUCTION_PROVIDER = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.COSMIC_INDUCTION_PROVIDER, (pos, state) -> new ExtraTileEntityInductionProvider(ExtraBlocks.COSMIC_INDUCTION_PROVIDER, pos, state)).build();
     public static final TileEntityTypeRegistryObject<ExtraTileEntityInductionProvider> INFINITE_INDUCTION_PROVIDER = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.INFINITE_INDUCTION_PROVIDER, (pos, state) -> new ExtraTileEntityInductionProvider(ExtraBlocks.INFINITE_INDUCTION_PROVIDER, pos, state)).build();
+
+    public static TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>> getAdvancedFactoryTile(AdvancedFactoryTier tier, FactoryType type) {
+        return FACTORIES.get(tier, type);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>>[] getFactoryTiles() {
+        return FACTORIES.values().toArray(new TileEntityTypeRegistryObject[0]);
+    }
+
     @FunctionalInterface
     private interface BlockEntityFactory<BE extends BlockEntity> {
 

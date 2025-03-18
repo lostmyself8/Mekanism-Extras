@@ -1,6 +1,6 @@
 {
   "textures": {
-    "led": "mekanism_extras:block/factory/infinite_led"
+    "led": "mekanism:block/factory/infinite_led"
   },
   "elements": [
     {

@@ -1,5 +1,7 @@
 package com.jerry.mekextras.common.registry;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.tier.IAdvanceTier;
 import com.jerry.mekextras.common.attachments.containers.chemical.ExtraComponentBackedChemicalTankTank;
@@ -9,11 +11,15 @@ import com.jerry.mekextras.common.block.BlockLargeCapRadioactiveWasteBarrel;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.basic.ExtraBlockBin;
 import com.jerry.mekextras.common.block.basic.ExtraBlockFluidTank;
+import com.jerry.mekextras.common.block.prefab.BlockAdvancedFactoryMachine;
+import com.jerry.mekextras.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekextras.common.item.block.*;
+import com.jerry.mekextras.common.item.block.machine.ItemBlockAdvancedFactory;
 import com.jerry.mekextras.common.tier.*;
 import com.jerry.mekextras.common.tile.*;
 import com.jerry.mekextras.common.block.ExtraBlockEnergyCube;
 import com.jerry.mekextras.common.item.block.transmitter.ExtraItemBlockUniversalCable;
+import com.jerry.mekextras.common.tile.factory.TileEntityAdvancedFactory;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityUniversalCable;
 import com.jerry.mekextras.common.item.block.transmitter.ExtraItemBlockLogisticalTransporter;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityLogisticalTransporter;
@@ -29,6 +35,7 @@ import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionC
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.chemical.ChemicalTanksBuilder;
 import mekanism.common.attachments.containers.fluid.FluidTanksBuilder;
@@ -39,24 +46,45 @@ import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.block.transmitter.BlockLargeTransmitter;
 import mekanism.common.block.transmitter.BlockSmallTransmitter;
 import mekanism.common.content.blocktype.BlockTypeTile;
+import mekanism.common.content.blocktype.FactoryType;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.item.block.ItemBlockTooltip;
+import mekanism.common.recipe.MekanismRecipeType;
+import mekanism.common.recipe.lookup.cache.InputRecipeCache;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.resource.BlockResourceInfo;
+import mekanism.common.tile.machine.TileEntityMetallurgicInfuser;
+import mekanism.common.tile.prefab.TileEntityAdvancedElectricMachine;
+import mekanism.common.util.EnumUtils;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class ExtraBlocks {
+
     public static final BlockDeferredRegister EXTRA_BLOCKS = new BlockDeferredRegister(MekanismExtras.MOD_ID);
+
+    private static final Table<AdvancedFactoryTier, FactoryType, BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory>> FACTORIES = HashBasedTable.create();
+
+    static {
+        // factories
+        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCE_FACTORY_TIERS) {
+            for (FactoryType type : EnumUtils.FACTORY_TYPES) {
+                FACTORIES.put(tier, type, registerFactory(ExtraBlockTypes.getAdvancedFactory(tier, type)));
+            }
+        }
+    }
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvanceTier tier, String suffix,
                                                                                                                       Function<MapColor, ? extends BLOCK> blockSupplier, BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
@@ -240,6 +268,87 @@ public class ExtraBlocks {
             BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel> type) {
         RWBTier tier = (RWBTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(tier, "_radioactive_waste_barrel", () -> new BlockLargeCapRadioactiveWasteBarrel(type), ItemBlockLargeCapRadioactiveWasteBarrel::new);
+    }
+
+    private static <TILE extends TileEntityAdvancedFactory<?>> BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> registerFactory(AdvancedFactory<TILE> type) {
+        AdvancedFactoryTier tier = (AdvancedFactoryTier) type.get(ExtraAttributeTier.class).tier();
+        BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> factory = registerTieredBlock(tier, "_" + type.getFactoryType().getRegistryNameComponent() + "_factory", () -> new BlockAdvancedFactoryMachine.BlockAdvancedFactory<>(type), ItemBlockAdvancedFactory::new);
+        factory.forItemHolder(holder -> {
+            int processes = tier.processes;
+            Predicate<ItemStack> recipeInputPredicate = switch (type.getFactoryType()) {
+                case SMELTING -> s -> MekanismRecipeType.SMELTING.getInputCache().containsInput(null, s);
+                case ENRICHING -> s -> MekanismRecipeType.ENRICHING.getInputCache().containsInput(null, s);
+                case CRUSHING -> s -> MekanismRecipeType.CRUSHING.getInputCache().containsInput(null, s);
+                case COMPRESSING -> s -> MekanismRecipeType.COMPRESSING.getInputCache().containsInputA(null, s);
+                case COMBINING -> s -> MekanismRecipeType.COMBINING.getInputCache().containsInputA(null, s);
+                case PURIFYING -> s -> MekanismRecipeType.PURIFYING.getInputCache().containsInputA(null, s);
+                case INJECTING -> s -> MekanismRecipeType.INJECTING.getInputCache().containsInputA(null, s);
+                case INFUSING -> s -> MekanismRecipeType.METALLURGIC_INFUSING.getInputCache().containsInputA(null, s);
+                case SAWING -> s -> MekanismRecipeType.SAWING.getInputCache().containsInput(null, s);
+            };
+            switch (type.getFactoryType()) {
+                case SMELTING, ENRICHING, CRUSHING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                        .addBasicFactorySlots(processes, recipeInputPredicate)
+                        .addEnergy()
+                        .build()
+                );
+                case COMPRESSING, INJECTING, PURIFYING -> holder
+                        .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
+                                .addBasic(TileEntityAdvancedElectricMachine.MAX_GAS * processes, switch (type.getFactoryType()) {
+                                    case COMPRESSING -> MekanismRecipeType.COMPRESSING;
+                                    case INJECTING -> MekanismRecipeType.INJECTING;
+                                    case PURIFYING -> MekanismRecipeType.PURIFYING;
+                                    default -> throw new IllegalStateException("Factory type doesn't have a known gas recipe");
+                                }, InputRecipeCache.ItemChemical::containsInputB)
+                                .build()
+                        ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .addBasicFactorySlots(processes, recipeInputPredicate)
+                                .addChemicalFillOrConvertSlot(0)
+                                .addEnergy()
+                                .build()
+                        );
+                case COMBINING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                        .addBasicFactorySlots(processes, recipeInputPredicate)
+                        .addInput(MekanismRecipeType.COMBINING, InputRecipeCache.DoubleItem::containsInputB)
+                        .addEnergy()
+                        .build()
+                );
+                case INFUSING -> holder
+                        .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
+                                .addBasic(TileEntityMetallurgicInfuser.MAX_INFUSE * processes, MekanismRecipeType.METALLURGIC_INFUSING, InputRecipeCache.ItemChemical::containsInputB)
+                                .build()
+                        ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .addBasicFactorySlots(processes, recipeInputPredicate)
+                                .addInfusionFillOrConvertSlot(0)
+                                .addEnergy()
+                                .build()
+                        );
+                case SAWING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                        .addBasicFactorySlots(processes, recipeInputPredicate, true)
+                        .addEnergy()
+                        .build()
+                );
+            }
+
+        });
+        return factory;
+    }
+
+    /**
+     * Retrieves a Factory with a defined tier and recipe type.
+     *
+     * @param tier - tier to add to the Factory
+     * @param type - recipe type to add to the Factory
+     *
+     * @return factory with defined tier and recipe type
+     */
+    public static BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> getAdvancedFactory(@NotNull AdvancedFactoryTier tier, @NotNull FactoryType type) {
+        return FACTORIES.get(tier, type);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory>[] getAdvancedFactoryBlocks() {
+        return FACTORIES.values().toArray(new BlockRegistryObject[0]);
     }
 
     public static void register(IEventBus eventBus) {

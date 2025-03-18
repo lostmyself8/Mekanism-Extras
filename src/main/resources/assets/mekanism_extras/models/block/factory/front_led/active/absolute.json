@@ -1,6 +1,6 @@
 {
   "textures": {
-    "led": "mekanism_extras:block/factory/led"
+    "led": "mekanism:block/factory/led"
   },
   "elements": [
     {
