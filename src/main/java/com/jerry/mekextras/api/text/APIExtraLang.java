@@ -9,6 +9,8 @@ import net.minecraft.resources.ResourceLocation;
 @NothingNullByDefault
 public enum APIExtraLang implements ILangEntry {
     //Upgrades
+    UPGRADE_STACK("upgrade", "stack"),
+    UPGRADE_STACK_DESCRIPTION("upgrade", "stack.description"),
     UPGRADE_IONIC_MEMBRANE("upgrade", "ionic_membrane"),
     UPGRADE_IONIC_MEMBRANE_DESCRIPTION("upgrade", "ionic_membrane.description");
 

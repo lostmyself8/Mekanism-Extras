@@ -20,7 +20,8 @@ import java.util.Map;
 
 @NothingNullByDefault
 public enum ExtraUpgrade implements IHasTranslationKey {
-    IONIC_MEMBRANE("ionic_membrane", APIExtraLang.UPGRADE_IONIC_MEMBRANE, APIExtraLang.UPGRADE_IONIC_MEMBRANE_DESCRIPTION, 8, EnumColor.RED);
+    STACK("stack", APIExtraLang.UPGRADE_STACK, APIExtraLang.UPGRADE_STACK, 6, EnumColor.RED),
+    IONIC_MEMBRANE("ionic_membrane", APIExtraLang.UPGRADE_IONIC_MEMBRANE, APIExtraLang.UPGRADE_IONIC_MEMBRANE_DESCRIPTION, 1, EnumColor.RED);
 
     private static final ExtraUpgrade[] UPGRADES = values();
 
@@ -64,9 +65,9 @@ public enum ExtraUpgrade implements IHasTranslationKey {
      * @param upgrades Upgrades to store.
      * @param nbtTags  Tag to write to.
      */
-    public static void saveMap(Map<Upgrade, Integer> upgrades, CompoundTag nbtTags) {
+    public static void saveMap(Map<ExtraUpgrade, Integer> upgrades, CompoundTag nbtTags) {
         ListTag list = new ListTag();
-        for (Map.Entry<Upgrade, Integer> entry : upgrades.entrySet()) {
+        for (Map.Entry<ExtraUpgrade, Integer> entry : upgrades.entrySet()) {
             list.add(entry.getKey().getTag(entry.getValue()));
         }
         nbtTags.put(SerializationConstants.UPGRADES, list);
