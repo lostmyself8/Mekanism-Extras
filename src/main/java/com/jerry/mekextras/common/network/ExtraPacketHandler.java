@@ -1,5 +1,6 @@
 package com.jerry.mekextras.common.network;
 
+import com.jerry.mekextras.common.network.to_server.ExtraPacketGuiInteract;
 import com.jerry.mekextras.common.network.to_server.button.ExtraPacketTileButtonPress;
 import mekanism.common.lib.Version;
 import mekanism.common.network.BasePacketHandler;
@@ -19,6 +20,9 @@ public class ExtraPacketHandler extends BasePacketHandler {
 
     @Override
     protected void registerClientToServer(PacketRegistrar registrar) {
+        registrar.play(ExtraPacketGuiInteract.TYPE, ExtraPacketGuiInteract.STREAM_CODEC);
+
+        //Button Press
         registrar.play(ExtraPacketTileButtonPress.TYPE, ExtraPacketTileButtonPress.STREAM_CODEC);
     }
 
