@@ -41,17 +41,17 @@ import java.util.Set;
 public class TileEntityCombiningAdvancedFactory extends TileEntityItemToItemAdvancedFactory<CombinerRecipe> implements DoubleItemRecipeLookupHandler<CombinerRecipe> {
 
     private static final CheckRecipeType<ItemStack, ItemStack, CombinerRecipe, ItemStack> OUTPUT_CHECK =
-          (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
+            (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
-          RecipeError.NOT_ENOUGH_ENERGY,
-          RecipeError.NOT_ENOUGH_INPUT,
-          RecipeError.NOT_ENOUGH_SECONDARY_INPUT,
-          RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-          RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
+            RecipeError.NOT_ENOUGH_ENERGY,
+            RecipeError.NOT_ENOUGH_INPUT,
+            RecipeError.NOT_ENOUGH_SECONDARY_INPUT,
+            RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(
-          RecipeError.NOT_ENOUGH_ENERGY,
-          RecipeError.NOT_ENOUGH_SECONDARY_INPUT
+            RecipeError.NOT_ENOUGH_ENERGY,
+            RecipeError.NOT_ENOUGH_SECONDARY_INPUT
     );
 
     private final IInputHandler<@NotNull ItemStack> extraInputHandler;
@@ -128,13 +128,19 @@ public class TileEntityCombiningAdvancedFactory extends TileEntityItemToItemAdva
     @Override
     public CachedRecipe<CombinerRecipe> createNewCachedRecipe(@NotNull CombinerRecipe recipe, int cacheIndex) {
         return TwoInputCachedRecipe.combiner(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], extraInputHandler, outputHandlers[cacheIndex])
-              .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
-              .setCanHolderFunction(this::canFunction)
-              .setActive(active -> setActiveState(active, cacheIndex))
-              .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
-              .setRequiredTicks(this::getTicksRequired)
-              .setOnFinish(this::markForSave)
-              .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
+                .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
+                .setCanHolderFunction(this::canFunction)
+                .setActive(active -> setActiveState(active, cacheIndex))
+                .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
+                .setRequiredTicks(this::getTicksRequired)
+                .setOnFinish(this::markForSave)
+                .setBaselineMaxOperations(() -> switch (tier) {
+                    case ABSOLUTE -> 8 * baselineMaxOperations;
+                    case SUPREME -> 16 * baselineMaxOperations;
+                    case COSMIC -> 32 * baselineMaxOperations;
+                    case INFINITE -> 64 * baselineMaxOperations;
+                })
+                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
     }
 
     @Override

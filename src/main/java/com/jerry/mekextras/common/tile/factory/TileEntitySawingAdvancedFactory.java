@@ -60,11 +60,11 @@ public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<S
         return false;
     };
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
-          RecipeError.NOT_ENOUGH_ENERGY,
-          RecipeError.NOT_ENOUGH_INPUT,
-          RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-          TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR,
-          RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
+            RecipeError.NOT_ENOUGH_ENERGY,
+            RecipeError.NOT_ENOUGH_INPUT,
+            RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
+            TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR,
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(RecipeError.NOT_ENOUGH_ENERGY);
 
@@ -97,10 +97,10 @@ public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<S
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, index)));
             builder.addSlot(outputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));
             builder.addSlot(secondaryOutputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT,
-                  getWarningCheck(TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, index)));
+                    getWarningCheck(TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, index)));
             inputHandlers[i] = InputHelper.getInputHandler(inputSlot, RecipeError.NOT_ENOUGH_INPUT);
             outputHandlers[i] = OutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE, secondaryOutputSlot,
-                  TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR);
+                    TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR);
             processInfoSlots[i] = new ProcessInfo(i, inputSlot, outputSlot, secondaryOutputSlot);
         }
     }
@@ -153,13 +153,19 @@ public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<S
     @Override
     public CachedRecipe<SawmillRecipe> createNewCachedRecipe(@NotNull SawmillRecipe recipe, int cacheIndex) {
         return OneInputCachedRecipe.sawing(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], outputHandlers[cacheIndex])
-              .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
-              .setCanHolderFunction(this::canFunction)
-              .setActive(active -> setActiveState(active, cacheIndex))
-              .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
-              .setRequiredTicks(this::getTicksRequired)
-              .setOnFinish(this::markForSave)
-              .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
+                .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
+                .setCanHolderFunction(this::canFunction)
+                .setActive(active -> setActiveState(active, cacheIndex))
+                .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
+                .setRequiredTicks(this::getTicksRequired)
+                .setOnFinish(this::markForSave)
+                .setBaselineMaxOperations(() -> switch (tier) {
+                    case ABSOLUTE -> 8 * baselineMaxOperations;
+                    case SUPREME -> 16 * baselineMaxOperations;
+                    case COSMIC -> 32 * baselineMaxOperations;
+                    case INFINITE -> 64 * baselineMaxOperations;
+                })
+                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
     }
 
     @Override

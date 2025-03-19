@@ -82,6 +82,11 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
     protected final ErrorTracker errorTracker;
     private final boolean[] activeStates;
     protected ProcessInfo[] processInfoSlots;
+
+    /**
+     * 一次执行的配方数（并行数），默认为1
+     */
+    protected int baselineMaxOperations = 1;
     /**
      * This Factory's tier.
      */
@@ -268,11 +273,10 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
      * @param outputSlot          The output slot for this slot.
      * @param secondaryOutputSlot The secondary output slot or null if we only have one output slot
      * @param updateCache         True to make the cached recipe get updated if it is out of date.
-     *
      * @return True if the recipe produces the given output.
      */
     public boolean inputProducesOutput(int process, @NotNull ItemStack fallbackInput, @NotNull IInventorySlot outputSlot, @Nullable IInventorySlot secondaryOutputSlot,
-          boolean updateCache) {
+                                       boolean updateCache) {
         return outputSlot.isEmpty() || getRecipeForInput(process, fallbackInput, outputSlot, secondaryOutputSlot, updateCache) != null;
     }
 
@@ -281,7 +285,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
 
     @Nullable
     protected RECIPE getRecipeForInput(int process, @NotNull ItemStack fallbackInput, @NotNull IInventorySlot outputSlot, @Nullable IInventorySlot secondaryOutputSlot,
-          boolean updateCache) {
+                                       boolean updateCache) {
         if (!CommonWorldTickHandler.flushTagAndRecipeCaches) {
             //If our recipe caches are valid, grab our cached recipe and see if it is still valid
             CachedRecipe<RECIPE> cached = getCachedRecipe(process);
@@ -305,7 +309,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
 
     @Nullable
     protected abstract RECIPE findRecipe(int process, @NotNull ItemStack fallbackInput, @NotNull IInventorySlot outputSlot,
-          @Nullable IInventorySlot secondaryOutputSlot);
+                                         @Nullable IInventorySlot secondaryOutputSlot);
 
     protected abstract int getNeededInput(RECIPE recipe, ItemStack inputStack);
 
@@ -720,7 +724,8 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
         }
     }
 
-    public record ProcessInfo(int process, @NotNull AdvancedFactoryInputInventorySlot inputSlot, @NotNull IInventorySlot outputSlot,
+    public record ProcessInfo(int process, @NotNull AdvancedFactoryInputInventorySlot inputSlot,
+                              @NotNull IInventorySlot outputSlot,
                               @Nullable IInventorySlot secondaryOutputSlot) {
     }
 

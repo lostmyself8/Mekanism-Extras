@@ -66,27 +66,27 @@ import java.util.Set;
 
 //Compressing, injecting, purifying, infusing
 public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileEntityItemToItemAdvancedFactory<ItemStackChemicalToItemStackRecipe> implements IHasDumpButton,
-      ItemChemicalRecipeLookupHandler<ItemStackChemicalToItemStackRecipe>, ConstantUsageRecipeLookupHandler {
+        ItemChemicalRecipeLookupHandler<ItemStackChemicalToItemStackRecipe>, ConstantUsageRecipeLookupHandler {
 
     protected static final CheckRecipeType<ItemStack, ChemicalStack, ItemStackChemicalToItemStackRecipe, ItemStack> OUTPUT_CHECK =
-          (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
+            (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
-          RecipeError.NOT_ENOUGH_ENERGY,
-          RecipeError.NOT_ENOUGH_INPUT,
-          RecipeError.NOT_ENOUGH_SECONDARY_INPUT,
-          RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-          RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
+            RecipeError.NOT_ENOUGH_ENERGY,
+            RecipeError.NOT_ENOUGH_INPUT,
+            RecipeError.NOT_ENOUGH_SECONDARY_INPUT,
+            RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(
-          RecipeError.NOT_ENOUGH_ENERGY,
-          RecipeError.NOT_ENOUGH_SECONDARY_INPUT
+            RecipeError.NOT_ENOUGH_ENERGY,
+            RecipeError.NOT_ENOUGH_SECONDARY_INPUT
     );
 
     private final ILongInputHandler<@NotNull ChemicalStack> chemicalInputHandler;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChemicalItem", docPlaceholder = "chemical item (extra) slot")
     ChemicalInventorySlot extraSlot;
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getChemical", "getChemicalCapacity", "getChemicalNeeded",
-                                                                                        "getChemicalFilledPercentage"}, docPlaceholder = "chemical tank")
+            "getChemicalFilledPercentage"}, docPlaceholder = "chemical tank")
     IChemicalTank chemicalTank;
     private final ChemicalUsageMultiplier chemicalUsageMultiplier;
     private final long[] usedSoFar;
@@ -121,9 +121,9 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
         // if they are not still valid
         long capacity = Attribute.getOrThrow(getBlockHolder(), AttributeFactoryType.class).getFactoryType() == FactoryType.INFUSING ? TileEntityMetallurgicInfuser.MAX_INFUSE : TileEntityAdvancedElectricMachine.MAX_GAS;
         if (allowExtractingChemical()) {
-            chemicalTank = BasicChemicalTank.createModern(capacity * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
+            chemicalTank = BasicChemicalTank.createModern(capacity * tier.processes * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
         } else {
-            chemicalTank = BasicChemicalTank.inputModern(capacity * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
+            chemicalTank = BasicChemicalTank.inputModern(capacity * tier.processes * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
         }
         builder.addTank(chemicalTank);
         return builder.build();
@@ -172,7 +172,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
 
     @Override
     protected ItemStackChemicalToItemStackRecipe findRecipe(int process, @NotNull ItemStack fallbackInput, @NotNull IInventorySlot outputSlot,
-          @Nullable IInventorySlot secondaryOutputSlot) {
+                                                            @Nullable IInventorySlot secondaryOutputSlot) {
         //TODO: Give it something that is not empty when we don't have a stored gas stack for getting the output?
         return getRecipeType().getInputCache().findTypeBasedRecipe(level, fallbackInput, chemicalTank.getStack(), outputSlot.getStack(), OUTPUT_CHECK);
     }
@@ -227,18 +227,24 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
         CachedRecipe<ItemStackChemicalToItemStackRecipe> cachedRecipe;
         if (recipe.perTickUsage()) {
             cachedRecipe = ItemStackConstantChemicalToObjectCachedRecipe.toItem(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], chemicalInputHandler,
-                  chemicalUsageMultiplier, used -> usedSoFar[cacheIndex] = used, outputHandlers[cacheIndex]);
+                    chemicalUsageMultiplier, used -> usedSoFar[cacheIndex] = used, outputHandlers[cacheIndex]);
         } else {
             cachedRecipe = TwoInputCachedRecipe.itemChemicalToItem(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], chemicalInputHandler, outputHandlers[cacheIndex]);
         }
         return cachedRecipe
-              .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
-              .setCanHolderFunction(this::canFunction)
-              .setActive(active -> setActiveState(active, cacheIndex))
-              .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
-              .setRequiredTicks(this::getTicksRequired)
-              .setOnFinish(this::markForSave)
-              .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
+                .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
+                .setCanHolderFunction(this::canFunction)
+                .setActive(active -> setActiveState(active, cacheIndex))
+                .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
+                .setRequiredTicks(this::getTicksRequired)
+                .setOnFinish(this::markForSave)
+                .setBaselineMaxOperations(() -> switch (tier) {
+                    case ABSOLUTE -> 8 * baselineMaxOperations;
+                    case SUPREME -> 16 * baselineMaxOperations;
+                    case COSMIC -> 32 * baselineMaxOperations;
+                    case INFINITE -> 64 * baselineMaxOperations;
+                })
+                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
     }
 
     @Override
@@ -303,7 +309,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
     @Override
     public AdvancedMachineUpgradeData getUpgradeData(HolderLookup.Provider provider) {
         return new AdvancedMachineUpgradeData(provider, redstone, getControlType(), getEnergyContainer(), progress, usedSoFar, chemicalTank, extraSlot, energySlot,
-              inputSlots, outputSlots, isSorting(), getComponents());
+                inputSlots, outputSlots, isSorting(), getComponents());
     }
 
     @Override

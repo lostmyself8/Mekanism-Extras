@@ -53,21 +53,12 @@ public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityAdvancedFa
         addRenderableWidget(new GuiEnergyTab(this, tile.getEnergyContainer(), tile::getLastUsage));
         if (tile.hasSecondaryResourceBar()) {
             if (tile instanceof TileEntityItemStackChemicalToItemStackAdvancedFactory factory) {
+                int index = tile.tier.ordinal();
                 addRenderableWidget(new GuiChemicalBar(this, GuiChemicalBar.getProvider(factory.getChemicalTank(), tile.getChemicalTanks(null)), 7, 76,
-                        switch (tile.tier) {
-                            case ABSOLUTE -> 210;
-                            case SUPREME -> 248;
-                            case COSMIC -> 286;
-                            case INFINITE -> 324;
-                        }, 4, true))
+                        210 + 38 * index, 4, true))
                       .warning(WarningType.NO_MATCHING_RECIPE, tile.getWarningCheck(RecipeError.NOT_ENOUGH_SECONDARY_INPUT, 0));
                 dumpButton = addRenderableWidget(new GuiDumpButton<>(this, (TileEntityAdvancedFactory<?> & IHasDumpButton) tile,
-                        switch (tile.tier) {
-                            case ABSOLUTE -> 220;
-                            case SUPREME -> 258;
-                            case COSMIC -> 296;
-                            case INFINITE -> 334;
-                        }, 76));
+                        220 + 38 * index, 76));
             }
         }
 
@@ -88,4 +79,10 @@ public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityAdvancedFa
         renderInventoryText(guiGraphics, dumpButton == null ? getXSize() : dumpButton.getRelativeX());
         super.drawForegroundText(guiGraphics, mouseX, mouseY);
     }
+
+    // 或许之后会用到它
+//    @Override
+//    protected void addGenericTabs() {
+//        super.addGenericTabs();
+//    }
 }

@@ -1,10 +1,10 @@
 package com.jerry.mekextras.common.content.blocktype;
 
+import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
 import mekanism.api.text.ILangEntry;
 import mekanism.common.block.attribute.AttributeFactoryType;
-import mekanism.common.block.attribute.AttributeUpgradeable;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.FactoryType;
 import mekanism.common.content.blocktype.Machine;
@@ -20,7 +20,8 @@ public class AdvancedMachine {
 
         public AdvancedFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, FactoryType factoryType) {
             super(tileEntitySupplier, description);
-            add(new AttributeFactoryType(factoryType), new AttributeUpgradeable(() -> ExtraBlocks.getAdvancedFactory(AdvancedFactoryTier.ABSOLUTE, getFactoryType())));
+            // 原本是机器到基础工厂，但我不需要这个（或许我可以跨Tier进行升级但似乎有些麻烦，所以我现在不打算用它）
+            add(new AttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraBlocks.getAdvancedFactory(AdvancedFactoryTier.ABSOLUTE, getFactoryType())));
         }
 
 

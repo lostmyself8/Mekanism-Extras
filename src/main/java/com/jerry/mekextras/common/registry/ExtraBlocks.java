@@ -90,6 +90,7 @@ public class ExtraBlocks {
                                                                                                                       Function<MapColor, ? extends BLOCK> blockSupplier, BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
         return registerTieredBlock(tier, suffix, () -> blockSupplier.apply(tier.getAdvanceTier().getMapColor()), itemCreator);
     }
+
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvanceTier tier, String suffix,
                                                                                                                       Supplier<? extends BLOCK> blockSupplier, BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
         return EXTRA_BLOCKS.register(tier.getAdvanceTier().getLowerName() + suffix, blockSupplier, itemCreator);
@@ -104,6 +105,7 @@ public class ExtraBlocks {
                                                                                                                              Supplier<? extends BLOCK> blockSupplier) {
         return EXTRA_BLOCKS.register(name, blockSupplier, ItemBlockTooltip::new);
     }
+
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> ABSOLUTE_BIN = registerBin(ExtraBlockTypes.ABSOLUTE_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> SUPREME_BIN = registerBin(ExtraBlockTypes.SUPREME_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> COSMIC_BIN = registerBin(ExtraBlockTypes.COSMIC_BIN);
@@ -180,6 +182,7 @@ public class ExtraBlocks {
                                     .build()
                             )
                     );
+
     private static BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> registerBin(BlockTypeTile<ExtraTileEntityBin> type) {
         BTier tier = (BTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(tier, "_bin", color -> new ExtraBlockBin(type, properties -> properties.mapColor(color)), ExtraItemBlockBin::new)
@@ -287,18 +290,20 @@ public class ExtraBlocks {
                 case SAWING -> s -> MekanismRecipeType.SAWING.getInputCache().containsInput(null, s);
             };
             switch (type.getFactoryType()) {
-                case SMELTING, ENRICHING, CRUSHING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
-                        .addBasicFactorySlots(processes, recipeInputPredicate)
-                        .addEnergy()
-                        .build()
-                );
+                case SMELTING, ENRICHING, CRUSHING ->
+                        holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .addBasicFactorySlots(processes, recipeInputPredicate)
+                                .addEnergy()
+                                .build()
+                        );
                 case COMPRESSING, INJECTING, PURIFYING -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                                .addBasic(TileEntityAdvancedElectricMachine.MAX_GAS * processes, switch (type.getFactoryType()) {
+                                .addBasic(TileEntityAdvancedElectricMachine.MAX_GAS * processes * processes, switch (type.getFactoryType()) {
                                     case COMPRESSING -> MekanismRecipeType.COMPRESSING;
                                     case INJECTING -> MekanismRecipeType.INJECTING;
                                     case PURIFYING -> MekanismRecipeType.PURIFYING;
-                                    default -> throw new IllegalStateException("Factory type doesn't have a known gas recipe");
+                                    default ->
+                                            throw new IllegalStateException("Factory type doesn't have a known gas recipe");
                                 }, InputRecipeCache.ItemChemical::containsInputB)
                                 .build()
                         ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
@@ -307,15 +312,16 @@ public class ExtraBlocks {
                                 .addEnergy()
                                 .build()
                         );
-                case COMBINING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
-                        .addBasicFactorySlots(processes, recipeInputPredicate)
-                        .addInput(MekanismRecipeType.COMBINING, InputRecipeCache.DoubleItem::containsInputB)
-                        .addEnergy()
-                        .build()
-                );
+                case COMBINING ->
+                        holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .addBasicFactorySlots(processes, recipeInputPredicate)
+                                .addInput(MekanismRecipeType.COMBINING, InputRecipeCache.DoubleItem::containsInputB)
+                                .addEnergy()
+                                .build()
+                        );
                 case INFUSING -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                                .addBasic(TileEntityMetallurgicInfuser.MAX_INFUSE * processes, MekanismRecipeType.METALLURGIC_INFUSING, InputRecipeCache.ItemChemical::containsInputB)
+                                .addBasic(TileEntityMetallurgicInfuser.MAX_INFUSE * processes * processes, MekanismRecipeType.METALLURGIC_INFUSING, InputRecipeCache.ItemChemical::containsInputB)
                                 .build()
                         ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeInputPredicate)
@@ -339,7 +345,6 @@ public class ExtraBlocks {
      *
      * @param tier - tier to add to the Factory
      * @param type - recipe type to add to the Factory
-     *
      * @return factory with defined tier and recipe type
      */
     public static BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> getAdvancedFactory(@NotNull AdvancedFactoryTier tier, @NotNull FactoryType type) {

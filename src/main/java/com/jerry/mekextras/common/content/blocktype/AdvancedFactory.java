@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.content.blocktype;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
+import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.registry.ExtraBlockTypes;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import com.jerry.mekextras.common.registry.ExtraContainerTypes;
@@ -32,8 +33,9 @@ public class AdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends 
         setMachineData(tier);
         add(new AttributeGui(containerRegistrar, null), new ExtraAttributeTier<>(tier));
 
+        // 添加升级后的方块
         if (tier.ordinal() < ExtraEnumUtils.ADVANCE_FACTORY_TIERS.length - 1) {
-            add(new AttributeUpgradeable(() -> ExtraBlocks.getAdvancedFactory(ExtraEnumUtils.ADVANCE_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getFactoryType())));
+            add(new ExtraAttributeUpgradeable(() -> ExtraBlocks.getAdvancedFactory(ExtraEnumUtils.ADVANCE_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getFactoryType())));
         }
     }
 

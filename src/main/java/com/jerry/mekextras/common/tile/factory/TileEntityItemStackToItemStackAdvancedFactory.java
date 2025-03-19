@@ -30,15 +30,15 @@ import java.util.Set;
 
 //Smelting, enriching, crushing
 public class TileEntityItemStackToItemStackAdvancedFactory extends TileEntityItemToItemAdvancedFactory<ItemStackToItemStackRecipe> implements
-      ItemRecipeLookupHandler<ItemStackToItemStackRecipe> {
+        ItemRecipeLookupHandler<ItemStackToItemStackRecipe> {
 
     private static final TriPredicate<ItemStackToItemStackRecipe, ItemStack, ItemStack> OUTPUT_CHECK =
-          (recipe, input, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input), output);
+            (recipe, input, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
-          RecipeError.NOT_ENOUGH_ENERGY,
-          RecipeError.NOT_ENOUGH_INPUT,
-          RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-          RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
+            RecipeError.NOT_ENOUGH_ENERGY,
+            RecipeError.NOT_ENOUGH_INPUT,
+            RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
     );
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(RecipeError.NOT_ENOUGH_ENERGY);
 
@@ -69,7 +69,7 @@ public class TileEntityItemStackToItemStackAdvancedFactory extends TileEntityIte
 
     @Override
     protected ItemStackToItemStackRecipe findRecipe(int process, @NotNull ItemStack fallbackInput, @NotNull IInventorySlot outputSlot,
-          @Nullable IInventorySlot secondaryOutputSlot) {
+                                                    @Nullable IInventorySlot secondaryOutputSlot) {
         return getRecipeType().getInputCache().findTypeBasedRecipe(level, fallbackInput, outputSlot.getStack(), OUTPUT_CHECK);
     }
 
@@ -100,17 +100,24 @@ public class TileEntityItemStackToItemStackAdvancedFactory extends TileEntityIte
         return findFirstRecipe(inputHandlers[cacheIndex]);
     }
 
+    // TODO:如果能加升级了，记得把所以createNewCachedRecipe中的switch改了
     @NotNull
     @Override
     public CachedRecipe<ItemStackToItemStackRecipe> createNewCachedRecipe(@NotNull ItemStackToItemStackRecipe recipe, int cacheIndex) {
         return OneInputCachedRecipe.itemToItem(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], outputHandlers[cacheIndex])
-              .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
-              .setCanHolderFunction(this::canFunction)
-              .setActive(active -> setActiveState(active, cacheIndex))
-              .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
-              .setRequiredTicks(this::getTicksRequired)
-              .setOnFinish(this::markForSave)
-              .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
+                .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
+                .setCanHolderFunction(this::canFunction)
+                .setActive(active -> setActiveState(active, cacheIndex))
+                .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
+                .setRequiredTicks(this::getTicksRequired)
+                .setOnFinish(this::markForSave)
+                .setBaselineMaxOperations(() -> switch (tier) {
+                    case ABSOLUTE -> 8 * baselineMaxOperations;
+                    case SUPREME -> 16 * baselineMaxOperations;
+                    case COSMIC -> 32 * baselineMaxOperations;
+                    case INFINITE -> 64 * baselineMaxOperations;
+                })
+                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
     }
 
     @NotNull
