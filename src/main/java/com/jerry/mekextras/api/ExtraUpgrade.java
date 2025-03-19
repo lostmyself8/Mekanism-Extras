@@ -2,7 +2,6 @@ package com.jerry.mekextras.api;
 
 import com.jerry.mekextras.api.text.APIExtraLang;
 import mekanism.api.SerializationConstants;
-import mekanism.api.Upgrade;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.math.MathUtils;
 import mekanism.api.text.EnumColor;
