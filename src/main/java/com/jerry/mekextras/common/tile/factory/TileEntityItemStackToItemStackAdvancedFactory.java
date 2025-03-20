@@ -100,7 +100,7 @@ public class TileEntityItemStackToItemStackAdvancedFactory extends TileEntityIte
         return findFirstRecipe(inputHandlers[cacheIndex]);
     }
 
-    // TODO:如果能加升级了，记得把所以createNewCachedRecipe中的switch改了
+    // TODO:如果能加升级了，记得把所有createNewCachedRecipe中的switch改了
     @NotNull
     @Override
     public CachedRecipe<ItemStackToItemStackRecipe> createNewCachedRecipe(@NotNull ItemStackToItemStackRecipe recipe, int cacheIndex) {
