@@ -1,6 +1,6 @@
 {
   "textures": {
-    "led": "mekanism:block/factory/cosmic_led"
+    "led": "mekanism_extras:block/factory/cosmic_led"
   },
   "elements": [
     {
