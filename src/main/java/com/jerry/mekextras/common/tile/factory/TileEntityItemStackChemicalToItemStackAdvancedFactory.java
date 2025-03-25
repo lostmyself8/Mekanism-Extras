@@ -1,5 +1,6 @@
 package com.jerry.mekextras.common.tile.factory;
 
+import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryChemicalInventorySlot;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.SerializationConstants;
@@ -84,7 +85,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
 
     private final ILongInputHandler<@NotNull ChemicalStack> chemicalInputHandler;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChemicalItem", docPlaceholder = "chemical item (extra) slot")
-    ChemicalInventorySlot extraSlot;
+    AdvancedFactoryChemicalInventorySlot extraSlot;
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getChemical", "getChemicalCapacity", "getChemicalNeeded",
             "getChemicalFilledPercentage"}, docPlaceholder = "chemical tank")
     IChemicalTank chemicalTank;
@@ -133,7 +134,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addSlots(builder, listener, updateSortingListener);
         //Note: We care about the gas tank not the slot when it comes to recipes and updating sorting
-        builder.addSlot(extraSlot = ChemicalInventorySlot.fillOrConvert(chemicalTank, this::getLevel, listener, 7, 57));
+        builder.addSlot(extraSlot = AdvancedFactoryChemicalInventorySlot.fillOrConverts(tier,chemicalTank, this::getLevel, listener, 7, 57));
     }
 
     public IChemicalTank getChemicalTank() {
@@ -142,7 +143,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
 
     @Nullable
     @Override
-    protected ChemicalInventorySlot getExtraSlot() {
+    protected AdvancedFactoryChemicalInventorySlot getExtraSlot() {
         return extraSlot;
     }
 

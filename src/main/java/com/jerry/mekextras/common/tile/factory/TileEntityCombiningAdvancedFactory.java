@@ -1,5 +1,6 @@
 package com.jerry.mekextras.common.tile.factory;
 
+import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryExtraInputInventorySlot;
 import mekanism.api.IContentsListener;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.MathUtils;
@@ -57,7 +58,7 @@ public class TileEntityCombiningAdvancedFactory extends TileEntityItemToItemAdva
     private final IInputHandler<@NotNull ItemStack> extraInputHandler;
 
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getSecondaryInput", docPlaceholder = "secondary input slot")
-    InputInventorySlot extraSlot;
+    AdvancedFactoryExtraInputInventorySlot extraSlot;
 
     public TileEntityCombiningAdvancedFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
@@ -67,13 +68,13 @@ public class TileEntityCombiningAdvancedFactory extends TileEntityItemToItemAdva
     @Override
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addSlots(builder, listener, updateSortingListener);
-        builder.addSlot(extraSlot = InputInventorySlot.at(this::containsRecipeB, markAllMonitorsChanged(listener), 7, 57));
+        builder.addSlot(extraSlot =  AdvancedFactoryExtraInputInventorySlot.at(tier,this::containsRecipeB, markAllMonitorsChanged(listener), 7, 57));
         extraSlot.setSlotType(ContainerSlotType.EXTRA);
     }
 
     @Nullable
     @Override
-    protected InputInventorySlot getExtraSlot() {
+    protected AdvancedFactoryExtraInputInventorySlot getExtraSlot() {
         return extraSlot;
     }
 
