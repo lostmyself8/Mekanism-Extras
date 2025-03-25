@@ -5,9 +5,10 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "Mekanism_Extras.refmap.json",
   "mixins": [
-    "MekExtrasRenderer",
     "MixinBinInventorySlot",
-    "MixinLogisticalTransporterBase"
+    "MixinLogisticalTransporterBase",
+    "MixinMekanismRenderer",
+    "MixinRecipeViewerRecipeType"
   ],
   "client": [
   ],

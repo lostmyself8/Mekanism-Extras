@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = MekanismRenderer.class, remap = false)
-public class MekExtrasRenderer {
+public class MixinMekanismRenderer {
 
     @Inject(method = "onStitch", at = @At(value = "INVOKE", target = "Lmekanism/client/render/transmitter/RenderMechanicalPipe;onStitch()V"))
     private static void onExtraStitch(TextureAtlasStitchedEvent event, CallbackInfo ci) {

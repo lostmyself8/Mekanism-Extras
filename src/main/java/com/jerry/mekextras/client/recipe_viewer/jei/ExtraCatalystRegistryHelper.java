@@ -1,0 +1,43 @@
+package com.jerry.mekextras.client.recipe_viewer.jei;
+
+import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekextras.common.util.ExtraEnumUtils;
+import mekanism.client.recipe_viewer.jei.MekanismJEI;
+import mekanism.client.recipe_viewer.type.IRecipeViewerRecipeType;
+import mekanism.common.block.attribute.Attribute;
+import mekanism.common.block.attribute.AttributeFactoryType;
+import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
+
+import java.util.List;
+
+public class ExtraCatalystRegistryHelper {
+
+    private ExtraCatalystRegistryHelper() {
+    }
+
+    public static void register(IRecipeCatalystRegistration registry, IRecipeViewerRecipeType<?>... categories) {
+        for (IRecipeViewerRecipeType<?> category : categories) {
+            register(registry, MekanismJEI.genericRecipeType(category), category.workstations());
+        }
+    }
+
+    public static void register(IRecipeCatalystRegistration registry, RecipeType<?> recipeType, List<ItemLike> workstations) {
+        for (ItemLike workstation : workstations) {
+            Item item = workstation.asItem();
+//            registry.addRecipeCatalyst(item, recipeType);
+            if (item instanceof BlockItem blockItem) {
+                AttributeFactoryType factoryType = Attribute.get(blockItem.getBlock(), AttributeFactoryType.class);
+                if (factoryType != null) {
+                    for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCE_FACTORY_TIERS) {
+                        registry.addRecipeCatalyst(ExtraBlocks.getAdvancedFactory(tier, factoryType.getFactoryType()), recipeType);
+                    }
+                }
+            }
+        }
+    }
+}
