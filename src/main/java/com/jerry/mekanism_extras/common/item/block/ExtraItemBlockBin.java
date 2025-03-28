@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> implements IItemSustainedInventory {
     public ExtraItemBlockBin(ExtraBlockBin block) {
-        super(block, new Item.Properties().stacksTo(64));
+        super(block, new Item.Properties().stacksTo(1));
     }
 
     @Override

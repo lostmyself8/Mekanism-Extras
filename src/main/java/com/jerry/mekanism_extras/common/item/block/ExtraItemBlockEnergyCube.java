@@ -24,7 +24,6 @@ import mekanism.common.util.text.EnergyDisplay;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -39,7 +38,7 @@ import java.util.stream.IntStream;
 
 public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEnergyCube> implements IItemSustainedInventory, CreativeTabDeferredRegister.ICustomCreativeTabContents {
     public ExtraItemBlockEnergyCube(ExtraBlockEnergyCube block) {
-        super(block, true, new Item.Properties().stacksTo(64));
+        super(block);
     }
 
     @Override
@@ -67,7 +66,7 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
 
     @Override
     public boolean isBarVisible(@NotNull ItemStack stack) {
-        return stack.getCount() == 1;
+        return true;
     }
 
     @Override

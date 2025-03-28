@@ -64,7 +64,7 @@ import java.util.function.Consumer;
 
 public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IModeItem {
     public ExtraItemBlockFluidTank(ExtraBlockFluidTank block) {
-        super(block, new Properties().stacksTo(64));
+        super(block);
     }
 
     @Override

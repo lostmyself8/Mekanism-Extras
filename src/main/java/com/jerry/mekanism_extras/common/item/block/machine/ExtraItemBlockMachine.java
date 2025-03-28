@@ -6,7 +6,7 @@ import mekanism.common.item.interfaces.IItemSustainedInventory;
 
 public class ExtraItemBlockMachine extends ExtraItemBlockTooltip<BlockTile<?, ?>> implements IItemSustainedInventory {
 
-    public ExtraItemBlockMachine(BlockTile<?, ?> block, Properties properties) {
-        super(block, true, properties);
+    public ExtraItemBlockMachine(BlockTile<?, ?> block) {
+        super(block);
     }
 }

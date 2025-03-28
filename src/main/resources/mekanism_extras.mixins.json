@@ -9,7 +9,6 @@
     "MixinGeneratorsPacketHandler",
     "MixinLogisticalTransporterBase",
     "MixinPacketHandler",
-    "MixinStorageUtils",
     "MixinTileEntityLogisticalSorter",
     "MixinTurbineGasTank",
     "MixinTurbineMultiblockData"

@@ -17,7 +17,6 @@ import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.TextUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -27,7 +26,7 @@ import java.util.List;
 
 public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>> implements IItemSustainedInventory {
     public ExtraItemBlockChemicalTank(BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>> block) {
-        super(block,true, new Item.Properties().stacksTo(64));
+        super(block);
     }
 
     @Override
@@ -45,9 +44,6 @@ public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.
 
     @Override
     public boolean isBarVisible(@NotNull ItemStack stack) {
-        if (stack.getCount() > 1) {
-            return false;
-        }
         // No bar for empty containers as bars are drawn on top of stack count number
         return ChemicalUtil.hasGas(stack) ||
                 ChemicalUtil.hasChemical(stack, ConstantPredicates.alwaysTrue(), Capabilities.INFUSION_HANDLER) ||
