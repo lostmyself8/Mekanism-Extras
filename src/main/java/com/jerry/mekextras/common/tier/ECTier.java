@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.tier;
 
-import com.jerry.mekextras.api.tier.AdvanceTier;
-import com.jerry.mekextras.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
+import com.jerry.mekextras.api.tier.IAdvancedTier;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.common.config.value.CachedLongValue;
 import net.minecraft.util.StringRepresentable;
@@ -11,29 +11,29 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 
 @NothingNullByDefault
-public enum ECTier implements IAdvanceTier, StringRepresentable {
-    ABSOLUTE(AdvanceTier.ABSOLUTE, 1_024_000_000, 1_024_000),
-    SUPREME(AdvanceTier.SUPREME, 4_096_000_000L, 4_096_000),
-    COSMIC(AdvanceTier.COSMIC, 16_384_000_000L, 16_384_000),
-    INFINITE(AdvanceTier.INFINITE, 65_536_000_000L, 65_536_000);
+public enum ECTier implements IAdvancedTier, StringRepresentable {
+    ABSOLUTE(AdvancedTier.ABSOLUTE, 1_024_000_000, 1_024_000),
+    SUPREME(AdvancedTier.SUPREME, 4_096_000_000L, 4_096_000),
+    COSMIC(AdvancedTier.COSMIC, 16_384_000_000L, 16_384_000),
+    INFINITE(AdvancedTier.INFINITE, 65_536_000_000L, 65_536_000);
 
     private final long advanceMaxEnergy;
     private final long advanceOutput;
-    private final AdvanceTier advanceTier;
+    private final AdvancedTier advancedTier;
     @Nullable
     private CachedLongValue storageReference;
     @Nullable
     private CachedLongValue outputReference;
 
-    ECTier(AdvanceTier tier, long max, long out) {
+    ECTier(AdvancedTier tier, long max, long out) {
         advanceMaxEnergy = max;
         advanceOutput = out;
-        advanceTier = tier;
+        advancedTier = tier;
     }
 
     @Override
-    public AdvanceTier getAdvanceTier() {
-        return advanceTier;
+    public AdvancedTier getAdvanceTier() {
+        return advancedTier;
     }
 
     @Override

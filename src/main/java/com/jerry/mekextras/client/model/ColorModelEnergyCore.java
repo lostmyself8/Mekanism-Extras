@@ -1,6 +1,6 @@
 package com.jerry.mekextras.client.model;
 
-import com.jerry.mekextras.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import mekanism.api.SupportsColorMap;
@@ -51,8 +51,8 @@ public class ColorModelEnergyCore extends MekanismJavaModel {
 //        renderToBuffer(matrix, buffer, light, overlayLight, color[0], color[1], color[2], energyPercentage);
 //    }
 
-    public void render(@NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight, AdvanceTier advanceTier, float energyPercentage) {
-        render(matrix, renderer.getBuffer(RENDER_TYPE), light, overlayLight, advanceTier, energyPercentage);
+    public void render(@NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight, AdvancedTier advancedTier, float energyPercentage) {
+        render(matrix, renderer.getBuffer(RENDER_TYPE), light, overlayLight, advancedTier, energyPercentage);
     }
 
 //    public void render(@NotNull PoseStack matrix, @NotNull VertexConsumer buffer, int light, int overlayLight, SupportsColorMap color, float energyPercentage) {

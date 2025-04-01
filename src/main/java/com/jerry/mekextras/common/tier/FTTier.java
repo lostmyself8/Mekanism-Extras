@@ -1,30 +1,30 @@
 package com.jerry.mekextras.common.tier;
 
-import com.jerry.mekextras.api.tier.AdvanceTier;
-import com.jerry.mekextras.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
+import com.jerry.mekextras.api.tier.IAdvancedTier;
 import mekanism.common.config.value.CachedIntValue;
 
-public enum FTTier implements IAdvanceTier {
-    ABSOLUTE(AdvanceTier.ABSOLUTE, 4_096_000, 2_048_000),
-    SUPREME(AdvanceTier.SUPREME, 32_768_000, 16_384_000),
-    COSMIC(AdvanceTier.COSMIC, 262_144_000, 131_072_000),
-    INFINITE(AdvanceTier.INFINITE, 2_097_152_000, 1_048_576_000);
+public enum FTTier implements IAdvancedTier {
+    ABSOLUTE(AdvancedTier.ABSOLUTE, 4_096_000, 2_048_000),
+    SUPREME(AdvancedTier.SUPREME, 32_768_000, 16_384_000),
+    COSMIC(AdvancedTier.COSMIC, 262_144_000, 131_072_000),
+    INFINITE(AdvancedTier.INFINITE, 2_097_152_000, 1_048_576_000);
 
     private final int advanceStorage;
     private final int advanceOutput;
-    private final AdvanceTier advanceTier;
+    private final AdvancedTier advancedTier;
     private CachedIntValue storageReference;
     private CachedIntValue outputReference;
 
-    FTTier(AdvanceTier tier, int s, int o) {
+    FTTier(AdvancedTier tier, int s, int o) {
         advanceStorage = s;
         advanceOutput = o;
-        advanceTier = tier;
+        advancedTier = tier;
     }
 
     @Override
-    public AdvanceTier getAdvanceTier() {
-        return advanceTier;
+    public AdvancedTier getAdvanceTier() {
+        return advancedTier;
     }
 
     public int getStorage() {

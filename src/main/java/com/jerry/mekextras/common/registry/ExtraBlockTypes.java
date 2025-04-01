@@ -224,7 +224,7 @@ public class ExtraBlockTypes {
     public static final BlockTypeTile<ExtraTileEntityThermodynamicConductor> INFINITE_THERMODYNAMIC_CONDUCTOR = createConductor(ConductorTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_THERMODYNAMIC_CONDUCTOR);
 
     static {
-        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCE_FACTORY_TIERS) {
+        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
             for (FactoryType type : EnumUtils.FACTORY_TYPES) {
                 FACTORIES.put(tier, type, AdvancedFactory.AdvancedFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
             }

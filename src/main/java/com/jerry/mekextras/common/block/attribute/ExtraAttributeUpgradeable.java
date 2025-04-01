@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.block.attribute;
 
-import com.jerry.mekextras.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,7 +16,7 @@ public class ExtraAttributeUpgradeable implements ExtraAttribute{
     }
 
     @NotNull
-    public BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+    public BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvancedTier tier) {
         return BlockStateHelper.copyStateData(current, upgradeBlock.get());
     }
 }

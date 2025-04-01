@@ -1,31 +1,31 @@
 package com.jerry.mekextras.common.tier;
 
-import com.jerry.mekextras.api.tier.AdvanceTier;
-import com.jerry.mekextras.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
+import com.jerry.mekextras.api.tier.IAdvancedTier;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.common.config.value.CachedLongValue;
 import org.jetbrains.annotations.Nullable;
 
 @NothingNullByDefault
-public enum IPTier implements IAdvanceTier {
-    ABSOLUTE(AdvanceTier.ABSOLUTE, 1_048_576_000L),
-    SUPREME(AdvanceTier.SUPREME, 8_388_608_000L),
-    COSMIC(AdvanceTier.COSMIC, 67_108_864_000L),
-    INFINITE(AdvanceTier.INFINITE, 536_870_912_000L);
+public enum IPTier implements IAdvancedTier {
+    ABSOLUTE(AdvancedTier.ABSOLUTE, 1_048_576_000L),
+    SUPREME(AdvancedTier.SUPREME, 8_388_608_000L),
+    COSMIC(AdvancedTier.COSMIC, 67_108_864_000L),
+    INFINITE(AdvancedTier.INFINITE, 536_870_912_000L);
 
     private final long advanceOutput;
-    private final AdvanceTier advanceTier;
+    private final AdvancedTier advancedTier;
     @Nullable
     private CachedLongValue outputReference;
 
-    IPTier(AdvanceTier tier, long out) {
+    IPTier(AdvancedTier tier, long out) {
         advanceOutput = out;
-        advanceTier = tier;
+        advancedTier = tier;
     }
 
     @Override
-    public AdvanceTier getAdvanceTier() {
-        return advanceTier;
+    public AdvancedTier getAdvanceTier() {
+        return advancedTier;
     }
 
     public long getOutput() {

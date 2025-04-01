@@ -3,7 +3,7 @@ package com.jerry.mekextras.common.registry;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
-import com.jerry.mekextras.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.IAdvancedTier;
 import com.jerry.mekextras.common.attachments.containers.chemical.ExtraComponentBackedChemicalTankTank;
 import com.jerry.mekextras.common.attachments.containers.fluid.ExtraComponentBackedFluidTankFluidTank;
 import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
@@ -79,19 +79,19 @@ public class ExtraBlocks {
 
     static {
         // factories
-        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCE_FACTORY_TIERS) {
+        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
             for (FactoryType type : EnumUtils.FACTORY_TYPES) {
                 FACTORIES.put(tier, type, registerFactory(ExtraBlockTypes.getAdvancedFactory(tier, type)));
             }
         }
     }
 
-    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvanceTier tier, String suffix,
+    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvancedTier tier, String suffix,
                                                                                                                       Function<MapColor, ? extends BLOCK> blockSupplier, BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
         return registerTieredBlock(tier, suffix, () -> blockSupplier.apply(tier.getAdvanceTier().getMapColor()), itemCreator);
     }
 
-    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvanceTier tier, String suffix,
+    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvancedTier tier, String suffix,
                                                                                                                       Supplier<? extends BLOCK> blockSupplier, BiFunction<BLOCK, Item.Properties, ITEM> itemCreator) {
         return EXTRA_BLOCKS.register(tier.getAdvanceTier().getLowerName() + suffix, blockSupplier, itemCreator);
     }

@@ -1,33 +1,33 @@
 package com.jerry.mekextras.common.tier;
 
-import com.jerry.mekextras.api.tier.AdvanceTier;
-import com.jerry.mekextras.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
+import com.jerry.mekextras.api.tier.IAdvancedTier;
 import mekanism.common.config.value.CachedIntValue;
 import mekanism.common.config.value.CachedLongValue;
 
-public enum RWBTier implements IAdvanceTier {
-    ABSOLUTE(AdvanceTier.ABSOLUTE, 2_048_000, 20, 4),
-    SUPREME(AdvanceTier.SUPREME, 8_192_000, 10, 16),
-    COSMIC(AdvanceTier.COSMIC, 32_768_000, 5, 64),
-    INFINITE(AdvanceTier.INFINITE, 131_072_000, 5, 256);
+public enum RWBTier implements IAdvancedTier {
+    ABSOLUTE(AdvancedTier.ABSOLUTE, 2_048_000, 20, 4),
+    SUPREME(AdvancedTier.SUPREME, 8_192_000, 10, 16),
+    COSMIC(AdvancedTier.COSMIC, 32_768_000, 5, 64),
+    INFINITE(AdvancedTier.INFINITE, 131_072_000, 5, 256);
 
     private final long advanceStorage;
     private final int processTicks;
     private final long decayAmount;
-    private final AdvanceTier advanceTier;
+    private final AdvancedTier advancedTier;
     private CachedLongValue storageReference;
     private CachedIntValue tickReference;
     private CachedLongValue amountReference;
-    RWBTier(AdvanceTier tier, long s, int t, long a) {
+    RWBTier(AdvancedTier tier, long s, int t, long a) {
         advanceStorage = s;
         processTicks = t;
         decayAmount = a;
-        advanceTier = tier;
+        advancedTier = tier;
     }
 
     @Override
-    public AdvanceTier getAdvanceTier() {
-        return advanceTier;
+    public AdvancedTier getAdvanceTier() {
+        return advancedTier;
     }
 
     public long getStorage() {

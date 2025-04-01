@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.item;
 
-import com.jerry.mekextras.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import mekanism.api.text.TextComponentUtil;
@@ -27,23 +27,23 @@ import org.jetbrains.annotations.Nullable;
 
 public class ExtraItemTierInstaller extends Item {
     @Nullable
-    private final AdvanceTier fromTier;
+    private final AdvancedTier fromTier;
     @NotNull
-    private final AdvanceTier toTier;
+    private final AdvancedTier toTier;
 
-    public ExtraItemTierInstaller(@Nullable AdvanceTier fromTier, @NotNull AdvanceTier toTier, Properties properties) {
+    public ExtraItemTierInstaller(@Nullable AdvancedTier fromTier, @NotNull AdvancedTier toTier, Properties properties) {
         super(properties);
         this.fromTier = fromTier;
         this.toTier = toTier;
     }
 
     @Nullable
-    public AdvanceTier getFromTier() {
+    public AdvancedTier getFromTier() {
         return fromTier;
     }
 
     @NotNull
-    public AdvanceTier getToTier() {
+    public AdvancedTier getToTier() {
         return toTier;
     }
 
@@ -66,8 +66,8 @@ public class ExtraItemTierInstaller extends Item {
         Block block = state.getBlock();
         ExtraAttributeUpgradeable upgradeableBlock = Attribute.get(block, ExtraAttributeUpgradeable.class);
         if (upgradeableBlock != null) {
-            AdvanceTier advanceTier = ExtraAttribute.getAdvanceTier(block);
-            if (advanceTier == fromTier && advanceTier != toTier) {
+            AdvancedTier advancedTier = ExtraAttribute.getAdvanceTier(block);
+            if (advancedTier == fromTier && advancedTier != toTier) {
                 BlockState upgradeState = upgradeableBlock.upgradeResult(state, toTier);
                 if (state == upgradeState) {
                     return InteractionResult.PASS;

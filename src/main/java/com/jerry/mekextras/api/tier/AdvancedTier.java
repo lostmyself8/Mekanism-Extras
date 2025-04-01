@@ -15,16 +15,16 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 import java.util.function.IntFunction;
 
-public enum AdvanceTier implements StringRepresentable, SupportsColorMap {
+public enum AdvancedTier implements StringRepresentable, SupportsColorMap {
     ABSOLUTE("Absolute", new int[]{95, 255, 184}, MapColor.COLOR_LIGHT_GREEN),
     SUPREME("Supreme", new int[]{255, 128, 106}, MapColor.TERRACOTTA_PINK),
     COSMIC("Cosmic", new int[]{75, 248, 255}, MapColor.DIAMOND),
     INFINITE("Infinite", new int[]{247, 135, 255}, MapColor.COLOR_MAGENTA);
 
-    public static final IntFunction<AdvanceTier> BY_ID = ByIdMap.continuous(AdvanceTier::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
-    public static final StreamCodec<ByteBuf, AdvanceTier> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, AdvanceTier::ordinal);
+    public static final IntFunction<AdvancedTier> BY_ID = ByIdMap.continuous(AdvancedTier::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+    public static final StreamCodec<ByteBuf, AdvancedTier> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, AdvancedTier::ordinal);
 
-    private static final AdvanceTier[] TIERS = values();
+    private static final AdvancedTier[] TIERS = values();
 
     private final String name;
     private final MapColor mapColor;
@@ -32,7 +32,7 @@ public enum AdvanceTier implements StringRepresentable, SupportsColorMap {
     private int[] rgbCode;
     private int argb;
 
-    AdvanceTier(String name, int[] rgbCode, MapColor mapColor) {
+    AdvancedTier(String name, int[] rgbCode, MapColor mapColor) {
         this.name = name;
         this.mapColor = mapColor;
         setColorFromAtlas(rgbCode);
@@ -77,7 +77,7 @@ public enum AdvanceTier implements StringRepresentable, SupportsColorMap {
         return name().toLowerCase(Locale.ROOT);
     }
 
-    public static AdvanceTier byIndexStatic(int index) {
+    public static AdvancedTier byIndexStatic(int index) {
         return MathUtils.getByIndexMod(TIERS, index);
     }
 }

@@ -49,7 +49,7 @@ public class ExtraTileEntityTypes {
     private static final Table<AdvancedFactoryTier, FactoryType, TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>>> FACTORIES = HashBasedTable.create();
 
     static {
-        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCE_FACTORY_TIERS) {
+        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
             registerFactory(tier, FactoryType.COMBINING, TileEntityCombiningAdvancedFactory::new);
             registerFactory(tier, FactoryType.COMPRESSING, TileEntityItemStackChemicalToItemStackAdvancedFactory::new);
             registerFactory(tier, FactoryType.CRUSHING, TileEntityItemStackToItemStackAdvancedFactory::new);
@@ -245,7 +245,7 @@ public class ExtraTileEntityTypes {
     }
 
     @SuppressWarnings("unchecked")
-    public static TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>>[] getFactoryTiles() {
+    public static TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>>[] getAdvancedFactoryTiles() {
         return FACTORIES.values().toArray(new TileEntityTypeRegistryObject[0]);
     }
 

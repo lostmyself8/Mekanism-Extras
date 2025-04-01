@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.item.block;
 
-import com.jerry.mekextras.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.IAdvancedTier;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.block.interfaces.IColoredBlock;
 import net.minecraft.network.chat.Component;
@@ -22,7 +22,7 @@ public class ItemBlockExtra <BLOCK extends Block> extends BlockItem {
         return (BLOCK) super.getBlock();
     }
 
-    public IAdvanceTier getAdvanceTier() {
+    public IAdvancedTier getAdvanceTier() {
         return null;
     }
 
@@ -32,7 +32,7 @@ public class ItemBlockExtra <BLOCK extends Block> extends BlockItem {
         if (getBlock() instanceof IColoredBlock coloredBlock) {
             return TextComponentUtil.build(coloredBlock.getColor(), super.getName(stack));
         }
-        IAdvanceTier tier = getAdvanceTier();
+        IAdvancedTier tier = getAdvanceTier();
         if (tier == null) {
             return super.getName(stack);
         }

@@ -1,8 +1,8 @@
 package com.jerry.mekextras.common.tile.transmitter;
 
 import com.jerry.mekextras.api.IExtraAlloyInteraction;
-import com.jerry.mekextras.api.tier.AdvanceTier;
-import com.jerry.mekextras.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
+import com.jerry.mekextras.api.tier.IAdvancedTier;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import mekanism.common.Mekanism;
 import mekanism.common.advancements.MekanismCriteriaTriggers;
@@ -44,7 +44,7 @@ public class ExtraTileEntityTransmitter extends TileEntityTransmitter implements
     }
 
     @NotNull
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvancedTier tier) {
         return current;
     }
 
@@ -53,7 +53,7 @@ public class ExtraTileEntityTransmitter extends TileEntityTransmitter implements
     }
 
     @Override
-    public void onExtraAlloyInteraction(Player player, ItemStack stack, @NotNull IAdvanceTier tier) {
+    public void onExtraAlloyInteraction(Player player, ItemStack stack, @NotNull IAdvancedTier tier) {
         if (getLevel() != null && getTransmitter().hasTransmitterNetwork()) {
             DynamicNetwork<?, ?, ?> transmitterNetwork = getTransmitter().getTransmitterNetwork();
             List<Transmitter<?, ?, ?>> list = new ArrayList<>(transmitterNetwork.getTransmitters());

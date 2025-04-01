@@ -34,8 +34,8 @@ public class AdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends 
         add(new AttributeGui(containerRegistrar, null), new ExtraAttributeTier<>(tier));
 
         // 添加升级后的方块
-        if (tier.ordinal() < ExtraEnumUtils.ADVANCE_FACTORY_TIERS.length - 1) {
-            add(new ExtraAttributeUpgradeable(() -> ExtraBlocks.getAdvancedFactory(ExtraEnumUtils.ADVANCE_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getFactoryType())));
+        if (tier.ordinal() < ExtraEnumUtils.ADVANCED_FACTORY_TIERS.length - 1) {
+            add(new ExtraAttributeUpgradeable(() -> ExtraBlocks.getAdvancedFactory(ExtraEnumUtils.ADVANCED_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getFactoryType())));
         }
     }
 

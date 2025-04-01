@@ -1,26 +1,26 @@
 package com.jerry.mekextras.common.tier;
 
-import com.jerry.mekextras.api.tier.AdvanceTier;
-import com.jerry.mekextras.api.tier.IAdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
+import com.jerry.mekextras.api.tier.IAdvancedTier;
 import mekanism.common.config.value.CachedIntValue;
 
-public enum BTier implements IAdvanceTier {
-    ABSOLUTE(AdvanceTier.ABSOLUTE, 2_097_152),
-    SUPREME(AdvanceTier.SUPREME, 16_777_216),
-    COSMIC(AdvanceTier.COSMIC, 134_217_728),
-    INFINITE(AdvanceTier.INFINITE, 1_073_741_824);
+public enum BTier implements IAdvancedTier {
+    ABSOLUTE(AdvancedTier.ABSOLUTE, 2_097_152),
+    SUPREME(AdvancedTier.SUPREME, 16_777_216),
+    COSMIC(AdvancedTier.COSMIC, 134_217_728),
+    INFINITE(AdvancedTier.INFINITE, 1_073_741_824);
 
     private final int advanceStorage;
-    private final AdvanceTier advanceTier;
+    private final AdvancedTier advancedTier;
     private CachedIntValue storageReference;
-    BTier(AdvanceTier advanceTier, int i) {
-        this.advanceTier = advanceTier;
+    BTier(AdvancedTier advancedTier, int i) {
+        this.advancedTier = advancedTier;
         this.advanceStorage = i;
     }
 
     @Override
-    public AdvanceTier getAdvanceTier() {
-        return advanceTier;
+    public AdvancedTier getAdvanceTier() {
+        return advancedTier;
     }
 
     public int getStorage() {

@@ -7,7 +7,7 @@ public class ExtraEnumUtils {
 
     }
     // Items
-    public static final QIODriveAdvanceTier[] QIO_DRIVE_TIERS = QIODriveAdvanceTier.values();
+    public static final QIODriveAdvancedTier[] QIO_DRIVE_TIERS = QIODriveAdvancedTier.values();
 
     // Blocks
     public static final BTier[] BIN_TIERS = BTier.values();
@@ -17,5 +17,5 @@ public class ExtraEnumUtils {
     public static final FTTier[] FLUID_TANK_TIERS = FTTier.values();
     public static final CTTier[] CHEMICAL_TANK_TIERS = CTTier.values();
     public static final RWBTier[] RADIOACTIVE_BARREL_TIER = RWBTier.values();
-    public static final AdvancedFactoryTier[] ADVANCE_FACTORY_TIERS = AdvancedFactoryTier.values();
+    public static final AdvancedFactoryTier[] ADVANCED_FACTORY_TIERS = AdvancedFactoryTier.values();
 }

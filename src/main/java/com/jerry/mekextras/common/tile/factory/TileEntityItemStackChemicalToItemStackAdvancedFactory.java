@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.tile.factory;
 
-import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryChemicalInventorySlot;
+import com.jerry.mekextras.common.inventory.slot.chemical.AdvancedFactoryChemicalInventorySlot;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.SerializationConstants;

@@ -1,4 +1,4 @@
-package com.jerry.mekextras.common.inventory.slot;
+package com.jerry.mekextras.common.inventory.slot.chemical;
 
 import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
 import mekanism.api.Action;

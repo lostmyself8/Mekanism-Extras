@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.tile.transmitter;
 
-import com.jerry.mekextras.api.tier.AdvanceTier;
+import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraUniversalCable;
 import com.jerry.mekextras.common.registry.ExtraBlocks;
 import mekanism.api.SerializationConstants;
@@ -65,7 +65,7 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
 
     @NotNull
     @Override
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvancedTier tier) {
         return BlockStateHelper.copyStateData(current, switch (tier) {
             case ABSOLUTE -> ExtraBlocks.ABSOLUTE_UNIVERSAL_CABLE;
             case SUPREME -> ExtraBlocks.SUPREME_UNIVERSAL_CABLE;

@@ -29,11 +29,12 @@ public class ExtraCatalystRegistryHelper {
     public static void register(IRecipeCatalystRegistration registry, RecipeType<?> recipeType, List<ItemLike> workstations) {
         for (ItemLike workstation : workstations) {
             Item item = workstation.asItem();
+            //这里会多注册一个最低级的原版机器，所以注释掉就好了
 //            registry.addRecipeCatalyst(item, recipeType);
             if (item instanceof BlockItem blockItem) {
                 AttributeFactoryType factoryType = Attribute.get(blockItem.getBlock(), AttributeFactoryType.class);
                 if (factoryType != null) {
-                    for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCE_FACTORY_TIERS) {
+                    for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
                         registry.addRecipeCatalyst(ExtraBlocks.getAdvancedFactory(tier, factoryType.getFactoryType()), recipeType);
                     }
                 }

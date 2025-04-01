@@ -15,22 +15,22 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 @NothingNullByDefault
-public class AdvancedFactoryExtraInputInventorySlot extends InputInventorySlot {
+public class StackableInputInventorySlot extends InputInventorySlot {
 
     private static AdvancedFactoryTier isTier = AdvancedFactoryTier.ABSOLUTE;
 
-    public static AdvancedFactoryExtraInputInventorySlot at(AdvancedFactoryTier tier, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
+    public static StackableInputInventorySlot at(AdvancedFactoryTier tier, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
         return at(tier, ConstantPredicates.alwaysTrue(), isItemValid, listener, x, y);
     }
 
-    public static AdvancedFactoryExtraInputInventorySlot at(AdvancedFactoryTier tier, Predicate<@NotNull ItemStack> insertPredicate, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener,
-                                                            int x, int y) {
+    public static StackableInputInventorySlot at(AdvancedFactoryTier tier, Predicate<@NotNull ItemStack> insertPredicate, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener,
+                                                 int x, int y) {
         Objects.requireNonNull(insertPredicate, "Insertion check cannot be null");
         Objects.requireNonNull(isItemValid, "Item validity check cannot be null");
-        return new AdvancedFactoryExtraInputInventorySlot(tier, insertPredicate, isItemValid, listener, x, y);
+        return new StackableInputInventorySlot(tier, insertPredicate, isItemValid, listener, x, y);
     }
 
-    protected AdvancedFactoryExtraInputInventorySlot(AdvancedFactoryTier tier, Predicate<@NotNull ItemStack> insertPredicate, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
+    protected StackableInputInventorySlot(AdvancedFactoryTier tier, Predicate<@NotNull ItemStack> insertPredicate, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
         super(insertPredicate, isItemValid, listener, x, y);
         isTier = tier;
         setSlotType(ContainerSlotType.EXTRA);
@@ -40,6 +40,5 @@ public class AdvancedFactoryExtraInputInventorySlot extends InputInventorySlot {
     public int getLimit(ItemStack stack) {
         return Item.DEFAULT_MAX_STACK_SIZE * isTier.processes;
     }
-
 
 }
