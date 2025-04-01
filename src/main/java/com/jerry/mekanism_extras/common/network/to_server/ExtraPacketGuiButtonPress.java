@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.network.to_server;
 
-import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
+import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
@@ -86,13 +86,13 @@ public class ExtraPacketGuiButtonPress implements IMekanismPacket {
             return null;
         }),
         TAB_MAIN((tile, extra) -> {
-            if (tile instanceof ExtraTileEntityInductionCasing) {
-                return ExtraContainerTypes.INDUCTION_MATRIX.getProvider(MekanismLang.MATRIX, tile);
+            if (tile instanceof TileEntityReinforcedInductionCasing) {
+                return ExtraContainerTypes.REINFORCED_INDUCTION_MATRIX.getProvider(MekanismLang.MATRIX, tile);
             }
             return null;
         }),
         TAB_STATS((tile, extra) -> {
-            if (tile instanceof ExtraTileEntityInductionCasing) {
+            if (tile instanceof TileEntityReinforcedInductionCasing) {
                 return ExtraContainerTypes.MATRIX_STATS.getProvider(MekanismLang.MATRIX_STATS, tile);
             }
             return null;

@@ -8,7 +8,7 @@ import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekanism_extras.common.content.blocktype.AdvancedMachine;
 import com.jerry.mekanism_extras.common.tier.*;
-import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
+import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
@@ -125,19 +125,19 @@ public class ExtraBlockType {
             .withComputerSupport("radioactiveWasteBarrel")
             .build();
     //hard induction casing
-    public static final BlockTypeTile<ExtraTileEntityInductionCasing> INDUCTION_CASING = BlockTypeTile.BlockTileBuilder
-            .createBlock(() -> ExtraTileEntityTypes.HARD_INDUCTION_CASING, MekanismLang.DESCRIPTION_INDUCTION_CASING)
-            .withGui(() -> ExtraContainerTypes.INDUCTION_MATRIX, MekanismLang.MATRIX)
+    public static final BlockTypeTile<TileEntityReinforcedInductionCasing> REINFORCED_INDUCTION_CASING = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraTileEntityTypes.REINFORCED_INDUCTION_CASING, MekanismLang.DESCRIPTION_INDUCTION_CASING)
+            .withGui(() -> ExtraContainerTypes.REINFORCED_INDUCTION_MATRIX, MekanismLang.MATRIX)
             .with(Attributes.INVENTORY, Attributes.COMPARATOR)
             .externalMultiblock()
             .build();
     //hard induction port
-    public static final BlockTypeTile<ExtraTileEntityInductionPort> INDUCTION_PORT = BlockTypeTile.BlockTileBuilder
-            .createBlock(() -> ExtraTileEntityTypes.HARD_INDUCTION_PORT, MekanismLang.DESCRIPTION_INDUCTION_PORT)
-            .withGui(() -> ExtraContainerTypes.INDUCTION_MATRIX, MekanismLang.MATRIX)
+    public static final BlockTypeTile<TileEntityReinforcedInductionPort> REINFORCED_INDUCTION_PORT = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraTileEntityTypes.REINFORCED_INDUCTION_PORT, MekanismLang.DESCRIPTION_INDUCTION_PORT)
+            .withGui(() -> ExtraContainerTypes.REINFORCED_INDUCTION_MATRIX, MekanismLang.MATRIX)
             .with(Attributes.INVENTORY, Attributes.COMPARATOR, Attributes.ACTIVE)
             .externalMultiblock()
-            .withComputerSupport("inductionPort")
+            .withComputerSupport("reinforcedInductionPort")
             .build();
     //bin
     public static final Machine<ExtraTileEntityBin> ABSOLUTE_BIN = createBin(BTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_BIN, () -> ExtraBlock.SUPREME_BIN);
@@ -171,13 +171,13 @@ public class ExtraBlockType {
     public static final Machine<ExtraTileEntityChemicalTank> INFINITE_CHEMICAL_TANK = createChemicalTank(CTTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_CHEMICAL_TANK, null);
 
     // Electric Pump
-    public static final Machine<ExtraTileEntityElectricPump> ADVANCE_ELECTRIC_PUMP = Machine.MachineBuilder
-            .createMachine(() -> ExtraTileEntityTypes.ADVANCE_ELECTRIC_PUMP, MekanismLang.DESCRIPTION_ELECTRIC_PUMP)
-            .withGui(() -> ExtraContainerTypes.ADVANCE_ELECTRIC_PUMP)
+    public static final Machine<TileEntityAdvancedElectricPump> ADVANCED_ELECTRIC_PUMP = Machine.MachineBuilder
+            .createMachine(() -> ExtraTileEntityTypes.ADVANCED_ELECTRIC_PUMP, MekanismLang.DESCRIPTION_ELECTRIC_PUMP)
+            .withGui(() -> ExtraContainerTypes.ADVANCED_ELECTRIC_PUMP)
             .withEnergyConfig(LoadConfig.extraUsage.advanceElectricPump, LoadConfig.extraStorage.advanceElectricPump)
             .withSupportedUpgrades(EnumSet.of(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.FILTER))
             .withCustomShape(BlockShapes.ELECTRIC_PUMP)
-            .withComputerSupport("electricPump")
+            .withComputerSupport("advancedElectricPump")
             .replace(Attributes.ACTIVE)
             .build();
 

@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.content.matrix;
 
-import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
+import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import mekanism.api.math.FloatingLong;
@@ -49,7 +49,7 @@ public class ExtraMatrixMultiblockData extends MultiblockData {
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem", docPlaceholder = "output slot")
     final EnergyInventorySlot energyOutputSlot;
 
-    public ExtraMatrixMultiblockData(ExtraTileEntityInductionCasing tile) {
+    public ExtraMatrixMultiblockData(TileEntityReinforcedInductionCasing tile) {
         super(tile);
         energyContainers.add(energyContainer = new ExtraMatrixEnergyContainer(this));
         inventorySlots.add(energyInputSlot = EnergyInventorySlot.drain(energyContainer, this, 146, 21));

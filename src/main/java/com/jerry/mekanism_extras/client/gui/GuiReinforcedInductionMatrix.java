@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.gui;
 
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
-import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
+import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import mekanism.api.math.FloatingLong;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.GuiMekanismTile;
@@ -23,9 +23,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ExtraGuiInductionMatrix extends GuiMekanismTile<ExtraTileEntityInductionCasing, MekanismTileContainer<ExtraTileEntityInductionCasing>> {
+public class GuiReinforcedInductionMatrix extends GuiMekanismTile<TileEntityReinforcedInductionCasing, MekanismTileContainer<TileEntityReinforcedInductionCasing>> {
 
-    public ExtraGuiInductionMatrix(MekanismTileContainer<ExtraTileEntityInductionCasing> container, Inventory inv, Component title) {
+    public GuiReinforcedInductionMatrix(MekanismTileContainer<TileEntityReinforcedInductionCasing> container, Inventory inv, Component title) {
         super(container, inv, title);
         inventoryLabelY += 2;
         dynamicSlots = true;
@@ -46,7 +46,7 @@ public class ExtraGuiInductionMatrix extends GuiMekanismTile<ExtraTileEntityIndu
                     MekanismLang.MATRIX_INPUT_AMOUNT.translate(MekanismLang.GENERIC_PER_TICK.translate(EnergyDisplay.of(multiblock.getLastInput()))),
                     MekanismLang.MATRIX_OUTPUT_AMOUNT.translate(MekanismLang.GENERIC_PER_TICK.translate(EnergyDisplay.of(multiblock.getLastOutput()))));
         }).spacing(2));
-        addRenderableWidget(new ExtraGuiMatrixTab(this, tile, ExtraGuiMatrixTab.MatrixTab.STAT));
+        addRenderableWidget(new GuiReinforcedMatrixTab(this, tile, GuiReinforcedMatrixTab.MatrixTab.STAT));
         addRenderableWidget(new GuiEnergyGauge(new GuiEnergyGauge.IEnergyInfoHandler() {
             @Override
             public FloatingLong getEnergy() {

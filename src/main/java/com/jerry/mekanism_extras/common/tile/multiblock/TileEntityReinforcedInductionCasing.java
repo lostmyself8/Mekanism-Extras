@@ -14,15 +14,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 
-public class ExtraTileEntityInductionCasing extends TileEntityMultiblock<ExtraMatrixMultiblockData> {
+public class TileEntityReinforcedInductionCasing extends TileEntityMultiblock<ExtraMatrixMultiblockData> {
 
-    public ExtraTileEntityInductionCasing(BlockPos pos, BlockState state) {
+    public TileEntityReinforcedInductionCasing(BlockPos pos, BlockState state) {
         this(ExtraBlock.REINFORCED_INDUCTION_CASING, pos, state);
         //Disable item handler caps if we are the induction casing, don't disable it for the subclassed port though
         addDisabledCapabilities(ForgeCapabilities.ITEM_HANDLER);
     }
 
-    public ExtraTileEntityInductionCasing(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityReinforcedInductionCasing(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
     }
 

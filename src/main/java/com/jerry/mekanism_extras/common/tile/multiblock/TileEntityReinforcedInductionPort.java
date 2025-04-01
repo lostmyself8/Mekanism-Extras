@@ -22,11 +22,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.Set;
 
-public class ExtraTileEntityInductionPort extends ExtraTileEntityInductionCasing implements IMultiblockEjector {
+public class TileEntityReinforcedInductionPort extends TileEntityReinforcedInductionCasing implements IMultiblockEjector {
 
     private Set<Direction> outputDirections = Collections.emptySet();
 
-    public ExtraTileEntityInductionPort(BlockPos pos, BlockState state) {
+    public TileEntityReinforcedInductionPort(BlockPos pos, BlockState state) {
         super(ExtraBlock.REINFORCED_INDUCTION_PORT, pos, state);
         delaySupplier = NO_DELAY;
     }

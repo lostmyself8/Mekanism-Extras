@@ -12,7 +12,7 @@ import com.jerry.mekanism_extras.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekanism_extras.common.item.block.machine.ItemBlockAdvancedFactory;
 import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
 import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
-import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
+import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockBin;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockBin;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
@@ -120,8 +120,8 @@ public class ExtraBlock {
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> COSMIC_BIN = registerBin("cosmic", ExtraBlockType.COSMIC_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> INFINITE_BIN = registerBin("infinite", ExtraBlockType.INFINITE_BIN);
     //induction casing port
-    public static final BlockRegistryObject<BlockBasicMultiblock<ExtraTileEntityInductionCasing>, ItemBlockTooltip<BlockBasicMultiblock<ExtraTileEntityInductionCasing>>> REINFORCED_INDUCTION_CASING = registerBlock("reinforced_induction_casing", () -> new BlockBasicMultiblock<>(ExtraBlockType.INDUCTION_CASING, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)));
-    public static final BlockRegistryObject<BlockBasicMultiblock<ExtraTileEntityInductionPort>, ItemBlockTooltip<BlockBasicMultiblock<ExtraTileEntityInductionPort>>> REINFORCED_INDUCTION_PORT = registerBlock("reinforced_induction_port", () -> new BlockBasicMultiblock<>(ExtraBlockType.INDUCTION_PORT, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)));
+    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityReinforcedInductionCasing>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityReinforcedInductionCasing>>> REINFORCED_INDUCTION_CASING = registerBlock("reinforced_induction_casing", () -> new BlockBasicMultiblock<>(ExtraBlockType.REINFORCED_INDUCTION_CASING, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)));
+    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityReinforcedInductionPort>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityReinforcedInductionPort>>> REINFORCED_INDUCTION_PORT = registerBlock("reinforced_induction_port", () -> new BlockBasicMultiblock<>(ExtraBlockType.REINFORCED_INDUCTION_PORT, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)));
     //cell
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> ABSOLUTE_INDUCTION_CELL = registerInductionCell("absolute", ExtraBlockType.ABSOLUTE_INDUCTION_CELL);
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> SUPREME_INDUCTION_CELL = registerInductionCell("supreme", ExtraBlockType.SUPREME_INDUCTION_CELL);
@@ -174,7 +174,7 @@ public class ExtraBlock {
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> INFINITE_CHEMICAL_TANK = registerChemicalTank("infinite", ExtraBlockType.INFINITE_CHEMICAL_TANK);
     //other
     public static final BlockRegistryObject<ExtraBlockRadioactiveWasteBarrel, ExtraItemBlockRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = EXTRA_BLOCK.registerDefaultProperties("expand_radioactive_waste_barrel", ExtraBlockRadioactiveWasteBarrel::new, ExtraItemBlockRadioactiveWasteBarrel::new);
-    public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityElectricPump, Machine<ExtraTileEntityElectricPump>>, ItemBlockMachine> ADVANCE_ELECTRIC_PUMP = EXTRA_BLOCK.register("advance_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockType.ADVANCE_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>, ItemBlockMachine> ADVANCED_ELECTRIC_PUMP = EXTRA_BLOCK.register("advance_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockType.ADVANCED_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);
 
     private static ExtraOreBlockType registerOre(ExtraOreType ore) {
         String name = ore.getResource().getRegistrySuffix() + "_ore";

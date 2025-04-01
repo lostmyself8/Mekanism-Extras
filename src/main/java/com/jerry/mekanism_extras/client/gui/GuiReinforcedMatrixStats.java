@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.gui;
 
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
-import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
+import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import mekanism.api.math.FloatingLong;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.bar.GuiBar;
@@ -19,16 +19,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ExtraGuiMatrixStats extends GuiMekanismTile<ExtraTileEntityInductionCasing, EmptyTileContainer<ExtraTileEntityInductionCasing>> {
+public class GuiReinforcedMatrixStats extends GuiMekanismTile<TileEntityReinforcedInductionCasing, EmptyTileContainer<TileEntityReinforcedInductionCasing>> {
 
-    public ExtraGuiMatrixStats(EmptyTileContainer<ExtraTileEntityInductionCasing> container, Inventory inv, Component title) {
+    public GuiReinforcedMatrixStats(EmptyTileContainer<TileEntityReinforcedInductionCasing> container, Inventory inv, Component title) {
         super(container, inv, title);
     }
 
     @Override
     protected void addGuiElements() {
         super.addGuiElements();
-        addRenderableWidget(new ExtraGuiMatrixTab(this, tile, ExtraGuiMatrixTab.MatrixTab.MAIN));
+        addRenderableWidget(new GuiReinforcedMatrixTab(this, tile, GuiReinforcedMatrixTab.MatrixTab.MAIN));
         addRenderableWidget(new GuiEnergyGauge(new GuiEnergyGauge.IEnergyInfoHandler() {
             @Override
             public FloatingLong getEnergy() {

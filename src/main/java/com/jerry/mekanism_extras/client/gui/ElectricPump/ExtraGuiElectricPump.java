@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.client.gui.ElectricPump;
 
-import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
+import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiDownArrow;
 import mekanism.client.gui.element.GuiInnerScreen;
@@ -23,9 +23,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtraGuiElectricPump extends GuiMekanismTile<ExtraTileEntityElectricPump, MekanismTileContainer<ExtraTileEntityElectricPump>> {
+public class ExtraGuiElectricPump extends GuiMekanismTile<TileEntityAdvancedElectricPump, MekanismTileContainer<TileEntityAdvancedElectricPump>> {
 
-    public ExtraGuiElectricPump(MekanismTileContainer<ExtraTileEntityElectricPump> container, Inventory inv, Component title) {
+    public ExtraGuiElectricPump(MekanismTileContainer<TileEntityAdvancedElectricPump> container, Inventory inv, Component title) {
         super(container, inv, title);
         inventoryLabelY += 2;
         dynamicSlots = true;
@@ -53,7 +53,7 @@ public class ExtraGuiElectricPump extends GuiMekanismTile<ExtraTileEntityElectri
         addRenderableWidget(new GuiDownArrow(this, 32, 39));
         addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), 164, 15))
                 .warning(WarningTracker.WarningType.NOT_ENOUGH_ENERGY, () -> {
-                    MachineEnergyContainer<ExtraTileEntityElectricPump> energyContainer = tile.getEnergyContainer();
+                    MachineEnergyContainer<TileEntityAdvancedElectricPump> energyContainer = tile.getEnergyContainer();
                     return energyContainer.getEnergyPerTick().greaterThan(energyContainer.getEnergy());
                 });
         addRenderableWidget(new GuiFluidGauge(() -> tile.fluidTank, () -> tile.getFluidTanks(null), GaugeType.STANDARD, this, 6, 13))

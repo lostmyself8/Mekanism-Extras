@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.gui;
 
 import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiButtonPress;
-import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
+import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import mekanism.api.text.ILangEntry;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.IGuiWrapper;
@@ -14,13 +14,13 @@ import mekanism.common.util.MekanismUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-public class ExtraGuiMatrixTab extends GuiTabElementType<ExtraTileEntityInductionCasing, ExtraGuiMatrixTab.MatrixTab> {
+public class GuiReinforcedMatrixTab extends GuiTabElementType<TileEntityReinforcedInductionCasing, GuiReinforcedMatrixTab.MatrixTab> {
 
-    public ExtraGuiMatrixTab(IGuiWrapper gui, ExtraTileEntityInductionCasing tile, MatrixTab type) {
+    public GuiReinforcedMatrixTab(IGuiWrapper gui, TileEntityReinforcedInductionCasing tile, MatrixTab type) {
         super(gui, tile, type);
     }
 
-    public enum MatrixTab implements TabType<ExtraTileEntityInductionCasing> {
+    public enum MatrixTab implements TabType<TileEntityReinforcedInductionCasing> {
         MAIN("energy.png", MekanismLang.MAIN_TAB, ExtraPacketGuiButtonPress.ClickedTileButton.TAB_MAIN, SpecialColors.TAB_MULTIBLOCK_MAIN),
         STAT("stats.png", MekanismLang.MATRIX_STATS, ExtraPacketGuiButtonPress.ClickedTileButton.TAB_STATS, SpecialColors.TAB_MULTIBLOCK_STATS);
 
@@ -42,7 +42,7 @@ public class ExtraGuiMatrixTab extends GuiTabElementType<ExtraTileEntityInductio
         }
 
         @Override
-        public void onClick(ExtraTileEntityInductionCasing tile) {
+        public void onClick(TileEntityReinforcedInductionCasing tile) {
             Mekanism.packetHandler().sendToServer(new ExtraPacketGuiButtonPress(button, tile));
         }
 

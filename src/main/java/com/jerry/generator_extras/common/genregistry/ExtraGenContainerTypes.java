@@ -18,7 +18,6 @@ public class ExtraGenContainerTypes {
     public static final ContainerTypeRegistryObject<EmptyTileContainer<TileEntityNaquadahReactorLogicAdapter>> NAQUADAH_REACTOR_LOGIC_ADAPTER = GEN_CONTAINER_TYPES.registerEmpty(ExtraGenBlocks.NAQUADAH_REACTOR_LOGIC_ADAPTER, TileEntityNaquadahReactorLogicAdapter.class);
     public static final ContainerTypeRegistryObject<EmptyTileContainer<TileEntityNaquadahReactorController>> NAQUADAH_REACTOR_STATS = GEN_CONTAINER_TYPES.registerEmpty("naquadah_reactor_stats", TileEntityNaquadahReactorController.class);
 
-
     public static void register(IEventBus eventBus) {
         GEN_CONTAINER_TYPES.register(eventBus);
     }

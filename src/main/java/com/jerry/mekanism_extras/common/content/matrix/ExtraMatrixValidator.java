@@ -7,7 +7,6 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.multiblock.CuboidStructureValidator;
 import mekanism.common.lib.multiblock.FormationProtocol;
-import mekanism.common.registries.MekanismBlockTypes;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
@@ -25,9 +24,9 @@ public class ExtraMatrixValidator extends CuboidStructureValidator<ExtraMatrixMu
     @Override
     protected FormationProtocol.CasingType getCasingType(BlockState state) {
         Block block = state.getBlock();
-        if (BlockType.is(block, ExtraBlockType.INDUCTION_CASING)) {
+        if (BlockType.is(block, ExtraBlockType.REINFORCED_INDUCTION_CASING)) {
             return FormationProtocol.CasingType.FRAME;
-        } else if (BlockType.is(block, ExtraBlockType.INDUCTION_PORT)) {
+        } else if (BlockType.is(block, ExtraBlockType.REINFORCED_INDUCTION_PORT)) {
             return FormationProtocol.CasingType.VALVE;
         }
         return FormationProtocol.CasingType.INVALID;
