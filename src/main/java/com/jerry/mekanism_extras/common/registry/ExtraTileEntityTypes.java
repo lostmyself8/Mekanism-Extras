@@ -1,6 +1,10 @@
 package com.jerry.mekanism_extras.common.registry;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekanism_extras.common.tile.factory.*;
 import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
@@ -17,15 +21,34 @@ import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityPressuri
 import com.jerry.mekanism_extras.common.tile.multiblock.*;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
+import mekanism.common.content.blocktype.FactoryType;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
+import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.tile.transmitter.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ExtraTileEntityTypes {
     public static final TileEntityTypeDeferredRegister TILE_ENTITY_TYPES = new TileEntityTypeDeferredRegister(MekanismExtras.MODID);
+
+    private static final Table<AdvancedFactoryTier, FactoryType, TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>>> FACTORIES = HashBasedTable.create();
+
+    static {
+        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
+            FACTORIES.put(tier, FactoryType.COMBINING, TILE_ENTITY_TYPES.register(ExtraBlock.getAdvancedFactory(tier, FactoryType.COMBINING), (pos, state) -> new TileEntityCombiningAdvancedFactory(ExtraBlock.getAdvancedFactory(tier, FactoryType.COMBINING), pos, state), TileEntityMekanism::tickServer, TileEntityMekanism::tickClient));
+            FACTORIES.put(tier, FactoryType.COMPRESSING, TILE_ENTITY_TYPES.register(ExtraBlock.getAdvancedFactory(tier, FactoryType.COMPRESSING), (pos, state) -> new TileEntityItemStackGasToItemStackAdvancedFactory(ExtraBlock.getAdvancedFactory(tier, FactoryType.COMPRESSING), pos, state), TileEntityMekanism::tickServer, TileEntityMekanism::tickClient));
+            FACTORIES.put(tier, FactoryType.CRUSHING, TILE_ENTITY_TYPES.register(ExtraBlock.getAdvancedFactory(tier, FactoryType.CRUSHING), (pos, state) -> new TileEntityItemStackToItemStackAdvancedFactory(ExtraBlock.getAdvancedFactory(tier, FactoryType.CRUSHING), pos, state), TileEntityMekanism::tickServer, TileEntityMekanism::tickClient));
+            FACTORIES.put(tier, FactoryType.ENRICHING, TILE_ENTITY_TYPES.register(ExtraBlock.getAdvancedFactory(tier, FactoryType.ENRICHING), (pos, state) -> new TileEntityItemStackToItemStackAdvancedFactory(ExtraBlock.getAdvancedFactory(tier, FactoryType.ENRICHING), pos, state), TileEntityMekanism::tickServer, TileEntityMekanism::tickClient));
+            FACTORIES.put(tier, FactoryType.INFUSING, TILE_ENTITY_TYPES.register(ExtraBlock.getAdvancedFactory(tier, FactoryType.INFUSING), (pos, state) -> new TileEntityMetallurgicInfuserAdvancedFactory(ExtraBlock.getAdvancedFactory(tier, FactoryType.INFUSING), pos, state), TileEntityMekanism::tickServer, TileEntityMekanism::tickClient));
+            FACTORIES.put(tier, FactoryType.INJECTING, TILE_ENTITY_TYPES.register(ExtraBlock.getAdvancedFactory(tier, FactoryType.INJECTING), (pos, state) -> new TileEntityItemStackGasToItemStackAdvancedFactory(ExtraBlock.getAdvancedFactory(tier, FactoryType.INJECTING), pos, state), TileEntityMekanism::tickServer, TileEntityMekanism::tickClient));
+            FACTORIES.put(tier, FactoryType.PURIFYING, TILE_ENTITY_TYPES.register(ExtraBlock.getAdvancedFactory(tier, FactoryType.PURIFYING), (pos, state) -> new TileEntityItemStackGasToItemStackAdvancedFactory(ExtraBlock.getAdvancedFactory(tier, FactoryType.PURIFYING), pos, state), TileEntityMekanism::tickServer, TileEntityMekanism::tickClient));
+            FACTORIES.put(tier, FactoryType.SAWING, TILE_ENTITY_TYPES.register(ExtraBlock.getAdvancedFactory(tier, FactoryType.SAWING), (pos, state) -> new TileEntitySawingAdvancedFactory(ExtraBlock.getAdvancedFactory(tier, FactoryType.SAWING), pos, state), TileEntityMekanism::tickServer, TileEntityMekanism::tickClient));
+            FACTORIES.put(tier, FactoryType.SMELTING, TILE_ENTITY_TYPES.register(ExtraBlock.getAdvancedFactory(tier, FactoryType.SMELTING), (pos, state) -> new TileEntityItemStackToItemStackAdvancedFactory(ExtraBlock.getAdvancedFactory(tier, FactoryType.SMELTING), pos, state), TileEntityMekanism::tickServer, TileEntityMekanism::tickClient));
+        }
+    }
 
     private static <BE extends TileEntityTransmitter> TileEntityTypeRegistryObject<BE> registerTransmitter(BlockRegistryObject<?, ?> block, BlockEntityType.BlockEntitySupplier<? extends BE> factory) {
         //Note: There is no data fixer type as forge does not currently have a way exposing data fixers to mods yet
@@ -91,6 +114,15 @@ public class ExtraTileEntityTypes {
     public static final TileEntityTypeRegistryObject<ExtraTileEntityChemicalTank> COSMIC_CHEMICAL_TANK = TILE_ENTITY_TYPES.register(ExtraBlock.COSMIC_CHEMICAL_TANK, (pos, state) -> new ExtraTileEntityChemicalTank(ExtraBlock.COSMIC_CHEMICAL_TANK, pos, state));
     public static final TileEntityTypeRegistryObject<ExtraTileEntityChemicalTank> INFINITE_CHEMICAL_TANK = TILE_ENTITY_TYPES.register(ExtraBlock.INFINITE_CHEMICAL_TANK, (pos, state) -> new ExtraTileEntityChemicalTank(ExtraBlock.INFINITE_CHEMICAL_TANK, pos, state));
     public static final TileEntityTypeRegistryObject<ExtraTileEntityElectricPump> ADVANCE_ELECTRIC_PUMP = TILE_ENTITY_TYPES.register(ExtraBlock.ADVANCE_ELECTRIC_PUMP, ExtraTileEntityElectricPump::new);
+
+    public static TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>> getAdvancedFactoryTile(AdvancedFactoryTier tier, FactoryType type) {
+        return FACTORIES.get(tier, type);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>>[] getAdvancedFactoryTiles() {
+        return FACTORIES.values().toArray(new TileEntityTypeRegistryObject[0]);
+    }
 
     public static void register(IEventBus eventBus) {
         TILE_ENTITY_TYPES.register(eventBus);

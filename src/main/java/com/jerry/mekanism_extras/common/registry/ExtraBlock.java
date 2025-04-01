@@ -1,10 +1,17 @@
 package com.jerry.mekanism_extras.common.registry;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
 import com.jerry.mekanism_extras.common.block.ExtraBlockOre;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockResource;
+import com.jerry.mekanism_extras.common.block.prefab.BlockAdvancedFactoryMachine;
+import com.jerry.mekanism_extras.common.content.blocktype.AdvancedFactory;
+import com.jerry.mekanism_extras.common.item.block.machine.ItemBlockAdvancedFactory;
+import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
 import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockBin;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockBin;
@@ -46,6 +53,7 @@ import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.content.blocktype.BlockTypeTile;
+import mekanism.common.content.blocktype.FactoryType;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.item.block.machine.ItemBlockMachine;
@@ -53,10 +61,12 @@ import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.resource.BlockResourceInfo;
 import mekanism.common.tier.*;
+import mekanism.common.util.EnumUtils;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -88,7 +98,15 @@ public class ExtraBlock {
 
     public static final Map<ExtraOreType, ExtraOreBlockType> ORES = new LinkedHashMap<>();
 
+    private static final Table<AdvancedFactoryTier, FactoryType, BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory>> FACTORIES = HashBasedTable.create();
+
     static {
+        // factories
+        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
+            for (FactoryType type : EnumUtils.FACTORY_TYPES) {
+                FACTORIES.put(tier, type, registerFactory(ExtraBlockType.getAdvancedFactory(tier, type)));
+            }
+        }
         // ores
         for (ExtraOreType ore : ExtraEnumUtils.ORE_TYPES) {
             ORES.put(ore, registerOre(ore));
@@ -218,6 +236,38 @@ public class ExtraBlock {
 
     private static <BLOCK extends Block & IHasDescription> BlockRegistryObject<BLOCK, ItemBlockTooltip<BLOCK>> registerBlock(String name, Supplier<? extends BLOCK> blockSupplier) {
         return EXTRA_BLOCK.registerDefaultProperties(name, blockSupplier, ItemBlockTooltip::new);
+    }
+
+    private static <TILE extends TileEntityAdvancedFactory<?>> BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> registerFactory(AdvancedFactory<TILE> type) {
+        IAdvanceTier tier = Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
+        return registerTieredBlock(type, "_" + type.getFactoryType().getRegistryNameComponent() + "_factory", () -> new BlockAdvancedFactoryMachine.BlockAdvancedFactory<>(type), ItemBlockAdvancedFactory::new);
+    }
+
+    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(BlockType type, String suffix,
+                                                                                                                      Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
+        return registerTieredBlock(Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier(), suffix, blockSupplier, itemCreator);
+    }
+
+    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvanceTier tier, String suffix,
+                                                                                                                      Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
+        return EXTRA_BLOCK.register(tier.getAdvanceTier().getLowerName() + suffix, blockSupplier, itemCreator);
+    }
+
+    /**
+     * Retrieves a Factory with a defined tier and recipe type.
+     *
+     * @param tier - tier to add to the Factory
+     * @param type - recipe type to add to the Factory
+     *
+     * @return factory with defined tier and recipe type
+     */
+    public static BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> getAdvancedFactory(@NotNull AdvancedFactoryTier tier, @NotNull FactoryType type) {
+        return FACTORIES.get(tier, type);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory>[] getAdvancedFactoryBlocks() {
+        return FACTORIES.values().toArray(new BlockRegistryObject[0]);
     }
 
     public static void register(IEventBus eventBus) {

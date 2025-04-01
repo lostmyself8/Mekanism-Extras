@@ -7,6 +7,7 @@ import com.jerry.mekanism_extras.client.gui.energycube.ExtraGuiEnergyCube;
 import com.jerry.mekanism_extras.client.gui.fluidtank.ExtraGuiFluidTank;
 import com.jerry.mekanism_extras.client.gui.ExtraGuiInductionMatrix;
 import com.jerry.mekanism_extras.client.gui.ExtraGuiMatrixStats;
+import com.jerry.mekanism_extras.client.gui.machine.GuiAdvancedFactory;
 import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
 import mekanism.client.ClientRegistrationUtil;
 import net.minecraft.core.registries.Registries;
@@ -27,6 +28,8 @@ public class ClientGUIRegister {
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.ADVANCE_ELECTRIC_PUMP, ExtraGuiElectricPump::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.INDUCTION_MATRIX, ExtraGuiInductionMatrix::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.MATRIX_STATS, ExtraGuiMatrixStats::new);
+
+            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.FACTORY, GuiAdvancedFactory::new);
         });
     }
 }

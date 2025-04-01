@@ -1,37 +1,122 @@
 package com.jerry.mekanism_extras.common.registry;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
+import com.jerry.mekanism_extras.common.content.blocktype.AdvancedFactory;
+import com.jerry.mekanism_extras.common.content.blocktype.AdvancedMachine;
+import com.jerry.mekanism_extras.common.tier.*;
 import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
-import com.jerry.mekanism_extras.common.tier.BTier;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
-import com.jerry.mekanism_extras.common.tier.CTTier;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
-import com.jerry.mekanism_extras.common.tier.ECTier;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
-import com.jerry.mekanism_extras.common.tier.FTTier;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityRadioactiveWasteBarrel;
 import com.jerry.mekanism_extras.common.tile.multiblock.*;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
-import com.jerry.mekanism_extras.common.tier.ICTier;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
-import com.jerry.mekanism_extras.common.tier.IPTier;
+import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import com.jerry.mekanism_extras.common.util.ExtraFloatingLong;
 import mekanism.api.Upgrade;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
+import mekanism.common.config.MekanismConfig;
 import mekanism.common.content.blocktype.BlockShapes;
 import mekanism.common.content.blocktype.BlockTypeTile;
+import mekanism.common.content.blocktype.FactoryType;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
+import mekanism.common.registries.MekanismContainerTypes;
+import mekanism.common.registries.MekanismSounds;
+import mekanism.common.registries.MekanismTileEntityTypes;
+import mekanism.common.tile.machine.*;
+import mekanism.common.util.EnumUtils;
 
 import java.util.EnumSet;
 import java.util.function.Supplier;
 
 public class ExtraBlockType {
+
+    private static final Table<AdvancedFactoryTier, FactoryType, AdvancedFactory<?>> FACTORIES = HashBasedTable.create();
+
+    // Enrichment Chamber
+    public static final AdvancedMachine.AdvancedFactoryMachine<TileEntityEnrichmentChamber> ENRICHMENT_CHAMBER = AdvancedMachine.AdvancedMachineBuilder
+            .createAdvancedFactoryMachine(() -> MekanismTileEntityTypes.ENRICHMENT_CHAMBER, MekanismLang.DESCRIPTION_ENRICHMENT_CHAMBER, FactoryType.ENRICHING)
+            .withGui(() -> MekanismContainerTypes.ENRICHMENT_CHAMBER)
+            .withSound(MekanismSounds.ENRICHMENT_CHAMBER)
+            .withEnergyConfig(MekanismConfig.usage.enrichmentChamber, MekanismConfig.storage.enrichmentChamber)
+            .withComputerSupport("enrichmentChamber")
+            .build();
+    // Crusher
+    public static final AdvancedMachine.AdvancedFactoryMachine<TileEntityCrusher> CRUSHER = AdvancedMachine.AdvancedMachineBuilder
+            .createAdvancedFactoryMachine(() -> MekanismTileEntityTypes.CRUSHER, MekanismLang.DESCRIPTION_CRUSHER, FactoryType.CRUSHING)
+            .withGui(() -> MekanismContainerTypes.CRUSHER)
+            .withSound(MekanismSounds.CRUSHER)
+            .withEnergyConfig(MekanismConfig.usage.crusher, MekanismConfig.storage.crusher)
+            .withComputerSupport("crusher")
+            .build();
+    // Energized Smelter
+    public static final AdvancedMachine.AdvancedFactoryMachine<TileEntityEnergizedSmelter> ENERGIZED_SMELTER = AdvancedMachine.AdvancedMachineBuilder
+            .createAdvancedFactoryMachine(() -> MekanismTileEntityTypes.ENERGIZED_SMELTER, MekanismLang.DESCRIPTION_ENERGIZED_SMELTER, FactoryType.SMELTING)
+            .withGui(() -> MekanismContainerTypes.ENERGIZED_SMELTER)
+            .withSound(MekanismSounds.ENERGIZED_SMELTER)
+            .withEnergyConfig(MekanismConfig.usage.energizedSmelter, MekanismConfig.storage.energizedSmelter)
+            .withComputerSupport("energizedSmelter")
+            .build();
+    // Precision Sawmill
+    public static final AdvancedMachine.AdvancedFactoryMachine<TileEntityPrecisionSawmill> PRECISION_SAWMILL = AdvancedMachine.AdvancedMachineBuilder
+            .createAdvancedFactoryMachine(() -> MekanismTileEntityTypes.PRECISION_SAWMILL, MekanismLang.DESCRIPTION_PRECISION_SAWMILL, FactoryType.SAWING)
+            .withGui(() -> MekanismContainerTypes.PRECISION_SAWMILL)
+            .withSound(MekanismSounds.PRECISION_SAWMILL)
+            .withEnergyConfig(MekanismConfig.usage.precisionSawmill, MekanismConfig.storage.precisionSawmill)
+            .withComputerSupport("precisionSawmill")
+            .build();
+    // Osmium Compressor
+    public static final AdvancedMachine.AdvancedFactoryMachine<TileEntityOsmiumCompressor> OSMIUM_COMPRESSOR = AdvancedMachine.AdvancedMachineBuilder
+            .createAdvancedFactoryMachine(() -> MekanismTileEntityTypes.OSMIUM_COMPRESSOR, MekanismLang.DESCRIPTION_OSMIUM_COMPRESSOR, FactoryType.COMPRESSING)
+            .withGui(() -> MekanismContainerTypes.OSMIUM_COMPRESSOR)
+            .withSound(MekanismSounds.OSMIUM_COMPRESSOR)
+            .withEnergyConfig(MekanismConfig.usage.osmiumCompressor, MekanismConfig.storage.osmiumCompressor)
+            .withComputerSupport("osmiumCompressor")
+            .build();
+    // Combiner
+    public static final AdvancedMachine.AdvancedFactoryMachine<TileEntityCombiner> COMBINER = AdvancedMachine.AdvancedMachineBuilder
+            .createAdvancedFactoryMachine(() -> MekanismTileEntityTypes.COMBINER, MekanismLang.DESCRIPTION_COMBINER, FactoryType.COMBINING)
+            .withGui(() -> MekanismContainerTypes.COMBINER)
+            .withSound(MekanismSounds.COMBINER)
+            .withEnergyConfig(MekanismConfig.usage.combiner, MekanismConfig.storage.combiner)
+            .withComputerSupport("combiner")
+            .build();
+    // Metallurgic Infuser
+    public static final AdvancedMachine.AdvancedFactoryMachine<TileEntityMetallurgicInfuser> METALLURGIC_INFUSER = AdvancedMachine.AdvancedMachineBuilder
+            .createAdvancedFactoryMachine(() -> MekanismTileEntityTypes.METALLURGIC_INFUSER, MekanismLang.DESCRIPTION_METALLURGIC_INFUSER, FactoryType.INFUSING)
+            .withGui(() -> MekanismContainerTypes.METALLURGIC_INFUSER)
+            .withSound(MekanismSounds.METALLURGIC_INFUSER)
+            .withEnergyConfig(MekanismConfig.usage.metallurgicInfuser, MekanismConfig.storage.metallurgicInfuser)
+            .withCustomShape(BlockShapes.METALLURGIC_INFUSER)
+            .withComputerSupport("metallurgicInfuser")
+            .build();
+    // Purification Chamber
+    public static final AdvancedMachine.AdvancedFactoryMachine<TileEntityPurificationChamber> PURIFICATION_CHAMBER = AdvancedMachine.AdvancedMachineBuilder
+            .createAdvancedFactoryMachine(() -> MekanismTileEntityTypes.PURIFICATION_CHAMBER, MekanismLang.DESCRIPTION_PURIFICATION_CHAMBER, FactoryType.PURIFYING)
+            .withGui(() -> MekanismContainerTypes.PURIFICATION_CHAMBER)
+            .withSound(MekanismSounds.PURIFICATION_CHAMBER)
+            .withEnergyConfig(MekanismConfig.usage.purificationChamber, MekanismConfig.storage.purificationChamber)
+            .withSupportedUpgrades(EnumSet.of(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.MUFFLING, Upgrade.GAS))
+            .withComputerSupport("purificationChamber")
+            .build();
+    // Chemical Injection Chamber
+    public static final AdvancedMachine.AdvancedFactoryMachine<TileEntityChemicalInjectionChamber> CHEMICAL_INJECTION_CHAMBER = AdvancedMachine.AdvancedMachineBuilder
+            .createAdvancedFactoryMachine(() -> MekanismTileEntityTypes.CHEMICAL_INJECTION_CHAMBER, MekanismLang.DESCRIPTION_CHEMICAL_INJECTION_CHAMBER, FactoryType.INJECTING)
+            .withGui(() -> MekanismContainerTypes.CHEMICAL_INJECTION_CHAMBER)
+            .withSound(MekanismSounds.CHEMICAL_INJECTION_CHAMBER)
+            .withEnergyConfig(MekanismConfig.usage.chemicalInjectionChamber, MekanismConfig.storage.chemicalInjectionChamber)
+            .withSupportedUpgrades(EnumSet.of(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.MUFFLING, Upgrade.GAS))
+            .withComputerSupport("chemicalInjectionChamber")
+            .build();
     //radioactive waste barrel
     public static final BlockTypeTile<ExtraTileEntityRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = BlockTypeTile.BlockTileBuilder
             .createBlock(() -> ExtraTileEntityTypes.EXPAND_RADIOACTIVE_WASTE_BARREL, MekanismLang.DESCRIPTION_RADIOACTIVE_WASTE_BARREL)
@@ -95,6 +180,18 @@ public class ExtraBlockType {
             .withComputerSupport("electricPump")
             .replace(Attributes.ACTIVE)
             .build();
+
+    static {
+        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
+            for (FactoryType type : EnumUtils.FACTORY_TYPES) {
+                FACTORIES.put(tier, type, AdvancedFactory.AdvancedFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
+            }
+        }
+    }
+
+    public static AdvancedFactory<?> getAdvancedFactory(AdvancedFactoryTier tier, FactoryType type) {
+        return FACTORIES.get(tier, type);
+    }
 
     private static <TILE extends ExtraTileEntityInductionCell> BlockTypeTile<TILE> createInductionCell(ICTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile) {
         return BlockTypeTile.BlockTileBuilder.createBlock(tile, MekanismLang.DESCRIPTION_INDUCTION_CELL)

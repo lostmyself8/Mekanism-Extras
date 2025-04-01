@@ -1,0 +1,27 @@
+{
+  "type": "mekanism:mek_data",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/radiance"
+    },
+    "C": {
+      "tag": "forge:circuits/absolute"
+    },
+    "I": {
+      "tag": "forge:gems/emerald"
+    },
+    "P": {
+      "item": "mekanism:ultimate_combining_factory"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IPI",
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "item": "mekanism_extras:absolute_combining_factory"
+  }
+}

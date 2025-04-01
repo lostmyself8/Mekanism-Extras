@@ -1,6 +1,8 @@
 package com.jerry.mekanism_extras.common.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.inventory.container.tile.AdvancedFactoryContainer;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
 import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
@@ -20,6 +22,13 @@ public class ExtraContainerTypes {
     public static final ContainerTypeRegistryObject<MekanismTileContainer<ExtraTileEntityElectricPump>> ADVANCE_ELECTRIC_PUMP = CONTAINER_TYPES.register("extra_electric_pump", ExtraTileEntityElectricPump.class);
     public static final ContainerTypeRegistryObject<EmptyTileContainer<ExtraTileEntityInductionCasing>> MATRIX_STATS = CONTAINER_TYPES.registerEmpty("extra_matrix_stats", ExtraTileEntityInductionCasing.class);
     public static final ContainerTypeRegistryObject<MekanismTileContainer<ExtraTileEntityInductionCasing>> INDUCTION_MATRIX = CONTAINER_TYPES.custom("extra_induction_matrix", ExtraTileEntityInductionCasing.class).armorSideBar(-20, 41, 0).build();
+
+    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityAdvancedFactory<?>>> FACTORY = CONTAINER_TYPES.register("factory", factoryClass(), AdvancedFactoryContainer::new);
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static Class<TileEntityAdvancedFactory<?>> factoryClass() {
+        return (Class) TileEntityAdvancedFactory.class;
+    }
 
     public static void register(IEventBus eventBus) {
         CONTAINER_TYPES.register(eventBus);
