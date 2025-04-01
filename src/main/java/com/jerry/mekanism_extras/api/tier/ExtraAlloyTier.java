@@ -1,15 +1,15 @@
 package com.jerry.mekanism_extras.api.tier;
 
-public enum ExtraAlloyTier implements IAdvanceTier{
-    THERMONUCLEAR("thermonuclear", AdvanceTier.SUPREME),
-    SHINING("shining", AdvanceTier.COSMIC),
-    SPECTRUM("spectrum", AdvanceTier.INFINITE);
+public enum ExtraAlloyTier implements IAdvancedTier {
+    THERMONUCLEAR("thermonuclear", AdvancedTier.SUPREME),
+    SHINING("shining", AdvancedTier.COSMIC),
+    SPECTRUM("spectrum", AdvancedTier.INFINITE);
 
     public final String name;
-    public final AdvanceTier advanceTier;
+    public final AdvancedTier advancedTier;
 
-    ExtraAlloyTier(String name, AdvanceTier tier) {
-        this.advanceTier = tier;
+    ExtraAlloyTier(String name, AdvancedTier tier) {
+        this.advancedTier = tier;
         this.name = name;
     }
 
@@ -18,7 +18,7 @@ public enum ExtraAlloyTier implements IAdvanceTier{
     }
 
     @Override
-    public AdvanceTier getAdvanceTier() {
-        return advanceTier;
+    public AdvancedTier getAdvanceTier() {
+        return advancedTier;
     }
 }

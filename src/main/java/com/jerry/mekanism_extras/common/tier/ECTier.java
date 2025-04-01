@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.common.tier;
 
-import com.jerry.mekanism_extras.api.tier.AdvanceTier;
-import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
+import com.jerry.mekanism_extras.api.tier.AdvancedTier;
+import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.config.value.CachedFloatingLongValue;
 import net.minecraft.util.StringRepresentable;
@@ -10,30 +10,30 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 
-public enum ECTier implements IAdvanceTier, StringRepresentable {
+public enum ECTier implements IAdvancedTier, StringRepresentable {
 
-    ABSOLUTE(AdvanceTier.ABSOLUTE, FloatingLong.createConst(1_024_000_000), FloatingLong.createConst(1_024_000)),
-    SUPREME(AdvanceTier.SUPREME, FloatingLong.createConst(4_096_000_000L), FloatingLong.createConst(4_096_000)),
-    COSMIC(AdvanceTier.COSMIC, FloatingLong.createConst(16_384_000_000L), FloatingLong.createConst(16_384_000)),
-    INFINITE(AdvanceTier.INFINITE, FloatingLong.createConst(65_536_000_000L), FloatingLong.createConst(65_536_000));
+    ABSOLUTE(AdvancedTier.ABSOLUTE, FloatingLong.createConst(1_024_000_000), FloatingLong.createConst(1_024_000)),
+    SUPREME(AdvancedTier.SUPREME, FloatingLong.createConst(4_096_000_000L), FloatingLong.createConst(4_096_000)),
+    COSMIC(AdvancedTier.COSMIC, FloatingLong.createConst(16_384_000_000L), FloatingLong.createConst(16_384_000)),
+    INFINITE(AdvancedTier.INFINITE, FloatingLong.createConst(65_536_000_000L), FloatingLong.createConst(65_536_000));
 
     private final FloatingLong advanceMaxEnergy;
     private final FloatingLong advanceOutput;
-    private final AdvanceTier advanceTier;
+    private final AdvancedTier advancedTier;
     @Nullable
     private CachedFloatingLongValue storageReference;
     @Nullable
     private CachedFloatingLongValue outputReference;
 
-    ECTier(AdvanceTier tier, FloatingLong max, FloatingLong out) {
+    ECTier(AdvancedTier tier, FloatingLong max, FloatingLong out) {
         advanceMaxEnergy = max;
         advanceOutput = out;
-        advanceTier = tier;
+        advancedTier = tier;
     }
 
     @Override
-    public AdvanceTier getAdvanceTier() {
-        return advanceTier;
+    public AdvancedTier getAdvanceTier() {
+        return advancedTier;
     }
 
     @Override

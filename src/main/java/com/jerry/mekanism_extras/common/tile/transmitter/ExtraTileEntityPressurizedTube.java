@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.tile.transmitter;
 
-import com.jerry.mekanism_extras.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraBoxedPressurizedTube;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import mekanism.api.NBTConstants;
@@ -96,7 +96,7 @@ public class ExtraTileEntityPressurizedTube extends ExtraTileEntityTransmitter i
 
     @NotNull
     @Override
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvancedTier tier) {
         return BlockStateHelper.copyStateData(current, switch (tier) {
             case ABSOLUTE -> ExtraBlock.ABSOLUTE_PRESSURIZED_TUBE;
             case SUPREME -> ExtraBlock.SUPREME_PRESSURIZED_TUBE;

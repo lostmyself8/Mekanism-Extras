@@ -9,20 +9,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
-public enum AdvanceTier implements StringRepresentable, SupportsColorMap {
+public enum AdvancedTier implements StringRepresentable, SupportsColorMap {
     ABSOLUTE("Absolute", new int[]{95, 255, 184}, MapColor.COLOR_LIGHT_GREEN),
     SUPREME("Supreme", new int[]{255, 128, 106}, MapColor.TERRACOTTA_PINK),
     COSMIC("Cosmic", new int[]{75, 248, 255}, MapColor.DIAMOND),
     INFINITE("Infinite", new int[]{247, 135, 255}, MapColor.COLOR_MAGENTA);
 
-    private static final AdvanceTier[] TIERS = values();
+    private static final AdvancedTier[] TIERS = values();
 
     private final String name;
     private final MapColor mapColor;
     private TextColor textColor;
     private int[] rgbCode;
 
-    AdvanceTier(String name, int[] rgbCode, MapColor mapColor) {
+    AdvancedTier(String name, int[] rgbCode, MapColor mapColor) {
         this.name = name;
         this.mapColor = mapColor;
         setColorFromAtlas(rgbCode);
@@ -61,7 +61,7 @@ public enum AdvanceTier implements StringRepresentable, SupportsColorMap {
         return name().toLowerCase(Locale.ROOT);
     }
 
-    public static AdvanceTier byIndexStatic(int index) {
+    public static AdvancedTier byIndexStatic(int index) {
         return MathUtils.getByIndexMod(TIERS, index);
     }
 }

@@ -3,7 +3,7 @@ package com.jerry.mekanism_extras.common.registry;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
+import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 import com.jerry.mekanism_extras.common.block.ExtraBlockOre;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockResource;
@@ -87,7 +87,7 @@ public class ExtraBlock {
     }
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock_1(BlockType type, String registerName, Function<MapColor, ? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
-        IAdvanceTier tier = Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
+        IAdvancedTier tier = Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return EXTRA_BLOCK.register(registerName, () -> blockSupplier.apply(tier.getAdvanceTier().getMapColor()), itemCreator);
     }
 
@@ -239,7 +239,7 @@ public class ExtraBlock {
     }
 
     private static <TILE extends TileEntityAdvancedFactory<?>> BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> registerFactory(AdvancedFactory<TILE> type) {
-        IAdvanceTier tier = Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
+        IAdvancedTier tier = Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(type, "_" + type.getFactoryType().getRegistryNameComponent() + "_factory", () -> new BlockAdvancedFactoryMachine.BlockAdvancedFactory<>(type), ItemBlockAdvancedFactory::new);
     }
 
@@ -248,7 +248,7 @@ public class ExtraBlock {
         return registerTieredBlock(Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier(), suffix, blockSupplier, itemCreator);
     }
 
-    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvanceTier tier, String suffix,
+    private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(IAdvancedTier tier, String suffix,
                                                                                                                       Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
         return EXTRA_BLOCK.register(tier.getAdvanceTier().getLowerName() + suffix, blockSupplier, itemCreator);
     }

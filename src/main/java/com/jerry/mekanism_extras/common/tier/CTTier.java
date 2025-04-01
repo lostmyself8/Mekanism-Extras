@@ -1,34 +1,34 @@
 package com.jerry.mekanism_extras.common.tier;
 
-import com.jerry.mekanism_extras.api.tier.AdvanceTier;
-import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
+import com.jerry.mekanism_extras.api.tier.AdvancedTier;
+import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 import mekanism.common.config.value.CachedLongValue;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
-public enum CTTier implements IAdvanceTier, StringRepresentable {
-    ABSOLUTE(AdvanceTier.ABSOLUTE, 32_768_000, 2_048_000),
-    SUPREME(AdvanceTier.SUPREME, 131_072_000, 8_192_000),
-    COSMIC(AdvanceTier.COSMIC, 524_288_000, 32_768_000),
-    INFINITE(AdvanceTier.INFINITE, 4_194_304_000L, 131_072_000);
+public enum CTTier implements IAdvancedTier, StringRepresentable {
+    ABSOLUTE(AdvancedTier.ABSOLUTE, 32_768_000, 2_048_000),
+    SUPREME(AdvancedTier.SUPREME, 131_072_000, 8_192_000),
+    COSMIC(AdvancedTier.COSMIC, 524_288_000, 32_768_000),
+    INFINITE(AdvancedTier.INFINITE, 4_194_304_000L, 131_072_000);
 
     private final long advanceStorage;
     private final long advanceOutput;
-    private final AdvanceTier advanceTier;
+    private final AdvancedTier advancedTier;
     private CachedLongValue storageReference;
     private CachedLongValue outputReference;
 
-    CTTier(AdvanceTier tier, long s, long o) {
+    CTTier(AdvancedTier tier, long s, long o) {
         advanceStorage = s;
         advanceOutput = o;
-        advanceTier = tier;
+        advancedTier = tier;
     }
 
     @Override
-    public AdvanceTier getAdvanceTier() {
-        return advanceTier;
+    public AdvancedTier getAdvanceTier() {
+        return advancedTier;
     }
 
     @NotNull

@@ -1,12 +1,12 @@
 package com.jerry.mekanism_extras.common.tier;
 
-import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
+import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 
 public class TierColor {
     private static final int[] cosmicColor = new int[]{255, 255, 255};
     private static final int[] infiniteColor = new int[]{1, 2, 3};
 
-    public static float[] getColor(IAdvanceTier tier) {
+    public static float[] getColor(IAdvancedTier tier) {
         return switch (tier.getAdvanceTier()) {
             case ABSOLUTE -> new float[]{255/255.0F, 255/255.0F, 0/255.0F};
             case SUPREME -> new float[]{255/255.0F, 0/255.0F, 0/255.0F};

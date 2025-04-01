@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.tile.transmitter;
 
-import com.jerry.mekanism_extras.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraLogisticalTransporter;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import mekanism.api.providers.IBlockProvider;
@@ -41,7 +41,7 @@ public class ExtraTileEntityLogisticalTransporter extends ExtraTileEntityLogisti
 
     @NotNull
     @Override
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvancedTier tier) {
         return BlockStateHelper.copyStateData(current, switch (tier) {
             case ABSOLUTE -> ExtraBlock.ABSOLUTE_LOGISTICAL_TRANSPORTER;
             case SUPREME -> ExtraBlock.SUPREME_LOGISTICAL_TRANSPORTER;

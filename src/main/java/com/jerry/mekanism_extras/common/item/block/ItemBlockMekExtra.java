@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.item.block;
 
-import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
+import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
 import mekanism.api.AutomationType;
 import mekanism.api.NBTConstants;
@@ -49,12 +49,12 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
         return block;
     }
 
-    public IAdvanceTier getAdvanceTier() {
+    public IAdvancedTier getAdvanceTier() {
         return null;
     }
 
     public TextColor getTextColor(ItemStack stack) {
-        IAdvanceTier tier = getAdvanceTier();
+        IAdvancedTier tier = getAdvanceTier();
         return tier == null ? null : tier.getAdvanceTier().getColor();
     }
 

@@ -6,7 +6,7 @@ import com.jerry.mekanism_extras.common.item.ExtraItemAlloy;
 import com.jerry.mekanism_extras.common.item.ExtraItemTierInstaller;
 import com.jerry.mekanism_extras.common.item.ExtraItemQIODrive;
 import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
-import com.jerry.mekanism_extras.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.common.resource.ExtraResource;
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
@@ -35,10 +35,10 @@ public class ExtraItem {
     public static final ItemRegistryObject<ExtraItemQIODrive> GAMMA_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.GAMMA);
     public static final ItemRegistryObject<ExtraItemQIODrive> BLACK_HOLE_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.BLACK_HOLE);
     public static final ItemRegistryObject<ExtraItemQIODrive> SINGULARITY_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.SINGULARITY);
-    public static final ItemRegistryObject<ExtraItemTierInstaller> ABSOLUTE_TIER_INSTALLER = registerInstaller(null, AdvanceTier.ABSOLUTE);
-    public static final ItemRegistryObject<ExtraItemTierInstaller> SUPREME_TIER_INSTALLER = registerInstaller(AdvanceTier.ABSOLUTE, AdvanceTier.SUPREME);
-    public static final ItemRegistryObject<ExtraItemTierInstaller> COSMIC_TIER_INSTALLER = registerInstaller(AdvanceTier.SUPREME, AdvanceTier.COSMIC);
-    public static final ItemRegistryObject<ExtraItemTierInstaller> INFINITE_TIER_INSTALLER = registerInstaller(AdvanceTier.COSMIC, AdvanceTier.INFINITE);
+    public static final ItemRegistryObject<ExtraItemTierInstaller> ABSOLUTE_TIER_INSTALLER = registerInstaller(null, AdvancedTier.ABSOLUTE);
+    public static final ItemRegistryObject<ExtraItemTierInstaller> SUPREME_TIER_INSTALLER = registerInstaller(AdvancedTier.ABSOLUTE, AdvancedTier.SUPREME);
+    public static final ItemRegistryObject<ExtraItemTierInstaller> COSMIC_TIER_INSTALLER = registerInstaller(AdvancedTier.SUPREME, AdvancedTier.COSMIC);
+    public static final ItemRegistryObject<ExtraItemTierInstaller> INFINITE_TIER_INSTALLER = registerInstaller(AdvancedTier.COSMIC, AdvancedTier.INFINITE);
     public static final ItemRegistryObject<Item> ABSOLUTE_CONTROL_CIRCUIT = registerCircuit("absolute", Rarity.COMMON);
     public static final ItemRegistryObject<Item> SUPREME_CONTROL_CIRCUIT = registerCircuit("supreme", Rarity.UNCOMMON);
     public static final ItemRegistryObject<Item> COSMIC_CONTROL_CIRCUIT = registerCircuit("cosmic", Rarity.RARE);
@@ -65,7 +65,7 @@ public class ExtraItem {
         return EXTRA_ITEM.register("qio_drive_" + tier.name().toLowerCase(Locale.ROOT), properties -> new ExtraItemQIODrive(tier, properties));
     }
 
-    private static ItemRegistryObject<ExtraItemTierInstaller> registerInstaller(@Nullable AdvanceTier fromTier, @NotNull AdvanceTier toTier) {
+    private static ItemRegistryObject<ExtraItemTierInstaller> registerInstaller(@Nullable AdvancedTier fromTier, @NotNull AdvancedTier toTier) {
         //Ensure the name is lower case as with concatenating with values from enums it may not be
         return EXTRA_ITEM.register(toTier.getLowerName() + "_tier_installer", properties -> new ExtraItemTierInstaller(fromTier, toTier, properties));
     }

@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.common.tile.transmitter;
 
 import com.jerry.mekanism_extras.api.IExtraAlloyInteraction;
-import com.jerry.mekanism_extras.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.api.tier.ExtraAlloyTier;
 import com.jerry.mekanism_extras.common.capabilities.ExtraCapabilities;
 import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
@@ -115,7 +115,7 @@ public abstract class ExtraTileEntityTransmitter extends TileEntityTransmitter i
     }
 
     @NotNull
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvancedTier tier) {
         return current;
     }
 }

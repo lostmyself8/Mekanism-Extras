@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.tile.transmitter;
 
-import com.jerry.mekanism_extras.api.tier.AdvanceTier;
+import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraMechanicalPipe;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import mekanism.api.NBTConstants;
@@ -69,7 +69,7 @@ public class ExtraTileEntityMechanicalPipe extends ExtraTileEntityTransmitter im
 
     @NotNull
     @Override
-    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvanceTier tier) {
+    protected BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvancedTier tier) {
         return BlockStateHelper.copyStateData(current, switch (tier) {
             case ABSOLUTE -> ExtraBlock.ABSOLUTE_MECHANICAL_PIPE;
             case SUPREME -> ExtraBlock.SUPREME_MECHANICAL_PIPE;

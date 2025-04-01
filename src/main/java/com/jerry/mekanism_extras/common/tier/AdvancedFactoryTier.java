@@ -1,24 +1,24 @@
 package com.jerry.mekanism_extras.common.tier;
 
-import com.jerry.mekanism_extras.api.tier.AdvanceTier;
-import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
+import com.jerry.mekanism_extras.api.tier.AdvancedTier;
+import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 
-public enum AdvancedFactoryTier implements IAdvanceTier {
-    ABSOLUTE(AdvanceTier.ABSOLUTE, 11),
-    SUPREME(AdvanceTier.SUPREME, 13),
-    COSMIC(AdvanceTier.COSMIC, 15),
-    INFINITE(AdvanceTier.INFINITE, 17);
+public enum AdvancedFactoryTier implements IAdvancedTier {
+    ABSOLUTE(AdvancedTier.ABSOLUTE, 11),
+    SUPREME(AdvancedTier.SUPREME, 13),
+    COSMIC(AdvancedTier.COSMIC, 15),
+    INFINITE(AdvancedTier.INFINITE, 17);
 
     public final int processes;
-    private final AdvanceTier advanceTier;
+    private final AdvancedTier advancedTier;
 
-    AdvancedFactoryTier(AdvanceTier tier, int process) {
+    AdvancedFactoryTier(AdvancedTier tier, int process) {
         processes = process;
-        advanceTier = tier;
+        advancedTier = tier;
     }
 
     @Override
-    public AdvanceTier getAdvanceTier() {
-        return advanceTier;
+    public AdvancedTier getAdvanceTier() {
+        return advancedTier;
     }
 }
