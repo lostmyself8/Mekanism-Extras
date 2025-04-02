@@ -1,5 +1,6 @@
-package com.jerry.mekanism_extras.client.gui.chemicaltank;
+package com.jerry.mekanism_extras.client.gui;
 
+import com.jerry.mekanism_extras.client.gui.element.button.ExtraGuiGasMode;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
 import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.text.ILangEntry;

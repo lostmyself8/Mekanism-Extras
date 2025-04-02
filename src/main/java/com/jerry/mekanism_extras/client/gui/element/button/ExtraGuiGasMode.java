@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.client.gui.chemicaltank;
+package com.jerry.mekanism_extras.client.gui.element.button;
 
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
 import mekanism.client.gui.IGuiWrapper;

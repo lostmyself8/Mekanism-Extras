@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.client.gui.fluidtank;
+package com.jerry.mekanism_extras.client.gui;
 
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
 import mekanism.client.gui.GuiMekanismTile;

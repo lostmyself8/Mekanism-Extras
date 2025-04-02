@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.client.gui.energycube;
+package com.jerry.mekanism_extras.client.gui;
 
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
 import mekanism.client.SpecialColors;

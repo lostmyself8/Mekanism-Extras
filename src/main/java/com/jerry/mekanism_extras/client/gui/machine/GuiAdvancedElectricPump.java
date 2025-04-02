@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.client.gui.ElectricPump;
+package com.jerry.mekanism_extras.client.gui.machine;
 
 import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import mekanism.client.gui.GuiMekanismTile;
@@ -23,9 +23,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtraGuiElectricPump extends GuiMekanismTile<TileEntityAdvancedElectricPump, MekanismTileContainer<TileEntityAdvancedElectricPump>> {
+public class GuiAdvancedElectricPump extends GuiMekanismTile<TileEntityAdvancedElectricPump, MekanismTileContainer<TileEntityAdvancedElectricPump>> {
 
-    public ExtraGuiElectricPump(MekanismTileContainer<TileEntityAdvancedElectricPump> container, Inventory inv, Component title) {
+    public GuiAdvancedElectricPump(MekanismTileContainer<TileEntityAdvancedElectricPump> container, Inventory inv, Component title) {
         super(container, inv, title);
         inventoryLabelY += 2;
         dynamicSlots = true;
