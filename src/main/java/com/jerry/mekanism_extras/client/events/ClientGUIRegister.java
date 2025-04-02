@@ -1,10 +1,10 @@
 package com.jerry.mekanism_extras.client.events;
 
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.client.gui.ElectricPump.ExtraGuiElectricPump;
-import com.jerry.mekanism_extras.client.gui.chemicaltank.ExtraGuiChemicalTank;
-import com.jerry.mekanism_extras.client.gui.energycube.ExtraGuiEnergyCube;
-import com.jerry.mekanism_extras.client.gui.fluidtank.ExtraGuiFluidTank;
+import com.jerry.mekanism_extras.client.gui.machine.GuiAdvancedElectricPump;
+import com.jerry.mekanism_extras.client.gui.ExtraGuiChemicalTank;
+import com.jerry.mekanism_extras.client.gui.ExtraGuiEnergyCube;
+import com.jerry.mekanism_extras.client.gui.ExtraGuiFluidTank;
 import com.jerry.mekanism_extras.client.gui.GuiReinforcedInductionMatrix;
 import com.jerry.mekanism_extras.client.gui.GuiReinforcedMatrixStats;
 import com.jerry.mekanism_extras.client.gui.machine.GuiAdvancedFactory;
@@ -25,7 +25,7 @@ public class ClientGUIRegister {
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.FLUID_TANK, ExtraGuiFluidTank::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.ENERGY_CUBE, ExtraGuiEnergyCube::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.CHEMICAL_TANK, ExtraGuiChemicalTank::new);
-            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.ADVANCED_ELECTRIC_PUMP, ExtraGuiElectricPump::new);
+            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.ADVANCED_ELECTRIC_PUMP, GuiAdvancedElectricPump::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.REINFORCED_INDUCTION_MATRIX, GuiReinforcedInductionMatrix::new);
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.MATRIX_STATS, GuiReinforcedMatrixStats::new);
 

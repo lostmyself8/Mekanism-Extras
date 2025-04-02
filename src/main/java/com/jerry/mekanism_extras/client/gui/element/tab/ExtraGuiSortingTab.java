@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.client.gui.element.tab;
 
+import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiInteract;
 import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.IGuiWrapper;
@@ -7,7 +8,6 @@ import mekanism.client.gui.element.GuiInsetElement;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
-import mekanism.common.network.to_server.PacketGuiInteract;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.text.BooleanStateDisplay;
 import net.minecraft.client.gui.GuiGraphics;
@@ -38,6 +38,6 @@ public class ExtraGuiSortingTab extends GuiInsetElement<TileEntityAdvancedFactor
 
     @Override
     public void onClick(double mouseX, double mouseY, int button) {
-        Mekanism.packetHandler().sendToServer(new PacketGuiInteract(PacketGuiInteract.GuiInteraction.AUTO_SORT_BUTTON, dataSource));
+        Mekanism.packetHandler().sendToServer(new ExtraPacketGuiInteract(ExtraPacketGuiInteract.ExtraGuiInteraction.AUTO_SORT_BUTTON, dataSource));
     }
 }
