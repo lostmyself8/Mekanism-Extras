@@ -123,10 +123,10 @@ public class TileEntityItemStackGasToItemStackAdvancedFactory extends TileEntity
         // as maybe the valid recipes have changed, and we need to sort again and have all recipes know they may need to be rechecked
         // if they are not still valid
         if (allowExtractingChemical()) {
-            gasTank = ChemicalTankBuilder.GAS.create(TileEntityAdvancedElectricMachine.MAX_GAS * tier.processes, this::containsRecipeB,
+            gasTank = ChemicalTankBuilder.GAS.create(TileEntityAdvancedElectricMachine.MAX_GAS * tier.processes * tier.processes, this::containsRecipeB,
                     markAllMonitorsChanged(listener));
         } else {
-            gasTank = ChemicalTankBuilder.GAS.input(TileEntityAdvancedElectricMachine.MAX_GAS * tier.processes, this::containsRecipeB,
+            gasTank = ChemicalTankBuilder.GAS.input(TileEntityAdvancedElectricMachine.MAX_GAS * tier.processes * tier.processes, this::containsRecipeB,
                     markAllMonitorsChanged(listener));
         }
         builder.addTank(gasTank);
