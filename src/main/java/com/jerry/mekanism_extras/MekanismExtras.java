@@ -15,6 +15,7 @@ import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.registry.*;
 import com.jerry.mekanism_extras.integration.Addons;
 import com.mojang.logging.LogUtils;
+import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.multiblock.MultiblockCache;
 import mekanism.common.lib.multiblock.MultiblockManager;
@@ -52,7 +53,6 @@ public class MekanismExtras {
         conditionalRegistry(modEventBus);
         MinecraftForge.EVENT_BUS.register(new ClientTick());
         MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
-
     }
 
     public static ResourceLocation rl(String path) {
@@ -64,6 +64,7 @@ public class MekanismExtras {
         if (Addons.MEKANISMGENERATORS.isLoaded()) {
             BuildCommand.register("naquadah", ExtraGenLang.NAQUADAH_REACTOR, new ExtraBuilders.NaquadahReactorBuilder());
         }
+        event.getDispatcher().register(CommandMek.register());
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
