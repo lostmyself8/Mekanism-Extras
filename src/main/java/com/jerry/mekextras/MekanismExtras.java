@@ -1,5 +1,6 @@
 package com.jerry.mekextras;
 
+import com.jerry.mekextras.common.ExtraLang;
 import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
 import com.jerry.mekextras.common.command.builders.ExtraBuilders;
 import com.jerry.mekextras.common.config.ExtraConfig;
@@ -8,7 +9,6 @@ import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixValidator;
 import com.jerry.mekextras.common.network.ExtraPacketHandler;
 import com.jerry.mekextras.common.registry.*;
 import com.mojang.logging.LogUtils;
-import mekanism.common.MekanismLang;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.Version;
@@ -25,13 +25,20 @@ import org.slf4j.Logger;
 
 @Mod(MekanismExtras.MOD_ID)
 public class MekanismExtras {
+
     public static final String MOD_ID = "mekanism_extras";
     public static final String MOD_NAME = "Mekanism-Extras";
+
     private final ExtraPacketHandler extraPacketHandler;
+
     public static MekanismExtras instance;
+
     public final Version versionNumber;
+
     public static final MultiblockManager<ReinforcedMatrixMultiblockData> matrixManager = new MultiblockManager<>("inductionMatrix", MultiblockCache::new, ReinforcedMatrixValidator::new);
+
     private static final Logger LOGGER = LogUtils.getLogger();
+
     public MekanismExtras(ModContainer modContainer, IEventBus modEventBus) {
         instance = this;
         ExtraConfig.registerConfigs(modContainer);
@@ -63,7 +70,7 @@ public class MekanismExtras {
     }
 
     private void registerCommands(RegisterCommandsEvent event) {
-        BuildCommand.register("reinforced_matrix", MekanismLang.MATRIX, new ExtraBuilders.ReinforcedMatrixBuilder());
+        BuildCommand.register("reinforced_matrix", ExtraLang.REINFORCED_MATRIX, new ExtraBuilders.ReinforcedMatrixBuilder());
         event.getDispatcher().register(CommandMek.register());
     }
 

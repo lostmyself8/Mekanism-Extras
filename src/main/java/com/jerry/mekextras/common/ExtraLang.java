@@ -6,7 +6,10 @@ import net.minecraft.Util;
 import org.jetbrains.annotations.NotNull;
 
 public enum ExtraLang implements ILangEntry {
-    MEK_EXTRAS("constants", "mod_name");
+    MEK_EXTRAS("constants", "mod_name"),
+
+    //Reinforced Induction Matrix
+    REINFORCED_MATRIX("matrix", "reinforced_induction_matrix");
     private final String key;
 
     ExtraLang(String type, String path) {
