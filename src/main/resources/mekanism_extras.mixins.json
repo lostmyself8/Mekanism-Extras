@@ -6,8 +6,11 @@
   "refmap": "Mekanism_Extras.refmap.json",
   "mixins": [
     "MixinBinInventorySlot",
+    "MixinBlockEnergyCube",
+    "MixinFactory",
     "MixinGeneratorsPacketHandler",
     "MixinLogisticalTransporterBase",
+    "MixinMekanismBlockTypes",
     "MixinPacketHandler",
     "MixinTileEntityLogisticalSorter",
     "MixinTurbineGasTank",

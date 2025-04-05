@@ -18,9 +18,11 @@ import mekanism.common.integration.computer.ComputerException;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
+import mekanism.common.inventory.slot.BinInventorySlot;
 import mekanism.common.lib.inventory.TileTransitRequest;
 import mekanism.common.lib.inventory.TransitRequest;
 import mekanism.common.tile.base.TileEntityMekanism;
+import mekanism.common.upgrade.BinUpgradeData;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
@@ -145,6 +147,12 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
             ExtraBinInventorySlot previous = data.binSlot();
             binSlot.setStack(previous.getStack());
             binSlot.setLockStack(previous.getLockStack());
+        } else if (upgradeData instanceof BinUpgradeData data) {
+            redstone = data.redstone();
+            BinInventorySlot previous = data.binSlot();
+            binSlot.setStack(previous.getStack());
+            binSlot.setLockStack(previous.getLockStack());
+            binSlot.deserializeNBT(previous.serializeNBT());
         } else {
             super.parseUpgradeData(upgradeData);
         }
