@@ -137,7 +137,7 @@ public class ExtraBlockEnergyCube extends BlockTile.BlockTileModel<ExtraTileEnti
     @Override
     @Deprecated
     public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        ExtraTileEntityEnergyCube energyCube = WorldUtils.getTileEntity(ExtraTileEntityEnergyCube.class, world, pos, true);
+        ExtraTileEntityEnergyCube energyCube = WorldUtils.getTileEntity(ExtraTileEntityEnergyCube.class, world, pos);
         int index;
         if (energyCube == null) {
             //Default to facing north all enabled
@@ -172,4 +172,3 @@ public class ExtraBlockEnergyCube extends BlockTile.BlockTileModel<ExtraTileEnti
         return slotInfo != null && slotInfo.isEnabled() ? 1 : 0;
     }
 }
-

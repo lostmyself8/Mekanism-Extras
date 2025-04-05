@@ -49,6 +49,7 @@ import mekanism.common.tile.component.TileComponentEjector;
 import mekanism.common.tile.interfaces.IHasGasMode;
 import mekanism.common.tile.interfaces.ISustainedData;
 import mekanism.common.tile.prefab.TileEntityConfigurableMachine;
+import mekanism.common.upgrade.ChemicalTankUpgradeData;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
@@ -224,6 +225,19 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
             drainSlot.setStack(data.drainSlot.getStack());
             fillSlot.setStack(data.fillSlot.getStack());
             dumping = data.dumping;
+            getGasTank().setStack(data.storedGas);
+            getInfusionTank().setStack(data.storedInfusion);
+            getPigmentTank().setStack(data.storedPigment);
+            getSlurryTank().setStack(data.storedSlurry);
+            for (ITileComponent component : getComponents()) {
+                component.read(data.components);
+            }
+        } else if (upgradeData instanceof ChemicalTankUpgradeData data) {
+            redstone = data.redstone;
+            setControlType(data.controlType);
+            drainSlot.setStack(data.drainSlot.getStack());
+            fillSlot.setStack(data.fillSlot.getStack());
+            dumping = GasMode.byIndexStatic(data.dumping.ordinal());
             getGasTank().setStack(data.storedGas);
             getInfusionTank().setStack(data.storedInfusion);
             getPigmentTank().setStack(data.storedPigment);
