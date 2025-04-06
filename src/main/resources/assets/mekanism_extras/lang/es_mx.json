@@ -212,6 +212,7 @@
   "reactor.mekanism_extras.naquadah_reactor": "Reacto De rNaquadah",
   "reactor.mekanism_extras.stats.pcs_production": "Producción de PCS: %1$s mB/t",
   "description.mekanism_extras.naquadah_reactor_casing": "Estructura A Prueba De Radiación Que Puede Usarse En El Multibloque Del Reactor De Naquadah.",
+  "description.mekanism_extras.naquadah_reactor_port": "A block of radiation-proof framing that is capable of managing both the gas and energy transfer of the Naquadah Reactor.",
   "description.mekanism_extras.naquadah_reactor_controller": "El Bloque De Control Para Toda La Estructura Del Reactor De Naquadah.",
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "Comparado Con La Matriz De Enfoque De Láser, Puede Prevenir La Radiación.",
   "description.mekanism_extras.lead_coated_glass": "Vidrio De Reactor Que Puede Prevenir La Radiación Del Reactor.",
