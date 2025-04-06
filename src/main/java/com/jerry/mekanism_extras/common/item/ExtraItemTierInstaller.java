@@ -68,6 +68,7 @@ public class ExtraItemTierInstaller extends Item {
         ExtraAttributeUpgradeable upgradeableBlock = Attribute.get(block, ExtraAttributeUpgradeable.class);
         if (upgradeableBlock != null) {
             AdvancedTier baseTier = ExtraAttribute.getAdvanceTier(block);
+            // 这里fromTier在第一级时为null，所以可以指定任意带有ExtraAttributeUpgradeable或者别的AttributeUpgradeable（要继承Attribute）属性的方块
             if (baseTier == fromTier && baseTier != toTier) {
                 BlockState upgradeState = upgradeableBlock.upgradeResult(state, toTier);
                 if (state == upgradeState) {
