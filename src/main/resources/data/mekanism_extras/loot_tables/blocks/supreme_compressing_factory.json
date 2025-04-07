@@ -63,12 +63,12 @@
               "source": "block_entity"
             }
           ],
-          "name": "mekanism_extras:supreme_combining_factory"
+          "name": "mekanism_extras:supreme_compressing_factory"
         }
       ],
       "name": "main",
       "rolls": 1.0
     }
   ],
-  "random_sequence": "mekanism_extras:blocks/supreme_combining_factory"
+  "random_sequence": "mekanism_extras:blocks/supreme_compressing_factory"
 }

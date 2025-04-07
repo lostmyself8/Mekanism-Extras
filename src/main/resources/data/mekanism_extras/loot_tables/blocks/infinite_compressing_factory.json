@@ -63,12 +63,12 @@
               "source": "block_entity"
             }
           ],
-          "name": "mekanism_extras:infinite_combining_factory"
+          "name": "mekanism_extras:infinite_compressing_factory"
         }
       ],
       "name": "main",
       "rolls": 1.0
     }
   ],
-  "random_sequence": "mekanism_extras:blocks/infinite_combining_factory"
+  "random_sequence": "mekanism_extras:blocks/infinite_compressing_factory"
 }
