@@ -1,9 +1,9 @@
 {
   "constants.mekanism_extras.mod_name":"Mekanism:Extras",
-  "item.mekanism_extras.qio_drive_collapse": "Unidad QIO colapsada",
-  "item.mekanism_extras.qio_drive_gamma": "Unidad QIO gamma",
-  "item.mekanism_extras.qio_drive_black_hole": "Unidad QIO de agujero negro",
-  "item.mekanism_extras.qio_drive_singularity": "Unidad QIO de singularidad",
+  "item.mekanism_extras.qio_drive_collapse": "Unidad OEC colapsada",
+  "item.mekanism_extras.qio_drive_gamma": "Unidad OEC gamma",
+  "item.mekanism_extras.qio_drive_black_hole": "Unidad OEC de agujero negro",
+  "item.mekanism_extras.qio_drive_singularity": "Unidad OEC de singularidad",
   "item.mekanism_extras.absolute_tier_installer":"Instalador de nivel absoluto",
   "item.mekanism_extras.supreme_tier_installer":"Instalador de nivel supremo",
   "item.mekanism_extras.cosmic_tier_installer":"Instalador de nivel cósmico",
