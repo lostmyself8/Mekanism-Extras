@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "com.jerry.mekanism_extras.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "Mekanism_Extras.refmap.json",
+  "refmap": "mekanism_extras.refmap.json",
   "mixins": [
     "MixinBinInventorySlot",
     "MixinBlockEnergyCube",
