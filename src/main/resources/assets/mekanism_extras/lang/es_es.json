@@ -36,6 +36,7 @@
   "item.mekanism_extras.naquadah_hohlraum": "Naquadah Hohlraum",
   "item.mekanism_extras.polonium_containing_solution_bucket": "Cubo de solución que contiene polonio",
   "item.mekanism_extras.polonium-208_bucket": "Cubo de polonio-208 líquido",
+
   "block.mekanism_extras.block_naquadah": "Bloque de naquadah",
   "block.mekanism_extras.block_raw_naquadah": "Bloque de naquadah en bruto",
   "block.mekanism_extras.naquadah_ore": "Mena de naquadah",
@@ -138,6 +139,7 @@
   "block.mekanism_extras.lead_coated_laser_focus_matrix": "Matriz de enfoque láser recubierta de plomo",
   "block.mekanism_extras.polonium_containing_solution": "Solución que contiene polonio",
   "block.mekanism_extras.polonium-208": "Polonio-208",
+
   "gas.mekanism_extras.molten_thermonuclear": "Thermonuclear fundido",
   "gas.mekanism_extras.silicon_tetrafluoride": "Tetrafluoruro de silicio",
   "gas.mekanism_extras.fluorinated_silicon_uranium_fuel": "Combustible de uranio de silicio fluorado",
@@ -152,8 +154,10 @@
   "infuse_type.mekanism_extras.shining": "Brillante",
   "infuse_type.mekanism_extras.spectrum": "Espectro",
   "infuse_type.mekanism_extras.lead": "Plomo",
+
   "slurry.mekanism_extras.dirty_naquadah": "Lodo de naquadah sucio",
   "slurry.mekanism_extras.clean_naquadah": "Lodo de naquadah limpio",
+
   "container.mekanism_extras.absolute_smelting_factory": "Fábrica de fundición absoluta",
   "container.mekanism_extras.supreme_smelting_factory": "Fábrica de fundición suprema",
   "container.mekanism_extras.cosmic_smelting_factory": "Fábrica de fundición cósmica",
@@ -212,6 +216,7 @@
   "description.mekanism_extras.naquadah_reactor_controller": "El bloque de control para toda la estructura del reactor de naquadah.",
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "En comparación con la matriz de enfoque láser, puede prevenir la radiación.",
   "description.mekanism_extras.lead_coated_glass": "Cristal del reactor que puede prevenir la radiación del reactor.",
+
   "matrix.mekanism_extras.reinforced_induction_matrix": "Matriz de inducción reforzada",
 
   "plasma.mekanism_extras.hydrogen": "Plasma de hidrógeno",
