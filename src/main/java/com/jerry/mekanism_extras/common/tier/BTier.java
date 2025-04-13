@@ -5,10 +5,10 @@ import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 import mekanism.common.config.value.CachedIntValue;
 
 public enum BTier implements IAdvancedTier {
-    ABSOLUTE(AdvancedTier.ABSOLUTE, 2_097_152),
-    SUPREME(AdvancedTier.SUPREME, 16_777_216),
-    COSMIC(AdvancedTier.COSMIC, 134_217_728),
-    INFINITE(AdvancedTier.INFINITE, 1_073_741_824);
+    ABSOLUTE(AdvancedTier.ABSOLUTE, 1_048_576),// x4
+    SUPREME(AdvancedTier.SUPREME, 8_388_608),// x8
+    COSMIC(AdvancedTier.COSMIC, 134_217_728),// x16
+    INFINITE(AdvancedTier.INFINITE, Integer.MAX_VALUE); // x16
 
     private final int advanceStorage;
     private final AdvancedTier advancedTier;
