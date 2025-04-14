@@ -2,7 +2,7 @@
   "parent":"mekanism:block/bin/active/base",
   "textures":{
     "led":"mekanism_extras:block/bin/supreme_led",
-    "front":"mekanism_extras:block/bin/front",
+    "front":"mekanism:block/bin/front",
     "side":"mekanism_extras:block/bin/supreme_side",
     "top":"mekanism_extras:block/bin/supreme_top_active",
     "back":"mekanism_extras:block/bin/supreme_back",
