@@ -2,7 +2,7 @@
   "type": "mekanism:infusion_conversion",
   "input": {
     "ingredient": {
-      "item": "mekanism_extras:dust_radiance"
+      "tag": "forge:dusts/radiance"
     }
   },
   "output": {

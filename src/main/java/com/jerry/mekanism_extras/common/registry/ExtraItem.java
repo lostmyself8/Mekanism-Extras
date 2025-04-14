@@ -47,6 +47,7 @@ public class ExtraItem {
     public static final ItemRegistryObject<ExtraItemAlloy> THERMONUCLEAR_ALLOY = registerAlloy(ExtraAlloyTier.THERMONUCLEAR, Rarity.UNCOMMON);
     public static final ItemRegistryObject<ExtraItemAlloy> SHINING_ALLOY = registerAlloy(ExtraAlloyTier.SHINING, Rarity.RARE);
     public static final ItemRegistryObject<ExtraItemAlloy> SPECTRUM_ALLOY = registerAlloy(ExtraAlloyTier.SPECTRUM, Rarity.EPIC);
+    public static final ItemRegistryObject<Item> ENRICHED_OSMIUM = registerEnriched("osmium", Rarity.COMMON);
     public static final ItemRegistryObject<Item> ENRICHED_LEAD = registerEnriched("lead", Rarity.COMMON);
     public static final ItemRegistryObject<Item> ENRICHED_RADIANCE = registerEnriched("radiance", Rarity.COMMON);
     public static final ItemRegistryObject<Item> ENRICHED_THERMONUCLEAR = registerEnriched("thermonuclear", Rarity.UNCOMMON);

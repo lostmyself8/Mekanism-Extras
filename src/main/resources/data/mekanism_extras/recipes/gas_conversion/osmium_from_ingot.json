@@ -1,0 +1,12 @@
+{
+  "type": "mekanism:gas_conversion",
+  "input": {
+    "ingredient": {
+      "item": "mekanism_extras:enriched_osmium"
+    }
+  },
+  "output": {
+    "amount": 1600,
+    "gas": "mekanism:osmium"
+  }
+}
