@@ -2,13 +2,11 @@ package com.jerry.mekanism_extras.common.item.block.machine;
 
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.block.prefab.BlockAdvancedFactoryMachine;
-import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockTooltip;
 import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.attribute.AttributeFactoryType;
-import mekanism.common.block.prefab.BlockTile;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -17,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ItemBlockAdvancedFactory extends ExtraItemBlockTooltip<BlockTile<?, ?>> {
+public class ItemBlockAdvancedFactory extends ExtraItemBlockMachine {
 
     public ItemBlockAdvancedFactory(BlockAdvancedFactoryMachine.BlockAdvancedFactory<?> block) {
         super(block);
