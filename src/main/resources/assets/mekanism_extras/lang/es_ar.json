@@ -1,6 +1,6 @@
 {
   "constants.mekanism_extras.mod_name":"Mecanismos:Extras",
-  "pack.mekanism_extras.pack_name": "MekE: Stop the flashing!",
+  "pack.mekanism_extras.pack_name": "MekE: ¡Deja De Parpadear!",
   "pack.mekanism_extras.pack_description": "Stop the flashing of Cosmic and Infinite's items and blocks",
   "item.mekanism_extras.qio_drive_collapse": "Disco QIO Colapsado",
   "item.mekanism_extras.qio_drive_gamma": "Disco  QIO Gama",
@@ -222,7 +222,7 @@
 
   "matrix.mekanism_extras.reinforced_induction_matrix": "Matriz De Inducción Reforzada",
 
-  "plasma.mekanism_extras.hydrogen": " Plasma De Hydrogeno",
+  "plasma.mekanism_extras.hydrogen": "Plasma De Hydrogeno",
 
   "info.mekanism_extras.jei.rich_silicon_fuel": "El Combustible De Silicio Rico Puede Extraerse De Un Bloque Fuente De Tetrafluoruro De Silicio Mediante Una Bomba Eléctrica Avanzada Con Una Mejora De Filtro Instalada.",
   "info.mekanism_extras.jei.rich_uranium_fuel": "El Combustible De Uranio Rico Puede Extraerse De Un Bloque Fuente De Hexafluoruro De Uranio Mediante Una Bomba Eléctrica Avanzada Con Una Mejora De Filtro Instalada.",
