@@ -1,7 +1,7 @@
 {
   "constants.mekanism_extras.mod_name":"Mekanism:Extras",
-  "pack.mekanism_extras.pack_name": "MekE: Stop the flashing!",
-  "pack.mekanism_extras.pack_description": "Stop the flashing of Cosmic and Infinite's items and blocks",
+  "pack.mekanism_extras.pack_name": "MekE: ¡Deja De Parpadear!",
+  "pack.mekanism_extras.pack_description": "Detener El Titileo de Los Items o Bloques. (Cosmicos/Infinitos)",
   "item.mekanism_extras.qio_drive_collapse": "Unidad OEC colapsada",
   "item.mekanism_extras.qio_drive_gamma": "Unidad OEC gamma",
   "item.mekanism_extras.qio_drive_black_hole": "Unidad OEC de agujero negro",
