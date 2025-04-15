@@ -19,15 +19,27 @@ import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.multiblock.MultiblockCache;
 import mekanism.common.lib.multiblock.MultiblockManager;
+import net.minecraft.SharedConstants;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.PathPackResources;
+import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+
+import java.nio.file.Path;
 
 @Mod(MekanismExtras.MODID)
 public class MekanismExtras {
@@ -41,6 +53,7 @@ public class MekanismExtras {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         LoadConfig.registerConfigs(ModLoadingContext.get());
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::setupBuiltinPack);
         ExtraBlock.register(modEventBus);
         ExtraItem.register(modEventBus);
         ExtraFluids.register(modEventBus);
@@ -79,6 +92,33 @@ public class MekanismExtras {
             ExtraGenContainerTypes.register(modEventBus);
             ExtraGenGases.register(modEventBus);
             ExtraGenTileEntityTypes.register(modEventBus);
+        }
+    }
+
+    private void setupBuiltinPack(AddPackFindersEvent event) {
+        if (event.getPackType() == PackType.CLIENT_RESOURCES) {
+
+            Path resourcePath = ModList.get().getModFileById(MekanismExtras.MODID).getFile().findResource("stop_flashing");
+
+            PathPackResources pack = new PathPackResources(ModList.get().getModFileById(MekanismExtras.MODID).getFile().getFileName() + ":" + resourcePath, resourcePath, true);
+
+            PackMetadataSection metadata = new PackMetadataSection(Component.translatable(ExtraLang.STOP_FLASHING_DESC.getTranslationKey()),
+                    SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES));
+
+            event.addRepositorySource(source ->
+                    source.accept(Pack.create(
+                            "builtin/stop_flashing",
+                            Component.translatable(ExtraLang.STOP_FLASHING.getTranslationKey()),
+                            false,
+                            string -> pack,
+                            new Pack.Info(metadata.getDescription(), metadata.getPackFormat(PackType.SERVER_DATA), metadata.getPackFormat(PackType.CLIENT_RESOURCES),
+                                    FeatureFlagSet.of(), pack.isHidden()),
+                            PackType.CLIENT_RESOURCES,
+                            Pack.Position.TOP,
+                            false,
+                            PackSource.BUILT_IN)
+                    )
+            );
         }
     }
 }

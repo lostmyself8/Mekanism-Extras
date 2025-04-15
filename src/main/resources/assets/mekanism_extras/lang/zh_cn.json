@@ -1,5 +1,7 @@
 {
   "constants.mekanism_extras.mod_name":"通用机械：扩展",
+  "pack.mekanism_extras.pack_name": "MekE: 停止闪烁！",
+  "pack.mekanism_extras.pack_description": "让寰宇和无限的物品和方块的闪烁停止下来",
   "item.mekanism_extras.qio_drive_collapse": "坍缩QIO驱动器",
   "item.mekanism_extras.qio_drive_gamma": "伽马QIO驱动器",
   "item.mekanism_extras.qio_drive_black_hole": "黑洞QIO驱动器",

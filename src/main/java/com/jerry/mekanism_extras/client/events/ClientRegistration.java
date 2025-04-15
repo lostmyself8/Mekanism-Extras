@@ -2,6 +2,9 @@ package com.jerry.mekanism_extras.client.events;
 
 import com.google.common.collect.Table;
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.client.gui.*;
+import com.jerry.mekanism_extras.client.gui.machine.GuiAdvancedElectricPump;
+import com.jerry.mekanism_extras.client.gui.machine.GuiAdvancedFactory;
 import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderBin;
 import com.jerry.mekanism_extras.client.model.energycube.ExtraEnergyCubeModelLoader;
 import com.jerry.mekanism_extras.client.model.ExtraModelEnergyCore;
@@ -10,6 +13,7 @@ import com.jerry.mekanism_extras.client.render.item.block.ExtraRenderEnergyCubeI
 import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderFluidTank;
 import com.jerry.mekanism_extras.client.render.transmitter.*;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
 import com.jerry.mekanism_extras.common.registry.ExtraFluids;
 import com.jerry.mekanism_extras.common.tier.ECTier;
 import com.jerry.mekanism_extras.common.tier.TierColor;
@@ -31,16 +35,19 @@ import mekanism.common.resource.PrimaryResource;
 import mekanism.common.resource.ResourceType;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegisterEvent;
 
 import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = MekanismExtras.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ClientRender {
+public class ClientRegistration {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         //universal cable
@@ -80,6 +87,20 @@ public class ClientRender {
     @SubscribeEvent
     public static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
         ClientRegistrationUtil.registerClientReloadListeners(event, ExtraRenderEnergyCubeItem.EXTRA_RENDERER);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void registerContainers(RegisterEvent event) {
+        event.register(Registries.MENU, helper -> {
+            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.FLUID_TANK, ExtraGuiFluidTank::new);
+            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.ENERGY_CUBE, ExtraGuiEnergyCube::new);
+            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.CHEMICAL_TANK, ExtraGuiChemicalTank::new);
+            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.ADVANCED_ELECTRIC_PUMP, GuiAdvancedElectricPump::new);
+            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.REINFORCED_INDUCTION_MATRIX, GuiReinforcedInductionMatrix::new);
+            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.MATRIX_STATS, GuiReinforcedMatrixStats::new);
+
+            ClientRegistrationUtil.registerScreen(ExtraContainerTypes.FACTORY, GuiAdvancedFactory::new);
+        });
     }
 
     @SubscribeEvent
