@@ -133,7 +133,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addSlots(builder, listener, updateSortingListener);
         //Note: We care about the gas tank not the slot when it comes to recipes and updating sorting
-        builder.addSlot(extraSlot = AdvancedFactoryChemicalInventorySlot.fillOrConverts(tier, chemicalTank, this::getLevel, listener, 7, 57));
+        builder.addSlot(extraSlot = AdvancedFactoryChemicalInventorySlot.fillOrConverts(this, chemicalTank, this::getLevel, listener, 7, 57));
     }
 
     public IChemicalTank getChemicalTank() {

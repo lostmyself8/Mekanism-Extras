@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.tile.factory;
 
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
+import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
 import mekanism.api.IContentsListener;
 import mekanism.api.recipes.MekanismRecipe;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
@@ -9,7 +10,6 @@ import mekanism.api.recipes.inputs.InputHelper;
 import mekanism.api.recipes.outputs.IOutputHandler;
 import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
-import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.recipe.lookup.monitor.FactoryRecipeCacheLookupMonitor;
 import net.minecraft.core.BlockPos;
@@ -45,7 +45,7 @@ public abstract class TileEntityItemToItemAdvancedFactory<RECIPE extends Mekanis
                 updateSortingListener.onContentsChanged();
                 lookupMonitor.unpause();
             };
-            OutputInventorySlot outputSlot = OutputInventorySlot.at(updateSortingAndUnpause, xPos, 57);
+            AdvancedFactoryOutputInventorySlot outputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 57);
             //Note: As we are an item factory that has comparator's based on items we can just use the monitor as a listener directly
             AdvancedFactoryInputInventorySlot inputSlot = AdvancedFactoryInputInventorySlot.create(this, i, outputSlot, recipeCacheLookupMonitors[i], xPos, 13);
             int index = i;

@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.inventory.slot.chemical;
 
-import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekextras.common.tile.factory.TileEntityAdvancedFactory;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -11,7 +11,6 @@ import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.inventory.slot.chemical.ChemicalInventorySlot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -24,20 +23,20 @@ import java.util.function.Supplier;
 @NothingNullByDefault
 public class AdvancedFactoryChemicalInventorySlot extends ChemicalInventorySlot {
 
-    private static AdvancedFactoryTier isTier = AdvancedFactoryTier.ABSOLUTE;
+    private TileEntityAdvancedFactory<?> factory;
 
 
-    protected AdvancedFactoryChemicalInventorySlot(AdvancedFactoryTier tier, IChemicalTank chemicalTank, Supplier<Level> worldSupplier, Predicate<@NotNull ItemStack> canExtract, Predicate<@NotNull ItemStack> canInsert, @Nullable IContentsListener listener, int x, int y) {
+    protected AdvancedFactoryChemicalInventorySlot(TileEntityAdvancedFactory<?> factory, IChemicalTank chemicalTank, Supplier<Level> worldSupplier, Predicate<@NotNull ItemStack> canExtract, Predicate<@NotNull ItemStack> canInsert, @Nullable IContentsListener listener, int x, int y) {
         super(chemicalTank, worldSupplier, canExtract, canInsert, ConstantPredicates.alwaysTrue(), listener, x, y);
-        isTier = tier;
+        this.factory = factory;
     }
 
 
-    public static AdvancedFactoryChemicalInventorySlot fillOrConverts(AdvancedFactoryTier tier, IChemicalTank gasTank, Supplier<Level> worldSupplier, @Nullable IContentsListener listener, int x, int y) {
+    public static AdvancedFactoryChemicalInventorySlot fillOrConverts(TileEntityAdvancedFactory<?> factory, IChemicalTank gasTank, Supplier<Level> worldSupplier, @Nullable IContentsListener listener, int x, int y) {
 
         Objects.requireNonNull(gasTank, "Gas tank cannot be null");
         Objects.requireNonNull(worldSupplier, "World supplier cannot be null");
-        return new AdvancedFactoryChemicalInventorySlot(tier, gasTank, worldSupplier, getFillOrConvertExtractPredicate(gasTank, worldSupplier), getFillOrConvertInsertPredicate(gasTank, worldSupplier), listener, x, y);
+        return new AdvancedFactoryChemicalInventorySlot(factory, gasTank, worldSupplier, getFillOrConvertExtractPredicate(gasTank, worldSupplier), getFillOrConvertInsertPredicate(gasTank, worldSupplier), listener, x, y);
     }
 
 
@@ -82,6 +81,20 @@ public class AdvancedFactoryChemicalInventorySlot extends ChemicalInventorySlot 
 
     @Override
     public int getLimit(ItemStack stack) {
-        return !stack.isEmpty() && Capabilities.CHEMICAL.hasCapability(stack) ? stack.getMaxStackSize() : Item.DEFAULT_MAX_STACK_SIZE * isTier.processes;
+        if (!stack.isEmpty() && Capabilities.CHEMICAL.hasCapability(stack)) {
+            return super.getLimit(stack);
+        } else {
+            if (factory != null) {
+                int processes = factory.tier.processes;
+                return
+                        switch (factory.tier) {
+                            case ABSOLUTE -> super.getLimit(stack) * 8 * processes;
+                            case SUPREME -> super.getLimit(stack) * 16 * processes;
+                            case COSMIC -> super.getLimit(stack) * 32 * processes;
+                            case INFINITE -> super.getLimit(stack) * 64 * processes;
+                        };
+            }
+        }
+        return super.getLimit(stack);
     }
 }

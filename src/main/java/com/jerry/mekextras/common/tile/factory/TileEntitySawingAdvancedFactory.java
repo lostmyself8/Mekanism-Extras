@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.tile.factory;
 
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
+import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
 import mekanism.api.IContentsListener;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.MathUtils;
@@ -19,7 +20,6 @@ import mekanism.common.Mekanism;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.integration.computer.ComputerException;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
-import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
 import mekanism.common.recipe.MekanismRecipeType;
@@ -89,8 +89,8 @@ public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<S
                 updateSortingListener.onContentsChanged();
                 lookupMonitor.unpause();
             };
-            OutputInventorySlot outputSlot = OutputInventorySlot.at(updateSortingAndUnpause, xPos, 57);
-            OutputInventorySlot secondaryOutputSlot = OutputInventorySlot.at(updateSortingAndUnpause, xPos, 77);
+            AdvancedFactoryOutputInventorySlot outputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 57);
+            AdvancedFactoryOutputInventorySlot secondaryOutputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 77);
             //Note: As we are an item factory that has comparator's based on items we can just use the monitor as a listener directly
             AdvancedFactoryInputInventorySlot inputSlot = AdvancedFactoryInputInventorySlot.create(this, i, outputSlot, secondaryOutputSlot, lookupMonitor, xPos, 13);
             int index = i;
