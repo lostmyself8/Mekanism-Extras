@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.registry;
 
 import com.jerry.mekextras.MekanismExtras;
+import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.api.tier.ExtraAlloyTier;
 import com.jerry.mekextras.common.item.ExtraItemAlloy;
@@ -8,7 +9,9 @@ import com.jerry.mekextras.common.item.ExtraItemAlloyRadiance;
 import com.jerry.mekextras.common.item.ExtraItemTierInstaller;
 import com.jerry.mekextras.common.item.ExtraItemQIODrive;
 import com.jerry.mekextras.common.tier.QIODriveAdvancedTier;
+import mekanism.api.Upgrade;
 import mekanism.api.text.TextComponentUtil;
+import mekanism.common.item.ItemUpgrade;
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
 import net.minecraft.network.chat.Component;
@@ -29,6 +32,10 @@ public class ExtraItems {
     public static final ItemRegistryObject<ExtraItemQIODrive> GAMMA_QIO_DRIVE = registerQIODrive(QIODriveAdvancedTier.GAMMA);
     public static final ItemRegistryObject<ExtraItemQIODrive> BLACK_HOLE_QIO_DRIVE = registerQIODrive(QIODriveAdvancedTier.BLACK_HOLE);
     public static final ItemRegistryObject<ExtraItemQIODrive> SINGULARITY_QIO_DRIVE = registerQIODrive(QIODriveAdvancedTier.SINGULARITY);
+
+    public static final ItemRegistryObject<ItemUpgrade> STACK = registerUpgrade(ExtraUpgrade.STACK, Rarity.RARE);
+    public static final ItemRegistryObject<ItemUpgrade> IONIC_MEMBRANE = registerUpgrade(ExtraUpgrade.IONIC_MEMBRANE, Rarity.RARE);
+    public static final ItemRegistryObject<ItemUpgrade> CREATIVE = registerUpgrade(ExtraUpgrade.CREATIVE, Rarity.EPIC);
 
     public static final ItemRegistryObject<ExtraItemTierInstaller> ABSOLUTE_TIER_INSTALLER = registerInstaller(null, AdvancedTier.ABSOLUTE);
     public static final ItemRegistryObject<ExtraItemTierInstaller> SUPREME_TIER_INSTALLER = registerInstaller(AdvancedTier.ABSOLUTE, AdvancedTier.SUPREME);
@@ -54,6 +61,10 @@ public class ExtraItems {
 
     private static ItemRegistryObject<ExtraItemQIODrive> registerQIODrive(QIODriveAdvancedTier tier) {
         return EXTRA_ITEMS.registerItem("qio_drive_" + tier.name().toLowerCase(Locale.ROOT), properties -> new ExtraItemQIODrive(tier, properties));
+    }
+
+    private static ItemRegistryObject<ItemUpgrade> registerUpgrade(Upgrade type, Rarity rarity) {
+        return EXTRA_ITEMS.registerItem("upgrade_" + type.getSerializedName(), properties -> new ItemUpgrade(type, properties.rarity(rarity)));
     }
 
     private static ItemRegistryObject<ExtraItemTierInstaller> registerInstaller(@Nullable AdvancedTier fromTier, @NotNull AdvancedTier toTier) {

@@ -1,5 +1,6 @@
 package com.jerry.mekextras.common.tile.factory;
 
+import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
 import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
@@ -427,6 +428,9 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
         super.recalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
+        } else if (upgrade == ExtraUpgrade.STACK) {
+            //实际上一直是整数所以强制转化为int也不会损失说明
+            baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
         }
     }
 

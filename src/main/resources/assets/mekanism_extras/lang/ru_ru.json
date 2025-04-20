@@ -6,6 +6,9 @@
   "item.mekanism_extras.qio_drive_gamma": "Гамма QIO Ячейка",
   "item.mekanism_extras.qio_drive_black_hole": "Червоточная QIO Ячейка",
   "item.mekanism_extras.qio_drive_singularity": "Сингулярная QIO Ячейка",
+  "item.mekanism_extras.upgrade_stack": "Stack Upgrade",
+  "item.mekanism_extras.upgrade_ionic_membrane": "Ionic Membrane Upgrade",
+  "item.mekanism_extras.upgrade_creative": "Creative Upgrade",
   "item.mekanism_extras.absolute_tier_installer":"Установщик абсолютного уровня",
   "item.mekanism_extras.supreme_tier_installer":"Установщик высшего уровня",
   "item.mekanism_extras.cosmic_tier_installer":"Установщик космического уровня",
@@ -222,6 +225,13 @@
   "description.mekanism_extras.naquadah_reactor_controller": "Блок управления всего наквадового реактора.",
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "По сравнению с матрицей лазерного фокуса она способна предотвращать облучение.",
   "description.mekanism_extras.lead_coated_glass": "Укреплённое реакторное стекло, способное предотвратить облучение от реактора.",
+
+  "upgrade.mekanism_extras.stack": "Stack Upgrade",
+  "upgrade.mekanism_extras.stack.description": "Increase the parallel number of work.",
+  "upgrade.mekanism_extras.ionic_membrane": "Ionic Membrane Upgrade",
+  "upgrade.mekanism_extras.ionic_membrane.description": "Ions can be filtered out from liquids.",
+  "upgrade.mekanism_extras.creative": "Creative Upgrade",
+  "upgrade.mekanism_extras.creative.description": "The machine does not consume energy and has no working time.",
 
   "tag.item.mekanism_extras.alloys": "High Level Alloys",
   "tag.item.mekanism_extras.alloys.radiance": "Radiance Alloys",

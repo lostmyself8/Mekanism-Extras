@@ -8,11 +8,13 @@
     "MixinBinInventorySlot",
     "MixinBlockEnergyCube",
     "MixinFactory",
+    "Mixiniudhq",
     "MixinLogisticalTransporterBase",
     "MixinMekanismBlockTypes",
     "MixinMekanismRenderer",
     "MixinRecipeViewerRecipeType",
-    "MixinUpgrade"
+    "MixinUpgrade",
+    "MixinUpgradeUtils"
   ],
   "client": [
   ],

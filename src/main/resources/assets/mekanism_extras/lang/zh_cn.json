@@ -6,6 +6,9 @@
   "item.mekanism_extras.qio_drive_gamma": "伽马QIO驱动器",
   "item.mekanism_extras.qio_drive_black_hole": "黑洞QIO驱动器",
   "item.mekanism_extras.qio_drive_singularity": "奇点QIO驱动器",
+  "item.mekanism_extras.upgrade_stack": "堆叠升级",
+  "item.mekanism_extras.upgrade_ionic_membrane": "离子膜升级",
+  "item.mekanism_extras.upgrade_creative": "创造升级",
   "item.mekanism_extras.absolute_tier_installer":"绝对工厂安装器",
   "item.mekanism_extras.supreme_tier_installer":"至尊工厂安装器",
   "item.mekanism_extras.cosmic_tier_installer":"寰宇支配工厂安装器",
@@ -222,6 +225,13 @@
   "description.mekanism_extras.naquadah_reactor_controller": "整个硅岩反应堆结构的控制方块",
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "与激光聚焦矩阵相比它可以防辐射。",
   "description.mekanism_extras.lead_coated_glass": "可以防止反应堆释放辐射的强化玻璃。",
+
+  "upgrade.mekanism_extras.stack": "堆叠",
+  "upgrade.mekanism_extras.stack.description": "增加机器工作的并行数。",
+  "upgrade.mekanism_extras.ionic_membrane": "离子膜",
+  "upgrade.mekanism_extras.ionic_membrane.description": "可以从流体中过滤出离子。",
+  "upgrade.mekanism_extras.creative": "创造",
+  "upgrade.mekanism_extras.creative.description": "机器工作不再消耗能量，同时合成在瞬间完成。",
 
   "tag.item.mekanism_extras.alloys": "高阶合金",
   "tag.item.mekanism_extras.alloys.radiance": "辐光合金",

@@ -12,7 +12,9 @@ public enum APIExtraLang implements ILangEntry {
     UPGRADE_STACK("upgrade", "stack"),
     UPGRADE_STACK_DESCRIPTION("upgrade", "stack.description"),
     UPGRADE_IONIC_MEMBRANE("upgrade", "ionic_membrane"),
-    UPGRADE_IONIC_MEMBRANE_DESCRIPTION("upgrade", "ionic_membrane.description");
+    UPGRADE_IONIC_MEMBRANE_DESCRIPTION("upgrade", "ionic_membrane.description"),
+    UPGRADE_CREATIVE("upgrade", "creative"),
+    UPGRADE_CREATIVE_DESCRIPTION("upgrade", "creative.description");
 
     private final String key;
 
