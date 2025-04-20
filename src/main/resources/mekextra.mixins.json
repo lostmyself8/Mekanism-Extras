@@ -6,9 +6,13 @@
   "refmap": "Mekanism_Extras.refmap.json",
   "mixins": [
     "MixinBinInventorySlot",
+    "MixinBlockEnergyCube",
+    "MixinFactory",
     "MixinLogisticalTransporterBase",
+    "MixinMekanismBlockTypes",
     "MixinMekanismRenderer",
-    "MixinRecipeViewerRecipeType"
+    "MixinRecipeViewerRecipeType",
+    "MixinUpgrade"
   ],
   "client": [
   ],

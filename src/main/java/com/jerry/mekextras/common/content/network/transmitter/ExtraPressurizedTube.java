@@ -2,11 +2,13 @@ package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.common.tier.transmitter.TTier;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalHandler;
 import mekanism.api.chemical.IChemicalTank;
+import mekanism.common.capabilities.chemical.IChemicalTracker;
 import mekanism.common.content.network.transmitter.PressurizedTube;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.lib.transmitter.acceptor.AcceptorCache;
@@ -19,7 +21,8 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ExtraPressurizedTube extends PressurizedTube {
+public class ExtraPressurizedTube extends PressurizedTube implements IChemicalTracker,
+        IExtraUpgradeableTransmitter<PressurizedTubeUpgradeData> {
     public ExtraPressurizedTube(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
         super(blockProvider, tile);
     }
