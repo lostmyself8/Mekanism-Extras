@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:chemical_conversion",
+  "input": {
+    "count": 1,
+    "item": "mekanism_extras:enriched_osmium"
+  },
+  "output": {
+    "amount": 1600,
+    "id": "mekanism:osmium"
+  }
+}
