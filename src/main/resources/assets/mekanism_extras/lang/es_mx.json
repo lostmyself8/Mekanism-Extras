@@ -1,7 +1,7 @@
 {
   "constants.mekanism_extras.mod_name":"Mekanism:Extras",
-  "pack.mekanism_extras.pack_name": "MekE: ¡Deja De Parpadear!",
-  "pack.mekanism_extras.pack_description": "Detener El Titileo de Los Items o Bloques. (Cosmicos/Infinitos)",
+  "pack.mekanism_extras.pack_name": "MekE: ¡Detén el parpadeo!",
+  "pack.mekanism_extras.pack_description": "Detén el parpadeo de los objetos y bloques cósmicos e infinitos",
   "item.mekanism_extras.qio_drive_collapse": "Unidad OEC colapsada",
   "item.mekanism_extras.qio_drive_gamma": "Unidad OEC gamma",
   "item.mekanism_extras.qio_drive_black_hole": "Unidad OEC de agujero negro",
@@ -18,7 +18,7 @@
   "item.mekanism_extras.alloy_thermonuclear": "Aleación termonuclear",
   "item.mekanism_extras.alloy_shining": "Aleación brillante",
   "item.mekanism_extras.alloy_spectrum": "Aleación de espectro",
-  "item.mekanism_extras.enriched_osmium": "Enriched Osmium",
+  "item.mekanism_extras.enriched_osmium": "Osmio enriquecido",
   "item.mekanism_extras.enriched_lead": "Plomo enriquecido",
   "item.mekanism_extras.enriched_radiance": "Resplandor enriquecido",
   "item.mekanism_extras.enriched_thermonuclear": "Termonuclear enriquecido",
