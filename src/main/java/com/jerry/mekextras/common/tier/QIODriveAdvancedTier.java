@@ -7,10 +7,10 @@ import mekanism.common.config.value.CachedIntValue;
 import mekanism.common.config.value.CachedLongValue;
 
 public enum QIODriveAdvancedTier implements IAdvancedTier {
-    COLLAPSE(AdvancedTier.ABSOLUTE, 128_000_000_000L, 16_384),
-    GAMMA(AdvancedTier.SUPREME, 1_048_000_000_000L, 65_536),
-    BLACK_HOLE(AdvancedTier.COSMIC, 8_000_000_000_000L, 262_144),
-    SINGULARITY(AdvancedTier.INFINITE, 16_000_000_000_000L, 1_048_576);
+    COLLAPSE(AdvancedTier.ABSOLUTE, 512_000_000_000L, 131_072),// x32 x16
+    GAMMA(AdvancedTier.SUPREME, 65_536_000_000_000L, 2_097_152),// x128 x16
+    BLACK_HOLE(AdvancedTier.COSMIC, 33_554_432_000_000_000L, 33_554_432),// x512 x16
+    SINGULARITY(AdvancedTier.INFINITE, Long.MAX_VALUE, Integer.MAX_VALUE);
 
     private final AdvancedTier baseTier;
     private final long count;

@@ -9,10 +9,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 
 public enum CTTier implements IAdvancedTier, StringRepresentable {
-    ABSOLUTE(AdvancedTier.ABSOLUTE, 32_768_000, 2_048_000),
-    SUPREME(AdvancedTier.SUPREME, 131_072_000, 8_192_000),
-    COSMIC(AdvancedTier.COSMIC, 524_288_000, 32_768_000),
-    INFINITE(AdvancedTier.INFINITE, 4_194_304_000L, 131_072_000);
+    ABSOLUTE(AdvancedTier.ABSOLUTE, 131_072_000, 65_536_000),// x16 1/2
+    SUPREME(AdvancedTier.SUPREME, 4_194_304_000L, 2_097_150_000),// x32 1/2
+    COSMIC(AdvancedTier.COSMIC, 268_435_456_000L, 134_217_728_000L),// x64 3/4
+    INFINITE(AdvancedTier.INFINITE, 34_359_738_368_000L, 17_179_869_184_000L); // x128 3/4
 
     private final long advanceStorage;
     private final long advanceOutput;

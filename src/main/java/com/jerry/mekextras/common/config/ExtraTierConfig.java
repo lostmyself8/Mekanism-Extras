@@ -92,25 +92,25 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         builder.pop();
 
         builder.comment("Mechanical Pipes").push(EXTRA_FLUID_CATEGORY);
-        this.absoluteMechanicalPipeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_MECHANICAL_PIPE_CAPACITY, "absoluteMechanicalPipesCapacity", 512000L, 1, Long.MAX_VALUE);
-        this.absoluteMechanicalPipePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_MECHANICAL_PIPE_PULL_AMOUNT, "absoluteMechanicalPipesPullAmount", 128000, 1, Integer.MAX_VALUE);
-        this.supremeMechanicalPipeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_MECHANICAL_PIPE_CAPACITY, "supremeMechanicalPipesCapacity", 2048000L, 1, Long.MAX_VALUE);
-        this.supremeMechanicalPipePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_MECHANICAL_PIPE_PULL_AMOUNT, "supremeMechanicalPipesPullAmount", 512000, 1, Integer.MAX_VALUE);
-        this.cosmicMechanicalPipeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_MECHANICAL_PIPE_CAPACITY, "cosmicMechanicalPipesCapacity", 8192000L, 1, Long.MAX_VALUE);
-        this.cosmicMechanicalPipePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_MECHANICAL_PIPE_PULL_AMOUNT, "cosmicMechanicalPipesPullAmount", 2048000, 1, Integer.MAX_VALUE);
-        this.infiniteMechanicalPipeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_MECHANICAL_PIPE_CAPACITY, "infiniteMechanicalPipesCapacity", 32768000L, 1, Long.MAX_VALUE);
-        this.infiniteMechanicalPipePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_MECHANICAL_PIPE_PULL_AMOUNT, "infiniteMechanicalPipesPullAmount", 8192000, 1, Integer.MAX_VALUE);
+        this.absoluteMechanicalPipeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_MECHANICAL_PIPE_CAPACITY, "absoluteMechanicalPipesCapacity", 1_024_000L, 1, Long.MAX_VALUE);
+        this.absoluteMechanicalPipePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_MECHANICAL_PIPE_PULL_AMOUNT, "absoluteMechanicalPipesPullAmount", 256_000, 1, Integer.MAX_VALUE);
+        this.supremeMechanicalPipeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_MECHANICAL_PIPE_CAPACITY, "supremeMechanicalPipesCapacity", 8_192_000L, 1, Long.MAX_VALUE);
+        this.supremeMechanicalPipePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_MECHANICAL_PIPE_PULL_AMOUNT, "supremeMechanicalPipesPullAmount", 2_048_000, 1, Integer.MAX_VALUE);
+        this.cosmicMechanicalPipeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_MECHANICAL_PIPE_CAPACITY, "cosmicMechanicalPipesCapacity", 65_536_000L, 1, Long.MAX_VALUE);
+        this.cosmicMechanicalPipePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_MECHANICAL_PIPE_PULL_AMOUNT, "cosmicMechanicalPipesPullAmount", 16_384_000, 1, Integer.MAX_VALUE);
+        this.infiniteMechanicalPipeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_MECHANICAL_PIPE_CAPACITY, "infiniteMechanicalPipesCapacity", 524_288_000L, 1, Long.MAX_VALUE);
+        this.infiniteMechanicalPipePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_MECHANICAL_PIPE_PULL_AMOUNT, "infiniteMechanicalPipesPullAmount", 131_072_000, 1, Integer.MAX_VALUE);
         builder.pop();
 
         builder.comment("Pressurized Tubes").push(EXTRA_CHEMICAL_CATEGORY);
-        this.absolutePressurizedTubeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_PRESSURIZED_TUBE_CAPACITY, "absolutePressurizedTubesCapacity", 4096000L, 1, Long.MAX_VALUE);
-        this.absolutePressurizedTubePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_PRESSURIZED_TUBE_PULL_AMOUNT, "absolutePressurizedTubesPullAmount", 1024000L, 1, Long.MAX_VALUE);
-        this.supremePressurizedTubeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_PRESSURIZED_TUBE_CAPACITY, "supremePressurizedTubesCapacity", 16384000L, 1, Long.MAX_VALUE);
-        this.supremePressurizedTubePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_PRESSURIZED_TUBE_PULL_AMOUNT, "supremePressurizedTubesPullAmount", 4096000L, 1, Long.MAX_VALUE);
-        this.cosmicPressurizedTubeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_PRESSURIZED_TUBE_CAPACITY, "cosmicPressurizedTubesCapacity", 65536000L, 1, Long.MAX_VALUE);
-        this.cosmicPressurizedTubePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_PRESSURIZED_TUBE_PULL_AMOUNT, "cosmicPressurizedTubesPullAmount", 16384000L, 1, Long.MAX_VALUE);
-        this.infinitePressurizedTubeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_PRESSURIZED_TUBE_CAPACITY, "infinitePressurizedTubesCapacity", 262144000L, 1, Long.MAX_VALUE);
-        this.infinitePressurizedTubePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_PRESSURIZED_TUBE_PULL_AMOUNT, "infinitePressurizedTubesPullAmount", 65536000L, 1, Long.MAX_VALUE);
+        this.absolutePressurizedTubeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_PRESSURIZED_TUBE_CAPACITY, "absolutePressurizedTubesCapacity", 8_192_000L, 1, Long.MAX_VALUE);
+        this.absolutePressurizedTubePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_PRESSURIZED_TUBE_PULL_AMOUNT, "absolutePressurizedTubesPullAmount", 2_048_000L, 1, Long.MAX_VALUE);
+        this.supremePressurizedTubeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_PRESSURIZED_TUBE_CAPACITY, "supremePressurizedTubesCapacity", 65_536_000L, 1, Long.MAX_VALUE);
+        this.supremePressurizedTubePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_PRESSURIZED_TUBE_PULL_AMOUNT, "supremePressurizedTubesPullAmount", 16_384_000L, 1, Long.MAX_VALUE);
+        this.cosmicPressurizedTubeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_PRESSURIZED_TUBE_CAPACITY, "cosmicPressurizedTubesCapacity", 524_288_000L, 1, Long.MAX_VALUE);
+        this.cosmicPressurizedTubePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_PRESSURIZED_TUBE_PULL_AMOUNT, "cosmicPressurizedTubesPullAmount", 131_072_000L, 1, Long.MAX_VALUE);
+        this.infinitePressurizedTubeCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_PRESSURIZED_TUBE_CAPACITY, "infinitePressurizedTubesCapacity", 4_194_304_000L, 1, Long.MAX_VALUE);
+        this.infinitePressurizedTubePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_PRESSURIZED_TUBE_PULL_AMOUNT, "infinitePressurizedTubesPullAmount", 1_048_576_000L, 1, Long.MAX_VALUE);
         builder.pop();
 
         builder.comment("Logistical Transporters").push(EXTRA_ITEM_CATEGORY);
