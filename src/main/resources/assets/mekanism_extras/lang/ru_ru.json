@@ -1,5 +1,7 @@
 {
   "constants.mekanism_extras.mod_name":"Mekanism: Экстра",
+  "pack.mekanism_extras.pack_name": "MekE: Stop the flashing!",
+  "pack.mekanism_extras.pack_description": "Stop the flashing of Cosmic and Infinite's items and blocks",
   "item.mekanism_extras.qio_drive_collapse": "Коллапсирующая QIO Ячейка",
   "item.mekanism_extras.qio_drive_gamma": "Гамма QIO Ячейка",
   "item.mekanism_extras.qio_drive_black_hole": "Червоточная QIO Ячейка",
