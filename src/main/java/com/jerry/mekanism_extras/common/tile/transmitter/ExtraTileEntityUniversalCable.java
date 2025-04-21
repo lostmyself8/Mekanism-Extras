@@ -75,6 +75,7 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
             case SUPREME -> ExtraBlock.SUPREME_UNIVERSAL_CABLE;
             case COSMIC -> ExtraBlock.COSMIC_UNIVERSAL_CABLE;
             case INFINITE -> ExtraBlock.INFINITE_UNIVERSAL_CABLE;
+            default -> null;
         });
     }
 

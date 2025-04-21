@@ -11,7 +11,7 @@ import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
 import mekanism.common.tier.TransporterTier;
 
-public class ExtraBlockLogisticalTransporter extends BlockLargeTransmitter implements IHasTileEntity<ExtraTileEntityLogisticalTransporterBase>, ITypeBlock {
+public class ExtraBlockLogisticalTransporter extends BlockLargeTransmitter implements ITypeBlock, IHasTileEntity<ExtraTileEntityLogisticalTransporterBase> {
 
     private final TransporterTier tier;
 
@@ -20,6 +20,7 @@ public class ExtraBlockLogisticalTransporter extends BlockLargeTransmitter imple
         this.tier = tier;
     }
 
+    @Override
     public BlockType getType() {
         return AttributeTier.getPassthroughType(this.tier);
     }

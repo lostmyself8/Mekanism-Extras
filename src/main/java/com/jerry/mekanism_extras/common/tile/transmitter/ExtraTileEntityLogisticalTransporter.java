@@ -47,6 +47,7 @@ public class ExtraTileEntityLogisticalTransporter extends ExtraTileEntityLogisti
             case SUPREME -> ExtraBlock.SUPREME_LOGISTICAL_TRANSPORTER;
             case COSMIC -> ExtraBlock.COSMIC_LOGISTICAL_TRANSPORTER;
             case INFINITE -> ExtraBlock.INFINITE_LOGISTICAL_TRANSPORTER;
+            default -> null;
         });
     }
 }

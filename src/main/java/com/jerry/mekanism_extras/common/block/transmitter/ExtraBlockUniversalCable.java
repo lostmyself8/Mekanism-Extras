@@ -11,6 +11,7 @@ import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tier.CableTier;
 
 public class ExtraBlockUniversalCable extends BlockSmallTransmitter implements ITypeBlock, IHasTileEntity<ExtraTileEntityUniversalCable> {
+
     private final CableTier tier;
 
     public ExtraBlockUniversalCable(CableTier tier) {
