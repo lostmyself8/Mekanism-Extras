@@ -38,6 +38,7 @@ public class ExtraItemAlloyRadiance extends Item {
     public ExtraItemAlloyRadiance(Properties properties) {
         super(properties);
     }
+
     @NotNull
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -49,14 +50,15 @@ public class ExtraItemAlloyRadiance extends Item {
 
             if (alloyInteraction != null && world.getBlockEntity(pos) instanceof TileEntityTransmitter) {
                 if (!world.isClientSide) {
-                    this.onExtraAlloyInteraction(player,context.getItemInHand(),world,pos,(TileEntityTransmitter) world.getBlockEntity(pos));
+                    this.onExtraAlloyInteraction(player, context.getItemInHand(), world, pos, (TileEntityTransmitter) world.getBlockEntity(pos));
                 }
                 return InteractionResult.sidedSuccess(world.isClientSide);
             }
         }
         return InteractionResult.PASS;
     }
-    public void onExtraAlloyInteraction(Player player, ItemStack stack,Level level,BlockPos worldPosition,TileEntityTransmitter tileEntityTransmitter) {
+
+    public void onExtraAlloyInteraction(Player player, ItemStack stack, Level level, BlockPos worldPosition, TileEntityTransmitter tileEntityTransmitter) {
         if (level != null && tileEntityTransmitter.getTransmitter().hasTransmitterNetwork()) {
             DynamicNetwork<?, ?, ?> transmitterNetwork = tileEntityTransmitter.getTransmitter().getTransmitterNetwork();
             List<Transmitter<?, ?, ?>> list = new ArrayList<>(transmitterNetwork.getTransmitters());
@@ -73,7 +75,7 @@ public class ExtraItemAlloyRadiance extends Item {
                     TileEntityTransmitter transmitterTile = transmitter.getTransmitterTile();
                     BlockState state = transmitterTile.getBlockState();
                     Holder<Block> target = getiBlockProvider(transmitterTile);
-                    BlockState upgradeState= BlockStateHelper.copyStateData(state, target);
+                    BlockState upgradeState = BlockStateHelper.copyStateData(state, target);
                     if (state == upgradeState) {
                         //Skip if it would not actually upgrade anything
                         continue;
@@ -127,14 +129,10 @@ public class ExtraItemAlloyRadiance extends Item {
 
     private static Holder<Block> getiBlockProvider(TileEntityTransmitter transmitterTile) {
         return switch (transmitterTile) {
-            case TileEntityPressurizedTube ignored ->
-                   ExtraBlocks.ABSOLUTE_PRESSURIZED_TUBE;
-            case TileEntityUniversalCable ignored ->
-                    ExtraBlocks.ABSOLUTE_UNIVERSAL_CABLE;
-            case TileEntityMechanicalPipe ignored ->
-                    ExtraBlocks.ABSOLUTE_MECHANICAL_PIPE;
-            case TileEntityThermodynamicConductor ignored ->
-                    ExtraBlocks.ABSOLUTE_THERMODYNAMIC_CONDUCTOR;
+            case TileEntityPressurizedTube ignored -> ExtraBlocks.ABSOLUTE_PRESSURIZED_TUBE;
+            case TileEntityUniversalCable ignored -> ExtraBlocks.ABSOLUTE_UNIVERSAL_CABLE;
+            case TileEntityMechanicalPipe ignored -> ExtraBlocks.ABSOLUTE_MECHANICAL_PIPE;
+            case TileEntityThermodynamicConductor ignored -> ExtraBlocks.ABSOLUTE_THERMODYNAMIC_CONDUCTOR;
             default -> ExtraBlocks.ABSOLUTE_LOGISTICAL_TRANSPORTER;
         };
     }

@@ -374,9 +374,10 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
         return lastUsage;
     }
 
+    // 高级工厂都能插入创造升级，使用不必判断是否能安装
     @ComputerMethod(methodDescription = "Total number of ticks it takes currently for the recipe to complete")
     public int getTicksRequired() {
-        return ticksRequired;
+        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 :ticksRequired;
     }
 
     @Override

@@ -23,8 +23,8 @@ public class AdvancedMachine {
 
         public AdvancedFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, FactoryType factoryType) {
             super(tileEntitySupplier, description);
-            // 原本是机器到基础工厂，但我不需要这个（或许我可以跨Tier进行升级但似乎有些麻烦，所以我现在不打算用它）
-            add(AttributeUpgradeSupport.create(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.MUFFLING, ExtraUpgrade.STACK));
+            // 让高级工厂可以插入新的升级
+            add(AttributeUpgradeSupport.create(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.MUFFLING, ExtraUpgrade.STACK, ExtraUpgrade.CREATIVE));
             add(new AttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraBlocks.getAdvancedFactory(AdvancedFactoryTier.ABSOLUTE, getFactoryType())));
         }
 
