@@ -7,8 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 public enum ExtraLang implements ILangEntry {
     EXTRA_TAB("constants", "mod_name"),
-//    STOP_FLASHING("MekE: Stop the flashing!", "pack"),
-//    STOP_FLASHING_DESC("MekE: Stop the flashing!", "pack"),
     STOP_FLASHING("pack", "pack_name"),
     STOP_FLASHING_DESC("pack", "pack_description"),
 

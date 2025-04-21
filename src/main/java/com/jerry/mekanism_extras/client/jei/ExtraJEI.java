@@ -42,7 +42,7 @@ public class ExtraJEI implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-        // 只是添加JEI的侧面栏的显
+        // 只是添加JEI的侧面栏的显示
         ExtraCatalystRegistryHelper.register(registry, MekanismBlocks.ENRICHMENT_CHAMBER);
         ExtraCatalystRegistryHelper.register(registry, MekanismBlocks.CRUSHER);
         ExtraCatalystRegistryHelper.register(registry, MekanismBlocks.COMBINER);
