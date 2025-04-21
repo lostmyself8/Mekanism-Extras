@@ -5,7 +5,7 @@ import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.api.tier.ExtraAlloyTier;
 import com.jerry.mekextras.common.item.ExtraItemAlloy;
-import com.jerry.mekextras.common.item.ExtraItemAlloyRadiance;
+import com.jerry.mekextras.common.item.ItemAlloyRadiance;
 import com.jerry.mekextras.common.item.ExtraItemTierInstaller;
 import com.jerry.mekextras.common.item.ExtraItemQIODrive;
 import com.jerry.mekextras.common.tier.QIODriveAdvancedTier;
@@ -47,7 +47,7 @@ public class ExtraItems {
     public static final ItemRegistryObject<Item> COSMIC_CONTROL_CIRCUIT = registerCircuit(AdvancedTier.COSMIC);
     public static final ItemRegistryObject<Item> INFINITE_CONTROL_CIRCUIT = registerCircuit(AdvancedTier.INFINITE);
 
-    public static final ItemRegistryObject<Item> RADIANCE_ALLOY = EXTRA_ITEMS.registerItem("alloy_radiance", properties -> new ExtraItemAlloyRadiance(properties.rarity(Rarity.COMMON)));
+    public static final ItemRegistryObject<Item> RADIANCE_ALLOY = EXTRA_ITEMS.registerItem("alloy_radiance", properties -> new ItemAlloyRadiance(properties.rarity(Rarity.COMMON)));
     public static final ItemRegistryObject<ExtraItemAlloy> THERMONUCLEAR_ALLOY = registerAlloy(ExtraAlloyTier.THERMONUCLEAR, Rarity.UNCOMMON);
     public static final ItemRegistryObject<ExtraItemAlloy> SHINING_ALLOY = registerAlloy(ExtraAlloyTier.SHINING, Rarity.RARE);
     public static final ItemRegistryObject<ExtraItemAlloy> SPECTRUM_ALLOY = registerAlloy(ExtraAlloyTier.SPECTRUM, Rarity.EPIC);

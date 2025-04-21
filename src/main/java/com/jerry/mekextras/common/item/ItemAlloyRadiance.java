@@ -34,8 +34,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtraItemAlloyRadiance extends Item {
-    public ExtraItemAlloyRadiance(Properties properties) {
+public class ItemAlloyRadiance extends Item {
+    public ItemAlloyRadiance(Properties properties) {
         super(properties);
     }
 
@@ -50,7 +50,7 @@ public class ExtraItemAlloyRadiance extends Item {
 
             if (alloyInteraction != null && world.getBlockEntity(pos) instanceof TileEntityTransmitter) {
                 if (!world.isClientSide) {
-                    this.onExtraAlloyInteraction(player, context.getItemInHand(), world, pos, (TileEntityTransmitter) world.getBlockEntity(pos));
+                    onExtraAlloyInteraction(player, context.getItemInHand(), world, pos, (TileEntityTransmitter) world.getBlockEntity(pos));
                 }
                 return InteractionResult.sidedSuccess(world.isClientSide);
             }
