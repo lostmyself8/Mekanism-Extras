@@ -2,6 +2,8 @@ package com.jerry.mekextras.common.registry;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.jerry.mekextras.api.ExtraUpgrade;
+import com.jerry.mekextras.common.block.attribute.AdvancedAttributeUpgradeSupport;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.content.blocktype.AdvancedFactory;
@@ -114,7 +116,7 @@ public class ExtraBlockTypes {
             .withGui(() -> MekanismContainerTypes.PURIFICATION_CHAMBER)
             .withSound(MekanismSounds.PURIFICATION_CHAMBER)
             .withEnergyConfig(MekanismConfig.usage.purificationChamber, MekanismConfig.storage.purificationChamber)
-            .with(AttributeUpgradeSupport.DEFAULT_ADVANCED_MACHINE_UPGRADES)
+            .with(AdvancedAttributeUpgradeSupport.ADVANCED_ADVANCED_MACHINE_UPGRADES)
             .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
             .withComputerSupport("purificationChamber")
             .build();
@@ -124,7 +126,7 @@ public class ExtraBlockTypes {
             .withGui(() -> MekanismContainerTypes.CHEMICAL_INJECTION_CHAMBER)
             .withSound(MekanismSounds.CHEMICAL_INJECTION_CHAMBER)
             .withEnergyConfig(MekanismConfig.usage.chemicalInjectionChamber, MekanismConfig.storage.chemicalInjectionChamber)
-            .with(AttributeUpgradeSupport.DEFAULT_ADVANCED_MACHINE_UPGRADES)
+            .with(AdvancedAttributeUpgradeSupport.ADVANCED_ADVANCED_MACHINE_UPGRADES)
             .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
             .withComputerSupport("chemicalInjectionChamber")
             .build();
@@ -134,7 +136,7 @@ public class ExtraBlockTypes {
             .createMachine(() -> ExtraTileEntityTypes.ADVANCE_ELECTRIC_PUMP, MekanismLang.DESCRIPTION_ELECTRIC_PUMP)
             .withGui(() -> ExtraContainerTypes.ADVANCE_ELECTRIC_PUMP)
             .withEnergyConfig(MekanismConfig.usage.electricPump, MekanismConfig.storage.electricPump)
-            .withSupportedUpgrades(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.FILTER)
+            .withSupportedUpgrades(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.FILTER, ExtraUpgrade.IONIC_MEMBRANE)
             .withCustomShape(BlockShapes.ELECTRIC_PUMP)
             .withComputerSupport("electricPump")
             .replace(Attributes.ACTIVE)

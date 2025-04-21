@@ -13,7 +13,9 @@
     "MixinMekanismBlockTypes",
     "MixinMekanismRenderer",
     "MixinRecipeViewerRecipeType",
+    "MixinTileComponentEjector",
     "MixinUpgrade",
+    "MixinUpgradeAware",
     "MixinUpgradeUtils"
   ],
   "client": [

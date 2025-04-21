@@ -19,6 +19,7 @@ import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 
 public class ItemBlockAdvancedFactory extends ExtraItemBlockTooltip<BlockTile<?, ?>> {
 

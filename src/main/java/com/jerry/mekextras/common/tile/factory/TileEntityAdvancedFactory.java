@@ -430,7 +430,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
         } else if (upgrade == ExtraUpgrade.STACK) {
-            //实际上一直是整数所以强制转化为int也不会损失说明
+            //实际上一直是整数所以强制转化为int也不会损失什么
             baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
         }
     }
