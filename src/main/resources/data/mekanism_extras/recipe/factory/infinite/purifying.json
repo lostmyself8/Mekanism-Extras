@@ -9,7 +9,10 @@
       "tag": "c:circuits/infinite"
     },
     "I": {
-      "tag": "c:nether_stars"
+      "tag": "c:pellets/plutonium"
+    },
+    "J": {
+      "tag": "c:pellets/polonium"
     },
     "P": {
       "item": "mekanism_extras:cosmic_purifying_factory"
@@ -17,7 +20,7 @@
   },
   "pattern": [
     "ACA",
-    "IPI",
+    "IPJ",
     "ACA"
   ],
   "result": {
