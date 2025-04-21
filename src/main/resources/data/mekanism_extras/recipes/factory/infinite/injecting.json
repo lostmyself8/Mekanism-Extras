@@ -8,7 +8,10 @@
       "tag": "forge:circuits/infinite"
     },
     "I": {
-      "tag": "forge:nether_stars"
+      "tag": "forge:pellets/plutonium"
+    },
+    "J": {
+      "tag": "forge:pellets/polonium"
     },
     "P": {
       "item": "mekanism_extras:cosmic_injecting_factory"
@@ -16,7 +19,7 @@
   },
   "pattern": [
     "ACA",
-    "IPI",
+    "IPJ",
     "ACA"
   ],
   "result": {

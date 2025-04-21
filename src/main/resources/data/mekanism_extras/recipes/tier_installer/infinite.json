@@ -8,7 +8,10 @@
       "tag": "forge:circuits/infinite"
     },
     "I": {
-      "tag": "forge:nether_stars"
+      "tag": "forge:pellets/plutonium"
+    },
+    "J": {
+      "tag": "forge:pellets/polonium"
     },
     "P": {
       "tag": "minecraft:planks"
@@ -16,7 +19,7 @@
   },
   "pattern": [
     "ACA",
-    "IPI",
+    "IPJ",
     "ACA"
   ],
   "result": {
