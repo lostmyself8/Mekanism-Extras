@@ -24,7 +24,7 @@ public class ExtrasJEI implements IModPlugin {
         if (!MekanismJEI.shouldLoad()) {
             return;
         }
-        // 只是添加JEI的侧面栏的显
+        // 只是添加JEI的侧面栏的显示
         ExtraCatalystRegistryHelper.register(registry, RecipeViewerRecipeType.ENRICHING, RecipeViewerRecipeType.CRUSHING, RecipeViewerRecipeType.COMBINING,
                 RecipeViewerRecipeType.PURIFYING, RecipeViewerRecipeType.COMPRESSING, RecipeViewerRecipeType.INJECTING, RecipeViewerRecipeType.SAWING,
                 RecipeViewerRecipeType.METALLURGIC_INFUSING, RecipeViewerRecipeType.SMELTING, RecipeViewerRecipeType.CHEMICAL_CONVERSION);
