@@ -218,6 +218,8 @@
   "container.mekanism_extras.infinite_chemical_tank": "Бесконечный химический бак",
   "container.mekanism_extras.naquadah_reactor_logic_adapter": "Логический адаптер наквадового реактора",
 
+  "gui.mekanism_extras.upgrades.stack": "Parallel: %1$sx",
+
   "reactor.mekanism_extras.naquadah_reactor": "Наквадовый реактор",
   "reactor.mekanism_extras.stats.pcs_production": "Производится ПСП: %1$s мВ/т",
   "description.mekanism_extras.naquadah_reactor_casing": "Радиационно-стойкий каркас, может быть использован при строительстве наквадового реактора.",

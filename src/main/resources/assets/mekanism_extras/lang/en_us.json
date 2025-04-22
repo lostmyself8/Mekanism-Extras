@@ -218,6 +218,8 @@
   "container.mekanism_extras.infinite_chemical_tank": "Infinite Chemical Tank",
   "container.mekanism_extras.naquadah_reactor_logic_adapter": "Naquadah Reactor Logic Adapter",
 
+  "gui.mekanism_extras.upgrades.stack": "Parallel: %1$sx",
+
   "reactor.mekanism_extras.naquadah_reactor": "Naquadah Reactor",
   "reactor.mekanism_extras.stats.pcs_production": "PCS Production: %1$s мВ/т",
   "description.mekanism_extras.naquadah_reactor_casing": "Radiation-proof framing that can be used in the Naquadah Reactor multiblock.",

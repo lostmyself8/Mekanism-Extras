@@ -7,8 +7,12 @@ import org.jetbrains.annotations.NotNull;
 
 public enum ExtraLang implements ILangEntry {
     MEK_EXTRAS("constants", "mod_name"),
+    //Pack
     STOP_FLASHING("pack", "pack_name"),
 //    STOP_FLASHING_DESC("pack", "pack_description"),
+
+    //Upgrades
+    UPGRADES_STACK("gui", "upgrades.stack"),
 
     //Reinforced Induction Matrix
     REINFORCED_MATRIX("matrix", "reinforced_induction_matrix");
