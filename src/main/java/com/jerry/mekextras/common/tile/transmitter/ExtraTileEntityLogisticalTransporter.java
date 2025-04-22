@@ -5,7 +5,7 @@ import com.jerry.mekextras.common.content.network.transmitter.ExtraLogisticalTra
 import mekanism.client.model.data.TransmitterModelData;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;

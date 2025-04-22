@@ -1,6 +1,6 @@
 package com.jerry.mekextras.mixin;
 
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import mekanism.api.recipes.ItemStackToEnergyRecipe;
 import mekanism.client.recipe_viewer.type.RecipeViewerRecipeType;
 import mekanism.client.recipe_viewer.type.SimpleRVRecipeType;

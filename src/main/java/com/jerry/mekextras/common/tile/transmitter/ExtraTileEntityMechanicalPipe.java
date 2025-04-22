@@ -13,7 +13,7 @@ import mekanism.common.content.network.FluidNetwork;
 import mekanism.common.integration.computer.IComputerTile;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.lib.transmitter.ConnectionType;
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;

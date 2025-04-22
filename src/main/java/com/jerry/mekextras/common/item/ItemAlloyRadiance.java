@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.item;
 
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import mekanism.api.IAlloyInteraction;

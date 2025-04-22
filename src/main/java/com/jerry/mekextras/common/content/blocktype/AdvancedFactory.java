@@ -2,9 +2,9 @@ package com.jerry.mekextras.common.content.blocktype;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
-import com.jerry.mekextras.common.registry.ExtraBlockTypes;
-import com.jerry.mekextras.common.registry.ExtraBlocks;
-import com.jerry.mekextras.common.registry.ExtraContainerTypes;
+import com.jerry.mekextras.common.registries.ExtraBlockTypes;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraContainerTypes;
 import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
 import com.jerry.mekextras.common.tile.factory.TileEntityAdvancedFactory;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;

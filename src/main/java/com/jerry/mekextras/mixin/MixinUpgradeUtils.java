@@ -1,6 +1,6 @@
 package com.jerry.mekextras.mixin;
 
-import com.jerry.mekextras.common.registry.ExtraItems;
+import com.jerry.mekextras.common.registries.ExtraItems;
 import mekanism.api.Upgrade;
 import mekanism.common.util.UpgradeUtils;
 import net.minecraft.core.Holder;

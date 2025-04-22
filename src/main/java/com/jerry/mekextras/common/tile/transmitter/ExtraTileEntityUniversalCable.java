@@ -2,7 +2,7 @@ package com.jerry.mekextras.common.tile.transmitter;
 
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraUniversalCable;
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import mekanism.api.SerializationConstants;
 import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.math.MathUtils;

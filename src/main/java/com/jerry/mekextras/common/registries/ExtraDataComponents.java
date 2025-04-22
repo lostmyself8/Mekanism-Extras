@@ -1,4 +1,4 @@
-package com.jerry.mekextras.common.registry;
+package com.jerry.mekextras.common.registries;
 
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.tile.ExtraTileEntityChemicalTank;
@@ -15,6 +15,7 @@ public class ExtraDataComponents {
 
     }
     public static final DataComponentDeferredRegister EXTRA_DATA_COMPONENTS = new DataComponentDeferredRegister(MekanismExtras.MOD_ID);
+
     public static final MekanismDeferredHolder<DataComponentType<?>, DataComponentType<ExtraTileEntityChemicalTank.GasMode>> DUMP_MODE = EXTRA_DATA_COMPONENTS.simple("dump_mode",
             builder -> builder.persistent(ExtraTileEntityChemicalTank.GasMode.CODEC)
                     .networkSynchronized(ExtraTileEntityChemicalTank.GasMode.STREAM_CODEC)

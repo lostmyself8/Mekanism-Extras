@@ -1,6 +1,6 @@
 package com.jerry.mekextras.client.recipe_viewer.jei;
 
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import mekanism.client.recipe_viewer.jei.MekanismJEI;

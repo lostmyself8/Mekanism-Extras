@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.command.builders;
 
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import mekanism.common.command.builders.StructureBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

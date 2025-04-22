@@ -2,8 +2,8 @@ package com.jerry.mekextras.common.tile.multiblock;
 
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixMultiblockData;
-import com.jerry.mekextras.common.registry.ExtraBlocks;
-import com.jerry.mekextras.common.registry.ExtraContainerTypes;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraContainerTypes;
 import mekanism.common.inventory.container.MekanismContainer;
 import mekanism.common.inventory.container.sync.dynamic.SyncMapper;
 import mekanism.common.lib.multiblock.MultiblockManager;

@@ -1,7 +1,7 @@
 package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
 import mekanism.api.text.ILangEntry;
 import mekanism.common.content.blocktype.BlockType;

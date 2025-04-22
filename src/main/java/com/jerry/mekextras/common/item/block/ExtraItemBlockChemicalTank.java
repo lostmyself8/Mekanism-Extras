@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.item.block;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekextras.common.registry.ExtraDataComponents;
+import com.jerry.mekextras.common.registries.ExtraDataComponents;
 import com.jerry.mekextras.common.tier.CTTier;
 import com.jerry.mekextras.common.tile.ExtraTileEntityChemicalTank;
 import mekanism.api.text.EnumColor;

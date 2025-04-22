@@ -2,7 +2,7 @@ package com.jerry.mekextras.common.tile;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.capabilities.chemical.ExtraChemicalTankChemicalTank;
-import com.jerry.mekextras.common.registry.ExtraDataComponents;
+import com.jerry.mekextras.common.registries.ExtraDataComponents;
 import com.jerry.mekextras.common.tier.CTTier;
 import com.jerry.mekextras.common.upgrade.ExtraChemicalTankUpgradeData;
 import com.mojang.serialization.Codec;

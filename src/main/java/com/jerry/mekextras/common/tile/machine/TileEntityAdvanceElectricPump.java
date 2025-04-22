@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.tile.machine;
 
 import com.jerry.mekextras.common.config.ExtraConfig;
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.*;
 import mekanism.common.Mekanism;

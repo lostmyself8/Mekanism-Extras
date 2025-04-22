@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.tile.multiblock;
 
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import mekanism.api.IContentsListener;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;

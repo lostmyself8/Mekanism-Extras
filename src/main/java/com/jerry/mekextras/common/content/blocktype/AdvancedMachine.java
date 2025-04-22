@@ -2,7 +2,7 @@ package com.jerry.mekextras.common.content.blocktype;
 
 import com.jerry.mekextras.common.block.attribute.AdvancedAttributeUpgradeSupport;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
 import mekanism.api.text.ILangEntry;
 import mekanism.common.block.attribute.AttributeFactoryType;

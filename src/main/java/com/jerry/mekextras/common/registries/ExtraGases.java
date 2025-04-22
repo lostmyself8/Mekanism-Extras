@@ -1,4 +1,4 @@
-package com.jerry.mekextras.common.registry;
+package com.jerry.mekextras.common.registries;
 
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.ExtraChemicalConstants;

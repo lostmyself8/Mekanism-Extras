@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.network.to_server.button;
 
 import com.jerry.mekextras.MekanismExtras;
-import com.jerry.mekextras.common.registry.ExtraContainerTypes;
+import com.jerry.mekextras.common.registries.ExtraContainerTypes;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import io.netty.buffer.ByteBuf;
 import mekanism.common.MekanismLang;

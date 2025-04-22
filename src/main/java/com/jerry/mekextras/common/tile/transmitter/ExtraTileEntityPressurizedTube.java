@@ -21,7 +21,7 @@ import mekanism.common.content.network.transmitter.PressurizedTube;
 import mekanism.common.integration.computer.IComputerTile;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.lib.transmitter.ConnectionType;
-import com.jerry.mekextras.common.registry.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
 import mekanism.common.tile.interfaces.ITileRadioactive;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

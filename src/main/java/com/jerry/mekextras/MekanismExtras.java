@@ -7,7 +7,7 @@ import com.jerry.mekextras.common.config.ExtraConfig;
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixMultiblockData;
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixValidator;
 import com.jerry.mekextras.common.network.ExtraPacketHandler;
-import com.jerry.mekextras.common.registry.*;
+import com.jerry.mekextras.common.registries.*;
 import com.mojang.logging.LogUtils;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;

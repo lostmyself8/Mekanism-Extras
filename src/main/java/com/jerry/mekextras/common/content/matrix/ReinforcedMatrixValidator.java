@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.content.matrix;
 
-import com.jerry.mekextras.common.registry.ExtraBlockTypes;
+import com.jerry.mekextras.common.registries.ExtraBlockTypes;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
