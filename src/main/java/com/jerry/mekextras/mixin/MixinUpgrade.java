@@ -3,9 +3,12 @@ package com.jerry.mekextras.mixin;
 import com.jerry.mekextras.api.text.APIExtraLang;
 import com.jerry.mekextras.api.ExtraUpgrade;
 import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
 import mekanism.api.Upgrade;
 import mekanism.api.text.EnumColor;
 import mekanism.api.text.ILangEntry;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 import org.spongepowered.asm.mixin.*;
@@ -33,6 +36,11 @@ public class MixinUpgrade {
     @Shadow
     @Final
     public static Codec<Upgrade> CODEC;
+
+    @Mutable
+    @Shadow
+    @Final
+    public static StreamCodec<ByteBuf, Upgrade> STREAM_CODEC;
 
     @Mutable
     @Shadow
@@ -79,6 +87,7 @@ public class MixinUpgrade {
         Function<String, Upgrade> remapper = it -> "gas".equals(it) ? CHEMICAL : nameLookup.apply(it);
         CODEC = new StringRepresentable.EnumCodec<>(values, remapper);
         BY_ID = ByIdMap.continuous(Upgrade::ordinal, values, ByIdMap.OutOfBoundsStrategy.WRAP);
+        STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Upgrade::ordinal);
     }
 
 }
