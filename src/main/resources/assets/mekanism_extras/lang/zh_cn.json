@@ -219,7 +219,7 @@
   "container.mekanism_extras.naquadah_reactor_logic_adapter": "硅岩反应堆逻辑适配器",
 
   "gui.mekanism_extras.upgrades.stack": "并行：%1$sx",
-  "gui.mekanism_extras.energy_consumption": "能耗：%1$sx",
+  "gui.mekanism_extras.energy_consumption": "能耗：%1$s",
 
   "reactor.mekanism_extras.naquadah_reactor": "硅岩反应堆",
   "reactor.mekanism_extras.stats.pcs_production": "含钋蒸汽产出：%1$s mB/t",

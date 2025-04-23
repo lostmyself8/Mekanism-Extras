@@ -219,7 +219,7 @@
   "container.mekanism_extras.naquadah_reactor_logic_adapter": "Логический адаптер наквадового реактора",
 
   "gui.mekanism_extras.upgrades.stack": "Parallel: %1$sx",
-  "gui.mekanism_extras.energy_consumption": "Consumption: %1$sx",
+  "gui.mekanism_extras.energy_consumption": "Consumption: %1$s",
 
   "reactor.mekanism_extras.naquadah_reactor": "Наквадовый реактор",
   "reactor.mekanism_extras.stats.pcs_production": "Производится ПСП: %1$s мВ/т",

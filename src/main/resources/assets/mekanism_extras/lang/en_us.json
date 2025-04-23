@@ -219,7 +219,7 @@
   "container.mekanism_extras.naquadah_reactor_logic_adapter": "Naquadah Reactor Logic Adapter",
 
   "gui.mekanism_extras.upgrades.stack": "Parallel: %1$sx",
-  "gui.mekanism_extras.energy_consumption": "Consumption: %1$sx",
+  "gui.mekanism_extras.energy_consumption": "Consumption: %1$s",
 
   "reactor.mekanism_extras.naquadah_reactor": "Naquadah Reactor",
   "reactor.mekanism_extras.stats.pcs_production": "PCS Production: %1$s мВ/т",
