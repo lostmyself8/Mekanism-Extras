@@ -1,0 +1,33 @@
+{
+  "parent": "mekanism_extras:shining_alloy",
+  "criteria": {
+    "upgrade_ionic_membrane": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekanism_extras:upgrade_ionic_membrane"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.mekanism_extras.ionic_membrane_upgrade.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "mekanism_extras:upgrade_ionic_membrane"
+    },
+    "title": {
+      "translate": "advancements.mekanism_extras.ionic_membrane_upgrade.title"
+    }
+  },
+  "requirements": [
+    [
+      "upgrade_ionic_membrane"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

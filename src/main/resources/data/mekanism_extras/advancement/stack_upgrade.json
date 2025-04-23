@@ -1,0 +1,33 @@
+{
+  "parent": "mekanism_extras:thermonuclear_alloy",
+  "criteria": {
+    "upgrade_stack": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekanism_extras:upgrade_stack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.mekanism_extras.stack_upgrade.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "mekanism_extras:upgrade_stack"
+    },
+    "title": {
+      "translate": "advancements.mekanism_extras.stack_upgrade.title"
+    }
+  },
+  "requirements": [
+    [
+      "upgrade_stack"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

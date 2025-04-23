@@ -1,0 +1,34 @@
+{
+  "parent": "mekanism:root",
+  "criteria": {
+    "upgrade_creative": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekanism_extras:upgrade_creative"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.mekanism_extras.creative_upgrade.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "mekanism_extras:upgrade_creative"
+    },
+    "title": {
+      "translate": "advancements.mekanism_extras.creative_upgrade.title"
+    }
+  },
+  "requirements": [
+    [
+      "upgrade_creative"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
