@@ -219,6 +219,7 @@
   "container.mekanism_extras.naquadah_reactor_logic_adapter": "Naquadah Reactor Logic Adapter",
 
   "gui.mekanism_extras.upgrades.stack": "Parallel: %1$sx",
+  "gui.mekanism_extras.energy_consumption": "Consumption: %1$sx",
 
   "reactor.mekanism_extras.naquadah_reactor": "Naquadah Reactor",
   "reactor.mekanism_extras.stats.pcs_production": "PCS Production: %1$s мВ/т",
@@ -228,11 +229,11 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "Compared to the laser focusing matrix, it can prevent radiation.",
   "description.mekanism_extras.lead_coated_glass": "Reactor glass that can prevent the radiation from the reactor.",
 
-  "upgrade.mekanism_extras.stack": "Stack Upgrade",
+  "upgrade.mekanism_extras.stack": "Stack",
   "upgrade.mekanism_extras.stack.description": "Increase the parallel number of work.",
-  "upgrade.mekanism_extras.ionic_membrane": "Ionic Membrane Upgrade",
+  "upgrade.mekanism_extras.ionic_membrane": "Ionic Membrane",
   "upgrade.mekanism_extras.ionic_membrane.description": "Ions can be filtered out from liquids.",
-  "upgrade.mekanism_extras.creative": "Creative Upgrade",
+  "upgrade.mekanism_extras.creative": "Creative",
   "upgrade.mekanism_extras.creative.description": "The machine does not consume energy and has no working time.",
 
   "tag.item.mekanism_extras.alloys": "High Level Alloys",

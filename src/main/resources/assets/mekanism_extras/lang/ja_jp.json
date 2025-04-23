@@ -219,6 +219,7 @@
   "container.mekanism_extras.naquadah_reactor_logic_adapter": "ナクアダリアクター論理アダプター",
 
   "gui.mekanism_extras.upgrades.stack": "Parallel: %1$sx",
+  "gui.mekanism_extras.energy_consumption": "Consumption: %1$sx",
 
   "reactor.mekanism_extras.naquadah_reactor": "ナクアダリアクター",
   "reactor.mekanism_extras.stats.pcs_production": "PCS生産量: %1$s mB/t",
@@ -228,11 +229,11 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "レーザーフォーカスマトリックスを鉛コーティングし、耐放射線を高めたブロックです。",
   "description.mekanism_extras.lead_coated_glass": "ナクアダリアクターからの放射線を遮断してくれる、より優れた反応炉ガラスです。",
 
-  "upgrade.mekanism_extras.stack": "Stack Upgrade",
+  "upgrade.mekanism_extras.stack": "Stack",
   "upgrade.mekanism_extras.stack.description": "Increase the parallel number of work.",
-  "upgrade.mekanism_extras.ionic_membrane": "Ionic Membrane Upgrade",
+  "upgrade.mekanism_extras.ionic_membrane": "Ionic Membrane",
   "upgrade.mekanism_extras.ionic_membrane.description": "Ions can be filtered out from liquids.",
-  "upgrade.mekanism_extras.creative": "Creative Upgrade",
+  "upgrade.mekanism_extras.creative": "Creative",
   "upgrade.mekanism_extras.creative.description": "The machine does not consume energy and has no working time.",
 
   "tag.item.mekanism_extras.alloys": "High Level Alloys",

@@ -13,6 +13,7 @@ public enum ExtraLang implements ILangEntry {
 
     //Upgrades
     UPGRADES_STACK("gui", "upgrades.stack"),
+    ENERGY_CONSUMPTION("gui", "energy_consumption"),
 
     //Reinforced Induction Matrix
     REINFORCED_MATRIX("matrix", "reinforced_induction_matrix");

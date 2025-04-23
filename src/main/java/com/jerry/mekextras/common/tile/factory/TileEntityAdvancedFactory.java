@@ -4,6 +4,7 @@ import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
 import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekextras.common.util.ExtraUpgradeUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import mekanism.api.Action;
@@ -438,7 +439,8 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
     @NotNull
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {
-        return UpgradeUtils.getMultScaledInfo(this, upgrade);
+        List<Component> ret = UpgradeUtils.getMultScaledInfo(this, upgrade);
+        return ExtraUpgradeUtils.getMultScaledInfo(ret, this, upgrade);
     }
 
     @Override
