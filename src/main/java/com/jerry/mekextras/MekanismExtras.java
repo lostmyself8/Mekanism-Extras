@@ -35,7 +35,7 @@ public class MekanismExtras {
 
     public final Version versionNumber;
 
-    public static final MultiblockManager<ReinforcedMatrixMultiblockData> matrixManager = new MultiblockManager<>("inductionMatrix", MultiblockCache::new, ReinforcedMatrixValidator::new);
+    public static final MultiblockManager<ReinforcedMatrixMultiblockData> matrixManager = new MultiblockManager<>("reinforcedInductionMatrix", MultiblockCache::new, ReinforcedMatrixValidator::new);
 
     private static final Logger LOGGER = LogUtils.getLogger();
 
