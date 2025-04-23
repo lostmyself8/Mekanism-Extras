@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Mixin(value = UpgradeUtils.class, remap = false)
 public abstract class MixinUpgradeUtils {
 
