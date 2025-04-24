@@ -107,7 +107,11 @@ public class ExtraBlock {
         // factories
         for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
             for (FactoryType type : EnumUtils.FACTORY_TYPES) {
-                if (Addons.EVOLVEDMEKANISM.isLoaded() && type != EMFactoryType.ALLOYING) {
+                if (Addons.EVOLVEDMEKANISM.isLoaded()) {
+                    if (type != EMFactoryType.ALLOYING) {
+                        FACTORIES.put(tier, type, registerFactory(ExtraBlockType.getAdvancedFactory(tier, type)));
+                    }
+                } else {
                     FACTORIES.put(tier, type, registerFactory(ExtraBlockType.getAdvancedFactory(tier, type)));
                 }
 //                FACTORIES.put(tier, type, registerFactory(ExtraBlockType.getAdvancedFactory(tier, type)));

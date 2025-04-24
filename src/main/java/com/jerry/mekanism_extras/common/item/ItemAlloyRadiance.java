@@ -2,8 +2,8 @@ package com.jerry.mekanism_extras.common.item;
 
 import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
-import com.jerry.mekanism_extras.integration.Addons;
-import fr.iglee42.evolvedmekanism.tiers.EMBaseTier;
+//import com.jerry.mekanism_extras.integration.Addons;
+//import fr.iglee42.evolvedmekanism.tiers.EMBaseTier;
 import mekanism.api.IAlloyInteraction;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.tier.BaseTier;
@@ -156,9 +156,9 @@ public class ItemAlloyRadiance extends Item {
     }
 
     private BaseTier getBaseTier() {
-        if (Addons.EVOLVEDMEKANISM.isLoaded()) {
-            return EMBaseTier.MULTIVERSAL;
-        }
+//        if (Addons.EVOLVEDMEKANISM.isLoaded()) {
+//            return EMBaseTier.MULTIVERSAL;
+//        }
         return BaseTier.ULTIMATE;
     }
 }
