@@ -2,6 +2,8 @@ package com.jerry.mekanism_extras.common.item;
 
 import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+import com.jerry.mekanism_extras.integration.Addons;
+import fr.iglee42.evolvedmekanism.tiers.EMBaseTier;
 import mekanism.api.IAlloyInteraction;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.tier.BaseTier;
@@ -73,7 +75,7 @@ public class ItemAlloyRadiance extends Item {
             boolean sharesSet = false;
             int upgraded = 0;
             for (Transmitter<?, ?, ?> transmitter : list) {
-                if (transmitter instanceof IUpgradeableTransmitter<?> upgradeableTransmitter && upgradeableTransmitter.getTier().getBaseTier() == BaseTier.ULTIMATE) {
+                if (transmitter instanceof IUpgradeableTransmitter<?> upgradeableTransmitter && upgradeableTransmitter.getTier().getBaseTier() == getBaseTier()) {
                     TileEntityTransmitter transmitterTile = transmitter.getTransmitterTile();
                     BlockState state = transmitterTile.getBlockState();
                     IBlockProvider target = getiBlockProvider(transmitterTile);
@@ -151,5 +153,12 @@ public class ItemAlloyRadiance extends Item {
         } else {
             Mekanism.logger.warn("Unhandled upgrade data.", new IllegalStateException());
         }
+    }
+
+    private BaseTier getBaseTier() {
+        if (Addons.EVOLVEDMEKANISM.isLoaded()) {
+            return EMBaseTier.MULTIVERSAL;
+        }
+        return BaseTier.ULTIMATE;
     }
 }

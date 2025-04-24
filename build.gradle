@@ -118,7 +118,7 @@ dependencies {
     // jei
     implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-//    implementation fg.deobf("curse.maven:evolved-mekanism-1230085:6440797")
+    implementation fg.deobf("curse.maven:evolved-mekanism-1230085:6440797")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

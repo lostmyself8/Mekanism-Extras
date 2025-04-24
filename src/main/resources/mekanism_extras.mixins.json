@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.jerry.mekanism_extras.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "refmap": "mekanism_extras.refmap.json",
   "mixins": [
     "MixinBinInventorySlot",

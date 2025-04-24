@@ -5,7 +5,8 @@ import net.minecraftforge.fml.loading.LoadingModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 
 public enum Addons {
-    MEKANISMGENERATORS("Mekanism Generators");
+    MEKANISMGENERATORS("Mekanism Generators"),
+    EVOLVEDMEKANISM("EvolvedMekanism");
     private final String modName;
     Addons(String modName){
         this.modName = modName;

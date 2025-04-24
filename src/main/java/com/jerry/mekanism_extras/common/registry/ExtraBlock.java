@@ -46,6 +46,9 @@ import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInduction
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockInductionProvider;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
+//import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
+import com.jerry.mekanism_extras.integration.Addons;
+import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
 import mekanism.api.tier.ITier;
 import mekanism.common.block.attribute.AttributeTier;
 import mekanism.common.block.interfaces.IHasDescription;
@@ -104,7 +107,10 @@ public class ExtraBlock {
         // factories
         for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
             for (FactoryType type : EnumUtils.FACTORY_TYPES) {
-                FACTORIES.put(tier, type, registerFactory(ExtraBlockType.getAdvancedFactory(tier, type)));
+                if (Addons.EVOLVEDMEKANISM.isLoaded() && type != EMFactoryType.ALLOYING) {
+                    FACTORIES.put(tier, type, registerFactory(ExtraBlockType.getAdvancedFactory(tier, type)));
+                }
+//                FACTORIES.put(tier, type, registerFactory(ExtraBlockType.getAdvancedFactory(tier, type)));
             }
         }
         // ores

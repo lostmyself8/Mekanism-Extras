@@ -19,6 +19,7 @@ import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInduction
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import com.jerry.mekanism_extras.common.util.ExtraFloatingLong;
+import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
 import mekanism.api.Upgrade;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
@@ -184,7 +185,10 @@ public class ExtraBlockType {
     static {
         for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
             for (FactoryType type : EnumUtils.FACTORY_TYPES) {
-                FACTORIES.put(tier, type, AdvancedFactory.AdvancedFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
+                if (type != EMFactoryType.ALLOYING) {
+                    FACTORIES.put(tier, type, AdvancedFactory.AdvancedFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
+                }
+//                FACTORIES.put(tier, type, AdvancedFactory.AdvancedFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
             }
         }
     }
