@@ -226,12 +226,12 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "En comparación con la matriz de enfoque láser, puede prevenir la radiación.",
   "description.mekanism_extras.lead_coated_glass": "Cristal del reactor que puede prevenir la radiación del reactor.",
 
-  "upgrade.mekanism_extras.stack": "Stack",
-  "upgrade.mekanism_extras.stack.description": "Increase the parallel number of work.",
-  "upgrade.mekanism_extras.ionic_membrane": "Ionic Membrane",
-  "upgrade.mekanism_extras.ionic_membrane.description": "Ions can be filtered out from liquids.",
-  "upgrade.mekanism_extras.creative": "Creative",
-  "upgrade.mekanism_extras.creative.description": "The machine does not consume energy and has no working time.",
+  "upgrade.mekanism.stack": "Stack",
+  "upgrade.mekanism.stack.description": "Increase the parallel number of work.",
+  "upgrade.mekanism.ionic_membrane": "Ionic Membrane",
+  "upgrade.mekanism.ionic_membrane.description": "Ions can be filtered out from liquids.",
+  "upgrade.mekanism.creative": "Creative",
+  "upgrade.mekanism.creative.description": "The machine does not consume energy and has no working time.",
 
   "matrix.mekanism_extras.reinforced_induction_matrix": "Matriz de inducción reforzada",
 

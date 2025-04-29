@@ -226,12 +226,12 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "Compared to the laser focusing matrix, it can prevent radiation.",
   "description.mekanism_extras.lead_coated_glass": "Reactor glass that can prevent the radiation from the reactor.",
 
-  "upgrade.mekanism_extras.stack": "Stack",
-  "upgrade.mekanism_extras.stack.description": "Increase the parallel number of work.",
-  "upgrade.mekanism_extras.ionic_membrane": "Ionic Membrane",
-  "upgrade.mekanism_extras.ionic_membrane.description": "Ions can be filtered out from liquids.",
-  "upgrade.mekanism_extras.creative": "Creative",
-  "upgrade.mekanism_extras.creative.description": "The machine does not consume energy and has no working time.",
+  "upgrade.mekanism.stack": "Stack",
+  "upgrade.mekanism.stack.description": "Increase the parallel number of work.",
+  "upgrade.mekanism.ionic_membrane": "Ionic Membrane",
+  "upgrade.mekanism.ionic_membrane.description": "Ions can be filtered out from liquids.",
+  "upgrade.mekanism.creative": "Creative",
+  "upgrade.mekanism.creative.description": "The machine does not consume energy and has no working time.",
 
   "matrix.mekanism_extras.reinforced_induction_matrix": "Reinforced Induction Matrix",
 

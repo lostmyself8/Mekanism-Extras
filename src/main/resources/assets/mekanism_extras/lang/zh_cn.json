@@ -226,12 +226,12 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "与激光聚焦矩阵相比它可以防辐射。",
   "description.mekanism_extras.lead_coated_glass": "可以防止反应堆释放辐射的强化玻璃。",
 
-  "upgrade.mekanism_extras.stack": "堆叠",
-  "upgrade.mekanism_extras.stack.description": "增加机器工作的并行数。",
-  "upgrade.mekanism_extras.ionic_membrane": "离子膜",
-  "upgrade.mekanism_extras.ionic_membrane.description": "可以从流体中过滤出离子。",
-  "upgrade.mekanism_extras.creative": "创造",
-  "upgrade.mekanism_extras.creative.description": "机器工作不再消耗能量，同时合成在瞬间完成。",
+  "upgrade.mekanism.stack": "堆叠",
+  "upgrade.mekanism.stack.description": "增加机器工作的并行数。",
+  "upgrade.mekanism.ionic_membrane": "离子膜",
+  "upgrade.mekanism.ionic_membrane.description": "可以从流体中过滤出离子。",
+  "upgrade.mekanism.creative": "创造",
+  "upgrade.mekanism.creative.description": "机器工作不再消耗能量，同时合成在瞬间完成。",
 
   "matrix.mekanism_extras.reinforced_induction_matrix": "增强感应矩阵",
 

@@ -1,9 +1,11 @@
 package com.jerry.mekanism_extras.common.tile.factory;
 
+import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
+import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -17,6 +19,7 @@ import mekanism.api.IContentsListener;
 import mekanism.api.NBTConstants;
 import mekanism.api.RelativeSide;
 import mekanism.api.Upgrade;
+import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.FloatingLong;
 import mekanism.api.providers.IBlockProvider;
@@ -373,7 +376,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
 
     @ComputerMethod(methodDescription = "Total number of ticks it takes currently for the recipe to complete")
     public int getTicksRequired() {
-        return ticksRequired;
+        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 :ticksRequired;
     }
 
     @Override
@@ -418,13 +421,24 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
         super.recalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
+        } else if (upgrade == ExtraUpgrade.STACK) {
+            //实际上一直是整数所以强制转化为int也不会损失什么
+            baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
+        } else if (upgrade == ExtraUpgrade.CREATIVE) {
+            for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
+                if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
+                    machineEnergy.updateMaxEnergy();
+                    machineEnergy.setEnergy(FloatingLong.MAX_VALUE);
+                }
+            }
         }
     }
 
     @NotNull
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {
-        return UpgradeUtils.getMultScaledInfo(this, upgrade);
+        List<Component> ret = UpgradeUtils.getMultScaledInfo(this, upgrade);
+        return ExtraUpgradeUtils.getMultScaledInfo(ret, this, upgrade);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.api.tier.ExtraAlloyTier;
 import com.jerry.mekanism_extras.common.item.ExtraItemAlloy;
 import com.jerry.mekanism_extras.common.item.ExtraItemTierInstaller;
@@ -9,6 +10,8 @@ import com.jerry.mekanism_extras.common.item.ItemAlloyRadiance;
 import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
 import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.common.resource.ExtraResource;
+import mekanism.api.Upgrade;
+import mekanism.common.item.ItemUpgrade;
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
 import mekanism.common.resource.IResource;
@@ -36,6 +39,10 @@ public class ExtraItem {
     public static final ItemRegistryObject<ExtraItemQIODrive> GAMMA_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.GAMMA);
     public static final ItemRegistryObject<ExtraItemQIODrive> BLACK_HOLE_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.BLACK_HOLE);
     public static final ItemRegistryObject<ExtraItemQIODrive> SINGULARITY_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.SINGULARITY);
+
+    public static final ItemRegistryObject<ItemUpgrade> STACK = registerUpgrade(ExtraUpgrade.STACK);
+    public static final ItemRegistryObject<ItemUpgrade> IONIC_MEMBRANE = registerUpgrade(ExtraUpgrade.IONIC_MEMBRANE);
+    public static final ItemRegistryObject<ItemUpgrade> CREATIVE = registerUpgrade(ExtraUpgrade.CREATIVE);
 
     public static final ItemRegistryObject<ExtraItemTierInstaller> ABSOLUTE_TIER_INSTALLER = registerInstaller(null, AdvancedTier.ABSOLUTE);
     public static final ItemRegistryObject<ExtraItemTierInstaller> SUPREME_TIER_INSTALLER = registerInstaller(AdvancedTier.ABSOLUTE, AdvancedTier.SUPREME);
@@ -71,6 +78,10 @@ public class ExtraItem {
 
     private static ItemRegistryObject<ExtraItemQIODrive> registryQIODrive(ExtraQIODriverTier tier) {
         return EXTRA_ITEM.register("qio_drive_" + tier.name().toLowerCase(Locale.ROOT), properties -> new ExtraItemQIODrive(tier, properties));
+    }
+
+    private static ItemRegistryObject<ItemUpgrade> registerUpgrade(Upgrade type) {
+        return EXTRA_ITEM.register("upgrade_" + type.getRawName(), properties -> new ItemUpgrade(type, properties));
     }
 
     private static ItemRegistryObject<ExtraItemTierInstaller> registerInstaller(@Nullable AdvancedTier fromTier, @NotNull AdvancedTier toTier) {

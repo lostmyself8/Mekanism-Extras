@@ -226,12 +226,12 @@
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "По сравнению с матрицей лазерного фокуса она способна предотвращать облучение.",
   "description.mekanism_extras.lead_coated_glass": "Укреплённое реакторное стекло, способное предотвратить облучение от реактора.",
 
-  "upgrade.mekanism_extras.stack": "Стек",
-  "upgrade.mekanism_extras.stack.description": "Увеличьте количество параллельных работ.",
-  "upgrade.mekanism_extras.ionic_membrane": "Ионная мембрана",
-  "upgrade.mekanism_extras.ionic_membrane.description": "Ионы можно отфильтровать из жидкостей.",
-  "upgrade.mekanism_extras.creative": "Творческое снабжение",
-  "upgrade.mekanism_extras.creative.description": "Машина не потребляет энергию и не имеет рабочего времени.",
+  "upgrade.mekanism.stack": "Стек",
+  "upgrade.mekanism.stack.description": "Увеличьте количество параллельных работ.",
+  "upgrade.mekanism.ionic_membrane": "Ионная мембрана",
+  "upgrade.mekanism.ionic_membrane.description": "Ионы можно отфильтровать из жидкостей.",
+  "upgrade.mekanism.creative": "Творческое снабжение",
+  "upgrade.mekanism.creative.description": "Машина не потребляет энергию и не имеет рабочего времени.",
 
   "matrix.mekanism_extras.reinforced_induction_matrix": "Reinforced Induction Matrix",
 
