@@ -1,16 +1,20 @@
 package com.jerry.mekanism_extras.common.content.blocktype;
 
+import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
+import mekanism.api.Upgrade;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.AttributeFactoryType;
+import mekanism.common.block.attribute.AttributeUpgradeSupport;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.FactoryType;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.TileEntityMekanism;
 
+import java.util.EnumSet;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -20,7 +24,7 @@ public class AdvancedMachine {
 
         public AdvancedFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, MekanismLang description, FactoryType factoryType) {
             super(tileEntitySupplier, description);
-            // 原本是机器到基础工厂，但我不需要这个（或许我可以跨Tier进行升级但似乎有些麻烦，所以我现在不打算用它）
+            add(new AttributeUpgradeSupport(EnumSet.of(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.MUFFLING, ExtraUpgrade.STACK, ExtraUpgrade.CREATIVE)));
             add(new AttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraBlock.getAdvancedFactory(AdvancedFactoryTier.ABSOLUTE, getFactoryType())));
         }
 

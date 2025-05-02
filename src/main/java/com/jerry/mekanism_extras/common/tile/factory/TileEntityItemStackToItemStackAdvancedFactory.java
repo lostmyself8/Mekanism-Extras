@@ -89,12 +89,7 @@ public class TileEntityItemStackToItemStackAdvancedFactory extends TileEntityIte
                 .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
                 .setRequiredTicks(this::getTicksRequired)
                 .setOnFinish(this::markForSave)
-                .setBaselineMaxOperations(() -> switch (tier) {
-                    case ABSOLUTE -> 8 * baselineMaxOperations;
-                    case SUPREME -> 16 * baselineMaxOperations;
-                    case COSMIC -> 32 * baselineMaxOperations;
-                    case INFINITE -> 64 * baselineMaxOperations;
-                })
+                .setBaselineMaxOperations(() -> baselineMaxOperations)
                 .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
     }
 

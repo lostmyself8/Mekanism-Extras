@@ -22,6 +22,11 @@ public class MixinUpgrade {
     @Mutable
     private static Upgrade[] $VALUES;
 
+    @Shadow
+    @Final
+    @Mutable
+    private static Upgrade[] UPGRADES;
+
     public MixinUpgrade() {
     }
 
@@ -35,6 +40,9 @@ public class MixinUpgrade {
         ExtraUpgrade.STACK = mekanismExtras$addVariant("STACK", APIExtraLang.UPGRADE_STACK, APIExtraLang.UPGRADE_STACK_DESCRIPTION, 6, EnumColor.BRIGHT_PINK);
         ExtraUpgrade.IONIC_MEMBRANE = mekanismExtras$addVariant("IONIC_MEMBRANE", APIExtraLang.UPGRADE_IONIC_MEMBRANE, APIExtraLang.UPGRADE_IONIC_MEMBRANE_DESCRIPTION, 1, EnumColor.WHITE);
         ExtraUpgrade.CREATIVE = mekanismExtras$addVariant("CREATIVE", APIExtraLang.UPGRADE_CREATIVE, APIExtraLang.UPGRADE_CREATIVE_DESCRIPTION, 1, EnumColor.PURPLE);
+
+        // 重新初始化静态参数，这非常重要
+        UPGRADES = $VALUES;
     }
 
     @Unique
