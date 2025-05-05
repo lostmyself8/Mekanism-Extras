@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.registry;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
@@ -177,7 +178,7 @@ public class ExtraBlockType {
             .createMachine(() -> ExtraTileEntityTypes.ADVANCED_ELECTRIC_PUMP, MekanismLang.DESCRIPTION_ELECTRIC_PUMP)
             .withGui(() -> ExtraContainerTypes.ADVANCED_ELECTRIC_PUMP)
             .withEnergyConfig(LoadConfig.extraUsage.advanceElectricPump, LoadConfig.extraStorage.advanceElectricPump)
-            .withSupportedUpgrades(EnumSet.of(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.FILTER))
+            .withSupportedUpgrades(EnumSet.of(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.FILTER, ExtraUpgrade.IONIC_MEMBRANE))
             .withCustomShape(BlockShapes.ELECTRIC_PUMP)
             .withComputerSupport("advancedElectricPump")
             .replace(Attributes.ACTIVE)

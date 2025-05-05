@@ -248,6 +248,7 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
     }
 
     private FluidStack getOutput(Fluid sourceFluid, boolean hasFilter) {
+        // 是否安装了离子膜升级
         boolean hasMembrane = upgradeComponent.isUpgradeInstalled(ExtraUpgrade.IONIC_MEMBRANE);
         if (sourceFluid == Fluids.WATER) {
             if (hasFilter) {
