@@ -20,7 +20,7 @@ import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.integration.computer.ComputerException;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
-import mekanism.common.inventory.slot.OutputInventorySlot;
+import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
 import mekanism.common.recipe.MekanismRecipeType;
@@ -65,8 +65,8 @@ public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<S
         int baseXMult = 19;
         for (int i = 0; i < tier.processes; i++) {
             int xPos = baseX + (i * baseXMult);
-            OutputInventorySlot outputSlot = OutputInventorySlot.at(updateSortingListener, xPos, 57);
-            OutputInventorySlot secondaryOutputSlot = OutputInventorySlot.at(updateSortingListener, xPos, 77);
+            AdvancedFactoryOutputInventorySlot outputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingListener, xPos, 57);
+            AdvancedFactoryOutputInventorySlot secondaryOutputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingListener, xPos, 77);
             //Note: As we are an item factory that has comparator's based on items we can just use the monitor as a listener directly
             AdvancedFactoryInputInventorySlot inputSlot = AdvancedFactoryInputInventorySlot.create(this, i, outputSlot, secondaryOutputSlot, recipeCacheLookupMonitors[i], xPos, 13);
             int index = i;

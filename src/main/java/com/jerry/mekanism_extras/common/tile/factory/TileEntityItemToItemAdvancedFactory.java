@@ -10,7 +10,7 @@ import mekanism.api.recipes.outputs.IOutputHandler;
 import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
-import mekanism.common.inventory.slot.OutputInventorySlot;
+import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +37,7 @@ public abstract class TileEntityItemToItemAdvancedFactory<RECIPE extends Mekanis
 
         for(int i = 0; i < this.tier.processes; ++i) {
             int xPos = baseX + i * baseXMult;
-            OutputInventorySlot outputSlot = OutputInventorySlot.at(updateSortingListener, xPos, 57);
+            AdvancedFactoryOutputInventorySlot outputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingListener, xPos, 57);
             AdvancedFactoryInputInventorySlot inputSlot = AdvancedFactoryInputInventorySlot.create(this, i, outputSlot, this.recipeCacheLookupMonitors[i], xPos, 13);
             int index = i;
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningTracker.WarningType.NO_MATCHING_RECIPE, this.getWarningCheck(CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_INPUT, index)));

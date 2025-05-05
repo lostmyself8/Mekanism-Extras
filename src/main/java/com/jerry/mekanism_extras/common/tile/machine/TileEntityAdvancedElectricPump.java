@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.tile.machine;
 
+import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import com.jerry.mekanism_extras.common.registry.ExtraFluids;
@@ -247,6 +248,7 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
     }
 
     private FluidStack getOutput(Fluid sourceFluid, boolean hasFilter) {
+        boolean hasMembrane = upgradeComponent.isUpgradeInstalled(ExtraUpgrade.IONIC_MEMBRANE);
         if (sourceFluid == Fluids.WATER) {
             if (hasFilter) {
                 //The speed of pumping heavy water
@@ -257,12 +259,12 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
                 : new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME * 100);
         }
         if(sourceFluid == ExtraFluids.SILICON_TETRAFLUORIDE.getFluid()) {
-            if (hasFilter) {
+            if (hasMembrane) {
                 return new FluidStack(ExtraFluids.RICH_SILICON_LIQUID_FUEL.getFluid(), FluidType.BUCKET_VOLUME);
             }
         }
         if(sourceFluid == MekanismFluids.URANIUM_HEXAFLUORIDE.getFluid()) {
-            if (hasFilter) {
+            if (hasMembrane) {
                 return new FluidStack(ExtraFluids.RICH_URANIUM_LIQUID_FUEL.getFluid(), FluidType.BUCKET_VOLUME);
             }
         }

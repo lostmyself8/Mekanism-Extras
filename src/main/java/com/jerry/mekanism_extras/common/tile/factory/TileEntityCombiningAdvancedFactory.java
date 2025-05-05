@@ -60,7 +60,7 @@ public class TileEntityCombiningAdvancedFactory extends TileEntityItemToItemAdva
     @Override
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addSlots(builder, listener, updateSortingListener);
-        builder.addSlot(extraSlot = StackableInputInventorySlot.at(tier, this::containsRecipeB, markAllMonitorsChanged(listener), 7, 57));
+        builder.addSlot(extraSlot = StackableInputInventorySlot.at(this, this::containsRecipeB, markAllMonitorsChanged(listener), 7, 57));
         extraSlot.setSlotType(ContainerSlotType.EXTRA);
     }
 
