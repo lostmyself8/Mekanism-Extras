@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
@@ -41,7 +40,6 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
         super(maxEnergy, canExtract, canInsert, listener);
     }
 
-
     @Inject(method = "getEnergyPerTick", at = @At(value = "RETURN"), cancellable = true)
     public void mixinGetEnergyPerTick(CallbackInfoReturnable<FloatingLong> cir) {
         if (tile.supportsUpgrade(ExtraUpgrade.CREATIVE)) {
@@ -49,13 +47,17 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
         }
     }
 
-    @Inject(method = "updateMaxEnergy", at = @At("HEAD"))
-    public void mixinUpdateMaxEnergy(CallbackInfo ci) {
-        if (tile.supportsUpgrade(ExtraUpgrade.CREATIVE)) {
-            if (tile.getComponent().getUpgrades(ExtraUpgrade.CREATIVE) != 0) {
+    /**
+     * @author LostMyself
+     * @reason 兼容创造升级带来的能量变化，不过这会使得兼容性不太高。
+     */
+    @Overwrite
+    public void updateMaxEnergy() {
+        if (tile.supportsUpgrade(Upgrade.ENERGY) || tile.supportsUpgrade(ExtraUpgrade.CREATIVE)) {
+            if (tile.getComponent().isUpgradeInstalled(ExtraUpgrade.CREATIVE)) {
                 setMaxEnergy(FloatingLong.MAX_VALUE);
             } else {
-                setMaxEnergy(getBaseMaxEnergy());
+                setMaxEnergy(MekanismUtils.getMaxEnergy(tile, getBaseMaxEnergy()));
             }
         }
     }
