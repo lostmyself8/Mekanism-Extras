@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "com/jerry/mekanism_extras/mixin/MixinBlockEnergyCube": {
+      "preventWarnLog": {
+        "target": "mekanism/common/block/BlockEnergyCube",
+        "method": "getShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;Z)Lnet/minecraft/world/phys/shapes/VoxelShape;",
+        "index": 3
+      }
+    }
+  }
+}
