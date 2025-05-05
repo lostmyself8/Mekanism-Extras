@@ -1,8 +1,9 @@
 {
+  "credit": "Model by CyanideX",
   "parent": "block/cube_all",
   "textures": {
-    "1": "mekanism_extras:block/models/advance_electric_pump",
-    "2": "mekanism_extras:block/models/ports",
+    "1": "mekanism:block/models/electric_pump",
+    "2": "mekanism:block/models/ports",
     "3": "mekanism:block/models/ports_led",
     "particle": "mekanism:block/steel_casing"
   },
@@ -436,7 +437,7 @@
           "cullface": "up"
         }
       },
-      "neoforge_data": {
+      "forge_data": {
         "block_light": 15,
         "sky_light": 15
       }
@@ -675,7 +676,7 @@
           "cullface": "north"
         }
       },
-      "neoforge_data": {
+      "forge_data": {
         "block_light": 15,
         "sky_light": 15
       }
