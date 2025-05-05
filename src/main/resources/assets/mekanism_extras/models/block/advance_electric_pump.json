@@ -3,7 +3,7 @@
   "textures": {
     "1": "mekanism_extras:block/models/advance_electric_pump",
     "2": "mekanism_extras:block/models/ports",
-    "3": "mekanism_extras:block/models/ports_led",
+    "3": "mekanism:block/models/ports_led",
     "particle": "mekanism:block/steel_casing"
   },
   "render_type": "minecraft:cutout",

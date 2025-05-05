@@ -5,8 +5,8 @@
   "textures": {
     "1": "mekanism_extras:block/models/energy_cube",
     "2": "mekanism_extras:block/models/ports",
-    "3": "mekanism_extras:block/models/ports_led",
-    "4": "mekanism_extras:block/models/leds",
+    "3": "mekanism:block/models/ports_led",
+    "4": "mekanism:block/models/leds",
     "particle": "mekanism_extras:block/models/energy_cube"
   },
   "frame": [
