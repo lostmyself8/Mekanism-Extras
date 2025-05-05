@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 @NothingNullByDefault
 public class AdvancedFactoryChemicalInventorySlot extends ChemicalInventorySlot {
 
-    private TileEntityAdvancedFactory<?> factory;
+    private final TileEntityAdvancedFactory<?> factory;
 
 
     protected AdvancedFactoryChemicalInventorySlot(TileEntityAdvancedFactory<?> factory, IChemicalTank chemicalTank, Supplier<Level> worldSupplier, Predicate<@NotNull ItemStack> canExtract, Predicate<@NotNull ItemStack> canInsert, @Nullable IContentsListener listener, int x, int y) {

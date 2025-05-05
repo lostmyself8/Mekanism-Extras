@@ -160,7 +160,7 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
         if (Attribute.matches(block, AttributeUpgradeSupport.class, attribute -> attribute.supportedUpgrades().contains(Upgrade.ENERGY))) {
             return builder.addContainer((type, attachedTo, containerIndex) -> {
                 //If our block supports energy upgrades, make a more dynamically updating cache for our item's max energy
-                LongSupplier capacity = new ExtraItemBlockTooltip.UpgradeBasedFloatingLongCache(attachedTo, maxEnergy);
+                LongSupplier capacity = new ExtraItemBlockTooltip.UpgradeBasedLongCache(attachedTo, maxEnergy);
                 return new ComponentBackedNoClampEnergyContainer(attachedTo, containerIndex, BasicEnergyContainer.manualOnly, getEnergyCapInsertPredicate(),
                         () -> MekanismUtils.calculateUsage(capacity.getAsLong()), capacity);
             });
@@ -187,7 +187,7 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
         }
     }
 
-    private static class UpgradeBasedFloatingLongCache implements LongSupplier {
+    private static class UpgradeBasedLongCache implements LongSupplier {
 
         //TODO: Eventually fix this, ideally we want this to update the overall cached value if this changes because of the config
         // for how much energy a machine can store changes
@@ -196,7 +196,7 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
         private int lastInstalled;
         private long value;
 
-        private UpgradeBasedFloatingLongCache(ItemStack stack, LongSupplier baseStorage) {
+        private UpgradeBasedLongCache(ItemStack stack, LongSupplier baseStorage) {
             this.stack = stack;
             UpgradeAware upgradeAware = this.stack.getOrDefault(MekanismDataComponents.UPGRADES, UpgradeAware.EMPTY);
             this.lastInstalled = upgradeAware.getUpgradeCount(Upgrade.ENERGY);
