@@ -1,5 +1,7 @@
 package com.jerry.mekextras.common.registries;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.api.tier.AdvancedTier;
@@ -8,12 +10,17 @@ import com.jerry.mekextras.common.item.ExtraItemAlloy;
 import com.jerry.mekextras.common.item.ItemAlloyRadiance;
 import com.jerry.mekextras.common.item.ExtraItemTierInstaller;
 import com.jerry.mekextras.common.item.ExtraItemQIODrive;
+import com.jerry.mekextras.common.resource.ExtraResource;
 import com.jerry.mekextras.common.tier.QIODriveAdvancedTier;
+import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import mekanism.api.Upgrade;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.item.ItemUpgrade;
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
+import mekanism.common.resource.IResource;
+import mekanism.common.resource.ResourceType;
+import mekanism.common.util.EnumUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,6 +33,7 @@ import java.util.Locale;
 
 public class ExtraItems {
     public static final ItemDeferredRegister EXTRA_ITEMS = new ItemDeferredRegister(MekanismExtras.MOD_ID);
+    public static final Table<ResourceType, ExtraResource, ItemRegistryObject<Item>> PROCESSED_RESOURCES = HashBasedTable.create();
 
     // QIO Drives
     public static final ItemRegistryObject<ExtraItemQIODrive> COLLAPSE_QIO_DRIVE = registerQIODrive(QIODriveAdvancedTier.COLLAPSE);
@@ -59,6 +67,16 @@ public class ExtraItems {
     public static final ItemRegistryObject<Item> ENRICHED_SPECTRUM = registerEnrich("spectrum", Rarity.EPIC);
     public static final ItemRegistryObject<Item> DUST_RADIANCE = EXTRA_ITEMS.register("dust_radiance");
 
+    static {
+        for (ResourceType type : EnumUtils.RESOURCE_TYPES) {
+            for (ExtraResource resource : ExtraEnumUtils.EXTRA_RESOURCES) {
+                if (resource.has(type)) {
+                    PROCESSED_RESOURCES.put(type, resource, registerResource(type, resource));
+                }
+            }
+        }
+    }
+
     private static ItemRegistryObject<ExtraItemQIODrive> registerQIODrive(QIODriveAdvancedTier tier) {
         return EXTRA_ITEMS.registerItem("qio_drive_" + tier.name().toLowerCase(Locale.ROOT), properties -> new ExtraItemQIODrive(tier, properties));
     }
@@ -84,6 +102,10 @@ public class ExtraItems {
 
     private static ItemRegistryObject<ExtraItemAlloy> registerAlloy(ExtraAlloyTier tier, Rarity rarity) {
         return EXTRA_ITEMS.registerItem("alloy_" + tier.getName(), properties -> new ExtraItemAlloy(tier, properties.rarity(rarity)));
+    }
+
+    private static ItemRegistryObject<Item> registerResource(ResourceType type, IResource resource) {
+        return EXTRA_ITEMS.register(type.getRegistryPrefix() + "_" + resource.getRegistrySuffix());
     }
 
     private static ItemRegistryObject<Item> registerEnrich(String name, Rarity rarity) {

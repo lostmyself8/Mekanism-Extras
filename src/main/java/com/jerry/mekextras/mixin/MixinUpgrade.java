@@ -51,7 +51,7 @@ public class MixinUpgrade {
     }
 
     @Invoker("<init>")
-    public static Upgrade evolutionism$initInvoker(String internalName, int internalId, String name, ILangEntry langKey, ILangEntry descLangKey, int maxStack, EnumColor color) {
+    public static Upgrade upgrade$initInvoker(String internalName, int internalId, String name, ILangEntry langKey, ILangEntry descLangKey, int maxStack, EnumColor color) {
         throw new AssertionError();
     }
 
@@ -68,7 +68,7 @@ public class MixinUpgrade {
     @Unique
     private static Upgrade mekanismExtras$addVariant(String internalName, ILangEntry langKey, ILangEntry descLangKey, int maxStack, EnumColor color) {
         ArrayList<Upgrade> variants = new ArrayList<>(Arrays.asList($VALUES));
-        Upgrade upgrade = evolutionism$initInvoker(internalName,
+        Upgrade upgrade = upgrade$initInvoker(internalName,
                 variants.getLast().ordinal() + 1,
                 internalName.toLowerCase(),
                 langKey,

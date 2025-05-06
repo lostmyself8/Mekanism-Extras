@@ -1,5 +1,6 @@
 package com.jerry.mekextras.common.util;
 
+import com.jerry.mekextras.common.resource.ExtraResource;
 import com.jerry.mekextras.common.tier.*;
 
 public class ExtraEnumUtils {
@@ -18,4 +19,5 @@ public class ExtraEnumUtils {
     public static final CTTier[] CHEMICAL_TANK_TIERS = CTTier.values();
     public static final RWBTier[] RADIOACTIVE_BARREL_TIER = RWBTier.values();
     public static final AdvancedFactoryTier[] ADVANCED_FACTORY_TIERS = AdvancedFactoryTier.values();
+    public static final ExtraResource[] EXTRA_RESOURCES = ExtraResource.values();
 }

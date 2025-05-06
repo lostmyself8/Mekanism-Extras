@@ -11,10 +11,14 @@ import com.jerry.mekextras.common.block.BlockLargeCapRadioactiveWasteBarrel;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.basic.ExtraBlockBin;
 import com.jerry.mekextras.common.block.basic.ExtraBlockFluidTank;
+import com.jerry.mekextras.common.block.basic.ExtraBlockResource;
 import com.jerry.mekextras.common.block.prefab.BlockAdvancedFactoryMachine;
 import com.jerry.mekextras.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekextras.common.item.block.*;
 import com.jerry.mekextras.common.item.block.machine.ItemBlockAdvancedFactory;
+import com.jerry.mekextras.common.resource.ExtraBlockResourceInfo;
+import com.jerry.mekextras.common.resource.ExtraResource;
+import com.jerry.mekextras.common.resource.ore.ExtraOreType;
 import com.jerry.mekextras.common.tier.*;
 import com.jerry.mekextras.common.tile.*;
 import com.jerry.mekextras.common.block.ExtraBlockEnergyCube;
@@ -40,6 +44,7 @@ import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.chemical.ChemicalTanksBuilder;
 import mekanism.common.attachments.containers.fluid.FluidTanksBuilder;
 import mekanism.common.attachments.containers.item.ItemSlotsBuilder;
+import mekanism.common.block.BlockOre;
 import mekanism.common.block.interfaces.IHasDescription;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.block.prefab.BlockTile;
@@ -48,12 +53,16 @@ import mekanism.common.block.transmitter.BlockSmallTransmitter;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.FactoryType;
 import mekanism.common.content.blocktype.Machine;
+import mekanism.common.item.block.ItemBlockMekanism;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.recipe.MekanismRecipeType;
 import mekanism.common.recipe.lookup.cache.InputRecipeCache;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.resource.BlockResourceInfo;
+import mekanism.common.resource.IResource;
+import mekanism.common.resource.ore.OreBlockType;
+import mekanism.common.resource.ore.OreType;
 import mekanism.common.tile.machine.TileEntityMetallurgicInfuser;
 import mekanism.common.tile.prefab.TileEntityAdvancedElectricMachine;
 import mekanism.common.util.EnumUtils;
@@ -61,10 +70,14 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -75,6 +88,9 @@ public class ExtraBlocks {
 
     public static final BlockDeferredRegister EXTRA_BLOCKS = new BlockDeferredRegister(MekanismExtras.MOD_ID);
 
+    public static final Map<IResource, BlockRegistryObject<?, ?>> PROCESSED_RESOURCE_BLOCKS = new LinkedHashMap<>();
+    public static final Map<OreType, OreBlockType> ORES = new LinkedHashMap<>();
+
     private static final Table<AdvancedFactoryTier, FactoryType, BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory>> FACTORIES = HashBasedTable.create();
 
     static {
@@ -82,6 +98,22 @@ public class ExtraBlocks {
         for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
             for (FactoryType type : EnumUtils.FACTORY_TYPES) {
                 FACTORIES.put(tier, type, registerFactory(ExtraBlockTypes.getAdvancedFactory(tier, type)));
+            }
+        }
+        // resource blocks
+        for (ExtraResource resource : ExtraEnumUtils.EXTRA_RESOURCES) {
+            if (resource.getResourceBlockInfo() != null) {
+                PROCESSED_RESOURCE_BLOCKS.put(resource, registerResourceBlock(resource.getResourceBlockInfo()));
+            }
+            ExtraBlockResourceInfo rawResource = resource.getRawResourceBlockInfo();
+            if (rawResource != null) {
+                PROCESSED_RESOURCE_BLOCKS.put(rawResource, registerResourceBlock(rawResource));
+            }
+        }
+        // ores
+        for (OreType ore : EnumUtils.ORE_TYPES) {
+            if (ore == ExtraOreType.NAQUADAH) {
+                ORES.put(ore, registerOre(ore));
             }
         }
     }
@@ -182,6 +214,24 @@ public class ExtraBlocks {
                                     .build()
                             )
                     );
+
+    private static BlockRegistryObject<ExtraBlockResource, ItemBlockMekanism<ExtraBlockResource>> registerResourceBlock(ExtraBlockResourceInfo resource) {
+        return EXTRA_BLOCKS.register("block_" + resource.getRegistrySuffix(), () -> new ExtraBlockResource(resource), (block, properties) -> {
+            if (!block.getResourceInfo().burnsInFire()) {
+                properties = properties.fireResistant();
+            }
+            return new ItemBlockMekanism<>(block, properties);
+        });
+    }
+
+    private static OreBlockType registerOre(OreType ore) {
+        String name = ore.getResource().getRegistrySuffix() + "_ore";
+        BlockRegistryObject<BlockOre, ItemBlockTooltip<BlockOre>> stoneOre = registerBlock(name, () -> new BlockOre(ore));
+        BlockRegistryObject<BlockOre, ItemBlockTooltip<BlockOre>> deepslateOre = EXTRA_BLOCKS.register("deepslate_" + name,
+                () -> new BlockOre(ore, BlockBehaviour.Properties.ofLegacyCopy(stoneOre.value()).mapColor(MapColor.DEEPSLATE)
+                        .strength(4.5F, 3).sound(SoundType.DEEPSLATE)), ItemBlockTooltip::new);
+        return new OreBlockType(stoneOre, deepslateOre);
+    }
 
     private static BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> registerBin(BlockTypeTile<ExtraTileEntityBin> type) {
         BTier tier = (BTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();

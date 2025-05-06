@@ -15,7 +15,8 @@
     "MixinRecipeViewerRecipeType",
     "MixinTileComponentEjector",
     "MixinUpgrade",
-    "MixinUpgradeUtils"
+    "MixinUpgradeUtils",
+    "resource.ore.MixinOreType"
   ],
   "client": [
   ],
