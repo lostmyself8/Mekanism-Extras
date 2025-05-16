@@ -1,4 +1,4 @@
-package com.jerry.mekextras.mixin;
+package com.jerry.mekextras.mixin.client;
 
 import com.jerry.mekextras.client.render.tileentity.ExtraRenderFluidTank;
 import com.jerry.mekextras.client.render.transmitter.ExtraRenderMechanicalPipe;

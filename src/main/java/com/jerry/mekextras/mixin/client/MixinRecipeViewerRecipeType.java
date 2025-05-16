@@ -1,4 +1,4 @@
-package com.jerry.mekextras.mixin;
+package com.jerry.mekextras.mixin.client;
 
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import mekanism.api.recipes.ItemStackToEnergyRecipe;

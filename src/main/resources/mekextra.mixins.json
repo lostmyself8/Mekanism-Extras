@@ -11,14 +11,14 @@
     "MixinLogisticalTransporterBase",
     "MixinMachineEnergyContainer",
     "MixinMekanismBlockTypes",
-    "MixinMekanismRenderer",
-    "MixinRecipeViewerRecipeType",
     "MixinTileComponentEjector",
     "MixinUpgrade",
     "MixinUpgradeUtils",
     "resource.ore.MixinOreType"
   ],
   "client": [
+    "client.MixinMekanismRenderer",
+    "client.MixinRecipeViewerRecipeType"
   ],
   "injectors": {
     "defaultRequire": 1
