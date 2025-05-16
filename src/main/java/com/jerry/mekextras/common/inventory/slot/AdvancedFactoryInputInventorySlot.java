@@ -37,11 +37,11 @@ public class AdvancedFactoryInputInventorySlot extends InputInventorySlot {
     @Override
     public int getLimit(ItemStack stack) {
         return switch (factory.tier) {
-                    case ABSOLUTE -> super.getLimit(stack) * 8;
-                    case SUPREME -> super.getLimit(stack) * 16;
-                    case COSMIC -> super.getLimit(stack) * 32;
-                    case INFINITE -> super.getLimit(stack) * 64;
-                };
+            case ABSOLUTE -> super.getLimit(stack) * 8;
+            case SUPREME -> super.getLimit(stack) * 16;
+            case COSMIC -> super.getLimit(stack) * 32;
+            case INFINITE -> super.getLimit(stack) * 64;
+        };
     }
 
 }

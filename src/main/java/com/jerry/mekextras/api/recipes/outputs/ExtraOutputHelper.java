@@ -1,4 +1,4 @@
-package com.jerry.mekextras.common.util;
+package com.jerry.mekextras.api.recipes.outputs;
 
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -102,6 +102,7 @@ public class ExtraOutputHelper {
         //If our output is empty, we have nothing to add, so we treat it as being able to fit all
         if (!toOutput.isEmpty()) {
             //Make a copy of the stack we are outputting with its maximum size
+            //在这设置最大处理数
             ItemStack output = toOutput.copyWithCount(Math.max(toOutput.getMaxStackSize(), baselineMaxOperations.getAsInt()));
             ItemStack remainder = slot.insertItem(output, Action.SIMULATE, AutomationType.INTERNAL);
             int amountUsed = output.getCount() - remainder.getCount();

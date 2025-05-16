@@ -2,7 +2,7 @@ package com.jerry.mekextras.common.tile.factory;
 
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
-import com.jerry.mekextras.common.util.ExtraOutputHelper;
+import com.jerry.mekextras.api.recipes.outputs.ExtraOutputHelper;
 import mekanism.api.IContentsListener;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.MathUtils;
@@ -99,7 +99,8 @@ public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<S
             builder.addSlot(secondaryOutputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT,
                     getWarningCheck(TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, index)));
             inputHandlers[i] = InputHelper.getInputHandler(inputSlot, RecipeError.NOT_ENOUGH_INPUT);
-            outputHandlers[i] = ExtraOutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE, secondaryOutputSlot, TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, () -> baselineMaxOperations);
+            outputHandlers[i] = ExtraOutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE, secondaryOutputSlot,
+                    TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, () -> baselineMaxOperations);
             processInfoSlots[i] = new ProcessInfo(i, inputSlot, outputSlot, secondaryOutputSlot);
         }
     }

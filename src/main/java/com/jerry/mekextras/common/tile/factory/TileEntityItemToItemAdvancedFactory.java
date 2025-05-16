@@ -2,7 +2,7 @@ package com.jerry.mekextras.common.tile.factory;
 
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
-import com.jerry.mekextras.common.util.ExtraOutputHelper;
+import com.jerry.mekextras.api.recipes.outputs.ExtraOutputHelper;
 import mekanism.api.IContentsListener;
 import mekanism.api.recipes.MekanismRecipe;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
