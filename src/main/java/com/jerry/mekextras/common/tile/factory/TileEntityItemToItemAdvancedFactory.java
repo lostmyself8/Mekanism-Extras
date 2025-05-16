@@ -2,13 +2,13 @@ package com.jerry.mekextras.common.tile.factory;
 
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
 import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
+import com.jerry.mekextras.common.util.ExtraOutputHelper;
 import mekanism.api.IContentsListener;
 import mekanism.api.recipes.MekanismRecipe;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
 import mekanism.api.recipes.inputs.IInputHandler;
 import mekanism.api.recipes.inputs.InputHelper;
 import mekanism.api.recipes.outputs.IOutputHandler;
-import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.recipe.lookup.monitor.FactoryRecipeCacheLookupMonitor;
@@ -52,7 +52,7 @@ public abstract class TileEntityItemToItemAdvancedFactory<RECIPE extends Mekanis
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, index)));
             builder.addSlot(outputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));
             inputHandlers[i] = InputHelper.getInputHandler(inputSlot, RecipeError.NOT_ENOUGH_INPUT);
-            outputHandlers[i] = OutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
+            outputHandlers[i] = ExtraOutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE, () -> baselineMaxOperations);
             processInfoSlots[i] = new ProcessInfo(i, inputSlot, outputSlot, null);
         }
     }

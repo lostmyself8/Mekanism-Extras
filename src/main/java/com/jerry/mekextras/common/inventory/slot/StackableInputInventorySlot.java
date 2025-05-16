@@ -6,7 +6,6 @@ import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.inventory.container.slot.ContainerSlotType;
 import mekanism.common.inventory.slot.InputInventorySlot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,7 +37,13 @@ public class StackableInputInventorySlot extends InputInventorySlot {
 
     @Override
     public int getLimit(ItemStack stack) {
-        return Item.DEFAULT_MAX_STACK_SIZE * isTier.processes;
+        int process = super.getLimit(stack) * isTier.processes;
+        return switch (isTier) {
+            case ABSOLUTE -> process * 8;
+            case SUPREME -> process * 16;
+            case COSMIC -> process * 32;
+            case INFINITE -> process * 64;
+        };
     }
 
 }

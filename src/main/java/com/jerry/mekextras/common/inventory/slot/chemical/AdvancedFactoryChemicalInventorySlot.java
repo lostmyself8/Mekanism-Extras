@@ -84,17 +84,13 @@ public class AdvancedFactoryChemicalInventorySlot extends ChemicalInventorySlot 
         if (!stack.isEmpty() && Capabilities.CHEMICAL.hasCapability(stack)) {
             return super.getLimit(stack);
         } else {
-            if (factory != null) {
-                int processes = factory.tier.processes;
-                return
-                        switch (factory.tier) {
-                            case ABSOLUTE -> super.getLimit(stack) * 8 * processes;
-                            case SUPREME -> super.getLimit(stack) * 16 * processes;
-                            case COSMIC -> super.getLimit(stack) * 32 * processes;
-                            case INFINITE -> super.getLimit(stack) * 64 * processes;
-                        };
-            }
+            int processes = factory.tier.processes;
+            return switch (factory.tier) {
+                        case ABSOLUTE -> super.getLimit(stack) * 8 * processes;
+                        case SUPREME -> super.getLimit(stack) * 16 * processes;
+                        case COSMIC -> super.getLimit(stack) * 32 * processes;
+                        case INFINITE -> super.getLimit(stack) * 64 * processes;
+                    };
         }
-        return super.getLimit(stack);
     }
 }
