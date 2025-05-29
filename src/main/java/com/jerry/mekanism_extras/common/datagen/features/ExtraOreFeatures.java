@@ -1,4 +1,4 @@
-//package com.jerry.mekanism_extras.datagen.features;
+//package com.jerry.mekanism_extras.common.datagen.features;
 //
 //import com.jerry.mekanism_extras.MekanismExtras;
 //import net.minecraft.core.registries.Registries;
@@ -25,7 +25,7 @@
 //
 //        List<OreConfiguration.TargetBlockState> overWorldNaquadahOres = List.of(OreConfiguration.target(bedstoneReplace, ExtraBlock.NAQUADAH_ORE.get().defaultBlockState()));
 //        register(context, NAQUADAH_ORE_KEY, Feature.ORE, new OreConfiguration(overWorldNaquadahOres, 4));
-//        List<OreConfiguration.TargetBlockState> endNaquadahOres = List.of(OreConfiguration.target(endstoneReplace, ExtraBlock.END_NAQUADAH_ORE.get().defaultBlockState()));
+//        List<OreConfiguration.TargetBlockState> endNaquadahOres = List.of(OreConfiguration.target(endstoneReplace, ExtraBlocks.END_NAQUADAH_ORE.get().defaultBlockState()));
 //        register(context, END_NAQUADAH_ORE_KEY, Feature.ORE, new OreConfiguration(endNaquadahOres, 8));
 //    }
 //

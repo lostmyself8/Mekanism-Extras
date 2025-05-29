@@ -1,4 +1,4 @@
-//package com.jerry.mekanism_extras.datagen.features;
+//package com.jerry.mekanism_extras.common.datagen.features;
 //
 //import com.jerry.mekanism_extras.MekanismExtras;
 //import net.minecraft.core.Holder;
@@ -7,17 +7,10 @@
 //import net.minecraft.data.worldgen.BootstapContext;
 //import net.minecraft.resources.ResourceKey;
 //import net.minecraft.resources.ResourceLocation;
-//import net.minecraft.world.level.block.Blocks;
 //import net.minecraft.world.level.levelgen.VerticalAnchor;
 //import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-//import net.minecraft.world.level.levelgen.feature.Feature;
-//import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-//import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 //import net.minecraft.world.level.levelgen.placement.*;
-//import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-//import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 //
-//import javax.swing.text.Highlighter;
 //import java.util.List;
 //
 //public class ExtraPlacedFeatures {

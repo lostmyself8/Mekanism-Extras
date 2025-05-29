@@ -1,4 +1,4 @@
-//package com.jerry.mekanism_extras.datagen;
+//package com.jerry.mekanism_extras.common.datagen;
 //
 //import com.jerry.mekanism_extras.MekanismExtras;
 //import net.minecraft.core.HolderLookup;

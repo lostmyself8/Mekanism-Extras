@@ -1,8 +1,8 @@
-//package com.jerry.mekanism_extras.datagen;
+//package com.jerry.mekanism_extras.common.datagen;
 //
 //import com.jerry.mekanism_extras.MekanismExtras;
-//import com.jerry.mekanism_extras.registry.ExtraOreFeatures;
-//import com.jerry.mekanism_extras.registry.ExtraPlacedFeatures;
+//import com.jerry.mekanism_extras.common.datagen.features.ExtraOreFeatures;
+//import com.jerry.mekanism_extras.common.datagen.features.ExtraPlacedFeatures;
 //import net.minecraft.core.HolderLookup;
 //import net.minecraft.core.RegistrySetBuilder;
 //import net.minecraft.core.registries.Registries;
