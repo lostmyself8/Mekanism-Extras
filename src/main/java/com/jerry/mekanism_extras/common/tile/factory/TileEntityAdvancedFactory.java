@@ -65,6 +65,7 @@ import mekanism.common.upgrade.MachineUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.UpgradeUtils;
+import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntArrayTag;
@@ -419,16 +420,23 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
         super.recalculateUpgrades(upgrade);
-        if (upgrade == Upgrade.SPEED) {
-            ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
-        } else if (upgrade == ExtraUpgrade.STACK) {
-            //实际上一直是整数所以强制转化为int也不会损失什么
-            baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
-        } else if (upgrade == ExtraUpgrade.CREATIVE) {
-            for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
-                if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
-                    machineEnergy.updateMaxEnergy();
-                    machineEnergy.setEnergy(FloatingLong.MAX_VALUE);
+        CompoundTag upgradesTag = this.serializeNBT().getCompound(NBTConstants.UPGRADES);
+        if (!upgradesTag.isEmpty()) {
+            if (upgrade == Upgrade.SPEED) {
+                ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
+            } else if (upgrade == ExtraUpgrade.STACK) {
+                //实际上一直是整数所以强制转化为int也不会损失什么
+                baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
+            } else if (upgrade == ExtraUpgrade.CREATIVE) {
+                for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
+                    if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
+                        machineEnergy.updateMaxEnergy();
+                        if (!WorldUtils.isBlockLoaded(level, getBlockPos()) && machineEnergy.getEnergy().isZero()) {
+                            machineEnergy.setEnergy(FloatingLong.ZERO);
+                        } else {
+                            machineEnergy.setEnergy(FloatingLong.MAX_VALUE);
+                        }
+                    }
                 }
             }
         }
