@@ -6,6 +6,7 @@ import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
+import com.jerry.mekanism_extras.common.util.ExtraUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -420,6 +421,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
         super.recalculateUpgrades(upgrade);
+        //Reference from "Evolved Mek Extras"
         CompoundTag upgradesTag = this.serializeNBT().getCompound(NBTConstants.UPGRADES);
         if (!upgradesTag.isEmpty()) {
             if (upgrade == Upgrade.SPEED) {
@@ -431,7 +433,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
                 for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
                     if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
                         machineEnergy.updateMaxEnergy();
-                        if (!WorldUtils.isBlockLoaded(level, getBlockPos()) && machineEnergy.getEnergy().isZero()) {
+                        if (ExtraUtils.isWorldLoaded(level) && machineEnergy.getEnergy().isZero()) {
                             machineEnergy.setEnergy(FloatingLong.ZERO);
                         } else {
                             machineEnergy.setEnergy(FloatingLong.MAX_VALUE);
