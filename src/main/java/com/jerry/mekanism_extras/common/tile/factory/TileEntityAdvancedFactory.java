@@ -6,7 +6,7 @@ import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
-import com.jerry.mekanism_extras.common.util.ExtraUtils;
+import com.jerry.mekanism_extras.common.util.ExtraWorldUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -66,7 +66,6 @@ import mekanism.common.upgrade.MachineUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.UpgradeUtils;
-import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntArrayTag;
@@ -433,7 +432,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
                 for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
                     if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
                         machineEnergy.updateMaxEnergy();
-                        if (ExtraUtils.isWorldLoaded(level) && machineEnergy.getEnergy().isZero()) {
+                        if (!ExtraWorldUtils.isWorldLoaded(level) && machineEnergy.getEnergy().isZero()) {
                             machineEnergy.setEnergy(FloatingLong.ZERO);
                         } else {
                             machineEnergy.setEnergy(FloatingLong.MAX_VALUE);
