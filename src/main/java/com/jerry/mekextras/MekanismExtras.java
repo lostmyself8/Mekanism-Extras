@@ -52,6 +52,7 @@ public class MekanismExtras {
         ExtraContainerTypes.register(modEventBus);
         ExtraTileEntityTypes.register(modEventBus);
         ExtraCreativeTabs.register(modEventBus);
+        ExtraRecipeSerializersInternal.register(modEventBus);
         ExtraGases.register(modEventBus);
         ExtraInfuseTypes.register(modEventBus);
         versionNumber = new Version(modContainer);
