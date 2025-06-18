@@ -18,6 +18,7 @@ import com.jerry.mekextras.common.item.block.*;
 import com.jerry.mekextras.common.item.block.machine.ItemBlockAdvancedFactory;
 import com.jerry.mekextras.common.resource.ExtraBlockResourceInfo;
 import com.jerry.mekextras.common.resource.ExtraResource;
+import com.jerry.mekextras.common.resource.ore.EndOreBlockType;
 import com.jerry.mekextras.common.resource.ore.ExtraOreType;
 import com.jerry.mekextras.common.tier.*;
 import com.jerry.mekextras.common.tile.*;
@@ -61,7 +62,6 @@ import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.resource.BlockResourceInfo;
 import mekanism.common.resource.IResource;
-import mekanism.common.resource.ore.OreBlockType;
 import mekanism.common.resource.ore.OreType;
 import mekanism.common.tile.machine.TileEntityMetallurgicInfuser;
 import mekanism.common.tile.prefab.TileEntityAdvancedElectricMachine;
@@ -89,7 +89,7 @@ public class ExtraBlocks {
     public static final BlockDeferredRegister EXTRA_BLOCKS = new BlockDeferredRegister(MekanismExtras.MOD_ID);
 
     public static final Map<IResource, BlockRegistryObject<?, ?>> PROCESSED_RESOURCE_BLOCKS = new LinkedHashMap<>();
-    public static final Map<OreType, OreBlockType> ORES = new LinkedHashMap<>();
+    public static final Map<OreType, EndOreBlockType> ORES = new LinkedHashMap<>();
 
     private static final Table<AdvancedFactoryTier, FactoryType, BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory>> FACTORIES = HashBasedTable.create();
 
@@ -224,13 +224,13 @@ public class ExtraBlocks {
         });
     }
 
-    private static OreBlockType registerOre(OreType ore) {
+    private static EndOreBlockType registerOre(OreType ore) {
         String name = ore.getResource().getRegistrySuffix() + "_ore";
         BlockRegistryObject<BlockOre, ItemBlockTooltip<BlockOre>> stoneOre = registerBlock(name, () -> new BlockOre(ore));
-        BlockRegistryObject<BlockOre, ItemBlockTooltip<BlockOre>> deepslateOre = EXTRA_BLOCKS.register("deepslate_" + name,
-                () -> new BlockOre(ore, BlockBehaviour.Properties.ofLegacyCopy(stoneOre.value()).mapColor(MapColor.DEEPSLATE)
-                        .strength(4.5F, 3).sound(SoundType.DEEPSLATE)), ItemBlockTooltip::new);
-        return new OreBlockType(stoneOre, deepslateOre);
+        BlockRegistryObject<BlockOre, ItemBlockTooltip<BlockOre>> endOre = EXTRA_BLOCKS.register("end_" + name,
+                () -> new BlockOre(ore, BlockBehaviour.Properties.ofLegacyCopy(stoneOre.value()).mapColor(MapColor.SAND)
+                        .strength(3.0F, 9.0F).sound(SoundType.STONE)), ItemBlockTooltip::new);
+        return new EndOreBlockType(stoneOre, endOre);
     }
 
     private static BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> registerBin(BlockTypeTile<ExtraTileEntityBin> type) {

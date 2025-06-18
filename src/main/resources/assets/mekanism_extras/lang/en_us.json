@@ -258,6 +258,20 @@
   "tag.item.c.circuits.infinite": "Infinite Circuits",
 
   "tag.item.c.dusts.radiance": "Radiance Dusts",
+  "tag.item.c.dusts.naquadah": "Naquadah Dusts",
+  "tag.item.c.ingots.naquadah": "Naquadah Ingots",
+  "tag.item.c.nuggets.naquadah": "Naquadah Nuggets",
+  "tag.item.c.storage_blocks.naquadah": "Naquadah Storage Blocks",
+  "tag.item.c.storage_blocks.raw_naquadah": "Raw Naquadah Storage Blocks",
+  "tag.item.c.clumps.naquadah": "Naquadah Clumps",
+  "tag.item.c.crystals.naquadah": "Naquadah Crystals",
+  "tag.item.c.dirty_dusts.naquadah": "Naquadah Dirty Dusts",
+  "tag.item.c.shards.naquadah": "Naquadah Shards",
+  "tag.item.c.ores.naquadah": "Naquadah Ores",
+
+  "tag.block.c.storage_blocks.naquadah": "Naquadah Storage Blocks",
+  "tag.block.c.storage_blocks.raw_naquadah": "Raw Naquadah Storage Blocks",
+  "tag.block.c.ores.naquadah": "Naquadah Ores",
 
   "matrix.mekanism_extras.reinforced_induction_matrix": "Reinforced Induction Matrix",
 

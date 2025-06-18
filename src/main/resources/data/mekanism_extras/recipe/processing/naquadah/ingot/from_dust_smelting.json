@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.3,
+  "ingredient": {
+    "tag": "c:dusts/naquadah"
+  },
+  "result": {
+    "count": 1,
+    "id": "mekanism_extras:ingot_naquadah"
+  }
+}

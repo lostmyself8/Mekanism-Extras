@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:dissolution",
+  "chemical_nput": {
+    "amount": 1,
+    "chemical": "mekanism:sulfuric_acid"
+  },
+  "item_input": {
+    "count": 1,
+    "tag": "c:ores/naquadah"
+  },
+  "output": {
+    "amount": 1000,
+    "id": "mekanism_extras:dirty_naquadah"
+  }
+}

@@ -258,6 +258,20 @@
   "tag.item.c.circuits.infinite": "悖论无限电路",
 
   "tag.item.c.dusts.radiance": "辐光粉",
+  "tag.item.c.dusts.naquadah": "硅岩粉",
+  "tag.item.c.ingots.naquadah": "硅岩锭",
+  "tag.item.c.nuggets.naquadah": "硅岩粒",
+  "tag.item.c.storage_blocks.naquadah": "硅岩块",
+  "tag.item.c.storage_blocks.raw_naquadah": "粗硅岩块",
+  "tag.item.c.clumps.naquadah": "硅岩碎块",
+  "tag.item.c.crystals.naquadah": "硅岩晶体",
+  "tag.item.c.dirty_dusts.naquadah": "污浊硅岩粉",
+  "tag.item.c.shards.naquadah": "硅岩碎片",
+  "tag.item.c.ores.naquadah": "硅岩矿石",
+
+  "tag.block.c.storage_blocks.naquadah": "硅岩块",
+  "tag.block.c.storage_blocks.raw_naquadah": "粗硅岩块",
+  "tag.block.c.ores.naquadah": "硅岩矿石",
 
   "matrix.mekanism_extras.reinforced_induction_matrix": "增强感应矩阵",
 

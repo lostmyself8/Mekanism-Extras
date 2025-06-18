@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "count": 1,
+    "tag": "c:ores/naquadah"
+  },
+  "output": {
+    "count": 2,
+    "id": "mekanism_extras:dust_naquadah"
+  }
+}
