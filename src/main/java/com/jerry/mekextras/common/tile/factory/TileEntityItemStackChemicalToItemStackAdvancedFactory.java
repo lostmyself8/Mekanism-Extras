@@ -108,7 +108,9 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
             // rather than adjusting the mean each time to try and reach a given target
             chemicalUsageMultiplier = (usedSoFar, operatingTicks) -> StatUtils.inversePoisson(chemicalPerTickMeanMultiplier);
         } else {
-            chemicalUsageMultiplier = ChemicalUsageMultiplier.constantUse(() -> baseTotalUsage, this::getTicksRequired);
+            //插入创造升级后getTicksRequired变为0，导致chemicalUsageMultiplier为0，也就意味着不消耗化学品。
+            //因此处理化学品消耗时按1计算，而工作时间依旧为0
+            chemicalUsageMultiplier = ChemicalUsageMultiplier.constantUse(() -> baseTotalUsage, type == FactoryType.COMPRESSING ? () -> 1 : this::getTicksRequired);
         }
     }
 
