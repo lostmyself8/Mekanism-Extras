@@ -227,7 +227,7 @@
   "description.mekanism_extras.lead_coated_glass": "Cristal del reactor que puede prevenir la radiación del reactor.",
 
   "upgrade.mekanism.stack": "Stack",
-  "upgrade.mekanism.stack.description": "Aumentar el número paralelo de trabajo.",
+  "upgrade.mekanism.stack.description": "Aumenta el número paralelo de trabajo.",
   "upgrade.mekanism.ionic_membrane": "Membrana iónica",
   "upgrade.mekanism.ionic_membrane.description": "Los iones se pueden filtrar de los líquidos.",
   "upgrade.mekanism.creative": "Creativo",
