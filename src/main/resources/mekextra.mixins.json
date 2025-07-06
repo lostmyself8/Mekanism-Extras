@@ -13,6 +13,7 @@
     "MixinMachineEnergyContainer",
     "MixinMekanismBlockTypes",
     "MixinTileComponentEjector",
+    "MixinTileEntityDigitalMiner",
     "MixinUpgrade",
     "MixinUpgradeUtils",
     "resource.ore.MixinOreType"
