@@ -13,7 +13,7 @@ import java.util.Objects;
 @NothingNullByDefault
 public class AdvancedFactoryInputInventorySlot extends InputInventorySlot {
 
-    private TileEntityAdvancedFactory<?> factory;
+    private final TileEntityAdvancedFactory<?> factory;
 
     public static AdvancedFactoryInputInventorySlot create(TileEntityAdvancedFactory<?> factory, int process, IInventorySlot outputSlot, @Nullable IContentsListener listener,
                                                            int x, int y) {

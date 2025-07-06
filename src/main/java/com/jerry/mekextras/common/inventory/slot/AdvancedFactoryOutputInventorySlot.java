@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 @NothingNullByDefault
 public class AdvancedFactoryOutputInventorySlot extends BasicInventorySlot {
 
-    private TileEntityAdvancedFactory<?> factory;
+    private final TileEntityAdvancedFactory<?> factory;
 
     public static AdvancedFactoryOutputInventorySlot at(TileEntityAdvancedFactory<?> factory, @Nullable IContentsListener listener, int x, int y) {
         return new AdvancedFactoryOutputInventorySlot(factory, listener, x, y);
