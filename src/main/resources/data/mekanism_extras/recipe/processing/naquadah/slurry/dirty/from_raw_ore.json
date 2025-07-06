@@ -1,15 +1,16 @@
 {
   "type": "mekanism:dissolution",
-  "chemical_nput": {
+  "chemical_input": {
     "amount": 1,
     "chemical": "mekanism:sulfuric_acid"
   },
   "item_input": {
-    "count": 1,
-    "tag": "forge:raw_materials/naquadah"
+    "count": 3,
+    "tag": "c:raw_materials/naquadah"
   },
   "output": {
     "amount": 2000,
     "id": "mekanism_extras:dirty_naquadah"
-  }
+  },
+  "per_tick_usage": true
 }

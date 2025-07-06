@@ -1,5 +1,5 @@
 {
-  "type": "mekanism:washing",
+  "type": "mekanism:purifying",
   "chemical_input": {
     "amount": 1,
     "chemical": "mekanism:oxygen"

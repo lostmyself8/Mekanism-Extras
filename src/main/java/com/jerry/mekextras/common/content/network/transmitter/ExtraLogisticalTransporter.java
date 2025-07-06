@@ -227,7 +227,6 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                                         if (transmitter instanceof IMixinLogisticalTransporterBase mixTransmitter) {
                                             mixTransmitter.mekanismExtras$getEntity(stack, stack.progress % 100);
                                         }
-//                                        transmitter.entityEntering(stack, stack.progress % 100);
                                         deletes.add(stackId);
                                         continue;
                                     }

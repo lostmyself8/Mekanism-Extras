@@ -1,6 +1,6 @@
 {
   "type": "mekanism:dissolution",
-  "chemical_nput": {
+  "chemical_input": {
     "amount": 1,
     "chemical": "mekanism:sulfuric_acid"
   },
@@ -11,5 +11,6 @@
   "output": {
     "amount": 1000,
     "id": "mekanism_extras:dirty_naquadah"
-  }
+  },
+  "per_tick_usage": true
 }

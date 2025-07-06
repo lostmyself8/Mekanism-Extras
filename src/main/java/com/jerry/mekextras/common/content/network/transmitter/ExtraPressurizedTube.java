@@ -74,9 +74,9 @@ public class ExtraPressurizedTube extends PressurizedTube implements IChemicalTr
 
     private long getAvailablePull() {
         if (hasTransmitterNetwork()) {
-            return Math.min(tier.getTubePullAmount(), getTransmitterNetwork().chemicalTank.getNeeded());
+            return Math.min(TTier.getTubePullAmount(tier), getTransmitterNetwork().chemicalTank.getNeeded());
         }
-        return Math.min(tier.getTubePullAmount(), chemicalTank.getNeeded());
+        return Math.min(TTier.getTubePullAmount(tier), chemicalTank.getNeeded());
     }
 
     @Nullable
