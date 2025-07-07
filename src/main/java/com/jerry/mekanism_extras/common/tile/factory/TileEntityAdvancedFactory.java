@@ -1,12 +1,12 @@
 package com.jerry.mekanism_extras.common.tile.factory;
 
 import com.jerry.mekanism_extras.api.ExtraUpgrade;
+import com.jerry.mekanism_extras.api.IMixinMachineEnergyContainer;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
-import com.jerry.mekanism_extras.common.util.ExtraWorldUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -420,42 +420,15 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
         CompoundTag upgradesTag = this.serializeNBT().getCompound(NBTConstants.UPGRADES);
-        if (upgrade == Upgrade.ENERGY) {
-            for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
-                if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
-                    if (!machineEnergy.getMaxEnergy().equals(FloatingLong.MAX_VALUE)) {
-                        machineEnergy.updateMaxEnergy();
-                        machineEnergy.updateEnergyPerTick();
-                    }
-                }
-            }
-            //Reference from "Evolved Mek Extras"
-        } else if (upgrade == Upgrade.SPEED) {
+        if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
         } else if (upgrade == ExtraUpgrade.STACK) {
             //实际上一直是整数所以强制转化为int也不会损失什么
             baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
-        } else if (upgrade == ExtraUpgrade.CREATIVE) {
+        } else if (upgrade == Upgrade.ENERGY || upgrade == ExtraUpgrade.CREATIVE) {
             for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
                 if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
-                    this.updateMaxEnergy();
-                    if (ExtraWorldUtils.isWorldLoaded(level) && !upgradesTag.isEmpty() || getTicksRequired() == 0 && machineEnergy.getMaxEnergy().equals(FloatingLong.MAX_VALUE)) {
-                        machineEnergy.setEnergy(FloatingLong.MAX_VALUE);
-                    }
-                }
-            }
-        }
-    }
-
-    public void updateMaxEnergy() {
-        for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
-            if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
-                if (this.supportsUpgrade(Upgrade.ENERGY) || this.supportsUpgrade(ExtraUpgrade.CREATIVE)) {
-                    if (this.getComponent().isUpgradeInstalled(ExtraUpgrade.CREATIVE)) {
-                        machineEnergy.setMaxEnergy(FloatingLong.MAX_VALUE);
-                    } else {
-                        machineEnergy.setMaxEnergy(MekanismUtils.getMaxEnergy(this, machineEnergy.getBaseMaxEnergy()));
-                    }
+                    if (machineEnergy instanceof IMixinMachineEnergyContainer mixMach) mixMach.mekanism_Extras$extraRecalculateUpgrades(upgrade);
                 }
             }
         }
