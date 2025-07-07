@@ -447,7 +447,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
         }
     }
 
-    private void updateMaxEnergy() {
+    public void updateMaxEnergy() {
         for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
             if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
                 if (this.supportsUpgrade(Upgrade.ENERGY) || this.supportsUpgrade(ExtraUpgrade.CREATIVE)) {
