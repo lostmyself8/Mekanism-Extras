@@ -419,10 +419,18 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        super.recalculateUpgrades(upgrade);
-        //Reference from "Evolved Mek Extras"
         CompoundTag upgradesTag = this.serializeNBT().getCompound(NBTConstants.UPGRADES);
-        if (upgrade == Upgrade.SPEED) {
+        if (upgrade == Upgrade.ENERGY) {
+            for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
+                if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
+                    if (!machineEnergy.getMaxEnergy().equals(FloatingLong.MAX_VALUE)) {
+                        machineEnergy.updateMaxEnergy();
+                        machineEnergy.updateEnergyPerTick();
+                    }
+                }
+            }
+            //Reference from "Evolved Mek Extras"
+        } else if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
         } else if (upgrade == ExtraUpgrade.STACK) {
             //实际上一直是整数所以强制转化为int也不会损失什么
@@ -430,9 +438,23 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
         } else if (upgrade == ExtraUpgrade.CREATIVE) {
             for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
                 if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
-                    machineEnergy.updateMaxEnergy();
+                    this.updateMaxEnergy();
                     if (ExtraWorldUtils.isWorldLoaded(level) && !upgradesTag.isEmpty() || getTicksRequired() == 0 && machineEnergy.getMaxEnergy().equals(FloatingLong.MAX_VALUE)) {
                         machineEnergy.setEnergy(FloatingLong.MAX_VALUE);
+                    }
+                }
+            }
+        }
+    }
+
+    private void updateMaxEnergy() {
+        for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
+            if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
+                if (this.supportsUpgrade(Upgrade.ENERGY) || this.supportsUpgrade(ExtraUpgrade.CREATIVE)) {
+                    if (this.getComponent().isUpgradeInstalled(ExtraUpgrade.CREATIVE)) {
+                        machineEnergy.setMaxEnergy(FloatingLong.MAX_VALUE);
+                    } else {
+                        machineEnergy.setMaxEnergy(MekanismUtils.getMaxEnergy(this, machineEnergy.getBaseMaxEnergy()));
                     }
                 }
             }
