@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.tile.factory;
 
 import com.jerry.mekextras.api.ExtraUpgrade;
+import com.jerry.mekextras.api.IMixinMachineEnergyContainer;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.inventory.slot.ExtraFactoryInputInventorySlot;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
@@ -11,7 +12,6 @@ import mekanism.api.Action;
 import mekanism.api.IContentsListener;
 import mekanism.api.SerializationConstants;
 import mekanism.api.Upgrade;
-import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.recipes.MekanismRecipe;
 import mekanism.api.recipes.cache.CachedRecipe;
@@ -428,19 +428,12 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        super.recalculateUpgrades(upgrade);
+        ((IMixinMachineEnergyContainer)getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
         } else if (upgrade == ExtraUpgrade.STACK) {
             //实际上一直是整数所以强制转化为int也不会损失什么
             baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
-        } else if (upgrade == ExtraUpgrade.CREATIVE) {
-            for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
-                if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
-                    machineEnergy.updateMaxEnergy();
-                    machineEnergy.setEnergy(Long.MAX_VALUE);
-                }
-            }
         }
     }
 

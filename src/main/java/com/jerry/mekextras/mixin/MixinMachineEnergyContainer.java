@@ -1,6 +1,7 @@
 package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.api.ExtraUpgrade;
+import com.jerry.mekextras.api.IMixinMachineEnergyContainer;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.Upgrade;
@@ -12,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.function.Predicate;
 
 @Mixin(value = MachineEnergyContainer.class, remap = false)
-public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanism> extends BasicEnergyContainer {
+public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanism> extends BasicEnergyContainer implements IMixinMachineEnergyContainer {
 
     @Shadow
     @Final
@@ -36,6 +36,12 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
     @Shadow
     public abstract long getBaseMaxEnergy();
 
+    @Shadow
+    public abstract void updateMaxEnergy();
+
+    @Shadow
+    public abstract void updateEnergyPerTick();
+
     protected MixinMachineEnergyContainer(long maxEnergy, Predicate<@NotNull AutomationType> canExtract, Predicate<@NotNull AutomationType> canInsert, @Nullable IContentsListener listener) {
         super(maxEnergy, canExtract, canInsert, listener);
     }
@@ -48,24 +54,29 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
         }
     }
 
-//    @Inject(method = "updateMaxEnergy", at = @At("HEAD"))
-//    public void mixinUpdateMaxEnergy(CallbackInfo ci) {
-//        if (tile.getComponent().isUpgradeInstalled(ExtraUpgrade.CREATIVE)) {
-//            setMaxEnergy(Long.MAX_VALUE);
-//        }
-//    }
-
-    /**
-     * @author LostMyself
-     * @reason 兼容创造升级带来的能量变化，不过这会使得兼容性不太高。
-     */
-    @Overwrite
-    public void updateMaxEnergy() {
+    @Override
+    public void mekanism_Extras$extraUpdateMaxEnergy() {
         if (tile.supportsUpgrade(Upgrade.ENERGY) || tile.supportsUpgrade(ExtraUpgrade.CREATIVE)) {
             if (tile.getComponent().isUpgradeInstalled(ExtraUpgrade.CREATIVE)) {
                 setMaxEnergy(Long.MAX_VALUE);
             } else {
                 setMaxEnergy(MekanismUtils.getMaxEnergy(tile, getBaseMaxEnergy()));
+            }
+        }
+    }
+
+
+    @Override
+    public void mekanism_Extras$extraRecalculateUpgrades(Upgrade upgrade) {
+        if (upgrade == ExtraUpgrade.CREATIVE) {
+            mekanism_Extras$extraUpdateMaxEnergy();
+            if (getMaxEnergy() == Long.MAX_VALUE) {
+                setEnergy(Long.MAX_VALUE);
+            }
+        } else if (upgrade == Upgrade.ENERGY) {
+            if (getMaxEnergy() != Long.MAX_VALUE) {
+                updateMaxEnergy();
+                updateEnergyPerTick();
             }
         }
     }
