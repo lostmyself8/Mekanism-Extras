@@ -3,7 +3,7 @@ package com.jerry.mekextras.client.events;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.client.gui.*;
 import com.jerry.mekextras.client.gui.machine.GuiAdvanceElectricPump;
-import com.jerry.mekextras.client.gui.machine.GuiAdvancedFactory;
+import com.jerry.mekextras.client.gui.machine.GuiExtraFactory;
 import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.client.model.energycube.ExtraEnergyCubeModelLoader;
 import com.jerry.mekextras.client.render.ExtraRenderer;
@@ -85,7 +85,7 @@ public class ClientRegistration {
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.EXTRA_FLUID_TANK, ExtraGuiFluidTank::new);
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.EXTRA_CHEMICAL_TANK, ExtraGuiChemicalTank::new);
 
-        ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.FACTORY, GuiAdvancedFactory::new);
+        ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.FACTORY, GuiExtraFactory::new);
 
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.REINFORCED_INDUCTION_MATRIX, GuiReinforcedInductionMatrix::new);
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.REINFORCED_MATRIX_STATS, GuiReinforcedMatrixStats::new);

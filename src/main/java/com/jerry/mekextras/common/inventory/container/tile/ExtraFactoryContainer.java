@@ -1,14 +1,14 @@
 package com.jerry.mekextras.common.inventory.container.tile;
 
 import com.jerry.mekextras.common.registries.ExtraContainerTypes;
-import com.jerry.mekextras.common.tile.factory.TileEntityAdvancedFactory;
-import com.jerry.mekextras.common.tile.factory.TileEntitySawingAdvancedFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntitySawingExtraFactory;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import net.minecraft.world.entity.player.Inventory;
 
-public class AdvancedFactoryContainer extends MekanismTileContainer<TileEntityAdvancedFactory<?>> {
+public class ExtraFactoryContainer extends MekanismTileContainer<TileEntityExtraFactory<?>> {
 
-    public AdvancedFactoryContainer(int id, Inventory inv, TileEntityAdvancedFactory<?> tile) {
+    public ExtraFactoryContainer(int id, Inventory inv, TileEntityExtraFactory<?> tile) {
         super(ExtraContainerTypes.FACTORY, id, inv, tile);
     }
 
@@ -16,7 +16,7 @@ public class AdvancedFactoryContainer extends MekanismTileContainer<TileEntityAd
     protected int getInventoryYOffset() {
         if (tile.hasSecondaryResourceBar()) {
             return 95;
-        } else if (tile instanceof TileEntitySawingAdvancedFactory) {
+        } else if (tile instanceof TileEntitySawingExtraFactory) {
             return 105;
         }
         return 85;

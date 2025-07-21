@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Set;
 
 //Smelting, enriching, crushing
-public class TileEntityItemStackToItemStackAdvancedFactory extends TileEntityItemToItemAdvancedFactory<ItemStackToItemStackRecipe> implements
+public class TileEntityItemStackToItemStackExtraFactory extends TileEntityItemToItemExtraFactory<ItemStackToItemStackRecipe> implements
         ItemRecipeLookupHandler<ItemStackToItemStackRecipe> {
 
     private static final TriPredicate<ItemStackToItemStackRecipe, ItemStack, ItemStack> OUTPUT_CHECK =
@@ -42,7 +42,7 @@ public class TileEntityItemStackToItemStackAdvancedFactory extends TileEntityIte
     );
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(RecipeError.NOT_ENOUGH_ENERGY);
 
-    public TileEntityItemStackToItemStackAdvancedFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityItemStackToItemStackExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
     }
 

@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.tile.factory;
 
-import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
-import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
+import com.jerry.mekextras.common.inventory.slot.ExtraFactoryInputInventorySlot;
+import com.jerry.mekextras.common.inventory.slot.ExtraFactoryOutputInventorySlot;
 import com.jerry.mekextras.api.recipes.outputs.ExtraOutputHelper;
 import mekanism.api.IContentsListener;
 import mekanism.api.recipes.MekanismRecipe;
@@ -22,12 +22,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Set;
 
-public abstract class TileEntityItemToItemAdvancedFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityAdvancedFactory<RECIPE> {
+public abstract class TileEntityItemToItemExtraFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityExtraFactory<RECIPE> {
 
     protected IInputHandler<@NotNull ItemStack>[] inputHandlers;
     protected IOutputHandler<@NotNull ItemStack>[] outputHandlers;
 
-    protected TileEntityItemToItemAdvancedFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
+    protected TileEntityItemToItemExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
         super(blockProvider, pos, state, errorTypes, globalErrorTypes);
     }
 
@@ -45,9 +45,9 @@ public abstract class TileEntityItemToItemAdvancedFactory<RECIPE extends Mekanis
                 updateSortingListener.onContentsChanged();
                 lookupMonitor.unpause();
             };
-            AdvancedFactoryOutputInventorySlot outputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 57);
+            ExtraFactoryOutputInventorySlot outputSlot = ExtraFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 57);
             //Note: As we are an item factory that has comparator's based on items we can just use the monitor as a listener directly
-            AdvancedFactoryInputInventorySlot inputSlot = AdvancedFactoryInputInventorySlot.create(this, i, outputSlot, recipeCacheLookupMonitors[i], xPos, 13);
+            ExtraFactoryInputInventorySlot inputSlot = ExtraFactoryInputInventorySlot.create(this, i, outputSlot, recipeCacheLookupMonitors[i], xPos, 13);
             int index = i;
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, index)));
             builder.addSlot(outputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));

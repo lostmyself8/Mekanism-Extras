@@ -1,9 +1,9 @@
 package com.jerry.mekextras.client.gui.machine;
 
 import com.jerry.mekextras.client.gui.element.tab.ExtraGuiSortingTab;
-import com.jerry.mekextras.common.tile.factory.TileEntityAdvancedFactory;
-import com.jerry.mekextras.common.tile.factory.TileEntityItemStackChemicalToItemStackAdvancedFactory;
-import com.jerry.mekextras.common.tile.factory.TileEntitySawingAdvancedFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntityItemStackChemicalToItemStackExtraFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntitySawingExtraFactory;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
 import mekanism.client.gui.GuiConfigurableTile;
 import mekanism.client.gui.element.GuiDumpButton;
@@ -21,17 +21,17 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityAdvancedFactory<?>, MekanismTileContainer<TileEntityAdvancedFactory<?>>> {
+public class GuiExtraFactory extends GuiConfigurableTile<TileEntityExtraFactory<?>, MekanismTileContainer<TileEntityExtraFactory<?>>> {
 
     @Nullable
     private GuiDumpButton<?> dumpButton;
 
-    public GuiAdvancedFactory(MekanismTileContainer<TileEntityAdvancedFactory<?>> container, Inventory inv, Component title) {
+    public GuiExtraFactory(MekanismTileContainer<TileEntityExtraFactory<?>> container, Inventory inv, Component title) {
         super(container, inv, title);
         if (tile.hasSecondaryResourceBar()) {
             imageHeight += 11;
             inventoryLabelY = 85;
-        } else if (tile instanceof TileEntitySawingAdvancedFactory) {
+        } else if (tile instanceof TileEntitySawingExtraFactory) {
             imageHeight += 21;
             inventoryLabelY = 95;
         } else {
@@ -48,16 +48,16 @@ public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityAdvancedFa
     protected void addGuiElements() {
         super.addGuiElements();
         addRenderableWidget(new ExtraGuiSortingTab(this, tile));
-        addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), imageWidth - 12, 16, tile instanceof TileEntitySawingAdvancedFactory ? 73 : 52))
+        addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), imageWidth - 12, 16, tile instanceof TileEntitySawingExtraFactory ? 73 : 52))
               .warning(WarningType.NOT_ENOUGH_ENERGY, tile.getWarningCheck(RecipeError.NOT_ENOUGH_ENERGY, 0));
         addRenderableWidget(new GuiEnergyTab(this, tile.getEnergyContainer(), tile::getLastUsage));
         if (tile.hasSecondaryResourceBar()) {
-            if (tile instanceof TileEntityItemStackChemicalToItemStackAdvancedFactory factory) {
+            if (tile instanceof TileEntityItemStackChemicalToItemStackExtraFactory factory) {
                 int index = tile.tier.ordinal();
                 addRenderableWidget(new GuiChemicalBar(this, GuiChemicalBar.getProvider(factory.getChemicalTank(), tile.getChemicalTanks(null)), 7, 76,
                         210 + 38 * index, 4, true))
                       .warning(WarningType.NO_MATCHING_RECIPE, tile.getWarningCheck(RecipeError.NOT_ENOUGH_SECONDARY_INPUT, 0));
-                dumpButton = addRenderableWidget(new GuiDumpButton<>(this, (TileEntityAdvancedFactory<?> & IHasDumpButton) tile,
+                dumpButton = addRenderableWidget(new GuiDumpButton<>(this, (TileEntityExtraFactory<?> & IHasDumpButton) tile,
                         220 + 38 * index, 76));
             }
         }

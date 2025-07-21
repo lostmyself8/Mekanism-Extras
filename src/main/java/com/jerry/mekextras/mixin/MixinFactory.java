@@ -2,7 +2,7 @@ package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
-import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import mekanism.api.text.ILangEntry;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.content.blocktype.Factory;
@@ -25,7 +25,7 @@ public abstract class MixinFactory extends BlockType {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void injectFactoryUltimateToAbsolute(Supplier<?> tileEntityRegistrar, Supplier<?> containerRegistrar, Machine.FactoryMachine<?> origMachine, FactoryTier tier, CallbackInfo ci) {
         if (tier == FactoryTier.ULTIMATE) {
-            add(new ExtraAttributeUpgradeable(() -> ExtraBlocks.getAdvancedFactory(AdvancedFactoryTier.ABSOLUTE, origMachine.getFactoryType())));
+            add(new ExtraAttributeUpgradeable(() -> ExtraBlocks.getExtraFactory(ExtraFactoryTier.ABSOLUTE, origMachine.getFactoryType())));
         }
     }
 }

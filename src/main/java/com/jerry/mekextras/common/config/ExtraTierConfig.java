@@ -152,7 +152,7 @@ public class ExtraTierConfig extends BaseMekanismConfig {
 
     private void addQIODriverCategory(ModConfigSpec.Builder builder) {
         builder.comment("QIO Drivers").push(QIO_DRIVER_CATEGORY);
-        for (QIODriveAdvancedTier tier : ExtraEnumUtils.QIO_DRIVE_TIERS) {
+        for (ExtraQIODriveTier tier : ExtraEnumUtils.QIO_DRIVE_TIERS) {
             String tierName = tier.getAdvanceTier().getSimpleName();
             CachedLongValue countReference = CachedLongValue.wrap(this, builder.comment("The number of items that the " + tierName + " QIO Drive can store.")
                     .defineInRange(tierName.toLowerCase(Locale.ROOT) + "Count", tier.getMaxCount(), 1, Long.MAX_VALUE));

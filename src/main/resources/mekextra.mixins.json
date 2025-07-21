@@ -21,7 +21,8 @@
   ],
   "client": [
     "client.MixinMekanismRenderer",
-    "client.MixinRecipeViewerRecipeType"
+    "client.MixinRecipeViewerRecipeType",
+    "client.recipe_viewer.emi.MixinMekanismEmi"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -11,7 +11,7 @@ import com.jerry.mekextras.common.item.ItemAlloyRadiance;
 import com.jerry.mekextras.common.item.ExtraItemTierInstaller;
 import com.jerry.mekextras.common.item.ExtraItemQIODrive;
 import com.jerry.mekextras.common.resource.ExtraResource;
-import com.jerry.mekextras.common.tier.QIODriveAdvancedTier;
+import com.jerry.mekextras.common.tier.ExtraQIODriveTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import mekanism.api.Upgrade;
 import mekanism.api.text.TextComponentUtil;
@@ -36,10 +36,10 @@ public class ExtraItems {
     public static final Table<ResourceType, ExtraResource, ItemRegistryObject<Item>> PROCESSED_RESOURCES = HashBasedTable.create();
 
     // QIO Drives
-    public static final ItemRegistryObject<ExtraItemQIODrive> COLLAPSE_QIO_DRIVE = registerQIODrive(QIODriveAdvancedTier.COLLAPSE);
-    public static final ItemRegistryObject<ExtraItemQIODrive> GAMMA_QIO_DRIVE = registerQIODrive(QIODriveAdvancedTier.GAMMA);
-    public static final ItemRegistryObject<ExtraItemQIODrive> BLACK_HOLE_QIO_DRIVE = registerQIODrive(QIODriveAdvancedTier.BLACK_HOLE);
-    public static final ItemRegistryObject<ExtraItemQIODrive> SINGULARITY_QIO_DRIVE = registerQIODrive(QIODriveAdvancedTier.SINGULARITY);
+    public static final ItemRegistryObject<ExtraItemQIODrive> COLLAPSE_QIO_DRIVE = registerQIODrive(ExtraQIODriveTier.COLLAPSE);
+    public static final ItemRegistryObject<ExtraItemQIODrive> GAMMA_QIO_DRIVE = registerQIODrive(ExtraQIODriveTier.GAMMA);
+    public static final ItemRegistryObject<ExtraItemQIODrive> BLACK_HOLE_QIO_DRIVE = registerQIODrive(ExtraQIODriveTier.BLACK_HOLE);
+    public static final ItemRegistryObject<ExtraItemQIODrive> SINGULARITY_QIO_DRIVE = registerQIODrive(ExtraQIODriveTier.SINGULARITY);
 
     public static final ItemRegistryObject<ItemUpgrade> STACK = registerUpgrade(ExtraUpgrade.STACK, Rarity.RARE);
     public static final ItemRegistryObject<ItemUpgrade> IONIC_MEMBRANE = registerUpgrade(ExtraUpgrade.IONIC_MEMBRANE, Rarity.RARE);
@@ -77,7 +77,7 @@ public class ExtraItems {
         }
     }
 
-    private static ItemRegistryObject<ExtraItemQIODrive> registerQIODrive(QIODriveAdvancedTier tier) {
+    private static ItemRegistryObject<ExtraItemQIODrive> registerQIODrive(ExtraQIODriveTier tier) {
         return EXTRA_ITEMS.registerItem("qio_drive_" + tier.name().toLowerCase(Locale.ROOT), properties -> new ExtraItemQIODrive(tier, properties));
     }
 

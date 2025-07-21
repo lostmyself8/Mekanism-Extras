@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.tile.factory;
 
-import com.jerry.mekextras.common.inventory.slot.chemical.AdvancedFactoryChemicalInventorySlot;
+import com.jerry.mekextras.common.inventory.slot.chemical.ExtraFactoryChemicalInventorySlot;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.SerializationConstants;
@@ -65,7 +65,7 @@ import java.util.List;
 import java.util.Set;
 
 //Compressing, injecting, purifying, infusing
-public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileEntityItemToItemAdvancedFactory<ItemStackChemicalToItemStackRecipe> implements IHasDumpButton,
+public class TileEntityItemStackChemicalToItemStackExtraFactory extends TileEntityItemToItemExtraFactory<ItemStackChemicalToItemStackRecipe> implements IHasDumpButton,
         ItemChemicalRecipeLookupHandler<ItemStackChemicalToItemStackRecipe>, ConstantUsageRecipeLookupHandler {
 
     protected static final CheckRecipeType<ItemStack, ChemicalStack, ItemStackChemicalToItemStackRecipe, ItemStack> OUTPUT_CHECK =
@@ -84,7 +84,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
 
     private final ILongInputHandler<@NotNull ChemicalStack> chemicalInputHandler;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChemicalItem", docPlaceholder = "chemical item (extra) slot")
-    AdvancedFactoryChemicalInventorySlot extraSlot;
+    ExtraFactoryChemicalInventorySlot extraSlot;
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getChemical", "getChemicalCapacity", "getChemicalNeeded",
             "getChemicalFilledPercentage"}, docPlaceholder = "chemical tank")
     IChemicalTank chemicalTank;
@@ -93,7 +93,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
     private double chemicalPerTickMeanMultiplier = 1;
     private long baseTotalUsage;
 
-    public TileEntityItemStackChemicalToItemStackAdvancedFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityItemStackChemicalToItemStackExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
         chemicalInputHandler = InputHelper.getConstantInputHandler(chemicalTank);
         if (allowExtractingChemical()) {
@@ -135,7 +135,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addSlots(builder, listener, updateSortingListener);
         //Note: We care about the gas tank not the slot when it comes to recipes and updating sorting
-        builder.addSlot(extraSlot = AdvancedFactoryChemicalInventorySlot.fillOrConverts(this, chemicalTank, this::getLevel, listener, 7, 57));
+        builder.addSlot(extraSlot = ExtraFactoryChemicalInventorySlot.fillOrConverts(this, chemicalTank, this::getLevel, listener, 7, 57));
     }
 
     public IChemicalTank getChemicalTank() {
@@ -144,7 +144,7 @@ public class TileEntityItemStackChemicalToItemStackAdvancedFactory extends TileE
 
     @Nullable
     @Override
-    protected AdvancedFactoryChemicalInventorySlot getExtraSlot() {
+    protected ExtraFactoryChemicalInventorySlot getExtraSlot() {
         return extraSlot;
     }
 

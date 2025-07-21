@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.item;
 
-import com.jerry.mekextras.common.tier.QIODriveAdvancedTier;
+import com.jerry.mekextras.common.tier.ExtraQIODriveTier;
 import mekanism.api.text.EnumColor;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.MekanismLang;
@@ -17,9 +17,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class ExtraItemQIODrive extends Item implements IQIODriveItem {
-    private final QIODriveAdvancedTier tier;
+    private final ExtraQIODriveTier tier;
 
-    public ExtraItemQIODrive(QIODriveAdvancedTier tier, Properties properties) {
+    public ExtraItemQIODrive(ExtraQIODriveTier tier, Properties properties) {
         super(properties.stacksTo(1));
         this.tier = tier;
     }

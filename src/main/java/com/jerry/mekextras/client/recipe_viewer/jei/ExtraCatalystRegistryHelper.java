@@ -1,7 +1,7 @@
 package com.jerry.mekextras.client.recipe_viewer.jei;
 
 import com.jerry.mekextras.common.registries.ExtraBlocks;
-import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import mekanism.client.recipe_viewer.jei.MekanismJEI;
 import mekanism.client.recipe_viewer.type.IRecipeViewerRecipeType;
@@ -34,8 +34,8 @@ public class ExtraCatalystRegistryHelper {
             if (item instanceof BlockItem blockItem) {
                 AttributeFactoryType factoryType = Attribute.get(blockItem.getBlock(), AttributeFactoryType.class);
                 if (factoryType != null) {
-                    for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
-                        registry.addRecipeCatalyst(ExtraBlocks.getAdvancedFactory(tier, factoryType.getFactoryType()), recipeType);
+                    for (ExtraFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
+                        registry.addRecipeCatalyst(ExtraBlocks.getExtraFactory(tier, factoryType.getFactoryType()), recipeType);
                     }
                 }
             }

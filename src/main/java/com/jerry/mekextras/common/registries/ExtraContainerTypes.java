@@ -1,11 +1,11 @@
 package com.jerry.mekextras.common.registries;
 
 import com.jerry.mekextras.MekanismExtras;
-import com.jerry.mekextras.common.inventory.container.tile.AdvancedFactoryContainer;
+import com.jerry.mekextras.common.inventory.container.tile.ExtraFactoryContainer;
 import com.jerry.mekextras.common.tile.ExtraTileEntityChemicalTank;
 import com.jerry.mekextras.common.tile.ExtraTileEntityEnergyCube;
 import com.jerry.mekextras.common.tile.ExtraTileEntityFluidTank;
-import com.jerry.mekextras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
 import com.jerry.mekextras.common.tile.machine.TileEntityAdvanceElectricPump;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
@@ -28,11 +28,11 @@ public class ExtraContainerTypes {
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityReinforcedInductionCasing>> REINFORCED_INDUCTION_MATRIX = EXTRA_CONTAINER_TYPES.custom("reinforced_induction_matrix", TileEntityReinforcedInductionCasing.class).armorSideBar(-20, 41, 0).build();
     public static final ContainerTypeRegistryObject<EmptyTileContainer<TileEntityReinforcedInductionCasing>> REINFORCED_MATRIX_STATS = EXTRA_CONTAINER_TYPES.registerEmpty("reinforced_matrix_stats", TileEntityReinforcedInductionCasing.class);
 
-    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityAdvancedFactory<?>>> FACTORY = EXTRA_CONTAINER_TYPES.register("factory", factoryClass(), AdvancedFactoryContainer::new);
+    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityExtraFactory<?>>> FACTORY = EXTRA_CONTAINER_TYPES.register("factory", factoryClass(), ExtraFactoryContainer::new);
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private static Class<TileEntityAdvancedFactory<?>> factoryClass() {
-        return (Class) TileEntityAdvancedFactory.class;
+    private static Class<TileEntityExtraFactory<?>> factoryClass() {
+        return (Class) TileEntityExtraFactory.class;
     }
 
     public static void register(IEventBus eventBus) {

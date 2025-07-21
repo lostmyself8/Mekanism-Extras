@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.inventory.slot;
 
-import com.jerry.mekextras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
 import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.functions.ConstantPredicates;
@@ -10,15 +10,15 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 @NothingNullByDefault
-public class AdvancedFactoryOutputInventorySlot extends BasicInventorySlot {
+public class ExtraFactoryOutputInventorySlot extends BasicInventorySlot {
 
-    private final TileEntityAdvancedFactory<?> factory;
+    private final TileEntityExtraFactory<?> factory;
 
-    public static AdvancedFactoryOutputInventorySlot at(TileEntityAdvancedFactory<?> factory, @Nullable IContentsListener listener, int x, int y) {
-        return new AdvancedFactoryOutputInventorySlot(factory, listener, x, y);
+    public static ExtraFactoryOutputInventorySlot at(TileEntityExtraFactory<?> factory, @Nullable IContentsListener listener, int x, int y) {
+        return new ExtraFactoryOutputInventorySlot(factory, listener, x, y);
     }
 
-    private AdvancedFactoryOutputInventorySlot(TileEntityAdvancedFactory<?> factory, @Nullable IContentsListener listener, int x, int y) {
+    private ExtraFactoryOutputInventorySlot(TileEntityExtraFactory<?> factory, @Nullable IContentsListener listener, int x, int y) {
         super(ConstantPredicates.alwaysTrueBi(), ConstantPredicates.internalOnly(), ConstantPredicates.alwaysTrue(), listener, x, y);
         setSlotType(ContainerSlotType.OUTPUT);
         this.factory = factory;

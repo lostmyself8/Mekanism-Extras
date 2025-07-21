@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.inventory.slot.chemical;
 
-import com.jerry.mekextras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -21,22 +21,22 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @NothingNullByDefault
-public class AdvancedFactoryChemicalInventorySlot extends ChemicalInventorySlot {
+public class ExtraFactoryChemicalInventorySlot extends ChemicalInventorySlot {
 
-    private final TileEntityAdvancedFactory<?> factory;
+    private final TileEntityExtraFactory<?> factory;
 
 
-    protected AdvancedFactoryChemicalInventorySlot(TileEntityAdvancedFactory<?> factory, IChemicalTank chemicalTank, Supplier<Level> worldSupplier, Predicate<@NotNull ItemStack> canExtract, Predicate<@NotNull ItemStack> canInsert, @Nullable IContentsListener listener, int x, int y) {
+    protected ExtraFactoryChemicalInventorySlot(TileEntityExtraFactory<?> factory, IChemicalTank chemicalTank, Supplier<Level> worldSupplier, Predicate<@NotNull ItemStack> canExtract, Predicate<@NotNull ItemStack> canInsert, @Nullable IContentsListener listener, int x, int y) {
         super(chemicalTank, worldSupplier, canExtract, canInsert, ConstantPredicates.alwaysTrue(), listener, x, y);
         this.factory = factory;
     }
 
 
-    public static AdvancedFactoryChemicalInventorySlot fillOrConverts(TileEntityAdvancedFactory<?> factory, IChemicalTank gasTank, Supplier<Level> worldSupplier, @Nullable IContentsListener listener, int x, int y) {
+    public static ExtraFactoryChemicalInventorySlot fillOrConverts(TileEntityExtraFactory<?> factory, IChemicalTank gasTank, Supplier<Level> worldSupplier, @Nullable IContentsListener listener, int x, int y) {
 
         Objects.requireNonNull(gasTank, "Gas tank cannot be null");
         Objects.requireNonNull(worldSupplier, "World supplier cannot be null");
-        return new AdvancedFactoryChemicalInventorySlot(factory, gasTank, worldSupplier, getFillOrConvertExtractPredicate(gasTank, worldSupplier), getFillOrConvertInsertPredicate(gasTank, worldSupplier), listener, x, y);
+        return new ExtraFactoryChemicalInventorySlot(factory, gasTank, worldSupplier, getFillOrConvertExtractPredicate(gasTank, worldSupplier), getFillOrConvertInsertPredicate(gasTank, worldSupplier), listener, x, y);
     }
 
 

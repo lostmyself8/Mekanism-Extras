@@ -4,11 +4,11 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.block.basic.ExtraBlockBin;
-import com.jerry.mekextras.common.block.prefab.BlockAdvancedFactoryMachine;
+import com.jerry.mekextras.common.block.prefab.BlockExtraFactoryMachine;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockBin;
 import com.jerry.mekextras.common.item.block.ItemBlockLargeCapRadioactiveWasteBarrel;
-import com.jerry.mekextras.common.item.block.machine.ItemBlockAdvancedFactory;
-import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFactory;
+import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.tile.*;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockChemicalTank;
 import com.jerry.mekextras.common.block.ExtraBlockEnergyCube;
@@ -46,25 +46,25 @@ public class ExtraTileEntityTypes {
 
     public static final TileEntityTypeDeferredRegister EXTRA_TILE_ENTITY_TYPES = new TileEntityTypeDeferredRegister(MekanismExtras.MOD_ID);
 
-    private static final Table<AdvancedFactoryTier, FactoryType, TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>>> FACTORIES = HashBasedTable.create();
+    private static final Table<ExtraFactoryTier, FactoryType, TileEntityTypeRegistryObject<? extends TileEntityExtraFactory<?>>> FACTORIES = HashBasedTable.create();
 
     static {
-        for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
-            registerFactory(tier, FactoryType.COMBINING, TileEntityCombiningAdvancedFactory::new);
-            registerFactory(tier, FactoryType.COMPRESSING, TileEntityItemStackChemicalToItemStackAdvancedFactory::new);
-            registerFactory(tier, FactoryType.CRUSHING, TileEntityItemStackToItemStackAdvancedFactory::new);
-            registerFactory(tier, FactoryType.ENRICHING, TileEntityItemStackToItemStackAdvancedFactory::new);
-            registerFactory(tier, FactoryType.INFUSING, TileEntityItemStackChemicalToItemStackAdvancedFactory::new);
-            registerFactory(tier, FactoryType.INJECTING, TileEntityItemStackChemicalToItemStackAdvancedFactory::new);
-            registerFactory(tier, FactoryType.PURIFYING, TileEntityItemStackChemicalToItemStackAdvancedFactory::new);
-            registerFactory(tier, FactoryType.SAWING, TileEntitySawingAdvancedFactory::new);
-            registerFactory(tier, FactoryType.SMELTING, TileEntityItemStackToItemStackAdvancedFactory::new);
+        for (ExtraFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
+            registerFactory(tier, FactoryType.COMBINING, TileEntityCombiningExtraFactory::new);
+            registerFactory(tier, FactoryType.COMPRESSING, TileEntityItemStackChemicalToItemStackExtraFactory::new);
+            registerFactory(tier, FactoryType.CRUSHING, TileEntityItemStackToItemStackExtraFactory::new);
+            registerFactory(tier, FactoryType.ENRICHING, TileEntityItemStackToItemStackExtraFactory::new);
+            registerFactory(tier, FactoryType.INFUSING, TileEntityItemStackChemicalToItemStackExtraFactory::new);
+            registerFactory(tier, FactoryType.INJECTING, TileEntityItemStackChemicalToItemStackExtraFactory::new);
+            registerFactory(tier, FactoryType.PURIFYING, TileEntityItemStackChemicalToItemStackExtraFactory::new);
+            registerFactory(tier, FactoryType.SAWING, TileEntitySawingExtraFactory::new);
+            registerFactory(tier, FactoryType.SMELTING, TileEntityItemStackToItemStackExtraFactory::new);
         }
     }
 
-    private static void registerFactory(AdvancedFactoryTier tier, FactoryType type, BlockEntityFactory<? extends TileEntityAdvancedFactory<?>> factoryConstructor) {
-        BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> block = ExtraBlocks.getAdvancedFactory(tier, type);
-        TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>> tileRO = EXTRA_TILE_ENTITY_TYPES.mekBuilder(block, (pos, state) -> factoryConstructor.create(block, pos, state))
+    private static void registerFactory(ExtraFactoryTier tier, FactoryType type, BlockEntityFactory<? extends TileEntityExtraFactory<?>> factoryConstructor) {
+        BlockRegistryObject<BlockExtraFactoryMachine.BlockExtraFactory<?>, ItemBlockExtraFactory> block = ExtraBlocks.getExtraFactory(tier, type);
+        TileEntityTypeRegistryObject<? extends TileEntityExtraFactory<?>> tileRO = EXTRA_TILE_ENTITY_TYPES.mekBuilder(block, (pos, state) -> factoryConstructor.create(block, pos, state))
                 .clientTicker(TileEntityMekanism::tickClient)
                 .serverTicker(TileEntityMekanism::tickServer)
                 .withSimple(Capabilities.CONFIG_CARD)
@@ -240,12 +240,12 @@ public class ExtraTileEntityTypes {
     public static final TileEntityTypeRegistryObject<ExtraTileEntityInductionProvider> COSMIC_INDUCTION_PROVIDER = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.COSMIC_INDUCTION_PROVIDER, (pos, state) -> new ExtraTileEntityInductionProvider(ExtraBlocks.COSMIC_INDUCTION_PROVIDER, pos, state)).build();
     public static final TileEntityTypeRegistryObject<ExtraTileEntityInductionProvider> INFINITE_INDUCTION_PROVIDER = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.INFINITE_INDUCTION_PROVIDER, (pos, state) -> new ExtraTileEntityInductionProvider(ExtraBlocks.INFINITE_INDUCTION_PROVIDER, pos, state)).build();
 
-    public static TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>> getAdvancedFactoryTile(AdvancedFactoryTier tier, FactoryType type) {
+    public static TileEntityTypeRegistryObject<? extends TileEntityExtraFactory<?>> getAdvancedFactoryTile(ExtraFactoryTier tier, FactoryType type) {
         return FACTORIES.get(tier, type);
     }
 
     @SuppressWarnings("unchecked")
-    public static TileEntityTypeRegistryObject<? extends TileEntityAdvancedFactory<?>>[] getAdvancedFactoryTiles() {
+    public static TileEntityTypeRegistryObject<? extends TileEntityExtraFactory<?>>[] getAdvancedFactoryTiles() {
         return FACTORIES.values().toArray(new TileEntityTypeRegistryObject[0]);
     }
 

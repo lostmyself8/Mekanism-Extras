@@ -1,9 +1,9 @@
 package com.jerry.mekextras.common.item.block.machine;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekextras.common.block.prefab.BlockAdvancedFactoryMachine;
+import com.jerry.mekextras.common.block.prefab.BlockExtraFactoryMachine;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockTooltip;
-import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.attachments.component.AttachedEjector;
@@ -19,11 +19,10 @@ import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Map;
 
-public class ItemBlockAdvancedFactory extends ExtraItemBlockTooltip<BlockTile<?, ?>> {
+public class ItemBlockExtraFactory extends ExtraItemBlockTooltip<BlockTile<?, ?>> {
 
-private static AttachedSideConfig getSideConfig(BlockAdvancedFactoryMachine.BlockAdvancedFactory<?> block) {
+private static AttachedSideConfig getSideConfig(BlockExtraFactoryMachine.BlockExtraFactory<?> block) {
     return switch (Attribute.getOrThrow(block.builtInRegistryHolder(), AttributeFactoryType.class).getFactoryType()) {
         case SMELTING, ENRICHING, CRUSHING, SAWING -> AttachedSideConfig.ELECTRIC_MACHINE;
         case COMPRESSING, INFUSING -> AttachedSideConfig.ADVANCED_MACHINE;
@@ -32,7 +31,7 @@ private static AttachedSideConfig getSideConfig(BlockAdvancedFactoryMachine.Bloc
     };
 }
 
-public ItemBlockAdvancedFactory(BlockAdvancedFactoryMachine.BlockAdvancedFactory<?> block, Item.Properties properties) {
+public ItemBlockExtraFactory(BlockExtraFactoryMachine.BlockExtraFactory<?> block, Item.Properties properties) {
     super(block, true, properties
             .component(MekanismDataComponents.SORTING, false)
             .component(MekanismDataComponents.EJECTOR, AttachedEjector.DEFAULT)
@@ -41,8 +40,8 @@ public ItemBlockAdvancedFactory(BlockAdvancedFactoryMachine.BlockAdvancedFactory
 }
 
 @Override
-public AdvancedFactoryTier getAdvanceTier() {
-    return ExtraAttribute.getAdvanceTier(getBlock(), AdvancedFactoryTier.class);
+public ExtraFactoryTier getAdvanceTier() {
+    return ExtraAttribute.getAdvanceTier(getBlock(), ExtraFactoryTier.class);
 }
 
 @Override

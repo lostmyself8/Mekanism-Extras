@@ -5,8 +5,8 @@ import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.registries.ExtraBlockTypes;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.registries.ExtraContainerTypes;
-import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
-import com.jerry.mekextras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekextras.common.tier.ExtraFactoryTier;
+import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import mekanism.api.math.MathUtils;
 import mekanism.common.MekanismLang;
@@ -22,12 +22,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class AdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends AdvancedMachine.AdvancedFactoryMachine<TILE> {
+public class ExtraFactory<TILE extends TileEntityExtraFactory<?>> extends ExtraMachine.ExtraFactoryMachine<TILE> {
 
-    private final AdvancedMachine.AdvancedFactoryMachine<?> origMachine;
+    private final ExtraMachine.ExtraFactoryMachine<?> origMachine;
 
-    public AdvancedFactory(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, Supplier<ContainerTypeRegistryObject<? extends MekanismContainer>> containerRegistrar,
-                           AdvancedMachine.AdvancedFactoryMachine<?> origMachine, AdvancedFactoryTier tier) {
+    public ExtraFactory(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, Supplier<ContainerTypeRegistryObject<? extends MekanismContainer>> containerRegistrar,
+                        ExtraMachine.ExtraFactoryMachine<?> origMachine, ExtraFactoryTier tier) {
         super(tileEntityRegistrar, MekanismLang.DESCRIPTION_FACTORY, origMachine.getFactoryType());
         this.origMachine = origMachine;
         setMachineData(tier);
@@ -35,28 +35,28 @@ public class AdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends 
 
         // 添加升级后的方块
         if (tier.ordinal() < ExtraEnumUtils.ADVANCED_FACTORY_TIERS.length - 1) {
-            add(new ExtraAttributeUpgradeable(() -> ExtraBlocks.getAdvancedFactory(ExtraEnumUtils.ADVANCED_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getFactoryType())));
+            add(new ExtraAttributeUpgradeable(() -> ExtraBlocks.getExtraFactory(ExtraEnumUtils.ADVANCED_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getFactoryType())));
         }
     }
 
-    private void setMachineData(AdvancedFactoryTier tier) {
+    private void setMachineData(ExtraFactoryTier tier) {
         setFrom(origMachine, AttributeSound.class, AttributeFactoryType.class, AttributeUpgradeSupport.class);
         AttributeEnergy origEnergy = origMachine.get(AttributeEnergy.class);
         add(new AttributeEnergy(origEnergy::getUsage, () -> MathUtils.clampToLong(Math.max(origEnergy.getConfigStorage() * 0.5, origEnergy.getUsage()) * tier.processes)));
     }
 
-    public static class AdvancedFactoryBuilder<FACTORY extends AdvancedFactory<TILE>, TILE extends TileEntityAdvancedFactory<?>, T extends AdvancedMachine.AdvancedMachineBuilder<FACTORY, TILE, T>>
+    public static class ExtraFactoryBuilder<FACTORY extends ExtraFactory<TILE>, TILE extends TileEntityExtraFactory<?>, T extends ExtraMachine.ExtraMachineBuilder<FACTORY, TILE, T>>
             extends BlockTileBuilder<FACTORY, TILE, T> {
 
-        protected AdvancedFactoryBuilder(FACTORY holder) {
+        protected ExtraFactoryBuilder(FACTORY holder) {
             super(holder);
         }
 
         @SuppressWarnings("unchecked")
-        public static <TILE extends TileEntityAdvancedFactory<?>> AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> createFactory(Supplier<?> tileEntityRegistrar, FactoryType type,
-                                                                                                                       AdvancedFactoryTier tier) {
+        public static <TILE extends TileEntityExtraFactory<?>> ExtraFactoryBuilder<ExtraFactory<TILE>, TILE, ?> createFactory(Supplier<?> tileEntityRegistrar, FactoryType type,
+                                                                                                                              ExtraFactoryTier tier) {
 
-            AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> builder = getAdvancedFactoryTILEAdvancedFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
+            ExtraFactoryBuilder<ExtraFactory<TILE>, TILE, ?> builder = getAdvancedFactoryTILEAdvancedFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(BlockShapes.getShape(null, type));
             builder.with(switch (type) {
                 case SMELTING, ENRICHING, CRUSHING, COMBINING, SAWING -> AttributeSideConfig.ELECTRIC_MACHINE;
@@ -71,9 +71,9 @@ public class AdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends 
         }
     }
 
-    private static <TILE extends TileEntityAdvancedFactory<?>> @NotNull AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> getAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, FactoryType type, AdvancedFactoryTier tier) {
+    private static <TILE extends TileEntityExtraFactory<?>> @NotNull ExtraFactoryBuilder<ExtraFactory<TILE>, TILE, ?> getAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, FactoryType type, ExtraFactoryTier tier) {
 
-        AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> builder = new AdvancedFactoryBuilder<>(new AdvancedFactory<>(tileEntityRegistrar,
+        ExtraFactoryBuilder<ExtraFactory<TILE>, TILE, ?> builder = new ExtraFactoryBuilder<>(new ExtraFactory<>(tileEntityRegistrar,
                 () -> ExtraContainerTypes.FACTORY,
                 switch (type) {
                     case SAWING -> ExtraBlockTypes.PRECISION_SAWMILL;

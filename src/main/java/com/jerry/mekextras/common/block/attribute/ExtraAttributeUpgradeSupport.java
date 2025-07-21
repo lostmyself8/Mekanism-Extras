@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-public record AdvancedAttributeUpgradeSupport(@NotNull Set<Upgrade> supportedUpgrades) implements Attribute {
+public record ExtraAttributeUpgradeSupport(@NotNull Set<Upgrade> supportedUpgrades) implements Attribute {
 
     public static final AttributeUpgradeSupport ADVANCED_MACHINE_UPGRADES = AttributeUpgradeSupport.create(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.MUFFLING, ExtraUpgrade.STACK, ExtraUpgrade.CREATIVE);
     public static final AttributeUpgradeSupport ADVANCED_ADVANCED_MACHINE_UPGRADES =AttributeUpgradeSupport.create(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.CHEMICAL, Upgrade.MUFFLING, ExtraUpgrade.STACK, ExtraUpgrade.CREATIVE);

@@ -2,8 +2,8 @@ package com.jerry.mekextras.common.tile.factory;
 
 import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
-import com.jerry.mekextras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekextras.common.inventory.slot.ExtraFactoryInputInventorySlot;
+import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraUpgradeUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
@@ -73,7 +73,7 @@ import java.util.Map.Entry;
 import java.util.function.BooleanSupplier;
 import java.util.function.ToIntBiFunction;
 
-public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE> {
+public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE> {
 
     /**
      * How many ticks it takes, by default, to run an operation.
@@ -93,7 +93,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
     /**
      * This Factory's tier.
      */
-    public AdvancedFactoryTier tier;
+    public ExtraFactoryTier tier;
     /**
      * An int[] used to track all current operations' progress.
      */
@@ -112,13 +112,13 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
     @NotNull
     protected final FactoryType type;
 
-    protected MachineEnergyContainer<TileEntityAdvancedFactory<?>> energyContainer;
+    protected MachineEnergyContainer<TileEntityExtraFactory<?>> energyContainer;
     protected final List<IInventorySlot> inputSlots;
     protected final List<IInventorySlot> outputSlots;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getEnergyItem", docPlaceholder = "energy slot")
     EnergyInventorySlot energySlot;
 
-    protected TileEntityAdvancedFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
+    protected TileEntityExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
         super(blockProvider, pos, state);
         type = Attribute.getOrThrow(blockProvider, AttributeFactoryType.class).getFactoryType();
         inputSlots = new ArrayList<>();
@@ -171,7 +171,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getAdvanceTier(getBlockHolder(), AdvancedFactoryTier.class);
+        tier = ExtraAttribute.getAdvanceTier(getBlockHolder(), ExtraFactoryTier.class);
         Runnable setSortingNeeded = () -> sortingNeeded = true;
         recipeCacheLookupMonitors = new FactoryRecipeCacheLookupMonitor[tier.processes];
         for (int i = 0; i < recipeCacheLookupMonitors.length; i++) {
@@ -461,7 +461,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
         return false;
     }
 
-    public MachineEnergyContainer<TileEntityAdvancedFactory<?>> getEnergyContainer() {
+    public MachineEnergyContainer<TileEntityExtraFactory<?>> getEnergyContainer() {
         return energyContainer;
     }
 
@@ -691,7 +691,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
             }
             for (int i = 0; i < processCount; i++) {
                 ProcessInfo processInfo = recipeProcessInfo.processes.get(i);
-                AdvancedFactoryInputInventorySlot inputSlot = processInfo.inputSlot();
+                ExtraFactoryInputInventorySlot inputSlot = processInfo.inputSlot();
                 int sizeForSlot = numberPerSlot;
                 if (remainder > 0) {
                     //If we have a remainder, factor it into our slots
@@ -739,7 +739,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
         }
     }
 
-    public record ProcessInfo(int process, @NotNull AdvancedFactoryInputInventorySlot inputSlot,
+    public record ProcessInfo(int process, @NotNull ExtraFactoryInputInventorySlot inputSlot,
                               @NotNull IInventorySlot outputSlot,
                               @Nullable IInventorySlot secondaryOutputSlot) {
     }
@@ -748,13 +748,13 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>
 
         private final List<ProcessInfo> processes = new ArrayList<>();
         @Nullable
-        private ToIntBiFunction<RecipeProcessInfo<RECIPE>, TileEntityAdvancedFactory<RECIPE>> lazyMinPerSlot;
+        private ToIntBiFunction<RecipeProcessInfo<RECIPE>, TileEntityExtraFactory<RECIPE>> lazyMinPerSlot;
         private Object item;
         private RECIPE recipe;
         private int minPerSlot = 1;
         private int totalCount;
 
-        public int getMinPerSlot(TileEntityAdvancedFactory<RECIPE> factory) {
+        public int getMinPerSlot(TileEntityExtraFactory<RECIPE> factory) {
             if (lazyMinPerSlot != null) {
                 //Get the value lazily
                 minPerSlot = Math.max(1, lazyMinPerSlot.applyAsInt(this, factory));

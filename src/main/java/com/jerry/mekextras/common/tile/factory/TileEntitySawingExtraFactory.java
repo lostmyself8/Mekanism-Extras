@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.tile.factory;
 
-import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
-import com.jerry.mekextras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
+import com.jerry.mekextras.common.inventory.slot.ExtraFactoryInputInventorySlot;
+import com.jerry.mekextras.common.inventory.slot.ExtraFactoryOutputInventorySlot;
 import com.jerry.mekextras.api.recipes.outputs.ExtraOutputHelper;
 import mekanism.api.IContentsListener;
 import mekanism.api.inventory.IInventorySlot;
@@ -44,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Set;
 
-public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<SawmillRecipe> implements ItemRecipeLookupHandler<SawmillRecipe> {
+public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<SawmillRecipe> implements ItemRecipeLookupHandler<SawmillRecipe> {
 
     private static final CheckRecipeType<ItemStack, SawmillRecipe, ItemStack, ItemStack> OUTPUT_CHECK = (recipe, input, output, extra) -> {
         ChanceOutput chanceOutput = recipe.getOutput(input);
@@ -71,7 +71,7 @@ public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<S
     protected IInputHandler<@NotNull ItemStack>[] inputHandlers;
     protected IOutputHandler<@NotNull ChanceOutput>[] outputHandlers;
 
-    public TileEntitySawingAdvancedFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
+    public TileEntitySawingExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
     }
 
@@ -89,10 +89,10 @@ public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<S
                 updateSortingListener.onContentsChanged();
                 lookupMonitor.unpause();
             };
-            AdvancedFactoryOutputInventorySlot outputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 57);
-            AdvancedFactoryOutputInventorySlot secondaryOutputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 77);
+            ExtraFactoryOutputInventorySlot outputSlot = ExtraFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 57);
+            ExtraFactoryOutputInventorySlot secondaryOutputSlot = ExtraFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 77);
             //Note: As we are an item factory that has comparator's based on items we can just use the monitor as a listener directly
-            AdvancedFactoryInputInventorySlot inputSlot = AdvancedFactoryInputInventorySlot.create(this, i, outputSlot, secondaryOutputSlot, lookupMonitor, xPos, 13);
+            ExtraFactoryInputInventorySlot inputSlot = ExtraFactoryInputInventorySlot.create(this, i, outputSlot, secondaryOutputSlot, lookupMonitor, xPos, 13);
             int index = i;
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, index)));
             builder.addSlot(outputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));
