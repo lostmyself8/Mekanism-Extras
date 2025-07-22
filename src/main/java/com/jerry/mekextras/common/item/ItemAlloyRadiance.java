@@ -133,7 +133,8 @@ public class ItemAlloyRadiance extends Item {
             case TileEntityUniversalCable ignored -> ExtraBlocks.ABSOLUTE_UNIVERSAL_CABLE;
             case TileEntityMechanicalPipe ignored -> ExtraBlocks.ABSOLUTE_MECHANICAL_PIPE;
             case TileEntityThermodynamicConductor ignored -> ExtraBlocks.ABSOLUTE_THERMODYNAMIC_CONDUCTOR;
-            default -> ExtraBlocks.ABSOLUTE_LOGISTICAL_TRANSPORTER;
+            case TileEntityLogisticalTransporter ignored -> ExtraBlocks.ABSOLUTE_LOGISTICAL_TRANSPORTER;
+            default -> null;
         };
     }
 
