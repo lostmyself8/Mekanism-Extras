@@ -140,9 +140,11 @@ public class ItemAlloyRadiance extends Item {
             return ExtraBlock.ABSOLUTE_MECHANICAL_PIPE;
         } else if (transmitterTile instanceof TileEntityThermodynamicConductor) {
             return ExtraBlock.ABSOLUTE_THERMODYNAMIC_CONDUCTOR;
-        } else {
+        } else if (transmitterTile instanceof TileEntityLogisticalTransporter) {
             // 默认情况或其他类型的处理
             return ExtraBlock.ABSOLUTE_LOGISTICAL_TRANSPORTER;
+        } else {
+            return null;
         }
 
     }
