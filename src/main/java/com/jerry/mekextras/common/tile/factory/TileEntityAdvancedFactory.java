@@ -73,7 +73,7 @@ import java.util.Map.Entry;
 import java.util.function.BooleanSupplier;
 import java.util.function.ToIntBiFunction;
 
-public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE> {
+public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE> {
 
     /**
      * How many ticks it takes, by default, to run an operation.
@@ -112,13 +112,13 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
     @NotNull
     protected final FactoryType type;
 
-    protected MachineEnergyContainer<TileEntityExtraFactory<?>> energyContainer;
+    protected MachineEnergyContainer<TileEntityAdvancedFactory<?>> energyContainer;
     protected final List<IInventorySlot> inputSlots;
     protected final List<IInventorySlot> outputSlots;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getEnergyItem", docPlaceholder = "energy slot")
     EnergyInventorySlot energySlot;
 
-    protected TileEntityExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
+    protected TileEntityAdvancedFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
         super(blockProvider, pos, state);
         type = Attribute.getOrThrow(blockProvider, AttributeFactoryType.class).getFactoryType();
         inputSlots = new ArrayList<>();
@@ -461,7 +461,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
         return false;
     }
 
-    public MachineEnergyContainer<TileEntityExtraFactory<?>> getEnergyContainer() {
+    public MachineEnergyContainer<TileEntityAdvancedFactory<?>> getEnergyContainer() {
         return energyContainer;
     }
 
@@ -748,13 +748,13 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
 
         private final List<ProcessInfo> processes = new ArrayList<>();
         @Nullable
-        private ToIntBiFunction<RecipeProcessInfo<RECIPE>, TileEntityExtraFactory<RECIPE>> lazyMinPerSlot;
+        private ToIntBiFunction<RecipeProcessInfo<RECIPE>, TileEntityAdvancedFactory<RECIPE>> lazyMinPerSlot;
         private Object item;
         private RECIPE recipe;
         private int minPerSlot = 1;
         private int totalCount;
 
-        public int getMinPerSlot(TileEntityExtraFactory<RECIPE> factory) {
+        public int getMinPerSlot(TileEntityAdvancedFactory<RECIPE> factory) {
             if (lazyMinPerSlot != null) {
                 //Get the value lazily
                 minPerSlot = Math.max(1, lazyMinPerSlot.applyAsInt(this, factory));
