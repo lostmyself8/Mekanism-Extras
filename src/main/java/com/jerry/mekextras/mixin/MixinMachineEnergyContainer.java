@@ -1,7 +1,7 @@
 package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.api.ExtraUpgrade;
-import com.jerry.mekextras.api.IMixinMachineEnergyContainer;
+import com.jerry.mekextras.api.mixin.IMixinMachineEnergyContainer;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.Upgrade;

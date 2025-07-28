@@ -1,4 +1,4 @@
-package com.jerry.mekextras.api;
+package com.jerry.mekextras.api.mixin;
 
 import mekanism.api.Upgrade;
 

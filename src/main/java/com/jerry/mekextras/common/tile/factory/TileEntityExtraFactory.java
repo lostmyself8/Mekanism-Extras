@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.tile.factory;
 
 import com.jerry.mekextras.api.ExtraUpgrade;
-import com.jerry.mekextras.api.IMixinMachineEnergyContainer;
+import com.jerry.mekextras.api.mixin.IMixinMachineEnergyContainer;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.inventory.slot.ExtraFactoryInputInventorySlot;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;

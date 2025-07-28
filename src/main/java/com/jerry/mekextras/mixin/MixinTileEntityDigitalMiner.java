@@ -1,9 +1,9 @@
 package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.api.ExtraUpgrade;
+import com.jerry.mekextras.api.mixin.IMixinMachineEnergyContainer;
 import mekanism.api.Upgrade;
-import mekanism.api.energy.IEnergyContainer;
-import mekanism.common.capabilities.energy.MachineEnergyContainer;
+import mekanism.common.capabilities.energy.MinerEnergyContainer;
 import mekanism.common.content.miner.MinerFilter;
 import mekanism.common.lib.chunkloading.IChunkLoader;
 import mekanism.common.tile.base.TileEntityMekanism;
@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = TileEntityDigitalMiner.class, remap = false)
-public abstract class MixinTileEntityDigitalMiner extends TileEntityMekanism implements IChunkLoader, IBoundingBlock, ITileFilterHolder<MinerFilter<?>>, IHasVisualization {
+public abstract class MixinTileEntityDigitalMiner extends TileEntityMekanism implements IChunkLoader, IBoundingBlock, ITileFilterHolder<MinerFilter<?>>, IHasVisualization, IMixinMachineEnergyContainer {
 
     @Shadow
     private int delayLength;
@@ -32,20 +32,16 @@ public abstract class MixinTileEntityDigitalMiner extends TileEntityMekanism imp
         super(blockProvider, pos, state);
     }
 
+    @Shadow
+    public abstract MinerEnergyContainer getEnergyContainer();
+
     @Inject(method = "getDelay", at = @At(value = "RETURN"), cancellable = true)
     public void getDelay(CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 : delayLength);
     }
 
-    @Inject(method = "recalculateUpgrades", at = @At(value = "TAIL"))
+    @Inject(method = "recalculateUpgrades", at = @At(value = "HEAD"))
     public void recalculateUpgrades(Upgrade upgrade, CallbackInfo ci) {
-        if (upgrade == ExtraUpgrade.CREATIVE) {
-            for (IEnergyContainer energyContainer : getEnergyContainers(null)) {
-                if (energyContainer instanceof MachineEnergyContainer<?> machineEnergy) {
-                    machineEnergy.updateMaxEnergy();
-                    machineEnergy.setEnergy(Long.MAX_VALUE);
-                }
-            }
-        }
+        ((IMixinMachineEnergyContainer)getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
     }
 }
