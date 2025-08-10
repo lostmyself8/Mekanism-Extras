@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:dissolution",
+  "chemical_input": {
+    "amount": 6,
+    "chemical": "mekanism:hydrofluoric_acid"
+  },
+  "item_input": {
+    "count": 1,
+    "tag": "c:ingots/naquadah"
+  },
+  "output": {
+    "amount": 100,
+    "id": "mekanism_extras:naquadah_hexafluoride"
+  },
+  "per_tick_usage":true
+}

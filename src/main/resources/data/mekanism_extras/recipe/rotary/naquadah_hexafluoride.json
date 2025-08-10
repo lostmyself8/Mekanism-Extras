@@ -1,0 +1,19 @@
+{
+  "type": "mekanism:rotary",
+  "fluid_input": {
+    "amount": 1,
+    "fluid": "mekanism_extras:naquadah_hexafluoride"
+  },
+  "fluid_output": {
+    "amount": 1,
+    "id": "mekanism_extras:naquadah_hexafluoride"
+  },
+  "chemical_input": {
+    "amount": 1,
+    "chemical": "mekanism_extras:naquadah_hexafluoride"
+  },
+  "chemical_output": {
+    "amount": 1,
+    "id": "mekanism_extras:naquadah_hexafluoride"
+  }
+}

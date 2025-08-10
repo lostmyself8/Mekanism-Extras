@@ -36,9 +36,9 @@
   "item.mekanism_extras.ingot_naquadah": "硅岩锭",
   "item.mekanism_extras.raw_naquadah": "粗硅岩",
   "item.mekanism_extras.nugget_naquadah": "硅岩粒",
-  "item.mekanism_extras.silicon_tetrafluoride_bucket": "液态四氟化硅桶",
-  "item.mekanism_extras.fluorinated_silicon_uranium_fuel_bucket": "液态含氟硅铀燃料桶",
-  "item.mekanism_extras.rich_silicon_fuel_bucket": "液态富硅燃料桶",
+  "item.mekanism_extras.naquadah_hexafluoride_bucket": "液态六氟化硅岩桶",
+  "item.mekanism_extras.fluorinated_naquadah_uranium_fuel_bucket": "液态含氟硅岩铀燃料桶",
+  "item.mekanism_extras.rich_naquadah_fuel_bucket": "液态富硅岩燃料桶",
   "item.mekanism_extras.rich_uranium_fuel_bucket": "液态富铀燃料桶",
   "item.mekanism_extras.naquadah_hohlraum": "硅岩黑体辐射腔",
   "item.mekanism_extras.polonium_containing_solution_bucket": "液态含钋溶液桶",
@@ -137,9 +137,9 @@
   "block.mekanism_extras.cosmic_radioactive_waste_barrel": "寰宇支配放射性废料桶",
   "block.mekanism_extras.infinite_radioactive_waste_barrel": "悖论无限放射性废料桶",
   "block.mekanism_extras.advance_electric_pump": "先进电动泵",
-  "block.mekanism_extras.silicon_tetrafluoride": "液态四氟化硅",
-  "block.mekanism_extras.fluorinated_silicon_uranium_fuel": "液态含氟硅铀燃料",
-  "block.mekanism_extras.rich_silicon_fuel": "液态富硅燃料",
+  "block.mekanism_extras.naquadah_hexafluoride": "液态六氟化硅岩",
+  "block.mekanism_extras.fluorinated_naquadah_uranium_fuel": "液态含氟硅岩铀燃料",
+  "block.mekanism_extras.rich_naquadah_fuel": "液态富硅岩燃料",
   "block.mekanism_extras.rich_uranium_fuel": "液态富铀燃料",
   "block.mekanism_extras.naquadah_reactor_controller": "硅岩反应堆控制器",
   "block.mekanism_extras.naquadah_reactor_casing": "硅岩反应堆外壳",
@@ -151,10 +151,10 @@
   "block.mekanism_extras.polonium-208": "液态钋-208",
 
   "chemical.mekanism_extras.molten_thermonuclear": "熔融热核",
-  "chemical.mekanism_extras.silicon_tetrafluoride": "四氟化硅",
-  "chemical.mekanism_extras.fluorinated_silicon_uranium_fuel": "含氟硅铀燃料",
-  "chemical.mekanism_extras.silicon_uranium_fuel": "硅铀燃料",
-  "chemical.mekanism_extras.rich_silicon_fuel": "富硅燃料",
+  "chemical.mekanism_extras.naquadah_hexafluoride": "六氟化硅岩",
+  "chemical.mekanism_extras.fluorinated_naquadah_uranium_fuel": "含氟硅岩铀燃料",
+  "chemical.mekanism_extras.naquadah_uranium_fuel": "硅岩铀燃料",
+  "chemical.mekanism_extras.rich_naquadah_fuel": "富硅岩燃料",
   "chemical.mekanism_extras.rich_uranium_fuel": "富铀燃料",
   "chemical.mekanism_extras.polonium_containing_steam": "含钋蒸汽",
   "chemical.mekanism_extras.polonium-208": "钋-208",
@@ -270,9 +270,23 @@
   "tag.item.c.shards.naquadah": "硅岩碎片",
   "tag.item.c.ores.naquadah": "硅岩矿石",
 
+  "tag.item.c.buckets.fluorinated_naquadah_uranium_fuel": "液态含氟硅岩铀燃料桶",
+  "tag.item.c.buckets.naquadah_hexafluoride": "液态六氟化硅岩桶",
+  "tag.item.c.buckets.polonium-208": "液态钋-208桶",
+  "tag.item.c.buckets.polonium_containing_solution": "液态含钋溶液桶",
+  "tag.item.c.buckets.rich_naquadah_fuel": "液态富硅岩燃料桶",
+  "tag.item.c.buckets.rich_uranium_fuel": "液态富铀燃料桶",
+
   "tag.block.c.storage_blocks.naquadah": "硅岩块",
   "tag.block.c.storage_blocks.raw_naquadah": "粗硅岩块",
   "tag.block.c.ores.naquadah": "硅岩矿石",
+
+  "tag.fluid.c.fluorinated_naquadah_uranium_fuel": "含氟硅岩铀燃料",
+  "tag.fluid.c.naquadah_hexafluoride": "六氟化硅岩",
+  "tag.fluid.c.polonium-208": "钋-208",
+  "tag.fluid.c.polonium_containing_solution": "含钋溶液",
+  "tag.fluid.c.rich_naquadah_fuel": "富硅岩燃料",
+  "tag.fluid.c.rich_uranium_fuel": "富铀燃料",
 
   "matrix.mekanism_extras.reinforced_induction_matrix": "增强感应矩阵",
 
@@ -299,7 +313,9 @@
   "advancements.mekanism_extras.creative_upgrade.title": "你居然获得了它？",
   "advancements.mekanism_extras.creative_upgrade.description": "如果整合包没有添加合成表的话，你小子是不是开创了！",
 
-  "info.mekanism_extras.jei.rich_silicon_fuel": "液态富硅燃料可以用带过滤升级的先进电动泵抽取四氟化硅获得。",
-  "info.mekanism_extras.jei.rich_uranium_fuel": "液态富铀燃料可以用带过滤升级的先进电动泵抽取六氟化铀获得。",
-  "info.mekanism_extras.jei.polonium_containing_solution": "当向硅岩反应堆注入冷却剂时产生的蒸气会捕捉反应堆中不会衰变的钋-208，由此产生含钋蒸汽。"
+  "info.mekanism_extras.jei.rich_naquadah_fuel": "液态富硅岩燃料可以用带离子膜升级的先进电动泵抽取六氟化硅岩获得。",
+  "info.mekanism_extras.jei.rich_uranium_fuel": "液态富铀燃料可以用带离子膜升级的先进电动泵抽取六氟化铀获得。",
+  "info.mekanism_extras.jei.polonium_containing_solution": "当向硅岩反应堆注入冷却剂时产生的蒸气会捕捉反应堆中不会衰变的钋-208，由此产生含钋蒸汽。",
+
+  "fml.menu.mods.info.description.mekanism_extras": "将\"Mekanism-Evolution\"移植到更高的版本并添加了一些其他的东西"
 }

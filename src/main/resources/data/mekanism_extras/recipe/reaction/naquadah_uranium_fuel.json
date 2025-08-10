@@ -1,0 +1,25 @@
+{
+  "type": "mekanism:reaction",
+  "duration": 60,
+  "energyRequired": 1000,
+  "fluid_input": {
+    "amount": 200,
+    "fluid": "mekanism_extras:fluorinated_naquadah_uranium_fuel"
+  },
+  "chemical_input": {
+    "amount": 200,
+    "chemical": "mekanism:osmium"
+  },
+  "item_input": {
+    "count": 1,
+    "tag": "c:dusts/osmium"
+  },
+  "item_output": {
+    "count": 1,
+    "id": "mekanism:shard_osmium"
+  },
+  "chemical_output": {
+    "amount": 200,
+    "id": "mekanism_extras:naquadah_uranium_fuel"
+  }
+}

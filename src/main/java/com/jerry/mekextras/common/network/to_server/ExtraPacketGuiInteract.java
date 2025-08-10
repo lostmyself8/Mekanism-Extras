@@ -1,5 +1,7 @@
 package com.jerry.mekextras.common.network.to_server;
 
+import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
+import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
 import io.netty.buffer.ByteBuf;
@@ -48,7 +50,7 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
     private final ExtraInteractionType interactionType;
 
     private ExtraGuiInteraction interaction;
-//    private GuiInteractionItem itemInteraction;
+    //    private GuiInteractionItem itemInteraction;
 //    private PacketGuiInteract.GuiInteractionEntity entityInteraction;
     private BlockPos tilePosition;
     private ItemStack extraItem;
@@ -147,6 +149,16 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
         AUTO_SORT_BUTTON((tile, player, extra) -> {
             if (tile instanceof TileEntityExtraFactory<?> factory) {
                 factory.toggleSorting();
+            }
+        }),
+        INJECTION_RATE((tile, player, extra) -> {
+            if (tile instanceof TileEntityNaquadahReactorCasing reactorBlock) {
+                reactorBlock.setInjectionRateFromPacket((int) Math.round(extra));
+            }
+        }),
+        LOGIC_TYPE((tile, player, extra) -> {
+            if (tile instanceof TileEntityNaquadahReactorLogicAdapter logicAdapter) {
+                logicAdapter.setLogicTypeFromPacket(TileEntityNaquadahReactorLogicAdapter.NaquadahReactorLogic.BY_ID.apply((int) Math.round(extra)));
             }
         });
 

@@ -5,13 +5,12 @@ import mekanism.common.base.IChemicalConstant;
 public enum ExtraChemicalConstants implements IChemicalConstant {
     //一定要加FF不然jei不会有流体贴图
     MOLTEN_THERMONUCLEAR("molten_thermonuclear", 0xFF810C0C, 15, 6276.3F, 2_300),
-    SILICON_TETRAFLUORIDE("silicon_tetrafluoride", 0xFFC8C8C8, 0, 100F, 4_690),
-    FLUORINATED_SILICON_URANIUM_FUEL("fluorinated_silicon_uranium_fuel", 0xFFB1B30C, 0, 500F, 6_520),
-    SILICON_URANIUM_FUEL("silicon_uranium_fuel", 0xFF837906, 0, 300F, 5_930),
-    RICH_SILICON_LIQUID_FUEL("rich_silicon_liquid_fuel", 0xFFEFEFEF, 0, 83F, 4_450),
-    RICH_URANIUM_LIQUID_FUEL("rich_uranium_liquid_fuel", 0xFF6C864A, 0, 83F, 4_850),
-    FISSILE_FUEL("fissile_fuel", 0xFF2E332F, 0, 684F, 4530),
-    SPECTRUM_PIGMENTS("spectrum_pigments", 0xFF000000, 0, 124F, 10);
+    NAQUADAH_HEXAFLUORIDE("naquadah_hexafluoride", 0xFFC8C8C8, 0, 100F, 4_690),
+    FLUORINATED_NAQUADAH_URANIUM_FUEL("fluorinated_naquadah_uranium_fuel", 0xFFB1B30C, 0, 500F, 6_520),
+    NAQUADAH_URANIUM_FUEL("naquadah_uranium_fuel", 0xFF837906, 0, 300F, 5_930),
+    RICH_NAQUADAH_FUEL("rich_naquadah_fuel", 0xFFEFEFEF, 0, 83F, 4_450),
+    RICH_URANIUM_FUEL("rich_uranium_fuel", 0xFF6C864A, 0, 83F, 4_850),
+    POLONIUM208("polonium-208", 0xFF1B9E7B, 0, 8532.8F, 4530);
 
     private final String name;
     private final int color;

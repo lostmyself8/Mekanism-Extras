@@ -1,5 +1,11 @@
 package com.jerry.mekextras.client.events;
 
+import com.jerry.genextras.client.gui.*;
+import com.jerry.genextras.client.render.RenderNaquadahReactor;
+import com.jerry.genextras.common.registries.GenExtraBlocks;
+import com.jerry.genextras.common.registries.GenExtraContainerTypes;
+import com.jerry.genextras.common.registries.GenExtraFluids;
+import com.jerry.genextras.common.registries.GenExtraTileEntityTypes;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.client.gui.*;
 import com.jerry.mekextras.client.gui.machine.GuiAdvanceElectricPump;
@@ -14,6 +20,7 @@ import com.jerry.mekextras.client.render.tileentity.ExtraRenderEnergyCube;
 import com.jerry.mekextras.client.render.tileentity.ExtraRenderFluidTank;
 import com.jerry.mekextras.client.render.transmitter.*;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekextras.common.registries.ExtraFluids;
 import com.jerry.mekextras.common.tier.TierColor;
 import com.jerry.mekextras.common.tier.ECTier;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockEnergyCube;
@@ -27,9 +34,12 @@ import mekanism.client.ClientRegistrationUtil;
 import com.jerry.mekextras.common.registries.ExtraTileEntityTypes;
 import mekanism.client.render.RenderPropertiesProvider;
 import mekanism.client.render.item.TransmitterTypeDecorator;
-import mekanism.common.registries.*;
 import mekanism.common.util.WorldUtils;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -44,6 +54,16 @@ public class ClientRegistration {
     @SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
         NeoForge.EVENT_BUS.register(new ClientTick());
+        event.enqueueWork(() -> {
+            for (Holder<Fluid> fluid : ExtraFluids.EXTRA_FLUIDS.getFluidEntries()) {
+                ItemBlockRenderTypes.setRenderLayer(fluid.value(), RenderType.translucent());
+            }
+            if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {
+                for (Holder<Fluid> fluid : GenExtraFluids.GEN_EXTRA_FLUIDS.getFluidEntries()) {
+                    ItemBlockRenderTypes.setRenderLayer(fluid.value(), RenderType.translucent());
+                }
+            }
+        });
     }
 
     @SubscribeEvent
@@ -65,6 +85,11 @@ public class ClientRegistration {
                 ExtraTileEntityTypes.SUPREME_UNIVERSAL_CABLE, ExtraTileEntityTypes.COSMIC_UNIVERSAL_CABLE, ExtraTileEntityTypes.INFINITE_UNIVERSAL_CABLE);
         ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderThermodynamicConductor::new, ExtraTileEntityTypes.ABSOLUTE_THERMODYNAMIC_CONDUCTOR,
                 ExtraTileEntityTypes.SUPREME_THERMODYNAMIC_CONDUCTOR, ExtraTileEntityTypes.COSMIC_THERMODYNAMIC_CONDUCTOR, ExtraTileEntityTypes.INFINITE_THERMODYNAMIC_CONDUCTOR);
+
+        //Generator Extras
+        if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {
+            event.registerBlockEntityRenderer(GenExtraTileEntityTypes.NAQUADAH_REACTOR_CONTROLLER.get(), RenderNaquadahReactor::new);
+        }
     }
 
     @SubscribeEvent
@@ -89,6 +114,15 @@ public class ClientRegistration {
 
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.REINFORCED_INDUCTION_MATRIX, GuiReinforcedInductionMatrix::new);
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.REINFORCED_MATRIX_STATS, GuiReinforcedMatrixStats::new);
+
+        //Generator Extras
+        if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {
+            ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_CONTROLLER, GuiNaquadahReactorController::new);
+            ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_FUEL, GuiNaquadahReactorFuel::new);
+            ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_HEAT, GuiNaquadahReactorHeat::new);
+            ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_LOGIC_ADAPTER, GuiNaquadahReactorLogicAdapter::new);
+            ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_STATS, GuiNaquadahReactorStats::new);
+        }
     }
 
     @SubscribeEvent
@@ -138,6 +172,10 @@ public class ClientRegistration {
 
     @SubscribeEvent
     public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
+        ClientRegistrationUtil.registerBucketColorHandler(event, ExtraFluids.EXTRA_FLUIDS);
+        if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {
+            ClientRegistrationUtil.registerBucketColorHandler(event, GenExtraFluids.GEN_EXTRA_FLUIDS);
+        }
         //fluid tank
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
@@ -147,7 +185,6 @@ public class ClientRegistration {
             }
             return -1;
         }, ExtraBlocks.ABSOLUTE_FLUID_TANK, ExtraBlocks.SUPREME_FLUID_TANK, ExtraBlocks.COSMIC_FLUID_TANK, ExtraBlocks.INFINITE_FLUID_TANK);
-        ClientRegistrationUtil.registerBucketColorHandler(event, MekanismFluids.FLUIDS);
 
         //energy cube
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
@@ -174,5 +211,11 @@ public class ClientRegistration {
                 ExtraBlocks.SUPREME_ENERGY_CUBE, ExtraBlocks.COSMIC_ENERGY_CUBE, ExtraBlocks.INFINITE_ENERGY_CUBE);
         ClientRegistrationUtil.registerItemExtensions(event, new RenderPropertiesProvider.MekRenderProperties(ExtraRenderFluidTankItem.EXTRA_RENDERER), ExtraBlocks.ABSOLUTE_FLUID_TANK,
                 ExtraBlocks.SUPREME_FLUID_TANK, ExtraBlocks.COSMIC_FLUID_TANK, ExtraBlocks.INFINITE_FLUID_TANK);
+        ClientRegistrationUtil.registerBlockExtensions(event, ExtraBlocks.EXTRA_BLOCKS);
+        ClientRegistrationUtil.registerFluidExtensions(event, ExtraFluids.EXTRA_FLUIDS);
+        if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {
+            ClientRegistrationUtil.registerBlockExtensions(event, GenExtraBlocks.GEN_EXTRA_BLOCKS);
+            ClientRegistrationUtil.registerFluidExtensions(event, GenExtraFluids.GEN_EXTRA_FLUIDS);
+        }
     }
 }

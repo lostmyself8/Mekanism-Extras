@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:chemical_infusing",
+  "left_input": {
+    "amount": 1,
+    "chemical": "mekanism:uranium_hexafluoride"
+  },
+  "output": {
+    "amount": 2,
+    "id": "mekanism_extras:fluorinated_naquadah_uranium_fuel"
+  },
+  "right_input": {
+    "amount": 1,
+    "chemical": "mekanism_extras:naquadah_hexafluoride"
+  }
+}

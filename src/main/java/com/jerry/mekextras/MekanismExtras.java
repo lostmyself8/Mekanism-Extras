@@ -1,5 +1,9 @@
 package com.jerry.mekextras;
 
+import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
+import com.jerry.genextras.common.content.naquadah.NaquadahReactorValidator;
+import com.jerry.genextras.common.registries.GenExtraDataComponents;
+import com.jerry.genextras.common.registries.GenExtraFluids;
 import com.jerry.mekextras.common.ExtraLang;
 import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
 import com.jerry.mekextras.common.command.builders.ExtraBuilders;
@@ -8,12 +12,14 @@ import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixMultiblockData;
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixValidator;
 import com.jerry.mekextras.common.network.ExtraPacketHandler;
 import com.jerry.mekextras.common.registries.*;
+import com.jerry.mekextras.common.integration.ExtraHooks;
 import com.mojang.logging.LogUtils;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.Version;
 import mekanism.common.lib.multiblock.MultiblockCache;
 import mekanism.common.lib.multiblock.MultiblockManager;
+import mekanism.common.recipe.ClearConfigurationRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -33,14 +39,18 @@ public class MekanismExtras {
 
     public static MekanismExtras instance;
 
+    public static ExtraHooks hooks = new ExtraHooks();
+
     public final Version versionNumber;
 
     public static final MultiblockManager<ReinforcedMatrixMultiblockData> matrixManager = new MultiblockManager<>("reinforcedInductionMatrix", MultiblockCache::new, ReinforcedMatrixValidator::new);
+    public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", MultiblockCache::new, NaquadahReactorValidator::new);
 
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public MekanismExtras(ModContainer modContainer, IEventBus modEventBus) {
         instance = this;
+        versionNumber = new Version(modContainer);
         ExtraConfig.registerConfigs(modContainer);
         NeoForge.EVENT_BUS.addListener(this::registerCommands);
         modEventBus.addListener(ExtraCapabilities::registerCapabilities);
@@ -48,14 +58,15 @@ public class MekanismExtras {
         modEventBus.addListener(ExtraConfig::onConfigLoad);
         ExtraItems.register(modEventBus);
         ExtraBlocks.register(modEventBus);
+        ExtraFluids.register(modEventBus);
         ExtraDataComponents.register(modEventBus);
         ExtraContainerTypes.register(modEventBus);
         ExtraTileEntityTypes.register(modEventBus);
         ExtraCreativeTabs.register(modEventBus);
         ExtraRecipeSerializersInternal.register(modEventBus);
         ExtraChemicals.register(modEventBus);
-        versionNumber = new Version(modContainer);
         extraPacketHandler = new ExtraPacketHandler(modEventBus, versionNumber);
+        hooks.hookConstructor(modContainer, modEventBus);
     }
 
     public static ExtraPacketHandler extraPacketHandler() {
@@ -67,10 +78,20 @@ public class MekanismExtras {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            ClearConfigurationRecipe.addAttachments(GenExtraDataComponents.NAQUADAH_LOGIC_TYPE);
+            ExtraFluids.EXTRA_FLUIDS.registerBucketDispenserBehavior();
+            if (hooks.mekanismGenerators.isLoaded()){
+                GenExtraFluids.GEN_EXTRA_FLUIDS.registerBucketDispenserBehavior();
+            }
+        });
     }
 
     private void registerCommands(RegisterCommandsEvent event) {
         BuildCommand.register("reinforced_matrix", ExtraLang.REINFORCED_MATRIX, new ExtraBuilders.ReinforcedMatrixBuilder());
+        if (hooks.mekanismGenerators.isLoaded()){
+            BuildCommand.register("naquadah", ExtraLang.NAQUADAH_REACTOR, new ExtraBuilders.NaquadahReactorBuilder());
+        }
         event.getDispatcher().register(CommandMek.register());
     }
 

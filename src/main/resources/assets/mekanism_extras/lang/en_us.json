@@ -36,9 +36,9 @@
   "item.mekanism_extras.ingot_naquadah": "Naquadah Ingot",
   "item.mekanism_extras.raw_naquadah": "Raw Naquadah",
   "item.mekanism_extras.nugget_naquadah": "Nugget Naquadah",
-  "item.mekanism_extras.silicon_tetrafluoride_bucket": "Liquid Silicon Tetrafluoride Bucket",
-  "item.mekanism_extras.fluorinated_silicon_uranium_fuel_bucket": "Liquid fluorinated Silicon Uranium Fuel Bucket",
-  "item.mekanism_extras.rich_silicon_fuel_bucket": "Liquid Rich Silicon Fuel Bucket",
+  "item.mekanism_extras.naquadah_hexafluoride_bucket": "Liquid Naquadah Hexafluoride Bucket",
+  "item.mekanism_extras.fluorinated_naquadah_uranium_fuel_bucket": "Liquid fluorinated Naquadah Uranium Fuel Bucket",
+  "item.mekanism_extras.rich_naquadah_fuel_bucket": "Liquid Rich Naquadah Fuel Bucket",
   "item.mekanism_extras.rich_uranium_fuel_bucket": "Liquid Rich Uranium Fuel Bucket",
   "item.mekanism_extras.naquadah_hohlraum": "Naquadah Hohlraum",
   "item.mekanism_extras.polonium_containing_solution_bucket": "Liquid Polonium Containing Solution Bucket",
@@ -137,9 +137,9 @@
   "block.mekanism_extras.cosmic_radioactive_waste_barrel": "Cosmic Radioactive Waste Barrel",
   "block.mekanism_extras.infinite_radioactive_waste_barrel": "Infinite Radioactive Waste Barrel",
   "block.mekanism_extras.advance_electric_pump": "Advance Electric Pump",
-  "block.mekanism_extras.silicon_tetrafluoride": "Liquid silicon Tetrafluoride",
-  "block.mekanism_extras.fluorinated_silicon_uranium_fuel": "Liquid Fluorinated Silicon Uranium Fuel",
-  "block.mekanism_extras.rich_silicon_fuel": "Liquid Rich Silicon Fuel",
+  "block.mekanism_extras.naquadah_hexafluoride": "Liquid Naquadah Hexafluoride",
+  "block.mekanism_extras.fluorinated_naquadah_uranium_fuel": "Liquid Fluorinated Naquadah Uranium Fuel",
+  "block.mekanism_extras.rich_naquadah_fuel": "Liquid Rich Naquadah Fuel",
   "block.mekanism_extras.rich_uranium_fuel": "Liquid Rich Uranium Fuel",
   "block.mekanism_extras.naquadah_reactor_controller": "Naquadah Reactor Controller",
   "block.mekanism_extras.naquadah_reactor_casing": "Naquadah Reactor Casing",
@@ -151,10 +151,10 @@
   "block.mekanism_extras.polonium-208": "polonium-208",
 
   "chemical.mekanism_extras.molten_thermonuclear": "Molten Thermonuclear",
-  "chemical.mekanism_extras.silicon_tetrafluoride": "silicon Tetrafluoride",
-  "chemical.mekanism_extras.fluorinated_silicon_uranium_fuel": "Fluorinated Silicon Uranium Fuel",
-  "chemical.mekanism_extras.silicon_uranium_fuel": "Silicon Uranium Fuel",
-  "chemical.mekanism_extras.rich_silicon_fuel": "Rich Silicon Fuel",
+  "chemical.mekanism_extras.naquadah_hexafluoride": "Naquadah Hexafluoride",
+  "chemical.mekanism_extras.fluorinated_naquadah_uranium_fuel": "Fluorinated Naquadah Uranium Fuel",
+  "chemical.mekanism_extras.naquadah_uranium_fuel": "Naquadah Uranium Fuel",
+  "chemical.mekanism_extras.rich_naquadah_fuel": "Rich Naquadah Fuel",
   "chemical.mekanism_extras.rich_uranium_fuel": "Rich Uranium Fuel",
   "chemical.mekanism_extras.polonium_containing_steam": "Polonium Containing Steam",
   "chemical.mekanism_extras.polonium-208": "Polonium-208",
@@ -270,9 +270,23 @@
   "tag.item.c.shards.naquadah": "Naquadah Shards",
   "tag.item.c.ores.naquadah": "Naquadah Ores",
 
+  "tag.item.c.buckets.fluorinated_naquadah_uranium_fuel": "Fluorinated Naquadah Uranium Fuel Buckets",
+  "tag.item.c.buckets.naquadah_hexafluoride": "Naquadah Hexafluoride Buckets",
+  "tag.item.c.buckets.polonium-208": "Polonium-208 Buckets",
+  "tag.item.c.buckets.polonium_containing_solution": "Polonium Containing Solution Buckets",
+  "tag.item.c.buckets.rich_naquadah_fuel": "Rich Naquadah Fuel Buckets",
+  "tag.item.c.buckets.rich_uranium_fuel": "Rich Uranium Fuel Buckets",
+
   "tag.block.c.storage_blocks.naquadah": "Naquadah Storage Blocks",
   "tag.block.c.storage_blocks.raw_naquadah": "Raw Naquadah Storage Blocks",
   "tag.block.c.ores.naquadah": "Naquadah Ores",
+
+  "tag.fluid.c.fluorinated_naquadah_uranium_fuel": "Fluorinated Naquadah Uranium Fuel",
+  "tag.fluid.c.naquadah_hexafluoride": "Naquadah Hexafluoride",
+  "tag.fluid.c.polonium-208": "Polonium-208",
+  "tag.fluid.c.polonium_containing_solution": "Polonium Containing Solution",
+  "tag.fluid.c.rich_naquadah_fuel": "Rich Naquadah Fuel",
+  "tag.fluid.c.rich_uranium_fuel": "Rich Uranium Fuel",
 
   "matrix.mekanism_extras.reinforced_induction_matrix": "Reinforced Induction Matrix",
 
@@ -299,7 +313,9 @@
   "advancements.mekanism_extras.creative_upgrade.title": "You actually got it?",
   "advancements.mekanism_extras.creative_upgrade.description": "If the modpack didn’t add a recipe, you cheated, right?",
 
-  "info.mekanism_extras.jei.rich_silicon_fuel": "Rich Silicon Fuel can be extracted from a Silicon Tetrafluoride source block via an advance electric pump with a filter upgrade installed.",
-  "info.mekanism_extras.jei.rich_uranium_fuel": "Rich Uranium Fuel can be extracted from a Uranium Hexafluoride source block via an advance electric pump with a filter upgrade installed.",
-  "info.mekanism_extras.jei.polonium_containing_solution": "When coolant is injected into a Naquadah Reactor, the generated steam will capture polonium-208 that does not decay in the reactor, resulting in polonium containing steam."
+  "info.mekanism_extras.jei.rich_naquadah_fuel": "Rich Naquadah Fuel can be extracted from a Naquadah Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
+  "info.mekanism_extras.jei.rich_uranium_fuel": "Rich Uranium Fuel can be extracted from a Uranium Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
+  "info.mekanism_extras.jei.polonium_containing_solution": "When coolant is injected into a Naquadah Reactor, the generated steam will capture polonium-208 that does not decay in the reactor, resulting in polonium containing steam.",
+
+  "fml.menu.mods.info.description.mekanism_extras": "Ported \"Mekanism-Evolution\" to a higher version and added some other things as well"
 }

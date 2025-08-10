@@ -1,5 +1,7 @@
 package com.jerry.mekextras.common.network.to_server.button;
 
+import com.jerry.genextras.common.registries.GenExtraContainerTypes;
+import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.registries.ExtraContainerTypes;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
@@ -10,7 +12,9 @@ import mekanism.common.block.attribute.AttributeGui;
 import mekanism.common.network.IMekanismPacket;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.WorldUtils;
+import mekanism.generators.common.GeneratorsLang;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -20,19 +24,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 
-public record ExtraPacketTileButtonPress(ExtraPacketTileButtonPress.ClickedTileButton buttonClicked, BlockPos pos) implements IMekanismPacket {
+public record ExtraPacketTileButtonPress(ClickedTileButton buttonClicked,
+                                         BlockPos pos) implements IMekanismPacket {
     public static final CustomPacketPayload.Type<ExtraPacketTileButtonPress> TYPE = new CustomPacketPayload.Type<>(MekanismExtras.rl("tile_button"));
-    public static final StreamCodec<ByteBuf, ExtraPacketTileButtonPress> STREAM_CODEC;
+    public static final StreamCodec<ByteBuf, ExtraPacketTileButtonPress> STREAM_CODEC = StreamCodec.composite(ExtraPacketTileButtonPress.ClickedTileButton.STREAM_CODEC, ExtraPacketTileButtonPress::buttonClicked, BlockPos.STREAM_CODEC, ExtraPacketTileButtonPress::pos, ExtraPacketTileButtonPress::new);
 
     public ExtraPacketTileButtonPress(ClickedTileButton buttonClicked, BlockEntity tile) {
         this(buttonClicked, tile.getBlockPos());
     }
 
-    public ExtraPacketTileButtonPress(ExtraPacketTileButtonPress.ClickedTileButton buttonClicked, BlockPos pos) {
+    public ExtraPacketTileButtonPress(ClickedTileButton buttonClicked, BlockPos pos) {
         this.buttonClicked = buttonClicked;
         this.pos = pos;
     }
@@ -46,8 +53,12 @@ public record ExtraPacketTileButtonPress(ExtraPacketTileButtonPress.ClickedTileB
     public void handle(IPayloadContext context) {
         Player player = context.player();
         TileEntityMekanism tile = WorldUtils.getTileEntity(TileEntityMekanism.class, player.level(), pos);
-        if (tile != null) {
-            player.openMenu(buttonClicked.getProvider(tile), pos);
+        MenuProvider provider = buttonClicked.getProvider(tile);
+        if (provider != null) {
+            player.openMenu(provider, buf -> {
+                buf.writeBlockPos(pos);
+                buttonClicked.encodeExtraData(buf, tile);
+            });
         }
     }
 
@@ -57,10 +68,6 @@ public record ExtraPacketTileButtonPress(ExtraPacketTileButtonPress.ClickedTileB
 
     public BlockPos pos() {
         return this.pos;
-    }
-
-    static {
-        STREAM_CODEC = StreamCodec.composite(ExtraPacketTileButtonPress.ClickedTileButton.STREAM_CODEC, ExtraPacketTileButtonPress::buttonClicked, BlockPos.STREAM_CODEC, ExtraPacketTileButtonPress::pos, ExtraPacketTileButtonPress::new);
     }
 
     public enum ClickedTileButton {
@@ -75,9 +82,13 @@ public record ExtraPacketTileButtonPress(ExtraPacketTileButtonPress.ClickedTileB
             }
             return null;
         }),
+        TAB_HEAT(tile -> GenExtraContainerTypes.NAQUADAH_REACTOR_HEAT.getProvider(GeneratorsLang.FUSION_REACTOR, tile)),
+        TAB_FUEL(tile -> GenExtraContainerTypes.NAQUADAH_REACTOR_FUEL.getProvider(GeneratorsLang.FUSION_REACTOR, tile)),
         TAB_STATS(tile -> {
             if (tile instanceof TileEntityReinforcedInductionCasing) {
                 return ExtraContainerTypes.REINFORCED_MATRIX_STATS.getProvider(MekanismLang.MATRIX_STATS, tile);
+            } else if (tile instanceof TileEntityNaquadahReactorController) {
+                return GenExtraContainerTypes.NAQUADAH_REACTOR_STATS.getProvider(GeneratorsLang.FUSION_REACTOR, tile);
             }
             return null;
         });
@@ -85,13 +96,26 @@ public record ExtraPacketTileButtonPress(ExtraPacketTileButtonPress.ClickedTileB
         public static final IntFunction<ExtraPacketTileButtonPress.ClickedTileButton> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
         public static final StreamCodec<ByteBuf, ExtraPacketTileButtonPress.ClickedTileButton> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
         private final Function<TileEntityMekanism, MenuProvider> providerFromTile;
+        @Nullable
+        private final BiConsumer<RegistryFriendlyByteBuf, TileEntityMekanism> extraEncodingData;
 
-        ClickedTileButton(Function<TileEntityMekanism, MenuProvider> providerFromTile) {
+        ClickedTileButton(Function<TileEntityMekanism, @Nullable MenuProvider> providerFromTile) {
+            this(providerFromTile, null);
+        }
+
+        ClickedTileButton(Function<TileEntityMekanism, MenuProvider> providerFromTile, @Nullable BiConsumer<RegistryFriendlyByteBuf, TileEntityMekanism> extraEncodingData) {
             this.providerFromTile = providerFromTile;
+            this.extraEncodingData = extraEncodingData;
         }
 
         public MenuProvider getProvider(TileEntityMekanism tile) {
-            return providerFromTile.apply(tile);
+            return tile == null ? null : providerFromTile.apply(tile);
+        }
+
+        private void encodeExtraData(RegistryFriendlyByteBuf buffer, TileEntityMekanism tile) {
+            if (extraEncodingData != null) {
+                extraEncodingData.accept(buffer, tile);
+            }
         }
     }
 }

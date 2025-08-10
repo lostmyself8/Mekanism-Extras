@@ -16,6 +16,11 @@ public class ExtraChemicals {
 
     // Gas
     public static final DeferredChemical<Chemical> MOLTEN_THERMONUCLEAR = EXTRA_CHEMICALS.register(ExtraChemicalConstants.MOLTEN_THERMONUCLEAR);
+    public static final DeferredChemical<Chemical> NAQUADAH_TETRAFLUORIDE = EXTRA_CHEMICALS.register(ExtraChemicalConstants.NAQUADAH_HEXAFLUORIDE);
+    public static final DeferredChemical<Chemical> FLUORINATED_NAQUADAH_URANIUM_FUEL = EXTRA_CHEMICALS.register(ExtraChemicalConstants.FLUORINATED_NAQUADAH_URANIUM_FUEL);
+    public static final DeferredChemical<Chemical> NAQUADAH_URANIUM_FUEL = EXTRA_CHEMICALS.register(ExtraChemicalConstants.NAQUADAH_URANIUM_FUEL);
+    public static final DeferredChemical<Chemical> RICH_NAQUADAH_FUEL = EXTRA_CHEMICALS.register(ExtraChemicalConstants.RICH_NAQUADAH_FUEL);
+    public static final DeferredChemical<Chemical> RICH_URANIUM_FUEL = EXTRA_CHEMICALS.register(ExtraChemicalConstants.RICH_URANIUM_FUEL);
 
     // Infuse Type
     public static final DeferredChemical<Chemical> RADIANCE = EXTRA_CHEMICALS.registerInfuse("radiance", 0xC4C604);

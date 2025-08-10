@@ -5,8 +5,12 @@ license = "${mod_license}"
 [[mods]]
     modId = "${mod_id}"
     version = "${mod_version}"
-    displayName = "${mod_name}"
+    displayName = "Mekanism Extras"
+    displayURL= "https://www.curseforge.com/members/lost_myself8/projects"
+    logoFile= "logo.png"
+    credits="Thank you to all those who have made any contributions to this mod"
     authors = "${mod_authors}"
+    description = '''${mod_description}'''
 
 [[mixins]]
     config = "mekextra.mixins.json"

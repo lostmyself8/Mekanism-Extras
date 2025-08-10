@@ -644,7 +644,12 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
             }
             ItemStack item = entry.getKey();
             //Note: This isn't based on any limits the slot may have (but we currently don't have any reduced ones here, so it doesn't matter)
-            int maxStackSize = item.getMaxStackSize();
+            int maxStackSize = switch (tier) {
+                case ABSOLUTE -> item.getMaxStackSize() * 8;
+                case SUPREME -> item.getMaxStackSize() * 16;
+                case COSMIC -> item.getMaxStackSize() * 32;
+                case INFINITE -> item.getMaxStackSize() * 64;
+            };
             int numberPerSlot = recipeProcessInfo.totalCount / processCount;
             if (numberPerSlot == maxStackSize) {
                 //If all the slots are already maxed out; short-circuit, no balancing is needed

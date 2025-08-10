@@ -1,7 +1,9 @@
 package com.jerry.mekextras.common.tile.machine;
 
+import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.common.config.ExtraConfig;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
+import com.jerry.mekextras.common.registries.ExtraFluids;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.*;
 import mekanism.common.Mekanism;
@@ -249,6 +251,8 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
     }
 
     private FluidStack getOutput(Fluid sourceFluid, boolean hasFilter) {
+        // 是否安装了离子膜升级
+        boolean hasMembrane = upgradeComponent.isUpgradeInstalled(ExtraUpgrade.IONIC_MEMBRANE);
         if (sourceFluid == Fluids.WATER) {
             if (hasFilter) {
                 //The speed of pumping heavy water
@@ -257,6 +261,16 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
             //The speed of pumping water
             return MekanismConfig.general.pumpInfiniteFluidSources.get() ? new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME)
                     : new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME * 100);
+        }
+        if(sourceFluid == ExtraFluids.NAQUADAH_HEXAFLUORIDE.get()) {
+            if (hasMembrane) {
+                return new FluidStack(ExtraFluids.RICH_NAQUADAH_FUEL.get(), FluidType.BUCKET_VOLUME);
+            }
+        }
+        if(sourceFluid == MekanismFluids.URANIUM_HEXAFLUORIDE.get()) {
+            if (hasMembrane) {
+                return new FluidStack(ExtraFluids.RICH_URANIUM_FUEL.get(), FluidType.BUCKET_VOLUME);
+            }
         }
         return new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME);
     }

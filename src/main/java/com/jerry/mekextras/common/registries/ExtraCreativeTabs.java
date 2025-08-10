@@ -1,5 +1,8 @@
 package com.jerry.mekextras.common.registries;
 
+import com.jerry.genextras.common.registries.GenExtraBlocks;
+import com.jerry.genextras.common.registries.GenExtraFluids;
+import com.jerry.genextras.common.registries.GenExtraItems;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.ExtraLang;
 import mekanism.common.registration.MekanismDeferredHolder;
@@ -12,10 +15,16 @@ public class ExtraCreativeTabs {
     public static final CreativeTabDeferredRegister EXTRA_CREATIVE_TABS = new CreativeTabDeferredRegister(MekanismExtras.MOD_ID, ExtraCreativeTabs::addToExistingTabs);
 
     public static final MekanismDeferredHolder<CreativeModeTab, CreativeModeTab> MEK_EXTRAS = EXTRA_CREATIVE_TABS.registerMain(ExtraLang.MEK_EXTRAS, ExtraItems.INFINITE_CONTROL_CIRCUIT, builder ->
-                    builder.displayItems((displayParameters, output) -> {
-                                CreativeTabDeferredRegister.addToDisplay(ExtraItems.EXTRA_ITEMS, output);
-                                CreativeTabDeferredRegister.addToDisplay(ExtraBlocks.EXTRA_BLOCKS, output);
-                            })
+            builder.displayItems((displayParameters, output) -> {
+                CreativeTabDeferredRegister.addToDisplay(ExtraItems.EXTRA_ITEMS, output);
+                CreativeTabDeferredRegister.addToDisplay(ExtraBlocks.EXTRA_BLOCKS, output);
+                CreativeTabDeferredRegister.addToDisplay(ExtraFluids.EXTRA_FLUIDS, output);
+                if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {
+                    CreativeTabDeferredRegister.addToDisplay(GenExtraItems.GEN_EXTRA_ITEMS, output);
+                    CreativeTabDeferredRegister.addToDisplay(GenExtraBlocks.GEN_EXTRA_BLOCKS, output);
+                    CreativeTabDeferredRegister.addToDisplay(GenExtraFluids.GEN_EXTRA_FLUIDS, output);
+                }
+            })
     );
 
     private static void addToExistingTabs(BuildCreativeModeTabContentsEvent buildCreativeModeTabContentsEvent) {

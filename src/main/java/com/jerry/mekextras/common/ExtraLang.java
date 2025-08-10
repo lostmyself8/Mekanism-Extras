@@ -11,12 +11,17 @@ public enum ExtraLang implements ILangEntry {
     STOP_FLASHING("pack", "pack_name"),
 //    STOP_FLASHING_DESC("pack", "pack_description"),
 
+    //JEI
+    RECIPE_VIEWER_INFO_RICH_NAQUADAH_FUEL("info", "jei.rich_naquadah_fuel"),
+    RECIPE_VIEWER_INFO_RICH_URANIUM_FUEL("info", "jei.rich_uranium_fuel"),
+
     //Upgrades
     UPGRADES_STACK("gui", "upgrades.stack"),
     ENERGY_CONSUMPTION("gui", "energy_consumption"),
 
     //Reinforced Induction Matrix
-    REINFORCED_MATRIX("matrix", "reinforced_induction_matrix");
+    REINFORCED_MATRIX("matrix", "reinforced_induction_matrix"),
+    NAQUADAH_REACTOR("reactor", "naquadah_reactor");
     private final String key;
 
     ExtraLang(String type, String path) {
