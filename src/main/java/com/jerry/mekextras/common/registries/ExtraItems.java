@@ -6,10 +6,7 @@ import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.api.tier.ExtraAlloyTier;
-import com.jerry.mekextras.common.item.ExtraItemAlloy;
-import com.jerry.mekextras.common.item.ItemAlloyRadiance;
-import com.jerry.mekextras.common.item.ExtraItemTierInstaller;
-import com.jerry.mekextras.common.item.ExtraItemQIODrive;
+import com.jerry.mekextras.common.item.*;
 import com.jerry.mekextras.common.resource.ExtraResource;
 import com.jerry.mekextras.common.tier.ExtraQIODriveTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
@@ -61,10 +58,12 @@ public class ExtraItems {
     public static final ItemRegistryObject<ExtraItemAlloy> SPECTRUM_ALLOY = registerAlloy(ExtraAlloyTier.SPECTRUM, Rarity.EPIC);
 
     public static final ItemRegistryObject<Item> ENRICHED_OSMIUM = registerEnrich("osmium", Rarity.COMMON);
+    public static final ItemRegistryObject<Item> ENRICHED_LEAD = registerEnrich("lead", Rarity.COMMON);
     public static final ItemRegistryObject<Item> ENRICHED_RADIANCE = registerEnrich("radiance", Rarity.COMMON);
     public static final ItemRegistryObject<Item> ENRICHED_THERMONUCLEAR = registerEnrich("thermonuclear", Rarity.UNCOMMON);
     public static final ItemRegistryObject<Item> ENRICHED_SHINING = registerEnrich("shining", Rarity.RARE);
     public static final ItemRegistryObject<Item> ENRICHED_SPECTRUM = registerEnrich("spectrum", Rarity.EPIC);
+
     public static final ItemRegistryObject<Item> DUST_RADIANCE = EXTRA_ITEMS.register("dust_radiance");
 
     static {
@@ -111,6 +110,7 @@ public class ExtraItems {
     private static ItemRegistryObject<Item> registerEnrich(String name, Rarity rarity) {
         return EXTRA_ITEMS.registerItem("enriched_" + name, properties -> new Item(properties.rarity(rarity)));
     }
+
     public static void register(IEventBus eventBus) {
         EXTRA_ITEMS.register(eventBus);
     }

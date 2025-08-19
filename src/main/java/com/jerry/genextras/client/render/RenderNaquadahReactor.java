@@ -37,13 +37,13 @@ public class RenderNaquadahReactor extends MultiblockTileEntityRenderer<Naquadah
         matrix.pushPose();
         matrix.translate(0.5, -3.5, 0.5);
         float scale = 1 + 0.7F * sinDegrees(3.14F * scaledTemp + 135);
-        renderPart(matrix, buffer, overlayLight, EnumColor.RED, scale, ticks, -6, -7, 0, 36);
+        renderPart(matrix, buffer, overlayLight, EnumColor.DARK_GREEN, scale, ticks, -6, -7, 0, 36);
 
         scale = 1 + 0.8F * sinDegrees(3 * scaledTemp);
-        renderPart(matrix, buffer, overlayLight, EnumColor.PINK, scale, ticks, 4, 4, 0, 36);
+        renderPart(matrix, buffer, overlayLight, EnumColor.YELLOW, scale, ticks, 4, 4, 0, 36);
 
         scale = 1 - 0.9F * sinDegrees(4 * scaledTemp + 90);
-        renderPart(matrix, buffer, overlayLight, EnumColor.ORANGE, scale, ticks, 5, -3, -35, 106);
+        renderPart(matrix, buffer, overlayLight, EnumColor.WHITE, scale, ticks, 5, -3, -35, 106);
 
         matrix.popPose();
         endIfNeeded(renderer, core.RENDER_TYPE);

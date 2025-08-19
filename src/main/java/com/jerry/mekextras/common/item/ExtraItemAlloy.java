@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public class ExtraItemAlloy extends Item {
 
     private final ExtraAlloyTier tier;
+
     public ExtraItemAlloy(ExtraAlloyTier tier, Properties properties) {
         super(properties);
         this.tier = tier;

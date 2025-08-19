@@ -1,9 +1,6 @@
 package com.jerry.genextras.common.registries;
 
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorPort;
+import com.jerry.genextras.common.tile.naquadah.*;
 import com.jerry.mekextras.MekanismExtras;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.integration.energy.EnergyCompatUtils;
@@ -47,5 +44,12 @@ public class GenExtraTileEntityTypes {
             .serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIGURABLE)
             .withSimple(Capabilities.CONFIG_CARD)
+            .build();
+    public static final TileEntityTypeRegistryObject<TileEntityLeadCoatedLaserFocusMatrix> LEAD_COATED_LASER_FOCUS_MATRIX = GEN_EXTRA_TILE_ENTITY_TYPES
+            .mekBuilder(GenExtraBlocks.LEAD_COATED_LASER_FOCUS_MATRIX, TileEntityLeadCoatedLaserFocusMatrix::new)
+            .clientTicker(TileEntityMekanism::tickClient)
+            .serverTicker(TileEntityMekanism::tickServer)
+            .withSimple(Capabilities.LASER_RECEPTOR)
+            .withSimple(Capabilities.CONFIGURABLE)
             .build();
 }

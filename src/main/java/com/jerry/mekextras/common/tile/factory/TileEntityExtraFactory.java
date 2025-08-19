@@ -379,7 +379,11 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
     // 高级工厂都能插入创造升级，使用不必判断是否能安装
     @ComputerMethod(methodDescription = "Total number of ticks it takes currently for the recipe to complete")
     public int getTicksRequired() {
-        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 :ticksRequired;
+        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 : ticksRequired;
+    }
+
+    public int getChemicalTicksRequired() {
+        return ticksRequired;
     }
 
     @Override
@@ -428,7 +432,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        ((IMixinMachineEnergyContainer)getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
+        ((IMixinMachineEnergyContainer) getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
         } else if (upgrade == ExtraUpgrade.STACK) {

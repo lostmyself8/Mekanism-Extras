@@ -9,7 +9,7 @@
     "extra": {
       "connect_to": [
         {
-          "block": "mekanism_extras:lead_coated_glass"
+          "block": "mekanismgenerators:reactor_glass"
         },
         {
           "block": "mekanism_extras:lead_coated_laser_focus_matrix"

@@ -1,7 +1,7 @@
 package com.jerry.genextras.client.gui;
 
+import com.jerry.genextras.common.network.to_server.PacketGenExtraGuiInteract;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
-import com.jerry.mekextras.common.network.to_server.ExtraPacketGuiInteract;
 import mekanism.api.text.EnumColor;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiElementHolder;
@@ -46,7 +46,7 @@ public class GuiNaquadahReactorLogicAdapter extends GuiMekanismTile<TileEntityNa
 
     private void changeLogic(TileEntityNaquadahReactorLogicAdapter.NaquadahReactorLogic type) {
         if (type != null) {
-            PacketUtils.sendToServer(new ExtraPacketGuiInteract(ExtraPacketGuiInteract.ExtraGuiInteraction.LOGIC_TYPE, tile, type.ordinal()));
+            PacketUtils.sendToServer(new PacketGenExtraGuiInteract(PacketGenExtraGuiInteract.GenExtraGuiInteraction.LOGIC_TYPE, tile, type.ordinal()));
         }
     }
 

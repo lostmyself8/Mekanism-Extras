@@ -65,7 +65,7 @@ public class NaquadahReactorValidator extends CuboidStructureValidator<NaquadahR
         } else if (BlockType.is(block, GenExtraBlockTypes.NAQUADAH_REACTOR_PORT)) {
             return FormationProtocol.CasingType.VALVE;
         } else if (BlockType.is(block, GenExtraBlockTypes.NAQUADAH_REACTOR_CONTROLLER,
-                GenExtraBlockTypes.NAQUADAH_REACTOR_LOGIC_ADAPTER)) {
+                GenExtraBlockTypes.NAQUADAH_REACTOR_LOGIC_ADAPTER, GenExtraBlockTypes.LEAD_COATED_LASER_FOCUS_MATRIX)) {
             return FormationProtocol.CasingType.OTHER;
         }
         return FormationProtocol.CasingType.INVALID;

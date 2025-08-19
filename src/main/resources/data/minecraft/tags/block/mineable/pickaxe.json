@@ -95,7 +95,6 @@
     {"id": "mekanism_extras:naquadah_reactor_casing", "required": false},
     {"id": "mekanism_extras:naquadah_reactor_port", "required": false},
     {"id": "mekanism_extras:naquadah_reactor_logic_adapter", "required": false},
-    {"id": "mekanism_extras:lead_coated_glass", "required": false},
     {"id": "mekanism_extras:lead_coated_laser_focus_matrix", "required": false}
   ]
 }

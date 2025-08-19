@@ -29,6 +29,7 @@ public class ExtraChemicals {
 //    public static final DeferredChemical<Chemical> SPECTRUM = EXTRA_CHEMICALS.register("spectrum", MekanismExtras.rl("infuse_type/spectrum"), 0x74656A);
     public static final DeferredChemical<Chemical> SHINING = EXTRA_CHEMICALS.registerInfuse("shining",0xFBE0FE);
     public static final DeferredChemical<Chemical> SPECTRUM = EXTRA_CHEMICALS.registerInfuse("spectrum",0x1D1D29);
+    public static final DeferredChemical<Chemical> LEAD = EXTRA_CHEMICALS.registerInfuse("lead",0x627370);
 
     // Slurry
     // 如果之后有更多矿物可以使用批量添加

@@ -1,6 +1,5 @@
 package com.jerry.mekextras.common.tile.factory;
 
-import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.common.inventory.slot.chemical.ExtraFactoryChemicalInventorySlot;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
@@ -111,7 +110,7 @@ public class TileEntityItemStackChemicalToItemStackExtraFactory extends TileEnti
         } else {
             //插入创造升级后getTicksRequired变为0，导致chemicalUsageMultiplier为0，也就意味着不消耗化学品。
             //因此处理化学品消耗时按1计算，而工作时间依旧为0
-            chemicalUsageMultiplier = ChemicalUsageMultiplier.constantUse(() -> baseTotalUsage, upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) && type == FactoryType.COMPRESSING ? () -> 1 : this::getTicksRequired);
+            chemicalUsageMultiplier = ChemicalUsageMultiplier.constantUse(() -> baseTotalUsage, this::getChemicalTicksRequired);
         }
     }
 

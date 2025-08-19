@@ -1,8 +1,8 @@
 package com.jerry.genextras.client.gui;
 
 import com.jerry.genextras.client.gui.element.GuiNaquadahReactorTab;
+import com.jerry.genextras.common.network.to_server.PacketGenExtraGuiInteract;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
-import com.jerry.mekextras.common.network.to_server.ExtraPacketGuiInteract;
 import mekanism.client.gui.element.gauge.GaugeType;
 import mekanism.client.gui.element.gauge.GuiChemicalGauge;
 import mekanism.client.gui.element.progress.GuiProgress;
@@ -29,9 +29,9 @@ public class GuiNaquadahReactorFuel extends GuiNaquadahReactorInfo {
     @Override
     public void addGuiElements() {
         super.addGuiElements();
-        addRenderableWidget(new GuiChemicalGauge(() -> tile.getMultiblock().deuteriumTank, () -> tile.getMultiblock().getChemicalTanks(null), GaugeType.SMALL, this, 30, 64));
+        addRenderableWidget(new GuiChemicalGauge(() -> tile.getMultiblock().naquadahTank, () -> tile.getMultiblock().getChemicalTanks(null), GaugeType.SMALL, this, 30, 64));
         addRenderableWidget(new GuiChemicalGauge(() -> tile.getMultiblock().fuelTank, () -> tile.getMultiblock().getChemicalTanks(null), GaugeType.STANDARD, this, 84, 50));
-        addRenderableWidget(new GuiChemicalGauge(() -> tile.getMultiblock().tritiumTank, () -> tile.getMultiblock().getChemicalTanks(null), GaugeType.SMALL, this, 138, 64));
+        addRenderableWidget(new GuiChemicalGauge(() -> tile.getMultiblock().uraniumTank, () -> tile.getMultiblock().getChemicalTanks(null), GaugeType.SMALL, this, 138, 64));
         addRenderableWidget(new GuiProgress(() -> tile.getMultiblock().isBurning(), ProgressType.SMALL_RIGHT, this, 52, 76));
         addRenderableWidget(new GuiProgress(() -> tile.getMultiblock().isBurning(), ProgressType.SMALL_LEFT, this, 106, 76));
         addRenderableWidget(new GuiNaquadahReactorTab(this, tile, GuiNaquadahReactorTab.NaquadahReactorTab.HEAT));
@@ -52,7 +52,7 @@ public class GuiNaquadahReactorFuel extends GuiNaquadahReactorInfo {
 
     private void setInjection() {
         if (!injectionRateField.getText().isEmpty()) {
-            PacketUtils.sendToServer(new ExtraPacketGuiInteract(ExtraPacketGuiInteract.ExtraGuiInteraction.INJECTION_RATE, tile, Integer.parseInt(injectionRateField.getText())));
+            PacketUtils.sendToServer(new PacketGenExtraGuiInteract(PacketGenExtraGuiInteract.GenExtraGuiInteraction.INJECTION_RATE, tile, Integer.parseInt(injectionRateField.getText())));
             injectionRateField.setText("");
         }
     }

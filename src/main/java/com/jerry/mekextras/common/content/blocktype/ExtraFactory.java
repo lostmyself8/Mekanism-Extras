@@ -42,7 +42,8 @@ public class ExtraFactory<TILE extends TileEntityExtraFactory<?>> extends ExtraM
     private void setMachineData(ExtraFactoryTier tier) {
         setFrom(origMachine, AttributeSound.class, AttributeFactoryType.class, AttributeUpgradeSupport.class);
         AttributeEnergy origEnergy = origMachine.get(AttributeEnergy.class);
-        add(new AttributeEnergy(origEnergy::getUsage, () -> MathUtils.clampToLong(Math.max(origEnergy.getConfigStorage() * 2, origEnergy.getUsage()) * tier.processes)));
+        //origEnergy.getConfigStorage()原本为0.5倍
+        add(new AttributeEnergy(origEnergy::getUsage, () -> MathUtils.clampToLong(Math.max(origEnergy.getConfigStorage(), origEnergy.getUsage()) * tier.processes)));
     }
 
     public static class ExtraFactoryBuilder<FACTORY extends ExtraFactory<TILE>, TILE extends TileEntityExtraFactory<?>, T extends ExtraMachine.ExtraMachineBuilder<FACTORY, TILE, T>>

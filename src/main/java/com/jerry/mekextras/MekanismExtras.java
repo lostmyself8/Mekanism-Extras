@@ -1,8 +1,8 @@
 package com.jerry.mekextras;
 
+import com.jerry.genextras.common.content.naquadah.NaquadahReactorCache;
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorValidator;
-import com.jerry.genextras.common.registries.GenExtraDataComponents;
 import com.jerry.genextras.common.registries.GenExtraFluids;
 import com.jerry.mekextras.common.ExtraLang;
 import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
@@ -19,7 +19,6 @@ import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.Version;
 import mekanism.common.lib.multiblock.MultiblockCache;
 import mekanism.common.lib.multiblock.MultiblockManager;
-import mekanism.common.recipe.ClearConfigurationRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -44,9 +43,9 @@ public class MekanismExtras {
     public final Version versionNumber;
 
     public static final MultiblockManager<ReinforcedMatrixMultiblockData> matrixManager = new MultiblockManager<>("reinforcedInductionMatrix", MultiblockCache::new, ReinforcedMatrixValidator::new);
-    public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", MultiblockCache::new, NaquadahReactorValidator::new);
+    public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", NaquadahReactorCache::new, NaquadahReactorValidator::new);
 
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public MekanismExtras(ModContainer modContainer, IEventBus modEventBus) {
         instance = this;
@@ -79,7 +78,6 @@ public class MekanismExtras {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            ClearConfigurationRecipe.addAttachments(GenExtraDataComponents.NAQUADAH_LOGIC_TYPE);
             ExtraFluids.EXTRA_FLUIDS.registerBucketDispenserBehavior();
             if (hooks.mekanismGenerators.isLoaded()){
                 GenExtraFluids.GEN_EXTRA_FLUIDS.registerBucketDispenserBehavior();

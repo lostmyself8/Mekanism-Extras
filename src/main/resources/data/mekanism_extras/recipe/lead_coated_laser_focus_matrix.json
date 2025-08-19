@@ -1,16 +1,16 @@
 {
   "type": "mekanism:metallurgic_infusing",
   "chemical_input": {
-    "amount": 40,
-    "tag": "mekanism_extras:radiance"
+    "amount": 10,
+    "tag": "mekanism_extras:lead"
   },
   "item_input": {
     "count": 1,
-    "tag": "mekanism:alloys/atomic"
+    "item": "mekanismgenerators:laser_focus_matrix"
   },
   "output": {
     "count": 1,
-    "id": "mekanism_extras:alloy_radiance"
+    "id": "mekanism_extras:lead_coated_laser_focus_matrix"
   },
   "per_tick_usage": false
 }

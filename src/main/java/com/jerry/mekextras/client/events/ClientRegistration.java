@@ -48,7 +48,7 @@ import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
-@EventBusSubscriber(modid = MekanismExtras.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MekanismExtras.MOD_ID, value = Dist.CLIENT)
 public class ClientRegistration {
 
     @SubscribeEvent

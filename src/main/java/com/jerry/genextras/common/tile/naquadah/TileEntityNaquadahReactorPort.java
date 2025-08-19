@@ -30,13 +30,15 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasing{
+public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasing {
 
     private final Map<Direction, BlockCapabilityCache<IChemicalHandler, @Nullable Direction>> chemicalCapabilityCaches = new EnumMap<>(Direction.class);
     private final Map<Direction, BlockEnergyCapabilityCache> energyCapabilityCaches = new EnumMap<>(Direction.class);
 
     public TileEntityNaquadahReactorPort(BlockPos pos, BlockState state) {
         super(GenExtraBlocks.NAQUADAH_REACTOR_PORT, pos, state);
+        //没有这个会导致连续切换模式时卡住
+        delaySupplier = NO_DELAY;
     }
 
     @NotNull

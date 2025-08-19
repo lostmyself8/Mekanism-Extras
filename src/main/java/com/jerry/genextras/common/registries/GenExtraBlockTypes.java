@@ -1,10 +1,8 @@
 package com.jerry.genextras.common.registries;
 
 import com.jerry.genextras.common.GenExtraLang;
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorPort;
+import com.jerry.genextras.common.tile.naquadah.*;
+import mekanism.common.block.attribute.AttributeMultiblock;
 import mekanism.common.block.attribute.Attributes;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.generators.common.GeneratorsLang;
@@ -43,5 +41,10 @@ public class GenExtraBlockTypes {
             .with(new Attributes.AttributeRedstoneEmitter<>(TileEntityNaquadahReactorLogicAdapter::getRedstoneLevel))
             .externalMultiblock()
             .withComputerSupport("naquadahReactorLogicAdapter")
+            .build();
+    // Lead Coated Laser Focus Matrix
+    public static final BlockTypeTile<TileEntityLeadCoatedLaserFocusMatrix> LEAD_COATED_LASER_FOCUS_MATRIX = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> GenExtraTileEntityTypes.LEAD_COATED_LASER_FOCUS_MATRIX, GeneratorsLang.DESCRIPTION_LASER_FOCUS_MATRIX)
+            .with(AttributeMultiblock.EXTERNAL, Attributes.AttributeMobSpawn.NEVER)
             .build();
 }

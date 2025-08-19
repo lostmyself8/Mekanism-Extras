@@ -2,6 +2,7 @@ package com.jerry.genextras.common.content.naquadah;
 
 import com.jerry.genextras.common.GeneratorExtraTags;
 import com.jerry.genextras.common.item.ItemNaquadahHohlraum;
+import com.jerry.genextras.common.registries.GenExtraChemicals;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorPort;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -29,7 +30,6 @@ import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.inventory.container.sync.dynamic.ContainerSync;
 import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
-import mekanism.common.registries.MekanismChemicals;
 import mekanism.common.tile.prefab.TileEntityStructuralMultiblock;
 import mekanism.common.util.*;
 import com.jerry.genextras.common.config.GeneratorsExtraConfig;
@@ -61,7 +61,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
 
     public static final int MAX_INJECTION = 98;//this is the effective cap in the GUI, as text field is limited to 2 chars
     //Reaction characteristics
-    private static final double burnTemperature = 100_000_000;
+    private static final double burnTemperature = 400_000_000;
     private static final double burnRatio = 1;
     //Thermal characteristics
     private static final long plasmaHeatCapacity = 100;
@@ -103,16 +103,16 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
     public double lastTransferLoss;
 
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getDeuterium", "getDeuteriumCapacity", "getDeuteriumNeeded",
-            "getDeuteriumFilledPercentage"}, docPlaceholder = "deuterium tank")
-    public IChemicalTank deuteriumTank;
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getNaquadah", "getNaquadahCapacity", "getNaquadahNeeded",
+            "getNaquadahFilledPercentage"}, docPlaceholder = "naquadah tank")
+    public IChemicalTank naquadahTank;
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getTritium", "getTritiumCapacity", "getTritiumNeeded",
-            "getTritiumFilledPercentage"}, docPlaceholder = "tritium tank")
-    public IChemicalTank tritiumTank;
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getUranium", "getUraniumCapacity", "getUraniumNeeded",
+            "getUraniumFilledPercentage"}, docPlaceholder = "uranium tank")
+    public IChemicalTank uraniumTank;
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getDTFuel", "getDTFuelCapacity", "getDTFuelNeeded",
-            "getDTFuelFilledPercentage"}, docPlaceholder = "fuel tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getNqUFuel", "getNqUFuelCapacity", "getNqUFuelNeeded",
+            "getNqUFuelFilledPercentage"}, docPlaceholder = "fuel tank")
     public IChemicalTank fuelTank;
     @ContainerSync(tags = {FUEL_TAB, HEAT_TAB, STATS_TAB}, getter = "getInjectionRate", setter = "setInjectionRate")
     private int injectionRate = 2;
@@ -139,13 +139,13 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
         lastPlasmaTemperature = biomeAmbientTemp;
         lastCaseTemperature = biomeAmbientTemp;
         plasmaTemperature = biomeAmbientTemp;
-        chemicalTanks.add(deuteriumTank = VariableCapacityChemicalTank.input(this, GeneratorsExtraConfig.extraGenerators.reactorFuelCapacity,
+        chemicalTanks.add(naquadahTank = VariableCapacityChemicalTank.input(this, GeneratorsExtraConfig.extraGenerators.reactorFuelCapacity,
                 chemical -> chemical.is(GeneratorExtraTags.Chemicals.RICH_NAQUADAH_FUEL), this));
-        chemicalTanks.add(tritiumTank = VariableCapacityChemicalTank.input(this, GeneratorsExtraConfig.extraGenerators.reactorFuelCapacity,
+        chemicalTanks.add(uraniumTank = VariableCapacityChemicalTank.input(this, GeneratorsExtraConfig.extraGenerators.reactorFuelCapacity,
                 chemical -> chemical.is(GeneratorExtraTags.Chemicals.RICH_URANIUM_FUEL), this));
         chemicalTanks.add(fuelTank = VariableCapacityChemicalTank.input(this, GeneratorsExtraConfig.extraGenerators.reactorFuelCapacity,
                 chemical -> chemical.is(GeneratorExtraTags.Chemicals.NAQUADAH_URANIUM_FUEL), createSaveAndComparator()));
-        chemicalTanks.add(steamTank = VariableCapacityChemicalTank.output(this, this::getMaxSteam, chemical -> chemical.is(MekanismChemicals.STEAM), this));
+        chemicalTanks.add(steamTank = VariableCapacityChemicalTank.output(this, this::getMaxSteam, chemical -> chemical.is(GenExtraChemicals.POLONIUM_CONTAINING_STEAM), this));
         fluidTanks.add(waterTank = VariableCapacityFluidTank.input(this, this::getMaxWater, fluid -> fluid.is(FluidTags.WATER), this));
         energyContainers.add(energyContainer = VariableCapacityEnergyContainer.output(GeneratorsExtraConfig.extraGenerators.reactorEnergyCapacity, this));
         heatCapacitors.add(heatCapacitor = VariableHeatCapacitor.create(caseHeatCapacity, NaquadahReactorMultiblockData::getInverseConductionCoefficient,
@@ -303,12 +303,12 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
 
     private void injectFuel() {
         long amountNeeded = fuelTank.getNeeded();
-        long amountAvailable = 2 * Math.min(deuteriumTank.getStored(), tritiumTank.getStored());
+        long amountAvailable = 2 * Math.min(naquadahTank.getStored(), uraniumTank.getStored());
         long amountToInject = Math.min(amountNeeded, Math.min(amountAvailable, injectionRate));
         amountToInject -= amountToInject % 2;
         long injectingAmount = amountToInject / 2;
-        MekanismUtils.logMismatchedStackSize(deuteriumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
-        MekanismUtils.logMismatchedStackSize(tritiumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
+        MekanismUtils.logMismatchedStackSize(naquadahTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
+        MekanismUtils.logMismatchedStackSize(uraniumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
         fuelTank.insert(GeneratorsChemicals.FUSION_FUEL.asStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
     }
 
@@ -334,7 +334,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
             waterToVaporize = Math.min(waterToVaporize, Math.min(waterTank.getFluidAmount(), MathUtils.clampToInt(steamTank.getNeeded())));
             if (waterToVaporize > 0) {
                 MekanismUtils.logMismatchedStackSize(waterTank.shrinkStack(waterToVaporize, Action.EXECUTE), waterToVaporize);
-                steamTank.insert(MekanismChemicals.STEAM.asStack(waterToVaporize), Action.EXECUTE, AutomationType.INTERNAL);
+                steamTank.insert(GenExtraChemicals.POLONIUM_CONTAINING_STEAM.asStack(waterToVaporize), Action.EXECUTE, AutomationType.INTERNAL);
                 caseWaterHeat = waterToVaporize * HeatUtils.getWaterThermalEnthalpy() / HeatUtils.getSteamEnergyEfficiency();
                 heatCapacitor.handleHeat(-caseWaterHeat);
             }
