@@ -5,6 +5,7 @@ import com.jerry.genextras.common.item.ItemNaquadahHohlraum;
 import com.jerry.genextras.common.registries.GenExtraChemicals;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorPort;
+import com.jerry.mekextras.common.registries.ExtraChemicals;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -33,7 +34,6 @@ import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.tile.prefab.TileEntityStructuralMultiblock;
 import mekanism.common.util.*;
 import com.jerry.genextras.common.config.GeneratorsExtraConfig;
-import mekanism.generators.common.registries.GeneratorsChemicals;
 import mekanism.generators.common.registries.GeneratorsDamageTypes;
 import mekanism.generators.common.slot.ReactorInventorySlot;
 import net.minecraft.SharedConstants;
@@ -309,7 +309,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
         long injectingAmount = amountToInject / 2;
         MekanismUtils.logMismatchedStackSize(naquadahTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
         MekanismUtils.logMismatchedStackSize(uraniumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
-        fuelTank.insert(GeneratorsChemicals.FUSION_FUEL.asStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
+        fuelTank.insert(ExtraChemicals.NAQUADAH_URANIUM_FUEL.asStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
     }
 
     private long burnFuel() {

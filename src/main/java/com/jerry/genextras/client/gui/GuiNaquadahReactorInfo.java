@@ -26,6 +26,8 @@ public abstract class GuiNaquadahReactorInfo extends GuiMekanismTile<TileEntityN
 
     public GuiNaquadahReactorInfo(EmptyTileContainer<TileEntityNaquadahReactorController> container, Inventory inv, Component title) {
         super(container, inv, title);
+        imageWidth += 10;
+        titleLabelY = 5;
     }
 
     @Override
