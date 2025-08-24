@@ -70,6 +70,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class ExtraTileEntityFluidTank extends TileEntityMekanism implements IConfigurable, IFluidContainerManager {
+
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded",
             "getFilledPercentage"}, docPlaceholder = "tank")
     public ExtraFluidTankFluidTank fluidTank;

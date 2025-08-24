@@ -11,6 +11,7 @@ import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder;
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder;
 import mekanism.common.capabilities.holder.heat.IHeatCapacitorHolder;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.integration.energy.BlockEnergyCapabilityCache;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.util.WorldUtils;
@@ -111,4 +112,21 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
     public int getRedstoneLevel() {
         return getMultiblock().getCurrentRedstoneLevel();
     }
+
+    //Methods relating to IComputerTile
+    @Override
+    public boolean exposesMultiblockToComputer() {
+        return false;
+    }
+
+    @ComputerMethod(methodDescription = "true -> output, false -> input")
+    boolean getMode() {
+        return getActive();
+    }
+
+    @ComputerMethod(methodDescription = "true -> output, false -> input")
+    void setMode(boolean output) {
+        setActive(output);
+    }
+    //End methods IComputerTile
 }

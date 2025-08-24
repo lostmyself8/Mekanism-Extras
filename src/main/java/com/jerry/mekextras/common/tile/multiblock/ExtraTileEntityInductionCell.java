@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraTileEntityInductionCell extends TileEntityInternalMultiblock {
+
     private MachineEnergyContainer<ExtraTileEntityInductionCell> energyContainer;
     public ICTier tier;
 

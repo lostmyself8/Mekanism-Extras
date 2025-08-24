@@ -49,6 +49,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigurable {
+
     @Nullable
     private BlockCapabilityCache<IItemHandler, @Nullable Direction> targetInventory;
     public int addTicks = 0;
@@ -152,17 +153,15 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
 
     @Override
     public void parseUpgradeData(HolderLookup.Provider provider, @NotNull IUpgradeData upgradeData) {
-        if (upgradeData instanceof ExtraBinUpgradeData data) {
-            redstone = data.redstone();
-            ExtraBinInventorySlot previous = data.binSlot();
-            binSlot.setStack(previous.getStack());
-            binSlot.setLockStack(previous.getLockStack());
-        } else if (upgradeData instanceof BinUpgradeData data) {
-            redstone = data.redstone();
-            BinInventorySlot previous = data.binSlot();
-            binSlot.setStack(previous.getStack());
-            binSlot.setLockStack(previous.getLockStack());
-            binSlot.deserializeNBT(provider, previous.serializeNBT(provider));
+        if (upgradeData instanceof ExtraBinUpgradeData(boolean redstone1, ExtraBinInventorySlot slot)) {
+            redstone = redstone1;
+            binSlot.setStack(slot.getStack());
+            binSlot.setLockStack(slot.getLockStack());
+        } else if (upgradeData instanceof BinUpgradeData(boolean redstone1, BinInventorySlot slot)) {
+            redstone = redstone1;
+            binSlot.setStack(slot.getStack());
+            binSlot.setLockStack(slot.getLockStack());
+            binSlot.deserializeNBT(provider, slot.serializeNBT(provider));
         } else {
             super.parseUpgradeData(provider, upgradeData);
         }

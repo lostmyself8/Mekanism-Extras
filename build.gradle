@@ -67,6 +67,14 @@ repositories {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
     }
+    repositories {
+        maven {
+            url "https://maven.squiddev.cc"
+            content {
+                includeGroup("cc.tweaked")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -81,6 +89,8 @@ dependencies {
     runtimeOnly "mekanism:Mekanism:${mekanism_version}:additions"
     implementation "mekanism:Mekanism:${mekanism_version}:generators"
     runtimeOnly "mekanism:Mekanism:${mekanism_version}:tools"
+
+    runtimeOnly "cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cctVersion}"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

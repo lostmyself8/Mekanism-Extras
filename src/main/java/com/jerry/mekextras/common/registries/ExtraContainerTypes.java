@@ -6,7 +6,7 @@ import com.jerry.mekextras.common.tile.ExtraTileEntityChemicalTank;
 import com.jerry.mekextras.common.tile.ExtraTileEntityEnergyCube;
 import com.jerry.mekextras.common.tile.ExtraTileEntityFluidTank;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
-import com.jerry.mekextras.common.tile.machine.TileEntityAdvanceElectricPump;
+import com.jerry.mekextras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
@@ -20,7 +20,7 @@ public class ExtraContainerTypes {
     }
     public static final ContainerTypeDeferredRegister EXTRA_CONTAINER_TYPES = new ContainerTypeDeferredRegister(MekanismExtras.MOD_ID);
 
-    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityAdvanceElectricPump>> ADVANCE_ELECTRIC_PUMP = EXTRA_CONTAINER_TYPES.register(ExtraBlocks.ADVANCE_ELECTRIC_PUMP, TileEntityAdvanceElectricPump.class);
+    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityAdvancedElectricPump>> ADVANCE_ELECTRIC_PUMP = EXTRA_CONTAINER_TYPES.register(ExtraBlocks.ADVANCE_ELECTRIC_PUMP, TileEntityAdvancedElectricPump.class);
 
     public static final ContainerTypeRegistryObject<MekanismTileContainer<ExtraTileEntityEnergyCube>> EXTRA_ENERGY_CUBE = EXTRA_CONTAINER_TYPES.custom("extra_energy_cube", ExtraTileEntityEnergyCube.class).armorSideBar(180, 41, 0).build();
     public static final ContainerTypeRegistryObject<MekanismTileContainer<ExtraTileEntityFluidTank>> EXTRA_FLUID_TANK = EXTRA_CONTAINER_TYPES.custom("extra_fluid_tank", ExtraTileEntityFluidTank.class).armorSideBar().build();

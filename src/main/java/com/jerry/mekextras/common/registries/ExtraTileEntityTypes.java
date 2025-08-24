@@ -18,7 +18,7 @@ import com.jerry.mekextras.common.item.block.machine.ExtraItemBlockFluidTank;
 import com.jerry.mekextras.common.tile.factory.*;
 import com.jerry.mekextras.common.tile.transmitter.*;
 import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
-import com.jerry.mekextras.common.tile.machine.TileEntityAdvanceElectricPump;
+import com.jerry.mekextras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
@@ -72,8 +72,8 @@ public class ExtraTileEntityTypes {
         FACTORIES.put(tier, type, tileRO);
     }
 
-    public static final TileEntityTypeRegistryObject<TileEntityAdvanceElectricPump> ADVANCE_ELECTRIC_PUMP = EXTRA_TILE_ENTITY_TYPES
-            .mekBuilder(ExtraBlocks.ADVANCE_ELECTRIC_PUMP, TileEntityAdvanceElectricPump::new)
+    public static final TileEntityTypeRegistryObject<TileEntityAdvancedElectricPump> ADVANCE_ELECTRIC_PUMP = EXTRA_TILE_ENTITY_TYPES
+            .mekBuilder(ExtraBlocks.ADVANCE_ELECTRIC_PUMP, TileEntityAdvancedElectricPump::new)
             .serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIG_CARD)
             .withSimple(Capabilities.CONFIGURABLE)

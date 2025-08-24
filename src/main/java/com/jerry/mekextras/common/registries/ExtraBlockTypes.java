@@ -16,7 +16,7 @@ import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityLogisticalTran
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityMechanicalPipe;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityThermodynamicConductor;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
-import com.jerry.mekextras.common.tile.machine.TileEntityAdvanceElectricPump;
+import com.jerry.mekextras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
@@ -132,7 +132,7 @@ public class ExtraBlockTypes {
             .build();
 
     // Electric Pump
-    public static final Machine<TileEntityAdvanceElectricPump> ADVANCE_ELECTRIC_PUMP = Machine.MachineBuilder
+    public static final Machine<TileEntityAdvancedElectricPump> ADVANCE_ELECTRIC_PUMP = Machine.MachineBuilder
             .createMachine(() -> ExtraTileEntityTypes.ADVANCE_ELECTRIC_PUMP, MekanismLang.DESCRIPTION_ELECTRIC_PUMP)
             .withGui(() -> ExtraContainerTypes.ADVANCE_ELECTRIC_PUMP)
             .withEnergyConfig(MekanismConfig.usage.electricPump, MekanismConfig.storage.electricPump)

@@ -34,7 +34,7 @@ import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityThermodynamicC
 import com.jerry.mekextras.common.item.block.transmitter.ExtraItemBlockPressurizedTube;
 import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
 import com.jerry.mekextras.common.item.block.machine.ExtraItemBlockFluidTank;
-import com.jerry.mekextras.common.tile.machine.TileEntityAdvanceElectricPump;
+import com.jerry.mekextras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
@@ -201,11 +201,11 @@ public class ExtraBlocks {
     public static final BlockRegistryObject<BlockLargeCapRadioactiveWasteBarrel, ItemBlockLargeCapRadioactiveWasteBarrel> COSMIC_RADIOACTIVE_WASTE_BARREL = registryWasteBarrel(ExtraBlockTypes.COSMIC_RADIOACTIVE_WASTE_BARREL);
     public static final BlockRegistryObject<BlockLargeCapRadioactiveWasteBarrel, ItemBlockLargeCapRadioactiveWasteBarrel> INFINITE_RADIOACTIVE_WASTE_BARREL = registryWasteBarrel(ExtraBlockTypes.INFINITE_RADIOACTIVE_WASTE_BARREL);
 
-    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvanceElectricPump, Machine<TileEntityAdvanceElectricPump>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityAdvanceElectricPump, Machine<TileEntityAdvanceElectricPump>>>> ADVANCE_ELECTRIC_PUMP =
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>>> ADVANCE_ELECTRIC_PUMP =
             EXTRA_BLOCKS.register("advance_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockTypes.ADVANCE_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockTooltip::new)
                     .forItemHolder(holder -> holder
                             .addAttachmentOnlyContainers(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
-                                    .addBasic(TileEntityAdvanceElectricPump.MAX_FLUID)
+                                    .addBasic(TileEntityAdvancedElectricPump.MAX_FLUID)
                                     .build()
                             ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                     .addFluidDrainSlot(0)

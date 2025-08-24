@@ -40,6 +40,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism implements IConfigurable {
+
     private long lastProcessTick;
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded",
             "getFilledPercentage"}, docPlaceholder = "barrel")

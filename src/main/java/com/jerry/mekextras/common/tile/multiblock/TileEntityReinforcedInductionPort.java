@@ -73,7 +73,7 @@ public class TileEntityReinforcedInductionPort extends TileEntityReinforcedInduc
 
     //Methods relating to IComputerTile
     @ComputerMethod(methodDescription = "true -> output, false -> input.")
-    boolean getMode() {// TODO change this to enum?
+    boolean getMode() {
         return getActive();
     }
 

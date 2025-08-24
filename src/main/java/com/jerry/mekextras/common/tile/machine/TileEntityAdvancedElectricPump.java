@@ -60,7 +60,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements IConfigurable {
+public class TileEntityAdvancedElectricPump extends TileEntityMekanism implements IConfigurable {
 
     private static final int BASE_TICKS_REQUIRED = 19;
     public static final int MAX_FLUID = 10_000_000;
@@ -81,7 +81,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
     private final Set<BlockPos> recurringNodes = new ObjectOpenHashSet<>();
     private List<BlockCapabilityCache<IFluidHandler, @Nullable Direction>> fluidHandlerAbove = Collections.emptyList();
 
-    private MachineEnergyContainer<TileEntityAdvanceElectricPump> energyContainer;
+    private MachineEnergyContainer<TileEntityAdvancedElectricPump> energyContainer;
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItem", docPlaceholder = "input slot")
     FluidInventorySlot inputSlot;
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItem", docPlaceholder = "output slot")
@@ -89,7 +89,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getEnergyItem", docPlaceholder = "energy slot")
     EnergyInventorySlot energySlot;
 
-    public TileEntityAdvanceElectricPump(BlockPos pos, BlockState state) {
+    public TileEntityAdvancedElectricPump(BlockPos pos, BlockState state) {
         super(ExtraBlocks.ADVANCE_ELECTRIC_PUMP, pos, state);
     }
 
@@ -366,7 +366,7 @@ public class TileEntityAdvanceElectricPump extends TileEntityMekanism implements
         return UpgradeUtils.getMultScaledInfo(this, upgrade);
     }
 
-    public MachineEnergyContainer<TileEntityAdvanceElectricPump> getEnergyContainer() {
+    public MachineEnergyContainer<TileEntityAdvancedElectricPump> getEnergyContainer() {
         return energyContainer;
     }
 
