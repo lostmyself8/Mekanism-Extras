@@ -16,5 +16,6 @@
   },
   "output": {
     "id": "mekanism_extras:naquadah_hohlraum"
-  }
+  },
+  "per_tick_usage": false
 }
