@@ -11,7 +11,7 @@ public enum ExtraLang implements ILangEntry {
     STOP_FLASHING_DESC("pack", "pack_description"),
 
     //JEI
-    JEI_INFO_RICH_SILICON_FUEL("info", "jei.rich_silicon_fuel"),
+    JEI_INFO_RICH_NAQUADAH_FUEL("info", "jei.rich_naquadah_fuel"),
     JEI_INFO_RICH_URANIUM_FUEL("info", "jei.rich_uranium_fuel"),
 
     //Upgrades

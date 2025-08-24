@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import mekanism.api.IContentsListener;
 import mekanism.api.NBTConstants;
 import mekanism.api.RelativeSide;
@@ -104,7 +105,7 @@ public class TileEntityItemStackGasToItemStackAdvancedFactory extends TileEntity
                 long baseRemaining = baseTotalUsage - usedSoFar;
                 //插入创造升级后getTicksRequired()变为0，导致gasUsageMultiplier为0，也就意味着不消耗化学品。
                 //因此处理化学品消耗时按1计算，而工作时间依旧为0
-                int remainingTicks = type == FactoryType.COMPRESSING ? 1 : getTicksRequired() - operatingTicks;
+                int remainingTicks = upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) && type == FactoryType.COMPRESSING ? 1 : getTicksRequired() - operatingTicks;
                 if (baseRemaining < remainingTicks) {
                     //If we already used more than we would need to use (due to removing speed upgrades or adding gas upgrades)
                     // then just don't use any gas this tick

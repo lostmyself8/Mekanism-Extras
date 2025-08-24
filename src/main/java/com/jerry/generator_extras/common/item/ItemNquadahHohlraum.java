@@ -72,7 +72,7 @@ public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDe
 
     @Override
     public void addItems(CreativeModeTab.Output tabOutput) {
-        tabOutput.accept(ChemicalUtil.getFilledVariant(new ItemStack(this), GenLoadConfig.generatorConfig.hohlraumMaxGas, ExtraGases.SILICON_URANIUM_FUEL));
+        tabOutput.accept(ChemicalUtil.getFilledVariant(new ItemStack(this), GenLoadConfig.generatorConfig.hohlraumMaxGas, ExtraGases.NAQUADAH_URANIUM_FUEL));
     }
 
     @Override
@@ -84,6 +84,6 @@ public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDe
     protected void gatherCapabilities(List<ItemCapabilityWrapper.ItemCapability> capabilities, ItemStack stack, CompoundTag nbt) {
         super.gatherCapabilities(capabilities, stack, nbt);
         capabilities.add(RateLimitGasHandler.create(GenLoadConfig.generatorConfig.hohlraumFillRate, GenLoadConfig.generatorConfig.hohlraumMaxGas,
-                ChemicalTankBuilder.GAS.notExternal, ChemicalTankBuilder.GAS.alwaysTrueBi, ExtraTag.Gases.SILICON_URANIUM_FUEL_LOOKUP::contains));
+                ChemicalTankBuilder.GAS.notExternal, ChemicalTankBuilder.GAS.alwaysTrueBi, ExtraTag.Gases.NAQUADAH_URANIUM_FUEL_LOOKUP::contains));
     }
 }

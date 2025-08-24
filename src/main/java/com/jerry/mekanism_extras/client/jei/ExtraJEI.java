@@ -30,8 +30,8 @@ public class ExtraJEI implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addIngredientInfo(ExtraFluids.RICH_SILICON_LIQUID_FUEL.getFluidStack(FluidType.BUCKET_VOLUME), ForgeTypes.FLUID_STACK,
-                ExtraLang.JEI_INFO_RICH_SILICON_FUEL.translate());
+        registration.addIngredientInfo(ExtraFluids.RICH_NAQUADAH_LIQUID_FUEL.getFluidStack(FluidType.BUCKET_VOLUME), ForgeTypes.FLUID_STACK,
+                ExtraLang.JEI_INFO_RICH_NAQUADAH_FUEL.translate());
         registration.addIngredientInfo(ExtraFluids.RICH_URANIUM_LIQUID_FUEL.getFluidStack(FluidType.BUCKET_VOLUME), ForgeTypes.FLUID_STACK,
                 ExtraLang.JEI_INFO_RICH_URANIUM_FUEL.translate());
         if (Addons.MEKANISMGENERATORS.isLoaded()) {

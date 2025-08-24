@@ -6,10 +6,10 @@
   },
   "output": {
     "amount": 2,
-    "gas": "mekanism_extras:fluorinated_silicon_uranium_fuel"
+    "gas": "mekanism_extras:fluorinated_naquadah_uranium_fuel"
   },
   "rightInput": {
     "amount": 1,
-    "gas": "mekanism_extras:silicon_tetrafluoride"
+    "gas": "mekanism_extras:naquadah_hexafluoride"
   }
 }

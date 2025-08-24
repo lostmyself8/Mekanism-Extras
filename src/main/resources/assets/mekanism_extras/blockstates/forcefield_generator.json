@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "powered=true": "mekanism_extras:block/forcefield_generator_on",
-    "powered=false": "mekanism_extras:block/forcefield_generator"
-  }
-}

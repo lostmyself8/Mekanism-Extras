@@ -10,7 +10,6 @@ import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.BooleanSupplier;
@@ -275,7 +274,6 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
      * @param outputSlot          The output slot for this slot.
      * @param secondaryOutputSlot The secondary output slot or null if we only have one output slot
      * @param updateCache         True to make the cached recipe get updated if it is out of date.
-     *
      * @return True if the recipe produces the given output.
      */
     public boolean inputProducesOutput(int process, @NotNull ItemStack fallbackInput, @NotNull IInventorySlot outputSlot, @Nullable IInventorySlot secondaryOutputSlot,
@@ -376,7 +374,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
 
     @ComputerMethod(methodDescription = "Total number of ticks it takes currently for the recipe to complete")
     public int getTicksRequired() {
-        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 :ticksRequired;
+        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 1 : ticksRequired;
     }
 
     @Override
@@ -419,7 +417,8 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
         CompoundTag upgradesTag = this.serializeNBT().getCompound(NBTConstants.UPGRADES);
-        if (getEnergyContainer() instanceof IMixinMachineEnergyContainer mixMach) mixMach.mekanism_Extras$extraRecalculateUpgrades(upgrade);
+        if (getEnergyContainer() instanceof IMixinMachineEnergyContainer mixMach)
+            mixMach.mekanism_Extras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
         } else if (upgrade == ExtraUpgrade.STACK) {
@@ -654,7 +653,12 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
             }
             HashedItem item = entry.getKey();
             //Note: This isn't based on any limits the slot may have (but we currently don't have any reduced ones here, so it doesn't matter)
-            int maxStackSize = item.getMaxStackSize();
+            int maxStackSize = switch (tier) {
+                case ABSOLUTE -> item.getMaxStackSize() * 8;
+                case SUPREME -> item.getMaxStackSize() * 16;
+                case COSMIC -> item.getMaxStackSize() * 32;
+                case INFINITE -> item.getMaxStackSize() * 64;
+            };
             int numberPerSlot = recipeProcessInfo.totalCount / processCount;
             if (numberPerSlot == maxStackSize) {
                 //If all the slots are already maxed out; short-circuit, no balancing is needed
@@ -742,7 +746,8 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
         }
     }
 
-    public record ProcessInfo(int process, @NotNull AdvancedFactoryInputInventorySlot inputSlot, @NotNull IInventorySlot outputSlot,
+    public record ProcessInfo(int process, @NotNull AdvancedFactoryInputInventorySlot inputSlot,
+                              @NotNull IInventorySlot outputSlot,
                               @Nullable IInventorySlot secondaryOutputSlot) {
     }
 

@@ -98,13 +98,13 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
     public double lastTransferLoss;
 
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getSilicon", "getSiliconCapacity", "getSiliconNeeded", "getSiliconFilledPercentage"}, docPlaceholder = "silicon tank")
-    public IGasTank siliconTank;
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getNaquadah", "getNaquadahCapacity", "getNaquadahNeeded", "getNaquadahFilledPercentage"}, docPlaceholder = "naquadah tank")
+    public IGasTank naquadahTank;
     @ContainerSync(tags = FUEL_TAB)
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getUranium", "getUraniumCapacity", "getUraniumNeeded", "getUraniumFilledPercentage"}, docPlaceholder = "uranium tank")
     public IGasTank uraniumTank;
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getSiUFuel", "getSiUFuelCapacity", "getSiUFuelNeeded", "getSiUFuelFilledPercentage"}, docPlaceholder = "fuel tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getNqUFuel", "getNqUFuelCapacity", "getNqUFuelNeeded", "getNqUFuelFilledPercentage"}, docPlaceholder = "fuel tank")
     public IGasTank fuelTank;
     @ContainerSync(tags = {FUEL_TAB, HEAT_TAB, STATS_TAB}, getter = "getInjectionRate", setter = "setInjectionRate")
     private int injectionRate = 2;
@@ -131,12 +131,12 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         lastPlasmaTemperature = biomeAmbientTemp;
         lastCaseTemperature = biomeAmbientTemp;
         plasmaTemperature = biomeAmbientTemp;
-        gasTanks.add(siliconTank = MultiblockChemicalTankBuilder.GAS.input(this, GenLoadConfig.generatorConfig.reactorFuelCapacity,
-                ExtraTag.Gases.RICH_SILICON_FUEL_LOOKUP::contains, this));
+        gasTanks.add(naquadahTank = MultiblockChemicalTankBuilder.GAS.input(this, GenLoadConfig.generatorConfig.reactorFuelCapacity,
+                ExtraTag.Gases.RICH_NAQUADAH_FUEL_LOOKUP::contains, this));
         gasTanks.add(uraniumTank = MultiblockChemicalTankBuilder.GAS.input(this, GenLoadConfig.generatorConfig.reactorFuelCapacity,
                 ExtraTag.Gases.RICH_URANIUM_FUEL_LOOKUP::contains, this));
         gasTanks.add(fuelTank = MultiblockChemicalTankBuilder.GAS.input(this, GenLoadConfig.generatorConfig.reactorFuelCapacity,
-                ExtraTag.Gases.SILICON_URANIUM_FUEL_LOOKUP::contains, createSaveAndComparator()));
+                ExtraTag.Gases.NAQUADAH_URANIUM_FUEL_LOOKUP::contains, createSaveAndComparator()));
         gasTanks.add(poloniumTank = MultiblockChemicalTankBuilder.GAS.output(this, this::getMaxPolonium, gas -> gas == ExtraGenGases.POLONIUM_CONTAINING_STEAM.getChemical() || gas == MekanismGases.STEAM.getChemical(), this));
         fluidTanks.add(waterTank = VariableCapacityFluidTank.input(this, this::getMaxWater, fluid -> MekanismTags.Fluids.WATER_LOOKUP.contains(fluid.getFluid()), this));
         energyContainers.add(energyContainer = VariableCapacityEnergyContainer.output(GenLoadConfig.generatorConfig.reactorEnergyCapacity, this));
@@ -277,13 +277,13 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
     //往燃料槽添加燃料
     private void injectFuel() {
         long amountNeeded = fuelTank.getNeeded();
-        long amountAvailable = 2 * Math.min(siliconTank.getStored(), uraniumTank.getStored());
+        long amountAvailable = 2 * Math.min(naquadahTank.getStored(), uraniumTank.getStored());
         long amountToInject = Math.min(amountNeeded, Math.min(amountAvailable, injectionRate));
         amountToInject -= amountToInject % 2;
         long injectingAmount = amountToInject / 2;
-        MekanismUtils.logMismatchedStackSize(siliconTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
+        MekanismUtils.logMismatchedStackSize(naquadahTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
         MekanismUtils.logMismatchedStackSize(uraniumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
-        fuelTank.insert(ExtraGases.SILICON_URANIUM_FUEL.getStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
+        fuelTank.insert(ExtraGases.NAQUADAH_URANIUM_FUEL.getStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
     }
 
     //消耗燃料

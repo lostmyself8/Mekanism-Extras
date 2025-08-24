@@ -27,7 +27,7 @@ public class GuiNaquadahReactorFuel extends GuiNaquadahReactorInfo{
     @Override
     protected void addGuiElements() {
         super.addGuiElements();
-        addRenderableWidget(new GuiGasGauge(() -> tile.getMultiblock().siliconTank, () -> tile.getMultiblock().getGasTanks(null), GaugeType.SMALL, this, 25, 64));
+        addRenderableWidget(new GuiGasGauge(() -> tile.getMultiblock().naquadahTank, () -> tile.getMultiblock().getGasTanks(null), GaugeType.SMALL, this, 25, 64));
         addRenderableWidget(new GuiGasGauge(() -> tile.getMultiblock().fuelTank, () -> tile.getMultiblock().getGasTanks(null), GaugeType.STANDARD, this, 79, 50));
         addRenderableWidget(new GuiGasGauge(() -> tile.getMultiblock().uraniumTank, () -> tile.getMultiblock().getGasTanks(null), GaugeType.SMALL, this, 133, 64));
         addRenderableWidget(new GuiProgress(() -> tile.getMultiblock().isBurning(), ProgressType.SMALL_RIGHT, this, 47, 76));

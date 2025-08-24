@@ -1,0 +1,19 @@
+{
+  "type": "mekanism:rotary",
+  "fluidInput": {
+    "amount": 1,
+    "fluid": "mekanism_extras:fluorinated_naquadah_uranium_fuel"
+  },
+  "fluidOutput": {
+    "amount": 1,
+    "fluid": "mekanism_extras:fluorinated_naquadah_uranium_fuel"
+  },
+  "gasInput": {
+    "amount": 1,
+    "gas": "mekanism_extras:fluorinated_naquadah_uranium_fuel"
+  },
+  "gasOutput": {
+    "amount": 1,
+    "gas": "mekanism_extras:fluorinated_naquadah_uranium_fuel"
+  }
+}

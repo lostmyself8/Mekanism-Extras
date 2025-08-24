@@ -1,5 +1,5 @@
 {
   "parent": "forge:item/bucket",
-  "fluid": "mekanism_extras:silicon_tetrafluoride",
+  "fluid": "mekanism_extras:naquadah_hexafluoride",
   "loader": "forge:fluid_container"
 }

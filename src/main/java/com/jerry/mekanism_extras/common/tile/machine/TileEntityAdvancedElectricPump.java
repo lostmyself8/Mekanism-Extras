@@ -259,9 +259,9 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
             return MekanismConfig.general.pumpWaterSources.get() ? new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME)
                 : new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME * 100);
         }
-        if(sourceFluid == ExtraFluids.SILICON_TETRAFLUORIDE.getFluid()) {
+        if(sourceFluid == ExtraFluids.NAQUADAH_TETRAFLUORIDE.getFluid()) {
             if (hasMembrane) {
-                return new FluidStack(ExtraFluids.RICH_SILICON_LIQUID_FUEL.getFluid(), FluidType.BUCKET_VOLUME);
+                return new FluidStack(ExtraFluids.RICH_NAQUADAH_LIQUID_FUEL.getFluid(), FluidType.BUCKET_VOLUME);
             }
         }
         if(sourceFluid == MekanismFluids.URANIUM_HEXAFLUORIDE.getFluid()) {

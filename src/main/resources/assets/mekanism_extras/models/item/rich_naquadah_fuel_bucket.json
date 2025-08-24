@@ -1,5 +1,5 @@
 {
   "parent": "forge:item/bucket",
-  "fluid": "mekanism_extras:fluorinated_silicon_uranium_fuel",
+  "fluid": "mekanism_extras:rich_naquadah_fuel",
   "loader": "forge:fluid_container"
 }

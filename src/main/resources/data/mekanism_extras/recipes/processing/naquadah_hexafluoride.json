@@ -1,7 +1,7 @@
 {
   "type": "mekanism:dissolution",
   "gasInput": {
-    "amount": 4,
+    "amount": 6,
     "gas": "mekanism:hydrofluoric_acid"
   },
   "itemInput": {
@@ -12,6 +12,6 @@
   "output": {
     "amount": 100,
     "chemicalType": "gas",
-    "gas": "mekanism_extras:silicon_tetrafluoride"
+    "gas": "mekanism_extras:naquadah_hexafluoride"
   }
 }

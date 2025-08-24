@@ -76,7 +76,7 @@ public class TileEntityNaquadahReactorLogicAdapter extends TileEntityNaquadahRea
                     if (multiblock.fuelTank.isEmpty()) {
                         int injectionPortion = multiblock.getInjectionRate() / 2;
                         //No fuel and no injection rate set, or no fuel and not enough of at least one component
-                        yield injectionPortion == 0 || multiblock.siliconTank.getStored() < injectionPortion || multiblock.uraniumTank.getStored() < injectionPortion;
+                        yield injectionPortion == 0 || multiblock.naquadahTank.getStored() < injectionPortion || multiblock.uraniumTank.getStored() < injectionPortion;
                     }
                     yield false;
                 }
