@@ -35,7 +35,7 @@ public class MixinUpgrade {
         throw new AssertionError();
     }
 
-    @Inject(method = "<clinit>",at = @At("TAIL"))
+    @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void upgradeClinit(CallbackInfo ci) {
         ExtraUpgrade.STACK = mekanismExtras$addVariant("STACK", APIExtraLang.UPGRADE_STACK, APIExtraLang.UPGRADE_STACK_DESCRIPTION, 6, EnumColor.BRIGHT_PINK);
         ExtraUpgrade.IONIC_MEMBRANE = mekanismExtras$addVariant("IONIC_MEMBRANE", APIExtraLang.UPGRADE_IONIC_MEMBRANE, APIExtraLang.UPGRADE_IONIC_MEMBRANE_DESCRIPTION, 1, EnumColor.WHITE);
@@ -49,7 +49,7 @@ public class MixinUpgrade {
     private static Upgrade mekanismExtras$addVariant(String internalName, APILang langKey, APILang descLangKey, int maxStack, EnumColor color) {
         ArrayList<Upgrade> variants = new ArrayList<>(Arrays.asList($VALUES));
         Upgrade upgrade = upgrade$initInvoker(internalName,
-                variants.get(variants.size() -1 ).ordinal() + 1,
+                variants.get(variants.size() - 1).ordinal() + 1,
                 internalName.toLowerCase(),
                 langKey,
                 descLangKey,

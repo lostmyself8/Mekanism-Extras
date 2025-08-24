@@ -93,7 +93,7 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
     protected boolean onUpdateServer(NaquadahReactorMultiblockData multiblock) {
         boolean needsPacket = super.onUpdateServer(multiblock);
         if (getActive() && multiblock.isFormed()) {
-            ChemicalUtil.emit(outputDirections, multiblock.poloniumTank, this);
+            ChemicalUtil.emit(outputDirections, multiblock.steamTank, this);
             CableUtils.emit(outputDirections, multiblock.energyContainer, this);
         }
         return needsPacket;

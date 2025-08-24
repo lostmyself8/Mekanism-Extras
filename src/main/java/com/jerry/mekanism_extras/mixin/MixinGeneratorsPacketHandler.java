@@ -2,7 +2,7 @@ package com.jerry.mekanism_extras.mixin;
 
 import com.jerry.generator_extras.common.network.to_server.ExtraPacketGeneratorsGuiButtonPress;
 import com.jerry.generator_extras.common.network.to_server.ExtraPacketGeneratorsGuiInteract;
-import com.jerry.mekanism_extras.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.Addons;
 import mekanism.common.network.BasePacketHandler;
 import mekanism.generators.common.network.GeneratorsPacketHandler;
 import org.spongepowered.asm.mixin.Mixin;

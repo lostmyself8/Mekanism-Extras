@@ -44,7 +44,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TileEntityMetallurgicInfuserAdvancedFactory extends TileEntityItemToItemAdvancedFactory<MetallurgicInfuserRecipe> implements IHasDumpButton,
+public class TileEntityMetallurgicInfuserExtraFactory extends TileEntityItemToItemExtraFactory<MetallurgicInfuserRecipe> implements IHasDumpButton,
         ItemChemicalRecipeLookupHandler<InfuseType, InfusionStack, MetallurgicInfuserRecipe> {
 
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
@@ -67,7 +67,7 @@ public class TileEntityMetallurgicInfuserAdvancedFactory extends TileEntityItemT
             "getInfuseTypeFilledPercentage"}, docPlaceholder = "infusion buffer")
     IInfusionTank infusionTank;
 
-    public TileEntityMetallurgicInfuserAdvancedFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityMetallurgicInfuserExtraFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
         infusionInputHandler = InputHelper.getInputHandler(infusionTank, RecipeError.NOT_ENOUGH_SECONDARY_INPUT);
         configComponent.addSupported(TransmissionType.INFUSION);

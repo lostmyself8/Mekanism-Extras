@@ -87,13 +87,12 @@ repositories {
         url "https://cursemaven.com"
     }
 
-//    maven {
-//        // Shedaniel's maven (Architectury API)
-//        url = "https://maven.architectury.dev"
-//        content {
-//            includeGroup "dev.architectury"
-//        }
-//    }
+    maven {
+        url "https://maven.squiddev.cc"
+        content {
+            includeGroup("cc.tweaked")
+        }
+    }
 //
 //    maven {
 //        // saps.dev Maven (KubeJS and Rhino)
@@ -106,6 +105,8 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    // jei
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     //Mekanism
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}")
@@ -115,11 +116,10 @@ dependencies {
 
     implementation fg.deobf("curse.maven:mekanism-covers-1119874:5831281")
 
-    // jei
-    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-
 //    runtimeOnly fg.deobf("curse.maven:iglee-library-541199:5329230")
 //    implementation fg.deobf("curse.maven:evolved-mekanism-1230085:6456494")
+
+//    runtimeOnly "cc.tweaked:cc-tweaked-${minecraft_version}-forge:${CCT_Version}"
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

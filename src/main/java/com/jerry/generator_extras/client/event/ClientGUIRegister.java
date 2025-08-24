@@ -3,7 +3,7 @@ package com.jerry.generator_extras.client.event;
 import com.jerry.generator_extras.client.gui.*;
 import com.jerry.generator_extras.client.render.RenderNaquadahReactor;
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.Addons;
 import com.jerry.generator_extras.common.genregistry.ExtraGenContainerTypes;
 import com.jerry.generator_extras.common.genregistry.ExtraGenTileEntityTypes;
 import mekanism.client.ClientRegistrationUtil;

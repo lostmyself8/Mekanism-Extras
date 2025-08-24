@@ -33,7 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TileEntityCombiningAdvancedFactory extends TileEntityItemToItemAdvancedFactory<CombinerRecipe> implements DoubleItemRecipeLookupHandler<CombinerRecipe> {
+public class TileEntityCombiningExtraFactory extends TileEntityItemToItemExtraFactory<CombinerRecipe> implements DoubleItemRecipeLookupHandler<CombinerRecipe> {
 
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
@@ -52,7 +52,7 @@ public class TileEntityCombiningAdvancedFactory extends TileEntityItemToItemAdva
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getSecondaryInput", docPlaceholder = "secondary input slot")
     StackableInputInventorySlot extraSlot;
 
-    public TileEntityCombiningAdvancedFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityCombiningExtraFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
         extraInputHandler = InputHelper.getInputHandler(extraSlot, RecipeError.NOT_ENOUGH_SECONDARY_INPUT);
     }

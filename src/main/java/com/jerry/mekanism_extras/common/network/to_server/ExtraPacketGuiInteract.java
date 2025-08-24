@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.network.to_server;
 
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 import mekanism.api.functions.TriConsumer;
 import mekanism.common.network.IMekanismPacket;
 import mekanism.common.tile.base.TileEntityMekanism;
@@ -142,7 +142,7 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
 
     public enum ExtraGuiInteraction {//TODO: Cleanup this enum/the elements in it as it is rather disorganized order wise currently
         AUTO_SORT_BUTTON((tile, player, extra) -> {
-            if (tile instanceof TileEntityAdvancedFactory<?> factory) {
+            if (tile instanceof TileEntityExtraFactory<?> factory) {
                 factory.toggleSorting();
             }
         });

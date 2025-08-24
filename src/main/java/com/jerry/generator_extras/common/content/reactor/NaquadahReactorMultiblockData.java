@@ -79,11 +79,11 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
     public IHeatCapacitor heatCapacitor;
 
     @ContainerSync(tags = HEAT_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getWater", "getWaterCapacity", "getWaterNeeded", "getWaterFilledPercentage"}, docPlaceholder = "fissile tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getWater", "getWaterCapacity", "getWaterNeeded", "getWaterFilledPercentage"}, docPlaceholder = "water tank")
     public IExtendedFluidTank waterTank;
     @ContainerSync(tags = HEAT_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getPolonium", "getPoloniumCapacity", "getPoloniumNeeded", "getPoloniumFilledPercentage"}, docPlaceholder = "plutonium tank")
-    public IGasTank poloniumTank;
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getSteam", "getSteamCapacity", "getSteamNeeded", "getSteamFilledPercentage"}, docPlaceholder = "steam tank")
+    public IGasTank steamTank;
 
     private double biomeAmbientTemp;
     @ContainerSync(tags = HEAT_TAB)
@@ -120,7 +120,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
     private double clientTemp;
 
     private int maxWater;
-    private long maxPolonium;
+    private long maxSteam;
 
     private AABB deathZone;
 
@@ -137,7 +137,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
                 ExtraTag.Gases.RICH_URANIUM_FUEL_LOOKUP::contains, this));
         gasTanks.add(fuelTank = MultiblockChemicalTankBuilder.GAS.input(this, GenLoadConfig.generatorConfig.reactorFuelCapacity,
                 ExtraTag.Gases.NAQUADAH_URANIUM_FUEL_LOOKUP::contains, createSaveAndComparator()));
-        gasTanks.add(poloniumTank = MultiblockChemicalTankBuilder.GAS.output(this, this::getMaxPolonium, gas -> gas == ExtraGenGases.POLONIUM_CONTAINING_STEAM.getChemical() || gas == MekanismGases.STEAM.getChemical(), this));
+        gasTanks.add(steamTank = MultiblockChemicalTankBuilder.GAS.output(this, this::getMaxSteam, gas -> gas == ExtraGenGases.POLONIUM_CONTAINING_STEAM.getChemical() || gas == MekanismGases.STEAM.getChemical(), this));
         fluidTanks.add(waterTank = VariableCapacityFluidTank.input(this, this::getMaxWater, fluid -> MekanismTags.Fluids.WATER_LOOKUP.contains(fluid.getFluid()), this));
         energyContainers.add(energyContainer = VariableCapacityEnergyContainer.output(GenLoadConfig.generatorConfig.reactorEnergyCapacity, this));
         heatCapacitors.add(heatCapacitor = VariableHeatCapacitor.create(caseHeatCapacity, NaquadahReactorMultiblockData::getInverseConductionCoefficient,
@@ -308,16 +308,16 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         //Transfer from casing to fissile if necessary
         double caseWaterHeat = GenLoadConfig.generatorConfig.reactorWaterHeatingRatio.get() * (lastCaseTemperature - biomeAmbientTemp);
         if (Math.abs(caseWaterHeat) > HeatAPI.EPSILON) {
-            int waterToPolonium = (int) (HeatUtils.getSteamEnergyEfficiency() * caseWaterHeat / HeatUtils.getWaterThermalEnthalpy());
-            waterToPolonium = Math.min(waterToPolonium, Math.min(waterTank.getFluidAmount(), MathUtils.clampToInt(poloniumTank.getNeeded())));
-            if (waterToPolonium > 0) {
-                MekanismUtils.logMismatchedStackSize(waterTank.shrinkStack(waterToPolonium, Action.EXECUTE), waterToPolonium);
+            int waterToSteam = (int) (HeatUtils.getSteamEnergyEfficiency() * caseWaterHeat / HeatUtils.getWaterThermalEnthalpy());
+            waterToSteam = Math.min(waterToSteam, Math.min(waterTank.getFluidAmount(), MathUtils.clampToInt(steamTank.getNeeded())));
+            if (waterToSteam > 0) {
+                MekanismUtils.logMismatchedStackSize(waterTank.shrinkStack(waterToSteam, Action.EXECUTE), waterToSteam);
                 if (isBurning()) {
-                    poloniumTank.insert(ExtraGenGases.POLONIUM_CONTAINING_STEAM.getStack(waterToPolonium), Action.EXECUTE, AutomationType.INTERNAL);
+                    steamTank.insert(ExtraGenGases.POLONIUM_CONTAINING_STEAM.getStack(waterToSteam), Action.EXECUTE, AutomationType.INTERNAL);
                 } else {
-                    poloniumTank.insert(MekanismGases.STEAM.getStack(waterToPolonium), Action.EXECUTE, AutomationType.INTERNAL);
+                    steamTank.insert(MekanismGases.STEAM.getStack(waterToSteam), Action.EXECUTE, AutomationType.INTERNAL);
                 }
-                caseWaterHeat = waterToPolonium * HeatUtils.getWaterThermalEnthalpy() / HeatUtils.getSteamEnergyEfficiency();
+                caseWaterHeat = waterToSteam * HeatUtils.getWaterThermalEnthalpy() / HeatUtils.getSteamEnergyEfficiency();
                 heatCapacitor.handleHeat(-caseWaterHeat);
             }
         }
@@ -381,13 +381,13 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         if (injectionRate != rate) {
             injectionRate = rate;
             maxWater = injectionRate * GenLoadConfig.generatorConfig.reactorWaterPerInjection.get();
-            maxPolonium = injectionRate * GenLoadConfig.generatorConfig.reactorSteamPerInjection.get();
+            maxSteam = injectionRate * GenLoadConfig.generatorConfig.reactorSteamPerInjection.get();
             if (getWorld() != null && !isRemote()) {
                 if (!waterTank.isEmpty()) {
                     waterTank.setStackSize(Math.min(waterTank.getFluidAmount(), waterTank.getCapacity()), Action.EXECUTE);
                 }
-                if (!poloniumTank.isEmpty()) {
-                    poloniumTank.setStackSize(Math.min(poloniumTank.getStored(), poloniumTank.getCapacity()), Action.EXECUTE);
+                if (!steamTank.isEmpty()) {
+                    steamTank.setStackSize(Math.min(steamTank.getStored(), steamTank.getCapacity()), Action.EXECUTE);
                 }
             }
             markDirty();
@@ -398,8 +398,8 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         return maxWater;
     }
 
-    public long getMaxPolonium() {
-        return maxPolonium;
+    public long getMaxSteam() {
+        return maxSteam;
     }
 
     public boolean isBurning() {

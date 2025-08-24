@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.gui.element.tab;
 
 import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiInteract;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.IGuiWrapper;
 import mekanism.client.gui.element.GuiInsetElement;
@@ -13,9 +13,9 @@ import mekanism.common.util.text.BooleanStateDisplay;
 import net.minecraft.client.gui.GuiGraphics;
 import org.jetbrains.annotations.NotNull;
 
-public class ExtraGuiSortingTab extends GuiInsetElement<TileEntityAdvancedFactory<?>> {
+public class ExtraGuiSortingTab extends GuiInsetElement<TileEntityExtraFactory<?>> {
 
-    public ExtraGuiSortingTab(IGuiWrapper gui, TileEntityAdvancedFactory<?> tile) {
+    public ExtraGuiSortingTab(IGuiWrapper gui, TileEntityExtraFactory<?> tile) {
         super(MekanismUtils.getResource(MekanismUtils.ResourceType.GUI, "sorting.png"), gui, tile, -26, 62, 35, 18, true);
     }
 

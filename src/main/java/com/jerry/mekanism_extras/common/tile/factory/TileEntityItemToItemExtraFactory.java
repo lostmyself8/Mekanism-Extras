@@ -20,11 +20,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Set;
 
-public abstract class TileEntityItemToItemAdvancedFactory<RECIPE extends MekanismRecipe> extends TileEntityAdvancedFactory<RECIPE> {
+public abstract class TileEntityItemToItemExtraFactory<RECIPE extends MekanismRecipe> extends TileEntityExtraFactory<RECIPE> {
     protected IInputHandler<@NotNull ItemStack>[] inputHandlers;
     protected IOutputHandler<@NotNull ItemStack>[] outputHandlers;
 
-    protected TileEntityItemToItemAdvancedFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state, List<CachedRecipe.OperationTracker.RecipeError> errorTypes, Set<CachedRecipe.OperationTracker.RecipeError> globalErrorTypes) {
+    protected TileEntityItemToItemExtraFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state, List<CachedRecipe.OperationTracker.RecipeError> errorTypes, Set<CachedRecipe.OperationTracker.RecipeError> globalErrorTypes) {
         super(blockProvider, pos, state, errorTypes, globalErrorTypes);
     }
 

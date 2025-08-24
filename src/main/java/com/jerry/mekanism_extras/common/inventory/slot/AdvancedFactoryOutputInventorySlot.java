@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.inventory.slot;
 
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.common.inventory.container.slot.ContainerSlotType;
@@ -11,13 +11,13 @@ import org.jetbrains.annotations.Nullable;
 @NothingNullByDefault
 public class AdvancedFactoryOutputInventorySlot extends BasicInventorySlot {
 
-    private final TileEntityAdvancedFactory<?> factory;
+    private final TileEntityExtraFactory<?> factory;
 
-    public static AdvancedFactoryOutputInventorySlot at(TileEntityAdvancedFactory<?> factory, @Nullable IContentsListener listener, int x, int y) {
+    public static AdvancedFactoryOutputInventorySlot at(TileEntityExtraFactory<?> factory, @Nullable IContentsListener listener, int x, int y) {
         return new AdvancedFactoryOutputInventorySlot(factory, listener, x, y);
     }
 
-    private AdvancedFactoryOutputInventorySlot(TileEntityAdvancedFactory<?> factory, @Nullable IContentsListener listener, int x, int y) {
+    private AdvancedFactoryOutputInventorySlot(TileEntityExtraFactory<?> factory, @Nullable IContentsListener listener, int x, int y) {
         super(alwaysTrueBi, internalOnly, alwaysTrue, listener, x, y);
         setSlotType(ContainerSlotType.OUTPUT);
         this.factory = factory;

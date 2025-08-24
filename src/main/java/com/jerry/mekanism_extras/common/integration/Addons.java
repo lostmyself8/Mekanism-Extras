@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.integration;
+package com.jerry.mekanism_extras.common.integration;
 
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.LoadingModList;

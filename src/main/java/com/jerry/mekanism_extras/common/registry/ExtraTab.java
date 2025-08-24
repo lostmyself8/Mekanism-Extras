@@ -2,7 +2,7 @@ package com.jerry.mekanism_extras.common.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.ExtraLang;
-import com.jerry.mekanism_extras.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.Addons;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
 import com.jerry.generator_extras.common.genregistry.ExtraGenItem;

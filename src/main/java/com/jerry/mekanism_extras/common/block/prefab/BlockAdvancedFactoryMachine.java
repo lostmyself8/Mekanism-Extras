@@ -2,7 +2,7 @@ package com.jerry.mekanism_extras.common.block.prefab;
 
 import com.jerry.mekanism_extras.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekanism_extras.common.content.blocktype.AdvancedMachine;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.block.states.IStateFluidLoggable;
 import mekanism.common.resource.BlockResourceInfo;
@@ -23,7 +23,7 @@ public class BlockAdvancedFactoryMachine<TILE extends TileEntityMekanism, MACHIN
         }
     }
 
-    public static class BlockAdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends BlockAdvancedFactoryMachineModel<TILE, AdvancedFactory<TILE>> {
+    public static class BlockAdvancedFactory<TILE extends TileEntityExtraFactory<?>> extends BlockAdvancedFactoryMachineModel<TILE, AdvancedFactory<TILE>> {
 
         public BlockAdvancedFactory(AdvancedFactory<TILE> factoryType) {
             super(factoryType, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor()));

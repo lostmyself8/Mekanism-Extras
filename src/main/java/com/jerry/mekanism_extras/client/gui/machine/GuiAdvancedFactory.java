@@ -1,10 +1,10 @@
 package com.jerry.mekanism_extras.client.gui.machine;
 
 import com.jerry.mekanism_extras.client.gui.element.tab.ExtraGuiSortingTab;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityItemStackGasToItemStackAdvancedFactory;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityMetallurgicInfuserAdvancedFactory;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntitySawingAdvancedFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityItemStackGasToItemStackExtraFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityMetallurgicInfuserExtraFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntitySawingExtraFactory;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
 import mekanism.client.gui.GuiConfigurableTile;
 import mekanism.client.gui.element.GuiDumpButton;
@@ -22,14 +22,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityAdvancedFactory<?>, MekanismTileContainer<TileEntityAdvancedFactory<?>>> {
+public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityExtraFactory<?>, MekanismTileContainer<TileEntityExtraFactory<?>>> {
 
-    public GuiAdvancedFactory(MekanismTileContainer<TileEntityAdvancedFactory<?>> container, Inventory inv, Component title) {
+    public GuiAdvancedFactory(MekanismTileContainer<TileEntityExtraFactory<?>> container, Inventory inv, Component title) {
         super(container, inv, title);
         if (tile.hasSecondaryResourceBar()) {
             imageHeight += 11;
             inventoryLabelY = 85;
-        } else if (tile instanceof TileEntitySawingAdvancedFactory) {
+        } else if (tile instanceof TileEntitySawingExtraFactory) {
             imageHeight += 21;
             inventoryLabelY = 95;
         } else {
@@ -46,17 +46,17 @@ public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityAdvancedFa
     protected void addGuiElements() {
         super.addGuiElements();
         addRenderableWidget(new ExtraGuiSortingTab(this, tile));
-        addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), imageWidth - 12, 16, tile instanceof TileEntitySawingAdvancedFactory ? 73 : 52))
+        addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), imageWidth - 12, 16, tile instanceof TileEntitySawingExtraFactory ? 73 : 52))
                 .warning(WarningType.NOT_ENOUGH_ENERGY, tile.getWarningCheck(RecipeError.NOT_ENOUGH_ENERGY, 0));
         addRenderableWidget(new GuiEnergyTab(this, tile.getEnergyContainer(), tile::getLastUsage));
         if (tile.hasSecondaryResourceBar()) {
             ISupportsWarning<?> secondaryBar = null;
             int index = tile.tier.ordinal();
-            if (tile instanceof TileEntityMetallurgicInfuserAdvancedFactory factory) {
+            if (tile instanceof TileEntityMetallurgicInfuserExtraFactory factory) {
                 secondaryBar = addRenderableWidget(new GuiChemicalBar<>(this, GuiChemicalBar.getProvider(factory.getInfusionTank(), tile.getInfusionTanks(null)),
                         7, 76, 210 + 38 * index, 4, true));
                 addRenderableWidget(new GuiDumpButton<>(this, factory, 220 + 38 * index, 76));
-            } else if (tile instanceof TileEntityItemStackGasToItemStackAdvancedFactory factory) {
+            } else if (tile instanceof TileEntityItemStackGasToItemStackExtraFactory factory) {
                 secondaryBar = addRenderableWidget(new GuiChemicalBar<>(this, GuiChemicalBar.getProvider(factory.getGasTank(), tile.getGasTanks(null)),
                         7, 76, 210 + 38 * index, 4, true));
                 addRenderableWidget(new GuiDumpButton<>(this, factory, 220 + 38 * index, 76));

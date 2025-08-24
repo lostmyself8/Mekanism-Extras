@@ -59,7 +59,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 //Compressing, injecting, purifying
-public class TileEntityItemStackGasToItemStackAdvancedFactory extends TileEntityItemToItemAdvancedFactory<ItemStackGasToItemStackRecipe> implements IHasDumpButton,
+public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityItemToItemExtraFactory<ItemStackGasToItemStackRecipe> implements IHasDumpButton,
         ItemChemicalRecipeLookupHandler<Gas, GasStack, ItemStackGasToItemStackRecipe>, ConstantUsageRecipeLookupHandler {
 
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
@@ -85,7 +85,7 @@ public class TileEntityItemStackGasToItemStackAdvancedFactory extends TileEntity
     private double gasPerTickMeanMultiplier = 1;
     private long baseTotalUsage;
 
-    public TileEntityItemStackGasToItemStackAdvancedFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityItemStackGasToItemStackExtraFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
         gasInputHandler = InputHelper.getConstantInputHandler(gasTank);
         configComponent.addSupported(TransmissionType.GAS);

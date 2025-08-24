@@ -15,7 +15,7 @@ import java.util.Arrays;
 @Mixin(value = APILang.class, remap = false)
 public abstract class MixinAPILang implements ILangEntry{
 
-    @Shadow
+    @Shadow(remap = false)
     @Final
     @Mutable
     private static APILang[] $VALUES;

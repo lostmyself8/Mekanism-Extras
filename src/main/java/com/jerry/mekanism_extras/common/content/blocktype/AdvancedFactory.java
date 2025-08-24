@@ -6,7 +6,7 @@ import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
 import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
 import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class AdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends AdvancedMachine.AdvancedFactoryMachine<TILE> {
+public class AdvancedFactory<TILE extends TileEntityExtraFactory<?>> extends AdvancedMachine.AdvancedFactoryMachine<TILE> {
 
     private final AdvancedMachine.AdvancedFactoryMachine<?> origMachine;
 
@@ -41,10 +41,12 @@ public class AdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends 
     private void setMachineData(AdvancedFactoryTier tier) {
         setFrom(origMachine, AttributeSound.class, AttributeFactoryType.class, AttributeUpgradeSupport.class);
         AttributeEnergy origEnergy = origMachine.get(AttributeEnergy.class);
-        add(new AttributeEnergy(origEnergy::getUsage, () -> origEnergy.getConfigStorage().multiply(0.5).max(origEnergy.getUsage()).multiply(tier.processes)));
+        if (origEnergy != null) {
+            add(new AttributeEnergy(origEnergy::getUsage, () -> origEnergy.getConfigStorage().multiply(0.5).max(origEnergy.getUsage()).multiply(tier.processes)));
+        }
     }
 
-    public static class AdvancedFactoryBuilder<FACTORY extends AdvancedFactory<TILE>, TILE extends TileEntityAdvancedFactory<?>, T extends AdvancedMachine.AdvancedMachineBuilder<FACTORY, TILE, T>>
+    public static class AdvancedFactoryBuilder<FACTORY extends AdvancedFactory<TILE>, TILE extends TileEntityExtraFactory<?>, T extends AdvancedMachine.AdvancedMachineBuilder<FACTORY, TILE, T>>
             extends BlockTileBuilder<FACTORY, TILE, T> {
 
         protected AdvancedFactoryBuilder(FACTORY holder) {
@@ -52,8 +54,8 @@ public class AdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends 
         }
 
         @SuppressWarnings("unchecked")
-        public static <TILE extends TileEntityAdvancedFactory<?>> AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> createFactory(Supplier<?> tileEntityRegistrar, FactoryType type,
-                                                                                                                       AdvancedFactoryTier tier) {
+        public static <TILE extends TileEntityExtraFactory<?>> AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> createFactory(Supplier<?> tileEntityRegistrar, FactoryType type,
+                                                                                                                                    AdvancedFactoryTier tier) {
 
             AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> builder = getAdvancedFactoryTILEAdvancedFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(BlockShapes.getShape(null, type));
@@ -70,7 +72,7 @@ public class AdvancedFactory<TILE extends TileEntityAdvancedFactory<?>> extends 
         }
     }
 
-    private static <TILE extends TileEntityAdvancedFactory<?>> @NotNull AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> getAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, FactoryType type, AdvancedFactoryTier tier) {
+    private static <TILE extends TileEntityExtraFactory<?>> @NotNull AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> getAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, FactoryType type, AdvancedFactoryTier tier) {
 
         AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> builder = new AdvancedFactoryBuilder<>(new AdvancedFactory<>(tileEntityRegistrar,
                 () -> ExtraContainerTypes.FACTORY,

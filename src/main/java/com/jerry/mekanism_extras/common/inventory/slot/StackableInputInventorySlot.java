@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.inventory.slot;
 
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.functions.ConstantPredicates;
@@ -17,19 +17,19 @@ import java.util.function.Predicate;
 @NothingNullByDefault
 public class StackableInputInventorySlot extends InputInventorySlot {
 
-    private final TileEntityAdvancedFactory<?> factory;
+    private final TileEntityExtraFactory<?> factory;
 
-    public static StackableInputInventorySlot at(TileEntityAdvancedFactory<?> factory, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
+    public static StackableInputInventorySlot at(TileEntityExtraFactory<?> factory, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
         return at(factory, ConstantPredicates.alwaysTrue(), isItemValid, listener, x, y);
     }
 
-    public static StackableInputInventorySlot at(TileEntityAdvancedFactory<?> factory, Predicate<@NotNull ItemStack> insertPredicate, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
+    public static StackableInputInventorySlot at(TileEntityExtraFactory<?> factory, Predicate<@NotNull ItemStack> insertPredicate, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
         Objects.requireNonNull(insertPredicate, "Insertion check cannot be null");
         Objects.requireNonNull(isItemValid, "Item validity check cannot be null");
         return new StackableInputInventorySlot(factory, insertPredicate, isItemValid, listener, x, y);
     }
 
-    protected StackableInputInventorySlot(TileEntityAdvancedFactory<?> factory, Predicate<@NotNull ItemStack> insertPredicate, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
+    protected StackableInputInventorySlot(TileEntityExtraFactory<?> factory, Predicate<@NotNull ItemStack> insertPredicate, Predicate<@NotNull ItemStack> isItemValid, @Nullable IContentsListener listener, int x, int y) {
         super(insertPredicate, isItemValid, listener, x, y);
         setSlotType(ContainerSlotType.EXTRA);
         this.factory = factory;

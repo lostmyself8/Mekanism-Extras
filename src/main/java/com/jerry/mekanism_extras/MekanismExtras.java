@@ -13,7 +13,7 @@ import com.jerry.generator_extras.common.content.reactor.NaquadahReactorValidato
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.registry.*;
-import com.jerry.mekanism_extras.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.Addons;
 import com.mojang.logging.LogUtils;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
@@ -33,7 +33,6 @@ import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -49,9 +48,9 @@ public class MekanismExtras {
     public static final MultiblockManager<ExtraMatrixMultiblockData> extraMatrixManager = new MultiblockManager<>("extraInductionMatrix", MultiblockCache::new, ExtraMatrixValidator::new);
     public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", NaquadahReactorCache::new, NaquadahReactorValidator::new);
 
-    public MekanismExtras() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        LoadConfig.registerConfigs(ModLoadingContext.get());
+    public MekanismExtras(FMLJavaModLoadingContext context) {
+        IEventBus modEventBus =context.getModEventBus();
+        LoadConfig.registerConfigs(context);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupBuiltinPack);
         ExtraBlock.register(modEventBus);
@@ -69,7 +68,7 @@ public class MekanismExtras {
     }
 
     public static ResourceLocation rl(String path) {
-        return new ResourceLocation(MekanismExtras.MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(MekanismExtras.MODID, path);
     }
 
     private void registerCommands(RegisterCommandsEvent event) {

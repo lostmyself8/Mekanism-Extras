@@ -75,7 +75,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE>, ISustainedData {
+public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE>, ISustainedData {
 
     /**
      * How many ticks it takes, by default, to run an operation.
@@ -114,13 +114,13 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
     @NotNull
     protected final FactoryType type;
 
-    protected MachineEnergyContainer<TileEntityAdvancedFactory<?>> energyContainer;
+    protected MachineEnergyContainer<TileEntityExtraFactory<?>> energyContainer;
     protected final List<IInventorySlot> inputSlots;
     protected final List<IInventorySlot> outputSlots;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getEnergyItem", docPlaceholder = "energy slot")
     EnergyInventorySlot energySlot;
 
-    protected TileEntityAdvancedFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
+    protected TileEntityExtraFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
         super(blockProvider, pos, state);
         type = Objects.requireNonNull(Attribute.get(blockProvider, AttributeFactoryType.class)).getFactoryType();
         configComponent = new TileComponentConfig(this, TransmissionType.ITEM, TransmissionType.ENERGY);
@@ -465,7 +465,7 @@ public abstract class TileEntityAdvancedFactory<RECIPE extends MekanismRecipe> e
         return false;
     }
 
-    public MachineEnergyContainer<TileEntityAdvancedFactory<?>> getEnergyContainer() {
+    public MachineEnergyContainer<TileEntityExtraFactory<?>> getEnergyContainer() {
         return energyContainer;
     }
 

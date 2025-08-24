@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.common.config;
 
-import com.jerry.mekanism_extras.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.Addons;
 import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static com.jerry.generator_extras.common.config.GenLoadConfig.generatorConfig;
 
@@ -16,8 +16,8 @@ public class LoadConfig {
     public static final ExtraUsageConfig extraUsage = new ExtraUsageConfig();
     public static final ExtraWorldConfig worldConfig = new ExtraWorldConfig();
 
-    public static void registerConfigs(ModLoadingContext modLoadingContext) {
-        ModContainer modContainer = modLoadingContext.getActiveContainer();
+    public static void registerConfigs(FMLJavaModLoadingContext context) {
+        ModContainer modContainer = context.getContainer();
         ExtraConfigHelper.registerConfig(modContainer, extraStorage);
         ExtraConfigHelper.registerConfig(modContainer, extraConfig);
         ExtraConfigHelper.registerConfig(modContainer, extraUsage);

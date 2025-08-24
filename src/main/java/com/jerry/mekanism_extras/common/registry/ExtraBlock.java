@@ -11,7 +11,7 @@ import com.jerry.mekanism_extras.common.block.prefab.BlockAdvancedFactoryMachine
 import com.jerry.mekanism_extras.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekanism_extras.common.item.block.machine.ItemBlockAdvancedFactory;
 import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityAdvancedFactory;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockBin;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockBin;
@@ -247,7 +247,7 @@ public class ExtraBlock {
         return EXTRA_BLOCK.registerDefaultProperties(name, blockSupplier, ItemBlockTooltip::new);
     }
 
-    private static <TILE extends TileEntityAdvancedFactory<?>> BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> registerFactory(AdvancedFactory<TILE> type) {
+    private static <TILE extends TileEntityExtraFactory<?>> BlockRegistryObject<BlockAdvancedFactoryMachine.BlockAdvancedFactory<?>, ItemBlockAdvancedFactory> registerFactory(AdvancedFactory<TILE> type) {
         IAdvancedTier tier = Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(type, "_" + type.getFactoryType().getRegistryNameComponent() + "_factory", () -> new BlockAdvancedFactoryMachine.BlockAdvancedFactory<>(type), ItemBlockAdvancedFactory::new);
     }

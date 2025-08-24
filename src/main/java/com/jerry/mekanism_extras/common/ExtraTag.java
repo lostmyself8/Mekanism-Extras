@@ -36,7 +36,7 @@ public class ExtraTag {
         public static final TagKey<Item> END_NAQUADAH = forgeTag("ores/naquadah");
 
         private static TagKey<Item> forgeTag(String name) {
-            return ItemTags.create(new ResourceLocation("forge", name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
         }
     }
 
@@ -55,7 +55,7 @@ public class ExtraTag {
         public static final LazyTagLookup<Fluid> LAZY_POLONIUM_CONTAINING_SOLUTION = LazyTagLookup.create(ForgeRegistries.FLUIDS, POLONIUM_CONTAINING_SOLUTION);
 
         private static TagKey<Fluid> forgeTag(String name) {
-            return FluidTags.create(new ResourceLocation("forge", name));
+            return FluidTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
         }
 
         private static TagKey<Fluid> tag(String name) {

@@ -38,7 +38,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<SawmillRecipe> implements ItemRecipeLookupHandler<SawmillRecipe> {
+public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<SawmillRecipe> implements ItemRecipeLookupHandler<SawmillRecipe> {
 
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
@@ -52,7 +52,7 @@ public class TileEntitySawingAdvancedFactory extends TileEntityAdvancedFactory<S
     protected IInputHandler<@NotNull ItemStack>[] inputHandlers;
     protected IOutputHandler<@NotNull ChanceOutput>[] outputHandlers;
 
-    public TileEntitySawingAdvancedFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public TileEntitySawingExtraFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
     }
 
