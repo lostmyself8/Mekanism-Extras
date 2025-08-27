@@ -67,12 +67,10 @@ repositories {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
     }
-    repositories {
-        maven {
-            url "https://maven.squiddev.cc"
-            content {
-                includeGroup("cc.tweaked")
-            }
+    maven {
+        url "https://maven.squiddev.cc"
+        content {
+            includeGroup("cc.tweaked")
         }
     }
 }

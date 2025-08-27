@@ -5,6 +5,7 @@ import mekanism.api.IContentsListener;
 import mekanism.api.chemical.IChemicalHandler;
 import mekanism.api.heat.IHeatHandler;
 import mekanism.api.text.EnumColor;
+import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.heat.CachedAmbientTemperature;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
@@ -65,6 +66,14 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
     @Override
     protected IHeatCapacitorHolder getInitialHeatCapacitors(IContentsListener listener, CachedAmbientTemperature ambientTemperature) {
         return side -> getMultiblock().getHeatCapacitors(side);
+    }
+
+    @Override
+    public boolean persists(ContainerType<?, ?, ?> type) {
+        if (type == ContainerType.CHEMICAL || type == ContainerType.FLUID || type == ContainerType.ENERGY || type == ContainerType.HEAT) {
+            return false;
+        }
+        return super.persists(type);
     }
 
     public void addGasTargetCapability(List<MultiblockData.CapabilityOutputTarget<IChemicalHandler>> outputTargets, Direction side) {
