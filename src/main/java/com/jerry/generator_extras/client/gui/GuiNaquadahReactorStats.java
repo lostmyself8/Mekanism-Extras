@@ -2,8 +2,8 @@ package com.jerry.generator_extras.client.gui;
 
 import com.jerry.generator_extras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.generator_extras.common.ExtraGenLang;
-import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import mekanism.api.text.EnumColor;
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.util.MekanismUtils;

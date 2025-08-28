@@ -1,6 +1,6 @@
-package com.jerry.generator_extras.common.tile.reactor;
+package com.jerry.generator_extras.common.tile.naquadah;
 
-import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.integration.energy.EnergyCompatUtils;

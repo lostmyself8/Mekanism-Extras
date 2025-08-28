@@ -2,7 +2,8 @@ package com.jerry.generator_extras.common.genregistry;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
 import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
-import com.jerry.generator_extras.common.tile.reactor.*;
+import com.jerry.generator_extras.common.tile.naquadah.*;
+import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
 import mekanism.common.block.attribute.AttributeMultiblock;
 import mekanism.generators.common.GeneratorsLang;
 import mekanism.common.block.attribute.Attributes;
@@ -10,6 +11,10 @@ import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.generators.common.registries.GeneratorsSounds;
 
 public class ExtraGenBlockTypes {
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Naquadah Reactor
+    ///////////////////////////////////////////////////////////////////////////
 
     // Naquadah Reactor Controller
     public static final BlockTypeTile<TileEntityNaquadahReactorController> NAQUADAH_REACTOR_CONTROLLER = BlockTypeTile.BlockTileBuilder
@@ -48,5 +53,15 @@ public class ExtraGenBlockTypes {
     public static final BlockTypeTile<TileEntityLeadCoatedLaserFocusMatrix> LEAD_COATED_LASER_FOCUS_MATRIX = BlockTypeTile.BlockTileBuilder
             .createBlock(() -> ExtraGenTileEntityTypes.LEAD_COATED_LASER_FOCUS_MATRIX, ExtraGenLang.DESCRIPTION_LEAD_COATED_LASER_FOCUS_MATRIX)
             .with(AttributeMultiblock.EXTERNAL, Attributes.AttributeMobSpawn.NEVER)
+            .build();
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Plasma Evaporation Plant
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Plasma Evaporation Block
+    public static final BlockTypeTile<TileEntityPlasmaEvaporationBlock> PLASMA_EVAPORATION_BLOCK = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_BLOCK, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_BLOCK)
+            .externalMultiblock()
             .build();
 }

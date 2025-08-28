@@ -2,7 +2,7 @@ package com.jerry.generator_extras.client.gui;
 
 import com.jerry.generator_extras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.generator_extras.common.network.to_server.ExtraPacketGeneratorsGuiInteract;
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import mekanism.client.gui.element.gauge.GaugeType;
 import mekanism.client.gui.element.gauge.GuiGasGauge;
 import mekanism.client.gui.element.progress.GuiProgress;

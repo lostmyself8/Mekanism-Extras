@@ -16,4 +16,8 @@ public class TileEntityLeadCoatedGlass extends TileEntityStructuralMultiblock {
         return true;
     }
 
+    @Override
+    public boolean structuralGuiAccessAllowed() {
+        return true;
+    }
 }

@@ -1,4 +1,4 @@
-package com.jerry.generator_extras.common.content.reactor;
+package com.jerry.generator_extras.common.content.naquadah;
 
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.math.FloatingLong;

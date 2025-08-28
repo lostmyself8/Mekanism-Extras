@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.client.render;
 
-import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.genregistry;
 
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorLogicAdapter;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
 import com.jerry.mekanism_extras.MekanismExtras;
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;

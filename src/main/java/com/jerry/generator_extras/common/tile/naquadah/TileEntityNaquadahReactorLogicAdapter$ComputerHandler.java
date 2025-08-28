@@ -1,4 +1,4 @@
-package com.jerry.generator_extras.common.tile.reactor;
+package com.jerry.generator_extras.common.tile.naquadah;
 
 import mekanism.common.integration.computer.BaseComputerHelper;
 import mekanism.common.integration.computer.ComputerException;

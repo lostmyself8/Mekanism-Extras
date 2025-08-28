@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.client.gui;
 
 import com.jerry.generator_extras.common.network.to_server.ExtraPacketGeneratorsGuiInteract;
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorLogicAdapter;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
 import mekanism.api.text.EnumColor;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiElementHolder;

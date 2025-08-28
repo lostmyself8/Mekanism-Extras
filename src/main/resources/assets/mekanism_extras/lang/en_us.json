@@ -1,5 +1,5 @@
 {
-  "constants.mekanism_extras.mod_name":"Mekanism:Extras",
+  "constants.mekanism_extras.mod_name":"Mekanism: Extras",
   "pack.mekanism_extras.pack_name": "MekE: Stop the flashing!",
   "pack.mekanism_extras.pack_description": "Stop the flashing of Cosmic and Infinite's items and blocks",
   "item.mekanism_extras.qio_drive_collapse": "Collapse QIO Drive",
@@ -225,6 +225,7 @@
   "description.mekanism_extras.naquadah_reactor_controller": "The controlling block for the entire Naquadah Reactor structure.",
   "description.mekanism_extras.lead_coated_laser_focus_matrix": "Compared to the laser focusing matrix, it can prevent radiation.",
   "description.mekanism_extras.lead_coated_glass": "Reactor glass that can prevent the radiation from the reactor.",
+  "description.mekanism_extras.plasma_evaporation_block": "A gold-tungsten-alloyed casing used in the structure of a Plasma Evaporation Plant, capable of conducting the enormous amounts of heat necessary for processing without instantly vaporized.",
 
   "upgrade.mekanism.stack": "Stack",
   "upgrade.mekanism.stack.description": "Increase the parallel number of work.",
@@ -262,5 +263,7 @@
 
   "info.mekanism_extras.jei.rich_naquadah_fuel": "Rich Naquadah Fuel can be extracted from a Naquadah Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
   "info.mekanism_extras.jei.rich_uranium_fuel": "Rich Uranium Fuel can be extracted from a Uranium Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
-  "info.mekanism_extras.jei.polonium_containing_solution": "When coolant is injected into a Naquadah Reactor, the generated steam will capture polonium-208 that does not decay in the reactor, resulting in polonium containing steam."
+  "info.mekanism_extras.jei.polonium_containing_solution": "When coolant is injected into a Naquadah Reactor, the generated steam will capture polonium-208 that does not decay in the reactor, resulting in polonium containing steam.",
+
+  "chemical.mekanism_extras.attributes.heatant": " - Heat Per 10,000 mB: %1$s"
 }

@@ -1,6 +1,6 @@
-package com.jerry.generator_extras.common.content.reactor;
+package com.jerry.generator_extras.common.content.naquadah;
 
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import mekanism.common.MekanismLang;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.math.voxel.VoxelCuboid;

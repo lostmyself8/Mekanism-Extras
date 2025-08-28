@@ -1,15 +1,17 @@
 package com.jerry.mekanism_extras;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
-import com.jerry.generator_extras.common.content.reactor.NaquadahReactorCache;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorCache;
+import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationMultiblockData;
+import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationValidator;
 import com.jerry.generator_extras.common.genregistry.*;
 import com.jerry.mekanism_extras.client.events.ClientTick;
 import com.jerry.mekanism_extras.common.ExtraLang;
 import com.jerry.mekanism_extras.common.ExtraTag;
 import com.jerry.mekanism_extras.common.command.ExtraBuilders;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
-import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
-import com.jerry.generator_extras.common.content.reactor.NaquadahReactorValidator;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorValidator;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.registry.*;
@@ -47,6 +49,7 @@ public class MekanismExtras {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final MultiblockManager<ExtraMatrixMultiblockData> extraMatrixManager = new MultiblockManager<>("extraInductionMatrix", MultiblockCache::new, ExtraMatrixValidator::new);
     public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", NaquadahReactorCache::new, NaquadahReactorValidator::new);
+    public static final MultiblockManager<PlasmaEvaporationMultiblockData> plasmaEvaporationPlantManager = new MultiblockManager<>("plasmaEvaporationPlant", MultiblockCache::new, PlasmaEvaporationValidator::new);
 
     public MekanismExtras(FMLJavaModLoadingContext context) {
         IEventBus modEventBus =context.getModEventBus();

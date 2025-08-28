@@ -1,9 +1,9 @@
-package com.jerry.generator_extras.common.content.reactor;
+package com.jerry.generator_extras.common.content.naquadah;
 
 import com.jerry.generator_extras.common.config.GenLoadConfig;
 import com.jerry.generator_extras.common.item.ItemNquadahHohlraum;
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorCasing;
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorPort;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorPort;
 import com.jerry.mekanism_extras.common.registry.ExtraGases;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.Action;

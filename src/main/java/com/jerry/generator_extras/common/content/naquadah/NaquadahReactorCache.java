@@ -1,4 +1,4 @@
-package com.jerry.generator_extras.common.content.reactor;
+package com.jerry.generator_extras.common.content.naquadah;
 
 import mekanism.api.NBTConstants;
 import mekanism.common.lib.multiblock.MultiblockCache;
