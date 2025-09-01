@@ -9,9 +9,11 @@ import mekanism.common.registration.impl.SlurryRegistryObject;
 import net.neoforged.bus.api.IEventBus;
 
 public class ExtraChemicals {
+
     private ExtraChemicals() {
 
     }
+
     public static final ChemicalDeferredRegister EXTRA_CHEMICALS = new ChemicalDeferredRegister(MekanismExtras.MOD_ID);
 
     // Gas
@@ -25,11 +27,9 @@ public class ExtraChemicals {
     // Infuse Type
     public static final DeferredChemical<Chemical> RADIANCE = EXTRA_CHEMICALS.registerInfuse("radiance", 0xC4C604);
     public static final DeferredChemical<Chemical> THERMONUCLEAR = EXTRA_CHEMICALS.registerInfuse("thermonuclear", 0x810C0C);
-//    public static final DeferredChemical<Chemical> SHINING = EXTRA_CHEMICALS.register("shining", MekanismExtras.rl("infuse_type/shining"), 0xF5E8F6);
-//    public static final DeferredChemical<Chemical> SPECTRUM = EXTRA_CHEMICALS.register("spectrum", MekanismExtras.rl("infuse_type/spectrum"), 0x74656A);
-    public static final DeferredChemical<Chemical> SHINING = EXTRA_CHEMICALS.registerInfuse("shining",0xFBE0FE);
-    public static final DeferredChemical<Chemical> SPECTRUM = EXTRA_CHEMICALS.registerInfuse("spectrum",0x1D1D29);
-    public static final DeferredChemical<Chemical> LEAD = EXTRA_CHEMICALS.registerInfuse("lead",0x627370);
+    public static final DeferredChemical<Chemical> SHINING = EXTRA_CHEMICALS.register("shining", MekanismExtras.rl("infuse_type/shining"), 0xF5E8F6);
+    public static final DeferredChemical<Chemical> SPECTRUM = EXTRA_CHEMICALS.register("spectrum", MekanismExtras.rl("infuse_type/spectrum"), 0x74656A);
+    public static final DeferredChemical<Chemical> LEAD = EXTRA_CHEMICALS.registerInfuse("lead", 0x627370);
 
     // Slurry
     // 如果之后有更多矿物可以使用批量添加
