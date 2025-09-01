@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "mekanism:mek_data",
   "key": {
     "A": {
       "tag": "c:alloys/supreme"
@@ -20,6 +20,6 @@
     "OOO"
   ],
   "result": {
-    "id": "mekanism_extras:advance_electric_pump"
+    "id": "mekanism_extras:advanced_electric_pump"
   }
 }

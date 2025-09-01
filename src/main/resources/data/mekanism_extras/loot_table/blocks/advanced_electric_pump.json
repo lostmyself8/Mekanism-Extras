@@ -25,12 +25,12 @@
               "source": "block_entity"
             }
           ],
-          "name": "mekanism_extras:advance_electric_pump"
+          "name": "mekanism_extras:advanced_electric_pump"
         }
       ],
       "name": "main",
       "rolls": 1.0
     }
   ],
-  "random_sequence": "mekanism_extras:blocks/advance_electric_pump"
+  "random_sequence": "mekanism_extras:blocks/advanced_electric_pump"
 }

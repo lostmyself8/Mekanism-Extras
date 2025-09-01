@@ -90,7 +90,7 @@
     "mekanism_extras:supreme_radioactive_waste_barrel",
     "mekanism_extras:cosmic_radioactive_waste_barrel",
     "mekanism_extras:infinite_radioactive_waste_barrel",
-    "mekanism_extras:advance_electric_pump",
+    "mekanism_extras:advanced_electric_pump",
     {"id": "mekanism_extras:naquadah_reactor_controller", "required": false},
     {"id": "mekanism_extras:naquadah_reactor_casing", "required": false},
     {"id": "mekanism_extras:naquadah_reactor_port", "required": false},
