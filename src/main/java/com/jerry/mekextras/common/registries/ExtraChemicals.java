@@ -27,8 +27,8 @@ public class ExtraChemicals {
     // Infuse Type
     public static final DeferredChemical<Chemical> RADIANCE = EXTRA_CHEMICALS.registerInfuse("radiance", 0xC4C604);
     public static final DeferredChemical<Chemical> THERMONUCLEAR = EXTRA_CHEMICALS.registerInfuse("thermonuclear", 0x810C0C);
-    public static final DeferredChemical<Chemical> SHINING = EXTRA_CHEMICALS.register("shining", MekanismExtras.rl("infuse_type/shining"), 0xF5E8F6);
-    public static final DeferredChemical<Chemical> SPECTRUM = EXTRA_CHEMICALS.register("spectrum", MekanismExtras.rl("infuse_type/spectrum"), 0x74656A);
+    public static final DeferredChemical<Chemical> SHINING = EXTRA_CHEMICALS.register("shining", MekanismExtras.rl("infuse_type/shining"), 0xFAD1FE);
+    public static final DeferredChemical<Chemical> SPECTRUM = EXTRA_CHEMICALS.register("spectrum", MekanismExtras.rl("infuse_type/spectrum"), 0xBF3314);
     public static final DeferredChemical<Chemical> LEAD = EXTRA_CHEMICALS.registerInfuse("lead", 0x627370);
 
     // Slurry
