@@ -1,13 +1,26 @@
 package com.jerry.mekextras.common.config;
 
 import com.jerry.mekextras.MekanismExtras;
+import com.jerry.mekextras.api.tier.IAdvancedTier;
+import com.jerry.mekextras.common.tier.*;
 import mekanism.common.config.IConfigTranslation;
 import mekanism.common.config.TranslationPreset;
 import net.minecraft.Util;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
+import java.util.Objects;
+import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
+
 public enum ExtraConfigTranslations implements IConfigTranslation {
+    GENERAL_ADVANCED_PUMP_HEAVY_WATER("general.pump.heavy_water", "Heavy Water Amount",
+            "Amount of Heavy Water in mB that is extracted per block of Water by the Advanced Electric Pump with a Filter Upgrade."),
+
+    TIER_QIO_DRIVER("tier.qio", "QIO Drivers", "Settings for configuring QIO Drivers", true),
+    TIER_RADIOACTIVE_BARREL("tier.radioactive.barrel", "Radioactive Waste Barrel", "Settings for configuring Radioactive Waste Barrels", true),
+
     ABSOLUTE_UNIVERSAL_CABLE_CAPACITY("tier.cable", "absolute", "Internal buffer in Joules of Absolute Universal Cable."),
     SUPREME_UNIVERSAL_CABLE_CAPACITY("tier.cable", "supreme", "Internal buffer in Joules of Supreme Universal Cable."),
     COSMIC_UNIVERSAL_CABLE_CAPACITY("tier.cable", "cosmic", "Internal buffer in Joules of Cosmic Universal Cable."),
@@ -102,5 +115,118 @@ public enum ExtraConfigTranslations implements IConfigTranslation {
     @Override
     public String button() {
         return button;
+    }
+
+    public record AdvancedTierTranslations(@Nullable IConfigTranslation first, @Nullable IConfigTranslation second, @Nullable IConfigTranslation third) {
+
+        public AdvancedTierTranslations {
+            if (first == null && second == null) {
+                throw new IllegalArgumentException("Tier Translations must have at least a first, second, or third tooltip");
+            }
+        }
+
+        public IConfigTranslation[] toArray() {
+            return Stream.of(first, second, third).filter(Objects::nonNull).toArray(IConfigTranslation[]::new);
+        }
+
+        @NotNull
+        @Override
+        public IConfigTranslation first() {
+            if (first == null) {
+                throw new IllegalStateException("This method should not be called when first is null. Define first");
+            }
+            return first;
+        }
+
+        @NotNull
+        @Override
+        public IConfigTranslation second() {
+            if (second == null) {
+                throw new IllegalStateException("This method should not be called when storage is null. Define second");
+            }
+            return second;
+        }
+
+        @NotNull
+        @Override
+        public IConfigTranslation third() {
+            if (third == null) {
+                throw new IllegalStateException("This method should not be called when third is null. Define third");
+            }
+            return third;
+        }
+
+        private static String getKey(String type, String tier, String path) {
+            return Util.makeDescriptionId("configuration", MekanismExtras.rl("tier." + type + "." + tier + "." + path));
+        }
+
+        public static AdvancedTierTranslations create(IAdvancedTier tier, String type, @Nullable UnaryOperator<String> storageTooltip, @Nullable UnaryOperator<String> outputTooltip) {
+            return create(tier, type, storageTooltip, outputTooltip, " Output Rate");
+        }
+
+        public static AdvancedTierTranslations create(IAdvancedTier tier, String type, @Nullable UnaryOperator<String> storageTooltip, @Nullable UnaryOperator<String> outputTooltip,
+                                                                         String rateSuffix) {
+            String tierName = tier.getAdvanceTier().getSimpleName();
+            String key = tierName.toLowerCase(Locale.ROOT);
+            return new AdvancedTierTranslations(
+                    storageTooltip == null ? null : new ConfigTranslation(getKey(type, key, "storage"), tierName + " Storage", storageTooltip.apply(tierName)),
+                    outputTooltip == null ? null : new ConfigTranslation(getKey(type, key, "rate"), tierName + rateSuffix, outputTooltip.apply(tierName)),
+                    null
+            );
+        }
+
+        public static AdvancedTierTranslations create(ECTier tier) {
+            return create(tier, "energy_cube", name -> "Maximum number of Joules " + name + " energy cubes can store.",
+                    name -> "Output rate in Joules of " + name + " energy cubes."
+            );
+        }
+
+        public static AdvancedTierTranslations create(FTTier tier) {
+            return create(tier, "fluid_tank", name -> "Storage size of " + name + " fluid tanks in mB.",
+                    name -> "Output rate of " + name + " fluid tanks in mB."
+            );
+        }
+
+        public static AdvancedTierTranslations create(CTTier tier) {
+            return create(tier, "chemical_tank", name -> "Storage size of " + name + " chemical tanks in mB.",
+                    name -> "Output rate of " + name + " chemical tanks in mB."
+            );
+        }
+
+        public static AdvancedTierTranslations create(BTier tier) {
+            return create(tier, "bin", name -> "The number of items " + name + " bins can store.", null);
+        }
+
+        public static AdvancedTierTranslations create(ICTier tier) {
+            return create(tier, "induction.cell", name -> "Maximum number of Joules " + name + " induction cells can store.", null);
+        }
+
+        public static AdvancedTierTranslations create(IPTier tier) {
+            return create(tier, "induction.provider", null, name -> "Maximum number of Joules " + name + " induction providers can output or accept.");
+        }
+
+        public static AdvancedTierTranslations create(ExtraQIODriveTier tier) {
+            String type = "qio";
+            String tierName = tier.getAdvanceTier().getSimpleName();
+            String key = tierName.toLowerCase(Locale.ROOT);
+            return new AdvancedTierTranslations(new ConfigTranslation(getKey(type, key, "count"), tierName + " Count",
+                    "The number of items that the " + tierName + " QIO Drive can store."
+            ), new ConfigTranslation(getKey(type, key, "type"), tierName + " Types",
+                    "The number of types that the " + tierName + " QIO Drive can store."
+            ), null);
+        }
+
+        public static AdvancedTierTranslations create(RWBTier tier) {
+            String type = "radioactive.barrel";
+            String tierName = tier.getAdvanceTier().getSimpleName();
+            String key = tierName.toLowerCase(Locale.ROOT);
+            return new AdvancedTierTranslations(new ConfigTranslation(getKey(type, key, "storage"), tierName + " Storage",
+                    "Amount of gas (mB) that can be stored in " + tierName + " Radioactive Waste Barrel."
+            ), new ConfigTranslation(getKey(type, key, "process_ticks"), tierName + " Process Ticks",
+                    "Number of ticks required for radioactive gas stored in " + tierName + " Radioactive Waste Barrel to decay radioactiveWasteBarrelDecayAmount mB."
+            ), new ConfigTranslation(getKey(type, key, "decay_amount"), tierName + " Decay Amount",
+                    "Number of mB of gas that decay every radioactiveWasteBarrelProcessTicks ticks when stored in " + tierName + " Radioactive Waste Barrel. Set to zero to disable decay all together. (Gases in the mekanism:waste_barrel_decay_blacklist tag will not decay)."
+            ));
+        }
     }
 }

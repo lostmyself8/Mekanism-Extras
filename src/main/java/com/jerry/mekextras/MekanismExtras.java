@@ -14,6 +14,7 @@ import com.jerry.mekextras.common.network.ExtraPacketHandler;
 import com.jerry.mekextras.common.registries.*;
 import com.jerry.mekextras.common.integration.ExtraHooks;
 import com.mojang.logging.LogUtils;
+import mekanism.common.base.IModModule;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.Version;
@@ -29,10 +30,11 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.slf4j.Logger;
 
 @Mod(MekanismExtras.MOD_ID)
-public class MekanismExtras {
+public class MekanismExtras implements IModModule {
 
     public static final String MOD_ID = "mekanism_extras";
-    public static final String MOD_NAME = "Mekanism-Extras";
+    public static final String MOD_NAME = "MekanismExtras";
+    public static final String FOLD_NAME = "Mekanism-Extras";
 
     private final ExtraPacketHandler extraPacketHandler;
 
@@ -93,4 +95,13 @@ public class MekanismExtras {
         event.getDispatcher().register(CommandMek.register());
     }
 
+    @Override
+    public Version getVersion() {
+        return versionNumber;
+    }
+
+    @Override
+    public String getName() {
+        return "Extras";
+    }
 }

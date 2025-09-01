@@ -64,7 +64,7 @@ public class ExtraGeneratorsConfig extends BaseMekanismConfig {
 
     @Override
     public String getFileName() {
-        return "Generators";
+        return "generators";
     }
 
     @Override
