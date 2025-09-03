@@ -15,19 +15,19 @@ public class TCTier {
 
     public static double getHeatCapacity(ConductorTier tier) {
         return switch (tier) {
-            case BASIC -> ExtraConfig.extraTierConfig.absoluteThermodynamicConductornCapacity.get();
-            case ADVANCED -> ExtraConfig.extraTierConfig.supremeThermodynamicConductornCapacity.get();
-            case ELITE -> ExtraConfig.extraTierConfig.cosmicThermodynamicConductornCapacity.get();
-            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteThermodynamicConductornCapacity.get();
+            case BASIC -> ExtraConfig.extraTierConfig.absoluteThermodynamicConductorCapacity.get();
+            case ADVANCED -> ExtraConfig.extraTierConfig.supremeThermodynamicConductorCapacity.get();
+            case ELITE -> ExtraConfig.extraTierConfig.cosmicThermodynamicConductorCapacity.get();
+            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteThermodynamicConductorCapacity.get();
         };
     }
 
     public static double getConductionInsulation(ConductorTier tier) {
         return switch (tier) {
-            case BASIC -> ExtraConfig.extraTierConfig.absoluteThermodynamicConductornInsulation.get();
-            case ADVANCED -> ExtraConfig.extraTierConfig.supremeThermodynamicConductornInsulation.get();
-            case ELITE -> ExtraConfig.extraTierConfig.cosmicThermodynamicConductornInsulation.get();
-            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteThermodynamicConductornInsulation.get();
+            case BASIC -> ExtraConfig.extraTierConfig.absoluteThermodynamicConductorInsulation.get();
+            case ADVANCED -> ExtraConfig.extraTierConfig.supremeThermodynamicConductorInsulation.get();
+            case ELITE -> ExtraConfig.extraTierConfig.cosmicThermodynamicConductorInsulation.get();
+            case ULTIMATE -> ExtraConfig.extraTierConfig.infiniteThermodynamicConductorInsulation.get();
         };
     }
 }
