@@ -1,13 +1,21 @@
 package com.jerry.generator_extras.common.content.plasma;
 
 import com.jerry.generator_extras.common.config.GenLoadConfig;
+import com.jerry.generator_extras.common.recipe.ExtraGenRecipeType;
+import com.jerry.generator_extras.common.recipe.IExtraGenRecipeTypeProvider;
+import com.jerry.generator_extras.common.recipe.lookup.IExtraGenSingleRecipeLookupHandler.FluidRecipeLookupHandler;
+import com.jerry.generator_extras.common.recipe.lookup.cache.ExtraGenInputRecipeCache;
+import com.jerry.generator_extras.common.recipe.lookup.monitor.ExtraGenRecipeCacheLookupMonitor;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
 import com.jerry.mekanism_extras.api.gas.attribute.ExtraGasAttributes.*;
 import mekanism.api.Action;
+import mekanism.api.Coord4D;
 import mekanism.api.NBTConstants;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.IGasTank;
+import mekanism.api.chemical.gas.attribute.GasAttributes.Radiation;
 import mekanism.api.heat.HeatAPI;
+import mekanism.api.radiation.IRadiationManager;
 import mekanism.api.recipes.FluidToFluidRecipe;
 import mekanism.api.recipes.cache.CachedRecipe;
 import mekanism.api.recipes.cache.OneInputCachedRecipe;
@@ -29,11 +37,6 @@ import mekanism.common.inventory.slot.FluidInventorySlot;
 import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
-import mekanism.common.recipe.IMekanismRecipeTypeProvider;
-import mekanism.common.recipe.MekanismRecipeType;
-import mekanism.common.recipe.lookup.ISingleRecipeLookupHandler.FluidRecipeLookupHandler;
-import mekanism.common.recipe.lookup.cache.InputRecipeCache;
-import mekanism.common.recipe.lookup.monitor.RecipeCacheLookupMonitor;
 import mekanism.common.tile.prefab.TileEntityRecipeMachine;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
@@ -51,20 +54,10 @@ public class PlasmaEvaporationMultiblockData
         extends MultiblockData
         implements IValveHandler, FluidRecipeLookupHandler<FluidToFluidRecipe> {
 
-    // left = plasma, right = fluid
-    public static final CachedRecipe.OperationTracker.RecipeError NOT_ENOUGH_SPACE_LEFT_OUTPUT_ERROR = CachedRecipe.OperationTracker.RecipeError.create();
-    public static final CachedRecipe.OperationTracker.RecipeError NOT_ENOUGH_SPACE_RIGHT_OUTPUT_ERROR = CachedRecipe.OperationTracker.RecipeError.create();
-    public static final CachedRecipe.OperationTracker.RecipeError LEFT_INPUT_DOESNT_PRODUCE_LEFT_OUTPUT = CachedRecipe.OperationTracker.RecipeError.create();
-    public static final CachedRecipe.OperationTracker.RecipeError RIGHT_INPUT_DOESNT_PRODUCE_RIGHT_OUTPUT = CachedRecipe.OperationTracker.RecipeError.create();
-    public static final CachedRecipe.OperationTracker.RecipeError NOT_ENOUGH_LEFT_INPUT = CachedRecipe.OperationTracker.RecipeError.create();
-    public static final CachedRecipe.OperationTracker.RecipeError NOT_ENOUGH_RIGHT_INPUT = CachedRecipe.OperationTracker.RecipeError.create();
     private static final List<CachedRecipe.OperationTracker.RecipeError> TRACKED_ERROR_TYPES = List.of(
-            NOT_ENOUGH_SPACE_LEFT_OUTPUT_ERROR,
-            NOT_ENOUGH_SPACE_RIGHT_OUTPUT_ERROR,
-            LEFT_INPUT_DOESNT_PRODUCE_LEFT_OUTPUT,
-            RIGHT_INPUT_DOESNT_PRODUCE_RIGHT_OUTPUT,
-            NOT_ENOUGH_LEFT_INPUT,
-            NOT_ENOUGH_RIGHT_INPUT
+            CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
+            CachedRecipe.OperationTracker.RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT,
+            CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_INPUT
     );
     public static final int MAX_HEIGHT = 36;
 
@@ -93,7 +86,7 @@ public class PlasmaEvaporationMultiblockData
     @SyntheticComputerMethod(getter = "getProductionAmount")
     public double lastGain;
 
-    private final RecipeCacheLookupMonitor<FluidToFluidRecipe> recipeCacheLookupMonitor;
+    private final ExtraGenRecipeCacheLookupMonitor<FluidToFluidRecipe> recipeCacheLookupMonitor;
     private final BooleanSupplier recheckAllRecipeErrors;
     @ContainerSync
     private final boolean[] trackedErrors = new boolean[TRACKED_ERROR_TYPES.size()];
@@ -112,14 +105,14 @@ public class PlasmaEvaporationMultiblockData
 
     public PlasmaEvaporationMultiblockData(TileEntityPlasmaEvaporationBlock tile) {
         super(tile);
-        recipeCacheLookupMonitor = new RecipeCacheLookupMonitor<>(this);
+        recipeCacheLookupMonitor = new ExtraGenRecipeCacheLookupMonitor<>(this);
         recheckAllRecipeErrors = TileEntityRecipeMachine.shouldRecheckAllErrors(tile);
         //Default biome temp to the ambient temperature at the block we are at
         biomeAmbientTemp = HeatAPI.getAmbientTemp(tile.getLevel(), tile.getTilePos());
         fluidTanks.add(inputTank = VariableCapacityFluidTank.input(this, this::getMaxFluid, this::containsRecipe, createSaveAndComparator(recipeCacheLookupMonitor)));
         fluidTanks.add(outputTank = VariableCapacityFluidTank.output(this, GenLoadConfig.generatorConfig.plasmaEvaporationOutputFluidTankCapacity, BasicFluidTank.alwaysTrue, this));
-        inputHandler = InputHelper.getInputHandler(inputTank, NOT_ENOUGH_RIGHT_INPUT);
-        outputHandler = OutputHelper.getOutputHandler(outputTank, NOT_ENOUGH_SPACE_RIGHT_OUTPUT_ERROR);
+        inputHandler = InputHelper.getInputHandler(inputTank, CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_INPUT);
+        outputHandler = OutputHelper.getOutputHandler(outputTank, CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
         inventorySlots.add(inputInputSlot = FluidInventorySlot.fill(inputTank, this, 28, 20));
         inventorySlots.add(outputInputSlot = OutputInventorySlot.at(this, 28, 51));
         inventorySlots.add(inputOutputSlot = FluidInventorySlot.drain(outputTank, this, 132, 20));
@@ -196,8 +189,8 @@ public class PlasmaEvaporationMultiblockData
 
     @NotNull
     @Override
-    public IMekanismRecipeTypeProvider<FluidToFluidRecipe, InputRecipeCache.SingleFluid<FluidToFluidRecipe>> getRecipeType() {
-        return MekanismRecipeType.EVAPORATING;
+    public IExtraGenRecipeTypeProvider<FluidToFluidRecipe, ExtraGenInputRecipeCache.SingleFluid<FluidToFluidRecipe>> getRecipeType() {
+        return ExtraGenRecipeType.PLASMA_EVAPORATION;
     }
 
     @Nullable
@@ -257,23 +250,49 @@ public class PlasmaEvaporationMultiblockData
                 plasmaInputTank.getType().get(Heatant.class).getTemperature();
     }
 
+    // Util methods for processing
     private void consumePlasmaAndHeatUp() {
         // Try to consume plasma
         long consumed = (long) (inputTank.getFluidAmount() / GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaConsumeRatio.get());
-        Gas output;
-        if ((output = plasmaInputTank.getType().get(Heatant.class).getSuperheatedGas()) == plasmaOutputTank.getType()) {
-            // Heat up, then shrink the stack in case that the stack is empty after shrinking
-            heatCapacitor.handleHeat(consumed * plasmaInputTank.getType().get(Heatant.class).getTemperature());
-            plasmaInputTank.shrinkStack(consumed, Action.EXECUTE);
-            if (plasmaInputTank.isEmpty()) {
-                // We can't grow the stack if the type is empty
-                plasmaOutputTank.setStack(output.getStack(consumed));
-            } else {
-                plasmaOutputTank.growStack(consumed, Action.EXECUTE);
-            }
-        } else {
-            // Plasma input doesn't produce our expected output
+        double inc = consumed - plasmaOutputTank.getNeeded();
+        Gas output = plasmaInputTank.getType().get(Heatant.class).getSuperheatedGas();
+        boolean isOutputRadioactive = output.has(Radiation.class);
 
+        // Heat up, then shrink the stack in case that the stack is empty after
+        // shrinking as we need to get the input's type
+        heatCapacitor.handleHeat(consumed * plasmaInputTank.getType().get(Heatant.class).getTemperature());
+        plasmaInputTank.shrinkStack(consumed, Action.EXECUTE);
+        if (output == plasmaOutputTank.getType()) {
+            if (inc > 0) {
+                // The plasma overflowed and we need to check its radioactivity
+                if (isOutputRadioactive) {
+                    tryRadiateEnvironment(output, inc);
+                }
+            }
+            plasmaOutputTank.growStack(consumed, Action.EXECUTE);
+        } else if (plasmaOutputTank.isEmpty()) {
+            // Type doesn't match because it's empty
+            if (inc > 0) {
+                // The plasma overflowed and we need to check its radioactivity
+                if (isOutputRadioactive) {
+                    tryRadiateEnvironment(output, inc);
+                }
+            }
+            plasmaOutputTank.setStack(output.getStack(consumed));
+        } else {
+            // Plasma input doesn't produce our expected output, leak it
+            if (isOutputRadioactive) {
+                tryRadiateEnvironment(output, consumed);
+            }
+        }
+    }
+
+    private void tryRadiateEnvironment(Gas gas, double amount) {
+        IRadiationManager manager = IRadiationManager.INSTANCE;
+        if (!gas.has(Radiation.class)) return;
+        if (manager.isRadiationEnabled()) {
+            manager.radiate(new Coord4D(this.getBounds().getCenter(), this.getWorld()),
+                    gas.get(Radiation.class).getRadioactivity() * amount);
         }
     }
 }
