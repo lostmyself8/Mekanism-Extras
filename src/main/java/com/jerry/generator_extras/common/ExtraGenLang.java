@@ -20,9 +20,18 @@ public enum ExtraGenLang implements ILangEntry {
     DESCRIPTION_LEAD_COATED_GLASS("description", "lead_coated_glass"),
 
     DESCRIPTION_PLASMA_EVAPORATION_BLOCK("description", "plasma_evaporation_block"),
+    DESCRIPTION_PLASMA_EVAPORATION_CONTROLLER("description", "plasma_evaporation_controller"),
+    DESCRIPTION_PLASMA_EVAPORATION_VALVE("description", "plasma_evaporation_valve"),
+    DESCRIPTION_PLASMA_INSULATION_LAYER("description", "plasma_insulation_layer"),
+    DESCRIPTION_PLASMA_EVAPORATION_VENT("description", "plasma_evaporation_vent"),
 
     // Chemical Attributes
     CHEMICAL_ATTRIBUTE_HEATANT("chemical", "attribute.heatant"),
+
+    // Multiblock fail messages
+    PLASMA_VENT_NOT_AT_TOP("plasma", "vent_not_at_top"),
+    PLASMA_VENTS_NOT_FULFILL_TOP("plasma", "vents_not_fulfill_top"),
+    PLASMA_BAD_INSULATION_LAYER("plasma", "bad_insulation_layer"),
     ;
 
     private final String key;

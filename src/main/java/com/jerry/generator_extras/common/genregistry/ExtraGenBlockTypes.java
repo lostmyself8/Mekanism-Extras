@@ -3,8 +3,10 @@ package com.jerry.generator_extras.common.genregistry;
 import com.jerry.generator_extras.common.ExtraGenLang;
 import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
 import com.jerry.generator_extras.common.tile.naquadah.*;
-import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
+import com.jerry.generator_extras.common.tile.plasma.*;
 import mekanism.common.block.attribute.AttributeMultiblock;
+import mekanism.common.block.attribute.AttributeStateFacing;
+import mekanism.common.block.attribute.Attributes.AttributeCustomResistance;
 import mekanism.generators.common.GeneratorsLang;
 import mekanism.common.block.attribute.Attributes;
 import mekanism.common.content.blocktype.BlockTypeTile;
@@ -62,6 +64,24 @@ public class ExtraGenBlockTypes {
     // Plasma Evaporation Block
     public static final BlockTypeTile<TileEntityPlasmaEvaporationBlock> PLASMA_EVAPORATION_BLOCK = BlockTypeTile.BlockTileBuilder
             .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_BLOCK, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_BLOCK)
+            .externalMultiblock()
+            .build();
+    public static final BlockTypeTile<TileEntityPlasmaEvaporationController> PLASMA_EVAPORATION_CONTROLLER = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_CONTROLLER, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_CONTROLLER)
+            .with(Attributes.INVENTORY, Attributes.ACTIVE, new AttributeStateFacing(), new AttributeCustomResistance(18))
+            .externalMultiblock()
+            .build();
+    public static final BlockTypeTile<TileEntityPlasmaEvaporationValve> PLASMA_EVAPORATION_VALVE = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_VALVE, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_VALVE)
+            .with(Attributes.COMPARATOR, new AttributeCustomResistance(18))
+            .externalMultiblock()
+            .build();
+    public static final BlockTypeTile<TileEntityPlasmaInsulationLayer> PLASMA_INSULATION_LAYER = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_INSULATION_LAYER, ExtraGenLang.DESCRIPTION_PLASMA_INSULATION_LAYER)
+            .internalMultiblock()
+            .build();
+    public static final BlockTypeTile<TileEntityPlasmaEvaporationVent> PLASMA_EVAPORATION_VENT = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_VENT, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_VENT)
             .externalMultiblock()
             .build();
 }

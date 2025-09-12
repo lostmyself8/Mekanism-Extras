@@ -1,5 +1,6 @@
 package com.jerry.generator_extras.common.content.naquadah;
 
+import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import mekanism.common.MekanismLang;
 import mekanism.common.content.blocktype.BlockType;
@@ -8,6 +9,7 @@ import mekanism.common.lib.multiblock.*;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.EnumSet;
@@ -69,5 +71,13 @@ public class NaquadahReactorValidator extends CuboidStructureValidator<NaquadahR
     public boolean precheck() {
         cuboid = StructureHelper.fetchCuboid(structure, BOUNDS, BOUNDS, EnumSet.allOf(VoxelCuboid.CuboidSide.class), 120);
         return cuboid != null;
+    }
+
+    @Override
+    protected boolean isFrameCompatible(BlockEntity tile) {
+        if (tile instanceof TileEntityLeadCoatedGlass glass && glass.canInterface(manager)) {
+            return true;
+        }
+        return manager.isCompatible(tile);
     }
 }

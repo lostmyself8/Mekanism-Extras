@@ -6,7 +6,7 @@ import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactor
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorPort;
-import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
+import com.jerry.generator_extras.common.tile.plasma.*;
 import com.jerry.mekanism_extras.MekanismExtras;
 import mekanism.common.block.basic.BlockStructuralGlass;
 import mekanism.common.block.interfaces.IHasDescription;
@@ -33,7 +33,11 @@ public class ExtraGenBlocks {
     public static final BlockRegistryObject<BlockLeadCoatedLaserFocusMatrix, ItemBlockTooltip<BlockLeadCoatedLaserFocusMatrix>> LEAD_COATED_LASER_FOCUS_MATRIX = registerTooltipBlock("lead_coated_laser_focus_matrix", BlockLeadCoatedLaserFocusMatrix::new);
 
     // Plasma Evaporation Plant
-    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityPlasmaEvaporationBlock>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityPlasmaEvaporationBlock>>> PLASMA_EVAPORATION_BLOCK = registerBlock("plasma_evaporation_plant", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.PLASMA_EVAPORATION_BLOCK, properties -> properties.mapColor(MapColor.GOLD)));
+    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityPlasmaEvaporationBlock>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityPlasmaEvaporationBlock>>> PLASMA_EVAPORATION_BLOCK = registerTooltipBlock("plasma_evaporation_block", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.PLASMA_EVAPORATION_BLOCK, properties -> properties.mapColor(MapColor.GOLD)));
+    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityPlasmaEvaporationController>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityPlasmaEvaporationController>>> PLASMA_EVAPORATION_CONTROLLER = registerTooltipBlock("plasma_evaporation_controller", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.PLASMA_EVAPORATION_CONTROLLER, properties -> properties.mapColor(MapColor.GOLD)));
+    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityPlasmaEvaporationValve>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityPlasmaEvaporationValve>>> PLASMA_EVAPORATION_VALVE = registerTooltipBlock("plasma_evaporation_valve", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.PLASMA_EVAPORATION_VALVE, properties -> properties.mapColor(MapColor.GOLD)));
+    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityPlasmaInsulationLayer>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityPlasmaInsulationLayer>>> PLASMA_INSULATION_LAYER = registerTooltipBlock("plasma_insulation_layer", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.PLASMA_INSULATION_LAYER, properties -> properties.mapColor(MapColor.GOLD)));
+    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityPlasmaEvaporationVent>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityPlasmaEvaporationVent>>> PLASMA_EVAPORATION_VENT = registerTooltipBlock("plasma_evaporation_vent", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.PLASMA_EVAPORATION_VENT, properties -> properties.mapColor(MapColor.GOLD)));
 
     private static <BLOCK extends Block & IHasDescription> BlockRegistryObject<BLOCK, ItemBlockTooltip<BLOCK>> registerBlock(String name, Supplier<? extends BLOCK> blockSupplier) {
         return EXTRA_GEN_BLOCK.registerDefaultProperties(name, blockSupplier, ItemBlockTooltip::new);

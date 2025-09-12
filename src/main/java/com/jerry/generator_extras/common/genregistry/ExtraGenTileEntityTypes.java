@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.genregistry;
 
 import com.jerry.generator_extras.common.tile.naquadah.*;
-import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
+import com.jerry.generator_extras.common.tile.plasma.*;
 import com.jerry.mekanism_extras.MekanismExtras;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
@@ -21,6 +21,10 @@ public class ExtraGenTileEntityTypes {
 
     // Plasma Evaporation Plant
     public static final TileEntityTypeRegistryObject<TileEntityPlasmaEvaporationBlock> PLASMA_EVAPORATION_BLOCK = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.PLASMA_EVAPORATION_BLOCK, TileEntityPlasmaEvaporationBlock::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
+    public static final TileEntityTypeRegistryObject<TileEntityPlasmaEvaporationController> PLASMA_EVAPORATION_CONTROLLER = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.PLASMA_EVAPORATION_CONTROLLER, TileEntityPlasmaEvaporationController::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
+    public static final TileEntityTypeRegistryObject<TileEntityPlasmaEvaporationValve> PLASMA_EVAPORATION_VALVE = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.PLASMA_EVAPORATION_VALVE, TileEntityPlasmaEvaporationValve::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
+    public static final TileEntityTypeRegistryObject<TileEntityPlasmaInsulationLayer> PLASMA_INSULATION_LAYER = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.PLASMA_INSULATION_LAYER, TileEntityPlasmaInsulationLayer::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
+    public static final TileEntityTypeRegistryObject<TileEntityPlasmaEvaporationVent> PLASMA_EVAPORATION_VENT = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.PLASMA_EVAPORATION_VENT, TileEntityPlasmaEvaporationVent::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
 
     public static void register(IEventBus eventBus) {
         GEN_TILE_ENTITY_TYPES.register(eventBus);

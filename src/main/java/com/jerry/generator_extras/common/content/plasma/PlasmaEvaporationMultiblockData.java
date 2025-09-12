@@ -7,6 +7,7 @@ import com.jerry.generator_extras.common.recipe.lookup.IExtraGenSingleRecipeLook
 import com.jerry.generator_extras.common.recipe.lookup.cache.ExtraGenInputRecipeCache;
 import com.jerry.generator_extras.common.recipe.lookup.monitor.ExtraGenRecipeCacheLookupMonitor;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
+import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationVent;
 import com.jerry.mekanism_extras.api.gas.attribute.ExtraGasAttributes.*;
 import mekanism.api.Action;
 import mekanism.api.Coord4D;
@@ -40,6 +41,10 @@ import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.tile.prefab.TileEntityRecipeMachine;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
+import mekanism.common.util.WorldUtils;
+import mekanism.generators.common.content.turbine.TurbineMultiblockData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
@@ -47,7 +52,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BooleanSupplier;
 
 public class PlasmaEvaporationMultiblockData
@@ -102,6 +109,15 @@ public class PlasmaEvaporationMultiblockData
     final FluidInventorySlot inputOutputSlot;
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItemOutput", docPlaceholder = "output side's output slot")
     final OutputInventorySlot outputOutputSlot;
+
+    @ContainerSync
+    public int lowerVolume; // fluid volume
+    @ContainerSync
+    public int higherVolume; // plasma volume
+    @ContainerSync
+    @SyntheticComputerMethod(getter = "getVents")
+    public int vents;
+    private List<VentData> ventData = Collections.emptyList();
 
     public PlasmaEvaporationMultiblockData(TileEntityPlasmaEvaporationBlock tile) {
         super(tile);
@@ -161,6 +177,7 @@ public class PlasmaEvaporationMultiblockData
         NBTUtils.setFloatIfPresent(tag, NBTConstants.SCALE, scale -> prevScale = scale);
         NBTUtils.setGasStackIfPresent(tag, NBTConstants.GAS_STORED, gas -> plasmaInputTank.setStack(gas));
         NBTUtils.setGasStackIfPresent(tag, NBTConstants.GAS_STORED_ALT, gas -> plasmaOutputTank.setStack(gas));
+        NBTUtils.setIntIfPresent(tag, NBTConstants.LOWER_VOLUME, value -> lowerVolume = value);
         readValves(tag);
     }
 
@@ -171,6 +188,7 @@ public class PlasmaEvaporationMultiblockData
         tag.putFloat(NBTConstants.SCALE, prevScale);
         tag.put(NBTConstants.GAS_STORED, plasmaInputTank.getStack().write(new CompoundTag()));
         tag.put(NBTConstants.GAS_STORED_ALT, plasmaOutputTank.getStack().write(new CompoundTag()));
+        tag.putInt(NBTConstants.LOWER_VOLUME, lowerVolume);
         writeValves(tag);
     }
 
@@ -178,8 +196,8 @@ public class PlasmaEvaporationMultiblockData
     public void setVolume(int volume) {
         if (getVolume() != volume) {
             super.setVolume(volume);
-            inputTankCapacity = volume * GenLoadConfig.generatorConfig.plasmaEvaporationFluidPerTank.get();
-            inputPlasmaTankCapacity = volume * GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaPerTank.get();
+            inputTankCapacity = lowerVolume * GenLoadConfig.generatorConfig.plasmaEvaporationFluidPerTank.get();
+            inputPlasmaTankCapacity = higherVolume * GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaPerTank.get();
         }
     }
 
@@ -294,5 +312,25 @@ public class PlasmaEvaporationMultiblockData
             manager.radiate(new Coord4D(this.getBounds().getCenter(), this.getWorld()),
                     gas.get(Radiation.class).getRadioactivity() * amount);
         }
+    }
+
+    public void updateVentData(List<VentData> vents) {
+        this.ventData = vents;
+        this.vents = this.ventData.size();
+    }
+
+    @Override
+    protected void updateEjectors(Level world) {
+        super.updateEjectors(world);
+        for (VentData data : this.ventData) {
+            TileEntityPlasmaEvaporationVent vent = WorldUtils.getTileEntity(TileEntityPlasmaEvaporationVent.class, world, data.location);
+            if (vent != null) {
+                Set<Direction> sides = SIDE_REFERENCES.computeIfAbsent(data.side, Collections::singleton);
+                vent.setEjectSides(sides);
+            }
+        }
+    }
+
+    public record VentData(BlockPos location, Direction side) {
     }
 }
