@@ -6,8 +6,13 @@ import net.minecraft.Util;
 import org.jetbrains.annotations.NotNull;
 
 public enum ExtraGenLang implements ILangEntry {
+    // Naquadah
     NAQUADAH_REACTOR("reactor", "naquadah_reactor"),
     PCS_PRODUCTION("reactor", "stats.pcs_production"),
+
+    // Plasma Evaporation Plant
+    PLASMA_EVAPORATION("plasma", "plasma_evaporation"),
+    PLASMA_CONSUMPTION("plasma", "plasma_consumption"),
 
     // JEI
     JEI_INFO_POLONIUM_CONTAINING_SOLUTION("info", "jei.polonium_containing_solution"),

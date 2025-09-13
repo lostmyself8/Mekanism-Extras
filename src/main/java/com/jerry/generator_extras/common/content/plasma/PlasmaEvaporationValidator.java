@@ -89,17 +89,21 @@ public class PlasmaEvaporationValidator extends CuboidStructureValidator<PlasmaE
                 insulationLayers.add(pos);
             }
         }
+        if (insulationLayers.size() != 16) {
+            return FormationResult.fail(ExtraGenLang.PLASMA_BAD_INSULATION_LAYER);
+        }
 
         Stream<Integer> layerY = insulationLayers.stream().map(Vec3i::getY);
         Stream<Integer> layerY0 = insulationLayers.stream().map(Vec3i::getY); // Streams cannot be used twice
-        int lowerVolume, higherVolume;
+        int lowerVolume, higherVolume, insulationLayerY;
         // Only passes if the layer is not close to the bottom and the top and
         // is a flat layer (all the Y coord should be the same)
         if (layerY.allMatch(y -> y >= minLayer && y <= maxLayer) && layerY0.distinct().findAny().isEmpty()) {
+            insulationLayerY = insulationLayers.stream().findAny().get().getY();
             lowerVolume = structure.length() * structure.width() *
-                    (insulationLayers.stream().findAny().get().getY() - structure.getMinPos().getY() - 1);
+                    (insulationLayerY - structure.getMinPos().getY() - 1);
             higherVolume = structure.length() * structure.width() *
-                    (structure.getMaxPos().getY() - insulationLayers.stream().findAny().get().getY() - 1);
+                    (structure.getMaxPos().getY() - insulationLayerY - 1);
         } else {
             return FormationResult.fail(ExtraGenLang.PLASMA_BAD_INSULATION_LAYER);
         }
@@ -121,6 +125,7 @@ public class PlasmaEvaporationValidator extends CuboidStructureValidator<PlasmaE
         }
 
         // No problems, update the multiblock data
+        structure.insulationLayerY = insulationLayerY;
         structure.lowerVolume = lowerVolume;
         structure.higherVolume = higherVolume;
         structure.updateVentData(ventData);

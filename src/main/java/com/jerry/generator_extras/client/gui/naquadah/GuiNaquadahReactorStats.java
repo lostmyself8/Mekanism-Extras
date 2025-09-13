@@ -1,4 +1,4 @@
-package com.jerry.generator_extras.client.gui;
+package com.jerry.generator_extras.client.gui.naquadah;
 
 import com.jerry.generator_extras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.generator_extras.common.ExtraGenLang;

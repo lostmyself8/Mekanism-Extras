@@ -68,6 +68,7 @@ public class ExtraGenBlockTypes {
             .build();
     public static final BlockTypeTile<TileEntityPlasmaEvaporationController> PLASMA_EVAPORATION_CONTROLLER = BlockTypeTile.BlockTileBuilder
             .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_CONTROLLER, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_CONTROLLER)
+            .withGui(() -> ExtraGenContainerTypes.PLASMA_EVAPORATION_CONTROLLER, ExtraGenLang.PLASMA_EVAPORATION)
             .with(Attributes.INVENTORY, Attributes.ACTIVE, new AttributeStateFacing(), new AttributeCustomResistance(18))
             .externalMultiblock()
             .build();
