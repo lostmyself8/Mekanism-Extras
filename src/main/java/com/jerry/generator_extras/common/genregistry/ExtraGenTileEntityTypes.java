@@ -25,6 +25,7 @@ public class ExtraGenTileEntityTypes {
     public static final TileEntityTypeRegistryObject<TileEntityPlasmaEvaporationValve> PLASMA_EVAPORATION_VALVE = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.PLASMA_EVAPORATION_VALVE, TileEntityPlasmaEvaporationValve::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
     public static final TileEntityTypeRegistryObject<TileEntityPlasmaInsulationLayer> PLASMA_INSULATION_LAYER = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.PLASMA_INSULATION_LAYER, TileEntityPlasmaInsulationLayer::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
     public static final TileEntityTypeRegistryObject<TileEntityPlasmaEvaporationVent> PLASMA_EVAPORATION_VENT = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.PLASMA_EVAPORATION_VENT, TileEntityPlasmaEvaporationVent::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
+    public static final TileEntityTypeRegistryObject<TileEntityFusionReactorPlasmaExtractingPort> FUSION_REACTOR_PLASMA_EXTRACTING_PORT = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.FUSION_REACTOR_PLASMA_EXTRACTING_PORT, TileEntityFusionReactorPlasmaExtractingPort::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
 
     public static void register(IEventBus eventBus) {
         GEN_TILE_ENTITY_TYPES.register(eventBus);

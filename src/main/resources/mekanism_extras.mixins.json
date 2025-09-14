@@ -8,6 +8,8 @@
     "MixinAPILang",
     "MixinBinInventorySlot",
     "MixinFactory",
+    "MixinFusionReactorMultiblockData",
+    "MixinFusionReactorValidator",
     "MixinGeneratorsPacketHandler",
     "MixinLogisticalTransporterBase",
     "MixinMachineEnergyContainer",

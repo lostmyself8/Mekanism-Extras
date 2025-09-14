@@ -8,6 +8,7 @@ import com.jerry.generator_extras.common.recipe.lookup.cache.ExtraGenInputRecipe
 import com.jerry.generator_extras.common.recipe.lookup.monitor.ExtraGenRecipeCacheLookupMonitor;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationVent;
+import com.jerry.mekanism_extras.api.ExtraNBTConstants;
 import com.jerry.mekanism_extras.api.gas.attribute.ExtraGasAttributes.*;
 import mekanism.api.Action;
 import mekanism.api.Coord4D;
@@ -184,6 +185,7 @@ public class PlasmaEvaporationMultiblockData
         NBTUtils.setGasStackIfPresent(tag, NBTConstants.GAS_STORED, gas -> plasmaInputTank.setStack(gas));
         NBTUtils.setGasStackIfPresent(tag, NBTConstants.GAS_STORED_ALT, gas -> plasmaOutputTank.setStack(gas));
         NBTUtils.setIntIfPresent(tag, NBTConstants.LOWER_VOLUME, value -> lowerVolume = value);
+        NBTUtils.setIntIfPresent(tag, ExtraNBTConstants.HIGHER_VOLUME, value -> higherVolume = value);
         readValves(tag);
     }
 
@@ -195,6 +197,7 @@ public class PlasmaEvaporationMultiblockData
         tag.put(NBTConstants.GAS_STORED, plasmaInputTank.getStack().write(new CompoundTag()));
         tag.put(NBTConstants.GAS_STORED_ALT, plasmaOutputTank.getStack().write(new CompoundTag()));
         tag.putInt(NBTConstants.LOWER_VOLUME, lowerVolume);
+        tag.putInt(ExtraNBTConstants.HIGHER_VOLUME, higherVolume);
         writeValves(tag);
     }
 

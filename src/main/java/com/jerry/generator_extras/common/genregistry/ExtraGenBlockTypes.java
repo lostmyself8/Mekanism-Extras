@@ -85,4 +85,9 @@ public class ExtraGenBlockTypes {
             .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_VENT, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_VENT)
             .externalMultiblock()
             .build();
+    public static final BlockTypeTile<TileEntityFusionReactorPlasmaExtractingPort> FUSION_REACTOR_PLASMA_EXTRACTING_PORT = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.FUSION_REACTOR_PLASMA_EXTRACTING_PORT, ExtraGenLang.DESCRIPTION_FUSION_PLASMA_EXTRACTING_PORT)
+            .with(Attributes.ACTIVE)
+            .externalMultiblock()
+            .build();
 }

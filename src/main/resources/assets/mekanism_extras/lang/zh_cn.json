@@ -150,6 +150,7 @@
   "block.mekanism_extras.plasma_evaporation_valve": "等离子蒸馏阀门",
   "block.mekanism_extras.plasma_insulation_layer": "等离子绝热隔层",
   "block.mekanism_extras.plasma_evaporation_vent": "等离子蒸馏排气口",
+  "block.mekanism_extras.fusion_plasma_extracting_port": "聚变反应堆等离子体提取端口",
 
   "gas.mekanism_extras.molten_thermonuclear": "熔融热核",
   "gas.mekanism_extras.naquadah_hexafluoride": "六氟化硅岩",
@@ -240,6 +241,7 @@
   "description.mekanism_extras.plasma_evaporation_valve": "用于等离子蒸馏塔的阀门，允许通过外部管道输入和输出流体与等离子体。",
   "description.mekanism_extras.plasma_insulation_layer": "用于等离子蒸馏塔内部的极度致密、绝热的隔层，确保炽热的等离子体不会直接气化一切。",
   "description.mekanism_extras.plasma_evaporation_vent": "一种集成了高端高热防护的等离子蒸馏阀门，用于排出大量被冷却的等离子体。必须密铺在装置的顶部。",
+  "description.mekanism_extras.fusion_plasma_extracting_port": "一个强化的框架方块，能处理聚变反应堆中等离子体的提取。",
 
   "upgrade.mekanism.stack": "堆叠",
   "upgrade.mekanism.stack.description": "增加机器工作的并行数。",

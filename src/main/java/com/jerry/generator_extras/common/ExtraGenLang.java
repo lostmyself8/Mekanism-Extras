@@ -29,6 +29,7 @@ public enum ExtraGenLang implements ILangEntry {
     DESCRIPTION_PLASMA_EVAPORATION_VALVE("description", "plasma_evaporation_valve"),
     DESCRIPTION_PLASMA_INSULATION_LAYER("description", "plasma_insulation_layer"),
     DESCRIPTION_PLASMA_EVAPORATION_VENT("description", "plasma_evaporation_vent"),
+    DESCRIPTION_FUSION_PLASMA_EXTRACTING_PORT("description", "fusion_plasma_extracting_port"),
 
     // Chemical Attributes
     CHEMICAL_ATTRIBUTE_HEATANT("chemical", "attribute.heatant"),
