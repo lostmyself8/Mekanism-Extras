@@ -1,0 +1,27 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "proxy": "mekanism_extras:ctm/plasma_evaporation_block_2_full",
+    "type": "CTM",
+    "layer": "SOLID",
+    "textures": [
+      "mekanism_extras:ctm/plasma_evaporation_block_2"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "mekanism_extras:plasma_evaporation_block"
+        },
+        {
+          "block": "mekanism_extras:plasma_evaporation_controller"
+        },
+        {
+          "block": "mekanism_extras:plasma_evaporation_valve"
+        },
+        {
+          "block": "mekanism_extras:plasma_evaporation_vent"
+        }
+      ]
+    }
+  }
+}
