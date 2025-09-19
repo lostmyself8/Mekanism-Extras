@@ -35,8 +35,8 @@ public class ExtraGenGases {
         private ExtraCoolants() {}
 
         // Do not change this to directly reference IGasProvider objects. This prevents a circular reference loop.
-        public static final CooledCoolant HELIUM_COOLANT = new CooledCoolant(SUPERHEATED_HELIUM::get, 20, 1);
-        public static final HeatedCoolant SUPERHEATED_HELIUM_COOLANT = new HeatedCoolant(HELIUM::get, 20, 1);
+        public static final CooledCoolant HELIUM_COOLANT = new CooledCoolant(() -> SUPERHEATED_HELIUM.get(), 20, 1);
+        public static final HeatedCoolant SUPERHEATED_HELIUM_COOLANT = new HeatedCoolant(() -> HELIUM.get(), 20, 1);
     }
 
     public static class ExtraHeatants {
@@ -44,7 +44,7 @@ public class ExtraGenGases {
         private ExtraHeatants() {}
 
         // Do not change this to directly reference IGasProvider objects. This prevents a circular reference loop.
-        public static final Heatant HELIUM_PLASMA_HEATANT = new Heatant(SUPERHEATED_HELIUM::get, 12_000);
+        public static final Heatant HELIUM_PLASMA_HEATANT = new Heatant(() -> SUPERHEATED_HELIUM.get(), 12_000);
         public static final Heatant LITHIUM_PLASMA_HEATANT = new Heatant(MekanismGases.LITHIUM::get, 18_000);
         public static final Heatant IRON_PLASMA_HEATANT = new Heatant(VAPORIZED_IRON, 30_000);
         public static final Heatant OSMIUM_PLASMA_HEATANT = new Heatant(MekanismGases.OSMIUM, 40_000);

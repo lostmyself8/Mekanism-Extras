@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.mixin;
 
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
+import com.jerry.generator_extras.common.tile.plasma.IFusionPlasmaHolder;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.multiblock.CuboidStructureValidator;

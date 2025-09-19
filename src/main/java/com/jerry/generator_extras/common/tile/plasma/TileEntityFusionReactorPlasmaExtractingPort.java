@@ -1,7 +1,6 @@
 package com.jerry.generator_extras.common.tile.plasma;
 
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
-import com.jerry.mekanism_extras.mixin.IFusionPlasmaHolder;
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
@@ -10,7 +9,6 @@ import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.lib.multiblock.IMultiblockEjector;
 import mekanism.common.tile.base.SubstanceType;
-import mekanism.common.util.CableUtils;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.MekanismUtils;
 import mekanism.generators.common.content.fusion.FusionReactorMultiblockData;

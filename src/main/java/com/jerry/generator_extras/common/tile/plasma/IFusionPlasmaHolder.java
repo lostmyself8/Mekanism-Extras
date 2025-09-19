@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.mixin;
+package com.jerry.generator_extras.common.tile.plasma;
 
 import mekanism.api.chemical.gas.IGasTank;
 

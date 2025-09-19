@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.mixin;
 
 import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
+import com.jerry.generator_extras.common.tile.plasma.IFusionPlasmaHolder;
 import com.jerry.mekanism_extras.api.ExtraNBTConstants;
 import mekanism.api.Action;
 import mekanism.api.chemical.gas.IGasTank;

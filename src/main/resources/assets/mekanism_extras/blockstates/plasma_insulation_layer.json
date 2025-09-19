@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "mekanism_extras:block/plasma_insulation_layer"
+      "model": "mekanism_extras:block/plasma_evaporation/insulation_layer"
     }
   }
 }

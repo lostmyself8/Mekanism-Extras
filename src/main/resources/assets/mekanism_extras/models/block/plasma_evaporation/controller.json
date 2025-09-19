@@ -1,0 +1,7 @@
+{
+  "parent": "mekanism:block/machine",
+  "textures": {
+    "sides": "mekanism_extras:block/plasma_evaporation_block",
+    "front": "mekanism_extras:block/plasma_evaporation_controller"
+  }
+}
