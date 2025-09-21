@@ -1,4 +1,4 @@
-package com.jerry.mekanism_extras.api.recipes;
+package com.jerry.generator_extras.api.recipes;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

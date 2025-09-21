@@ -1,8 +1,8 @@
 package com.jerry.generator_extras.common.genregistry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.api.recipes.PlasmaEvaporationRecipe;
-import com.jerry.mekanism_extras.api.recipes.impl.PlasmaEvaporationIRecipe;
+import com.jerry.generator_extras.api.recipes.PlasmaEvaporationRecipe;
+import com.jerry.generator_extras.api.recipes.impl.PlasmaEvaporationIRecipe;
 import mekanism.common.registration.impl.RecipeSerializerDeferredRegister;
 import mekanism.common.registration.impl.RecipeSerializerRegistryObject;
 

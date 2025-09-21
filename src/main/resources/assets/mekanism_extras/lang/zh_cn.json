@@ -254,6 +254,7 @@
 
   "plasma.mekanism_extras.plasma_evaporation": "等离子蒸馏塔",
   "plasma.mekanism_extras.plasma_consumption": "等离子消耗量：%1$s mB/t",
+  "plasma.mekanism_extras.port_mode": "已将等离子蒸馏塔端口模式切换为：%1$s",
   "plasma.mekanism_extras.vent_not_at_top": "多方块结构无法成型，在%1$s找到了不正确的排气口。排气口必须放置在结构的顶部。",
   "plasma.mekanism_extras.vents_not_fulfill_top": "多方块结构无法成型，在%1$s找到了不是排气口的方块。排气口必须密铺结构的顶部。",
   "plasma.mekanism_extras.bad_insulation_layer": "多方块结构无法成型，在$1%s找到了无效的等离子绝热隔层。结构内部必须放置一层隔层。",

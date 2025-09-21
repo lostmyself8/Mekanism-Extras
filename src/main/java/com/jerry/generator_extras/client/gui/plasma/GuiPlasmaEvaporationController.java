@@ -37,15 +37,8 @@ public class GuiPlasmaEvaporationController extends GuiMekanismTile<TileEntityPl
     @Override
     protected void addGuiElements() {
         super.addGuiElements();
-        // Add input tanks
         PlasmaEvaporationMultiblockData multiblock = tile.getMultiblock();
-        addRenderableWidget(new GuiGasGauge(() -> multiblock.plasmaInputTank,
-                () -> multiblock.getGasTanks(null),
-                GaugeType.STANDARD, this, 6, 13));
-        addRenderableWidget(new GuiFluidGauge(() -> multiblock.inputTank,
-                () -> multiblock.getFluidTanks(null),
-                GaugeType.STANDARD, this, 42, 13))
-                .warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT));
+
         // Add inner screen
         addRenderableWidget(new GuiInnerScreen(this, 78, 19, 80, 40, () -> {
             return List.of(MekanismLang.MULTIBLOCK_FORMED.translate(),
@@ -54,8 +47,20 @@ public class GuiPlasmaEvaporationController extends GuiMekanismTile<TileEntityPl
                     MekanismLang.FLUID_PRODUCTION.translate(Math.round(multiblock.lastGain * 100D) / 100D),
                     ExtraGenLang.PLASMA_CONSUMPTION.translate(Math.round(multiblock.lastPlasmaConsumption * 100D) / 100D));
         }).spacing(1).jeiCategory(tile));
+
         // Add rate bar
-        addRenderableWidget(new GuiHorizontalRateBar(this, () -> (double) multiblock.inputTank.getNeeded() / multiblock.inputTank.getCapacity(), 78, 63));
+        addRenderableWidget(new GuiHorizontalRateBar(this, () -> (double) multiblock.inputTank.getNeeded() / multiblock.inputTank.getCapacity(), 78, 63))
+                .warning(WarningType.INPUT_DOESNT_PRODUCE_OUTPUT, getWarningCheck(RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT));
+
+        // Add input tanks
+        addRenderableWidget(new GuiGasGauge(() -> multiblock.plasmaInputTank,
+                () -> multiblock.getGasTanks(null),
+                GaugeType.STANDARD, this, 6, 13));
+        addRenderableWidget(new GuiFluidGauge(() -> multiblock.inputTank,
+                () -> multiblock.getFluidTanks(null),
+                GaugeType.STANDARD, this, 42, 13))
+                .warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT));
+
         // Add output tanks
         addRenderableWidget(new GuiFluidGauge(() -> tile.getMultiblock().outputTank,
                 () -> multiblock.getFluidTanks(null),

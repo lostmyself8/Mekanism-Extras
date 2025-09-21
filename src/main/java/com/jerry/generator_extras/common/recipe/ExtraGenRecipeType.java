@@ -14,6 +14,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+@EventBusSubscriber(modid = MekanismExtras.MODID)
 public class ExtraGenRecipeType<RECIPE extends MekanismRecipe, INPUT_CACHE extends IInputRecipeCache>
         implements RecipeType<RECIPE>, IExtraGenRecipeTypeProvider<RECIPE, INPUT_CACHE> {
 

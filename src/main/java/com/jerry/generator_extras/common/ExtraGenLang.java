@@ -13,6 +13,7 @@ public enum ExtraGenLang implements ILangEntry {
     // Plasma Evaporation Plant
     PLASMA_EVAPORATION("plasma", "plasma_evaporation"),
     PLASMA_CONSUMPTION("plasma", "plasma_consumption"),
+    PLASMA_PORT_MODE("plasma", "plasma_port_mode"),
 
     // JEI
     JEI_INFO_POLONIUM_CONTAINING_SOLUTION("info", "jei.polonium_containing_solution"),

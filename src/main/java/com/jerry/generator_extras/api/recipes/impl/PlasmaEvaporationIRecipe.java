@@ -1,8 +1,8 @@
-package com.jerry.mekanism_extras.api.recipes.impl;
+package com.jerry.generator_extras.api.recipes.impl;
 
 import com.jerry.generator_extras.common.genregistry.ExtraGenRecipeSerializers;
-import com.jerry.generator_extras.common.genregistry.ExtraGenRecipeTypes;
-import com.jerry.mekanism_extras.api.recipes.PlasmaEvaporationRecipe;
+import com.jerry.generator_extras.common.recipe.ExtraGenRecipeType;
+import com.jerry.generator_extras.api.recipes.PlasmaEvaporationRecipe;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.recipes.ingredients.ChemicalStackIngredient.*;
@@ -23,7 +23,7 @@ public class PlasmaEvaporationIRecipe extends PlasmaEvaporationRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return ExtraGenRecipeTypes.PLASMA_EVAPORATION.get();
+        return ExtraGenRecipeType.PLASMA_EVAPORATION.get();
     }
 
     @Override

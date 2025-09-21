@@ -254,6 +254,7 @@
 
   "plasma.mekanism_extras.plasma_evaporation": "Plasma Evaporation Plant",
   "plasma.mekanism_extras.plasma_consumption": "Plasma Consumption: %1$s mB/t",
+  "plasma.mekanism_extras.port_mode": "Toggled Plasma Evaporation Plant Port mode to: %1$s",
   "plasma.mekanism_extras.vent_not_at_top": "Couldn't form, found improperly placed vent at %1$s. Vents must be placed at the top of the plant.",
   "plasma.mekanism_extras.vents_not_fulfill_top": "Couldn't form, found non-vent block at the top at %1$s. Vents must fulfill the top of the plant.",
   "plasma.mekanism_extras.bad_insulation_layer": "Couldn't form, found invalid Plasma Insulation Layer at $1%s. Exactly one complete layer should be placed inside the plant.",

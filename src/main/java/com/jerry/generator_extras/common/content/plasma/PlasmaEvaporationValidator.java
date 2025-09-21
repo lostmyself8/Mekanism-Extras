@@ -44,19 +44,6 @@ public class PlasmaEvaporationValidator extends CuboidStructureValidator<PlasmaE
     }
 
     @Override
-    protected StructureRequirement getStructureRequirement(BlockPos pos) {
-        VoxelCuboid.WallRelative relative = cuboid.getWallRelative(pos);
-        if (pos.getY() == cuboid.getMaxPos().getY()) {
-            if (!relative.isOnEdge()) {
-                return StructureRequirement.INNER;
-            } else {
-                return StructureRequirement.OTHER;
-            }
-        }
-        return super.getStructureRequirement(pos);
-    }
-
-    @Override
     protected CasingType getCasingType(BlockState state) {
         Block block = state.getBlock();
         if (BlockType.is(block, ExtraGenBlockTypes.PLASMA_EVAPORATION_BLOCK)) {
@@ -72,34 +59,33 @@ public class PlasmaEvaporationValidator extends CuboidStructureValidator<PlasmaE
 
     @Override
     public boolean precheck() {
-        return StructureHelper.fetchCuboid(structure, MIN_CUBOID, MAX_CUBOID) != null;
+        return (cuboid = StructureHelper.fetchCuboid(structure, MIN_CUBOID, MAX_CUBOID)) != null;
     }
 
     @Override
     public FormationResult postcheck(PlasmaEvaporationMultiblockData structure, Long2ObjectMap<ChunkAccess> chunkMap) {
         if (!foundController) return FormationResult.fail(MekanismLang.MULTIBLOCK_INVALID_NO_CONTROLLER);
 
-        Set<BlockPos> insulationLayers = new ObjectOpenHashSet<>();
+        Set<Integer> insulationLayers = new ObjectOpenHashSet<>();
         int minLayer = structure.getMinPos().getY() + 2;
         int maxLayer = structure.getMaxPos().getY() - 2;
         // Scan for insulation layers
         for (BlockPos pos : structure.internalLocations) {
             BlockEntity tile = WorldUtils.getTileEntity(world, chunkMap, pos);
             if (tile instanceof TileEntityPlasmaInsulationLayer) {
-                insulationLayers.add(pos);
+                insulationLayers.add(pos.getY());
             }
         }
-        if (insulationLayers.size() != 16) {
+        if (insulationLayers.size() != 1) {
             return FormationResult.fail(ExtraGenLang.PLASMA_BAD_INSULATION_LAYER);
         }
 
-        Stream<Integer> layerY = insulationLayers.stream().map(Vec3i::getY);
-        Stream<Integer> layerY0 = insulationLayers.stream().map(Vec3i::getY); // Streams cannot be used twice
         int lowerVolume, higherVolume, insulationLayerY;
         // Only passes if the layer is not close to the bottom and the top and
         // is a flat layer (all the Y coord should be the same)
-        if (layerY.allMatch(y -> y >= minLayer && y <= maxLayer) && layerY0.distinct().findAny().isEmpty()) {
-            insulationLayerY = insulationLayers.stream().findAny().get().getY();
+        if (insulationLayers.stream()
+                .allMatch(y -> y >= minLayer && y <= maxLayer)) {
+            insulationLayerY = insulationLayers.stream().findFirst().get();
             lowerVolume = structure.length() * structure.width() *
                     (insulationLayerY - structure.getMinPos().getY() - 1);
             higherVolume = structure.length() * structure.width() *
