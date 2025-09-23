@@ -5,7 +5,6 @@ import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorCache;
 import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationMultiblockData;
 import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationValidator;
 import com.jerry.generator_extras.common.genregistry.*;
-import com.jerry.generator_extras.common.recipe.ExtraGenRecipeType;
 import com.jerry.mekanism_extras.client.events.ClientTick;
 import com.jerry.mekanism_extras.common.ExtraLang;
 import com.jerry.mekanism_extras.common.ExtraTag;
@@ -95,8 +94,8 @@ public class MekanismExtras {
             ExtraGenContainerTypes.register(modEventBus);
             ExtraGenGases.register(modEventBus);
             ExtraGenTileEntityTypes.register(modEventBus);
-            ExtraGenRecipeType.EXTRA_GEN_RECIPE_TYPES.register(modEventBus);
-            ExtraGenRecipeSerializers.GEN_RECIPE_SERIALIZERS.register(modEventBus);
+//            ExtraGenRecipeType.EXTRA_GEN_RECIPE_TYPES.register(modEventBus);
+//            ExtraGenRecipeSerializers.GEN_RECIPE_SERIALIZERS.register(modEventBus);
         }
     }
 

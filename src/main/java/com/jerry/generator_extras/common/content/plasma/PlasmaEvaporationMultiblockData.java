@@ -1,11 +1,6 @@
 package com.jerry.generator_extras.common.content.plasma;
 
 import com.jerry.generator_extras.common.config.GenLoadConfig;
-import com.jerry.generator_extras.common.recipe.ExtraGenRecipeType;
-import com.jerry.generator_extras.common.recipe.IExtraGenRecipeTypeProvider;
-import com.jerry.generator_extras.common.recipe.lookup.IExtraGenSingleRecipeLookupHandler.FluidRecipeLookupHandler;
-import com.jerry.generator_extras.common.recipe.lookup.cache.ExtraGenInputRecipeCache;
-import com.jerry.generator_extras.common.recipe.lookup.monitor.ExtraGenRecipeCacheLookupMonitor;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationVent;
 import com.jerry.mekanism_extras.api.ExtraNBTConstants;
@@ -33,17 +28,18 @@ import mekanism.common.config.MekanismConfig;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.SyntheticComputerMethod;
 import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
-import mekanism.common.inventory.container.slot.ContainerSlotType;
 import mekanism.common.inventory.container.sync.dynamic.ContainerSync;
-import mekanism.common.inventory.slot.FluidInventorySlot;
-import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
+import mekanism.common.recipe.IMekanismRecipeTypeProvider;
+import mekanism.common.recipe.MekanismRecipeType;
+import mekanism.common.recipe.lookup.ISingleRecipeLookupHandler.FluidRecipeLookupHandler;
+import mekanism.common.recipe.lookup.cache.InputRecipeCache;
+import mekanism.common.recipe.lookup.monitor.RecipeCacheLookupMonitor;
 import mekanism.common.tile.prefab.TileEntityRecipeMachine;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.WorldUtils;
-import mekanism.generators.common.content.turbine.TurbineMultiblockData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -97,7 +93,7 @@ public class PlasmaEvaporationMultiblockData
     @SyntheticComputerMethod(getter = "getPlasmaConsumption")
     public double lastPlasmaConsumption;
 
-    private final ExtraGenRecipeCacheLookupMonitor<FluidToFluidRecipe> recipeCacheLookupMonitor;
+    private final RecipeCacheLookupMonitor<FluidToFluidRecipe> recipeCacheLookupMonitor;
     private final BooleanSupplier recheckAllRecipeErrors;
     @ContainerSync
     private final boolean[] trackedErrors = new boolean[TRACKED_ERROR_TYPES.size()];
@@ -128,7 +124,7 @@ public class PlasmaEvaporationMultiblockData
 
     public PlasmaEvaporationMultiblockData(TileEntityPlasmaEvaporationBlock tile) {
         super(tile);
-        recipeCacheLookupMonitor = new ExtraGenRecipeCacheLookupMonitor<>(this);
+        recipeCacheLookupMonitor = new RecipeCacheLookupMonitor<>(this);
         recheckAllRecipeErrors = TileEntityRecipeMachine.shouldRecheckAllErrors(tile);
         //Default biome temp to the ambient temperature at the block we are at
         biomeAmbientTemp = HeatAPI.getAmbientTemp(tile.getLevel(), tile.getTilePos());
@@ -214,10 +210,9 @@ public class PlasmaEvaporationMultiblockData
         return inputTankCapacity;
     }
 
-    @NotNull
     @Override
-    public IExtraGenRecipeTypeProvider<FluidToFluidRecipe, ExtraGenInputRecipeCache.SingleFluid<FluidToFluidRecipe>> getRecipeType() {
-        return ExtraGenRecipeType.PLASMA_EVAPORATION;
+    public @NotNull IMekanismRecipeTypeProvider<FluidToFluidRecipe, InputRecipeCache.SingleFluid<FluidToFluidRecipe>> getRecipeType() {
+        return MekanismRecipeType.EVAPORATING;
     }
 
     @Nullable
@@ -275,8 +270,7 @@ public class PlasmaEvaporationMultiblockData
     }
 
     public double getTemperature() {
-        return (double) plasmaInputTank.getStored() / 10_000 *
-                plasmaInputTank.getType().get(Heatant.class).getTemperature();
+        return heatCapacitor.getTemperature();
     }
 
     public int lowerHeight() {
@@ -288,6 +282,7 @@ public class PlasmaEvaporationMultiblockData
     }
 
     private void consumePlasmaAndHeatUp() {
+        if (plasmaInputTank.isEmpty()) return; // We can't invoke getTemperature of an empty tank
         // Try to consume plasma
         long consumed = (long) (inputTank.getFluidAmount() / GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaConsumeRatio.get());
         double inc = consumed - plasmaOutputTank.getNeeded();
