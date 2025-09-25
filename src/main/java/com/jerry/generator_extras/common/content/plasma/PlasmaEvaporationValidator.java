@@ -15,11 +15,9 @@ import mekanism.common.lib.multiblock.CuboidStructureValidator;
 import mekanism.common.lib.multiblock.FormationProtocol;
 import mekanism.common.lib.multiblock.FormationProtocol.CasingType;
 import mekanism.common.lib.multiblock.FormationProtocol.FormationResult;
-import mekanism.common.lib.multiblock.FormationProtocol.StructureRequirement;
 import mekanism.common.lib.multiblock.StructureHelper;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +26,6 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 public class PlasmaEvaporationValidator extends CuboidStructureValidator<PlasmaEvaporationMultiblockData> {
 
@@ -69,14 +66,16 @@ public class PlasmaEvaporationValidator extends CuboidStructureValidator<PlasmaE
         Set<Integer> insulationLayers = new ObjectOpenHashSet<>();
         int minLayer = structure.getMinPos().getY() + 2;
         int maxLayer = structure.getMaxPos().getY() - 2;
+        int layers = 0;
         // Scan for insulation layers
         for (BlockPos pos : structure.internalLocations) {
             BlockEntity tile = WorldUtils.getTileEntity(world, chunkMap, pos);
             if (tile instanceof TileEntityPlasmaInsulationLayer) {
                 insulationLayers.add(pos.getY());
+                layers += 1;
             }
         }
-        if (insulationLayers.size() != 1) {
+        if (insulationLayers.size() != 1 || layers != 16) {
             return FormationResult.fail(ExtraGenLang.PLASMA_BAD_INSULATION_LAYER);
         }
 
@@ -111,9 +110,10 @@ public class PlasmaEvaporationValidator extends CuboidStructureValidator<PlasmaE
         }
 
         // No problems, update the multiblock data
-        structure.insulationLayerY = insulationLayerY;
-        structure.lowerVolume = lowerVolume;
-        structure.higherVolume = higherVolume;
+        // TODO: It's really strange that these 3 attributes can't be synced. Why?
+//        structure.insulationLayerY = insulationLayerY;
+//        structure.lowerVolume = lowerVolume;
+//        structure.higherVolume = higherVolume;
         structure.updateVentData(ventData);
         return FormationResult.SUCCESS;
     }

@@ -81,11 +81,11 @@ public class GeneratorConfig extends BaseMekanismConfig {
         plasmaEvaporationFluidPerTank = CachedIntValue.wrap(this, builder.comment("Amount of fluid (mB) that each block of the Plasma Evaporation Plant contributes to the input fluid tank capacity. Max = volume * fluidPerTank")
                 .defineInRange("fluidPerTank", 512 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE / (PlasmaEvaporationMultiblockData.MAX_HEIGHT * 16)));
         plasmaEvaporationOutputFluidTankCapacity = CachedIntValue.wrap(this, builder.comment("Amount of output fluid (mB) that the evaporation plant can store.")
-                .defineInRange("outputFluidTankCapacity", 1000 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE));
+                .defineInRange("outputFluidTankCapacity", 10000 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE));
         plasmaEvaporationPlasmaPerTank = CachedIntValue.wrap(this, builder.comment("Amount of gas (mB) that each block of the Plasma Evaporation Plant contributes to the input plasma tank capacity. Max = volume * fluidPerTank")
-                .defineInRange("fluidPerTank", 10 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE / (PlasmaEvaporationMultiblockData.MAX_HEIGHT * 16)));
+                .defineInRange("plasmaPerTank", 10 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE / (PlasmaEvaporationMultiblockData.MAX_HEIGHT * 16)));
         plasmaEvaporationOutputPlasmaTankCapacity = CachedIntValue.wrap(this, builder.comment("Amount of output gas (mB) that the Plasma Evaporation Plant can store.")
-                .defineInRange("outputFluidTankCapacity", 2 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE));
+                .defineInRange("outputPlasmaTankCapacity", 200 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE));
         plasmaEvaporationPlasmaConsumeRatio = CachedDoubleValue.wrap(this, builder.comment("Ratio of fluid consumption rate (mB/t) and plasma consumption rate (mB/t).")
                 .defineInRange("consumptionRatio", 100, 0.001, 1_000_000));
         builder.pop();

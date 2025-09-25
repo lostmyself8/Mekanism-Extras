@@ -1,6 +1,7 @@
 package com.jerry.generator_extras.common.content.plasma;
 
 import com.jerry.generator_extras.common.config.GenLoadConfig;
+import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationVent;
 import com.jerry.mekanism_extras.api.ExtraNBTConstants;
@@ -25,10 +26,12 @@ import mekanism.common.capabilities.fluid.BasicFluidTank;
 import mekanism.common.capabilities.fluid.VariableCapacityFluidTank;
 import mekanism.common.capabilities.heat.VariableHeatCapacitor;
 import mekanism.common.config.MekanismConfig;
+import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.SyntheticComputerMethod;
 import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.inventory.container.sync.dynamic.ContainerSync;
+import mekanism.common.lib.multiblock.IMultiblock;
 import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
@@ -48,10 +51,7 @@ import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BooleanSupplier;
 
 public class PlasmaEvaporationMultiblockData
@@ -67,10 +67,10 @@ public class PlasmaEvaporationMultiblockData
 
     @ContainerSync
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getInput", "getInputCapacity", "getInputNeeded", "getInputFilledPercentage"}, docPlaceholder = "input tank")
-    public BasicFluidTank inputTank;
+    public VariableCapacityFluidTank inputTank;
     @ContainerSync
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getOutput", "getOutputCapacity", "getOutputNeeded", "getOutputFilledPercentage"}, docPlaceholder = "output tank")
-    public BasicFluidTank outputTank;
+    public VariableCapacityFluidTank outputTank;
     @ContainerSync
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getPlasmaInput", "getPlasmaInputCapacity", "getPlasmaInputNeeded", "getPlasmaInputFilledPercentage"}, docPlaceholder = "plasma input tank")
     public IGasTank plasmaInputTank;
@@ -115,6 +115,7 @@ public class PlasmaEvaporationMultiblockData
     public int lowerVolume; // fluid volume
     @ContainerSync
     public int higherVolume; // plasma volume
+    @ContainerSync
     public int insulationLayerY;
 
     @ContainerSync
@@ -128,7 +129,7 @@ public class PlasmaEvaporationMultiblockData
         recheckAllRecipeErrors = TileEntityRecipeMachine.shouldRecheckAllErrors(tile);
         //Default biome temp to the ambient temperature at the block we are at
         biomeAmbientTemp = HeatAPI.getAmbientTemp(tile.getLevel(), tile.getTilePos());
-        fluidTanks.add(inputTank = VariableCapacityFluidTank.input(this, this::getMaxFluid, this::containsRecipe, createSaveAndComparator(recipeCacheLookupMonitor)));
+        fluidTanks.add(inputTank = VariableCapacityFluidTank.input(this, () -> inputTankCapacity, this::containsRecipe, createSaveAndComparator(recipeCacheLookupMonitor)));
         fluidTanks.add(outputTank = VariableCapacityFluidTank.output(this, GenLoadConfig.generatorConfig.plasmaEvaporationOutputFluidTankCapacity, BasicFluidTank.alwaysTrue, this));
         inputHandler = InputHelper.getInputHandler(inputTank, CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_INPUT);
         outputHandler = OutputHelper.getOutputHandler(outputTank, CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
@@ -156,6 +157,7 @@ public class PlasmaEvaporationMultiblockData
     @Override
     public boolean tick(Level world) {
         boolean needsPacket = super.tick(world);
+        setTankCapacity();
         // update temperature
         updateHeatCapacitors(null);
         consumePlasmaAndHeatUp();
@@ -201,13 +203,7 @@ public class PlasmaEvaporationMultiblockData
     public void setVolume(int volume) {
         if (getVolume() != volume) {
             super.setVolume(volume);
-            inputTankCapacity = lowerVolume * GenLoadConfig.generatorConfig.plasmaEvaporationFluidPerTank.get();
-            inputPlasmaTankCapacity = higherVolume * GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaPerTank.get();
         }
-    }
-
-    public int getMaxFluid() {
-        return inputTankCapacity;
     }
 
     @Override
@@ -327,6 +323,21 @@ public class PlasmaEvaporationMultiblockData
         }
     }
 
+    private void setTankCapacity() {
+        insulationLayerY = this.internalLocations.stream()
+                .filter(pos -> BlockType.is(WorldUtils.getBlockState(getWorld(), pos)
+                        .orElseThrow()
+                        .getBlock(), ExtraGenBlockTypes.PLASMA_INSULATION_LAYER))
+                .findFirst()
+                .orElseThrow()
+                .getY();
+        lowerVolume = length() * width() * (insulationLayerY - getMinPos().getY() - 1);
+        higherVolume = length() * width() * (getMaxPos().getY() - insulationLayerY - 1);
+        // TODO: lowerVolume and higherVolume can't be synced through the validator. Why?
+        inputTankCapacity = lowerVolume * GenLoadConfig.generatorConfig.plasmaEvaporationFluidPerTank.get();
+        inputPlasmaTankCapacity = higherVolume * GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaPerTank.get();
+    }
+
     public void updateVentData(List<VentData> vents) {
         this.ventData = vents;
         this.vents = this.ventData.size();
@@ -342,6 +353,11 @@ public class PlasmaEvaporationMultiblockData
                 vent.setEjectSides(sides);
             }
         }
+    }
+
+    @Override
+    public void triggerValveTransfer(IMultiblock<?> multiblock) {
+        IValveHandler.super.triggerValveTransfer(multiblock);
     }
 
     public record VentData(BlockPos location, Direction side) {

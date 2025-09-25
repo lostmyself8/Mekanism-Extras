@@ -26,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.Set;
@@ -54,12 +55,6 @@ public class TileEntityPlasmaEvaporationValve
 
     @NotNull
     @Override
-    protected IInventorySlotHolder getInitialInventory(IContentsListener listener) {
-        return side -> getMultiblock().getInventorySlots(side);
-    }
-
-    @NotNull
-    @Override
     public IChemicalTankHolder<Gas, GasStack, IGasTank> getInitialGasTanks(IContentsListener listener) {
         return side -> getMultiblock().getGasTanks(side);
     }
@@ -70,16 +65,6 @@ public class TileEntityPlasmaEvaporationValve
             return false;
         }
         return super.persists(type);
-    }
-
-    @NotNull
-    @Override
-    public FluidStack insertFluid(@NotNull FluidStack stack, Direction side, @NotNull Action action) {
-        FluidStack ret = super.insertFluid(stack, side, action);
-        if (ret.getAmount() < stack.getAmount() && action.execute()) {
-            getMultiblock().triggerValveTransfer(this);
-        }
-        return ret;
     }
 
     @Override
@@ -105,12 +90,32 @@ public class TileEntityPlasmaEvaporationValve
     @Override
     protected boolean onUpdateServer(PlasmaEvaporationMultiblockData multiblock) {
         boolean needsPacket = super.onUpdateServer(multiblock);
-        if (multiblock.isFormed()) {
-            if (getActive()) {
-                ChemicalUtil.emit(outputDirections, multiblock.plasmaOutputTank, this);
-                FluidUtils.emit(outputDirections, multiblock.outputTank, this);
-            }
+        if (multiblock.isFormed() && getActive()) {
+            ChemicalUtil.emit(outputDirections, multiblock.plasmaOutputTank, this);
+            FluidUtils.emit(outputDirections, multiblock.outputTank, this);
         }
         return needsPacket;
+    }
+
+    @NotNull
+    @Override
+    public FluidStack insertFluid(@NotNull FluidStack stack, Direction side, @NotNull Action action) {
+        FluidStack ret = super.insertFluid(stack, side, action);
+        if (ret.getAmount() < stack.getAmount() && action.execute()) {
+            getMultiblock().triggerValveTransfer(this);
+        }
+        return ret;
+    }
+
+    @Override
+    public boolean extractGasCheck(int tank, @Nullable Direction side) {
+        if (!getActive()) return false;
+        return super.extractGasCheck(tank, side);
+    }
+
+    @Override
+    public boolean insertGasCheck(int tank, @Nullable Direction side) {
+        if (getActive()) return false;
+        return super.insertGasCheck(tank, side);
     }
 }
