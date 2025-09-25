@@ -365,8 +365,13 @@
   "configuration.mekanism_extras.general.pump.heavy_water": "重水抽取量",
   "configuration.mekanism_extras.general.pump.heavy_water.tooltip": "装有过滤升级的先进电动泵从水中抽取的到重水的数量",
 
+  "mekanism_extras.configuration.section.mekanism.extras.machine.storage.toml": "存储配置",
+  "mekanism_extras.configuration.section.mekanism.extras.machine.storage.toml.title": "通用机械：扩展 - 存储配置",
+  "configuration.mekanism_extras.storage.advanced_electric_pump.energy": "高级电动泵能量存储",
+  "configuration.mekanism_extras.storage.advanced_electric_pump.energy.tooltip": "高级电动泵的基准能量储量（单位：J）",
+
   "mekanism_extras.configuration.section.mekanism.extras.tiers.toml":"等级配置",
-  "mekanism_extras.configuration.section.mekanism.extras.tiers.toml。title": "通用机械：扩展 - 等级配置",
+  "mekanism_extras.configuration.section.mekanism.extras.tiers.toml.title": "通用机械：扩展 - 等级配置",
   "configuration.mekanism_extras.tier.qio": "QIO驱动器",
   "configuration.mekanism_extras.tier.qio.button": "编辑QIO驱动器设置",
   "configuration.mekanism_extras.tier.qio.tooltip": "配置QIO驱动器的设置",
@@ -565,6 +570,11 @@
   "configuration.mekanism_extras.tier.conductor.infinite.conduction.tooltip": "悖论无限热导线缆的热导值。",
   "configuration.mekanism_extras.tier.conductor.infinite.capacity.tooltip": "悖论无限热导线缆的热容。",
   "configuration.mekanism_extras.tier.conductor.infinite.insulation.tooltip": "悖论无限热导线缆的热阻值。",
+
+  "mekanism_extras.configuration.section.mekanism.extras.machine.usage.toml": "消耗配置",
+  "mekanism_extras.configuration.section.mekanism.extras.machine.usage.toml.title": "通用机械：扩展 - 消耗配置",
+  "configuration.mekanism_extras.usage.advanced_electric_pump.energy": "高级电动泵能量消耗",
+  "configuration.mekanism_extras.usage.advanced_electric_pump.energy.tooltip": "高级电动泵每次抽取消耗的能量（单位：J）",
 
   "mekanism_extras.configuration.section.mekanism.extras.generators.toml":"发电机配置",
   "mekanism_extras.configuration.section.mekanism.extras.generators.toml.title":"通用机械：扩展 - 发电机配置",

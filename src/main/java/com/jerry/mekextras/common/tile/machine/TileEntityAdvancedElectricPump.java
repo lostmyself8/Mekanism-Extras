@@ -90,7 +90,7 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
     EnergyInventorySlot energySlot;
 
     public TileEntityAdvancedElectricPump(BlockPos pos, BlockState state) {
-        super(ExtraBlocks.ADVANCE_ELECTRIC_PUMP, pos, state);
+        super(ExtraBlocks.ADVANCED_ELECTRIC_PUMP, pos, state);
     }
 
     @NotNull

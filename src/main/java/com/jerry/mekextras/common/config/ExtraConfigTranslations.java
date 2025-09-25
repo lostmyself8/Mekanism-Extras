@@ -64,7 +64,11 @@ public enum ExtraConfigTranslations implements IConfigTranslation {
     COSMIC_THERMODYNAMIC_CONDUCTOR_INSULATION("tier.conductor.cosmic.insulation", "Cosmic", "Insulation value of Cosmic Thermodynamic Conductor."),
     INFINITE_THERMODYNAMIC_CONDUCTOR_CONDUCTION("tier.conductor.infinite.conduction", "Infinite", "Conduction value of Infinite Thermodynamic Conductor."),
     INFINITE_THERMODYNAMIC_CONDUCTOR_CAPACITY("tier.conductor.infinite.capacity", "Infinite", "Heat capacity of Infinite Thermodynamic Conductor."),
-    INFINITE_THERMODYNAMIC_CONDUCTOR_INSULATION("tier.conductor.infinite.insulation", "Infinite", "Insulation value of Infinite Thermodynamic Conductor.");
+    INFINITE_THERMODYNAMIC_CONDUCTOR_INSULATION("tier.conductor.infinite.insulation", "Infinite", "Insulation value of Infinite Thermodynamic Conductor."),
+
+    ENERGY_STORAGE_ADVANCED_PUMP(TranslationPreset.ENERGY_STORAGE, "Advanced Electric Pump"),
+
+    ENERGY_USAGE_ADVANCED_PUMP(TranslationPreset.ENERGY_USAGE, "Advanced Electric Pump");
 
     private final String key;
     private final String title;

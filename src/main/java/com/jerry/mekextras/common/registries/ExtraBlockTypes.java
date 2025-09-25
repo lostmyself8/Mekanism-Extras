@@ -6,6 +6,7 @@ import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
+import com.jerry.mekextras.common.config.ExtraConfig;
 import com.jerry.mekextras.common.content.blocktype.ExtraFactory;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine;
 import com.jerry.mekextras.common.tier.*;
@@ -132,10 +133,10 @@ public class ExtraBlockTypes {
             .build();
 
     // Electric Pump
-    public static final Machine<TileEntityAdvancedElectricPump> ADVANCE_ELECTRIC_PUMP = Machine.MachineBuilder
-            .createMachine(() -> ExtraTileEntityTypes.ADVANCE_ELECTRIC_PUMP, MekanismLang.DESCRIPTION_ELECTRIC_PUMP)
+    public static final Machine<TileEntityAdvancedElectricPump> ADVANCED_ELECTRIC_PUMP = Machine.MachineBuilder
+            .createMachine(() -> ExtraTileEntityTypes.ADVANCED_ELECTRIC_PUMP, MekanismLang.DESCRIPTION_ELECTRIC_PUMP)
             .withGui(() -> ExtraContainerTypes.ADVANCE_ELECTRIC_PUMP)
-            .withEnergyConfig(MekanismConfig.usage.electricPump, MekanismConfig.storage.electricPump)
+            .withEnergyConfig(ExtraConfig.extraUsageConfig.advanceElectricPump, ExtraConfig.extraStorageConfig.advanceElectricPump)
             .withSupportedUpgrades(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.FILTER, ExtraUpgrade.IONIC_MEMBRANE)
             .withCustomShape(BlockShapes.ELECTRIC_PUMP)
             .withComputerSupport("electricPump")

@@ -72,8 +72,8 @@ public class ExtraTileEntityTypes {
         FACTORIES.put(tier, type, tileRO);
     }
 
-    public static final TileEntityTypeRegistryObject<TileEntityAdvancedElectricPump> ADVANCE_ELECTRIC_PUMP = EXTRA_TILE_ENTITY_TYPES
-            .mekBuilder(ExtraBlocks.ADVANCE_ELECTRIC_PUMP, TileEntityAdvancedElectricPump::new)
+    public static final TileEntityTypeRegistryObject<TileEntityAdvancedElectricPump> ADVANCED_ELECTRIC_PUMP = EXTRA_TILE_ENTITY_TYPES
+            .mekBuilder(ExtraBlocks.ADVANCED_ELECTRIC_PUMP, TileEntityAdvancedElectricPump::new)
             .serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIG_CARD)
             .withSimple(Capabilities.CONFIGURABLE)

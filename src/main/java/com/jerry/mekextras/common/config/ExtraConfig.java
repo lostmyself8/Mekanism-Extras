@@ -19,11 +19,15 @@ public class ExtraConfig {
 
     private static final Map<IConfigSpec, IMekanismConfig> KNOWN_CONFIGS = new HashMap<>();
     public static final ExtraTierConfig extraTierConfig = new ExtraTierConfig();
+    public static final ExtraStorageConfig extraStorageConfig = new ExtraStorageConfig();
     public static final ExtraGeneralConfig extraGeneralConfig = new ExtraGeneralConfig();
+    public static final ExtraUsageConfig extraUsageConfig = new ExtraUsageConfig();
 
     public static void registerConfigs(ModContainer modContainer) {
         ExtraConfigHelper.registerConfig(KNOWN_CONFIGS, modContainer, extraGeneralConfig);
+        ExtraConfigHelper.registerConfig(KNOWN_CONFIGS, modContainer, extraStorageConfig);
         ExtraConfigHelper.registerConfig(KNOWN_CONFIGS, modContainer, extraTierConfig);
+        ExtraConfigHelper.registerConfig(KNOWN_CONFIGS, modContainer, extraUsageConfig);
     }
 
     public static void onConfigLoad(ModConfigEvent configEvent) {

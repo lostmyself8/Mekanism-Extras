@@ -20,7 +20,7 @@ public class ExtraContainerTypes {
     }
     public static final ContainerTypeDeferredRegister EXTRA_CONTAINER_TYPES = new ContainerTypeDeferredRegister(MekanismExtras.MOD_ID);
 
-    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityAdvancedElectricPump>> ADVANCE_ELECTRIC_PUMP = EXTRA_CONTAINER_TYPES.register(ExtraBlocks.ADVANCE_ELECTRIC_PUMP, TileEntityAdvancedElectricPump.class);
+    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityAdvancedElectricPump>> ADVANCE_ELECTRIC_PUMP = EXTRA_CONTAINER_TYPES.register(ExtraBlocks.ADVANCED_ELECTRIC_PUMP, TileEntityAdvancedElectricPump.class);
 
     public static final ContainerTypeRegistryObject<MekanismTileContainer<ExtraTileEntityEnergyCube>> EXTRA_ENERGY_CUBE = EXTRA_CONTAINER_TYPES.custom("extra_energy_cube", ExtraTileEntityEnergyCube.class).armorSideBar(180, 41, 0).build();
     public static final ContainerTypeRegistryObject<MekanismTileContainer<ExtraTileEntityFluidTank>> EXTRA_FLUID_TANK = EXTRA_CONTAINER_TYPES.custom("extra_fluid_tank", ExtraTileEntityFluidTank.class).armorSideBar().build();

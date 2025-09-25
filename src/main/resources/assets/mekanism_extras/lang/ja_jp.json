@@ -365,8 +365,13 @@
   "configuration.mekanism_extras.general.pump.heavy_water": "Heavy Water Amount",
   "configuration.mekanism_extras.general.pump.heavy_water.tooltip": "Amount of Heavy Water in mB that is extracted per block of Water by the Advanced Electric Pump with a Filter Upgrade.",
 
+  "mekanism_extras.configuration.section.mekanism.extras.machine.storage.toml": "Storage Config",
+  "mekanism_extras.configuration.section.mekanism.extras.machine.storage.toml.title": "Mekanism: Extras - Storage Config",
+  "configuration.mekanism_extras.storage.advanced_electric_pump.energy": "Advanced Electric Pump Energy Storage",
+  "configuration.mekanism_extras.storage.advanced_electric_pump.energy.tooltip": "Base energy storage in Joules of: Advanced Electric Pump",
+
   "mekanism_extras.configuration.section.mekanism.extras.tiers.toml": "Tier Config",
-  "mekanism_extras.configuration.section.mekanism.extras.tiers.toml。title": "Mekanism: Extras - Tier Config",
+  "mekanism_extras.configuration.section.mekanism.extras.tiers.toml.title": "Mekanism: Extras - Tier Config",
   "configuration.mekanism_extras.tier.qio": "QIO Drivers",
   "configuration.mekanism_extras.tier.qio.button": "Edit QIO Driver Settings",
   "configuration.mekanism_extras.tier.qio.tooltip": "Settings for QIO Drivers",
@@ -565,6 +570,11 @@
   "configuration.mekanism_extras.tier.conductor.infinite.conduction.tooltip": "Conduction value of Infinite Thermodynamic Conductor.",
   "configuration.mekanism_extras.tier.conductor.infinite.capacity.tooltip": "Heat capacity of Infinite Thermodynamic Conductor.",
   "configuration.mekanism_extras.tier.conductor.infinite.insulation.tooltip": "Insulation value of Infinite Thermodynamic Conductor.",
+
+  "mekanism_extras.configuration.section.mekanism.extras.machine.usage.toml": "Usage Config",
+  "mekanism_extras.configuration.section.mekanism.extras.machine.usage.toml.title": "Mekanism: Extras - Usage Config",
+  "configuration.mekanism_extras.usage.advanced_electric_pump.energy": "Advanced Electric Pump Energy Usage",
+  "configuration.mekanism_extras.usage.advanced_electric_pump.energy.tooltip": "Energy per operation in Joules of: Advanced Electric Pump",
 
   "mekanism_extras.configuration.section.mekanism.extras.generators.toml":"Generators Config",
   "mekanism_extras.configuration.section.mekanism.extras.generators.toml.title":"Mekanism: Extras - Generators Config",

@@ -365,8 +365,13 @@
   "configuration.mekanism_extras.general.pump.heavy_water": "Cantidad de agua pesada",
   "configuration.mekanism_extras.general.pump.heavy_water.tooltip": "Cantidad de agua pesada en mB que se extrae por bloque de agua mediante la bomba eléctrica avanzada con una mejora de filtro.",
 
+  "mekanism_extras.configuration.section.mekanism.extras.machine.storage.toml": "Storage Config",
+  "mekanism_extras.configuration.section.mekanism.extras.machine.storage.toml.title": "Mekanism: Extras - Storage Config",
+  "configuration.mekanism_extras.storage.advanced_electric_pump.energy": "Advanced Electric Pump Energy Storage",
+  "configuration.mekanism_extras.storage.advanced_electric_pump.energy.tooltip": "Base energy storage in Joules of: Advanced Electric Pump",
+
   "mekanism_extras.configuration.section.mekanism.extras.tiers.toml": "Configuración de nivel",
-  "mekanism_extras.configuration.section.mekanism.extras.tiers.toml。title": "Mekanism: Extras - Configuración de nivel",
+  "mekanism_extras.configuration.section.mekanism.extras.tiers.toml.title": "Mekanism: Extras - Configuración de nivel",
   "configuration.mekanism_extras.tier.qio": "Unidades OEC",
   "configuration.mekanism_extras.tier.qio.button": "Editar configuración de unidades OEC",
   "configuration.mekanism_extras.tier.qio.tooltip": "Configuración de unidades OEC",
@@ -565,6 +570,11 @@
   "configuration.mekanism_extras.tier.conductor.infinite.conduction.tooltip": "Valor de conducción del conductor termodinámico infinito.",
   "configuration.mekanism_extras.tier.conductor.infinite.capacity.tooltip": "Capacidad de calor del conductor termodinámico infinito.",
   "configuration.mekanism_extras.tier.conductor.infinite.insulation.tooltip": "Valor de aislamiento del conductor termodinámico infinito.",
+
+  "mekanism_extras.configuration.section.mekanism.extras.machine.usage.toml": "Usage Config",
+  "mekanism_extras.configuration.section.mekanism.extras.machine.usage.toml.title": "Mekanism: Extras - Usage Config",
+  "configuration.mekanism_extras.usage.advanced_electric_pump.energy": "Advanced Electric Pump Energy Usage",
+  "configuration.mekanism_extras.usage.advanced_electric_pump.energy.tooltip": "Energy per operation in Joules of: Advanced Electric Pump",
 
   "mekanism_extras.configuration.section.mekanism.extras.generators.toml":"Configuración de generadores",
   "mekanism_extras.configuration.section.mekanism.extras.generators.toml.title":"Mekanism: Extras - Configuración de generadores",

@@ -201,8 +201,8 @@ public class ExtraBlocks {
     public static final BlockRegistryObject<BlockLargeCapRadioactiveWasteBarrel, ItemBlockLargeCapRadioactiveWasteBarrel> COSMIC_RADIOACTIVE_WASTE_BARREL = registryWasteBarrel(ExtraBlockTypes.COSMIC_RADIOACTIVE_WASTE_BARREL);
     public static final BlockRegistryObject<BlockLargeCapRadioactiveWasteBarrel, ItemBlockLargeCapRadioactiveWasteBarrel> INFINITE_RADIOACTIVE_WASTE_BARREL = registryWasteBarrel(ExtraBlockTypes.INFINITE_RADIOACTIVE_WASTE_BARREL);
 
-    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>>> ADVANCE_ELECTRIC_PUMP =
-            EXTRA_BLOCKS.register("advanced_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockTypes.ADVANCE_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockTooltip::new)
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>>> ADVANCED_ELECTRIC_PUMP =
+            EXTRA_BLOCKS.register("advanced_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockTypes.ADVANCED_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockTooltip::new)
                     .forItemHolder(holder -> holder
                             .addAttachmentOnlyContainers(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
                                     .addBasic(TileEntityAdvancedElectricPump.MAX_FLUID)
