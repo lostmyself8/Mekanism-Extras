@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = PacketHandler.class, remap = false)
 public abstract class MixinPacketHandler extends BasePacketHandler {
+
     @Inject(method = "initialize", at = @At("HEAD"))
     private void initialize(CallbackInfo ci) {
         registerClientToServer(ExtraPacketGuiInteract.class, ExtraPacketGuiInteract::decode);

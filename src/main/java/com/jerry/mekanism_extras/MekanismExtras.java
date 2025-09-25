@@ -15,8 +15,10 @@ import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.registry.*;
 import com.jerry.mekanism_extras.common.integration.Addons;
 import com.mojang.logging.LogUtils;
+import mekanism.common.base.IModModule;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
+import mekanism.common.lib.Version;
 import mekanism.common.lib.multiblock.MultiblockCache;
 import mekanism.common.lib.multiblock.MultiblockManager;
 import net.minecraft.SharedConstants;
@@ -32,6 +34,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -41,15 +44,23 @@ import org.slf4j.Logger;
 import java.nio.file.Path;
 
 @Mod(MekanismExtras.MODID)
-public class MekanismExtras {
+public class MekanismExtras implements IModModule {
     public static final String MODID = "mekanism_extras";
     public static final String MOD_NAME = "MekanismExtras";
     private static final Logger LOGGER = LogUtils.getLogger();
+    /**
+     * Mekanism Extras version number
+     */
+    public final Version versionNumber;
+
     public static final MultiblockManager<ExtraMatrixMultiblockData> extraMatrixManager = new MultiblockManager<>("extraInductionMatrix", MultiblockCache::new, ExtraMatrixValidator::new);
     public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", NaquadahReactorCache::new, NaquadahReactorValidator::new);
 
     public MekanismExtras(FMLJavaModLoadingContext context) {
-        IEventBus modEventBus =context.getModEventBus();
+        IEventBus modEventBus = context.getModEventBus();
+        ModContainer modContainer = context.getContainer();
+        versionNumber = new Version(modContainer);
+
         LoadConfig.registerConfigs(context);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupBuiltinPack);
@@ -119,5 +130,20 @@ public class MekanismExtras {
                     )
             );
         }
+    }
+
+    @Override
+    public Version getVersion() {
+        return versionNumber;
+    }
+
+    @Override
+    public String getName() {
+        return "Extras";
+    }
+
+    @Override
+    public void resetClient() {
+
     }
 }
