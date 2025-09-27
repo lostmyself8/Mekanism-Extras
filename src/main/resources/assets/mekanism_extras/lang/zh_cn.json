@@ -163,6 +163,8 @@
   "gas.mekanism_extras.spectrum_pigments": "光谱颜料",
   "gas.mekanism_extras.helium_plasma": "氦等离子体",
   "gas.mekanism_extras.lithium_plasma": "锂等离子体",
+  "gas.mekanism_extras.superheated_helium": "过热氦",
+  "gas.mekanism_extras.helium": "氦气",
   "gas.mekanism_extras.iron_plasma": "铁等离子体",
   "gas.mekanism_extras.osmium_plasma": "锇等离子体",
   "gas.mekanism_extras.plutonium_plasma": "钚等离子体",
@@ -286,5 +288,5 @@
   "info.mekanism_extras.jei.rich_uranium_fuel": "液态富铀燃料可以用带离子膜升级的先进电动泵抽取六氟化铀获得。",
   "info.mekanism_extras.jei.polonium_containing_solution": "当向硅岩反应堆注入冷却剂时产生的蒸气会捕捉反应堆中不会衰变的钋-208，由此产生含钋蒸汽。",
 
-  "chemical.mekanism_extras.attributes.heatant": " - 每 10,000 mB 的温度：%1$s"
+  "chemical.mekanism_extras.attribute.heatant": " - 每 10,000 mB 的温度：%1$s"
 }

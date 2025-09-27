@@ -166,6 +166,8 @@
   "gas.mekanism_extras.iron_plasma": "Iron Plasma",
   "gas.mekanism_extras.osmium_plasma": "Osmium Plasma",
   "gas.mekanism_extras.plutonium_plasma": "Plutonium Plasma",
+  "gas.mekanism_extras.superheated_helium": "Superheated Helium",
+  "gas.mekanism_extras.helium": "Helium",
   "infuse_type.mekanism_extras.radiance": "Radiance",
   "infuse_type.mekanism_extras.thermonuclear": "Thermonuclear",
   "infuse_type.mekanism_extras.shining": "Shining",
@@ -286,5 +288,5 @@
   "info.mekanism_extras.jei.rich_uranium_fuel": "Rich Uranium Fuel can be extracted from a Uranium Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
   "info.mekanism_extras.jei.polonium_containing_solution": "When coolant is injected into a Naquadah Reactor, the generated steam will capture polonium-208 that does not decay in the reactor, resulting in polonium containing steam.",
 
-  "chemical.mekanism_extras.attributes.heatant": " - Heat Per 10,000 mB: %1$s"
+  "chemical.mekanism_extras.attribute.heatant": " - Heat Per 10,000 mB: %1$s"
 }

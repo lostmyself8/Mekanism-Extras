@@ -6,7 +6,6 @@ import com.jerry.mekanism_extras.api.ExtraNBTConstants;
 import mekanism.api.Action;
 import mekanism.api.chemical.gas.IGasTank;
 import mekanism.common.capabilities.chemical.multiblock.MultiblockChemicalTankBuilder;
-import mekanism.common.inventory.container.sync.dynamic.ContainerSync;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.util.NBTUtils;
 import mekanism.generators.common.content.fusion.FusionReactorMultiblockData;
@@ -21,16 +20,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = FusionReactorMultiblockData.class, remap = false)
-@Implements(@Interface(iface = IFusionPlasmaHolder.class, prefix = "meke$"))
+@Implements(@Interface(iface = IFusionPlasmaHolder.class, prefix = "meke_iface$"))
 public abstract class MixinFusionReactorMultiblockData extends MultiblockData {
 
     @Unique
-    @ContainerSync
     private IGasTank meke$plasmaTank;
     @Unique
     private static final long MAX_PLASMA = 100_000;
     @Unique
-    @ContainerSync
     private boolean meke$outputPlasma = false;
 
     @Shadow private int injectionRate;
@@ -41,12 +38,12 @@ public abstract class MixinFusionReactorMultiblockData extends MultiblockData {
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void initPlasmaTank(TileEntityFusionReactorBlock tile, CallbackInfo ci) {
-        gasTanks.add(meke$plasmaTank = MultiblockChemicalTankBuilder.GAS.output(this, this::meke$getMaxPlasma, gas -> gas == ExtraGenGases.HELIUM_PLASMA.getChemical(), this));
+    private void meke$initPlasmaTank(TileEntityFusionReactorBlock tile, CallbackInfo ci) {
+        gasTanks.add(meke$plasmaTank = MultiblockChemicalTankBuilder.GAS.output(this, ((IFusionPlasmaHolder)this)::getMaxPlasma, gas -> gas == ExtraGenGases.HELIUM_PLASMA.getChemical(), this));
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void modifyFuelConsumption(Level world, CallbackInfoReturnable<Boolean> cir) {
+    private void meke$modifyFuelConsumption(Level world, CallbackInfoReturnable<Boolean> cir) {
         if (injectionRate != MAX_INJECTION) {
             markDirty();
         }
@@ -54,7 +51,7 @@ public abstract class MixinFusionReactorMultiblockData extends MultiblockData {
     }
 
     @Inject(method = "burnFuel", at = @At("TAIL"))
-    private void growPlasmaTank(CallbackInfoReturnable<Long> cir) {
+    private void meke$growPlasmaTank(CallbackInfoReturnable<Long> cir) {
         if (meke$plasmaTank.isEmpty()) {
             meke$plasmaTank.setStack(ExtraGenGases.HELIUM_PLASMA.getStack(MAX_INJECTION));
         } else {
@@ -63,32 +60,32 @@ public abstract class MixinFusionReactorMultiblockData extends MultiblockData {
     }
 
     @Inject(method = "readUpdateTag", at = @At("TAIL"))
-    private void updateOutputPlasmaFromNBT(CompoundTag tag, CallbackInfo ci) {
-        NBTUtils.setBooleanIfPresent(tag, ExtraNBTConstants.OUTPUT_PLASMA, this::meke$setOutputPlasma);
+    private void meke$updateOutputPlasmaFromNBT(CompoundTag tag, CallbackInfo ci) {
+        NBTUtils.setBooleanIfPresent(tag, ExtraNBTConstants.OUTPUT_PLASMA, ((IFusionPlasmaHolder)this)::setOutputPlasma);
     }
 
     @Inject(method = "writeUpdateTag", at = @At("TAIL"))
-    private void updateOutputPlasmaToNBT(CompoundTag tag, CallbackInfo ci) {
-        tag.putBoolean(ExtraNBTConstants.OUTPUT_PLASMA, meke$canOutputPlasma());
+    private void meke$updateOutputPlasmaToNBT(CompoundTag tag, CallbackInfo ci) {
+        tag.putBoolean(ExtraNBTConstants.OUTPUT_PLASMA, ((IFusionPlasmaHolder)this).canOutputPlasma());
     }
 
     @Unique
-    public IGasTank meke$getPlasmaTank() {
+    public IGasTank meke_iface$getPlasmaTank() {
         return meke$plasmaTank;
     }
 
     @Unique
-    public long meke$getMaxPlasma() {
+    public long meke_iface$getMaxPlasma() {
         return MAX_PLASMA;
     }
 
     @Unique
-    public boolean meke$canOutputPlasma() {
+    public boolean meke_iface$canOutputPlasma() {
         return this.meke$outputPlasma;
     }
 
     @Unique
-    public void meke$setOutputPlasma(boolean b) {
+    public void meke_iface$setOutputPlasma(boolean b) {
         this.meke$outputPlasma = b;
     }
 }
