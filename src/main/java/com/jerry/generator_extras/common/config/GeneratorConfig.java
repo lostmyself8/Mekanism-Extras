@@ -4,10 +4,7 @@ import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultibl
 import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationMultiblockData;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.config.BaseMekanismConfig;
-import mekanism.common.config.value.CachedDoubleValue;
-import mekanism.common.config.value.CachedFloatingLongValue;
-import mekanism.common.config.value.CachedIntValue;
-import mekanism.common.config.value.CachedLongValue;
+import mekanism.common.config.value.*;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.config.ModConfig;
@@ -39,6 +36,9 @@ public class GeneratorConfig extends BaseMekanismConfig {
     public final CachedIntValue plasmaEvaporationPlasmaPerTank;
     public final CachedIntValue plasmaEvaporationOutputPlasmaTankCapacity;
     public final CachedDoubleValue plasmaEvaporationPlasmaConsumeRatio;
+    public final CachedIntValue plasmaEvaporationHeatPerInputFluid;
+    public final CachedBooleanValue plasmaEvaporationIdleHeatDissipationEnabled;
+    public final CachedIntValue plasmaEvaporationIdleHeatDissipation;
 
     public GeneratorConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -88,6 +88,12 @@ public class GeneratorConfig extends BaseMekanismConfig {
                 .defineInRange("outputPlasmaTankCapacity", 200 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE));
         plasmaEvaporationPlasmaConsumeRatio = CachedDoubleValue.wrap(this, builder.comment("Ratio of fluid consumption rate (mB/t) and plasma consumption rate (mB/t).")
                 .defineInRange("consumptionRatio", 100, 0.001, 1_000_000));
+        plasmaEvaporationHeatPerInputFluid = CachedIntValue.wrap(this, builder.comment("Heat consumed for processing 1 mB of fluid.")
+                .defineInRange("heatPerInputFluid", 10, 1, 1_000_000));
+        plasmaEvaporationIdleHeatDissipationEnabled = CachedBooleanValue.wrap(this, builder.comment("If disabled, Plasma Evaporation Plant would not dissipate any heat while idle.")
+                .define("idleHeatDissipationEnabled", true));
+        plasmaEvaporationIdleHeatDissipation = CachedIntValue.wrap(this, builder.comment("Heat dissipation while the Plasma Evaporation Plant is idle. Setting this to 0 has the same effect as disabling heat dissipation.")
+                .defineInRange("idleHeatDissipation", 10000, 0, 1_000_000));
         builder.pop();
 
         this.configSpec = builder.build();

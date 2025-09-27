@@ -78,6 +78,7 @@ public class MekanismExtras {
         BuildCommand.register("reinforced_matrix", ExtraLang.REINFORCED_MATRIX, new ExtraBuilders.MatrixBuilder());
         if (Addons.MEKANISMGENERATORS.isLoaded()) {
             BuildCommand.register("naquadah", ExtraGenLang.NAQUADAH_REACTOR, new ExtraBuilders.NaquadahReactorBuilder());
+            BuildCommand.register("plasma", ExtraGenLang.PLASMA_EVAPORATION, new ExtraBuilders.PlasmaEvaporationPlantBuilder());
         }
         event.getDispatcher().register(CommandMek.register());
     }

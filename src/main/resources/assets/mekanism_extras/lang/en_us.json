@@ -150,7 +150,7 @@
   "block.mekanism_extras.plasma_evaporation_valve": "Plasma Evaporation Valve",
   "block.mekanism_extras.plasma_insulation_layer": "Plasma Insulation Layer",
   "block.mekanism_extras.plasma_evaporation_vent": "Plasma Evaporation Vent",
-  "block.mekanism_extras.fusion_plasma_extracting_port": "Fusion Plasma Extracting Port",
+  "block.mekanism_extras.fusion_reactor_plasma_extracting_port": "Fusion Reactor Plasma Extracting Port",
 
   "gas.mekanism_extras.molten_thermonuclear": "Molten Thermonuclear",
   "gas.mekanism_extras.naquadah_hexafluoride": "Naquadah Hexafluoride",

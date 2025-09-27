@@ -160,8 +160,14 @@ public class PlasmaEvaporationMultiblockData
         setTankCapacity();
         // update temperature
         updateHeatCapacitors(null);
-        consumePlasmaAndHeatUp();
-        //After we update the heat capacitors, update our temperature multiplier
+        if (!inputTank.isEmpty()) {
+            // It should be working now
+            consumePlasmaAndHeatUp();
+        } else {
+            // It's idle now
+            idle();
+        }
+        // After we update the heat capacitors, update our temperature multiplier
         tempMultiplier = getTemperature() * GenLoadConfig.generatorConfig.plasmaEvaporationTempMultiplier.get() *
                 ((double) height() / MAX_HEIGHT);
 //        inputOutputSlot.drainTank(outputOutputSlot);
@@ -278,40 +284,47 @@ public class PlasmaEvaporationMultiblockData
     }
 
     private void consumePlasmaAndHeatUp() {
-        if (plasmaInputTank.isEmpty()) return; // We can't invoke getTemperature of an empty tank
-        // Try to consume plasma
-        long consumed = (long) (inputTank.getFluidAmount() / GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaConsumeRatio.get());
-        double inc = consumed - plasmaOutputTank.getNeeded();
-        Gas output = plasmaInputTank.getType().get(Heatant.class).getSuperheatedGas();
-        boolean isOutputRadioactive = output.has(Radiation.class);
-
-        // Heat up, then shrink the stack in case that the stack is empty after
-        // shrinking as we need to get the input's type
-        heatCapacitor.handleHeat(consumed * plasmaInputTank.getType().get(Heatant.class).getTemperature());
-        plasmaInputTank.shrinkStack(consumed, Action.EXECUTE);
-        if (output == plasmaOutputTank.getType()) {
-            if (inc > 0) {
-                // The plasma overflowed and we need to check its radioactivity
-                if (isOutputRadioactive) {
-                    tryRadiateEnvironment(output, inc);
-                }
-            }
-            plasmaOutputTank.growStack(consumed, Action.EXECUTE);
-        } else if (plasmaOutputTank.isEmpty()) {
-            // Type doesn't match because it's empty
-            if (inc > 0) {
-                // The plasma overflowed and we need to check its radioactivity
-                if (isOutputRadioactive) {
-                    tryRadiateEnvironment(output, inc);
-                }
-            }
-            plasmaOutputTank.setStack(output.getStack(consumed));
+        // We don't need to heat up if plasma tank is empty (fluid tank was checked in the tick method)
+        if (plasmaInputTank.isEmpty()) {
+            return;
         } else {
-            // Plasma input doesn't produce our expected output, leak it
-            if (isOutputRadioactive) {
-                tryRadiateEnvironment(output, consumed);
+            // Try to consume plasma
+            long consumed = (long) (inputTank.getFluidAmount() / GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaConsumeRatio.get());
+            double inc = consumed - plasmaOutputTank.getNeeded();
+            Gas output = plasmaInputTank.getType().get(Heatant.class).getSuperheatedGas();
+            boolean isOutputRadioactive = output.has(Radiation.class);
+
+            // Heat up, then shrink the stack in case that the stack is empty after
+            // shrinking as we need to get the input's type
+            heatCapacitor.handleHeat(consumed * plasmaInputTank.getType().get(Heatant.class).getTemperature() / 10_000);
+            plasmaInputTank.shrinkStack(consumed, Action.EXECUTE);
+            if (output == plasmaOutputTank.getType()) {
+                if (inc > 0) {
+                    // The plasma overflowed and we need to check its radioactivity
+                    if (isOutputRadioactive) {
+                        tryRadiateEnvironment(output, inc);
+                    }
+                }
+                plasmaOutputTank.growStack(consumed, Action.EXECUTE);
+            } else if (plasmaOutputTank.isEmpty()) {
+                // Type doesn't match because it's empty
+                if (inc > 0) {
+                    // The plasma overflowed and we need to check its radioactivity
+                    if (isOutputRadioactive) {
+                        tryRadiateEnvironment(output, inc);
+                    }
+                }
+                plasmaOutputTank.setStack(output.getStack(consumed));
+            } else {
+                // Plasma input doesn't produce our expected output, leak it
+                if (isOutputRadioactive) {
+                    tryRadiateEnvironment(output, consumed);
+                }
             }
         }
+
+        // Finally, we should cool down the plant based on how much fluid is processed
+        heatCapacitor.handleHeat(-lastGain * GenLoadConfig.generatorConfig.plasmaEvaporationHeatPerInputFluid.get());
     }
 
     private void tryRadiateEnvironment(Gas gas, double amount) {
@@ -336,6 +349,12 @@ public class PlasmaEvaporationMultiblockData
         // TODO: lowerVolume and higherVolume can't be synced through the validator. Why?
         inputTankCapacity = lowerVolume * GenLoadConfig.generatorConfig.plasmaEvaporationFluidPerTank.get();
         inputPlasmaTankCapacity = higherVolume * GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaPerTank.get();
+    }
+
+    private void idle() {
+        if (!GenLoadConfig.generatorConfig.plasmaEvaporationIdleHeatDissipationEnabled.get()) return;
+        if (getTemperature() <= 1_000) return;
+        heatCapacitor.handleHeat(-GenLoadConfig.generatorConfig.plasmaEvaporationIdleHeatDissipation.get());
     }
 
     public void updateVentData(List<VentData> vents) {

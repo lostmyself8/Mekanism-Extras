@@ -13,7 +13,7 @@ public enum ExtraGenLang implements ILangEntry {
     // Plasma Evaporation Plant
     PLASMA_EVAPORATION("plasma", "plasma_evaporation"),
     PLASMA_CONSUMPTION("plasma", "plasma_consumption"),
-    PLASMA_PORT_MODE("plasma", "plasma_port_mode"),
+    PLASMA_PORT_MODE("plasma", "port_mode"),
 
     // JEI
     JEI_INFO_POLONIUM_CONTAINING_SOLUTION("info", "jei.polonium_containing_solution"),
@@ -30,7 +30,7 @@ public enum ExtraGenLang implements ILangEntry {
     DESCRIPTION_PLASMA_EVAPORATION_VALVE("description", "plasma_evaporation_valve"),
     DESCRIPTION_PLASMA_INSULATION_LAYER("description", "plasma_insulation_layer"),
     DESCRIPTION_PLASMA_EVAPORATION_VENT("description", "plasma_evaporation_vent"),
-    DESCRIPTION_FUSION_PLASMA_EXTRACTING_PORT("description", "fusion_reactor_plasma_extracting_port"),
+    DESCRIPTION_FUSION_REACTOR_PLASMA_EXTRACTING_PORT("description", "fusion_reactor_plasma_extracting_port"),
 
     // Chemical Attributes
     CHEMICAL_ATTRIBUTE_HEATANT("chemical", "attribute.heatant"),
