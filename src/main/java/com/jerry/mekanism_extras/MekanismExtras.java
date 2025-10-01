@@ -7,7 +7,7 @@ import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationValidat
 import com.jerry.generator_extras.common.genregistry.*;
 import com.jerry.mekanism_extras.client.events.ClientTick;
 import com.jerry.mekanism_extras.common.ExtraLang;
-import com.jerry.mekanism_extras.common.ExtraTag;
+import com.jerry.mekanism_extras.common.ExtraTags;
 import com.jerry.mekanism_extras.common.command.ExtraBuilders;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
@@ -16,6 +16,7 @@ import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.registry.*;
 import com.jerry.mekanism_extras.common.integration.Addons;
+import com.jerry.mekanism_extras.common.resource.ExtraResource;
 import com.mojang.logging.LogUtils;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
@@ -41,12 +42,13 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 
 @Mod(MekanismExtras.MODID)
 public class MekanismExtras {
     public static final String MODID = "mekanism_extras";
     public static final String MOD_NAME = "MekanismExtras";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final MultiblockManager<ExtraMatrixMultiblockData> extraMatrixManager = new MultiblockManager<>("extraInductionMatrix", MultiblockCache::new, ExtraMatrixValidator::new);
     public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", NaquadahReactorCache::new, NaquadahReactorValidator::new);
     public static final MultiblockManager<PlasmaEvaporationMultiblockData> plasmaEvaporationPlantManager = new MultiblockManager<>("plasmaEvaporationPlant", MultiblockCache::new, PlasmaEvaporationValidator::new);
@@ -84,7 +86,7 @@ public class MekanismExtras {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(ExtraTag::init);
+        event.enqueueWork(ExtraTags::init);
     }
 
     private static void conditionalRegistry(IEventBus modEventBus) {
@@ -94,6 +96,7 @@ public class MekanismExtras {
             ExtraGenFluids.register(modEventBus);
             ExtraGenContainerTypes.register(modEventBus);
             ExtraGenGases.register(modEventBus);
+            ExtraGenInfuseTypes.register(modEventBus);
             ExtraGenTileEntityTypes.register(modEventBus);
 //            ExtraGenRecipeType.EXTRA_GEN_RECIPE_TYPES.register(modEventBus);
 //            ExtraGenRecipeSerializers.GEN_RECIPE_SERIALIZERS.register(modEventBus);

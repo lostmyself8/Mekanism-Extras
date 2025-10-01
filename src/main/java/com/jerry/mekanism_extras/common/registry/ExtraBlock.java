@@ -117,71 +117,75 @@ public class ExtraBlock {
             }
         }
         // ores
-        for (ExtraOreType ore : ExtraEnumUtils.ORE_TYPES) {
+        for (ExtraOreType ore : ExtraEnumUtils.EXTRA_ORE_TYPES) {
             ORES.put(ore, registerOre(ore));
         }
     }
+
+    // Resource Blocks
     public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> NAQUADAH_BLOCK = registerResourceBlock(ExtraBlockResourceInfo.NAQUADAH);
     public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> RAW_NAQUADAH_BLOCK = registerResourceBlock(ExtraBlockResourceInfo.RAW_NAQUADAH);
-    //bin
+    public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> TUNGSTEN_BLOCK = registerResourceBlock(ExtraBlockResourceInfo.TUNGSTEN);
+    public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> REFINED_NETHERITE = registerResourceBlock(ExtraBlockResourceInfo.REFINED_NETHERITE);
+    // Bins
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> ABSOLUTE_BIN = registerBin("absolute", ExtraBlockType.ABSOLUTE_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> SUPREME_BIN = registerBin("supreme", ExtraBlockType.SUPREME_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> COSMIC_BIN = registerBin("cosmic", ExtraBlockType.COSMIC_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> INFINITE_BIN = registerBin("infinite", ExtraBlockType.INFINITE_BIN);
-    //induction casing port
+    // Induction Casing Ports
     public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityReinforcedInductionCasing>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityReinforcedInductionCasing>>> REINFORCED_INDUCTION_CASING = registerBlock("reinforced_induction_casing", () -> new BlockBasicMultiblock<>(ExtraBlockType.REINFORCED_INDUCTION_CASING, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)));
     public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityReinforcedInductionPort>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityReinforcedInductionPort>>> REINFORCED_INDUCTION_PORT = registerBlock("reinforced_induction_port", () -> new BlockBasicMultiblock<>(ExtraBlockType.REINFORCED_INDUCTION_PORT, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)));
-    //cell
+    // Cells
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> ABSOLUTE_INDUCTION_CELL = registerInductionCell("absolute", ExtraBlockType.ABSOLUTE_INDUCTION_CELL);
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> SUPREME_INDUCTION_CELL = registerInductionCell("supreme", ExtraBlockType.SUPREME_INDUCTION_CELL);
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> COSMIC_INDUCTION_CELL = registerInductionCell("cosmic", ExtraBlockType.COSMIC_INDUCTION_CELL);
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionCell, BlockTypeTile<ExtraTileEntityInductionCell>>, ExtraItemBlockInductionCell> INFINITE_INDUCTION_CELL = registerInductionCell("infinite", ExtraBlockType.INFINITE_INDUCTION_CELL);
-    //provider
+    // Provider
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> ABSOLUTE_INDUCTION_PROVIDER = registerInductionProvider("absolute", ExtraBlockType.ABSOLUTE_INDUCTION_PROVIDER);
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> SUPREME_INDUCTION_PROVIDER = registerInductionProvider("supreme", ExtraBlockType.SUPREME_INDUCTION_PROVIDER);
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> COSMIC_INDUCTION_PROVIDER = registerInductionProvider("cosmic", ExtraBlockType.COSMIC_INDUCTION_PROVIDER);
     public static final BlockRegistryObject<BlockTile<ExtraTileEntityInductionProvider, BlockTypeTile<ExtraTileEntityInductionProvider>>, ExtraItemBlockInductionProvider> INFINITE_INDUCTION_PROVIDER = registerInductionProvider("infinite", ExtraBlockType.INFINITE_INDUCTION_PROVIDER);
-    //fluid tank
+    // Fluid Tanks
     public static final BlockRegistryObject<ExtraBlockFluidTank, ExtraItemBlockFluidTank> ABSOLUTE_FLUID_TANK = registerFluidTank("absolute", ExtraBlockType.ABSOLUTE_FLUID_TANK);
     public static final BlockRegistryObject<ExtraBlockFluidTank, ExtraItemBlockFluidTank> SUPREME_FLUID_TANK = registerFluidTank("supreme", ExtraBlockType.SUPREME_FLUID_TANK);
     public static final BlockRegistryObject<ExtraBlockFluidTank, ExtraItemBlockFluidTank> COSMIC_FLUID_TANK = registerFluidTank("cosmic", ExtraBlockType.COSMIC_FLUID_TANK);
     public static final BlockRegistryObject<ExtraBlockFluidTank, ExtraItemBlockFluidTank> INFINITE_FLUID_TANK = registerFluidTank("infinite", ExtraBlockType.INFINITE_FLUID_TANK);
-    //energy cube
+    // Energy Cubes
     public static final BlockRegistryObject<ExtraBlockEnergyCube, ExtraItemBlockEnergyCube> ABSOLUTE_ENERGY_CUBE = registerEnergyCube("absolute", ExtraBlockType.ABSOLUTE_ENERGY_CUBE);
     public static final BlockRegistryObject<ExtraBlockEnergyCube, ExtraItemBlockEnergyCube> SUPREME_ENERGY_CUBE = registerEnergyCube("supreme", ExtraBlockType.SUPREME_ENERGY_CUBE);
     public static final BlockRegistryObject<ExtraBlockEnergyCube, ExtraItemBlockEnergyCube> COSMIC_ENERGY_CUBE = registerEnergyCube("cosmic", ExtraBlockType.COSMIC_ENERGY_CUBE);
     public static final BlockRegistryObject<ExtraBlockEnergyCube, ExtraItemBlockEnergyCube> INFINITE_ENERGY_CUBE = registerEnergyCube("infinite", ExtraBlockType.INFINITE_ENERGY_CUBE);
-    //universal cable
+    // Universal Cables
     public static final BlockRegistryObject<ExtraBlockUniversalCable, ExtraItemBlockUniversalCable> ABSOLUTE_UNIVERSAL_CABLE = registerUniversalCable("absolute", CableTier.BASIC);
     public static final BlockRegistryObject<ExtraBlockUniversalCable, ExtraItemBlockUniversalCable> SUPREME_UNIVERSAL_CABLE = registerUniversalCable("supreme", CableTier.ADVANCED);
     public static final BlockRegistryObject<ExtraBlockUniversalCable, ExtraItemBlockUniversalCable> COSMIC_UNIVERSAL_CABLE = registerUniversalCable("cosmic", CableTier.ELITE);
     public static final BlockRegistryObject<ExtraBlockUniversalCable, ExtraItemBlockUniversalCable> INFINITE_UNIVERSAL_CABLE = registerUniversalCable("infinite", CableTier.ULTIMATE);
-    //mechanical pipe
+    // Mechanical Pipes
     public static final BlockRegistryObject<ExtraBlockMechanicalPipe, ExtraItemBlockMechanicalPipe> ABSOLUTE_MECHANICAL_PIPE = registerMechanicalPipe("absolute", PipeTier.BASIC);
     public static final BlockRegistryObject<ExtraBlockMechanicalPipe, ExtraItemBlockMechanicalPipe> SUPREME_MECHANICAL_PIPE = registerMechanicalPipe("supreme", PipeTier.ADVANCED);
     public static final BlockRegistryObject<ExtraBlockMechanicalPipe, ExtraItemBlockMechanicalPipe> COSMIC_MECHANICAL_PIPE = registerMechanicalPipe("cosmic", PipeTier.ELITE);
     public static final BlockRegistryObject<ExtraBlockMechanicalPipe, ExtraItemBlockMechanicalPipe> INFINITE_MECHANICAL_PIPE = registerMechanicalPipe("infinite", PipeTier.ULTIMATE);
-    //pressurized tube
+    // Pressurized Tubes
     public static final BlockRegistryObject<ExtraBlockPressurizedTube, ExtraItemBlockPressurizedTube> ABSOLUTE_PRESSURIZED_TUBE = registerPressurizedTube("absolute", TubeTier.BASIC);
     public static final BlockRegistryObject<ExtraBlockPressurizedTube, ExtraItemBlockPressurizedTube> SUPREME_PRESSURIZED_TUBE = registerPressurizedTube("supreme", TubeTier.ADVANCED);
     public static final BlockRegistryObject<ExtraBlockPressurizedTube, ExtraItemBlockPressurizedTube> COSMIC_PRESSURIZED_TUBE = registerPressurizedTube("cosmic", TubeTier.ELITE);
     public static final BlockRegistryObject<ExtraBlockPressurizedTube, ExtraItemBlockPressurizedTube> INFINITE_PRESSURIZED_TUBE = registerPressurizedTube("infinite", TubeTier.ULTIMATE);
-    //logistical transporter
+    // Logistical Transporters
     public static final BlockRegistryObject<ExtraBlockLogisticalTransporter, ExtraItemBlockLogisticalTransporter> ABSOLUTE_LOGISTICAL_TRANSPORTER = registerLogisticalTransporter("absolute", TransporterTier.BASIC);
     public static final BlockRegistryObject<ExtraBlockLogisticalTransporter, ExtraItemBlockLogisticalTransporter> SUPREME_LOGISTICAL_TRANSPORTER = registerLogisticalTransporter("supreme", TransporterTier.ADVANCED);
     public static final BlockRegistryObject<ExtraBlockLogisticalTransporter, ExtraItemBlockLogisticalTransporter> COSMIC_LOGISTICAL_TRANSPORTER = registerLogisticalTransporter("cosmic", TransporterTier.ELITE);
     public static final BlockRegistryObject<ExtraBlockLogisticalTransporter, ExtraItemBlockLogisticalTransporter> INFINITE_LOGISTICAL_TRANSPORTER = registerLogisticalTransporter("infinite", TransporterTier.ULTIMATE);
-    //thermodynamic conductor
+    // Thermodynamic Conductors
     public static final BlockRegistryObject<ExtraBlockThermodynamicConductor, ExtraItemBlockThermodynamicConductor> ABSOLUTE_THERMODYNAMIC_CONDUCTOR = registerThermodynamicConductor("absolute", ConductorTier.BASIC);
     public static final BlockRegistryObject<ExtraBlockThermodynamicConductor, ExtraItemBlockThermodynamicConductor> SUPREME_THERMODYNAMIC_CONDUCTOR = registerThermodynamicConductor("supreme", ConductorTier.ADVANCED);
     public static final BlockRegistryObject<ExtraBlockThermodynamicConductor, ExtraItemBlockThermodynamicConductor> COSMIC_THERMODYNAMIC_CONDUCTOR = registerThermodynamicConductor("cosmic", ConductorTier.ELITE);
     public static final BlockRegistryObject<ExtraBlockThermodynamicConductor, ExtraItemBlockThermodynamicConductor> INFINITE_THERMODYNAMIC_CONDUCTOR = registerThermodynamicConductor("infinite", ConductorTier.ULTIMATE);
-    //chemical tank
+    // Chemical Tanks
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> ABSOLUTE_CHEMICAL_TANK = registerChemicalTank("absolute", ExtraBlockType.ABSOLUTE_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> SUPREME_CHEMICAL_TANK = registerChemicalTank("supreme", ExtraBlockType.SUPREME_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> COSMIC_CHEMICAL_TANK = registerChemicalTank("cosmic", ExtraBlockType.COSMIC_CHEMICAL_TANK);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>, ExtraItemBlockChemicalTank> INFINITE_CHEMICAL_TANK = registerChemicalTank("infinite", ExtraBlockType.INFINITE_CHEMICAL_TANK);
-    //other
+    // Other Machines
     public static final BlockRegistryObject<ExtraBlockRadioactiveWasteBarrel, ExtraItemBlockRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = EXTRA_BLOCK.registerDefaultProperties("expand_radioactive_waste_barrel", ExtraBlockRadioactiveWasteBarrel::new, ExtraItemBlockRadioactiveWasteBarrel::new);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>, ItemBlockMachine> ADVANCED_ELECTRIC_PUMP = EXTRA_BLOCK.register("advance_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockType.ADVANCED_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);
 
@@ -190,6 +194,7 @@ public class ExtraBlock {
         BlockRegistryObject<ExtraBlockOre, ItemBlockTooltip<ExtraBlockOre>> stoneOre = registerBlock(name, () -> new ExtraBlockOre(ore));
         return new ExtraOreBlockType(stoneOre);
     }
+
     private static BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> registerResourceBlock(ExtraBlockResourceInfo resource) {
         return EXTRA_BLOCK.registerDefaultProperties("block_" + resource.getRegistrySuffix(), () -> new ExtraBlockResource(resource), (block, properties) -> {
             if (!block.getResourceInfo().burnsInFire()) {

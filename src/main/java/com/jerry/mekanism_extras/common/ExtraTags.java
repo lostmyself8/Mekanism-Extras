@@ -1,11 +1,20 @@
 package com.jerry.mekanism_extras.common;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.resource.ExtraBlockResourceInfo;
+import com.jerry.mekanism_extras.common.resource.ExtraResource;
+import com.jerry.mekanism_extras.common.resource.ore.ExtraOreType;
+import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import mekanism.api.chemical.ChemicalTags;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.infuse.InfuseType;
 import mekanism.api.chemical.slurry.Slurry;
+import mekanism.common.resource.IResource;
+import mekanism.common.resource.ResourceType;
 import mekanism.common.tags.LazyTagLookup;
+import mekanism.common.util.EnumUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
@@ -14,7 +23,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ExtraTag {
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ExtraTags {
 
     public static void init() {
         Items.init();
@@ -32,11 +46,43 @@ public class ExtraTag {
         private Items() {
         }
 
+        public static final Table<ResourceType, ExtraResource, TagKey<Item>> PROCESSED_RESOURCES = HashBasedTable.create();
+        public static final Map<IResource, TagKey<Item>> PROCESSED_RESOURCE_BLOCKS = new HashMap<>();
+        public static final Map<ExtraOreType, TagKey<Item>> ORES = new EnumMap<>(ExtraOreType.class);
+
+        static {
+            for (ExtraResource resource : ExtraEnumUtils.EXTRA_RESOURCES) {
+                for (ResourceType type : EnumUtils.RESOURCE_TYPES) {
+                    String res = type.getBaseTagPath() + "/" + resource.getRegistrySuffix();
+                    if (type.isVanilla() || type == ResourceType.DUST) {
+                        PROCESSED_RESOURCES.put(type, resource, forgeTag(res));
+                    } else {
+                        PROCESSED_RESOURCES.put(type, resource, tag(res));
+                    }
+                }
+                if (!resource.isVanilla()) {
+                    PROCESSED_RESOURCE_BLOCKS.put(resource, forgeTag("storage_blocks/" + resource.getRegistrySuffix()));
+                    ExtraBlockResourceInfo rawResource = resource.getRawResourceBlockInfo();
+                    if (rawResource != null) {
+                        PROCESSED_RESOURCE_BLOCKS.put(rawResource, forgeTag("storage_blocks/" + rawResource.getRegistrySuffix()));
+                    }
+                }
+            }
+            for (ExtraOreType ore : ExtraEnumUtils.EXTRA_ORE_TYPES) {
+                ORES.put(ore, forgeTag("ores/" + ore.getResource().getRegistrySuffix()));
+            }
+        }
+
         public static final TagKey<Item> NAQUADAH = forgeTag("ores/naquadah");
         public static final TagKey<Item> END_NAQUADAH = forgeTag("ores/naquadah");
+        public static final TagKey<Item> TUNGSTEN = forgeTag("ores/tungsten");
 
         private static TagKey<Item> forgeTag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
+        }
+
+        private static TagKey<Item> tag(String name) {
+            return ItemTags.create(MekanismExtras.rl(name));
         }
     }
 
@@ -46,6 +92,7 @@ public class ExtraTag {
 
         private Fluids() {
         }
+
         public static final TagKey<Fluid> NAQUADAH_TETRAFLUORIDE = forgeTag("naquadah_tetrafluoride");
         public static final TagKey<Fluid> FLUORINATED_NAQUADAH_URANIUM_FUEL = forgeTag("fluorinated_naquadah_uranium_fuel");
         public static final TagKey<Fluid> RICH_NAQUADAH_FUEL = forgeTag("rich_naquadah_fuel");

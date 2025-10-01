@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.item;
 
-import com.jerry.mekanism_extras.common.ExtraTag;
-import com.jerry.mekanism_extras.common.registry.ExtraGases;
+import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
+import com.jerry.mekanism_extras.common.ExtraTags;
 import mekanism.api.chemical.ChemicalTankBuilder;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.gas.IGasHandler;
@@ -72,7 +72,7 @@ public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDe
 
     @Override
     public void addItems(CreativeModeTab.Output tabOutput) {
-        tabOutput.accept(ChemicalUtil.getFilledVariant(new ItemStack(this), GenLoadConfig.generatorConfig.hohlraumMaxGas, ExtraGases.NAQUADAH_URANIUM_FUEL));
+        tabOutput.accept(ChemicalUtil.getFilledVariant(new ItemStack(this), GenLoadConfig.generatorConfig.hohlraumMaxGas, ExtraGenGases.NAQUADAH_URANIUM_FUEL));
     }
 
     @Override
@@ -84,6 +84,6 @@ public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDe
     protected void gatherCapabilities(List<ItemCapabilityWrapper.ItemCapability> capabilities, ItemStack stack, CompoundTag nbt) {
         super.gatherCapabilities(capabilities, stack, nbt);
         capabilities.add(RateLimitGasHandler.create(GenLoadConfig.generatorConfig.hohlraumFillRate, GenLoadConfig.generatorConfig.hohlraumMaxGas,
-                ChemicalTankBuilder.GAS.notExternal, ChemicalTankBuilder.GAS.alwaysTrueBi, ExtraTag.Gases.NAQUADAH_URANIUM_FUEL_LOOKUP::contains));
+                ChemicalTankBuilder.GAS.notExternal, ChemicalTankBuilder.GAS.alwaysTrueBi, ExtraTags.Gases.NAQUADAH_URANIUM_FUEL_LOOKUP::contains));
     }
 }

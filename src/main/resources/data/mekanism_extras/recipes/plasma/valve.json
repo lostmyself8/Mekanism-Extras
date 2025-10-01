@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "mekanism_extras:plasma_evaporation_block"
+    },
+    "V": {
+      "item": "mekanism:thermal_evaporation_valve"
+    },
+    "F": {
+      "item": "mekanism_extras:supreme_mechanical_pipe"
+    },
+    "C": {
+      "item": "mekanism_extras:supreme_pressurized_tube"
+    }
+  },
+  "pattern": [
+    "#F#",
+    "CVC",
+    "#F#"
+  ],
+  "result": {
+    "item": "mekanism_extras:plasma_evaporation_valve"
+  }
+}

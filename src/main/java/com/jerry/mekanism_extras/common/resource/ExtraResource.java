@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.resource;
 
-import com.jerry.mekanism_extras.common.ExtraTag;
+import com.jerry.mekanism_extras.common.ExtraTags;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ResourceType;
 import net.minecraft.tags.TagKey;
@@ -10,8 +10,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 public enum ExtraResource implements IResource {
-    NAQUADAH("naquadah", 0x051602, ExtraTag.Items.NAQUADAH, ExtraBlockResourceInfo.NAQUADAH, ExtraBlockResourceInfo.RAW_NAQUADAH),
-    END_NAQUADAH("end_naquadah", 0x051602, ExtraTag.Items.END_NAQUADAH);
+
+    NAQUADAH("naquadah", 0x051602, ExtraTags.Items.NAQUADAH, ExtraBlockResourceInfo.NAQUADAH, ExtraBlockResourceInfo.RAW_NAQUADAH),
+    END_NAQUADAH("end_naquadah", 0x051602, ExtraTags.Items.END_NAQUADAH),
+    TUNGSTEN("tungsten", 0x372700, ExtraTags.Items.TUNGSTEN),
+    ;
+
+    private static final ExtraResource[] EXTRA_RESOURCES = values();
 
     private final String name;
     private final int tint;

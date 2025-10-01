@@ -20,7 +20,6 @@ public class ExtraInfuseTypes {
     public static final InfuseTypeRegistryObject<InfuseType> SHINING = EXTRA_INFUSE_TYPES.register("shining",0xFBE0FE);
     public static final InfuseTypeRegistryObject<InfuseType> SPECTRUM = EXTRA_INFUSE_TYPES.register("spectrum",0x1D1D29);
     public static final InfuseTypeRegistryObject<InfuseType> LEAD = EXTRA_INFUSE_TYPES.register("lead",0x627370);
-    public static final InfuseTypeRegistryObject<InfuseType> HEAT_INSULATING_COATING = EXTRA_INFUSE_TYPES.register("heat_insulating_coating", 0xB3AF08);
 
     public static void register(IEventBus eventBus) {
         EXTRA_INFUSE_TYPES.register(eventBus);

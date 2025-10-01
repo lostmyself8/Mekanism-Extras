@@ -1,0 +1,12 @@
+{
+  "type": "mekanism:infusion_conversion",
+  "input": {
+    "ingredient": {
+      "item": "mekanism_extras:heat_insulating_material_piece"
+    }
+  },
+  "output": {
+    "amount": 1,
+    "infuse_type": "mekanism_extras:heat_insulating_coating"
+  }
+}

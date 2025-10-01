@@ -9,7 +9,9 @@ import org.jetbrains.annotations.Nullable;
 
 public enum ExtraBlockResourceInfo implements IResource {
     NAQUADAH("naquadah", 7.5F, 12, MapColor.COLOR_CYAN),
-    RAW_NAQUADAH("raw_naquadah", 7.5F, 12, MapColor.COLOR_CYAN, NoteBlockInstrument.BASEDRUM);
+    RAW_NAQUADAH("raw_naquadah", 7.5F, 12, MapColor.COLOR_CYAN, NoteBlockInstrument.BASEDRUM),
+    TUNGSTEN("tungsten", 60, 3_000, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASEDRUM, -1),
+    REFINED_NETHERITE("refined_netherite", 75, 3_600, MapColor.COLOR_BLACK, NoteBlockInstrument.HARP, -1);
 
     private final String registrySuffix;
     private final MapColor mapColor;
@@ -20,8 +22,7 @@ public enum ExtraBlockResourceInfo implements IResource {
     private final float resistance;
     private final float hardness;
     private final int burnTime;
-    //Number between 0 and 15
-    private final int lightValue;
+    private final int lightValue; // between 0 - 15
 
     ExtraBlockResourceInfo(String registrySuffix, float hardness, float resistance, MapColor mapColor) {
         this(registrySuffix, hardness, resistance, mapColor, null);

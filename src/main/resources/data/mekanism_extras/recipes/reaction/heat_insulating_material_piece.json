@@ -1,0 +1,25 @@
+{
+  "type": "mekanism:reaction",
+  "duration": 200,
+  "energyRequired": 5000,
+  "fluidInput": {
+    "amount": 2000,
+    "fluid": "mekanismgenerators:fusion_fuel"
+  },
+  "gasInput": {
+    "amount": 720,
+    "gas": "mekanism_extras:molten_thermonuclear"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "mekanism_extras:ingot_refined_netherite"
+    }
+  },
+  "itemOutput": {
+    "item": "mekanism_extras:heat_insulating_material_piece"
+  },
+  "gasOutput": {
+    "amount": 10,
+    "gas": "mekanism_extras:helium_plasma"
+  }
+}

@@ -10,19 +10,19 @@ public enum ExtraLang implements ILangEntry {
     STOP_FLASHING("pack", "pack_name"),
     STOP_FLASHING_DESC("pack", "pack_description"),
 
-    //JEI
+    // JEI
     JEI_INFO_RICH_NAQUADAH_FUEL("info", "jei.rich_naquadah_fuel"),
     JEI_INFO_RICH_URANIUM_FUEL("info", "jei.rich_uranium_fuel"),
 
-    //Upgrades
+    // Upgrades
     UPGRADES_STACK("gui", "upgrades.stack"),
     ENERGY_CONSUMPTION("gui", "energy_consumption"),
 
-    //Reinforced Induction Matrix
+    // Reinforced Induction Matrix
     REINFORCED_MATRIX("matrix", "reinforced_induction_matrix"),
 
-    //Description
-    DESCRIPTION_FORCEFIELD_GENERATOR("description", "forcefield_generator");
+    // Description
+    DESCRIPTION_TUNGSTEN_CASING("description", "tungsten_casing");
     private final String key;
 
     ExtraLang(String type, String path) {

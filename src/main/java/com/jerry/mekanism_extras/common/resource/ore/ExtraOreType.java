@@ -18,7 +18,7 @@ public enum ExtraOreType implements StringRepresentable {
     END_NAQUADAH(ExtraResource.END_NAQUADAH,
             new BaseOreConfig("middle", 8, 0, 4, HeightShape.TRAPEZOID, OreAnchor.absolute(15), OreAnchor.absolute(25)));
 
-    public static Codec<ExtraOreType> CODEC = StringRepresentable.fromEnum(ExtraOreType::values);
+    public static final Codec<ExtraOreType> CODEC = StringRepresentable.fromEnum(ExtraOreType::values);
 
     private final List<BaseOreConfig> baseConfigs;
     private final IResource resource;

@@ -4,7 +4,6 @@ import com.jerry.generator_extras.common.config.GenLoadConfig;
 import com.jerry.generator_extras.common.item.ItemNquadahHohlraum;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorPort;
-import com.jerry.mekanism_extras.common.registry.ExtraGases;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -38,7 +37,7 @@ import mekanism.common.util.HeatUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.WorldUtils;
-import com.jerry.mekanism_extras.common.ExtraTag;
+import com.jerry.mekanism_extras.common.ExtraTags;
 import mekanism.generators.common.slot.ReactorInventorySlot;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
@@ -132,11 +131,11 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         lastCaseTemperature = biomeAmbientTemp;
         plasmaTemperature = biomeAmbientTemp;
         gasTanks.add(naquadahTank = MultiblockChemicalTankBuilder.GAS.input(this, GenLoadConfig.generatorConfig.reactorFuelCapacity,
-                ExtraTag.Gases.RICH_NAQUADAH_FUEL_LOOKUP::contains, this));
+                ExtraTags.Gases.RICH_NAQUADAH_FUEL_LOOKUP::contains, this));
         gasTanks.add(uraniumTank = MultiblockChemicalTankBuilder.GAS.input(this, GenLoadConfig.generatorConfig.reactorFuelCapacity,
-                ExtraTag.Gases.RICH_URANIUM_FUEL_LOOKUP::contains, this));
+                ExtraTags.Gases.RICH_URANIUM_FUEL_LOOKUP::contains, this));
         gasTanks.add(fuelTank = MultiblockChemicalTankBuilder.GAS.input(this, GenLoadConfig.generatorConfig.reactorFuelCapacity,
-                ExtraTag.Gases.NAQUADAH_URANIUM_FUEL_LOOKUP::contains, createSaveAndComparator()));
+                ExtraTags.Gases.NAQUADAH_URANIUM_FUEL_LOOKUP::contains, createSaveAndComparator()));
         gasTanks.add(steamTank = MultiblockChemicalTankBuilder.GAS.output(this, this::getMaxSteam, gas -> gas == ExtraGenGases.POLONIUM_CONTAINING_STEAM.getChemical() || gas == MekanismGases.STEAM.getChemical(), this));
         fluidTanks.add(waterTank = VariableCapacityFluidTank.input(this, this::getMaxWater, fluid -> MekanismTags.Fluids.WATER_LOOKUP.contains(fluid.getFluid()), this));
         energyContainers.add(energyContainer = VariableCapacityEnergyContainer.output(GenLoadConfig.generatorConfig.reactorEnergyCapacity, this));
@@ -283,7 +282,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         long injectingAmount = amountToInject / 2;
         MekanismUtils.logMismatchedStackSize(naquadahTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
         MekanismUtils.logMismatchedStackSize(uraniumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
-        fuelTank.insert(ExtraGases.NAQUADAH_URANIUM_FUEL.getStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
+        fuelTank.insert(ExtraGenGases.NAQUADAH_URANIUM_FUEL.getStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
     }
 
     //消耗燃料

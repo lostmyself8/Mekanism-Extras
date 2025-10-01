@@ -1,0 +1,17 @@
+{
+  "type": "mekanism:combining",
+  "extraInput": {
+    "ingredient": {
+      "item": "mekanism_extras:enriched_heat_insulating_material"
+    }
+  },
+  "mainInput": {
+    "ingredient": {
+      "item": "mekanism:pressure_disperser",
+      "count": 5
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:plasma_insulation_layer"
+  }
+}

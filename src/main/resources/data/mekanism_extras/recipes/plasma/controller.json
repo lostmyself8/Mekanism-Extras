@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "mekanism_extras:plasma_evaporation_block"
+    },
+    "T": {
+      "item": "mekanism:thermal_evaporation_controller"
+    },
+    "C": {
+      "item": "mekanism_extras:supreme_control_circuit"
+    }
+  },
+  "pattern": [
+    "###",
+    "CTC",
+    "###"
+  ],
+  "result": {
+    "item": "mekanism_extras:plasma_evaporation_controller"
+  }
+}
