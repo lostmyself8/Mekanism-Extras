@@ -85,7 +85,7 @@ public class GeneratorConfig extends BaseMekanismConfig {
         plasmaEvaporationPlasmaPerTank = CachedIntValue.wrap(this, builder.comment("Amount of gas (mB) that each block of the Plasma Evaporation Plant contributes to the input plasma tank capacity. Max = volume * fluidPerTank")
                 .defineInRange("plasmaPerTank", 10 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE / (PlasmaEvaporationMultiblockData.MAX_HEIGHT * 16)));
         plasmaEvaporationOutputPlasmaTankCapacity = CachedIntValue.wrap(this, builder.comment("Amount of output gas (mB) that the Plasma Evaporation Plant can store.")
-                .defineInRange("outputPlasmaTankCapacity", 200 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE));
+                .defineInRange("outputPlasmaTankCapacity", 5000 * FluidType.BUCKET_VOLUME, 1, Integer.MAX_VALUE));
         plasmaEvaporationPlasmaConsumeRatio = CachedDoubleValue.wrap(this, builder.comment("Ratio of fluid consumption rate (mB/t) and plasma consumption rate (mB/t).")
                 .defineInRange("consumptionRatio", 100, 0.001, 1_000_000));
         plasmaEvaporationHeatPerInputFluid = CachedIntValue.wrap(this, builder.comment("Heat consumed for processing 1 mB of fluid.")

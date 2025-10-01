@@ -9,6 +9,9 @@ import com.jerry.mekanism_extras.api.gas.attribute.ExtraGasAttributes.*;
 import mekanism.api.Action;
 import mekanism.api.Coord4D;
 import mekanism.api.NBTConstants;
+import mekanism.api.chemical.BasicChemicalTank;
+import mekanism.api.chemical.ChemicalTankBuilder;
+import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.IGasTank;
 import mekanism.api.chemical.gas.attribute.GasAttributes.Radiation;
@@ -25,6 +28,7 @@ import mekanism.common.capabilities.chemical.multiblock.MultiblockChemicalTankBu
 import mekanism.common.capabilities.fluid.BasicFluidTank;
 import mekanism.common.capabilities.fluid.VariableCapacityFluidTank;
 import mekanism.common.capabilities.heat.VariableHeatCapacitor;
+import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.config.MekanismConfig;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
@@ -52,6 +56,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.BiPredicate;
 import java.util.function.BooleanSupplier;
 
 public class PlasmaEvaporationMultiblockData
@@ -129,8 +134,16 @@ public class PlasmaEvaporationMultiblockData
         recheckAllRecipeErrors = TileEntityRecipeMachine.shouldRecheckAllErrors(tile);
         //Default biome temp to the ambient temperature at the block we are at
         biomeAmbientTemp = HeatAPI.getAmbientTemp(tile.getLevel(), tile.getTilePos());
-        fluidTanks.add(inputTank = VariableCapacityFluidTank.input(this, () -> inputTankCapacity, this::containsRecipe, createSaveAndComparator(recipeCacheLookupMonitor)));
-        fluidTanks.add(outputTank = VariableCapacityFluidTank.output(this, GenLoadConfig.generatorConfig.plasmaEvaporationOutputFluidTankCapacity, BasicFluidTank.alwaysTrue, this));
+        fluidTanks.add(inputTank = VariableCapacityFluidTank.input(
+                this,
+                () -> inputTankCapacity,
+                this::containsRecipe,
+                createSaveAndComparator(recipeCacheLookupMonitor)));
+        fluidTanks.add(outputTank = VariableCapacityFluidTank.output(
+                this,
+                GenLoadConfig.generatorConfig.plasmaEvaporationOutputFluidTankCapacity,
+                BasicFluidTank.alwaysTrue,
+                this));
         inputHandler = InputHelper.getInputHandler(inputTank, CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_INPUT);
         outputHandler = OutputHelper.getOutputHandler(outputTank, CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
 //        inventorySlots.add(inputInputSlot = FluidInventorySlot.fill(inputTank, this, 28, 20));
@@ -139,11 +152,25 @@ public class PlasmaEvaporationMultiblockData
 //        inventorySlots.add(outputOutputSlot = OutputInventorySlot.at(this, 132, 51));
 //        inputInputSlot.setSlotType(ContainerSlotType.INPUT);
 //        inputOutputSlot.setSlotType(ContainerSlotType.INPUT);
-        gasTanks.add(plasmaInputTank = MultiblockChemicalTankBuilder.GAS.input(this, () -> inputPlasmaTankCapacity,
-                gas -> gas.has(Heatant.class), this));
-        gasTanks.add(plasmaOutputTank = MultiblockChemicalTankBuilder.GAS.output(this, GenLoadConfig.generatorConfig.plasmaEvaporationOutputPlasmaTankCapacity::get,
-                gas -> true, this));
-        heatCapacitors.add(heatCapacitor = VariableHeatCapacitor.create(GenLoadConfig.generatorConfig.plasmaEvaporationHeatCapacity.get() * 3, () -> biomeAmbientTemp, this));
+        gasTanks.add(plasmaInputTank = MultiblockChemicalTankBuilder.GAS.create(
+                () -> inputPlasmaTankCapacity,
+                // To allow radioactive plasma to be inserted into the output tank
+                this.<Gas>notExternalFormedBiPred().and(ChemicalTankHelper.radioactiveInputTankPredicate(() -> plasmaOutputTank)),
+                this.formedBiPred(),
+                gas -> gas.has(Heatant.class),
+                ChemicalAttributeValidator.ALWAYS_ALLOW,
+                this
+        ));
+        gasTanks.add(plasmaOutputTank = MultiblockChemicalTankBuilder.GAS.output(
+                this,
+                GenLoadConfig.generatorConfig.plasmaEvaporationOutputPlasmaTankCapacity::get,
+                gas -> true,
+                ChemicalAttributeValidator.ALWAYS_ALLOW,
+                this));
+        heatCapacitors.add(heatCapacitor = VariableHeatCapacitor.create(
+                GenLoadConfig.generatorConfig.plasmaEvaporationHeatCapacity.get() * 3,
+                () -> biomeAmbientTemp,
+                this));
     }
 
     @Override
@@ -167,6 +194,8 @@ public class PlasmaEvaporationMultiblockData
             // It's idle now
             idle();
         }
+        // We should cool down the plant based on how much fluid is processed
+        heatCapacitor.handleHeat(-lastGain * GenLoadConfig.generatorConfig.plasmaEvaporationHeatPerInputFluid.get());
         // After we update the heat capacitors, update our temperature multiplier
         tempMultiplier = getTemperature() * GenLoadConfig.generatorConfig.plasmaEvaporationTempMultiplier.get() *
                 ((double) height() / MAX_HEIGHT);
@@ -322,9 +351,6 @@ public class PlasmaEvaporationMultiblockData
                 }
             }
         }
-
-        // Finally, we should cool down the plant based on how much fluid is processed
-        heatCapacitor.handleHeat(-lastGain * GenLoadConfig.generatorConfig.plasmaEvaporationHeatPerInputFluid.get());
     }
 
     private void tryRadiateEnvironment(Gas gas, double amount) {
@@ -372,11 +398,6 @@ public class PlasmaEvaporationMultiblockData
                 vent.setEjectSides(sides);
             }
         }
-    }
-
-    @Override
-    public void triggerValveTransfer(IMultiblock<?> multiblock) {
-        IValveHandler.super.triggerValveTransfer(multiblock);
     }
 
     public record VentData(BlockPos location, Direction side) {

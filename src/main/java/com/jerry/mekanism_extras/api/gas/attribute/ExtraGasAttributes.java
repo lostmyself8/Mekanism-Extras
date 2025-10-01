@@ -18,7 +18,7 @@ public class ExtraGasAttributes {
      * Defines a plasma with its heat, for use in Plasma Evaporation Plant.
      * This can be regarded as the "hotter" variant of a superheated chemical,
      * so the superheated variant must be provided. If it doesn't exist, use
-     * its origin variant, like Polonium Plasma - Polonium. The temperature
+     * its origin variant, like Plutonium Plasma - Plutonium. The temperature
      * is measured in K/10,000mB.
      */
     public static class Heatant extends ChemicalAttribute {
