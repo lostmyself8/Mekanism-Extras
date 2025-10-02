@@ -36,6 +36,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -54,7 +55,6 @@ public class MekanismExtras implements IModModule {
      */
     public final Version versionNumber;
 
-    public static final Logger LOGGER = LogUtils.getLogger();
     public static final MultiblockManager<ExtraMatrixMultiblockData> extraMatrixManager = new MultiblockManager<>("extraInductionMatrix", MultiblockCache::new, ExtraMatrixValidator::new);
     public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", NaquadahReactorCache::new, NaquadahReactorValidator::new);
     public static final MultiblockManager<PlasmaEvaporationMultiblockData> plasmaEvaporationPlantManager = new MultiblockManager<>("plasmaEvaporationPlant", MultiblockCache::new, PlasmaEvaporationValidator::new);
