@@ -16,7 +16,6 @@ import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.registry.*;
 import com.jerry.mekanism_extras.common.integration.Addons;
-import com.jerry.mekanism_extras.common.resource.ExtraResource;
 import com.mojang.logging.LogUtils;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
@@ -42,7 +41,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
-import java.util.Arrays;
 
 @Mod(MekanismExtras.MODID)
 public class MekanismExtras {

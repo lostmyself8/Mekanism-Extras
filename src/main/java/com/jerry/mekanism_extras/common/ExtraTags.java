@@ -23,7 +23,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -167,4 +166,5 @@ public class ExtraTags {
             return ChemicalTags.SLURRY.tag(MekanismExtras.rl(name));
         }
     }
+
 }

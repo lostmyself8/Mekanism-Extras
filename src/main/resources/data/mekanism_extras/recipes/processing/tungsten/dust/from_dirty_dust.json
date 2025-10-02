@@ -2,7 +2,7 @@
   "type": "mekanism:enriching",
   "input": {
     "ingredient": {
-      "tag": "mekanism_extras:dirty_dusts/tungsten"
+      "item": "mekanism_extras:dirty_dust_tungsten"
     }
   },
   "output": {

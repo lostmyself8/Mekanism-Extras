@@ -79,6 +79,7 @@ public class ExtraItem {
     public static final ItemRegistryObject<Item> DIRTY_DUST_TUNGSTEN = registerUnburnableResource(ResourceType.DIRTY_DUST, ExtraResource.TUNGSTEN);
     public static final ItemRegistryObject<Item> DUST_TUNGSTEN = registerUnburnableResource(ResourceType.DUST, ExtraResource.TUNGSTEN);
     public static final ItemRegistryObject<Item> INGOT_TUNGSTEN = registerUnburnableResource(ResourceType.INGOT, ExtraResource.TUNGSTEN);
+    public static final ItemRegistryObject<Item> NUGGET_TUNGSTEN = registerUnburnableResource(ResourceType.NUGGET, ExtraResource.TUNGSTEN);
 
     public static final ItemRegistryObject<Item> REFINED_NETHERITE_INGOT = EXTRA_ITEMS.registerUnburnable("ingot_refined_netherite");
 

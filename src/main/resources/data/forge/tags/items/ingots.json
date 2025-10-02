@@ -1,5 +1,7 @@
 {
   "values": [
-    "#forge:ingots/naquadah"
+    "#forge:ingots/naquadah",
+    "#forge:ingots/tungsten",
+    "#forge:ingots/refined_netherite"
   ]
 }

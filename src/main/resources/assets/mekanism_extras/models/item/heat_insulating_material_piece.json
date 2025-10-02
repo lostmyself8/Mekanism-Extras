@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "mekanism_extras:item/heat_insulation_material_piece"
+    "layer0": "mekanism_extras:item/heat_insulating_material_piece"
   }
 }

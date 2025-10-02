@@ -6,7 +6,7 @@
   },
   "itemInput": {
     "ingredient": {
-      "tag": "mekanism_extras:shards/tungsten"
+      "item": "mekanism_extras:shard_tungsten"
     }
   },
   "output": {

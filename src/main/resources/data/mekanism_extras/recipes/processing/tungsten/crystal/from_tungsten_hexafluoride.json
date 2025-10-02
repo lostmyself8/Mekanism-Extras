@@ -4,17 +4,22 @@
   "energyRequired": 800,
   "fluidInput": {
     "amount": 300,
-    "fluid": "mekanism:liquid_hydrogen"
+    "fluid": "mekanism:hydrogen"
   },
   "gasInput": {
     "amount": 100,
     "gas": "mekanism_extras:tungsten_hexafluoride"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "minecraft:blue_ice"
+    }
   },
   "itemOutput": {
     "item": "mekanism_extras:shard_tungsten"
   },
   "gasOutput": {
     "amount": 600,
-    "gas": "mekanism_extras:tungsten_hexafluoride"
+    "gas": "mekanism:hydrofluoric_acid"
   }
 }

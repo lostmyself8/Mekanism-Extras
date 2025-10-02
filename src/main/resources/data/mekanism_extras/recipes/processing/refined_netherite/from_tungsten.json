@@ -6,10 +6,11 @@
   },
   "itemInput": {
     "ingredient": {
-      "item": "mekanism_extras:ingot_tungsten"
+      "item": "mekanism_extras:ingot_tungsten",
+      "amount": 3
     }
   },
   "output": {
-    "item": "mekanism_extras:ingot_refined_tungsten"
+    "item": "mekanism_extras:ingot_refined_netherite"
   }
 }

@@ -6,10 +6,10 @@
   },
   "itemInput": {
     "ingredient": {
-      "tag": "mekanism_extras:crystals/tungsten"
+      "item": "mekanism_extras:crystal_tungsten"
     }
   },
   "output": {
-    "item": "mekanism:shard_tungsten"
+    "item": "mekanism_extras:shard_tungsten"
   }
 }

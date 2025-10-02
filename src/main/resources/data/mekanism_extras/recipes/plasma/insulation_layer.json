@@ -6,9 +6,9 @@
     }
   },
   "mainInput": {
+    "amount": 5,
     "ingredient": {
-      "item": "mekanism:pressure_disperser",
-      "count": 5
+      "item": "mekanism:pressure_disperser"
     }
   },
   "output": {
