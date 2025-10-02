@@ -16,7 +16,7 @@
     }
   },
   "itemOutput": {
-    "item": "mekanism:shard_gold"
+    "item": "mekanism:crystal_gold"
   },
   "gasOutput": {
     "amount": 400,

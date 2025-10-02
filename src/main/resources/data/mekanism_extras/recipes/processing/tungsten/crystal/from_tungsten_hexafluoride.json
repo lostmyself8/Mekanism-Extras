@@ -16,7 +16,7 @@
     }
   },
   "itemOutput": {
-    "item": "mekanism_extras:shard_tungsten"
+    "item": "mekanism_extras:crystal_tungsten"
   },
   "gasOutput": {
     "amount": 600,
