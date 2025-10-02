@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "mekanism_extras:block/plasma_evaporation_block_2"
+  }
+}

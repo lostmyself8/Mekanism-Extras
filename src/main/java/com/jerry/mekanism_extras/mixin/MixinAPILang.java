@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Mixin(value = APILang.class, remap = false)
-public abstract class MixinAPILang implements ILangEntry{
+public abstract class MixinAPILang implements ILangEntry {
 
     @Shadow(remap = false)
     @Final

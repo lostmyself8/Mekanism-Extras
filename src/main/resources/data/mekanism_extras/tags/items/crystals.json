@@ -1,5 +1,7 @@
 {
   "values": [
-    "#mekanism_extras:crystals/naquadah"
+    "#mekanism_extras:crystals/naquadah",
+    "#mekanism_extras:crystals/tungsten",
+    "#mekanism_extras:crystals/netherite"
   ]
 }

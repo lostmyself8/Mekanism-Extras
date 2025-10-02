@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "ingredient": {
+      "item": "mekanism_extras:heat_insulating_material"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:enriched_heat_insulating_material"
+  }
+}

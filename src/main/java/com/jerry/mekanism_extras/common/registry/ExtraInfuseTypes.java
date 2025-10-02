@@ -7,6 +7,7 @@ import mekanism.common.registration.impl.InfuseTypeRegistryObject;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ExtraInfuseTypes {
+
     private ExtraInfuseTypes() {
 
     }

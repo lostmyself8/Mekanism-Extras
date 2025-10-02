@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemicalInput": {
+    "amount": 320,
+    "tag": "mekanism:gold"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "mekanism_extras:ingot_tungsten",
+      "amount": 3
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:ingot_refined_netherite"
+  }
+}

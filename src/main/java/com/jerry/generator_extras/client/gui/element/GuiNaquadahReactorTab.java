@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.client.gui.element;
 
 import com.jerry.generator_extras.common.network.to_server.ExtraPacketGeneratorsGuiButtonPress;
-import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import mekanism.api.text.ILangEntry;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.IGuiWrapper;

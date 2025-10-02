@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:activating",
+  "input": {
+    "amount": 8,
+    "gas": "mekanism_extras:iron_plasma"
+  },
+  "output": {
+    "amount": 1,
+    "gas": "mekanism_extras:excited_iron_plasma"
+  }
+}

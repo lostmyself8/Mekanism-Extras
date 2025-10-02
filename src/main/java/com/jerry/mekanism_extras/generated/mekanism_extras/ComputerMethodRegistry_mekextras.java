@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.generated.mekanism_extras;
 
-import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
-import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData$ComputerHandler;
-import com.jerry.generator_extras.common.tile.reactor.*;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData$ComputerHandler;
+import com.jerry.generator_extras.common.tile.naquadah.*;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData$ComputerHandler;
 import com.jerry.mekanism_extras.common.integration.Addons;

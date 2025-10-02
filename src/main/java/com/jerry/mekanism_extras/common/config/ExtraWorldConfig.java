@@ -35,7 +35,7 @@ public class ExtraWorldConfig extends BaseMekanismConfig {
                 .define("enableRegeneration", false));
         userGenVersion = CachedIntValue.wrap(this, builder.comment("Change this value to cause Mekanism Extras to regen its ore in all loaded chunks.")
                 .defineInRange("userWorldGenVersion", 0, 0, Integer.MAX_VALUE));
-        for (ExtraOreType ore : ExtraEnumUtils.ORE_TYPES) {
+        for (ExtraOreType ore : ExtraEnumUtils.EXTRA_ORE_TYPES) {
             ores.put(ore, new OreConfig(this, builder, ore));
         }
         builder.pop();

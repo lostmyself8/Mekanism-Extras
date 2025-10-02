@@ -1,13 +1,16 @@
 package com.jerry.mekanism_extras.common.capabilities.chemical;
 
+import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.common.tier.CTTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
+import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.BasicChemicalTank;
 import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.ChemicalTankBuilder;
+import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.gas.IGasHandler;
@@ -25,12 +28,15 @@ import mekanism.api.chemical.slurry.ISlurryHandler;
 import mekanism.api.chemical.slurry.ISlurryTank;
 import mekanism.api.chemical.slurry.Slurry;
 import mekanism.api.chemical.slurry.SlurryStack;
+import mekanism.common.registries.MekanismGases;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.LongSupplier;
 
-public abstract class ExtraChemicalTankChemicalTank <CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends BasicChemicalTank<CHEMICAL, STACK> {
+@NothingNullByDefault
+public abstract class ExtraChemicalTankChemicalTank<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends BasicChemicalTank<CHEMICAL, STACK> {
+
     public static MergedChemicalTank create(CTTier tier, @Nullable IContentsListener listener) {
         Objects.requireNonNull(tier, "Chemical tank tier cannot be null");
         return MergedChemicalTank.create(
@@ -45,7 +51,14 @@ public abstract class ExtraChemicalTankChemicalTank <CHEMICAL extends Chemical<C
     private final LongSupplier rate;
 
     private ExtraChemicalTankChemicalTank(CTTier tier, ChemicalTankBuilder<CHEMICAL, STACK, ?> tankBuilder, @Nullable IContentsListener listener) {
-        super(tier.getStorage(), tankBuilder.alwaysTrueBi, tankBuilder.alwaysTrueBi, tankBuilder.alwaysTrue, null, listener);
+        super(tier.getStorage(),
+                tankBuilder.alwaysTrueBi,
+                tankBuilder.alwaysTrueBi,
+                chemical -> chemical != MekanismGases.SPENT_NUCLEAR_WASTE.getChemical(),
+                LoadConfig.extraStorage.allowRadioactiveChemicalInChemicalTanks.get()
+                        ? ChemicalAttributeValidator.ALWAYS_ALLOW
+                        : ChemicalAttributeValidator.DEFAULT,
+                listener);
         isCreative = false;
         rate = tier::getOutput;
     }
@@ -78,7 +91,7 @@ public abstract class ExtraChemicalTankChemicalTank <CHEMICAL extends Chemical<C
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * Note: We are only patching {@link #setStackSize(long, Action)}, as both {@link #growStack(long, Action)} and {@link #shrinkStack(long, Action)} are wrapped through
      * this method.
      */

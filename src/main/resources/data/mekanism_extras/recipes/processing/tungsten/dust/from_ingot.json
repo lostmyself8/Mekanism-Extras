@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:crushing",
+  "input": {
+    "ingredient": {
+      "tag": "forge:ingots/tungsten"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:dust_tungsten"
+  }
+}

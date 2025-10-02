@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.client.jei;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
+import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.ExtraLang;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
@@ -52,6 +53,12 @@ public class ExtraJEI implements IModPlugin {
         ExtraCatalystRegistryHelper.register(registry, MekanismBlocks.PRECISION_SAWMILL);
         ExtraCatalystRegistryHelper.register(registry, MekanismBlocks.METALLURGIC_INFUSER, MekanismJEIRecipeType.INFUSION_CONVERSION);
         ExtraCatalystRegistryHelper.registerRecipeItem(registry, MekanismBlocks.ENERGIZED_SMELTER, MekanismJEIRecipeType.SMELTING, RecipeTypes.SMELTING);
+        ExtraCatalystRegistryHelper.register(registry, MekanismJEIRecipeType.EVAPORATING,
+                ExtraGenBlocks.PLASMA_EVAPORATION_CONTROLLER,
+                ExtraGenBlocks.PLASMA_EVAPORATION_VALVE,
+                ExtraGenBlocks.PLASMA_EVAPORATION_BLOCK,
+                ExtraGenBlocks.PLASMA_EVAPORATION_VENT,
+                ExtraGenBlocks.PLASMA_INSULATION_LAYER);
 
         ExtraCatalystRegistryHelper.register(registry, MekanismJEIRecipeType.ENERGY_CONVERSION, ExtraBlock.ABSOLUTE_ENERGY_CUBE, ExtraBlock.SUPREME_ENERGY_CUBE,
                 ExtraBlock.COSMIC_ENERGY_CUBE, ExtraBlock.INFINITE_ENERGY_CUBE);

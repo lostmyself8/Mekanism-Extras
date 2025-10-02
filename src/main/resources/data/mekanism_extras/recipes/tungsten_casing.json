@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "T": {
+      "tag": "forge:ingots/tungsten"
+    },
+    "O": {
+      "tag": "forge:ingots/osmium"
+    },
+    "S": {
+      "item": "mekanism:steel_casing"
+    }
+  },
+  "pattern": [
+    "OTO",
+    "TST",
+    "OTO"
+  ],
+  "result": {
+    "item": "mekanism_extras:tungsten_casing"
+  }
+}
