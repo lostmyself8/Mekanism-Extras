@@ -5,9 +5,9 @@
     "gas": "mekanism_extras:excited_helium_plasma"
   },
   "itemInput": {
+    "amount": 10,
     "ingredient": {
-      "item": "mekanism_extras:heat_insulating_material_piece",
-      "count": 10
+      "item": "mekanism_extras:heat_insulating_material_piece"
     }
   },
   "output": {

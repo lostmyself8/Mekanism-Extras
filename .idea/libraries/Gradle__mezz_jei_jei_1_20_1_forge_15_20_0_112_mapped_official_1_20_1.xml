@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: mezz.jei:jei-1.20.1-forge:15.20.0.112_mapped_official_1.20.1" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="mezz.jei" artifactId="jei-1.20.1-forge" version="15.20.0.112_mapped_official_1.20.1" baseVersion="15.20.0.112_mapped_official_1.20.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/forge_gradle/deobf_dependencies/mezz/jei/jei-1.20.1-forge/15.20.0.112_mapped_official_1.20.1/jei-1.20.1-forge-15.20.0.112_mapped_official_1.20.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
