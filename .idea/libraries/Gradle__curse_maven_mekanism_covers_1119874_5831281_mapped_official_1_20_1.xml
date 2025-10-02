@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: curse.maven:mekanism-covers-1119874:5831281_mapped_official_1.20.1" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="curse.maven" artifactId="mekanism-covers-1119874" version="5831281_mapped_official_1.20.1" baseVersion="5831281_mapped_official_1.20.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/forge_gradle/deobf_dependencies/curse/maven/mekanism-covers-1119874/5831281_mapped_official_1.20.1/mekanism-covers-1119874-5831281_mapped_official_1.20.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
