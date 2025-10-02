@@ -12,7 +12,6 @@ import mekanism.common.item.ItemUpgrade;
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
 import mekanism.common.resource.IResource;
-import mekanism.common.resource.MiscResource;
 import mekanism.common.resource.ResourceType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -70,8 +69,6 @@ public class ExtraItem {
     public static final ItemRegistryObject<Item> CLUMP_NAQUADAH = registerResource(ResourceType.CLUMP, ExtraResource.NAQUADAH);
     public static final ItemRegistryObject<Item> INGOT_NAQUADAH = registerResource(ResourceType.INGOT, ExtraResource.NAQUADAH);
     public static final ItemRegistryObject<Item> RAW_NAQUADAH = registerResource(ResourceType.RAW, ExtraResource.NAQUADAH);
-
-    public static final ItemRegistryObject<Item> CRYSTAL_NETHERITE = registerUnburnableResource(ResourceType.CRYSTAL, MiscResource.NETHERITE);
 
     public static final ItemRegistryObject<Item> CRYSTAL_TUNGSTEN = registerUnburnableResource(ResourceType.CRYSTAL, ExtraResource.TUNGSTEN);
     public static final ItemRegistryObject<Item> SHARD_TUNGSTEN = registerUnburnableResource(ResourceType.SHARD, ExtraResource.TUNGSTEN);
