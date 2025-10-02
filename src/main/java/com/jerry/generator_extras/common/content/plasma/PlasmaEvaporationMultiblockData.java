@@ -88,8 +88,6 @@ public class PlasmaEvaporationMultiblockData
     private double biomeAmbientTemp;
     private double tempMultiplier;
 
-    private int inputTankCapacity;
-    private int inputPlasmaTankCapacity;
     public float prevScale;
     @ContainerSync
     @SyntheticComputerMethod(getter = "getProductionAmount")
@@ -136,7 +134,7 @@ public class PlasmaEvaporationMultiblockData
         biomeAmbientTemp = HeatAPI.getAmbientTemp(tile.getLevel(), tile.getTilePos());
         fluidTanks.add(inputTank = VariableCapacityFluidTank.input(
                 this,
-                () -> inputTankCapacity,
+                () -> lowerVolume * GenLoadConfig.generatorConfig.plasmaEvaporationFluidPerTank.get(),
                 this::containsRecipe,
                 createSaveAndComparator(recipeCacheLookupMonitor)));
         fluidTanks.add(outputTank = VariableCapacityFluidTank.output(
@@ -153,7 +151,7 @@ public class PlasmaEvaporationMultiblockData
 //        inputInputSlot.setSlotType(ContainerSlotType.INPUT);
 //        inputOutputSlot.setSlotType(ContainerSlotType.INPUT);
         gasTanks.add(plasmaInputTank = MultiblockChemicalTankBuilder.GAS.create(
-                () -> inputPlasmaTankCapacity,
+                () -> (long) higherVolume * GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaPerTank.get(),
                 // To allow radioactive plasma to be inserted into the output tank
                 this.<Gas>notExternalFormedBiPred().and(ChemicalTankHelper.radioactiveInputTankPredicate(() -> plasmaOutputTank)),
                 this.formedBiPred(),
@@ -314,9 +312,7 @@ public class PlasmaEvaporationMultiblockData
 
     private void consumePlasmaAndHeatUp() {
         // We don't need to heat up if plasma tank is empty (fluid tank was checked in the tick method)
-        if (plasmaInputTank.isEmpty()) {
-            return;
-        } else {
+        if (!plasmaInputTank.isEmpty()) {
             // Try to consume plasma
             long consumed = (long) (inputTank.getFluidAmount() / GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaConsumeRatio.get());
             double inc = consumed - plasmaOutputTank.getNeeded();
@@ -372,9 +368,6 @@ public class PlasmaEvaporationMultiblockData
                 .getY();
         lowerVolume = length() * width() * (insulationLayerY - getMinPos().getY() - 1);
         higherVolume = length() * width() * (getMaxPos().getY() - insulationLayerY - 1);
-        // TODO: lowerVolume and higherVolume can't be synced through the validator. Why?
-        inputTankCapacity = lowerVolume * GenLoadConfig.generatorConfig.plasmaEvaporationFluidPerTank.get();
-        inputPlasmaTankCapacity = higherVolume * GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaPerTank.get();
     }
 
     private void idle() {

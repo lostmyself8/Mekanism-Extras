@@ -68,10 +68,10 @@ public class GuiPlasmaEvaporationController extends GuiMekanismTile<TileEntityPl
                 .warning(WarningType.INPUT_DOESNT_PRODUCE_OUTPUT, getWarningCheck(RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT));
 
         // Add input tanks
-        addRenderableWidget(new GuiGasGauge(() -> multiblock.plasmaInputTank,
+        addRenderableWidget(new GuiGasGauge(() -> tile.getMultiblock().plasmaInputTank,
                 () -> multiblock.getGasTanks(null),
                 GaugeType.STANDARD, this, 6, 13, 18, 80));
-        addRenderableWidget(new GuiFluidGauge(() -> multiblock.inputTank,
+        addRenderableWidget(new GuiFluidGauge(() -> tile.getMultiblock().inputTank,
                 () -> multiblock.getFluidTanks(null),
                 GaugeType.STANDARD, this, 28, 13, 18, 80))
                 .warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT));
@@ -81,7 +81,7 @@ public class GuiPlasmaEvaporationController extends GuiMekanismTile<TileEntityPl
                 () -> multiblock.getFluidTanks(null),
                 GaugeType.STANDARD, this, 152, 13, 18, 80))
                 .warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE));
-        addRenderableWidget(new GuiGasGauge(() -> multiblock.plasmaOutputTank,
+        addRenderableWidget(new GuiGasGauge(() -> tile.getMultiblock().plasmaOutputTank,
                 () -> multiblock.getGasTanks(null),
                 GaugeType.STANDARD, this, 172, 13, 18, 80));
     }
