@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:crushing",
+  "input": {
+    "ingredient": {
+      "item": "mekanism_extras:clump_tungsten"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:dirty_dust_tungsten"
+  }
+}

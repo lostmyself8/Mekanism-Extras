@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemicalInput": {
+    "amount": 80,
+    "infuse_type": "mekanism_extras:heat_insulating_coating"
+  },
+  "itemInput": {
+    "amount": 4,
+    "ingredient": {
+      "item": "mekanismgenerators:turbine_vent"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:plasma_evaporation_vent"
+  }
+}

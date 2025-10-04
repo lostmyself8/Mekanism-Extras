@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:activating",
+  "input": {
+    "amount": 4,
+    "gas": "mekanism_extras:helium_plasma"
+  },
+  "output": {
+    "amount": 1,
+    "gas": "mekanism_extras:excited_helium_plasma"
+  }
+}

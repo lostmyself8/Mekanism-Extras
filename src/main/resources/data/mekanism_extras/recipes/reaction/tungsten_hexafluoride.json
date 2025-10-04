@@ -1,0 +1,25 @@
+{
+  "type": "mekanism:reaction",
+  "duration": 100,
+  "energyRequired": 1000,
+  "fluidInput": {
+    "amount": 200,
+    "tag": "minecraft:lava"
+  },
+  "gasInput": {
+    "amount": 3000,
+    "gas": "mekanism:hydrofluoric_acid"
+  },
+  "itemInput": {
+    "ingredient": {
+      "tag": "forge:ores/netherite_scrap"
+    }
+  },
+  "itemOutput": {
+    "item": "mekanism:crystal_gold"
+  },
+  "gasOutput": {
+    "amount": 400,
+    "gas": "mekanism_extras:tungsten_hexafluoride"
+  }
+}

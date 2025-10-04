@@ -1,0 +1,17 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "SOLID",
+    "textures": [
+      "mekanism_extras:ctm/plasma_evaporation_vent"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "mekanism_extras:plasma_evaporation_vent"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:activating",
+  "input": {
+    "amount": 16,
+    "gas": "mekanism_extras:osmium_plasma"
+  },
+  "output": {
+    "amount": 1,
+    "gas": "mekanism_extras:excited_osmium_plasma"
+  }
+}

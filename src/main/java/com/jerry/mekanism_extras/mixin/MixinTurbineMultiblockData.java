@@ -2,7 +2,7 @@ package com.jerry.mekanism_extras.mixin;
 
 import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
 import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
-import com.jerry.mekanism_extras.common.ExtraTag;
+import com.jerry.mekanism_extras.common.ExtraTags;
 import mekanism.api.chemical.gas.IGasTank;
 import mekanism.api.math.FloatingLong;
 import mekanism.api.math.MathUtils;
@@ -43,7 +43,7 @@ public abstract class MixinTurbineMultiblockData extends MultiblockData {
 
     @ModifyArg(method = "<init>", at = @At(value = "INVOKE", target = "Lmekanism/common/capabilities/fluid/VariableCapacityFluidTank;output(Lmekanism/common/lib/multiblock/MultiblockData;Ljava/util/function/IntSupplier;Ljava/util/function/Predicate;Lmekanism/api/IContentsListener;)Lmekanism/common/capabilities/fluid/VariableCapacityFluidTank;"), index = 2)
     public Predicate<@NotNull FluidStack> TurbineMultiblockData(Predicate<@NotNull FluidStack> validator) {
-        return fluid -> MekanismTags.Fluids.WATER_LOOKUP.contains(fluid.getFluid()) || ExtraTag.Fluids.LAZY_POLONIUM_CONTAINING_SOLUTION.contains(fluid.getFluid());
+        return fluid -> MekanismTags.Fluids.WATER_LOOKUP.contains(fluid.getFluid()) || ExtraTags.Fluids.LAZY_POLONIUM_CONTAINING_SOLUTION.contains(fluid.getFluid());
     }
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(DD)D", shift = At.Shift.BY, ordinal = 1), locals = LocalCapture.CAPTURE_FAILSOFT)

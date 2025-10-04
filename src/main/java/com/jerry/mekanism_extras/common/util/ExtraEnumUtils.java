@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.util;
 
+import com.jerry.mekanism_extras.common.resource.ExtraResource;
 import com.jerry.mekanism_extras.common.tier.*;
 import com.jerry.mekanism_extras.common.resource.ore.ExtraOreType;
 
@@ -11,5 +12,6 @@ public class ExtraEnumUtils {
     public static final BTier[] BIN_TIERS = BTier.values();
     public static final ICTier[] INDUCTION_CELL_TIERS = ICTier.values();
     public static final IPTier[] INDUCTION_PROVIDER_TIERS = IPTier.values();
-    public static final ExtraOreType[] ORE_TYPES = ExtraOreType.values();
+    public static final ExtraOreType[] EXTRA_ORE_TYPES = ExtraOreType.values();
+    public static final ExtraResource[] EXTRA_RESOURCES = ExtraResource.values();
 }

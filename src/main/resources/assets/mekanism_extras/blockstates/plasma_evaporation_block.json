@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "mekanism_extras:block/plasma_evaporation/block",
+        "weight": 10
+      },
+      {
+        "model": "mekanism_extras:block/plasma_evaporation/block_1",
+        "weight": 8
+      },
+      {
+        "model": "mekanism_extras:block/plasma_evaporation/block_2",
+        "weight": 3
+      },
+      {
+        "model": "mekanism_extras:block/plasma_evaporation/block_3",
+        "weight": 1
+      }
+    ]
+  }
+}

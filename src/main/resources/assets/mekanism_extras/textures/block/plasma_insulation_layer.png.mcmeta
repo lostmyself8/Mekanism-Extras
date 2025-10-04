@@ -1,0 +1,17 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "SOLID",
+    "textures": [
+      "mekanism_extras:ctm/plasma_insulation_layer"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "mekanism_extras:plasma_insulation_layer"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/tungsten"
+    },
+    "P": {
+      "item": "mekanism_extras:ingot_tungsten"
+    }
+  },
+  "pattern": [
+    "###",
+    "#P#",
+    "###"
+  ],
+  "result": {
+    "item": "mekanism_extras:block_tungsten"
+  }
+}

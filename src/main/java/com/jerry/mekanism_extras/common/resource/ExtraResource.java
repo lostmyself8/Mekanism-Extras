@@ -1,35 +1,40 @@
 package com.jerry.mekanism_extras.common.resource;
 
-import com.jerry.mekanism_extras.common.ExtraTag;
+import com.jerry.mekanism_extras.common.ExtraTags;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ResourceType;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
 public enum ExtraResource implements IResource {
-    NAQUADAH("naquadah", 0x051602, ExtraTag.Items.NAQUADAH, ExtraBlockResourceInfo.NAQUADAH, ExtraBlockResourceInfo.RAW_NAQUADAH),
-    END_NAQUADAH("end_naquadah", 0x051602, ExtraTag.Items.END_NAQUADAH);
 
+    NAQUADAH("naquadah", 0x051602, () -> ExtraTags.Items.NAQUADAH, false, ExtraBlockResourceInfo.NAQUADAH, ExtraBlockResourceInfo.RAW_NAQUADAH),
+    END_NAQUADAH("end_naquadah", 0x051602, () -> ExtraTags.Items.END_NAQUADAH, false, ExtraBlockResourceInfo.NAQUADAH, ExtraBlockResourceInfo.RAW_NAQUADAH),
+    TUNGSTEN("tungsten", 0x372700, () -> ExtraTags.Items.TUNGSTEN, false, ExtraBlockResourceInfo.TUNGSTEN, null),
+    ;
+
+    @NotNull
     private final String name;
     private final int tint;
     //Note: This is a supplier because of the chicken and egg of referencing OreType and OreType referencing PrimaryResource
+    @NotNull
     private final Supplier<TagKey<Item>> oreTag;
     private final boolean isVanilla;
+    @Nullable
     private final ExtraBlockResourceInfo resourceBlockInfo;
+    @Nullable
     private final ExtraBlockResourceInfo rawResourceBlockInfo;
 
-    ExtraResource(String name, int tint, TagKey<Item> oreTag) {
-        this(name, tint, () -> oreTag, true, null, null);
-    }
-
-    ExtraResource(String name, int tint, TagKey<Item> oreTag, ExtraBlockResourceInfo resourceBlockInfo, ExtraBlockResourceInfo rawResourceBlockInfo) {
-        this(name, tint, () -> oreTag, false, resourceBlockInfo, rawResourceBlockInfo);
-    }
-
-    ExtraResource(String name, int tint, Supplier<TagKey<Item>> oreTag, boolean isVanilla, ExtraBlockResourceInfo resourceBlockInfo, ExtraBlockResourceInfo rawResourceBlockInfo) {
+    ExtraResource(@NotNull String name,
+                  int tint,
+                  @NotNull Supplier<TagKey<Item>> oreTag, // 一定要用 Supplier，这非常重要，否则崩溃
+                  boolean isVanilla,
+                  @Nullable ExtraBlockResourceInfo resourceBlockInfo,
+                  @Nullable ExtraBlockResourceInfo rawResourceBlockInfo) {
         this.name = name;
         this.tint = tint;
         this.oreTag = oreTag;

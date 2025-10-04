@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:activating",
+  "input": {
+    "amount": 32,
+    "gas": "mekanism_extras:plutonium_plasma"
+  },
+  "output": {
+    "amount": 1,
+    "gas": "mekanism_extras:excited_plutonium_plasma"
+  }
+}

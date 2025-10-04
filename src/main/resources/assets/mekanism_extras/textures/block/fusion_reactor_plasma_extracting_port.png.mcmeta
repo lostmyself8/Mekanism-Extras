@@ -1,0 +1,29 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "SOLID",
+    "textures": [
+      "mekanism_extras:ctm/fusion_reactor_plasma_extracting_port"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "mekanismgenerators:fusion_reactor_frame"
+        },
+        {
+          "block": "mekanismgenerators:fusion_reactor_controller"
+        },
+        {
+          "block": "mekanismgenerators:fusion_reactor_logic_adapter"
+        },
+        {
+          "block": "mekanismgenerators:fusion_reactor_port"
+        },
+        {
+          "block": "mekanism_extras:ctm/fusion_reactor_plasma_extracting_port"
+        }
+      ]
+    }
+  }
+}

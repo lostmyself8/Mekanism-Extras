@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemicalInput": {
+    "amount": 20,
+    "infuse_type": "mekanism_extras:heat_insulating_coating"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "mekanism:thermal_evaporation_block"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:plasma_evaporation_block"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "mekanism_extras:block/plasma_evaporation/valve"
+    },
+    "active=true": {
+      "model": "mekanism_extras:block/plasma_evaporation/valve_output"
+    }
+  }
+}

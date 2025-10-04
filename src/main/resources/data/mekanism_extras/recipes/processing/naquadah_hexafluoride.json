@@ -1,7 +1,7 @@
 {
   "type": "mekanism:dissolution",
   "gasInput": {
-    "amount": 6,
+    "amount": 600,
     "gas": "mekanism:hydrofluoric_acid"
   },
   "itemInput": {

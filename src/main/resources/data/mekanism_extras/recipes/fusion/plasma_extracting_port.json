@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "mekanism:pellet_plutonium"
+    },
+    "O": {
+      "item": "mekanism:pellet_polonium"
+    },
+    "P": {
+      "item": "mekanismgenerators:fusion_reactor_port"
+    },
+    "H": {
+      "item": "mekanism_extras:heat_insulating_material_piece"
+    }
+  },
+  "pattern": [
+    "UHO",
+    "HPH",
+    "OHU"
+  ],
+  "result": {
+    "item": "mekanism_extras:fusion_reactor_plasma_extracting_port"
+  }
+}

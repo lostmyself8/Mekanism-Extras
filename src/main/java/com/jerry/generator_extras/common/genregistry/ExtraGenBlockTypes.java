@@ -2,14 +2,21 @@ package com.jerry.generator_extras.common.genregistry;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
 import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
-import com.jerry.generator_extras.common.tile.reactor.*;
+import com.jerry.generator_extras.common.tile.naquadah.*;
+import com.jerry.generator_extras.common.tile.plasma.*;
 import mekanism.common.block.attribute.AttributeMultiblock;
+import mekanism.common.block.attribute.AttributeStateFacing;
+import mekanism.common.block.attribute.Attributes.AttributeCustomResistance;
 import mekanism.generators.common.GeneratorsLang;
 import mekanism.common.block.attribute.Attributes;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.generators.common.registries.GeneratorsSounds;
 
 public class ExtraGenBlockTypes {
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Naquadah Reactor
+    ///////////////////////////////////////////////////////////////////////////
 
     // Naquadah Reactor Controller
     public static final BlockTypeTile<TileEntityNaquadahReactorController> NAQUADAH_REACTOR_CONTROLLER = BlockTypeTile.BlockTileBuilder
@@ -48,5 +55,39 @@ public class ExtraGenBlockTypes {
     public static final BlockTypeTile<TileEntityLeadCoatedLaserFocusMatrix> LEAD_COATED_LASER_FOCUS_MATRIX = BlockTypeTile.BlockTileBuilder
             .createBlock(() -> ExtraGenTileEntityTypes.LEAD_COATED_LASER_FOCUS_MATRIX, ExtraGenLang.DESCRIPTION_LEAD_COATED_LASER_FOCUS_MATRIX)
             .with(AttributeMultiblock.EXTERNAL, Attributes.AttributeMobSpawn.NEVER)
+            .build();
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Plasma Evaporation Plant
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Plasma Evaporation Block
+    public static final BlockTypeTile<TileEntityPlasmaEvaporationBlock> PLASMA_EVAPORATION_BLOCK = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_BLOCK, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_BLOCK)
+            .externalMultiblock()
+            .build();
+    public static final BlockTypeTile<TileEntityPlasmaEvaporationController> PLASMA_EVAPORATION_CONTROLLER = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_CONTROLLER, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_CONTROLLER)
+            .withGui(() -> ExtraGenContainerTypes.PLASMA_EVAPORATION_CONTROLLER, ExtraGenLang.PLASMA_EVAPORATION)
+            .with(Attributes.INVENTORY, Attributes.ACTIVE, new AttributeStateFacing(), new AttributeCustomResistance(18))
+            .externalMultiblock()
+            .build();
+    public static final BlockTypeTile<TileEntityPlasmaEvaporationValve> PLASMA_EVAPORATION_VALVE = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_VALVE, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_VALVE)
+            .with(Attributes.COMPARATOR, new AttributeCustomResistance(18), Attributes.ACTIVE)
+            .externalMultiblock()
+            .build();
+    public static final BlockTypeTile<TileEntityPlasmaInsulationLayer> PLASMA_INSULATION_LAYER = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_INSULATION_LAYER, ExtraGenLang.DESCRIPTION_PLASMA_INSULATION_LAYER)
+            .internalMultiblock()
+            .build();
+    public static final BlockTypeTile<TileEntityPlasmaEvaporationVent> PLASMA_EVAPORATION_VENT = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.PLASMA_EVAPORATION_VENT, ExtraGenLang.DESCRIPTION_PLASMA_EVAPORATION_VENT)
+            .externalMultiblock()
+            .build();
+    public static final BlockTypeTile<TileEntityFusionReactorPlasmaExtractingPort> FUSION_REACTOR_PLASMA_EXTRACTING_PORT = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> ExtraGenTileEntityTypes.FUSION_REACTOR_PLASMA_EXTRACTING_PORT, ExtraGenLang.DESCRIPTION_FUSION_REACTOR_PLASMA_EXTRACTING_PORT)
+            .with(Attributes.ACTIVE)
+            .externalMultiblock()
             .build();
 }

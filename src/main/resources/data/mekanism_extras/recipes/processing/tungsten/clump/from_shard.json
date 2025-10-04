@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:purifying",
+  "chemicalInput": {
+    "amount": 1,
+    "gas": "mekanism:oxygen"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "mekanism_extras:shard_tungsten"
+    }
+  },
+  "output": {
+    "item": "mekanism_extras:clump_tungsten"
+  }
+}
