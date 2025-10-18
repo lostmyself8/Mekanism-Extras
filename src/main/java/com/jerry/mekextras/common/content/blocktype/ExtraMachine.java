@@ -22,7 +22,7 @@ public class ExtraMachine {
         public ExtraFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, FactoryType factoryType) {
             super(tileEntitySupplier, description);
             // 让高级工厂可以插入新的升级
-            add(ExtraAttributeUpgradeSupport.ADVANCED_MACHINE_UPGRADES);
+            add(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES);
             add(new AttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraBlocks.getExtraFactory(ExtraFactoryTier.ABSOLUTE, getFactoryType())));
         }
 

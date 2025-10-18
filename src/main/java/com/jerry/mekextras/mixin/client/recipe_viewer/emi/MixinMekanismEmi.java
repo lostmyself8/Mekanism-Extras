@@ -30,7 +30,7 @@ public abstract class MixinMekanismEmi implements EmiPlugin {
             if (item instanceof BlockItem blockItem) {
                 AttributeFactoryType factoryType = Attribute.get(blockItem.getBlock(), AttributeFactoryType.class);
                 if (factoryType != null) {
-                    for (ExtraFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
+                    for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
                         registry.addWorkstation(category, EmiStack.of(ExtraBlocks.getExtraFactory(tier, factoryType.getFactoryType())));
                     }
                 }

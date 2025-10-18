@@ -34,8 +34,8 @@ public class ExtraFactory<TILE extends TileEntityExtraFactory<?>> extends ExtraM
         add(new AttributeGui(containerRegistrar, null), new ExtraAttributeTier<>(tier));
 
         // 添加升级后的方块
-        if (tier.ordinal() < ExtraEnumUtils.ADVANCED_FACTORY_TIERS.length - 1) {
-            add(new ExtraAttributeUpgradeable(() -> ExtraBlocks.getExtraFactory(ExtraEnumUtils.ADVANCED_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getFactoryType())));
+        if (tier.ordinal() < ExtraEnumUtils.EXTRA_FACTORY_TIERS.length - 1) {
+            add(new ExtraAttributeUpgradeable(() -> ExtraBlocks.getExtraFactory(ExtraEnumUtils.EXTRA_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getFactoryType())));
         }
     }
 
@@ -43,7 +43,9 @@ public class ExtraFactory<TILE extends TileEntityExtraFactory<?>> extends ExtraM
         setFrom(origMachine, AttributeSound.class, AttributeFactoryType.class, AttributeUpgradeSupport.class);
         AttributeEnergy origEnergy = origMachine.get(AttributeEnergy.class);
         //origEnergy.getConfigStorage()原本为0.5倍
-        add(new AttributeEnergy(origEnergy::getUsage, () -> MathUtils.clampToLong(Math.max(origEnergy.getConfigStorage(), origEnergy.getUsage()) * tier.processes)));
+        if (origEnergy != null) {
+            add(new AttributeEnergy(origEnergy::getUsage, () -> MathUtils.clampToLong(Math.max(origEnergy.getConfigStorage(), origEnergy.getUsage()) * tier.processes)));
+        }
     }
 
     public static class ExtraFactoryBuilder<FACTORY extends ExtraFactory<TILE>, TILE extends TileEntityExtraFactory<?>, T extends ExtraMachine.ExtraMachineBuilder<FACTORY, TILE, T>>

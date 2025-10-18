@@ -96,7 +96,7 @@ public class ExtraBlocks {
 
     static {
         // factories
-        for (ExtraFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
+        for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
             for (FactoryType type : EnumUtils.FACTORY_TYPES) {
                 if (MekanismExtras.hooks.evolvedMekanism.isLoaded()) {
                     if (type != EMFactoryType.ALLOYING) {

@@ -34,7 +34,7 @@ public class ExtraCatalystRegistryHelper {
             if (item instanceof BlockItem blockItem) {
                 AttributeFactoryType factoryType = Attribute.get(blockItem.getBlock(), AttributeFactoryType.class);
                 if (factoryType != null) {
-                    for (ExtraFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
+                    for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
                         registry.addRecipeCatalyst(ExtraBlocks.getExtraFactory(tier, factoryType.getFactoryType()), recipeType);
                     }
                 }

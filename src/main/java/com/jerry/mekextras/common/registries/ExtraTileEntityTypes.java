@@ -49,7 +49,7 @@ public class ExtraTileEntityTypes {
     private static final Table<ExtraFactoryTier, FactoryType, TileEntityTypeRegistryObject<? extends TileEntityExtraFactory<?>>> FACTORIES = HashBasedTable.create();
 
     static {
-        for (ExtraFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
+        for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
             registerFactory(tier, FactoryType.COMBINING, TileEntityCombiningExtraFactory::new);
             registerFactory(tier, FactoryType.COMPRESSING, TileEntityItemStackChemicalToItemStackExtraFactory::new);
             registerFactory(tier, FactoryType.CRUSHING, TileEntityItemStackToItemStackExtraFactory::new);
