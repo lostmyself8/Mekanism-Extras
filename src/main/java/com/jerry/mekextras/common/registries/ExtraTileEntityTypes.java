@@ -4,7 +4,7 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.block.basic.ExtraBlockBin;
-import com.jerry.mekextras.common.block.prefab.BlockExtraFactoryMachine;
+import com.jerry.mekextras.common.block.prefab.BlockExtraFactoryMachine.BlockExtraFactory;
 import com.jerry.mekextras.common.item.block.ExtraItemBlockBin;
 import com.jerry.mekextras.common.item.block.ItemBlockLargeCapRadioactiveWasteBarrel;
 import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFactory;
@@ -32,6 +32,7 @@ import mekanism.common.integration.computer.ComputerCapabilityHelper;
 import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
+import mekanism.common.registration.impl.TileEntityTypeDeferredRegister.BlockEntityTypeBuilder;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.CapabilityTileEntity;
 import mekanism.common.tile.base.TileEntityMekanism;
@@ -63,7 +64,7 @@ public class ExtraTileEntityTypes {
     }
 
     private static void registerFactory(ExtraFactoryTier tier, FactoryType type, BlockEntityFactory<? extends TileEntityExtraFactory<?>> factoryConstructor) {
-        BlockRegistryObject<BlockExtraFactoryMachine.BlockExtraFactory<?>, ItemBlockExtraFactory> block = ExtraBlocks.getExtraFactory(tier, type);
+        BlockRegistryObject<BlockExtraFactory<?>, ItemBlockExtraFactory> block = ExtraBlocks.getExtraFactory(tier, type);
         TileEntityTypeRegistryObject<? extends TileEntityExtraFactory<?>> tileRO = EXTRA_TILE_ENTITY_TYPES.mekBuilder(block, (pos, state) -> factoryConstructor.create(block, pos, state))
                 .clientTicker(TileEntityMekanism::tickClient)
                 .serverTicker(TileEntityMekanism::tickServer)
@@ -173,7 +174,7 @@ public class ExtraTileEntityTypes {
     public static final TileEntityTypeRegistryObject<ExtraTileEntityThermodynamicConductor> INFINITE_THERMODYNAMIC_CONDUCTOR = registerConductor(ExtraBlocks.INFINITE_THERMODYNAMIC_CONDUCTOR);
 
     private static TileEntityTypeRegistryObject<ExtraTileEntityUniversalCable> registerCable(BlockRegistryObject<?, ?> block) {
-        TileEntityTypeDeferredRegister.BlockEntityTypeBuilder<ExtraTileEntityUniversalCable> builder = transmitterBuilder(block, ExtraTileEntityUniversalCable::new);
+        BlockEntityTypeBuilder<ExtraTileEntityUniversalCable> builder = transmitterBuilder(block, ExtraTileEntityUniversalCable::new);
         EnergyCompatUtils.addBlockCapabilities(builder);
         if (Mekanism.hooks.computerCompatEnabled()) {
             ComputerCapabilityHelper.addComputerCapabilities(builder, ConstantPredicates.ALWAYS_TRUE);
@@ -181,7 +182,7 @@ public class ExtraTileEntityTypes {
         return builder.build();
     }
     private static TileEntityTypeRegistryObject<ExtraTileEntityMechanicalPipe> registerPipe(BlockRegistryObject<?, ?> block) {
-        TileEntityTypeDeferredRegister.BlockEntityTypeBuilder<ExtraTileEntityMechanicalPipe> builder = transmitterBuilder(block, ExtraTileEntityMechanicalPipe::new)
+        BlockEntityTypeBuilder<ExtraTileEntityMechanicalPipe> builder = transmitterBuilder(block, ExtraTileEntityMechanicalPipe::new)
                 .with(Capabilities.FLUID.block(), CapabilityTileEntity.FLUID_HANDLER_PROVIDER);
         if (Mekanism.hooks.computerCompatEnabled()) {
             ComputerCapabilityHelper.addComputerCapabilities(builder, ConstantPredicates.ALWAYS_TRUE);
@@ -189,7 +190,7 @@ public class ExtraTileEntityTypes {
         return builder.build();
     }
     private static TileEntityTypeRegistryObject<ExtraTileEntityPressurizedTube> registerTube(BlockRegistryObject<?, ?> block) {
-        TileEntityTypeDeferredRegister.BlockEntityTypeBuilder<ExtraTileEntityPressurizedTube> builder = transmitterBuilder(block, ExtraTileEntityPressurizedTube::new)
+        BlockEntityTypeBuilder<ExtraTileEntityPressurizedTube> builder = transmitterBuilder(block, ExtraTileEntityPressurizedTube::new)
                 .with(Capabilities.CHEMICAL.block(), CapabilityTileEntity.CHEMICAL_HANDLER_PROVIDER);
         if (Mekanism.hooks.computerCompatEnabled()) {
             ComputerCapabilityHelper.addComputerCapabilities(builder, ConstantPredicates.ALWAYS_TRUE);
@@ -199,7 +200,7 @@ public class ExtraTileEntityTypes {
     private static <BE extends ExtraTileEntityLogisticalTransporterBase> TileEntityTypeRegistryObject<BE> registerTransporter(BlockRegistryObject<?, ?> block, BlockEntityFactory<BE> factory) {
         return transporterBuilder(block, factory).build();
     }
-    private static <BE extends ExtraTileEntityLogisticalTransporterBase> TileEntityTypeDeferredRegister.BlockEntityTypeBuilder<BE> transporterBuilder(BlockRegistryObject<?, ?> block, BlockEntityFactory<BE> factory) {
+    private static <BE extends ExtraTileEntityLogisticalTransporterBase> BlockEntityTypeBuilder<BE> transporterBuilder(BlockRegistryObject<?, ?> block, BlockEntityFactory<BE> factory) {
         return transmitterBuilder(block, factory)
                 .clientTicker(ExtraTileEntityLogisticalTransporterBase::tickClient)
                 .with(Capabilities.ITEM.block(), CapabilityTileEntity.ITEM_HANDLER_PROVIDER);
@@ -209,7 +210,7 @@ public class ExtraTileEntityTypes {
                 .with(Capabilities.HEAT, CapabilityTileEntity.HEAT_HANDLER_PROVIDER)
                 .build();
     }
-    private static <BE extends ExtraTileEntityTransmitter> TileEntityTypeDeferredRegister.BlockEntityTypeBuilder<BE> transmitterBuilder(BlockRegistryObject<?, ?> block, BlockEntityFactory<BE> factory) {
+    private static <BE extends ExtraTileEntityTransmitter> BlockEntityTypeBuilder<BE> transmitterBuilder(BlockRegistryObject<?, ?> block, BlockEntityFactory<BE> factory) {
         return EXTRA_TILE_ENTITY_TYPES.builder(block, (pos, state) -> factory.create(block, pos, state))
                 .serverTicker(ExtraTileEntityTransmitter::tickServer)
                 .withSimple(ExtraCapabilities.EXTRA_ALLOY_INTERACTION)
