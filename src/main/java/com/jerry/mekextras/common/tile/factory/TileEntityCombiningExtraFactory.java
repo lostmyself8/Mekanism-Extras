@@ -134,7 +134,7 @@ public class TileEntityCombiningExtraFactory extends TileEntityItemToItemExtraFa
                 .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
                 .setRequiredTicks(this::getTicksRequired)
                 .setOnFinish(this::markForSave)
-                .setBaselineMaxOperations(() -> baselineMaxOperations)
+                .setBaselineMaxOperations(this::getOperationsPerTick)
                 .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
     }
 

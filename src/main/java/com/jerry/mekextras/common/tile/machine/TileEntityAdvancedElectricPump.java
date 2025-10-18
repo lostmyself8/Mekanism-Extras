@@ -63,7 +63,7 @@ import java.util.*;
 public class TileEntityAdvancedElectricPump extends TileEntityMekanism implements IConfigurable {
 
     private static final int BASE_TICKS_REQUIRED = 19;
-    public static final int MAX_FLUID = 10_000_000;
+    public static final int MAX_FLUID = 1_000;
     private static final int BASE_OUTPUT_RATE = 1024;
 
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getFluid", "getFluidCapacity", "getFluidNeeded",
@@ -97,7 +97,7 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
     @Override
     protected IFluidTankHolder getInitialFluidTanks(IContentsListener listener) {
         FluidTankHelper builder = FluidTankHelper.forSide(this::getDirection);
-        builder.addTank(fluidTank = BasicFluidTank.output(MAX_FLUID, listener), RelativeSide.TOP);
+        builder.addTank(fluidTank = BasicFluidTank.output(10_000 * MAX_FLUID, listener), RelativeSide.TOP);
         return builder.build();
     }
 

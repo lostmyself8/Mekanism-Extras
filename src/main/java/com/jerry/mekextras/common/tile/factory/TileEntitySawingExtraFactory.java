@@ -100,7 +100,7 @@ public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<Sawmill
                     getWarningCheck(TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, index)));
             inputHandlers[i] = InputHelper.getInputHandler(inputSlot, RecipeError.NOT_ENOUGH_INPUT);
             outputHandlers[i] = ExtraOutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE, secondaryOutputSlot,
-                    TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, () -> baselineMaxOperations);
+                    TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, this::getOperationsPerTick);
             processInfoSlots[i] = new ProcessInfo(i, inputSlot, outputSlot, secondaryOutputSlot);
         }
     }
@@ -159,7 +159,7 @@ public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<Sawmill
                 .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
                 .setRequiredTicks(this::getTicksRequired)
                 .setOnFinish(this::markForSave)
-                .setBaselineMaxOperations(() -> baselineMaxOperations)
+                .setBaselineMaxOperations(this::getOperationsPerTick)
                 .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
     }
 

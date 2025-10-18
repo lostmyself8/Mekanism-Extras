@@ -102,6 +102,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
      * How many ticks it takes, with upgrades, to run an operation
      */
     private int ticksRequired = BASE_TICKS_REQUIRED;
+    private int operationsPerTick = 1;
     private boolean sorting;
     private boolean sortingNeeded = true;
     private long lastUsage = 0L;
@@ -382,6 +383,10 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
         return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 : ticksRequired;
     }
 
+    public int getOperationsPerTick() {
+        return this.operationsPerTick;
+    }
+
     public int getChemicalTicksRequired() {
         return ticksRequired;
     }
@@ -435,9 +440,13 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
         ((IMixinMachineEnergyContainer) getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, baselineMaxOperations);
         } else if (upgrade == ExtraUpgrade.STACK) {
             //实际上一直是整数所以强制转化为int也不会损失什么
             baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, baselineMaxOperations);
+        } else if (upgrade == Upgrade.ENERGY) {
+
         }
     }
 
