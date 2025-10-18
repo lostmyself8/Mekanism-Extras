@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.registries;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
@@ -23,6 +24,7 @@ import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionP
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
+import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
 import mekanism.api.Upgrade;
 import mekanism.api.text.ILangEntry;
 import mekanism.api.tier.ITier;
@@ -229,7 +231,13 @@ public class ExtraBlockTypes {
     static {
         for (ExtraFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
             for (FactoryType type : EnumUtils.FACTORY_TYPES) {
-                FACTORIES.put(tier, type, ExtraFactory.ExtraFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
+                if (MekanismExtras.hooks.evolvedMekanism.isLoaded()) {
+                    if (type != EMFactoryType.ALLOYING) {
+                        FACTORIES.put(tier, type, ExtraFactory.ExtraFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
+                    }
+                } else {
+                    FACTORIES.put(tier, type, ExtraFactory.ExtraFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
+                }
             }
         }
     }
@@ -278,7 +286,7 @@ public class ExtraBlockTypes {
                 .withCustomShape(BlockShapes.FLUID_TANK)
                 .with(new ExtraAttributeTier<>(tier), new ExtraAttributeUpgradeable(upgradeBlock))
                 .without(AttributeParticleFX.class, AttributeStateFacing.class, Attributes.AttributeRedstone.class, AttributeUpgradeSupport.class)
-                .withComputerSupport(tier.getAdvanceTier().getLowerName() +  "FluidTank")
+                .withComputerSupport(tier.getAdvanceTier().getLowerName() + "FluidTank")
                 .build();
     }
 

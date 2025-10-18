@@ -40,6 +40,7 @@ import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionP
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
+import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.chemical.ChemicalTanksBuilder;
 import mekanism.common.attachments.containers.fluid.FluidTanksBuilder;
@@ -97,7 +98,13 @@ public class ExtraBlocks {
         // factories
         for (ExtraFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
             for (FactoryType type : EnumUtils.FACTORY_TYPES) {
-                FACTORIES.put(tier, type, registerFactory(ExtraBlockTypes.getAdvancedFactory(tier, type)));
+                if (MekanismExtras.hooks.evolvedMekanism.isLoaded()) {
+                    if (type != EMFactoryType.ALLOYING) {
+                        FACTORIES.put(tier, type, registerFactory(ExtraBlockTypes.getAdvancedFactory(tier, type)));
+                    }
+                } else {
+                    FACTORIES.put(tier, type, registerFactory(ExtraBlockTypes.getAdvancedFactory(tier, type)));
+                }
             }
         }
         // resource blocks

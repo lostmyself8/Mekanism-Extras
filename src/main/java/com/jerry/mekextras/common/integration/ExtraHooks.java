@@ -35,12 +35,14 @@ public class ExtraHooks {
     }
 
     public final IntegrationInfo mekanismGenerators;
+    public final IntegrationInfo evolvedMekanism;
 
     public ExtraHooks() {
         ModList modList = ModList.get();
         //Note: The modlist is null when running tests
         Predicate<String> loadedCheck = modList == null ? modid -> false : modList::isLoaded;
         mekanismGenerators = new IntegrationInfo("mekanismgenerators", loadedCheck);
+        evolvedMekanism = new IntegrationInfo("evolvedmekanism", loadedCheck);
     }
 
     public void hookConstructor(final ModContainer modContainer, final IEventBus modEventBus) {

@@ -62,7 +62,12 @@ runs {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    maven { url 'https://modmaven.dev/' }
+    maven {
+        url 'https://modmaven.dev/'
+    }
+    maven {
+        url "https://cursemaven.com"
+    }
     maven {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
@@ -87,6 +92,9 @@ dependencies {
     runtimeOnly "mekanism:Mekanism:${mekanism_version}:additions"
     implementation "mekanism:Mekanism:${mekanism_version}:generators"
     runtimeOnly "mekanism:Mekanism:${mekanism_version}:tools"
+
+    runtimeOnly "curse.maven:iglee-library-541199:7000755"
+    implementation "curse.maven:evolved-mekanism-1230085:7117030"
 
     runtimeOnly "cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cctVersion}"
 }
