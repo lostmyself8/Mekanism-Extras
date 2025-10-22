@@ -102,11 +102,11 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         MekanismConfigTranslations.TIER_TRANSMITTERS_ITEM.applyToBuilder(builder).push("item");
         this.absoluteLogisticalTransporterSpeed = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_LOGISTICAL_TRANSPORTER_SPEED, "absoluteSpeed", 55, 1, Integer.MAX_VALUE);
         this.absoluteLogisticalTransporterPullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_LOGISTICAL_TRANSPORTER_PULL_AMOUNT, "absolutePullAmount", 128, 1, Integer.MAX_VALUE);
-        this.supremeLogisticalTransporterSpeed = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_LOGISTICAL_TRANSPORTER_SPEED, "supremeSpeed", 60, 1, Integer.MAX_VALUE);
+        this.supremeLogisticalTransporterSpeed = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_LOGISTICAL_TRANSPORTER_SPEED, "supremeSpeed", 60, 1, Integer.MAX_VALUE);
         this.supremeLogisticalTransporterPullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.SUPREME_LOGISTICAL_TRANSPORTER_PULL_AMOUNT, "supremePullAmount", 256, 1, Integer.MAX_VALUE);
         this.cosmicLogisticalTransporterSpeed = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_LOGISTICAL_TRANSPORTER_SPEED, "cosmicSpeed", 70, 1, Integer.MAX_VALUE);
         this.cosmicLogisticalTransporterPullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_LOGISTICAL_TRANSPORTER_PULL_AMOUNT, "cosmicPullAmount", 512, 1, Integer.MAX_VALUE);
-        this.infiniteLogisticalTransporterSpeed = CachedLongValue.define(this, builder, ExtraConfigTranslations.COSMIC_LOGISTICAL_TRANSPORTER_SPEED, "infiniteSpeed", 100, 1, Integer.MAX_VALUE);
+        this.infiniteLogisticalTransporterSpeed = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_LOGISTICAL_TRANSPORTER_SPEED, "infiniteSpeed", 100, 1, Integer.MAX_VALUE);
         this.infiniteLogisticalTransporterPullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_LOGISTICAL_TRANSPORTER_PULL_AMOUNT, "infinitePullAmount", 1024, 1, Integer.MAX_VALUE);
         builder.pop();
 
