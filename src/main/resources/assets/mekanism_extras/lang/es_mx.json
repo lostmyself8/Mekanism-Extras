@@ -494,7 +494,7 @@
   "configuration.mekanism_extras.tier.cable.supreme.capacity": "Almacenamiento supremo",
   "configuration.mekanism_extras.tier.cable.cosmic.capacity": "Almacenamiento cósmico",
   "configuration.mekanism_extras.tier.cable.infinite.capacity": "Almacenamiento infinito",
-  "configuration.mekanism_extras.tier.pipe.absolute.capacity": "Absolute Storage",
+  "configuration.mekanism_extras.tier.pipe.absolute.capacity": "Almacenamiento absoluto",
   "configuration.mekanism_extras.tier.pipe.absolute.pull_amount": "Tasa de extracción absoluta",
   "configuration.mekanism_extras.tier.pipe.supreme.capacity": "Almacenamiento supremo",
   "configuration.mekanism_extras.tier.pipe.supreme.pull_amount": "Tasa de extracción suprema",
