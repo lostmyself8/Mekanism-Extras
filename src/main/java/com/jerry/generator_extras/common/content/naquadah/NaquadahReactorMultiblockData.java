@@ -4,6 +4,7 @@ import com.jerry.generator_extras.common.config.GenLoadConfig;
 import com.jerry.generator_extras.common.item.ItemNquadahHohlraum;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorPort;
+import com.jerry.mekanism_extras.common.registry.ExtraGases;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -282,7 +283,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData implements IVa
         long injectingAmount = amountToInject / 2;
         MekanismUtils.logMismatchedStackSize(naquadahTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
         MekanismUtils.logMismatchedStackSize(uraniumTank.shrinkStack(injectingAmount, Action.EXECUTE), injectingAmount);
-        fuelTank.insert(ExtraGenGases.NAQUADAH_URANIUM_FUEL.getStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
+        fuelTank.insert(ExtraGases.NAQUADAH_URANIUM_FUEL.getStack(amountToInject), Action.EXECUTE, AutomationType.INTERNAL);
     }
 
     //消耗燃料

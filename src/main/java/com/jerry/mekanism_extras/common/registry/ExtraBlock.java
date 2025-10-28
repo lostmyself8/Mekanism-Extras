@@ -114,7 +114,6 @@ public class ExtraBlock {
                 } else {
                     FACTORIES.put(tier, type, registerFactory(ExtraBlockType.getAdvancedFactory(tier, type)));
                 }
-//                FACTORIES.put(tier, type, registerFactory(ExtraBlockType.getAdvancedFactory(tier, type)));
             }
         }
         // ores

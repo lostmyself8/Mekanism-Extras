@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.item;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
 import com.jerry.mekanism_extras.common.ExtraTags;
+import com.jerry.mekanism_extras.common.registry.ExtraGases;
 import mekanism.api.chemical.ChemicalTankBuilder;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.gas.IGasHandler;
@@ -72,7 +72,7 @@ public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDe
 
     @Override
     public void addItems(CreativeModeTab.Output tabOutput) {
-        tabOutput.accept(ChemicalUtil.getFilledVariant(new ItemStack(this), GenLoadConfig.generatorConfig.hohlraumMaxGas, ExtraGenGases.NAQUADAH_URANIUM_FUEL));
+        tabOutput.accept(ChemicalUtil.getFilledVariant(new ItemStack(this), GenLoadConfig.generatorConfig.hohlraumMaxGas, ExtraGases.NAQUADAH_URANIUM_FUEL));
     }
 
     @Override

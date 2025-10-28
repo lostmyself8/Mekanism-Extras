@@ -24,6 +24,7 @@ public class AdvancedFactoryContainer extends MekanismTileContainer<TileEntityEx
 
     @Override
     protected int getInventoryXOffset() {
+        //这个公式似乎并非完美，在index过大时可能会导致有细微的便宜，但未得到验证
         int index = tile.tier.ordinal();
         return (22 * (index + 2)) - (3 * index);
     }

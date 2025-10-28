@@ -116,8 +116,8 @@ dependencies {
 
     implementation fg.deobf("curse.maven:mekanism-covers-1119874:5831281")
 
-    runtimeOnly fg.deobf("curse.maven:iglee-library-541199:5329230")
-    implementation fg.deobf("curse.maven:evolved-mekanism-1230085:6456494")
+    runtimeOnly fg.deobf("curse.maven:iglee-library-541199:6987117")
+    implementation fg.deobf("curse.maven:evolved-mekanism-1230085:7117024")
 
 //    runtimeOnly "cc.tweaked:cc-tweaked-${minecraft_version}-forge:${CCT_Version}"
 

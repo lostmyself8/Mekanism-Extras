@@ -35,6 +35,7 @@ public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityExtraFacto
         } else {
             inventoryLabelY = 75;
         }
+        //这两个公式似乎并非完美，在index过大时可能会导致有细微的便宜，但未得到验证
         int index = tile.tier.ordinal();
         imageWidth += (36 * (index + 2)) + (2 * index);
         inventoryLabelX = (22 * (index + 2)) - (3 * index);

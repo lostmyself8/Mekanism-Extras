@@ -14,7 +14,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.RegisterEvent;
 
@@ -32,7 +31,7 @@ public class ClientGUIRegister {
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void registerContainers(RegisterEvent event) {
         event.register(Registries.MENU, helper -> {
-            if (Addons.MEKANISMGENERATORS.isLoaded()){
+            if (Addons.MEKANISMGENERATORS.isLoaded()) {
                 ClientRegistrationUtil.registerScreen(ExtraGenContainerTypes.NAQUADAH_REACTOR_CONTROLLER, GuiNaquadahReactorController::new);
                 ClientRegistrationUtil.registerScreen(ExtraGenContainerTypes.NAQUADAH_REACTOR_FUEL, GuiNaquadahReactorFuel::new);
                 ClientRegistrationUtil.registerScreen(ExtraGenContainerTypes.NAQUADAH_REACTOR_HEAT, GuiNaquadahReactorHeat::new);

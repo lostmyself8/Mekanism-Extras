@@ -3,7 +3,6 @@ package com.jerry.generator_extras.common.genregistry;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.api.gas.attribute.ExtraGasAttributes.*;
 import com.jerry.mekanism_extras.common.registry.ExtraChemicalConstants;
-import com.jerry.mekanism_extras.common.registry.ExtraGases;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.attribute.GasAttributes.*;
 import mekanism.common.registration.impl.GasDeferredRegister;
@@ -19,11 +18,6 @@ public class ExtraGenGases {
 
     public static final GasDeferredRegister EXTRA_GEN_GASES = new GasDeferredRegister(MekanismExtras.MODID);
 
-    public static final GasRegistryObject<Gas> NAQUADAH_TETRAFLUORIDE = ExtraGases.EXTRA_GASES.register(ExtraChemicalConstants.NAQUADAH_HEXAFLUORIDE);
-    public static final GasRegistryObject<Gas> FLUORINATED_NAQUADAH_URANIUM_FUEL = ExtraGases.EXTRA_GASES.register(ExtraChemicalConstants.FLUORINATED_NAQUADAH_URANIUM_FUEL);
-    public static final GasRegistryObject<Gas> NAQUADAH_URANIUM_FUEL = ExtraGases.EXTRA_GASES.register(ExtraChemicalConstants.NAQUADAH_URANIUM_FUEL);
-    public static final GasRegistryObject<Gas> RICH_NAQUADAH_FUEL = ExtraGases.EXTRA_GASES.register(ExtraChemicalConstants.RICH_NAQUADAH_FUEL);
-    public static final GasRegistryObject<Gas> RICH_URANIUM_FUEL = ExtraGases.EXTRA_GASES.register(ExtraChemicalConstants.RICH_URANIUM_FUEL);
     public static final GasRegistryObject<Gas> POLONIUM_CONTAINING_STEAM = EXTRA_GEN_GASES.register("polonium_containing_steam", 0x1B9E7B);
     public static final GasRegistryObject<Gas> POLONIUM208 = EXTRA_GEN_GASES.register(ExtraChemicalConstants.POLONIUM208);
     public static final GasRegistryObject<Gas> HELIUM_PLASMA = EXTRA_GEN_GASES.register(ExtraChemicalConstants.HELIUM_PLASMA, ExtraHeatants.HELIUM_PLASMA_HEATANT);
