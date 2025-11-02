@@ -2,7 +2,7 @@
   "type": "mekanism:chemical_conversion",
   "input": {
     "count": 1,
-    "item": "mekanism_extras:enriched_spectrum"
+    "tag": "mekanism_extras:enriched/spectrum"
   },
   "output": {
     "amount": 50,

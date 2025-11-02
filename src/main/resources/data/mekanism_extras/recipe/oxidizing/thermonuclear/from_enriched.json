@@ -2,7 +2,7 @@
   "type": "mekanism:oxidizing",
   "input": {
     "count": 1,
-    "item": "mekanism_extras:enriched_thermonuclear"
+    "tag": "mekanism_extras:enriched/thermonuclear"
   },
   "output": {
     "amount": 40,

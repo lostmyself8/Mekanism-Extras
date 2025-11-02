@@ -2,7 +2,7 @@
   "type": "mekanism:chemical_conversion",
   "input": {
     "count": 1,
-    "item": "mekanism_extras:enriched_radiance"
+    "tag": "mekanism_extras:enriched/radiance"
   },
   "output": {
     "amount": 80,

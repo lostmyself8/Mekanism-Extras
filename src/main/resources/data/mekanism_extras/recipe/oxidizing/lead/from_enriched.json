@@ -2,10 +2,10 @@
   "type": "mekanism:oxidizing",
   "input": {
     "count": 1,
-    "tag": "mekanism_extras:enriched/radiance"
+    "tag": "mekanism_extras:enriched/lead"
   },
   "output": {
     "amount": 80,
-    "id": "mekanism_extras:radiance"
+    "id": "mekanism_extras:lead"
   }
 }
