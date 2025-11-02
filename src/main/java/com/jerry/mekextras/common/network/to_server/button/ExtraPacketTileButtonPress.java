@@ -1,5 +1,6 @@
 package com.jerry.mekextras.common.network.to_server.button;
 
+import com.jerry.genextras.common.GenExtraLang;
 import com.jerry.genextras.common.registries.GenExtraContainerTypes;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.jerry.mekextras.MekanismExtras;
@@ -12,7 +13,6 @@ import mekanism.common.block.attribute.AttributeGui;
 import mekanism.common.network.IMekanismPacket;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.WorldUtils;
-import mekanism.generators.common.GeneratorsLang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -82,13 +82,13 @@ public record ExtraPacketTileButtonPress(ClickedTileButton buttonClicked,
             }
             return null;
         }),
-        TAB_HEAT(tile -> GenExtraContainerTypes.NAQUADAH_REACTOR_HEAT.getProvider(GeneratorsLang.FUSION_REACTOR, tile)),
-        TAB_FUEL(tile -> GenExtraContainerTypes.NAQUADAH_REACTOR_FUEL.getProvider(GeneratorsLang.FUSION_REACTOR, tile)),
+        TAB_HEAT(tile -> GenExtraContainerTypes.NAQUADAH_REACTOR_HEAT.getProvider(GenExtraLang.NAQUADAH_REACTOR, tile)),
+        TAB_FUEL(tile -> GenExtraContainerTypes.NAQUADAH_REACTOR_FUEL.getProvider(GenExtraLang.NAQUADAH_REACTOR, tile)),
         TAB_STATS(tile -> {
             if (tile instanceof TileEntityReinforcedInductionCasing) {
                 return ExtraContainerTypes.REINFORCED_MATRIX_STATS.getProvider(MekanismLang.MATRIX_STATS, tile);
             } else if (tile instanceof TileEntityNaquadahReactorController) {
-                return GenExtraContainerTypes.NAQUADAH_REACTOR_STATS.getProvider(GeneratorsLang.FUSION_REACTOR, tile);
+                return GenExtraContainerTypes.NAQUADAH_REACTOR_STATS.getProvider(GenExtraLang.NAQUADAH_REACTOR, tile);
             }
             return null;
         });
