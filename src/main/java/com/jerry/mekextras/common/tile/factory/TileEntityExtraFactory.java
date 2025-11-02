@@ -445,8 +445,6 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
             //实际上一直是整数所以强制转化为int也不会损失什么
             baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
             operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, baselineMaxOperations);
-        } else if (upgrade == Upgrade.ENERGY) {
-
         }
     }
 
