@@ -2,7 +2,7 @@ name: Latest Build
 
 on:
   push:
-    branches: ['master']
+    branches: ['master', '1.19.2']
     paths: ['src/**', '**/*.gradle', 'gradle.properties']
 
 concurrency:
@@ -51,7 +51,7 @@ jobs:
         if: ${{ env.PUBLISH == 'true' }}
         uses: mikepenz/release-changelog-builder-action@v5
         with:
-          configuration: "./.github/json/config-latest.json"
+          configuration: "./.github/json/config-latest${{ contains(github.ref_name, '1.19.2') && '-1.19.2' || '' }}.json"
           toTag: ${{ github.ref }}
           fetchViaCommits: true
           failOnError: false

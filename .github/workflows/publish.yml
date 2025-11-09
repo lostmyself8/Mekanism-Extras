@@ -7,7 +7,7 @@ on:
         required: false
         type: boolean
       branch:
-        description: 'Branch to checkout; master'
+        description: 'Branch to checkout; master or 1.19.2'
         required: true
         type: string
       tag-name:
