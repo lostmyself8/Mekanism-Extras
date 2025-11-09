@@ -44,8 +44,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import com.mojang.logging.LogUtils;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.nio.file.Path;
 
@@ -54,7 +54,7 @@ public class MekanismExtras implements IModModule {
 
     public static final String MODID = "mekanism_extras";
     public static final String MOD_NAME = "MekanismExtras";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
     /**
      * Mekanism Extras version number
      */

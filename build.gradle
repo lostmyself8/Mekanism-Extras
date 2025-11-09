@@ -14,7 +14,7 @@ version = "${mod_version}" + (isSnapshot ? "-SNAPSHOT" : "")
 boolean isCI = System.getenv("CI") != null
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
 sourceSets {
