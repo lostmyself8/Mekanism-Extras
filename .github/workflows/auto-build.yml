@@ -65,7 +65,7 @@ jobs:
           name: '${{ github.ref_name }}-${{ steps.ver.outputs.version}} SNAPSHOT ${{ env.VERSION_SUFFIX }}'
           prerelease: true
           body: |
-            The latest build of GTM for Minecraft ${{ github.ref_name }}.
+            The latest build of Mekanism Extras for Minecraft ${{ github.ref_name }}.
             Please report any [issues](https://github.com/lostmyself8/Mekanism-Extras/issues).
             ${{ steps.changelog.outputs.changelog }}
           files: build/libs/*.jar
