@@ -1,16 +1,20 @@
 package com.jerry.generator_extras.common.genregistry;
 
+import com.jerry.mekanism_extras.MekanismExtras;
+
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationController;
-import com.jerry.mekanism_extras.MekanismExtras;
+
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.registration.impl.ContainerTypeDeferredRegister;
 import mekanism.common.registration.impl.ContainerTypeRegistryObject;
+
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ExtraGenContainerTypes {
+
     public static final ContainerTypeDeferredRegister GEN_CONTAINER_TYPES = new ContainerTypeDeferredRegister(MekanismExtras.MODID);
 
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityNaquadahReactorController>> NAQUADAH_REACTOR_CONTROLLER = GEN_CONTAINER_TYPES.register(ExtraGenBlocks.NAQUADAH_REACTOR_CONTROLLER, TileEntityNaquadahReactorController.class);

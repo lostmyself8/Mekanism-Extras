@@ -4,12 +4,13 @@ import com.jerry.generator_extras.common.ExtraGenLang;
 import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
 import com.jerry.generator_extras.common.tile.naquadah.*;
 import com.jerry.generator_extras.common.tile.plasma.*;
+
 import mekanism.common.block.attribute.AttributeMultiblock;
 import mekanism.common.block.attribute.AttributeStateFacing;
-import mekanism.common.block.attribute.Attributes.AttributeCustomResistance;
-import mekanism.generators.common.GeneratorsLang;
 import mekanism.common.block.attribute.Attributes;
+import mekanism.common.block.attribute.Attributes.AttributeCustomResistance;
 import mekanism.common.content.blocktype.BlockTypeTile;
+import mekanism.generators.common.GeneratorsLang;
 import mekanism.generators.common.registries.GeneratorsSounds;
 
 public class ExtraGenBlockTypes {

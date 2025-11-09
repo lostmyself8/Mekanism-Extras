@@ -5,6 +5,7 @@ import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.api.tier.ExtraAlloyTier;
 import com.jerry.mekanism_extras.common.capabilities.ExtraCapabilities;
 import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
+
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.Mekanism;
 import mekanism.common.advancements.MekanismCriteriaTriggers;
@@ -17,18 +18,21 @@ import mekanism.common.lib.transmitter.DynamicNetwork;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ExtraTileEntityTransmitter extends TileEntityTransmitter implements ProxyConfigurable.ISidedConfigurable, IExtraAlloyInteraction {
+
     public ExtraTileEntityTransmitter(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         addCapabilityResolver(BasicCapabilityResolver.constant(ExtraCapabilities.EXTRA_ALLOY_INTERACTION, this));
@@ -52,16 +56,17 @@ public abstract class ExtraTileEntityTransmitter extends TileEntityTransmitter i
             int upgraded = 0;
             for (Transmitter<?, ?, ?> transmitter : list) {
                 if (transmitter instanceof IExtraUpgradeableTransmitter<?> upgradeableTransmitter && upgradeableTransmitter.canUpgrade(tier)) {
-                    ExtraTileEntityTransmitter transmitterTile = (ExtraTileEntityTransmitter)transmitter.getTransmitterTile();
+                    ExtraTileEntityTransmitter transmitterTile = (ExtraTileEntityTransmitter) transmitter.getTransmitterTile();
                     BlockState state = transmitterTile.getBlockState();
                     BlockState upgradeState = transmitterTile.upgradeResult(state, tier.getAdvanceTier());
                     if (state == upgradeState) {
-                        //Skip if it would not actually upgrade anything
+                        // Skip if it would not actually upgrade anything
                         continue;
                     }
                     if (!sharesSet) {
                         if (transmitterNetwork instanceof DynamicBufferedNetwork dynamicNetwork) {
-                            //Ensure we save the shares to the tiles so that they can properly take them, and they don't get voided
+                            // Ensure we save the shares to the tiles so that they can properly take them, and they
+                            // don't get voided
                             dynamicNetwork.validateSaveShares((BufferedTransmitter<?, ?, ?, ?>) transmitter);
                         }
                         sharesSet = true;
@@ -94,7 +99,7 @@ public abstract class ExtraTileEntityTransmitter extends TileEntityTransmitter i
                 }
             }
             if (upgraded > 0) {
-                //Invalidate the network so that it properly has new references to everything
+                // Invalidate the network so that it properly has new references to everything
                 transmitterNetwork.invalidate(null);
                 if (!player.isCreative()) {
                     stack.shrink(1);

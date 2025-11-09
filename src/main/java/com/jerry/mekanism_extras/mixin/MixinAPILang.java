@@ -1,8 +1,10 @@
 package com.jerry.mekanism_extras.mixin;
 
 import com.jerry.mekanism_extras.api.APIExtraLang;
+
 import mekanism.api.text.APILang;
 import mekanism.api.text.ILangEntry;
+
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,16 +22,14 @@ public abstract class MixinAPILang implements ILangEntry {
     @Mutable
     private static APILang[] $VALUES;
 
-    public MixinAPILang() {
-
-    }
+    public MixinAPILang() {}
 
     @Invoker("<init>")
     public static APILang lang$initInvoker(String internalName, int internalId, String type, String path) {
         throw new AssertionError();
     }
 
-    @Inject(method = "<clinit>",at = @At("TAIL"))
+    @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void langClinit(CallbackInfo ci) {
         APIExtraLang.UPGRADE_STACK = mekanismExtras$addVariant("UPGRADE_STACK", "upgrade", "stack");
         APIExtraLang.UPGRADE_STACK_DESCRIPTION = mekanismExtras$addVariant("UPGRADE_STACK_DESCRIPTION", "upgrade", "stack.description");
@@ -43,7 +43,7 @@ public abstract class MixinAPILang implements ILangEntry {
     private static APILang mekanismExtras$addVariant(String internalName, String type, String path) {
         ArrayList<APILang> variants = new ArrayList<>(Arrays.asList($VALUES));
         APILang upgrade = lang$initInvoker(internalName,
-                variants.get(variants.size() -1 ).ordinal() + 1,
+                variants.get(variants.size() - 1).ordinal() + 1,
                 type,
                 path);
         variants.add(upgrade);

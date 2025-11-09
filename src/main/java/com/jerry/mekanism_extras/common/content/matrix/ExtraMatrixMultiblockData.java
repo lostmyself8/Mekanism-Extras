@@ -1,8 +1,9 @@
 package com.jerry.mekanism_extras.common.content.matrix;
 
-import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+
 import mekanism.api.math.FloatingLong;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
@@ -13,7 +14,9 @@ import mekanism.common.inventory.slot.EnergyInventorySlot;
 import mekanism.common.lib.multiblock.MultiblockCache;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraMatrixMultiblockData extends MultiblockData {

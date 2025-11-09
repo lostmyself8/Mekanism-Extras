@@ -4,6 +4,7 @@ import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
+
 import mekanism.api.Upgrade;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.AttributeFactoryType;
@@ -27,7 +28,6 @@ public class AdvancedMachine {
             add(new AttributeUpgradeSupport(EnumSet.of(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.MUFFLING, ExtraUpgrade.STACK, ExtraUpgrade.CREATIVE)));
             add(new AttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraBlock.getAdvancedFactory(AdvancedFactoryTier.ABSOLUTE, getFactoryType())));
         }
-
 
         public FactoryType getFactoryType() {
             return Objects.requireNonNull(get(AttributeFactoryType.class)).getFactoryType();

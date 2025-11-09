@@ -15,22 +15,22 @@ public class ExtraTileEntityRadioactiveWasteBarrel$ComputerHandler extends Compu
     }
 
     public static Object gasTank$getStored(ExtraTileEntityRadioactiveWasteBarrel subject,
-                                                BaseComputerHelper helper) throws ComputerException {
+                                           BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getStack(subject.gasTank));
     }
 
     public static Object gasTank$getCapacity(ExtraTileEntityRadioactiveWasteBarrel subject,
-                                                  BaseComputerHelper helper) throws ComputerException {
+                                             BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getCapacity(subject.gasTank));
     }
 
     public static Object gasTank$getNeeded(ExtraTileEntityRadioactiveWasteBarrel subject,
-                                                BaseComputerHelper helper) throws ComputerException {
+                                           BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getNeeded(subject.gasTank));
     }
 
     public static Object gasTank$getFilledPercentage(ExtraTileEntityRadioactiveWasteBarrel subject,
-                                                          BaseComputerHelper helper) throws ComputerException {
+                                                     BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getFilledPercentage(subject.gasTank));
     }
 }

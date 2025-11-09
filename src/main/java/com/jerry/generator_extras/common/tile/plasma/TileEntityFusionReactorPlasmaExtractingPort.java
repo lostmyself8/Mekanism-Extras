@@ -1,6 +1,7 @@
 package com.jerry.generator_extras.common.tile.plasma;
 
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
@@ -13,17 +14,19 @@ import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.MekanismUtils;
 import mekanism.generators.common.content.fusion.FusionReactorMultiblockData;
 import mekanism.generators.common.tile.fusion.TileEntityFusionReactorBlock;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.Set;
 
 public class TileEntityFusionReactorPlasmaExtractingPort
-        extends TileEntityFusionReactorBlock
-        implements IMultiblockEjector {
+                                                         extends TileEntityFusionReactorBlock
+                                                         implements IMultiblockEjector {
 
     private Set<Direction> outputDirections = Collections.emptySet();
 
@@ -52,7 +55,7 @@ public class TileEntityFusionReactorPlasmaExtractingPort
 
     @Override
     public int getCurrentRedstoneLevel() {
-        IGasTank plasma = ((IFusionPlasmaHolder)getMultiblock()).getPlasmaTank();
+        IGasTank plasma = ((IFusionPlasmaHolder) getMultiblock()).getPlasmaTank();
         return MekanismUtils.redstoneLevelFromContents(plasma.getStored(), plasma.getCapacity());
     }
 
@@ -60,12 +63,12 @@ public class TileEntityFusionReactorPlasmaExtractingPort
     protected boolean onUpdateServer(FusionReactorMultiblockData multiblock) {
         boolean needsPacket = super.onUpdateServer(multiblock);
         if (getActive() && multiblock.isFormed()) {
-            ChemicalUtil.emit(outputDirections, ((IFusionPlasmaHolder)multiblock).getPlasmaTank(), this);
+            ChemicalUtil.emit(outputDirections, ((IFusionPlasmaHolder) multiblock).getPlasmaTank(), this);
         }
         return needsPacket;
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @Override
     public boolean exposesMultiblockToComputer() {
         return false;
@@ -80,5 +83,5 @@ public class TileEntityFusionReactorPlasmaExtractingPort
     void setMode(boolean output) {
         setActive(output);
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

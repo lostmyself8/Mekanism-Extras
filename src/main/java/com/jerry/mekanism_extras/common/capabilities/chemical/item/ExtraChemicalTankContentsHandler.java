@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.capabilities.chemical.item;
 
 import com.jerry.mekanism_extras.common.tier.CTTier;
+
 import mekanism.api.NBTConstants;
 import mekanism.api.chemical.merged.MergedChemicalTank;
 import mekanism.common.capabilities.DynamicHandler;
@@ -10,6 +11,7 @@ import mekanism.common.capabilities.merged.MergedTankContentsHandler;
 import java.util.Objects;
 
 public class ExtraChemicalTankContentsHandler extends MergedTankContentsHandler<MergedChemicalTank> {
+
     public static ExtraChemicalTankContentsHandler create(CTTier tier) {
         Objects.requireNonNull(tier, "Chemical tank tier cannot be null");
         return new ExtraChemicalTankContentsHandler(tier);
@@ -24,7 +26,6 @@ public class ExtraChemicalTankContentsHandler extends MergedTankContentsHandler<
                 new ExtraChemicalTankRateLimitChemicalTank.PigmentTankRateLimitChemicalTank(tier, pigmentHandler = new DynamicChemicalHandler.DynamicPigmentHandler(side -> pigmentTanks, DynamicHandler.InteractPredicate.ALWAYS_TRUE,
                         DynamicHandler.InteractPredicate.ALWAYS_TRUE, () -> onContentsChanged(NBTConstants.PIGMENT_TANKS, pigmentTanks))),
                 new ExtraChemicalTankRateLimitChemicalTank.SlurryTankRateLimitChemicalTank(tier, slurryHandler = new DynamicChemicalHandler.DynamicSlurryHandler(side -> slurryTanks, DynamicHandler.InteractPredicate.ALWAYS_TRUE,
-                        DynamicHandler.InteractPredicate.ALWAYS_TRUE, () -> onContentsChanged(NBTConstants.SLURRY_TANKS, slurryTanks)))
-        );
+                        DynamicHandler.InteractPredicate.ALWAYS_TRUE, () -> onContentsChanged(NBTConstants.SLURRY_TANKS, slurryTanks))));
     }
 }

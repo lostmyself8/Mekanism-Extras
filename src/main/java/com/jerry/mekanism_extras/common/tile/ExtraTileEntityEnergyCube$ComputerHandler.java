@@ -2,11 +2,11 @@ package com.jerry.mekanism_extras.common.tile;
 
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(
-        target = ExtraTileEntityEnergyCube.class
-)
+               target = ExtraTileEntityEnergyCube.class)
 public class ExtraTileEntityEnergyCube$ComputerHandler extends ComputerMethodFactory<ExtraTileEntityEnergyCube> {
 
     public ExtraTileEntityEnergyCube$ComputerHandler() {

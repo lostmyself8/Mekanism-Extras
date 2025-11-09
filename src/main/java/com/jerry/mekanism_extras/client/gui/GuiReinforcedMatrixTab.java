@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.client.gui;
 
 import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiButtonPress;
 import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+
 import mekanism.api.text.ILangEntry;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.IGuiWrapper;
@@ -11,6 +12,7 @@ import mekanism.client.render.lib.ColorAtlas;
 import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -21,6 +23,7 @@ public class GuiReinforcedMatrixTab extends GuiTabElementType<TileEntityReinforc
     }
 
     public enum MatrixTab implements TabType<TileEntityReinforcedInductionCasing> {
+
         MAIN("energy.png", MekanismLang.MAIN_TAB, ExtraPacketGuiButtonPress.ClickedTileButton.TAB_MAIN, SpecialColors.TAB_MULTIBLOCK_MAIN),
         STAT("stats.png", MekanismLang.MATRIX_STATS, ExtraPacketGuiButtonPress.ClickedTileButton.TAB_STATS, SpecialColors.TAB_MULTIBLOCK_STATS);
 

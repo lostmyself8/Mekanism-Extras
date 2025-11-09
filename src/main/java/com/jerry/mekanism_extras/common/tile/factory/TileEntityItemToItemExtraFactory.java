@@ -1,5 +1,8 @@
 package com.jerry.mekanism_extras.common.tile.factory;
 
+import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
+import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.recipes.MekanismRecipe;
@@ -9,18 +12,19 @@ import mekanism.api.recipes.inputs.InputHelper;
 import mekanism.api.recipes.outputs.IOutputHandler;
 import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
-import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
-import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Set;
 
 public abstract class TileEntityItemToItemExtraFactory<RECIPE extends MekanismRecipe> extends TileEntityExtraFactory<RECIPE> {
+
     protected IInputHandler<@NotNull ItemStack>[] inputHandlers;
     protected IOutputHandler<@NotNull ItemStack>[] outputHandlers;
 
@@ -35,7 +39,7 @@ public abstract class TileEntityItemToItemExtraFactory<RECIPE extends MekanismRe
         int baseX = 27;
         int baseXMult = 19;
 
-        for(int i = 0; i < this.tier.processes; ++i) {
+        for (int i = 0; i < this.tier.processes; ++i) {
             int xPos = baseX + i * baseXMult;
             AdvancedFactoryOutputInventorySlot outputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingListener, xPos, 57);
             AdvancedFactoryInputInventorySlot inputSlot = AdvancedFactoryInputInventorySlot.create(this, i, outputSlot, this.recipeCacheLookupMonitors[i], xPos, 13);
@@ -46,6 +50,5 @@ public abstract class TileEntityItemToItemExtraFactory<RECIPE extends MekanismRe
             this.outputHandlers[i] = OutputHelper.getOutputHandler(outputSlot, CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
             this.processInfoSlots[i] = new ProcessInfo(i, inputSlot, outputSlot, null);
         }
-
     }
 }

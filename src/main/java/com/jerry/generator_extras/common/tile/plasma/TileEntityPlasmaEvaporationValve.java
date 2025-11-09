@@ -3,6 +3,7 @@ package com.jerry.generator_extras.common.tile.plasma;
 import com.jerry.generator_extras.common.ExtraGenLang;
 import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationMultiblockData;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+
 import mekanism.api.Action;
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.gas.Gas;
@@ -13,18 +14,19 @@ import mekanism.common.capabilities.heat.CachedAmbientTemperature;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder;
 import mekanism.common.capabilities.holder.heat.IHeatCapacitorHolder;
-import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
 import mekanism.common.lib.multiblock.IMultiblockEjector;
 import mekanism.common.tile.base.SubstanceType;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.FluidUtils;
 import mekanism.common.util.text.BooleanStateDisplay;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,8 +34,8 @@ import java.util.Collections;
 import java.util.Set;
 
 public class TileEntityPlasmaEvaporationValve
-        extends TileEntityPlasmaEvaporationBlock
-        implements IMultiblockEjector {
+                                              extends TileEntityPlasmaEvaporationBlock
+                                              implements IMultiblockEjector {
 
     private Set<Direction> outputDirections = Collections.emptySet();
 

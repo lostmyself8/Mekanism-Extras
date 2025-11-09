@@ -1,23 +1,27 @@
 package com.jerry.mekanism_extras.common.content.matrix;
 
+import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
-import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
-import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.multiblock.CuboidStructureValidator;
 import mekanism.common.lib.multiblock.FormationProtocol;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExtraMatrixValidator extends CuboidStructureValidator<ExtraMatrixMultiblockData> {
+
     private final List<ExtraTileEntityInductionCell> cells = new ArrayList<>();
     private final List<ExtraTileEntityInductionProvider> providers = new ArrayList<>();
 
@@ -31,6 +35,7 @@ public class ExtraMatrixValidator extends CuboidStructureValidator<ExtraMatrixMu
         }
         return FormationProtocol.CasingType.INVALID;
     }
+
     @Override
     public boolean validateInner(BlockState state, Long2ObjectMap<ChunkAccess> chunkMap, BlockPos pos) {
         if (super.validateInner(state, chunkMap, pos)) {
@@ -45,7 +50,7 @@ public class ExtraMatrixValidator extends CuboidStructureValidator<ExtraMatrixMu
                 ExtraBlockType.SUPREME_INDUCTION_PROVIDER,
                 ExtraBlockType.COSMIC_INDUCTION_PROVIDER,
                 ExtraBlockType.INFINITE_INDUCTION_PROVIDER)) {
-            //Compare blocks against the type before bothering to look up the tile
+            // Compare blocks against the type before bothering to look up the tile
             BlockEntity tile = WorldUtils.getTileEntity(world, chunkMap, pos);
             if (tile instanceof ExtraTileEntityInductionCell cell) {
                 cells.add(cell);
@@ -54,7 +59,7 @@ public class ExtraMatrixValidator extends CuboidStructureValidator<ExtraMatrixMu
                 providers.add(provider);
                 return true;
             }
-            //Else something went wrong
+            // Else something went wrong
         }
         return false;
     }

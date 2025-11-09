@@ -1,11 +1,13 @@
 package com.jerry.mekanism_extras.api.gas.attribute;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
+
 import mekanism.api.chemical.attribute.ChemicalAttribute;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.providers.IGasProvider;
 import mekanism.api.text.EnumColor;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.network.chat.Component;
 
 import java.util.List;

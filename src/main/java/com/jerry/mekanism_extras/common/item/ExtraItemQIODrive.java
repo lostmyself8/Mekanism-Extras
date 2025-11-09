@@ -1,16 +1,19 @@
 package com.jerry.mekanism_extras.common.item;
 
 import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
+
 import mekanism.api.text.EnumColor;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.MekanismLang;
 import mekanism.common.content.qio.IQIODriveItem;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

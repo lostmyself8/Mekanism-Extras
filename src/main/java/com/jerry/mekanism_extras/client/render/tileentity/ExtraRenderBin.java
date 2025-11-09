@@ -2,14 +2,14 @@ package com.jerry.mekanism_extras.client.render.tileentity;
 
 import com.jerry.mekanism_extras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
+
 import mekanism.api.math.MathUtils;
 import mekanism.api.text.EnumColor;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.client.render.tileentity.MekanismTileEntityRenderer;
 import mekanism.common.base.ProfilerConstants;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -22,6 +22,9 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
 import org.joml.Quaternionf;
@@ -30,6 +33,7 @@ import org.joml.Vector3f;
 import java.util.Optional;
 
 public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBin> {
+
     private static final Matrix3f FAKE_NORMALS;
 
     static {
@@ -48,14 +52,15 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
         ExtraBinInventorySlot binSlot = tile.getBinSlot();
         if (world != null && (!binSlot.isEmpty() || binSlot.isLocked())) {
             Direction facing = tile.getDirection();
-            //position of the block covering the front side
+            // position of the block covering the front side
             BlockPos coverPos = tile.getBlockPos().relative(facing);
-            //if the bin has an item stack and the face isn't covered by a solid side
+            // if the bin has an item stack and the face isn't covered by a solid side
             Optional<BlockState> blockState = WorldUtils.getBlockState(world, coverPos);
             if (blockState.isEmpty() || !blockState.get().canOcclude() || !blockState.get().isFaceSturdy(world, coverPos, facing.getOpposite())) {
                 matrix.pushPose();
-                //TODO: Come up with a better way to do this hack? Basically we adjust the normals so that the lighting
-                // isn't screwy when it tries to apply the diffuse lighting as we aren't able to disable diffuse lighting
+                // TODO: Come up with a better way to do this hack? Basically we adjust the normals so that the lighting
+                // isn't screwy when it tries to apply the diffuse lighting as we aren't able to disable diffuse
+                // lighting
                 // ourselves so need to trick it
                 matrix.last().normal().set(FAKE_NORMALS);
                 switch (facing) {
@@ -78,7 +83,7 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
                 matrix.scale(scale, scale, 0.0001F);
                 matrix.translate(8, -8, 8);
                 matrix.scale(16, 16, 16);
-                //Calculate lighting based on the light at the block the bin is facing
+                // Calculate lighting based on the light at the block the bin is facing
                 light = LevelRenderer.getLightColor(world, tile.getBlockPos().relative(facing));
                 Minecraft.getInstance().getItemRenderer().renderStatic(binSlot.getRenderStack(), ItemDisplayContext.GUI, light, overlayLight, matrix, renderer, world,
                         MathUtils.clampToInt(tile.getBlockPos().asLong()));

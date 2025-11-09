@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.tile.transmitter;
 import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraUniversalCable;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+
 import mekanism.api.NBTConstants;
 import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.math.FloatingLong;
@@ -19,10 +20,12 @@ import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.util.EnumUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +33,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter implements IComputerTile {
+
     private final EnergyHandlerManager energyHandlerManager;
 
     public ExtraTileEntityUniversalCable(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
@@ -37,7 +41,8 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
         addCapabilityResolver(energyHandlerManager = new EnergyHandlerManager(direction -> {
             ExtraUniversalCable cable = getTransmitter();
             if (direction != null && (cable.getConnectionTypeRaw(direction) == ConnectionType.NONE) || cable.isRedstoneActivated()) {
-                //If we actually have a side, and our connection type on that side is none, or we are currently activated by redstone,
+                // If we actually have a side, and our connection type on that side is none, or we are currently
+                // activated by redstone,
                 // then return that we have no containers
                 return Collections.emptyList();
             }
@@ -82,7 +87,8 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
     @NotNull
     @Override
     public CompoundTag getUpdateTag() {
-        //Note: We add the stored information to the initial update tag and not to the one we sync on side changes which uses getReducedUpdateTag
+        // Note: We add the stored information to the initial update tag and not to the one we sync on side changes
+        // which uses getReducedUpdateTag
         CompoundTag updateTag = super.getUpdateTag();
         if (getTransmitter().hasTransmitterNetwork()) {
             EnergyNetwork network = getTransmitter().getTransmitterNetwork();
@@ -101,10 +107,10 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
         super.sideChanged(side, old, type);
         if (type == ConnectionType.NONE) {
             invalidateCapabilities(EnergyCompatUtils.getEnabledEnergyCapabilities(), side);
-            //Notify the neighbor on that side our state changed and we no longer have a capability
+            // Notify the neighbor on that side our state changed and we no longer have a capability
             WorldUtils.notifyNeighborOfChange(level, side, worldPosition);
         } else if (old == ConnectionType.NONE) {
-            //Notify the neighbor on that side our state changed, and we now do have a capability
+            // Notify the neighbor on that side our state changed, and we now do have a capability
             WorldUtils.notifyNeighborOfChange(level, side, worldPosition);
         }
     }
@@ -113,15 +119,17 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
     public void redstoneChanged(boolean powered) {
         super.redstoneChanged(powered);
         if (powered) {
-            //The transmitter now is powered by redstone and previously was not
-            //Note: While at first glance the below invalidation may seem over aggressive, it is not actually that aggressive as
+            // The transmitter now is powered by redstone and previously was not
+            // Note: While at first glance the below invalidation may seem over aggressive, it is not actually that
+            // aggressive as
             // if a cap has not been initialized yet on a side then invalidating it will just NO-OP
             invalidateCapabilities(EnergyCompatUtils.getEnabledEnergyCapabilities(), EnumUtils.DIRECTIONS);
         }
-        //Note: We do not have to invalidate any caps if we are going from powered to unpowered as all the caps would already be "empty"
+        // Note: We do not have to invalidate any caps if we are going from powered to unpowered as all the caps would
+        // already be "empty"
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @Override
     public String getComputerName() {
         return getTransmitter().getTier().getBaseTier().getLowerName() + "UniversalCable";
@@ -147,5 +155,5 @@ public class ExtraTileEntityUniversalCable extends ExtraTileEntityTransmitter im
     double getFilledPercentage() {
         return getBuffer().divideToLevel(getCapacity());
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

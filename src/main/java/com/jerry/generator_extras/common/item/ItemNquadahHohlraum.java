@@ -2,6 +2,9 @@ package com.jerry.generator_extras.common.item;
 
 import com.jerry.mekanism_extras.common.ExtraTags;
 import com.jerry.mekanism_extras.common.registry.ExtraGases;
+
+import com.jerry.generator_extras.common.config.GenLoadConfig;
+
 import mekanism.api.chemical.ChemicalTankBuilder;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.gas.IGasHandler;
@@ -14,14 +17,15 @@ import mekanism.common.item.CapabilityItem;
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.StorageUtils;
-import com.jerry.generator_extras.common.config.GenLoadConfig;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,6 +33,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDeferredRegister.ICustomCreativeTabContents {
+
     public ItemNquadahHohlraum(Properties properties) {
         super(properties.stacksTo(1));
     }

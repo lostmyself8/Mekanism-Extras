@@ -2,6 +2,7 @@ package com.jerry.generator_extras.common.tile.plasma;
 
 import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationMultiblockData;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 

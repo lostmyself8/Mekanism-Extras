@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.tile.factory;
 
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(target = TileEntityCombiningExtraFactory.class)

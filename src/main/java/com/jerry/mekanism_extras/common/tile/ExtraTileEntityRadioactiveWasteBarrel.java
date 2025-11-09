@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.tile;
 import com.jerry.mekanism_extras.common.capabilities.chemical.ExtraStackedWasteBarrel;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+
 import mekanism.api.*;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
@@ -19,6 +20,7 @@ import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -28,6 +30,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,7 +39,7 @@ import java.util.Collections;
 public class ExtraTileEntityRadioactiveWasteBarrel extends TileEntityMekanism implements IConfigurable {
 
     private long lastProcessTick;
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded", "getFilledPercentage"}, docPlaceholder = "barrel")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = { "getStored", "getCapacity", "getNeeded", "getFilledPercentage" }, docPlaceholder = "barrel")
     ExtraStackedWasteBarrel gasTank;
     private float prevScale;
     private int processTicks;
@@ -58,7 +61,7 @@ public class ExtraTileEntityRadioactiveWasteBarrel extends TileEntityMekanism im
     protected void onUpdateServer() {
         super.onUpdateServer();
         if (level.getGameTime() > lastProcessTick) {
-            //If we are not on the same tick do stuff, otherwise ignore it (anti tick accelerator protection)
+            // If we are not on the same tick do stuff, otherwise ignore it (anti tick accelerator protection)
             lastProcessTick = level.getGameTime();
             if (LoadConfig.extraConfig.radioactiveWasteBarrelDecayAmount.get() > 0 && !gasTank.isEmpty() &&
                     !MekanismTags.Gases.WASTE_BARREL_DECAY_LOOKUP.contains(gasTank.getType()) &&
@@ -69,7 +72,7 @@ public class ExtraTileEntityRadioactiveWasteBarrel extends TileEntityMekanism im
             if (getActive()) {
                 ChemicalUtil.emit(Collections.singleton(Direction.DOWN), gasTank, this);
             }
-            //Note: We don't need to do any checking here if the packet needs due to capacity changing as we do it
+            // Note: We don't need to do any checking here if the packet needs due to capacity changing as we do it
             // in TileentityMekanism after this method is called. And given radioactive waste barrels can only contain
             // radioactive substances the check for radiation scale also will work for syncing capacity for purposes
             // of when the client sneak right-clicks on the barrel

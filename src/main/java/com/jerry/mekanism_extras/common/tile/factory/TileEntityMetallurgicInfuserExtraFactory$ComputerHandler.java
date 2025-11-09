@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.tile.factory;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(target = TileEntityMetallurgicInfuserExtraFactory.class)

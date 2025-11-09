@@ -4,16 +4,15 @@ import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraLogisti
 import com.jerry.mekanism_extras.common.tier.transmitter.TPTier;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityLogisticalTransporterBase;
 import com.jerry.mekanism_extras.common.util.ExtraTransporterUtils;
-import com.mojang.blaze3d.vertex.PoseStack;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+
 import mekanism.api.text.EnumColor;
 import mekanism.client.model.ModelTransporterBox;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
-import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.TransporterStack;
 import mekanism.common.lib.inventory.HashedItem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -27,10 +26,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.*;
+
+import javax.annotation.Nullable;
 
 public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<ExtraTileEntityLogisticalTransporterBase> {
 
@@ -81,15 +84,16 @@ public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<Extr
     }
 
     /**
-     * Shrink the in transit list as much as possible. Don't try to render things of the same type that are in the same spot with the same color, ignoring stack size
+     * Shrink the in transit list as much as possible. Don't try to render things of the same type that are in the same
+     * spot with the same color, ignoring stack size
      */
     private Collection<TransporterStack> getReducedTransit(Collection<TransporterStack> inTransit) {
         Collection<TransporterStack> reducedTransit = new ArrayList<>();
         Set<TransportInformation> information = new ObjectOpenHashSet<>();
         for (TransporterStack stack : inTransit) {
             if (stack != null && !stack.itemStack.isEmpty() && information.add(new TransportInformation(stack))) {
-                //Ensure the stack is valid AND we did not already have information matching the stack
-                //We use add to check if it already contained the value, so that we only have to query the set once
+                // Ensure the stack is valid AND we did not already have information matching the stack
+                // We use add to check if it already contained the value, so that we only have to query the set once
                 reducedTransit.add(stack);
             }
         }

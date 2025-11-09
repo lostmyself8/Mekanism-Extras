@@ -1,8 +1,11 @@
 package com.jerry.mekanism_extras.common.tier.transmitter;
 
 import com.jerry.mekanism_extras.common.config.LoadConfig;
+
 import mekanism.common.tier.ConductorTier;
+
 public class TCTier {
+
     public static long getConduction(ConductorTier tier) {
         return switch (tier) {
             case BASIC -> LoadConfig.extraConfig.absoluteThermodynamicConductorConduction.get().longValue();

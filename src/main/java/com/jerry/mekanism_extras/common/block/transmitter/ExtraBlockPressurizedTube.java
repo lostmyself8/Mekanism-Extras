@@ -1,7 +1,8 @@
 package com.jerry.mekanism_extras.common.block.transmitter;
 
-import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
+
 import mekanism.common.block.attribute.AttributeTier;
 import mekanism.common.block.interfaces.IHasTileEntity;
 import mekanism.common.block.interfaces.ITypeBlock;

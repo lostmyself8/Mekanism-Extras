@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.api.tier;
 
 public enum ExtraAlloyTier implements IAdvancedTier {
+
     THERMONUCLEAR("thermonuclear", AdvancedTier.SUPREME),
     SHINING("shining", AdvancedTier.COSMIC),
     SPECTRUM("spectrum", AdvancedTier.INFINITE);

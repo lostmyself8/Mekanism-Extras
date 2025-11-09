@@ -2,19 +2,22 @@ package com.jerry.mekanism_extras.common.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.inventory.container.tile.AdvancedFactoryContainer;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
-import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
+import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.registration.impl.ContainerTypeDeferredRegister;
 import mekanism.common.registration.impl.ContainerTypeRegistryObject;
+
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ExtraContainerTypes {
+
     public static final ContainerTypeDeferredRegister CONTAINER_TYPES = new ContainerTypeDeferredRegister(MekanismExtras.MODID);
     public static final ContainerTypeRegistryObject<MekanismTileContainer<ExtraTileEntityFluidTank>> FLUID_TANK = CONTAINER_TYPES.custom("extra_fluid_tank", ExtraTileEntityFluidTank.class).armorSideBar().build();
     public static final ContainerTypeRegistryObject<MekanismTileContainer<ExtraTileEntityEnergyCube>> ENERGY_CUBE = CONTAINER_TYPES.custom("extra_energy_cube", ExtraTileEntityEnergyCube.class).armorSideBar(180, 41, 0).build();
@@ -25,7 +28,7 @@ public class ExtraContainerTypes {
 
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityExtraFactory<?>>> FACTORY = CONTAINER_TYPES.register("factory", factoryClass(), AdvancedFactoryContainer::new);
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private static Class<TileEntityExtraFactory<?>> factoryClass() {
         return (Class) TileEntityExtraFactory.class;
     }

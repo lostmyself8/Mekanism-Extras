@@ -1,10 +1,12 @@
 package com.jerry.generator_extras.common.block.reactor;
 
-import com.jerry.generator_extras.common.tile.naquadah.TileEntityLeadCoatedLaserFocusMatrix;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityLeadCoatedLaserFocusMatrix;
+
 import mekanism.common.block.basic.BlockStructuralGlass;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.block.states.BlockStateHelper;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -18,9 +20,11 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
 import org.jetbrains.annotations.NotNull;
 
 public class BlockLeadCoatedLaserFocusMatrix extends BlockBasicMultiblock<TileEntityLeadCoatedLaserFocusMatrix> {
+
     public BlockLeadCoatedLaserFocusMatrix() {
         super(ExtraGenBlockTypes.LEAD_COATED_LASER_FOCUS_MATRIX, BlockBehaviour.Properties.of().sound(SoundType.GLASS).strength(3.5F, 4.8F)
                 .requiresCorrectToolForDrops().noOcclusion().isSuffocating(BlockStateHelper.NEVER_PREDICATE).isViewBlocking(BlockStateHelper.NEVER_PREDICATE)

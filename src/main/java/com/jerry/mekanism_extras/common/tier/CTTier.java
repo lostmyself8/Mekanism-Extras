@@ -2,13 +2,17 @@ package com.jerry.mekanism_extras.common.tier;
 
 import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
+
 import mekanism.common.config.value.CachedLongValue;
+
 import net.minecraft.util.StringRepresentable;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
 public enum CTTier implements IAdvancedTier, StringRepresentable {
+
     ABSOLUTE(AdvancedTier.ABSOLUTE, 131_072_000, 65_536_000),// x16 1/2
     SUPREME(AdvancedTier.SUPREME, 4_194_304_000L, 2_097_150_000),// x32 1/2
     COSMIC(AdvancedTier.COSMIC, 268_435_456_000L, 134_217_728_000L),// x64 3/4

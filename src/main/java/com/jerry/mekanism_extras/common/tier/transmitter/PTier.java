@@ -1,9 +1,11 @@
 package com.jerry.mekanism_extras.common.tier.transmitter;
 
 import com.jerry.mekanism_extras.common.config.LoadConfig;
+
 import mekanism.common.tier.PipeTier;
 
 public class PTier {
+
     public static int getPipePullAmount(PipeTier tier) {
         return switch (tier) {
             case BASIC -> LoadConfig.extraConfig.absoluteMechanicalPipePullAmount.get().intValue();

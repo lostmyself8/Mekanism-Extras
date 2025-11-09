@@ -1,14 +1,17 @@
 package com.jerry.generator_extras.client.event;
 
+import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.integration.Addons;
+
 import com.jerry.generator_extras.client.gui.naquadah.*;
 import com.jerry.generator_extras.client.gui.plasma.GuiPlasmaEvaporationController;
 import com.jerry.generator_extras.client.render.RenderNaquadahReactor;
 import com.jerry.generator_extras.client.render.RenderPlasmaEvaporationPlant;
-import com.jerry.mekanism_extras.MekanismExtras;
-import com.jerry.mekanism_extras.common.integration.Addons;
 import com.jerry.generator_extras.common.genregistry.ExtraGenContainerTypes;
 import com.jerry.generator_extras.common.genregistry.ExtraGenTileEntityTypes;
+
 import mekanism.client.ClientRegistrationUtil;
+
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;

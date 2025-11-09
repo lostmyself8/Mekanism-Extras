@@ -1,10 +1,11 @@
 package com.jerry.mekanism_extras.common.tile;
 
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekanism_extras.common.tier.BTier;
 import com.jerry.mekanism_extras.common.inventory.slot.ExtraBinInventorySlot;
-import com.jerry.mekanism_extras.common.upgrade.ExtraBinUpgradeData;
+import com.jerry.mekanism_extras.common.tier.BTier;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityLogisticalTransporterBase;
+import com.jerry.mekanism_extras.common.upgrade.ExtraBinUpgradeData;
+
 import mekanism.api.Action;
 import mekanism.api.IConfigurable;
 import mekanism.api.IContentsListener;
@@ -27,6 +28,7 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -38,9 +40,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigurable {
+
     public int addTicks = 0;
     public int removeTicks = 0;
     private int delayTicks;
@@ -186,7 +190,7 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
         NBTUtils.setCompoundIfPresent(tag, NBTConstants.ITEM, nbt -> binSlot.deserializeNBT(nbt));
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod(methodDescription = "Get the maximum number of items the bin can contain.")
     int getCapacity() {
         return binSlot.getLimit(binSlot.getStack());

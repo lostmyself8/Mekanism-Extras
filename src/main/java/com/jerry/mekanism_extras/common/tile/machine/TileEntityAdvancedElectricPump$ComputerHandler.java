@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.tile.machine;
 
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -20,7 +21,7 @@ public class TileEntityAdvancedElectricPump$ComputerHandler extends ComputerMeth
     }
 
     public static Object fluidTank$getFluid(TileEntityAdvancedElectricPump subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                               throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerFluidTankWrapper.getStack(subject.fluidTank));
     }
 
@@ -54,8 +55,7 @@ public class TileEntityAdvancedElectricPump$ComputerHandler extends ComputerMeth
         return helper.convert(SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.getStack(subject.energySlot));
     }
 
-    public static Object reset_0(TileEntityAdvancedElectricPump subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object reset_0(TileEntityAdvancedElectricPump subject, BaseComputerHelper helper) throws ComputerException {
         subject.resetPump();
         return helper.voidResult();
     }

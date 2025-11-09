@@ -1,13 +1,16 @@
 package com.jerry.mekanism_extras.api.text;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.text.ILangEntry;
+
 import net.minecraft.Util;
 
 @NothingNullByDefault
 public enum APIExtraLang implements ILangEntry {
-    //Upgrades
+
+    // Upgrades
     UPGRADE_STACK("upgrade", "stack"),
     UPGRADE_STACK_DESCRIPTION("upgrade", "stack.description"),
     UPGRADE_IONIC_MEMBRANE("upgrade", "ionic_membrane"),

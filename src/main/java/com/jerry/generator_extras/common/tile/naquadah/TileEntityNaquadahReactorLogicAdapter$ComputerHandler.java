@@ -9,13 +9,13 @@ import mekanism.common.integration.computer.annotation.MethodFactory;
 @MethodFactory(target = TileEntityNaquadahReactorLogicAdapter.class)
 public class TileEntityNaquadahReactorLogicAdapter$ComputerHandler extends ComputerMethodFactory<TileEntityNaquadahReactorLogicAdapter> {
 
-    private final String[] NAMES_active = new String[]{"active"};
+    private final String[] NAMES_active = new String[] { "active" };
 
-    private final String[] NAMES_logicType = new String[]{"logicType"};
+    private final String[] NAMES_logicType = new String[] { "logicType" };
 
-    private final Class[] TYPES_3db6c47 = new Class[]{Boolean.TYPE};
+    private final Class[] TYPES_3db6c47 = new Class[] { Boolean.TYPE };
 
-    private final Class[] TYPES_7061479 = new Class[]{TileEntityNaquadahReactorLogicAdapter.NaquadahReactorLogic.class};
+    private final Class[] TYPES_7061479 = new Class[] { TileEntityNaquadahReactorLogicAdapter.NaquadahReactorLogic.class };
 
     public TileEntityNaquadahReactorLogicAdapter$ComputerHandler() {
         register(MethodData.builder("isActiveCooledLogic", TileEntityNaquadahReactorLogicAdapter$ComputerHandler::isActiveCooledLogic_0).returnType(Boolean.TYPE));

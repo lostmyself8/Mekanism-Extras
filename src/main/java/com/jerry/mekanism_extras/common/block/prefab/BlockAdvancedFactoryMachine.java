@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.block.prefab;
 import com.jerry.mekanism_extras.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekanism_extras.common.content.blocktype.AdvancedMachine;
 import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
+
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.block.states.IStateFluidLoggable;
 import mekanism.common.resource.BlockResourceInfo;

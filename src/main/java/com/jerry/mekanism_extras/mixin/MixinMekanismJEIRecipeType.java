@@ -1,8 +1,11 @@
 package com.jerry.mekanism_extras.mixin;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+
 import mekanism.client.jei.MekanismJEIRecipeType;
+
 import net.minecraft.resources.ResourceLocation;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

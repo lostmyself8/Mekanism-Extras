@@ -3,16 +3,16 @@ package com.jerry.mekanism_extras.common.tile;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(
-        target = ExtraTileEntityChemicalTank.class
-)
+               target = ExtraTileEntityChemicalTank.class)
 public class ExtraTileEntityChemicalTank$ComputerHandler extends ComputerMethodFactory<ExtraTileEntityChemicalTank> {
 
-    private final String[] NAMES_mode = new String[]{"mode"};
+    private final String[] NAMES_mode = new String[] { "mode" };
 
-    private final Class[] TYPES_ef806282 = new Class[]{ExtraTileEntityChemicalTank.GasMode.class};
+    private final Class[] TYPES_ef806282 = new Class[] { ExtraTileEntityChemicalTank.GasMode.class };
 
     public ExtraTileEntityChemicalTank$ComputerHandler() {
         register(MethodData.builder("getDumpingMode", ExtraTileEntityChemicalTank$ComputerHandler::getDumpingMode_0).returnType(ExtraTileEntityChemicalTank.GasMode.class).methodDescription("Get the current Dumping configuration"));
@@ -28,7 +28,7 @@ public class ExtraTileEntityChemicalTank$ComputerHandler extends ComputerMethodF
     }
 
     public static Object getDumpingMode_0(ExtraTileEntityChemicalTank subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                          throws ComputerException {
         return helper.convert(subject.dumping);
     }
 
@@ -63,7 +63,7 @@ public class ExtraTileEntityChemicalTank$ComputerHandler extends ComputerMethodF
     }
 
     public static Object setDumpingMode_1(ExtraTileEntityChemicalTank subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                          throws ComputerException {
         subject.setDumpingMode(helper.getEnum(0, ExtraTileEntityChemicalTank.GasMode.class));
         return helper.voidResult();
     }

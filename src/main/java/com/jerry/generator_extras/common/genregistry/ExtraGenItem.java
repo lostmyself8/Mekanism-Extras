@@ -1,16 +1,18 @@
 package com.jerry.generator_extras.common.genregistry;
 
-import com.jerry.generator_extras.common.item.ItemNquadahHohlraum;
 import com.jerry.mekanism_extras.MekanismExtras;
+
+import com.jerry.generator_extras.common.item.ItemNquadahHohlraum;
+
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
+
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ExtraGenItem {
 
-    private ExtraGenItem() {
-    }
+    private ExtraGenItem() {}
 
     public static final ItemDeferredRegister EXTRA_GEN_ITEMS = new ItemDeferredRegister(MekanismExtras.MODID);
     public static final ItemRegistryObject<ItemNquadahHohlraum> HOHLRAUM = EXTRA_GEN_ITEMS.register("naquadah_hohlraum", ItemNquadahHohlraum::new);

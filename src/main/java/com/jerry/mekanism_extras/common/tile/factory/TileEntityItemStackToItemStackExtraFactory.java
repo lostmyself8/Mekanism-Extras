@@ -1,8 +1,5 @@
 package com.jerry.mekanism_extras.common.tile.factory;
 
-import java.util.List;
-import java.util.Set;
-
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.MathUtils;
 import mekanism.api.providers.IBlockProvider;
@@ -17,22 +14,26 @@ import mekanism.common.recipe.lookup.cache.InputRecipeCache.SingleItem;
 import mekanism.common.upgrade.MachineUpgradeData;
 import mekanism.common.util.InventoryUtils;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-//Smelting, enriching, crushing
+import java.util.List;
+import java.util.Set;
+
+// Smelting, enriching, crushing
 public class TileEntityItemStackToItemStackExtraFactory extends TileEntityItemToItemExtraFactory<ItemStackToItemStackRecipe> implements
-        ItemRecipeLookupHandler<ItemStackToItemStackRecipe> {
+                                                        ItemRecipeLookupHandler<ItemStackToItemStackRecipe> {
 
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
             RecipeError.NOT_ENOUGH_INPUT,
             RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
-    );
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(RecipeError.NOT_ENOUGH_ENERGY);
 
     public TileEntityItemStackToItemStackExtraFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
@@ -68,7 +69,7 @@ public class TileEntityItemStackToItemStackExtraFactory extends TileEntityItemTo
         return switch (type) {
             case ENRICHING -> MekanismRecipeType.ENRICHING;
             case CRUSHING -> MekanismRecipeType.CRUSHING;
-            //TODO: Make it so that it throws an error if it is not one of the three types
+            // TODO: Make it so that it throws an error if it is not one of the three types
             default -> MekanismRecipeType.SMELTING;
         };
     }

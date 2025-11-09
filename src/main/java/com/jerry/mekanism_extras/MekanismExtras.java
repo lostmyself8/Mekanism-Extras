@@ -1,28 +1,30 @@
 package com.jerry.mekanism_extras;
 
-import com.jerry.generator_extras.common.ExtraGenLang;
-import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorCache;
-import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationMultiblockData;
-import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationValidator;
-import com.jerry.generator_extras.common.genregistry.*;
 import com.jerry.mekanism_extras.client.events.ClientTick;
 import com.jerry.mekanism_extras.common.ExtraLang;
 import com.jerry.mekanism_extras.common.ExtraTags;
 import com.jerry.mekanism_extras.common.command.ExtraBuilders;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
-import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
-import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorValidator;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
-import com.jerry.mekanism_extras.common.registry.*;
 import com.jerry.mekanism_extras.common.integration.Addons;
-import com.mojang.logging.LogUtils;
+import com.jerry.mekanism_extras.common.registry.*;
+
+import com.jerry.generator_extras.common.ExtraGenLang;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorCache;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
+import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorValidator;
+import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationMultiblockData;
+import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationValidator;
+import com.jerry.generator_extras.common.genregistry.*;
+
 import mekanism.common.base.IModModule;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.Version;
 import mekanism.common.lib.multiblock.MultiblockCache;
 import mekanism.common.lib.multiblock.MultiblockManager;
+
 import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -41,12 +43,15 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
 
 @Mod(MekanismExtras.MODID)
 public class MekanismExtras implements IModModule {
+
     public static final String MODID = "mekanism_extras";
     public static final String MOD_NAME = "MekanismExtras";
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -107,8 +112,8 @@ public class MekanismExtras implements IModModule {
             ExtraGenGases.register(modEventBus);
             ExtraGenInfuseTypes.register(modEventBus);
             ExtraGenTileEntityTypes.register(modEventBus);
-//            ExtraGenRecipeType.EXTRA_GEN_RECIPE_TYPES.register(modEventBus);
-//            ExtraGenRecipeSerializers.GEN_RECIPE_SERIALIZERS.register(modEventBus);
+            // ExtraGenRecipeType.EXTRA_GEN_RECIPE_TYPES.register(modEventBus);
+            // ExtraGenRecipeSerializers.GEN_RECIPE_SERIALIZERS.register(modEventBus);
         }
     }
 
@@ -122,20 +127,17 @@ public class MekanismExtras implements IModModule {
             PackMetadataSection metadata = new PackMetadataSection(Component.translatable(ExtraLang.STOP_FLASHING_DESC.getTranslationKey()),
                     SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES));
 
-            event.addRepositorySource(source ->
-                    source.accept(Pack.create(
-                            "builtin/stop_flashing",
-                            Component.translatable(ExtraLang.STOP_FLASHING.getTranslationKey()),
-                            false,
-                            string -> pack,
-                            new Pack.Info(metadata.getDescription(), metadata.getPackFormat(PackType.SERVER_DATA), metadata.getPackFormat(PackType.CLIENT_RESOURCES),
-                                    FeatureFlagSet.of(), pack.isHidden()),
-                            PackType.CLIENT_RESOURCES,
-                            Pack.Position.TOP,
-                            false,
-                            PackSource.BUILT_IN)
-                    )
-            );
+            event.addRepositorySource(source -> source.accept(Pack.create(
+                    "builtin/stop_flashing",
+                    Component.translatable(ExtraLang.STOP_FLASHING.getTranslationKey()),
+                    false,
+                    string -> pack,
+                    new Pack.Info(metadata.getDescription(), metadata.getPackFormat(PackType.SERVER_DATA), metadata.getPackFormat(PackType.CLIENT_RESOURCES),
+                            FeatureFlagSet.of(), pack.isHidden()),
+                    PackType.CLIENT_RESOURCES,
+                    Pack.Position.TOP,
+                    false,
+                    PackSource.BUILT_IN)));
         }
     }
 
@@ -150,7 +152,5 @@ public class MekanismExtras implements IModModule {
     }
 
     @Override
-    public void resetClient() {
-
-    }
+    public void resetClient() {}
 }

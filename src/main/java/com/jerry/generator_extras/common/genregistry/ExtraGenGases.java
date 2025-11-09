@@ -3,18 +3,18 @@ package com.jerry.generator_extras.common.genregistry;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.api.gas.attribute.ExtraGasAttributes.*;
 import com.jerry.mekanism_extras.common.registry.ExtraChemicalConstants;
+
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.attribute.GasAttributes.*;
 import mekanism.common.registration.impl.GasDeferredRegister;
 import mekanism.common.registration.impl.GasRegistryObject;
 import mekanism.common.registries.MekanismGases;
+
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ExtraGenGases {
 
-
-    private ExtraGenGases() {
-    }
+    private ExtraGenGases() {}
 
     public static final GasDeferredRegister EXTRA_GEN_GASES = new GasDeferredRegister(MekanismExtras.MODID);
 
@@ -42,7 +42,8 @@ public class ExtraGenGases {
 
         private ExtraCoolants() {}
 
-        // Do not change this to directly reference IGasProvider objects of this registry. This prevents a circular reference loop.
+        // Do not change this to directly reference IGasProvider objects of this registry. This prevents a circular
+        // reference loop.
         public static final CooledCoolant HELIUM_COOLANT = new CooledCoolant(() -> SUPERHEATED_HELIUM.get(), 20, 1);
         public static final HeatedCoolant SUPERHEATED_HELIUM_COOLANT = new HeatedCoolant(() -> HELIUM.get(), 20, 1);
     }
@@ -51,7 +52,8 @@ public class ExtraGenGases {
 
         private ExtraHeatants() {}
 
-        // Do not change this to directly reference IGasProvider objects of this registry. This prevents a circular reference loop.
+        // Do not change this to directly reference IGasProvider objects of this registry. This prevents a circular
+        // reference loop.
         public static final Heatant HELIUM_PLASMA_HEATANT = new Heatant(() -> SUPERHEATED_HELIUM.get(), 12_000);
         public static final Heatant EXCITED_HELIUM_PLASMA_HEATANT = new Heatant(() -> SUPERHEATED_HELIUM.get(), 15_000);
         public static final Heatant LITHIUM_PLASMA_HEATANT = new Heatant(MekanismGases.LITHIUM, 18_000);

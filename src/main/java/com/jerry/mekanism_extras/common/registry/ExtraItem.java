@@ -2,32 +2,36 @@ package com.jerry.mekanism_extras.common.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.api.ExtraUpgrade;
+import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.api.tier.ExtraAlloyTier;
 import com.jerry.mekanism_extras.common.item.*;
-import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
-import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.common.resource.ExtraResource;
+import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
+
 import mekanism.api.Upgrade;
 import mekanism.common.item.ItemUpgrade;
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ResourceType;
+
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 
 public class ExtraItem {
+
     public static final ItemDeferredRegister EXTRA_ITEMS = new ItemDeferredRegister(MekanismExtras.MODID);
 
-//    public static final RegistryObject<Item> NAQUADAH_ORE_ITEM = ITEMS.register("naquadah_ore",
-//            () -> new BlockItem(ExtraBlock.NAQUADAH_ORE.get(), new Item.Properties()));
-//    public static final RegistryObject<Item> END_NAQUADAH_ORE_ITEM = ITEMS.register("end_naquadah_ore",
-//            () -> new BlockItem(ExtraBlock.END_NAQUADAH_ORE.get(), new Item.Properties()));
+    // public static final RegistryObject<Item> NAQUADAH_ORE_ITEM = ITEMS.register("naquadah_ore",
+    // () -> new BlockItem(ExtraBlock.NAQUADAH_ORE.get(), new Item.Properties()));
+    // public static final RegistryObject<Item> END_NAQUADAH_ORE_ITEM = ITEMS.register("end_naquadah_ore",
+    // () -> new BlockItem(ExtraBlock.END_NAQUADAH_ORE.get(), new Item.Properties()));
 
     public static final ItemRegistryObject<ExtraItemQIODrive> COLLAPSE_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.COLLAPSE);
     public static final ItemRegistryObject<ExtraItemQIODrive> GAMMA_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.GAMMA);
@@ -89,7 +93,7 @@ public class ExtraItem {
     }
 
     private static ItemRegistryObject<ExtraItemTierInstaller> registerInstaller(@Nullable AdvancedTier fromTier, @NotNull AdvancedTier toTier) {
-        //Ensure the name is lower case as with concatenating with values from enums it may not be
+        // Ensure the name is lower case as with concatenating with values from enums it may not be
         return EXTRA_ITEMS.register(toTier.getLowerName() + "_tier_installer", properties -> new ExtraItemTierInstaller(fromTier, toTier, properties));
     }
 

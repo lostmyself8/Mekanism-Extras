@@ -1,10 +1,12 @@
 package com.jerry.mekanism_extras.common.network.to_server;
 
 import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
+
 import mekanism.api.functions.TriConsumer;
 import mekanism.common.network.IMekanismPacket;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
@@ -107,7 +109,8 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
             case INT -> {
                 buffer.writeEnum(interaction);
                 buffer.writeBlockPos(tilePosition);
-                //TODO - 1.18?: Eventually we may want to try to make some form of this that can compact negatives better as well
+                // TODO - 1.18?: Eventually we may want to try to make some form of this that can compact negatives
+                // better as well
                 buffer.writeVarInt(extra);
             }
             case ITEM -> {
@@ -140,7 +143,9 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
         }
     }
 
-    public enum ExtraGuiInteraction {//TODO: Cleanup this enum/the elements in it as it is rather disorganized order wise currently
+    public enum ExtraGuiInteraction {// TODO: Cleanup this enum/the elements in it as it is rather disorganized order
+                                     // wise currently
+
         AUTO_SORT_BUTTON((tile, player, extra) -> {
             if (tile instanceof TileEntityExtraFactory<?> factory) {
                 factory.toggleSorting();

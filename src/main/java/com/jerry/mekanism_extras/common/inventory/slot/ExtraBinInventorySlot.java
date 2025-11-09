@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.inventory.slot;
 
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockBin;
 import com.jerry.mekanism_extras.common.tier.BTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -10,9 +11,11 @@ import mekanism.common.inventory.container.slot.InventoryContainerSlot;
 import mekanism.common.inventory.slot.BasicInventorySlot;
 import mekanism.common.item.block.ItemBlockBin;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,6 +23,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 public class ExtraBinInventorySlot extends BasicInventorySlot {
+
     private static final Predicate<@NotNull ItemStack> validator = stack -> !(stack.getItem() instanceof ExtraItemBlockBin || stack.getItem() instanceof ItemBlockBin);
 
     public static ExtraBinInventorySlot create(@Nullable IContentsListener listener, BTier tier) {
@@ -43,11 +47,12 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
                 // When locked, we need to make sure the correct item type is being inserted
                 return stack;
             } else if (isCreative && action.execute() && automationType != AutomationType.EXTERNAL) {
-                //If a player manually inserts into a creative bin, that is empty we need to allow setting the type,
-                // Note: We check that it is not external insertion because an empty creative bin acts as a "void" for automation
+                // If a player manually inserts into a creative bin, that is empty we need to allow setting the type,
+                // Note: We check that it is not external insertion because an empty creative bin acts as a "void" for
+                // automation
                 ItemStack simulatedRemainder = super.insertItem(stack, Action.SIMULATE, automationType);
                 if (simulatedRemainder.isEmpty()) {
-                    //If we are able to insert it then set perform the action of setting it to full
+                    // If we are able to insert it then set perform the action of setting it to full
                     setStackUnchecked(stack.copyWithCount(getLimit(stack)));
                 }
                 return simulatedRemainder;
@@ -64,7 +69,8 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     /**
      * {@inheritDoc}
      *
-     * Note: We are only patching {@link #setStackSize(int, Action)}, as both {@link #growStack(int, Action)} and {@link #shrinkStack(int, Action)} are wrapped through
+     * Note: We are only patching {@link #setStackSize(int, Action)}, as both {@link #growStack(int, Action)} and
+     * {@link #shrinkStack(int, Action)} are wrapped through
      * this method.
      */
     @Override

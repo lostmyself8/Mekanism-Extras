@@ -1,16 +1,16 @@
 package com.jerry.generator_extras.common.content.plasma;
 
+import com.jerry.mekanism_extras.api.ExtraNBTConstants;
+import com.jerry.mekanism_extras.api.gas.attribute.ExtraGasAttributes.*;
+
 import com.jerry.generator_extras.common.config.GenLoadConfig;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationBlock;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationVent;
-import com.jerry.mekanism_extras.api.ExtraNBTConstants;
-import com.jerry.mekanism_extras.api.gas.attribute.ExtraGasAttributes.*;
+
 import mekanism.api.Action;
 import mekanism.api.Coord4D;
 import mekanism.api.NBTConstants;
-import mekanism.api.chemical.BasicChemicalTank;
-import mekanism.api.chemical.ChemicalTankBuilder;
 import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.IGasTank;
@@ -35,7 +35,6 @@ import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.SyntheticComputerMethod;
 import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.inventory.container.sync.dynamic.ContainerSync;
-import mekanism.common.lib.multiblock.IMultiblock;
 import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
@@ -47,40 +46,40 @@ import mekanism.common.tile.prefab.TileEntityRecipeMachine;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.function.BiPredicate;
 import java.util.function.BooleanSupplier;
 
 public class PlasmaEvaporationMultiblockData
-        extends MultiblockData
-        implements IValveHandler, FluidRecipeLookupHandler<FluidToFluidRecipe> {
+                                             extends MultiblockData
+                                             implements IValveHandler, FluidRecipeLookupHandler<FluidToFluidRecipe> {
 
     private static final List<CachedRecipe.OperationTracker.RecipeError> TRACKED_ERROR_TYPES = List.of(
             CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
             CachedRecipe.OperationTracker.RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT,
-            CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_INPUT
-    );
+            CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_INPUT);
     public static final int MAX_HEIGHT = 36;
 
     @ContainerSync
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getInput", "getInputCapacity", "getInputNeeded", "getInputFilledPercentage"}, docPlaceholder = "input tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = { "getInput", "getInputCapacity", "getInputNeeded", "getInputFilledPercentage" }, docPlaceholder = "input tank")
     public VariableCapacityFluidTank inputTank;
     @ContainerSync
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getOutput", "getOutputCapacity", "getOutputNeeded", "getOutputFilledPercentage"}, docPlaceholder = "output tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = { "getOutput", "getOutputCapacity", "getOutputNeeded", "getOutputFilledPercentage" }, docPlaceholder = "output tank")
     public VariableCapacityFluidTank outputTank;
     @ContainerSync
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getPlasmaInput", "getPlasmaInputCapacity", "getPlasmaInputNeeded", "getPlasmaInputFilledPercentage"}, docPlaceholder = "plasma input tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = { "getPlasmaInput", "getPlasmaInputCapacity", "getPlasmaInputNeeded", "getPlasmaInputFilledPercentage" }, docPlaceholder = "plasma input tank")
     public IGasTank plasmaInputTank;
     @ContainerSync
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getPlasmaOutput", "getPlasmaOutputCapacity", "getPlasmaOutputNeeded", "getPlasmaOutputFilledPercentage"}, docPlaceholder = "plasma output tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = { "getPlasmaOutput", "getPlasmaOutputCapacity", "getPlasmaOutputNeeded", "getPlasmaOutputFilledPercentage" }, docPlaceholder = "plasma output tank")
     public IGasTank plasmaOutputTank;
     @ContainerSync
     public VariableHeatCapacitor heatCapacitor;
@@ -105,14 +104,18 @@ public class PlasmaEvaporationMultiblockData
     private final IInputHandler<@NotNull FluidStack> inputHandler;
 
     // TODO: add item input and output slot
-//    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItemInput", docPlaceholder = "input side's input slot")
-//    final FluidInventorySlot inputInputSlot;
-//    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItemOutput", docPlaceholder = "input side's output slot")
-//    final OutputInventorySlot outputInputSlot;
-//    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItemInput", docPlaceholder = "output side's input slot")
-//    final FluidInventorySlot inputOutputSlot;
-//    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getOutputItemOutput", docPlaceholder = "output side's output slot")
-//    final OutputInventorySlot outputOutputSlot;
+    // @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames =
+    // "getInputItemInput", docPlaceholder = "input side's input slot")
+    // final FluidInventorySlot inputInputSlot;
+    // @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames =
+    // "getInputItemOutput", docPlaceholder = "input side's output slot")
+    // final OutputInventorySlot outputInputSlot;
+    // @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames =
+    // "getOutputItemInput", docPlaceholder = "output side's input slot")
+    // final FluidInventorySlot inputOutputSlot;
+    // @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames =
+    // "getOutputItemOutput", docPlaceholder = "output side's output slot")
+    // final OutputInventorySlot outputOutputSlot;
 
     @ContainerSync
     public int lowerVolume; // fluid volume
@@ -130,7 +133,7 @@ public class PlasmaEvaporationMultiblockData
         super(tile);
         recipeCacheLookupMonitor = new RecipeCacheLookupMonitor<>(this);
         recheckAllRecipeErrors = TileEntityRecipeMachine.shouldRecheckAllErrors(tile);
-        //Default biome temp to the ambient temperature at the block we are at
+        // Default biome temp to the ambient temperature at the block we are at
         biomeAmbientTemp = HeatAPI.getAmbientTemp(tile.getLevel(), tile.getTilePos());
         fluidTanks.add(inputTank = VariableCapacityFluidTank.input(
                 this,
@@ -144,12 +147,12 @@ public class PlasmaEvaporationMultiblockData
                 this));
         inputHandler = InputHelper.getInputHandler(inputTank, CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_INPUT);
         outputHandler = OutputHelper.getOutputHandler(outputTank, CachedRecipe.OperationTracker.RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
-//        inventorySlots.add(inputInputSlot = FluidInventorySlot.fill(inputTank, this, 28, 20));
-//        inventorySlots.add(outputInputSlot = OutputInventorySlot.at(this, 28, 51));
-//        inventorySlots.add(inputOutputSlot = FluidInventorySlot.drain(outputTank, this, 132, 20));
-//        inventorySlots.add(outputOutputSlot = OutputInventorySlot.at(this, 132, 51));
-//        inputInputSlot.setSlotType(ContainerSlotType.INPUT);
-//        inputOutputSlot.setSlotType(ContainerSlotType.INPUT);
+        // inventorySlots.add(inputInputSlot = FluidInventorySlot.fill(inputTank, this, 28, 20));
+        // inventorySlots.add(outputInputSlot = OutputInventorySlot.at(this, 28, 51));
+        // inventorySlots.add(inputOutputSlot = FluidInventorySlot.drain(outputTank, this, 132, 20));
+        // inventorySlots.add(outputOutputSlot = OutputInventorySlot.at(this, 132, 51));
+        // inputInputSlot.setSlotType(ContainerSlotType.INPUT);
+        // inputOutputSlot.setSlotType(ContainerSlotType.INPUT);
         gasTanks.add(plasmaInputTank = MultiblockChemicalTankBuilder.GAS.create(
                 () -> (long) higherVolume * GenLoadConfig.generatorConfig.plasmaEvaporationPlasmaPerTank.get(),
                 // To allow radioactive plasma to be inserted into the output tank
@@ -157,8 +160,7 @@ public class PlasmaEvaporationMultiblockData
                 this.formedBiPred(),
                 gas -> gas.has(Heatant.class),
                 ChemicalAttributeValidator.ALWAYS_ALLOW,
-                this
-        ));
+                this));
         gasTanks.add(plasmaOutputTank = MultiblockChemicalTankBuilder.GAS.output(
                 this,
                 GenLoadConfig.generatorConfig.plasmaEvaporationOutputPlasmaTankCapacity::get,
@@ -197,8 +199,8 @@ public class PlasmaEvaporationMultiblockData
         // After we update the heat capacitors, update our temperature multiplier
         tempMultiplier = getTemperature() * GenLoadConfig.generatorConfig.plasmaEvaporationTempMultiplier.get() *
                 ((double) height() / MAX_HEIGHT);
-//        inputOutputSlot.drainTank(outputOutputSlot);
-//        inputInputSlot.fillTank(outputInputSlot);
+        // inputOutputSlot.drainTank(outputOutputSlot);
+        // inputInputSlot.fillTank(outputInputSlot);
         recipeCacheLookupMonitor.updateAndProcess();
         float scale = MekanismUtils.getScale(prevScale, inputTank);
         if (scale != prevScale) {
@@ -265,8 +267,10 @@ public class PlasmaEvaporationMultiblockData
                     }
                 })
                 .setActive(active -> {
-                    //TODO: Make the numbers for lastGain be based on how much the recipe provides as an output rather than "assuming" it is 1 mB
-                    // Also fix that the numbers don't quite accurately reflect the values as we modify number of operations, and not have a fractional
+                    // TODO: Make the numbers for lastGain be based on how much the recipe provides as an output rather
+                    // than "assuming" it is 1 mB
+                    // Also fix that the numbers don't quite accurately reflect the values as we modify number of
+                    // operations, and not have a fractional
                     // amount
                     if (active) {
                         if (tempMultiplier > 0 && tempMultiplier < 1) {
@@ -393,6 +397,5 @@ public class PlasmaEvaporationMultiblockData
         }
     }
 
-    public record VentData(BlockPos location, Direction side) {
-    }
+    public record VentData(BlockPos location, Direction side) {}
 }

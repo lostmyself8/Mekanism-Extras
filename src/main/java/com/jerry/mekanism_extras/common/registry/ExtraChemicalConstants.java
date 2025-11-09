@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.registry;
 import mekanism.common.base.IChemicalConstant;
 
 public enum ExtraChemicalConstants implements IChemicalConstant {
+
     // The alpha value of the color must be added, or JEI won't render the gas
     MOLTEN_THERMONUCLEAR("molten_thermonuclear", 0xFF810C0C, 15, 6276.3F, 2_300),
     NAQUADAH_HEXAFLUORIDE("naquadah_hexafluoride", 0xFFC8C8C8, 0, 300F, 4_690),

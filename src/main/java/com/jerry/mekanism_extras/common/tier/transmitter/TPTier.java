@@ -1,9 +1,11 @@
 package com.jerry.mekanism_extras.common.tier.transmitter;
 
 import com.jerry.mekanism_extras.common.config.LoadConfig;
+
 import mekanism.common.tier.TransporterTier;
 
 public class TPTier {
+
     public static int getSpeed(TransporterTier tier) {
         return switch (tier) {
             case BASIC -> LoadConfig.extraConfig.absoluteLogisticalTransporterSpeed.get().intValue();

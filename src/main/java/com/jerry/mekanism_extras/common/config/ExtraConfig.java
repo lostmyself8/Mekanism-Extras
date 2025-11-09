@@ -8,10 +8,12 @@ import com.jerry.mekanism_extras.common.tier.FTTier;
 import com.jerry.mekanism_extras.common.tier.ICTier;
 import com.jerry.mekanism_extras.common.tier.IPTier;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
+
 import mekanism.api.heat.HeatAPI;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.config.BaseMekanismConfig;
 import mekanism.common.config.value.*;
+
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.config.ModConfig;
@@ -19,6 +21,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import java.util.Locale;
 
 public class ExtraConfig extends BaseMekanismConfig {
+
     private final ForgeConfigSpec configSpec;
     public final CachedBooleanValue transmitterAlloyUpgrade;
     public final CachedFloatingLongValue absoluteUniversalCableCapacity;
@@ -65,14 +68,14 @@ public class ExtraConfig extends BaseMekanismConfig {
     public final CachedFloatingLongValue infiniteThermodynamicConductorConduction;
     public final CachedFloatingLongValue infiniteThermodynamicConductornCapacity;
     public final CachedFloatingLongValue infiniteThermodynamicConductornInsulation;
-    //Radiation
+    // Radiation
     public final CachedLongValue radioactiveWasteBarrelMaxGas;
     public final CachedIntValue radioactiveWasteBarrelProcessTicks;
     public final CachedLongValue radioactiveWasteBarrelDecayAmount;
-    //Pump
+    // Pump
     public final CachedIntValue pumpHeavyWaterAmount;
     // Force Field Generator
-//    public final CachedFloatingLongValue forcefieldGenerator;
+    // public final CachedFloatingLongValue forcefieldGenerator;
 
     public ExtraConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -126,9 +129,9 @@ public class ExtraConfig extends BaseMekanismConfig {
         this.infiniteLogisticalTransporterPullAmount = CachedFloatingLongValue.define(this, builder, noteLT2, "infiniteLogisticalTransporterPullAmount", FloatingLong.createConst(1024));
         builder.pop();
 
-        final String noteTC = "Conduction value of 'TIER' thermodynamic conductors.(long)";//热导
-        final String noteTC2 = "Heat capacity of 'TIER' thermodynamic conductors.(long)";//热容
-        final String noteTC3 = "Insulation value of 'TIER' thermodynamic conductor(long).";//热阻
+        final String noteTC = "Conduction value of 'TIER' thermodynamic conductors.(long)";// 热导
+        final String noteTC2 = "Heat capacity of 'TIER' thermodynamic conductors.(long)";// 热容
+        final String noteTC3 = "Insulation value of 'TIER' thermodynamic conductor(long).";// 热阻
         builder.comment("Thermodynamic Conductors").push("thermodynamic conductors");
         this.absoluteThermodynamicConductorConduction = CachedFloatingLongValue.define(this, builder, noteTC, "absoluteThermodynamicConductorConduction", FloatingLong.createConst(10L));
         this.absoluteThermodynamicConductornCapacity = CachedFloatingLongValue.define(this, builder, noteTC2, "absoluteThermodynamicConductornCapacity", FloatingLong.createConst(HeatAPI.DEFAULT_HEAT_CAPACITY));
@@ -160,7 +163,7 @@ public class ExtraConfig extends BaseMekanismConfig {
 
         builder.comment("Advance Electric Pump").push("advance electric pump");
         this.pumpHeavyWaterAmount = CachedIntValue.wrap(this, builder.comment("mB of Heavy Water that is extracted per block of Water by the Electric Pump with a Filter Upgrade.")
-                .defineInRange("pumpHeavyWaterAmount", FluidType.BUCKET_VOLUME , 1, FluidType.BUCKET_VOLUME));
+                .defineInRange("pumpHeavyWaterAmount", FluidType.BUCKET_VOLUME, 1, FluidType.BUCKET_VOLUME));
         builder.pop();
 
         addEnergyCubeCategory(builder);

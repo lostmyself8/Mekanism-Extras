@@ -1,7 +1,5 @@
 package com.jerry.mekanism_extras.common.registry;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.common.ExtraLang;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeTier;
@@ -11,18 +9,18 @@ import com.jerry.mekanism_extras.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekanism_extras.common.content.blocktype.AdvancedMachine;
 import com.jerry.mekanism_extras.common.integration.Addons;
 import com.jerry.mekanism_extras.common.tier.*;
-import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityRadioactiveWasteBarrel;
+import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekanism_extras.common.tile.multiblock.*;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import com.jerry.mekanism_extras.common.util.ExtraFloatingLong;
-import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
+
 import mekanism.api.Upgrade;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
@@ -36,6 +34,10 @@ import mekanism.common.registries.MekanismSounds;
 import mekanism.common.registries.MekanismTileEntityTypes;
 import mekanism.common.tile.machine.*;
 import mekanism.common.util.EnumUtils;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
 
 import java.util.EnumSet;
 import java.util.function.Supplier;
@@ -196,7 +198,8 @@ public class ExtraBlockType {
                 } else {
                     FACTORIES.put(tier, type, AdvancedFactory.AdvancedFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
                 }
-//                FACTORIES.put(tier, type, AdvancedFactory.AdvancedFactoryBuilder.createFactory(() -> ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
+                // FACTORIES.put(tier, type, AdvancedFactory.AdvancedFactoryBuilder.createFactory(() ->
+                // ExtraTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
             }
         }
     }
@@ -244,7 +247,7 @@ public class ExtraBlockType {
                 .withEnergyConfig(new ExtraFloatingLong(tier.getMaxEnergy()))
                 .with(new ExtraAttributeTier<>(tier), new ExtraAttributeUpgradeable(upgradeBlock))
                 .without(AttributeParticleFX.class, AttributeStateActive.class, AttributeUpgradeSupport.class)
-                .withComputerSupport(tier.getAdvanceTier().getLowerName() +  "EnergyCube")
+                .withComputerSupport(tier.getAdvanceTier().getLowerName() + "EnergyCube")
                 .build();
     }
 

@@ -3,17 +3,17 @@ package com.jerry.mekanism_extras.common.tile;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
 import mekanism.common.tile.interfaces.IFluidContainerManager;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 @MethodFactory(
-        target = ExtraTileEntityFluidTank.class
-)
+               target = ExtraTileEntityFluidTank.class)
 public class ExtraTileEntityFluidTank$ComputerHandler extends ComputerMethodFactory<ExtraTileEntityFluidTank> {
 
-    private final String[] NAMES_mode = new String[]{"mode"};
+    private final String[] NAMES_mode = new String[] { "mode" };
 
-    private final Class[] TYPES_f8347998 = new Class[]{IFluidContainerManager.ContainerEditMode.class};
+    private final Class[] TYPES_f8347998 = new Class[] { IFluidContainerManager.ContainerEditMode.class };
 
     public ExtraTileEntityFluidTank$ComputerHandler() {
         register(MethodData.builder("getStored", ExtraTileEntityFluidTank$ComputerHandler::fluidTank$getStored).returnType(FluidStack.class).methodDescription("Get the contents of the tank."));
@@ -29,17 +29,17 @@ public class ExtraTileEntityFluidTank$ComputerHandler extends ComputerMethodFact
     }
 
     public static Object fluidTank$getStored(ExtraTileEntityFluidTank subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                          throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerFluidTankWrapper.getStack(subject.fluidTank));
     }
 
     public static Object fluidTank$getCapacity(ExtraTileEntityFluidTank subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                            throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerFluidTankWrapper.getCapacity(subject.fluidTank));
     }
 
     public static Object fluidTank$getNeeded(ExtraTileEntityFluidTank subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                          throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerFluidTankWrapper.getNeeded(subject.fluidTank));
     }
 

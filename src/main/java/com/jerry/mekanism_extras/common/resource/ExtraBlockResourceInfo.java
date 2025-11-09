@@ -1,13 +1,16 @@
 package com.jerry.mekanism_extras.common.resource;
 
 import mekanism.common.resource.IResource;
+
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+
 import org.jetbrains.annotations.Nullable;
 
 public enum ExtraBlockResourceInfo implements IResource {
+
     NAQUADAH("naquadah", 7.5F, 12, MapColor.COLOR_CYAN),
     RAW_NAQUADAH("raw_naquadah", 7.5F, 12, MapColor.COLOR_CYAN, NoteBlockInstrument.BASEDRUM),
     TUNGSTEN("tungsten", 60, 3_000, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASEDRUM, -1),
@@ -41,7 +44,7 @@ public enum ExtraBlockResourceInfo implements IResource {
     }
 
     ExtraBlockResourceInfo(String registrySuffix, float hardness, float resistance, MapColor mapColor, @Nullable NoteBlockInstrument instrument, int burnTime, int lightValue,
-                      boolean burnsInFire, boolean portalFrame, PushReaction pushReaction) {
+                           boolean burnsInFire, boolean portalFrame, PushReaction pushReaction) {
         this.registrySuffix = registrySuffix;
         this.pushReaction = pushReaction;
         this.portalFrame = portalFrame;

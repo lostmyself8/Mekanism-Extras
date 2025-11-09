@@ -1,11 +1,15 @@
 package com.jerry.mekanism_extras.common;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+
 import mekanism.api.text.ILangEntry;
+
 import net.minecraft.Util;
+
 import org.jetbrains.annotations.NotNull;
 
 public enum ExtraLang implements ILangEntry {
+
     EXTRA_TAB("constants", "mod_name"),
     STOP_FLASHING("pack", "pack_name"),
     STOP_FLASHING_DESC("pack", "pack_description"),
@@ -23,6 +27,7 @@ public enum ExtraLang implements ILangEntry {
 
     // Description
     DESCRIPTION_TUNGSTEN_CASING("description", "tungsten_casing");
+
     private final String key;
 
     ExtraLang(String type, String path) {
