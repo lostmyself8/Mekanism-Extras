@@ -40,9 +40,9 @@ dependencies {
     modLocalRuntime(forge.evolvedmekanism)
 
     // Runtime Recipe Viewers - uncomment whichever one you want to use //
-    modLocalRuntime(forge.jer)
+//    modLocalRuntime(forge.jer)
 //    modLocalRuntime(forge.emi)
-//    modLocalRuntime(forge.jei.forge.impl)
+    modLocalRuntime(forge.jei.forge.impl)
 
     // Client-only runtime mods //
     modClientLocalRuntime(forge.embeddium)
