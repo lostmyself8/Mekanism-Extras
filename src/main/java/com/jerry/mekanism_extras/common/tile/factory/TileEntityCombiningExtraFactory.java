@@ -1,9 +1,7 @@
 package com.jerry.mekanism_extras.common.tile.factory;
 
-import java.util.List;
-import java.util.Set;
-
 import com.jerry.mekanism_extras.common.inventory.slot.StackableInputInventorySlot;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.MathUtils;
@@ -27,11 +25,16 @@ import mekanism.common.upgrade.CombinerUpgradeData;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.InventoryUtils;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Set;
 
 public class TileEntityCombiningExtraFactory extends TileEntityItemToItemExtraFactory<CombinerRecipe> implements DoubleItemRecipeLookupHandler<CombinerRecipe> {
 
@@ -40,12 +43,10 @@ public class TileEntityCombiningExtraFactory extends TileEntityItemToItemExtraFa
             RecipeError.NOT_ENOUGH_INPUT,
             RecipeError.NOT_ENOUGH_SECONDARY_INPUT,
             RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
-    );
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(
             RecipeError.NOT_ENOUGH_ENERGY,
-            RecipeError.NOT_ENOUGH_SECONDARY_INPUT
-    );
+            RecipeError.NOT_ENOUGH_SECONDARY_INPUT);
 
     private final IInputHandler<@NotNull ItemStack> extraInputHandler;
 
@@ -93,7 +94,7 @@ public class TileEntityCombiningExtraFactory extends TileEntityItemToItemExtraFa
     protected CombinerRecipe findRecipe(int process, @NotNull ItemStack fallbackInput, @NotNull IInventorySlot outputSlot, @Nullable IInventorySlot secondaryOutputSlot) {
         ItemStack extra = extraSlot.getStack();
         ItemStack output = outputSlot.getStack();
-        //TODO: Give it something that is not empty when we don't have a stored secondary stack for getting the output?
+        // TODO: Give it something that is not empty when we don't have a stored secondary stack for getting the output?
         return getRecipeType().getInputCache().findTypeBasedRecipe(level, fallbackInput, extra,
                 recipe -> InventoryUtils.areItemsStackable(recipe.getOutput(fallbackInput, extra), output));
     }
@@ -127,9 +128,9 @@ public class TileEntityCombiningExtraFactory extends TileEntityItemToItemExtraFa
     @Override
     public void parseUpgradeData(@NotNull IUpgradeData upgradeData) {
         if (upgradeData instanceof CombinerUpgradeData data) {
-            //Generic factory upgrade data handling
+            // Generic factory upgrade data handling
             super.parseUpgradeData(upgradeData);
-            //Copy the stack using NBT so that if it is not actually valid due to a reload we don't crash
+            // Copy the stack using NBT so that if it is not actually valid due to a reload we don't crash
             extraSlot.deserializeNBT(data.extraSlot.serializeNBT());
         } else {
             Mekanism.logger.warn("Unhandled upgrade data.", new Throwable());

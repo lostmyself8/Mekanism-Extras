@@ -1,10 +1,10 @@
 package com.jerry.mekanism_extras.common.tile;
 
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekanism_extras.common.tier.CTTier;
 import com.jerry.mekanism_extras.common.capabilities.chemical.ExtraChemicalTankChemicalTank;
+import com.jerry.mekanism_extras.common.tier.CTTier;
 import com.jerry.mekanism_extras.common.upgrade.ExtraChemicalTankUpgradeData;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+
 import mekanism.api.*;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.IChemicalTank;
@@ -53,16 +53,20 @@ import mekanism.common.upgrade.ChemicalTankUpgradeData;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
 public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine implements ISustainedData, IHasGasMode {
+
     @SyntheticComputerMethod(getter = "getDumpingMode", getterDescription = "Get the current Dumping configuration")
     public GasMode dumping = GasMode.IDLE;
 
@@ -151,11 +155,12 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
                 IChemicalTank<?, ?> currentTank = chemicalTank.getTankFromCurrent(current);
                 if (dumping == ExtraTileEntityChemicalTank.GasMode.DUMPING) {
                     currentTank.shrinkStack(tier.getStorage() / 400, Action.EXECUTE);
-                } else {//dumping == GasMode.DUMPING_EXCESS
+                } else {// dumping == GasMode.DUMPING_EXCESS
                     long target = MathUtils.clampToLong(currentTank.getCapacity() * MekanismConfig.general.dumpExcessKeepRatio.get());
                     long stored = currentTank.getStored();
                     if (target < stored) {
-                        //Dump excess that we need to get to the target (capping at our eject rate for how much we can dump at once)
+                        // Dump excess that we need to get to the target (capping at our eject rate for how much we can
+                        // dump at once)
                         currentTank.shrinkStack(Math.min(stored - target, tier.getOutput()), Action.EXECUTE);
                     }
                 }
@@ -187,7 +192,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
         return type == SubstanceType.GAS || type == SubstanceType.INFUSION || type == SubstanceType.PIGMENT || type == SubstanceType.SLURRY;
     }
 
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded", "getFilledPercentage"}, docPlaceholder = "tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = { "getStored", "getCapacity", "getNeeded", "getFilledPercentage" }, docPlaceholder = "tank")
     IChemicalTank<?, ?> getCurrentTank() {
         MergedChemicalTank.Current current = chemicalTank.getCurrent();
         return chemicalTank.getTankFromCurrent(current == MergedChemicalTank.Current.EMPTY ? MergedChemicalTank.Current.GAS : current);
@@ -280,7 +285,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
         container.track(SyncableEnum.create(GasMode::byIndexStatic, GasMode.IDLE, () -> dumping, value -> dumping = value));
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod(requiresPublicSecurity = true, methodDescription = "Set the Dumping mode of the tank")
     void setDumpingMode(ExtraTileEntityChemicalTank.GasMode mode) throws ComputerException {
         validateSecurityIsPublic();
@@ -302,10 +307,11 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
         dumping = dumping.getPrevious();
         markForSave();
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 
     @NothingNullByDefault
     public enum GasMode implements IIncrementalEnum<ExtraTileEntityChemicalTank.GasMode>, IHasTextComponent {
+
         IDLE(MekanismLang.IDLE),
         DUMPING_EXCESS(MekanismLang.DUMPING_EXCESS),
         DUMPING(MekanismLang.DUMPING);

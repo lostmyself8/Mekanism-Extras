@@ -1,10 +1,12 @@
 package com.jerry.mekanism_extras.mixin;
 
-import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.api.APIExtraLang;
+import com.jerry.mekanism_extras.api.ExtraUpgrade;
+
 import mekanism.api.Upgrade;
 import mekanism.api.text.APILang;
 import mekanism.api.text.EnumColor;
+
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,8 +29,7 @@ public class MixinUpgrade {
     @Mutable
     private static Upgrade[] UPGRADES;
 
-    public MixinUpgrade() {
-    }
+    public MixinUpgrade() {}
 
     @Invoker("<init>")
     public static Upgrade upgrade$initInvoker(String internalName, int internalId, String name, APILang langKey, APILang descLangKey, int maxStack, EnumColor color) {

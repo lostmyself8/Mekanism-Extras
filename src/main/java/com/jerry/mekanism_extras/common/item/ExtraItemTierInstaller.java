@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.item;
 import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeUpgradeable;
+
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.Mekanism;
 import mekanism.common.block.attribute.Attribute;
@@ -11,6 +12,7 @@ import mekanism.common.tile.interfaces.ITierUpgradable;
 import mekanism.common.tile.interfaces.ITileDirectional;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -87,7 +90,7 @@ public class ExtraItemTierInstaller extends Item {
                         }
                     } else {
                         world.setBlockAndUpdate(pos, upgradeState);
-                        //TODO: Make it so it doesn't have to be a TileEntityMekanism?
+                        // TODO: Make it so it doesn't have to be a TileEntityMekanism?
                         TileEntityMekanism upgradedTile = WorldUtils.getTileEntity(TileEntityMekanism.class, world, pos);
                         if (upgradedTile == null) {
                             Mekanism.logger.warn("Error upgrading block at position: {} in {}.", pos, world);

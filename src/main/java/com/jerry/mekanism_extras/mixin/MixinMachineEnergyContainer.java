@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.mixin;
 import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.api.IMixinMachineEnergyContainer;
 import com.jerry.mekanism_extras.common.util.ExtraWorldUtils;
+
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.NBTConstants;
@@ -12,7 +13,9 @@ import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import mekanism.common.capabilities.energy.MachineEnergyContainer;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.nbt.CompoundTag;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -37,11 +40,14 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
     @Shadow
     public abstract void setMaxEnergy(FloatingLong maxEnergy);
 
-    @Shadow public abstract FloatingLong getBaseMaxEnergy();
+    @Shadow
+    public abstract FloatingLong getBaseMaxEnergy();
 
-    @Shadow public abstract void updateMaxEnergy();
+    @Shadow
+    public abstract void updateMaxEnergy();
 
-    @Shadow public abstract void updateEnergyPerTick();
+    @Shadow
+    public abstract void updateEnergyPerTick();
 
     protected MixinMachineEnergyContainer(FloatingLong maxEnergy, Predicate<@NotNull AutomationType> canExtract, Predicate<@NotNull AutomationType> canInsert, @Nullable IContentsListener listener) {
         super(maxEnergy, canExtract, canInsert, listener);

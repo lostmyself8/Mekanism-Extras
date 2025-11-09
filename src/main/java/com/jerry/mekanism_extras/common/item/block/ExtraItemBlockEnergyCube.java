@@ -1,10 +1,11 @@
 package com.jerry.mekanism_extras.common.item.block;
 
 import com.jerry.mekanism_extras.client.render.ExtraRenderPropertiesProvider;
-import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekanism_extras.common.tier.ECTier;
 import com.jerry.mekanism_extras.common.block.ExtraBlockEnergyCube;
+import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.capabilities.energy.item.ExtraRateLimitEnergyHandler;
+import com.jerry.mekanism_extras.common.tier.ECTier;
+
 import mekanism.api.NBTConstants;
 import mekanism.api.RelativeSide;
 import mekanism.api.text.EnumColor;
@@ -21,6 +22,7 @@ import mekanism.common.util.ItemDataUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.EnergyDisplay;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -28,15 +30,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
+import javax.annotation.Nonnull;
+
 public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEnergyCube> implements IItemSustainedInventory, CreativeTabDeferredRegister.ICustomCreativeTabContents {
+
     public ExtraItemBlockEnergyCube(ExtraBlockEnergyCube block) {
         super(block);
     }
@@ -61,7 +66,7 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
 
     @Override
     protected void addTypeDetails(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        //Don't call super so that we can exclude the stored energy from being shown as we show it in hover text
+        // Don't call super so that we can exclude the stored energy from being shown as we show it in hover text
     }
 
     @Override
@@ -107,7 +112,7 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
         ItemCapabilityWrapper.ItemCapability capability = ExtraRateLimitEnergyHandler.create(getAdvanceTier());
         int index = IntStream.range(0, capabilities.size()).filter(i -> capabilities.get(i) instanceof ItemStackEnergyHandler).findFirst().orElse(-1);
         if (index != -1) {
-            //This is likely always the path that will be taken
+            // This is likely always the path that will be taken
             capabilities.set(index, capability);
         } else {
             capabilities.add(capability);

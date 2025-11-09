@@ -2,16 +2,19 @@ package com.jerry.mekanism_extras.client.render.transmitter;
 
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraThermodynamicConductor;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityThermodynamicConductor;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
 import mekanism.common.util.HeatUtils;
+
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraRenderThermodynamicConductor extends RenderTransmitterBase<ExtraTileEntityThermodynamicConductor> {

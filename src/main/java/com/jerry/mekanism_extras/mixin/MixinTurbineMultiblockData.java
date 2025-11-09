@@ -1,8 +1,10 @@
 package com.jerry.mekanism_extras.mixin;
 
+import com.jerry.mekanism_extras.common.ExtraTags;
+
 import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
 import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
-import com.jerry.mekanism_extras.common.ExtraTags;
+
 import mekanism.api.chemical.gas.IGasTank;
 import mekanism.api.math.FloatingLong;
 import mekanism.api.math.MathUtils;
@@ -10,10 +12,12 @@ import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.tags.MekanismTags;
 import mekanism.generators.common.config.MekanismGeneratorsConfig;
 import mekanism.generators.common.content.turbine.TurbineMultiblockData;
+
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

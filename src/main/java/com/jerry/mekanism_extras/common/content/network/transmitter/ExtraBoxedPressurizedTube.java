@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.content.network.transmitter;
 
 import com.jerry.mekanism_extras.common.tier.transmitter.TTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.chemical.*;
@@ -14,7 +15,9 @@ import mekanism.common.upgrade.transmitter.PressurizedTubeUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.EnumUtils;
+
 import net.minecraft.core.Direction;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,14 +34,14 @@ public class ExtraBoxedPressurizedTube extends BoxedPressurizedTube implements I
         Set<Direction> connections = getConnections(ConnectionType.PULL);
         if (!connections.isEmpty()) {
             for (BoxedChemicalHandler connectedAcceptor : getAcceptorCache().getConnectedAcceptors(connections)) {
-                //Note: We recheck the buffer each time in case we ended up accepting chemical somewhere
+                // Note: We recheck the buffer each time in case we ended up accepting chemical somewhere
                 // and our buffer changed and is no longer empty
                 BoxedChemicalStack bufferWithFallback = getBufferWithFallback();
                 if (bufferWithFallback.isEmpty()) {
-                    //If the buffer is empty we need to try against each chemical type
+                    // If the buffer is empty we need to try against each chemical type
                     for (ChemicalType chemicalType : EnumUtils.CHEMICAL_TYPES) {
                         if (pullFromAcceptor(connectedAcceptor, chemicalType, bufferWithFallback, true)) {
-                            //If we successfully pulled into this tube, don't bother checking the other chemical types
+                            // If we successfully pulled into this tube, don't bother checking the other chemical types
                             break;
                         }
                     }
@@ -57,8 +60,7 @@ public class ExtraBoxedPressurizedTube extends BoxedPressurizedTube implements I
         return false;
     }
 
-    private <CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>, HANDLER extends IChemicalHandler<CHEMICAL, STACK>>
-    boolean pullFromAcceptor(HANDLER connectedAcceptor, BoxedChemicalStack bufferWithFallback, ChemicalType chemicalType, boolean bufferIsEmpty) {
+    private <CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>, HANDLER extends IChemicalHandler<CHEMICAL, STACK>> boolean pullFromAcceptor(HANDLER connectedAcceptor, BoxedChemicalStack bufferWithFallback, ChemicalType chemicalType, boolean bufferIsEmpty) {
         long availablePull = getAvailablePull(chemicalType);
         STACK received;
         if (bufferIsEmpty) {

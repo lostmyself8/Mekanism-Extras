@@ -2,9 +2,11 @@ package com.jerry.mekanism_extras.common.util;
 
 import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.common.ExtraLang;
+
 import mekanism.api.Upgrade;
 import mekanism.common.MekanismLang;
 import mekanism.common.tile.interfaces.IUpgradeTile;
+
 import net.minecraft.network.chat.Component;
 
 import java.util.List;

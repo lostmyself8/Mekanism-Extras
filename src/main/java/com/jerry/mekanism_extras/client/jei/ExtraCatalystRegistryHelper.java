@@ -3,19 +3,20 @@ package com.jerry.mekanism_extras.client.jei;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
+
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.providers.IItemProvider;
 import mekanism.client.jei.MekanismJEI;
 import mekanism.client.jei.MekanismJEIRecipeType;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.attribute.AttributeFactoryType;
+
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 
 public class ExtraCatalystRegistryHelper {
 
-    private ExtraCatalystRegistryHelper() {
-    }
+    private ExtraCatalystRegistryHelper() {}
 
     public static void register(IRecipeCatalystRegistration registry, IBlockProvider mekanismBlock, MekanismJEIRecipeType<?>... additionalCategories) {
         MekanismJEIRecipeType<?>[] categories = new MekanismJEIRecipeType<?>[additionalCategories.length + 1];
@@ -37,8 +38,8 @@ public class ExtraCatalystRegistryHelper {
     }
 
     public static void registerRecipeItem(IRecipeCatalystRegistration registry, IItemProvider mekanismItem, RecipeType<?>... categories) {
-        //这里会多注册一个最低级的原版机器，所以注释掉就好了
-//        registry.addRecipeCatalyst(mekanismItem.getItemStack(), categories);
+        // 这里会多注册一个最低级的原版机器，所以注释掉就好了
+        // registry.addRecipeCatalyst(mekanismItem.getItemStack(), categories);
         if (mekanismItem instanceof IBlockProvider mekanismBlock) {
             Attribute.ifPresent(mekanismBlock.getBlock(), AttributeFactoryType.class, attr -> {
                 for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {

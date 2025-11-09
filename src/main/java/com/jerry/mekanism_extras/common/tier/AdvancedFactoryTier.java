@@ -4,6 +4,7 @@ import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 
 public enum AdvancedFactoryTier implements IAdvancedTier {
+
     ABSOLUTE(AdvancedTier.ABSOLUTE, 11),
     SUPREME(AdvancedTier.SUPREME, 13),
     COSMIC(AdvancedTier.COSMIC, 15),

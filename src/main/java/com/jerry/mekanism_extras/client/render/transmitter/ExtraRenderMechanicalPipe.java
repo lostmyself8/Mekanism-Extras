@@ -1,11 +1,7 @@
 package com.jerry.mekanism_extras.client.render.transmitter;
 
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityMechanicalPipe;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.ModelRenderer;
 import mekanism.client.render.RenderResizableCuboid;
@@ -15,6 +11,7 @@ import mekanism.common.content.network.FluidNetwork;
 import mekanism.common.content.network.transmitter.MechanicalPipe;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.util.EnumUtils;
+
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
@@ -23,6 +20,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -32,7 +35,7 @@ public class ExtraRenderMechanicalPipe extends RenderTransmitterBase<ExtraTileEn
     private static final int stages = 100;
     private static final float height = 0.45F;
     private static final float offset = 0.02F;
-    //Note: this is basically used as an enum map (Direction), but null key is possible, which EnumMap doesn't support.
+    // Note: this is basically used as an enum map (Direction), but null key is possible, which EnumMap doesn't support.
     // 6 is used for null side, and 7 is used for null side but flowing vertically
     private static final Int2ObjectMap<Map<FluidStack, Int2ObjectMap<MekanismRenderer.Model3D>>> cachedLiquids = new Int2ObjectArrayMap<>(8);
 
@@ -51,7 +54,7 @@ public class ExtraRenderMechanicalPipe extends RenderTransmitterBase<ExtraTileEn
         FluidNetwork network = pipe.getTransmitterNetwork();
         FluidStack fluidStack = network.lastFluid;
         if (fluidStack.isEmpty()) {
-            //Shouldn't be the case but validate it
+            // Shouldn't be the case but validate it
             return;
         }
         float fluidScale = network.currentScale;
@@ -67,7 +70,8 @@ public class ExtraRenderMechanicalPipe extends RenderTransmitterBase<ExtraTileEn
         for (Direction side : EnumUtils.DIRECTIONS) {
             ConnectionType connectionType = pipe.getConnectionType(side);
             if (connectionType == ConnectionType.NORMAL) {
-                //If it is normal we need to render it manually so to have it be the correct dimensions instead of too narrow
+                // If it is normal we need to render it manually so to have it be the correct dimensions instead of too
+                // narrow
                 MekanismRenderer.renderObject(getModel(side, fluidStack, stage), matrix, buffer, color, glow, overlayLight, RenderResizableCuboid.FaceDisplay.FRONT, camera, tile.getBlockPos());
             } else if (connectionType != ConnectionType.NONE) {
                 connectionContents.add(side.getSerializedName() + connectionType.getSerializedName().toUpperCase(Locale.ROOT));
@@ -81,11 +85,12 @@ public class ExtraRenderMechanicalPipe extends RenderTransmitterBase<ExtraTileEn
                 }
             }
         }
-        //Render the base part if there is a horizontal connection, or we only have one vertical connection
+        // Render the base part if there is a horizontal connection, or we only have one vertical connection
         boolean renderBase = hasHorizontalSide || verticalSides < 2;
         MekanismRenderer.Model3D model = getModel(fluidStack, stage, renderBase);
         for (Direction side : EnumUtils.DIRECTIONS) {
-            //Render the side if there is no connection on that side, or it is a vertical connection, we have at least one side, and we are not full
+            // Render the side if there is no connection on that side, or it is a vertical connection, we have at least
+            // one side, and we are not full
             // We also render for push and pull as they use slightly smaller fill models which then means we would have
             // small gaps if we didn't render
             model.setSideRender(side, renderSides[side.ordinal()] || (side.getAxis().isVertical() && renderBase && stage != stages - 1));
@@ -165,8 +170,7 @@ public class ExtraRenderMechanicalPipe extends RenderTransmitterBase<ExtraTileEn
                     float max = 0.5F + stageRatio / 2;
                     model.xBounds(min, max)
                             .zBounds(min, max);
-                    return side == Direction.DOWN ? model.yBounds(0, 0.25F + offset)
-                            : model.yBounds(0.25F + offset + stageRatio, 1);//Up
+                    return side == Direction.DOWN ? model.yBounds(0, 0.25F + offset) : model.yBounds(0.25F + offset + stageRatio, 1);// Up
                 });
     }
 

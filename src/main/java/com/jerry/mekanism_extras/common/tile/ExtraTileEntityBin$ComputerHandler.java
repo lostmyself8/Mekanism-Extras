@@ -2,11 +2,11 @@ package com.jerry.mekanism_extras.common.tile;
 
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(
-        target = ExtraTileEntityBin.class
-)
+               target = ExtraTileEntityBin.class)
 public class ExtraTileEntityBin$ComputerHandler extends ComputerMethodFactory<ExtraTileEntityBin> {
 
     public ExtraTileEntityBin$ComputerHandler() {
@@ -18,34 +18,28 @@ public class ExtraTileEntityBin$ComputerHandler extends ComputerMethodFactory<Ex
         register(MethodData.builder("unlock", ExtraTileEntityBin$ComputerHandler::unlock_0).methodDescription("Unlock the Bin's fixed item type. The Bin must not be creative, or already unlocked"));
     }
 
-    public static Object binSlot$getStored(ExtraTileEntityBin subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object binSlot$getStored(ExtraTileEntityBin subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.getStack(subject.binSlot));
     }
 
-    public static Object getCapacity_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object getCapacity_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(subject.getCapacity());
     }
 
-    public static Object isLocked_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object isLocked_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(subject.isLocked());
     }
 
-    public static Object getLock_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object getLock_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(subject.getLock());
     }
 
-    public static Object lock_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object lock_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws ComputerException {
         subject.lock();
         return helper.voidResult();
     }
 
-    public static Object unlock_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object unlock_0(ExtraTileEntityBin subject, BaseComputerHelper helper) throws ComputerException {
         subject.unlock();
         return helper.voidResult();
     }

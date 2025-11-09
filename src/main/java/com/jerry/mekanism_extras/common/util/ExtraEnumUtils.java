@@ -1,10 +1,11 @@
 package com.jerry.mekanism_extras.common.util;
 
 import com.jerry.mekanism_extras.common.resource.ExtraResource;
-import com.jerry.mekanism_extras.common.tier.*;
 import com.jerry.mekanism_extras.common.resource.ore.ExtraOreType;
+import com.jerry.mekanism_extras.common.tier.*;
 
 public class ExtraEnumUtils {
+
     public static final AdvancedFactoryTier[] ADVANCED_FACTORY_TIERS = AdvancedFactoryTier.values();
     public static final ECTier[] ENERGY_CUBE_TIERS = ECTier.values();
     public static final CTTier[] CHEMICAL_TANK_TIERS = CTTier.values();

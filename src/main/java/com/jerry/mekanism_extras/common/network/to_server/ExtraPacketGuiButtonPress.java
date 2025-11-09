@@ -1,13 +1,15 @@
 package com.jerry.mekanism_extras.common.network.to_server;
 
-import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
+import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.attribute.AttributeGui;
 import mekanism.common.network.IMekanismPacket;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,6 +21,7 @@ import net.minecraftforge.network.NetworkHooks;
 import java.util.function.BiFunction;
 
 public class ExtraPacketGuiButtonPress implements IMekanismPacket {
+
     private final Type type;
     private ClickedTileButton tileButton;
     private int extra;
@@ -50,7 +53,7 @@ public class ExtraPacketGuiButtonPress implements IMekanismPacket {
             if (tile != null) {
                 MenuProvider provider = tileButton.getProvider(tile, extra);
                 if (provider != null) {
-                    //Ensure valid data
+                    // Ensure valid data
                     NetworkHooks.openScreen(player, provider, buf -> {
                         buf.writeBlockPos(tilePosition);
                         buf.writeVarInt(extra);
@@ -77,8 +80,9 @@ public class ExtraPacketGuiButtonPress implements IMekanismPacket {
     }
 
     public enum ClickedTileButton {
+
         BACK_BUTTON((tile, extra) -> {
-            //Special handling to basically reset to the tiles default gui container
+            // Special handling to basically reset to the tiles default gui container
             AttributeGui attributeGui = Attribute.get(tile.getBlockType(), AttributeGui.class);
             if (attributeGui != null) {
                 return attributeGui.getProvider(tile);
@@ -97,6 +101,7 @@ public class ExtraPacketGuiButtonPress implements IMekanismPacket {
             }
             return null;
         });
+
         private final BiFunction<TileEntityMekanism, Integer, MenuProvider> providerFromTile;
 
         ClickedTileButton(BiFunction<TileEntityMekanism, Integer, MenuProvider> providerFromTile) {

@@ -1,53 +1,51 @@
 package com.jerry.mekanism_extras.common.registry;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
+import com.jerry.mekanism_extras.common.block.ExtraBlockEnergyCube;
 import com.jerry.mekanism_extras.common.block.ExtraBlockOre;
+import com.jerry.mekanism_extras.common.block.ExtraBlockRadioactiveWasteBarrel;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeTier;
+import com.jerry.mekanism_extras.common.block.basic.ExtraBlockBin;
+import com.jerry.mekanism_extras.common.block.basic.ExtraBlockFluidTank;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockResource;
 import com.jerry.mekanism_extras.common.block.prefab.BlockAdvancedFactoryMachine;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockLogisticalTransporter;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockMechanicalPipe;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockPressurizedTube;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockThermodynamicConductor;
+import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockUniversalCable;
 import com.jerry.mekanism_extras.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekanism_extras.common.integration.Addons;
-import com.jerry.mekanism_extras.common.item.block.machine.ItemBlockAdvancedFactory;
-import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
-import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
-import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
-import com.jerry.mekanism_extras.common.block.basic.ExtraBlockBin;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockBin;
-import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockChemicalTank;
-import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
-import com.jerry.mekanism_extras.common.block.ExtraBlockEnergyCube;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockEnergyCube;
-import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
-import com.jerry.mekanism_extras.common.block.basic.ExtraBlockFluidTank;
-import com.jerry.mekanism_extras.common.item.block.machine.ExtraItemBlockFluidTank;
-import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
-import com.jerry.mekanism_extras.common.block.ExtraBlockRadioactiveWasteBarrel;
+import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockInductionCell;
+import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockInductionProvider;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockRadioactiveWasteBarrel;
-import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockUniversalCable;
-import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockUniversalCable;
-import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockLogisticalTransporter;
-import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockLogisticalTransporter;
-import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockMechanicalPipe;
-import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockMechanicalPipe;
-import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockThermodynamicConductor;
-import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockThermodynamicConductor;
-import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockPressurizedTube;
-import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockPressurizedTube;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockResource;
+import com.jerry.mekanism_extras.common.item.block.machine.ExtraItemBlockFluidTank;
+import com.jerry.mekanism_extras.common.item.block.machine.ItemBlockAdvancedFactory;
+import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockLogisticalTransporter;
+import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockMechanicalPipe;
+import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockPressurizedTube;
+import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockThermodynamicConductor;
+import com.jerry.mekanism_extras.common.item.block.transmitter.ExtraItemBlockUniversalCable;
 import com.jerry.mekanism_extras.common.resource.ExtraBlockResourceInfo;
 import com.jerry.mekanism_extras.common.resource.ore.ExtraOreBlockType;
 import com.jerry.mekanism_extras.common.resource.ore.ExtraOreType;
+import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
+import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
+import com.jerry.mekanism_extras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekanism_extras.common.tile.multiblock.*;
-import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockInductionCell;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
-import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockInductionProvider;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
-import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
+
 import mekanism.api.tier.ITier;
 import mekanism.common.block.attribute.AttributeTier;
 import mekanism.common.block.interfaces.IHasDescription;
@@ -65,10 +63,15 @@ import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.resource.BlockResourceInfo;
 import mekanism.common.tier.*;
 import mekanism.common.util.EnumUtils;
+
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -78,6 +81,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ExtraBlock {
+
     public static final BlockDeferredRegister EXTRA_BLOCK = new BlockDeferredRegister(MekanismExtras.MODID);
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(String tierName, String suffix, Supplier<? extends BLOCK> blockSupplier, Function<BLOCK, ITEM> itemCreator) {
@@ -94,10 +98,11 @@ public class ExtraBlock {
         return EXTRA_BLOCK.register(registerName, () -> blockSupplier.apply(tier.getAdvanceTier().getMapColor()), itemCreator);
     }
 
-//    public static final BlockRegistryObject<Block, BlockItem> NAQUADAH_ORE = EXTRA_BLOCK.register("naquadah_ore",
-//            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK)));
-//    public static final BlockRegistryObject<Block, BlockItem> END_NAQUADAH_ORE = EXTRA_BLOCK.register("end_naquadah_ore",
-//            () -> new Block(BlockBehaviour.Properties.copy(Blocks.END_STONE)));
+    // public static final BlockRegistryObject<Block, BlockItem> NAQUADAH_ORE = EXTRA_BLOCK.register("naquadah_ore",
+    // () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK)));
+    // public static final BlockRegistryObject<Block, BlockItem> END_NAQUADAH_ORE =
+    // EXTRA_BLOCK.register("end_naquadah_ore",
+    // () -> new Block(BlockBehaviour.Properties.copy(Blocks.END_STONE)));
 
     public static final Map<ExtraOreType, ExtraOreBlockType> ORES = new LinkedHashMap<>();
 
@@ -286,7 +291,7 @@ public class ExtraBlock {
     }
 
     public static void register(IEventBus eventBus) {
-//        BLOCKS.register(eventBus);
+        // BLOCKS.register(eventBus);
         EXTRA_BLOCK.register(eventBus);
     }
 }

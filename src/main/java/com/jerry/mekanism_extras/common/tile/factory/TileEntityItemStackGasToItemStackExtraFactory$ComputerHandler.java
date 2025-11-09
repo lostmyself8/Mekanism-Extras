@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.tile.factory;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(target = TileEntityItemStackGasToItemStackExtraFactory.class)
@@ -18,32 +19,27 @@ public class TileEntityItemStackGasToItemStackExtraFactory$ComputerHandler exten
     }
 
     public static Object extraSlot$getChemicalItem(
-            TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                                   TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.getStack(subject.extraSlot));
     }
 
     public static Object gasTank$getChemical(
-            TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                             TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getStack(subject.gasTank));
     }
 
     public static Object gasTank$getChemicalCapacity(
-            TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                                     TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getCapacity(subject.gasTank));
     }
 
     public static Object gasTank$getChemicalNeeded(
-            TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                                   TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getNeeded(subject.gasTank));
     }
 
     public static Object gasTank$getChemicalFilledPercentage(
-            TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                                             TileEntityItemStackGasToItemStackExtraFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getFilledPercentage(subject.gasTank));
     }
 

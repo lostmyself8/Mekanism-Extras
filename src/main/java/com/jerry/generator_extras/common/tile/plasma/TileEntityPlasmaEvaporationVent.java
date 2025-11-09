@@ -2,6 +2,7 @@ package com.jerry.generator_extras.common.tile.plasma;
 
 import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationMultiblockData;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
@@ -10,17 +11,19 @@ import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.lib.multiblock.IMultiblockEjector;
 import mekanism.common.tile.base.SubstanceType;
 import mekanism.common.util.ChemicalUtil;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.Set;
 
 public class TileEntityPlasmaEvaporationVent
-        extends TileEntityPlasmaEvaporationBlock
-        implements IMultiblockEjector {
+                                             extends TileEntityPlasmaEvaporationBlock
+                                             implements IMultiblockEjector {
 
     private Set<Direction> outputDirections = Collections.emptySet();
 
@@ -48,7 +51,7 @@ public class TileEntityPlasmaEvaporationVent
 
     @Override
     public boolean persists(SubstanceType type) {
-        //Do not handle fluid when it comes to syncing it/saving this tile to disk
+        // Do not handle fluid when it comes to syncing it/saving this tile to disk
         if (type == SubstanceType.GAS) {
             return false;
         }
@@ -59,5 +62,4 @@ public class TileEntityPlasmaEvaporationVent
     public void setEjectSides(Set<Direction> sides) {
         outputDirections = sides;
     }
-
 }

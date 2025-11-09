@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.content.matrix;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(target = ExtraMatrixMultiblockData.class)
@@ -29,22 +30,22 @@ public class ExtraMatrixMultiblockData$ComputerHandler extends ComputerMethodFac
     }
 
     public static Object getTransferCap_0(ExtraMatrixMultiblockData subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                        throws ComputerException {
         return helper.convert(subject.getTransferCap());
     }
 
     public static Object getLastInput_0(ExtraMatrixMultiblockData subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                      throws ComputerException {
         return helper.convert(subject.getLastInput());
     }
 
     public static Object getLastOutput_0(ExtraMatrixMultiblockData subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                       throws ComputerException {
         return helper.convert(subject.getLastOutput());
     }
 
     public static Object getInstalledCells_0(ExtraMatrixMultiblockData subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                           throws ComputerException {
         return helper.convert(subject.getCellCount());
     }
 

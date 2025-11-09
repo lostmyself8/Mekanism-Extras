@@ -1,11 +1,15 @@
 package com.jerry.generator_extras.common;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+
 import mekanism.api.text.ILangEntry;
+
 import net.minecraft.Util;
+
 import org.jetbrains.annotations.NotNull;
 
 public enum ExtraGenLang implements ILangEntry {
+
     // Naquadah
     NAQUADAH_REACTOR("reactor", "naquadah_reactor"),
     PCS_PRODUCTION("reactor", "stats.pcs_production"),

@@ -2,6 +2,7 @@ package com.jerry.generator_extras.common.tile.naquadah;
 
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
@@ -25,12 +26,14 @@ import mekanism.common.util.WorldUtils;
 import mekanism.common.util.text.BooleanStateDisplay;
 import mekanism.generators.common.GeneratorsLang;
 import mekanism.generators.common.tile.fusion.TileEntityFusionReactorBlock;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,6 +41,7 @@ import java.util.Collections;
 import java.util.Set;
 
 public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasing implements IMultiblockEjector {
+
     private Set<Direction> outputDirections = Collections.emptySet();
 
     public TileEntityNaquadahReactorPort(BlockPos pos, BlockState state) {
@@ -48,7 +52,7 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
     @NotNull
     @Override
     public IChemicalTankHolder<Gas, GasStack, IGasTank> getInitialGasTanks(IContentsListener listener) {
-        //Note: We can just use a proxied holder as the input/output restrictions are done in the tanks themselves
+        // Note: We can just use a proxied holder as the input/output restrictions are done in the tanks themselves
         return side -> getMultiblock().getGasTanks(side);
     }
 
@@ -126,7 +130,7 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
         return getMultiblock().getCurrentRedstoneLevel();
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @Override
     public boolean exposesMultiblockToComputer() {
         return false;
@@ -141,5 +145,5 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
     void setMode(boolean output) {
         setActive(output);
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

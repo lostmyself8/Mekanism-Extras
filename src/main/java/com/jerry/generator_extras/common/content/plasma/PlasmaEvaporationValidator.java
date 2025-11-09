@@ -6,8 +6,7 @@ import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationController;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaEvaporationVent;
 import com.jerry.generator_extras.common.tile.plasma.TileEntityPlasmaInsulationLayer;
-import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+
 import mekanism.common.MekanismLang;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.math.voxel.VoxelCuboid;
@@ -17,11 +16,15 @@ import mekanism.common.lib.multiblock.FormationProtocol.CasingType;
 import mekanism.common.lib.multiblock.FormationProtocol.FormationResult;
 import mekanism.common.lib.multiblock.StructureHelper;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
+
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +52,8 @@ public class PlasmaEvaporationValidator extends CuboidStructureValidator<PlasmaE
             return CasingType.VALVE;
         } else if (BlockType.is(block, ExtraGenBlockTypes.PLASMA_EVAPORATION_CONTROLLER,
                 ExtraGenBlockTypes.PLASMA_EVAPORATION_VENT)) {
-            return CasingType.OTHER;
-        }
+                    return CasingType.OTHER;
+                }
         return CasingType.INVALID;
     }
 
@@ -111,9 +114,9 @@ public class PlasmaEvaporationValidator extends CuboidStructureValidator<PlasmaE
 
         // No problems, update the multiblock data
         // TODO: It's really strange that these 3 attributes can't be synced. Why?
-//        structure.insulationLayerY = insulationLayerY;
-//        structure.lowerVolume = lowerVolume;
-//        structure.higherVolume = higherVolume;
+        // structure.insulationLayerY = insulationLayerY;
+        // structure.lowerVolume = lowerVolume;
+        // structure.higherVolume = higherVolume;
         structure.updateVentData(ventData);
         return FormationResult.SUCCESS;
     }

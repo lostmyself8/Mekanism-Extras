@@ -1,8 +1,10 @@
 package com.jerry.mekanism_extras.mixin;
 
+import com.jerry.mekanism_extras.api.ExtraNBTConstants;
+
 import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
 import com.jerry.generator_extras.common.tile.plasma.IFusionPlasmaHolder;
-import com.jerry.mekanism_extras.api.ExtraNBTConstants;
+
 import mekanism.api.Action;
 import mekanism.api.chemical.gas.IGasTank;
 import mekanism.common.capabilities.chemical.multiblock.MultiblockChemicalTankBuilder;
@@ -10,9 +12,11 @@ import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.util.NBTUtils;
 import mekanism.generators.common.content.fusion.FusionReactorMultiblockData;
 import mekanism.generators.common.tile.fusion.TileEntityFusionReactorBlock;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -30,8 +34,11 @@ public abstract class MixinFusionReactorMultiblockData extends MultiblockData {
     @Unique
     private boolean meke$outputPlasma = false;
 
-    @Shadow private int injectionRate;
-    @Shadow @Final public static int MAX_INJECTION;
+    @Shadow
+    private int injectionRate;
+    @Shadow
+    @Final
+    public static int MAX_INJECTION;
 
     public MixinFusionReactorMultiblockData(BlockEntity tile) {
         super(tile);
@@ -39,7 +46,7 @@ public abstract class MixinFusionReactorMultiblockData extends MultiblockData {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void meke$initPlasmaTank(TileEntityFusionReactorBlock tile, CallbackInfo ci) {
-        gasTanks.add(meke$plasmaTank = MultiblockChemicalTankBuilder.GAS.output(this, ((IFusionPlasmaHolder)this)::getMaxPlasma, gas -> gas == ExtraGenGases.HELIUM_PLASMA.getChemical(), this));
+        gasTanks.add(meke$plasmaTank = MultiblockChemicalTankBuilder.GAS.output(this, ((IFusionPlasmaHolder) this)::getMaxPlasma, gas -> gas == ExtraGenGases.HELIUM_PLASMA.getChemical(), this));
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
@@ -61,12 +68,12 @@ public abstract class MixinFusionReactorMultiblockData extends MultiblockData {
 
     @Inject(method = "readUpdateTag", at = @At("TAIL"))
     private void meke$updateOutputPlasmaFromNBT(CompoundTag tag, CallbackInfo ci) {
-        NBTUtils.setBooleanIfPresent(tag, ExtraNBTConstants.OUTPUT_PLASMA, ((IFusionPlasmaHolder)this)::setOutputPlasma);
+        NBTUtils.setBooleanIfPresent(tag, ExtraNBTConstants.OUTPUT_PLASMA, ((IFusionPlasmaHolder) this)::setOutputPlasma);
     }
 
     @Inject(method = "writeUpdateTag", at = @At("TAIL"))
     private void meke$updateOutputPlasmaToNBT(CompoundTag tag, CallbackInfo ci) {
-        tag.putBoolean(ExtraNBTConstants.OUTPUT_PLASMA, ((IFusionPlasmaHolder)this).canOutputPlasma());
+        tag.putBoolean(ExtraNBTConstants.OUTPUT_PLASMA, ((IFusionPlasmaHolder) this).canOutputPlasma());
     }
 
     @Unique

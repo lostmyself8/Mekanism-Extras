@@ -1,15 +1,15 @@
 package com.jerry.mekanism_extras.common.config;
 
 import com.jerry.mekanism_extras.common.integration.Addons;
+
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static com.jerry.generator_extras.common.config.GenLoadConfig.generatorConfig;
 
 public class LoadConfig {
-    private LoadConfig() {
 
-    }
+    private LoadConfig() {}
 
     public static final ExtraStorageConfig extraStorage = new ExtraStorageConfig();
     public static final ExtraConfig extraConfig = new ExtraConfig();

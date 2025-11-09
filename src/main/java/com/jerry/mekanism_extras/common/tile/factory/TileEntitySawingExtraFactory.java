@@ -1,7 +1,8 @@
 package com.jerry.mekanism_extras.common.tile.factory;
 
-import java.util.List;
-import java.util.Set;
+import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
+import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.MathUtils;
@@ -19,8 +20,6 @@ import mekanism.common.Mekanism;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.integration.computer.ComputerException;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
-import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
-import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryOutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
 import mekanism.common.recipe.MekanismRecipeType;
@@ -31,12 +30,17 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.upgrade.SawmillUpgradeData;
 import mekanism.common.util.InventoryUtils;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemHandlerHelper;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Set;
 
 public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<SawmillRecipe> implements ItemRecipeLookupHandler<SawmillRecipe> {
 
@@ -45,8 +49,7 @@ public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<Sawmill
             RecipeError.NOT_ENOUGH_INPUT,
             RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
             TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR,
-            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
-    );
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(RecipeError.NOT_ENOUGH_ENERGY);
 
     protected IInputHandler<@NotNull ItemStack>[] inputHandlers;
@@ -67,7 +70,8 @@ public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<Sawmill
             int xPos = baseX + (i * baseXMult);
             AdvancedFactoryOutputInventorySlot outputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingListener, xPos, 57);
             AdvancedFactoryOutputInventorySlot secondaryOutputSlot = AdvancedFactoryOutputInventorySlot.at(this, updateSortingListener, xPos, 77);
-            //Note: As we are an item factory that has comparator's based on items we can just use the monitor as a listener directly
+            // Note: As we are an item factory that has comparator's based on items we can just use the monitor as a
+            // listener directly
             AdvancedFactoryInputInventorySlot inputSlot = AdvancedFactoryInputInventorySlot.create(this, i, outputSlot, secondaryOutputSlot, recipeCacheLookupMonitors[i], xPos, 13);
             int index = i;
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, index)));
@@ -103,7 +107,7 @@ public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<Sawmill
         return getRecipeType().getInputCache().findTypeBasedRecipe(level, fallbackInput, recipe -> {
             ChanceOutput chanceOutput = recipe.getOutput(fallbackInput);
             if (InventoryUtils.areItemsStackable(chanceOutput.getMainOutput(), output)) {
-                //If the input is good and the primary output matches, make sure that the secondary
+                // If the input is good and the primary output matches, make sure that the secondary
                 // output of this recipe will stack with what is currently in the secondary slot
                 if (extra.isEmpty()) {
                     return true;
@@ -144,7 +148,7 @@ public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<Sawmill
     @Override
     public void parseUpgradeData(@NotNull IUpgradeData upgradeData) {
         if (upgradeData instanceof SawmillUpgradeData) {
-            //Validate we have the correct type of data before passing it upwards
+            // Validate we have the correct type of data before passing it upwards
             super.parseUpgradeData(upgradeData);
         } else {
             Mekanism.logger.warn("Unhandled upgrade data.", new Throwable());
@@ -157,13 +161,13 @@ public class TileEntitySawingExtraFactory extends TileEntityExtraFactory<Sawmill
         return new SawmillUpgradeData(redstone, getControlType(), getEnergyContainer(), progress, energySlot, inputSlots, outputSlots, isSorting(), getComponents());
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod
     ItemStack getSecondaryOutput(int process) throws ComputerException {
         validateValidProcess(process);
         IInventorySlot secondaryOutputSlot = processInfoSlots[process].secondaryOutputSlot();
-        //This should never be null, but in case it is, handle it
+        // This should never be null, but in case it is, handle it
         return secondaryOutputSlot == null ? ItemStack.EMPTY : secondaryOutputSlot.getStack();
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

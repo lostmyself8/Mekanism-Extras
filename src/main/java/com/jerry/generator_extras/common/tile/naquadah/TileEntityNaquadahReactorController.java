@@ -2,17 +2,21 @@ package com.jerry.generator_extras.common.tile.naquadah;
 
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.tile.base.SubstanceType;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 public class TileEntityNaquadahReactorController extends TileEntityNaquadahReactorCasing {
+
     public TileEntityNaquadahReactorController(BlockPos pos, BlockState state) {
         super(ExtraGenBlocks.NAQUADAH_REACTOR_CONTROLLER, pos, state);
-        //Never allow the gas handler, fluid handler, or energy cap to be enabled here even though internally we can handle both of them
+        // Never allow the gas handler, fluid handler, or energy cap to be enabled here even though internally we can
+        // handle both of them
         addDisabledCapabilities(Capabilities.GAS_HANDLER, ForgeCapabilities.FLUID_HANDLER, Capabilities.HEAT_HANDLER);
         addDisabledCapabilities(EnergyCompatUtils.getEnabledEnergyCapabilities());
         addSemiDisabledCapability(ForgeCapabilities.ITEM_HANDLER, () -> !getMultiblock().isFormed());

@@ -1,10 +1,13 @@
 package com.jerry.mekanism_extras.common.resource;
 
 import com.jerry.mekanism_extras.common.ExtraTags;
+
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ResourceType;
+
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +23,8 @@ public enum ExtraResource implements IResource {
     @NotNull
     private final String name;
     private final int tint;
-    //Note: This is a supplier because of the chicken and egg of referencing OreType and OreType referencing PrimaryResource
+    // Note: This is a supplier because of the chicken and egg of referencing OreType and OreType referencing
+    // PrimaryResource
     @NotNull
     private final Supplier<TagKey<Item>> oreTag;
     private final boolean isVanilla;

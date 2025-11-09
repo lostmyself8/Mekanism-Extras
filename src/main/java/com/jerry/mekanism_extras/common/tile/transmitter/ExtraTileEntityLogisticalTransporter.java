@@ -3,13 +3,16 @@ package com.jerry.mekanism_extras.common.tile.transmitter;
 import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraLogisticalTransporter;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+
 import mekanism.api.providers.IBlockProvider;
 import mekanism.client.model.data.TransmitterModelData;
 import mekanism.common.block.states.BlockStateHelper;
 import mekanism.common.block.states.TransmitterType;
 import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraTileEntityLogisticalTransporter extends ExtraTileEntityLogisticalTransporterBase {

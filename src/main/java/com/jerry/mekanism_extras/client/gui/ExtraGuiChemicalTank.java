@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.client.gui;
 
 import com.jerry.mekanism_extras.client.gui.element.button.ExtraGuiGasMode;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
+
 import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.text.ILangEntry;
 import mekanism.client.gui.GuiConfigurableTile;
@@ -11,15 +12,18 @@ import mekanism.client.gui.element.bar.GuiMergedChemicalBar;
 import mekanism.common.MekanismLang;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExtraGuiChemicalTank extends GuiConfigurableTile<ExtraTileEntityChemicalTank, MekanismTileContainer<ExtraTileEntityChemicalTank>> {
+
     public ExtraGuiChemicalTank(MekanismTileContainer<ExtraTileEntityChemicalTank> container, Inventory inv, Component title) {
         super(container, inv, title);
         dynamicSlots = true;
@@ -27,7 +31,7 @@ public class ExtraGuiChemicalTank extends GuiConfigurableTile<ExtraTileEntityChe
 
     @Override
     protected void addGuiElements() {
-        //Add the side holder before the slots, as it holds a couple of the slots
+        // Add the side holder before the slots, as it holds a couple of the slots
         addRenderableWidget(GuiSideHolder.armorHolder(this));
         super.addGuiElements();
         addRenderableWidget(new GuiMergedChemicalBar<>(this, tile, tile.getChemicalTank(), 42, 16, 116, 10, true));

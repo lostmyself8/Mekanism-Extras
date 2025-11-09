@@ -6,6 +6,7 @@ import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
 import mekanism.common.capabilities.chemical.variable.VariableCapacityChemicalTank;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,6 +15,7 @@ import java.util.function.LongSupplier;
 import java.util.function.Predicate;
 
 public abstract class ExtraRateLimitChemicalTank<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends VariableCapacityChemicalTank<CHEMICAL, STACK> {
+
     private final LongSupplier rate;
 
     public ExtraRateLimitChemicalTank(LongSupplier rate, LongSupplier capacity, BiPredicate<@NotNull CHEMICAL, @NotNull AutomationType> canExtract,
@@ -25,7 +27,7 @@ public abstract class ExtraRateLimitChemicalTank<CHEMICAL extends Chemical<CHEMI
 
     @Override
     protected long getRate(@Nullable AutomationType automationType) {
-        //Allow unknown or manual interaction to bypass rate limit for the item
+        // Allow unknown or manual interaction to bypass rate limit for the item
         return automationType == null || automationType == AutomationType.MANUAL ? super.getRate(automationType) : rate.getAsLong();
     }
 }

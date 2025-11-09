@@ -2,6 +2,7 @@ package com.jerry.generator_extras.client.gui.naquadah;
 
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
+
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.button.MekanismImageButton;
 import mekanism.client.gui.element.tab.GuiEnergyTab;
@@ -14,12 +15,14 @@ import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.UnitDisplayUtils;
 import mekanism.common.util.text.EnergyDisplay;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 import java.util.List;
 
 public class GuiNaquadahReactorInfo extends GuiMekanismTile<TileEntityNaquadahReactorController, EmptyTileContainer<TileEntityNaquadahReactorController>> {
+
     protected GuiNaquadahReactorInfo(EmptyTileContainer<TileEntityNaquadahReactorController> container, Inventory inv, Component title) {
         super(container, inv, title);
         titleLabelY = 5;

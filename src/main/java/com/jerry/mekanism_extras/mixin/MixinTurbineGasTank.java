@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.mixin;
 
 import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
+
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
@@ -8,6 +9,7 @@ import mekanism.api.chemical.gas.Gas;
 import mekanism.common.capabilities.chemical.multiblock.MultiblockChemicalTankBuilder;
 import mekanism.common.registries.MekanismGases;
 import mekanism.generators.common.content.turbine.TurbineGasTank;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,5 +1,7 @@
 package com.jerry.generator_extras.common.genregistry;
 
+import com.jerry.mekanism_extras.MekanismExtras;
+
 import com.jerry.generator_extras.common.block.reactor.BlockLeadCoatedLaserFocusMatrix;
 import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
@@ -7,13 +9,14 @@ import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactor
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorPort;
 import com.jerry.generator_extras.common.tile.plasma.*;
-import com.jerry.mekanism_extras.MekanismExtras;
+
 import mekanism.common.block.basic.BlockStructuralGlass;
 import mekanism.common.block.interfaces.IHasDescription;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
+
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -43,9 +46,11 @@ public class ExtraGenBlocks {
     private static <BLOCK extends Block & IHasDescription> BlockRegistryObject<BLOCK, ItemBlockTooltip<BLOCK>> registerBlock(String name, Supplier<? extends BLOCK> blockSupplier) {
         return EXTRA_GEN_BLOCK.registerDefaultProperties(name, blockSupplier, ItemBlockTooltip::new);
     }
+
     private static <BLOCK extends Block & IHasDescription> BlockRegistryObject<BLOCK, ItemBlockTooltip<BLOCK>> registerTooltipBlock(String name, Supplier<BLOCK> blockCreator) {
         return EXTRA_GEN_BLOCK.registerDefaultProperties(name, blockCreator, ItemBlockTooltip::new);
     }
+
     public static void register(IEventBus eventBus) {
         EXTRA_GEN_BLOCK.register(eventBus);
     }

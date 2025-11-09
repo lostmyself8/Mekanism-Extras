@@ -1,15 +1,19 @@
 package com.jerry.generator_extras.common.genregistry;
 
+import com.jerry.mekanism_extras.MekanismExtras;
+
+import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
 import com.jerry.generator_extras.common.tile.naquadah.*;
 import com.jerry.generator_extras.common.tile.plasma.*;
-import com.jerry.mekanism_extras.MekanismExtras;
+
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
-import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
 import mekanism.common.tile.base.TileEntityMekanism;
+
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ExtraGenTileEntityTypes {
+
     public static final TileEntityTypeDeferredRegister GEN_TILE_ENTITY_TYPES = new TileEntityTypeDeferredRegister(MekanismExtras.MODID);
     // Naquadah Reactor
     public static final TileEntityTypeRegistryObject<TileEntityNaquadahReactorController> NAQUADAH_REACTOR_CONTROLLER = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.NAQUADAH_REACTOR_CONTROLLER, TileEntityNaquadahReactorController::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);

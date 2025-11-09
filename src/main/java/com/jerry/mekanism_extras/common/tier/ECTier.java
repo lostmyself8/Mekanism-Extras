@@ -2,9 +2,12 @@ package com.jerry.mekanism_extras.common.tier;
 
 import com.jerry.mekanism_extras.api.tier.AdvancedTier;
 import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
+
 import mekanism.api.math.FloatingLong;
 import mekanism.common.config.value.CachedFloatingLongValue;
+
 import net.minecraft.util.StringRepresentable;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -59,7 +62,8 @@ public enum ECTier implements IAdvancedTier, StringRepresentable {
     }
 
     /**
-     * ONLY CALL THIS FROM TierConfig. It is used to give the EnergyCubeTier a reference to the actual config value object
+     * ONLY CALL THIS FROM TierConfig. It is used to give the EnergyCubeTier a reference to the actual config value
+     * object
      */
     public void setConfigReference(CachedFloatingLongValue storageReference, CachedFloatingLongValue outputReference) {
         this.storageReference = storageReference;

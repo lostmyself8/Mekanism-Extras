@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.client.gui;
 
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+
 import mekanism.api.math.FloatingLong;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.bar.GuiBar;
@@ -12,9 +13,11 @@ import mekanism.client.gui.element.tab.GuiEnergyTab;
 import mekanism.common.MekanismLang;
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.util.text.EnergyDisplay;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -30,6 +33,7 @@ public class GuiReinforcedMatrixStats extends GuiMekanismTile<TileEntityReinforc
         super.addGuiElements();
         addRenderableWidget(new GuiReinforcedMatrixTab(this, tile, GuiReinforcedMatrixTab.MatrixTab.MAIN));
         addRenderableWidget(new GuiEnergyGauge(new GuiEnergyGauge.IEnergyInfoHandler() {
+
             @Override
             public FloatingLong getEnergy() {
                 return tile.getMultiblock().getEnergy();
@@ -41,6 +45,7 @@ public class GuiReinforcedMatrixStats extends GuiMekanismTile<TileEntityReinforc
             }
         }, GaugeType.STANDARD, this, 6, 13));
         addRenderableWidget(new GuiVerticalRateBar(this, new GuiBar.IBarInfoHandler() {
+
             @Override
             public Component getTooltip() {
                 return MekanismLang.MATRIX_RECEIVING_RATE.translate(EnergyDisplay.of(tile.getMultiblock().getLastInput()));
@@ -53,6 +58,7 @@ public class GuiReinforcedMatrixStats extends GuiMekanismTile<TileEntityReinforc
             }
         }, 30, 13));
         addRenderableWidget(new GuiVerticalRateBar(this, new GuiBar.IBarInfoHandler() {
+
             @Override
             public Component getTooltip() {
                 return MekanismLang.MATRIX_OUTPUTTING_RATE.translate(EnergyDisplay.of(tile.getMultiblock().getLastOutput()));

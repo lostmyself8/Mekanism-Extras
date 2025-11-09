@@ -2,6 +2,7 @@ package com.jerry.generator_extras.common.content.naquadah;
 
 import mekanism.api.NBTConstants;
 import mekanism.common.lib.multiblock.MultiblockCache;
+
 import net.minecraft.nbt.CompoundTag;
 
 public class NaquadahReactorCache extends MultiblockCache<NaquadahReactorMultiblockData> {
@@ -12,10 +13,10 @@ public class NaquadahReactorCache extends MultiblockCache<NaquadahReactorMultibl
 
     private int getInjectionRate() {
         if (injectionRate == -1) {
-            //If it never got set default to 2
+            // If it never got set default to 2
             return 2;
         }
-        //Otherwise, return the actual so that it can be manually set down to zero
+        // Otherwise, return the actual so that it can be manually set down to zero
         return injectionRate;
     }
 

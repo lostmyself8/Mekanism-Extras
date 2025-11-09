@@ -4,19 +4,20 @@ import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 @MethodFactory(target = NaquadahReactorMultiblockData.class)
 public class NaquadahReactorMultiblockData$ComputerHandler extends ComputerMethodFactory<NaquadahReactorMultiblockData> {
 
-    private final String[] NAMES_rate = new String[]{"rate"};
+    private final String[] NAMES_rate = new String[] { "rate" };
 
-    private final String[] NAMES_active = new String[]{"active"};
+    private final String[] NAMES_active = new String[] { "active" };
 
-    private final Class[] TYPES_3db6c47 = new Class[]{Boolean.TYPE};
+    private final Class[] TYPES_3db6c47 = new Class[] { Boolean.TYPE };
 
-    private final Class[] TYPES_1980e = new Class[]{Integer.TYPE};
+    private final Class[] TYPES_1980e = new Class[] { Integer.TYPE };
 
     public NaquadahReactorMultiblockData$ComputerHandler() {
         register(MethodData.builder("getWater", NaquadahReactorMultiblockData$ComputerHandler::waterTank$getWater).returnType(FluidStack.class).methodDescription("Get the contents of the water tank."));
@@ -121,7 +122,7 @@ public class NaquadahReactorMultiblockData$ComputerHandler extends ComputerMetho
     }
 
     public static Object naquadahTank$getNaquadahFilledPercentage(
-            NaquadahReactorMultiblockData subject, BaseComputerHelper helper) throws ComputerException {
+                                                                  NaquadahReactorMultiblockData subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getFilledPercentage(subject.naquadahTank));
     }
 
@@ -186,7 +187,7 @@ public class NaquadahReactorMultiblockData$ComputerHandler extends ComputerMetho
     }
 
     public static Object isIgnited_0(NaquadahReactorMultiblockData subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                       throws ComputerException {
         return helper.convert(subject.isBurning());
     }
 

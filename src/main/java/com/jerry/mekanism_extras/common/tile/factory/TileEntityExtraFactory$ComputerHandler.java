@@ -3,18 +3,19 @@ package com.jerry.mekanism_extras.common.tile.factory;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(target = TileEntityExtraFactory.class)
 public class TileEntityExtraFactory$ComputerHandler extends ComputerMethodFactory<TileEntityExtraFactory> {
 
-    private final String[] NAMES_process = new String[]{"process"};
+    private final String[] NAMES_process = new String[] { "process" };
 
-    private final String[] NAMES_enabled = new String[]{"enabled"};
+    private final String[] NAMES_enabled = new String[] { "enabled" };
 
-    private final Class[] TYPES_3db6c47 = new Class[]{Boolean.TYPE};
+    private final Class[] TYPES_3db6c47 = new Class[] { Boolean.TYPE };
 
-    private final Class<?>[] TYPES_1980e = new Class[]{Integer.TYPE};
+    private final Class<?>[] TYPES_1980e = new Class[] { Integer.TYPE };
 
     public TileEntityExtraFactory$ComputerHandler() {
         register(MethodData.builder("getEnergyItem", TileEntityExtraFactory$ComputerHandler::energySlot$getEnergyItem).returnType(ItemStack.class).methodDescription("Get the contents of the energy slot."));
@@ -33,38 +34,34 @@ public class TileEntityExtraFactory$ComputerHandler extends ComputerMethodFactor
     }
 
     public static Object isAutoSortEnabled_0(TileEntityExtraFactory subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                        throws ComputerException {
         return helper.convert(subject.isSorting());
     }
 
-    public static Object getEnergyUsage_0(TileEntityExtraFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object getEnergyUsage_0(TileEntityExtraFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(subject.getLastUsage());
     }
 
     public static Object getTicksRequired_0(TileEntityExtraFactory subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                       throws ComputerException {
         return helper.convert(subject.getTicksRequired());
     }
 
-    public static Object setAutoSort_1(TileEntityExtraFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object setAutoSort_1(TileEntityExtraFactory subject, BaseComputerHelper helper) throws ComputerException {
         subject.setAutoSort(helper.getBoolean(0));
         return helper.voidResult();
     }
 
     public static Object getRecipeProgress_1(TileEntityExtraFactory subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                        throws ComputerException {
         return helper.convert(subject.getRecipeProgress(helper.getInt(0)));
     }
 
-    public static Object getInput_1(TileEntityExtraFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object getInput_1(TileEntityExtraFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(subject.getInput(helper.getInt(0)));
     }
 
-    public static Object getOutput_1(TileEntityExtraFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+    public static Object getOutput_1(TileEntityExtraFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(subject.getOutput(helper.getInt(0)));
     }
 }

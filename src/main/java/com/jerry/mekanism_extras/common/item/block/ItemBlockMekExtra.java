@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.item.block;
 
 import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
+
 import mekanism.api.AutomationType;
 import mekanism.api.NBTConstants;
 import mekanism.api.Upgrade;
@@ -18,6 +19,7 @@ import mekanism.common.capabilities.energy.item.RateLimitEnergyHandler;
 import mekanism.common.capabilities.security.item.ItemStackSecurityObject;
 import mekanism.common.util.ItemDataUtils;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -26,6 +28,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
+public class ItemBlockMekExtra<BLOCK extends Block> extends BlockItem {
 
     @NotNull
     private final BLOCK block;
@@ -71,7 +74,7 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         if (exposesEnergyCap(oldStack) && exposesEnergyCap(newStack)) {
-            //Ignore NBT for energized items causing re-equip animations
+            // Ignore NBT for energized items causing re-equip animations
             return slotChanged || oldStack.getItem() != newStack.getItem();
         }
         return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
@@ -80,7 +83,7 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
     @Override
     public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
         if (exposesEnergyCap(oldStack) && exposesEnergyCap(newStack)) {
-            //Ignore NBT for energized items causing block break reset
+            // Ignore NBT for energized items causing block break reset
             return oldStack.getItem() != newStack.getItem();
         }
         return super.shouldCauseBlockBreakReset(oldStack, newStack);
@@ -94,10 +97,11 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
             AttributeEnergy attributeEnergy = Attribute.get(block, AttributeEnergy.class);
             FloatingLongSupplier maxEnergy;
             if (Attribute.matches(block, AttributeUpgradeSupport.class, attribute -> attribute.supportedUpgrades().contains(Upgrade.ENERGY))) {
-                //If our block supports energy upgrades, make a more dynamically updating cache for our item's max energy
+                // If our block supports energy upgrades, make a more dynamically updating cache for our item's max
+                // energy
                 maxEnergy = new ItemBlockMekExtra.UpgradeBasedFloatingLongCache(stack, attributeEnergy::getStorage);
             } else {
-                //Otherwise, just return that the max is what the base max is
+                // Otherwise, just return that the max is what the base max is
                 maxEnergy = attributeEnergy::getStorage;
             }
             capabilities.add(RateLimitEnergyHandler.create(maxEnergy, BasicEnergyContainer.manualOnly, getEnergyCapInsertPredicate()));
@@ -109,7 +113,7 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
     }
 
     protected boolean exposesEnergyCap(ItemStack stack) {
-        //Only expose it if the block can't stack
+        // Only expose it if the block can't stack
         return Attribute.has(block, AttributeEnergy.class);
     }
 
@@ -123,7 +127,7 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
     @Override
     public final ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
         if (!areCapabilityConfigsLoaded(stack)) {
-            //Only expose the capabilities if the required configs are loaded
+            // Only expose the capabilities if the required configs are loaded
             return super.initCapabilities(stack, nbt);
         }
         List<ItemCapabilityWrapper.ItemCapability> capabilities = new ArrayList<>();
@@ -137,7 +141,8 @@ public class ItemBlockMekExtra <BLOCK extends Block> extends BlockItem {
     private static class UpgradeBasedFloatingLongCache implements FloatingLongSupplier {
 
         private final ItemStack stack;
-        //TODO: Eventually fix this, ideally we want this to update the overall cached value if this changes because of the config
+        // TODO: Eventually fix this, ideally we want this to update the overall cached value if this changes because of
+        // the config
         // for how much energy a machine can store changes
         private final FloatingLongSupplier baseStorage;
         @Nullable

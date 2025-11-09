@@ -1,19 +1,23 @@
 package com.jerry.generator_extras.common.tile.naquadah;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+import com.jerry.generator_extras.common.genregistry.ExtraGenContainerTypes;
+
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.inventory.container.MekanismContainer;
 import mekanism.common.inventory.container.sync.dynamic.SyncMapper;
 import mekanism.common.lib.multiblock.MultiblockManager;
 import mekanism.common.tile.prefab.TileEntityMultiblock;
-import com.jerry.generator_extras.common.genregistry.ExtraGenContainerTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class TileEntityNaquadahReactorCasing extends TileEntityMultiblock<NaquadahReactorMultiblockData> {
+
     public TileEntityNaquadahReactorCasing(BlockPos pos, BlockState state) {
         this(ExtraGenBlocks.NAQUADAH_REACTOR_CASING, pos, state);
     }

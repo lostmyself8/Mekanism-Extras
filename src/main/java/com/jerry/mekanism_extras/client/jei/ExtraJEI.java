@@ -1,29 +1,34 @@
 package com.jerry.mekanism_extras.client.jei;
 
-import com.jerry.generator_extras.common.ExtraGenLang;
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.ExtraLang;
+import com.jerry.mekanism_extras.common.integration.Addons;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import com.jerry.mekanism_extras.common.registry.ExtraFluids;
-import com.jerry.mekanism_extras.common.integration.Addons;
+
+import com.jerry.generator_extras.common.ExtraGenLang;
+import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
+
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.client.jei.MekanismJEIRecipeType;
 import mekanism.common.registries.MekanismBlocks;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fluids.FluidType;
+
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin
 @NothingNullByDefault
 public class ExtraJEI implements IModPlugin {
+
     @Override
     public @NotNull ResourceLocation getPluginUid() {
         return MekanismExtras.rl("jei_plugin");

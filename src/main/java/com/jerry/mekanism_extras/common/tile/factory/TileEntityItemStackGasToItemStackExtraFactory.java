@@ -1,10 +1,7 @@
 package com.jerry.mekanism_extras.common.tile.factory;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
 import com.jerry.mekanism_extras.api.ExtraUpgrade;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.NBTConstants;
 import mekanism.api.RelativeSide;
@@ -49,36 +46,42 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.InventoryUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.StatUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.LongArrayTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-//Compressing, injecting, purifying
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
+// Compressing, injecting, purifying
 public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityItemToItemExtraFactory<ItemStackGasToItemStackRecipe> implements IHasDumpButton,
-        ItemChemicalRecipeLookupHandler<Gas, GasStack, ItemStackGasToItemStackRecipe>, ConstantUsageRecipeLookupHandler {
+                                                           ItemChemicalRecipeLookupHandler<Gas, GasStack, ItemStackGasToItemStackRecipe>, ConstantUsageRecipeLookupHandler {
 
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
             RecipeError.NOT_ENOUGH_INPUT,
             RecipeError.NOT_ENOUGH_SECONDARY_INPUT,
             RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
-    );
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(
             RecipeError.NOT_ENOUGH_ENERGY,
-            RecipeError.NOT_ENOUGH_SECONDARY_INPUT
-    );
+            RecipeError.NOT_ENOUGH_SECONDARY_INPUT);
 
     private final ILongInputHandler<@NotNull GasStack> gasInputHandler;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChemicalItem", docPlaceholder = "chemical item (extra) slot")
     GasInventorySlot extraSlot;
-    @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getChemical", "getChemicalCapacity", "getChemicalNeeded",
-            "getChemicalFilledPercentage"}, docPlaceholder = "gas tank")
+    @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class,
+                            methodNames = { "getChemical", "getChemicalCapacity", "getChemicalNeeded",
+                                    "getChemicalFilledPercentage" },
+                            docPlaceholder = "gas tank")
     IGasTank gasTank;
     private final ChemicalUsageMultiplier gasUsageMultiplier;
     private final long[] usedSoFar;
@@ -97,17 +100,18 @@ public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityIte
         baseTotalUsage = BASE_TICKS_REQUIRED;
         usedSoFar = new long[tier.processes];
         if (useStatisticalMechanics()) {
-            //Note: Statistical mechanics works best by just using the mean gas usage we want to target
+            // Note: Statistical mechanics works best by just using the mean gas usage we want to target
             // rather than adjusting the mean each time to try and reach a given target
             gasUsageMultiplier = (usedSoFar, operatingTicks) -> StatUtils.inversePoisson(gasPerTickMeanMultiplier);
         } else {
             gasUsageMultiplier = (usedSoFar, operatingTicks) -> {
                 long baseRemaining = baseTotalUsage - usedSoFar;
-                //插入创造升级后getTicksRequired()变为0，导致gasUsageMultiplier为0，也就意味着不消耗化学品。
-                //因此处理化学品消耗时按1计算，而工作时间依旧为0
+                // 插入创造升级后getTicksRequired()变为0，导致gasUsageMultiplier为0，也就意味着不消耗化学品。
+                // 因此处理化学品消耗时按1计算，而工作时间依旧为0
                 int remainingTicks = upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) && type == FactoryType.COMPRESSING ? 1 : getTicksRequired() - operatingTicks;
                 if (baseRemaining < remainingTicks) {
-                    //If we already used more than we would need to use (due to removing speed upgrades or adding gas upgrades)
+                    // If we already used more than we would need to use (due to removing speed upgrades or adding gas
+                    // upgrades)
                     // then just don't use any gas this tick
                     return 0;
                 } else if (baseRemaining == remainingTicks) {
@@ -122,8 +126,10 @@ public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityIte
     @Override
     public IChemicalTankHolder<Gas, GasStack, IGasTank> getInitialGasTanks(IContentsListener listener) {
         ChemicalTankHelper<Gas, GasStack, IGasTank> builder = ChemicalTankHelper.forSideGasWithConfig(this::getDirection, this::getConfig);
-        //If the tank's contents change make sure to call our extended content listener that also marks sorting as being needed
-        // as maybe the valid recipes have changed, and we need to sort again and have all recipes know they may need to be rechecked
+        // If the tank's contents change make sure to call our extended content listener that also marks sorting as
+        // being needed
+        // as maybe the valid recipes have changed, and we need to sort again and have all recipes know they may need to
+        // be rechecked
         // if they are not still valid
         if (allowExtractingChemical()) {
             gasTank = ChemicalTankBuilder.GAS.create(TileEntityAdvancedElectricMachine.MAX_GAS * tier.processes * tier.processes, this::containsRecipeB,
@@ -139,7 +145,7 @@ public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityIte
     @Override
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addSlots(builder, listener, updateSortingListener);
-        //Note: We care about the gas tank not the slot when it comes to recipes and updating sorting
+        // Note: We care about the gas tank not the slot when it comes to recipes and updating sorting
         builder.addSlot(extraSlot = GasInventorySlot.fillOrConvert(gasTank, this::getLevel, listener, 7, 57));
     }
 
@@ -177,7 +183,7 @@ public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityIte
                                                        @Nullable IInventorySlot secondaryOutputSlot) {
         GasStack stored = gasTank.getStack();
         ItemStack output = outputSlot.getStack();
-        //TODO: Give it something that is not empty when we don't have a stored gas stack for getting the output?
+        // TODO: Give it something that is not empty when we don't have a stored gas stack for getting the output?
         return getRecipeType().getInputCache().findTypeBasedRecipe(level, fallbackInput, stored,
                 recipe -> InventoryUtils.areItemsStackable(recipe.getOutput(fallbackInput, stored), output));
     }
@@ -193,13 +199,14 @@ public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityIte
         return switch (type) {
             case INJECTING -> MekanismRecipeType.INJECTING;
             case PURIFYING -> MekanismRecipeType.PURIFYING;
-            //TODO: Make it so that it throws an error if it is not one of the three types
+            // TODO: Make it so that it throws an error if it is not one of the three types
             default -> MekanismRecipeType.COMPRESSING;
         };
     }
 
     private boolean allowExtractingChemical() {
-        //Note: We can't use type directly as when this is being used for creating the chemical tank the type field hasn't been set yet
+        // Note: We can't use type directly as when this is being used for creating the chemical tank the type field
+        // hasn't been set yet
         return Attribute.get(blockProvider, AttributeFactoryType.class).getFactoryType() == FactoryType.COMPRESSING;
     }
 
@@ -275,9 +282,9 @@ public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityIte
     @Override
     public void parseUpgradeData(@NotNull IUpgradeData upgradeData) {
         if (upgradeData instanceof AdvancedMachineUpgradeData data) {
-            //Generic factory upgrade data handling
+            // Generic factory upgrade data handling
             super.parseUpgradeData(upgradeData);
-            //Copy the contents using NBT so that if it is not actually valid due to a reload we don't crash
+            // Copy the contents using NBT so that if it is not actually valid due to a reload we don't crash
             gasTank.deserializeNBT(data.stored.serializeNBT());
             extraSlot.deserializeNBT(data.gasSlot.serializeNBT());
             System.arraycopy(data.usedSoFar, 0, usedSoFar, 0, data.usedSoFar.length);
@@ -298,11 +305,11 @@ public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityIte
         gasTank.setEmpty();
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod(requiresPublicSecurity = true, methodDescription = "Empty the contents of the gas tank into the environment")
     void dumpChemical() throws ComputerException {
         validateSecurityIsPublic();
         dump();
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

@@ -8,6 +8,7 @@ import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
 import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
 import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
+
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
 import mekanism.common.content.blocktype.BlockShapes;
@@ -16,7 +17,9 @@ import mekanism.common.inventory.container.MekanismContainer;
 import mekanism.common.lib.math.Pos3D;
 import mekanism.common.registration.impl.ContainerTypeRegistryObject;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
+
 import net.minecraft.core.particles.ParticleTypes;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -47,7 +50,7 @@ public class AdvancedFactory<TILE extends TileEntityExtraFactory<?>> extends Adv
     }
 
     public static class AdvancedFactoryBuilder<FACTORY extends AdvancedFactory<TILE>, TILE extends TileEntityExtraFactory<?>, T extends AdvancedMachine.AdvancedMachineBuilder<FACTORY, TILE, T>>
-            extends BlockTileBuilder<FACTORY, TILE, T> {
+                                              extends BlockTileBuilder<FACTORY, TILE, T> {
 
         protected AdvancedFactoryBuilder(FACTORY holder) {
             super(holder);
@@ -56,24 +59,21 @@ public class AdvancedFactory<TILE extends TileEntityExtraFactory<?>> extends Adv
         @SuppressWarnings("unchecked")
         public static <TILE extends TileEntityExtraFactory<?>> AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> createFactory(Supplier<?> tileEntityRegistrar, FactoryType type,
                                                                                                                                     AdvancedFactoryTier tier) {
-
             AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> builder = getAdvancedFactoryTILEAdvancedFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(BlockShapes.getShape(null, type));
-//            builder.with(switch (type) {
-//                case SMELTING, ENRICHING, CRUSHING, COMBINING, SAWING -> AttributeSideConfig.ELECTRIC_MACHINE;
-//                case COMPRESSING, INJECTING, PURIFYING, INFUSING -> AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE;
-//            });
+            // builder.with(switch (type) {
+            // case SMELTING, ENRICHING, CRUSHING, COMBINING, SAWING -> AttributeSideConfig.ELECTRIC_MACHINE;
+            // case COMPRESSING, INJECTING, PURIFYING, INFUSING -> AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE;
+            // });
             builder.replace(new AttributeParticleFX().addDense(ParticleTypes.SMOKE, 5, rand -> new Pos3D(
                     rand.nextFloat() * 0.7F - 0.3F,
                     rand.nextFloat() * 0.1F + 0.7F,
-                    rand.nextFloat() * 0.7F - 0.3F
-            )));
+                    rand.nextFloat() * 0.7F - 0.3F)));
             return builder;
         }
     }
 
     private static <TILE extends TileEntityExtraFactory<?>> @NotNull AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> getAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, FactoryType type, AdvancedFactoryTier tier) {
-
         AdvancedFactoryBuilder<AdvancedFactory<TILE>, TILE, ?> builder = new AdvancedFactoryBuilder<>(new AdvancedFactory<>(tileEntityRegistrar,
                 () -> ExtraContainerTypes.FACTORY,
                 switch (type) {
@@ -87,9 +87,8 @@ public class AdvancedFactory<TILE extends TileEntityExtraFactory<?>> extends Adv
                     case INJECTING -> ExtraBlockType.CHEMICAL_INJECTION_CHAMBER;
                     case INFUSING -> ExtraBlockType.METALLURGIC_INFUSER;
                 },
-                tier)
-        );
-        //Note, we can't just return the builder here as then it gets all confused about object types, so we just
+                tier));
+        // Note, we can't just return the builder here as then it gets all confused about object types, so we just
         // assign the value here, and then return the builder itself as it is the same object
         builder.withComputerSupport(tier.getAdvanceTier().getLowerName() + type.getRegistryNameComponentCapitalized() + "Factory");
         return builder;

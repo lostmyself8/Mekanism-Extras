@@ -1,11 +1,13 @@
 package com.jerry.generator_extras.common.network.to_server;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
-import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.jerry.generator_extras.common.genregistry.ExtraGenContainerTypes;
+import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
+
 import mekanism.common.network.IMekanismPacket;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,15 +32,17 @@ public class ExtraPacketGeneratorsGuiButtonPress implements IMekanismPacket {
         this.tilePosition = tilePosition;
         this.extra = extra;
     }
+
     @Override
     public void handle(NetworkEvent.Context context) {
         ServerPlayer player = context.getSender();
-        if (player != null) {//If we are on the server (the only time we should be receiving this packet), let forge handle switching the Gui
+        if (player != null) {// If we are on the server (the only time we should be receiving this packet), let forge
+                             // handle switching the Gui
             TileEntityMekanism tile = WorldUtils.getTileEntity(TileEntityMekanism.class, player.level(), tilePosition);
             if (tile != null) {
                 MenuProvider provider = tileButton.getProvider(tile, extra);
                 if (provider != null) {
-                    //Ensure valid data
+                    // Ensure valid data
                     NetworkHooks.openScreen(player, provider, buf -> {
                         buf.writeBlockPos(tilePosition);
                         buf.writeVarInt(extra);
@@ -60,24 +64,26 @@ public class ExtraPacketGeneratorsGuiButtonPress implements IMekanismPacket {
     }
 
     public enum ExtraClickedGeneratorsTileButton {
-//        TAB_MAIN((tile, extra) -> {
-//            if (tile instanceof TileEntityTurbineCasing) {
-//                return GeneratorsContainerTypes.INDUSTRIAL_TURBINE.getProvider(GeneratorsLang.TURBINE, tile);
-//            } else if (tile instanceof TileEntityFissionReactorCasing) {
-//                return GeneratorsContainerTypes.FISSION_REACTOR.getProvider(GeneratorsLang.FISSION_REACTOR, tile);
-//            }
-//            return null;
-//        }),
+
+        // TAB_MAIN((tile, extra) -> {
+        // if (tile instanceof TileEntityTurbineCasing) {
+        // return GeneratorsContainerTypes.INDUSTRIAL_TURBINE.getProvider(GeneratorsLang.TURBINE, tile);
+        // } else if (tile instanceof TileEntityFissionReactorCasing) {
+        // return GeneratorsContainerTypes.FISSION_REACTOR.getProvider(GeneratorsLang.FISSION_REACTOR, tile);
+        // }
+        // return null;
+        // }),
         TAB_HEAT((tile, extra) -> ExtraGenContainerTypes.NAQUADAH_REACTOR_HEAT.getProvider(ExtraGenLang.NAQUADAH_REACTOR, tile)),
         TAB_FUEL((tile, extra) -> ExtraGenContainerTypes.NAQUADAH_REACTOR_FUEL.getProvider(ExtraGenLang.NAQUADAH_REACTOR, tile)),
         TAB_STATS((tile, extra) -> {
-//            if (tile instanceof TileEntityTurbineCasing) {
-//                return GeneratorsContainerTypes.TURBINE_STATS.getProvider(GeneratorsLang.TURBINE_STATS, tile);
-//            } else if (tile instanceof TileEntityFusionReactorController) {
-//                return GeneratorsContainerTypes.FUSION_REACTOR_STATS.getProvider(GeneratorsLang.FUSION_REACTOR, tile);
-//            } else if (tile instanceof TileEntityFissionReactorCasing) {
-//                return GeneratorsContainerTypes.FISSION_REACTOR_STATS.getProvider(GeneratorsLang.FISSION_REACTOR_STATS, tile);
-//            }
+            // if (tile instanceof TileEntityTurbineCasing) {
+            // return GeneratorsContainerTypes.TURBINE_STATS.getProvider(GeneratorsLang.TURBINE_STATS, tile);
+            // } else if (tile instanceof TileEntityFusionReactorController) {
+            // return GeneratorsContainerTypes.FUSION_REACTOR_STATS.getProvider(GeneratorsLang.FUSION_REACTOR, tile);
+            // } else if (tile instanceof TileEntityFissionReactorCasing) {
+            // return GeneratorsContainerTypes.FISSION_REACTOR_STATS.getProvider(GeneratorsLang.FISSION_REACTOR_STATS,
+            // tile);
+            // }
             if (tile instanceof TileEntityNaquadahReactorController) {
                 return ExtraGenContainerTypes.NAQUADAH_REACTOR_STATS.getProvider(ExtraGenLang.NAQUADAH_REACTOR, tile);
             }

@@ -3,7 +3,7 @@ package com.jerry.mekanism_extras.common.tile;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.capabilities.fluid.ExtraFluidTankFluidTank;
 import com.jerry.mekanism_extras.common.tier.FTTier;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+
 import mekanism.api.Action;
 import mekanism.api.IConfigurable;
 import mekanism.api.IContentsListener;
@@ -35,6 +35,7 @@ import mekanism.common.util.FluidUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -45,6 +46,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +55,8 @@ import java.util.Collections;
 import java.util.Map;
 
 public class ExtraTileEntityFluidTank extends TileEntityMekanism implements IConfigurable, IFluidContainerManager, ISustainedData {
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded", "getFilledPercentage"}, docPlaceholder = "tank")
+
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = { "getStored", "getCapacity", "getNeeded", "getFilledPercentage" }, docPlaceholder = "tank")
     public ExtraFluidTankFluidTank fluidTank;
 
     private ContainerEditMode editMode = ContainerEditMode.BOTH;
@@ -128,7 +132,8 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
         float scale = MekanismUtils.getScale(prevScale, fluidTank);
         if (scale != prevScale) {
             if (prevScale == 0 || scale == 0) {
-                //If it was empty and no longer is, or wasn't empty and now is empty we want to recheck the block lighting
+                // If it was empty and no longer is, or wasn't empty and now is empty we want to recheck the block
+                // lighting
                 // as the fluid may have changed and have a light value
                 WorldUtils.recheckLighting(level, worldPosition);
             }
@@ -267,8 +272,10 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
         NBTUtils.setFloatIfPresent(tag, NBTConstants.SCALE, scale -> {
             if (prevScale != scale) {
                 if (prevScale == 0 || scale == 0) {
-                    //If it was empty and no longer is, or wasn't empty and now is empty we want to recheck the block lighting
-                    // as the fluid may have changed and have a light value, mark that the client should update the light value
+                    // If it was empty and no longer is, or wasn't empty and now is empty we want to recheck the block
+                    // lighting
+                    // as the fluid may have changed and have a light value, mark that the client should update the
+                    // light value
                     updateClientLight = true;
                 }
                 prevScale = scale;
@@ -276,7 +283,7 @@ public class ExtraTileEntityFluidTank extends TileEntityMekanism implements ICon
         });
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod(requiresPublicSecurity = true)
     void setContainerEditMode(ContainerEditMode mode) throws ComputerException {
         validateSecurityIsPublic();

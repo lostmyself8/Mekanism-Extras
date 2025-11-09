@@ -1,9 +1,9 @@
 package com.jerry.mekanism_extras.client.model.energycube;
 
-import com.mojang.math.Transformation;
 import mekanism.api.RelativeSide;
 import mekanism.client.render.lib.QuadTransformation;
 import mekanism.client.render.lib.QuadUtils;
+
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
@@ -13,12 +13,15 @@ import net.minecraftforge.client.RenderTypeGroup;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
 import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
+
+import com.mojang.math.Transformation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
 
 public class ExtraEnergyCubeGeometry implements IUnbakedGeometry<ExtraEnergyCubeGeometry> {
+
     private final List<BlockElement> frame;
     private final Map<RelativeSide, List<BlockElement>> leds;
     private final Map<RelativeSide, List<BlockElement>> ports;
@@ -65,7 +68,7 @@ public class ExtraEnergyCubeGeometry implements IUnbakedGeometry<ExtraEnergyCube
             for (Map.Entry<Direction, BlockElementFace> faceEntry : element.faces.entrySet()) {
                 BlockElementFace face = faceEntry.getValue();
                 TextureAtlasSprite sprite = spriteGetter.apply(face.texture);
-                //noinspection ConstantConditions (can be null)
+                // noinspection ConstantConditions (can be null)
                 Direction direction = face.cullForDirection == null ? null : modelState.getRotation().rotateTransform(face.cullForDirection);
                 data.addFace(direction, BlockModel.bakeFace(element, face, sprite, faceEntry.getKey(), modelState, modelLocation));
             }

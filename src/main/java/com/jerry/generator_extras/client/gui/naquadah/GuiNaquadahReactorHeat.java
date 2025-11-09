@@ -3,6 +3,7 @@ package com.jerry.generator_extras.client.gui.naquadah;
 import com.jerry.generator_extras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
+
 import mekanism.client.gui.element.gauge.*;
 import mekanism.client.gui.element.progress.GuiProgress;
 import mekanism.client.gui.element.progress.ProgressType;
@@ -11,15 +12,19 @@ import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.UnitDisplayUtils;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.material.Fluids;
+
 import org.jetbrains.annotations.NotNull;
 
-public class GuiNaquadahReactorHeat extends GuiNaquadahReactorInfo{
+public class GuiNaquadahReactorHeat extends GuiNaquadahReactorInfo {
+
     private static final double MAX_LEVEL = 500_000_000;
+
     public GuiNaquadahReactorHeat(EmptyTileContainer<TileEntityNaquadahReactorController> container, Inventory inv, Component title) {
         super(container, inv, title);
     }
@@ -28,6 +33,7 @@ public class GuiNaquadahReactorHeat extends GuiNaquadahReactorInfo{
     protected void addGuiElements() {
         super.addGuiElements();
         addRenderableWidget(new GuiNumberGauge(new GuiNumberGauge.INumberInfoHandler() {
+
             @Override
             public TextureAtlasSprite getIcon() {
                 return MekanismRenderer.getBaseFluidTexture(Fluids.LAVA, MekanismRenderer.FluidTextureType.STILL);
@@ -53,6 +59,7 @@ public class GuiNaquadahReactorHeat extends GuiNaquadahReactorInfo{
             return multiblock.getLastPlasmaTemp() > multiblock.getLastCaseTemp();
         }, ProgressType.SMALL_RIGHT, this, 29, 76));
         addRenderableWidget(new GuiNumberGauge(new GuiNumberGauge.INumberInfoHandler() {
+
             @Override
             public TextureAtlasSprite getIcon() {
                 return MekanismRenderer.getBaseFluidTexture(Fluids.LAVA, MekanismRenderer.FluidTextureType.STILL);

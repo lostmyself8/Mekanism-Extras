@@ -2,8 +2,7 @@ package com.jerry.mekanism_extras.common.item;
 
 import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
-//import com.jerry.mekanism_extras.integration.Addons;
-//import fr.iglee42.evolvedmekanism.tiers.EMBaseTier;
+
 import mekanism.api.IAlloyInteraction;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.tier.BaseTier;
@@ -21,6 +20,7 @@ import mekanism.common.tile.transmitter.*;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.CapabilityUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -32,12 +32,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAlloyRadiance extends Item {
+
     public ItemAlloyRadiance(Properties properties) {
         super(properties);
     }
@@ -61,7 +63,6 @@ public class ItemAlloyRadiance extends Item {
         return InteractionResult.PASS;
     }
 
-
     public void onExtraAlloyInteraction(Player player, ItemStack stack, Level level, BlockPos worldPosition, TileEntityTransmitter tileEntityTransmitter) {
         if (level != null && tileEntityTransmitter.getTransmitter().hasTransmitterNetwork()) {
             DynamicNetwork<?, ?, ?> transmitterNetwork = tileEntityTransmitter.getTransmitter().getTransmitterNetwork();
@@ -81,12 +82,13 @@ public class ItemAlloyRadiance extends Item {
                     IBlockProvider target = getiBlockProvider(transmitterTile);
                     BlockState upgradeState = BlockStateHelper.copyStateData(state, target);
                     if (state == upgradeState) {
-                        //Skip if it would not actually upgrade anything
+                        // Skip if it would not actually upgrade anything
                         continue;
                     }
                     if (!sharesSet) {
                         if (transmitterNetwork instanceof DynamicBufferedNetwork dynamicNetwork) {
-                            //Ensure we save the shares to the tiles so that they can properly take them, and they don't get voided
+                            // Ensure we save the shares to the tiles so that they can properly take them, and they
+                            // don't get voided
                             dynamicNetwork.validateSaveShares((BufferedTransmitter<?, ?, ?, ?>) transmitter);
                         }
                         sharesSet = true;
@@ -119,7 +121,7 @@ public class ItemAlloyRadiance extends Item {
                 }
             }
             if (upgraded > 0) {
-                //Invalidate the network so that it properly has new references to everything
+                // Invalidate the network so that it properly has new references to everything
                 transmitterNetwork.invalidate(null);
                 if (!player.isCreative()) {
                     stack.shrink(1);
@@ -146,7 +148,6 @@ public class ItemAlloyRadiance extends Item {
         } else {
             return null;
         }
-
     }
 
     private <DATA extends TransmitterUpgradeData> void transferUpgradeData(IExtraUpgradeableTransmitter<DATA> upgradeableTransmitter, TransmitterUpgradeData data) {
@@ -158,9 +159,9 @@ public class ItemAlloyRadiance extends Item {
     }
 
     private BaseTier getBaseTier() {
-//        if (Addons.EVOLVEDMEKANISM.isLoaded()) {
-//            return EMBaseTier.MULTIVERSAL;
-//        }
+        // if (Addons.EVOLVEDMEKANISM.isLoaded()) {
+        // return EMBaseTier.MULTIVERSAL;
+        // }
         return BaseTier.ULTIMATE;
     }
 }

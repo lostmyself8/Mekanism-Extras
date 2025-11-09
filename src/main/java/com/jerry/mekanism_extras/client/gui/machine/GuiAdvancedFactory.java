@@ -5,6 +5,7 @@ import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 import com.jerry.mekanism_extras.common.tile.factory.TileEntityItemStackGasToItemStackExtraFactory;
 import com.jerry.mekanism_extras.common.tile.factory.TileEntityMetallurgicInfuserExtraFactory;
 import com.jerry.mekanism_extras.common.tile.factory.TileEntitySawingExtraFactory;
+
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
 import mekanism.client.gui.GuiConfigurableTile;
 import mekanism.client.gui.element.GuiDumpButton;
@@ -17,9 +18,11 @@ import mekanism.client.jei.MekanismJEIRecipeType;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.inventory.warning.ISupportsWarning;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 
 public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityExtraFactory<?>, MekanismTileContainer<TileEntityExtraFactory<?>>> {
@@ -35,7 +38,7 @@ public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityExtraFacto
         } else {
             inventoryLabelY = 75;
         }
-        //这两个公式似乎并非完美，在index过大时可能会导致有细微的便宜，但未得到验证
+        // 这两个公式似乎并非完美，在index过大时可能会导致有细微的便宜，但未得到验证
         int index = tile.tier.ordinal();
         imageWidth += (36 * (index + 2)) + (2 * index);
         inventoryLabelX = (22 * (index + 2)) - (3 * index);
@@ -72,7 +75,7 @@ public class GuiAdvancedFactory extends GuiConfigurableTile<TileEntityExtraFacto
         for (int i = 0; i < tile.tier.processes; i++) {
             int cacheIndex = i;
             addProgress(new GuiProgress(() -> tile.getScaledProgress(1, cacheIndex), ProgressType.DOWN, this, 4 + baseX + (i * baseXMult), 33))
-                    //Only can happen if recipes change because inputs are sanitized in the factory based on the output
+                    // Only can happen if recipes change because inputs are sanitized in the factory based on the output
                     .warning(WarningType.INPUT_DOESNT_PRODUCE_OUTPUT, tile.getWarningCheck(RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT, cacheIndex));
         }
     }

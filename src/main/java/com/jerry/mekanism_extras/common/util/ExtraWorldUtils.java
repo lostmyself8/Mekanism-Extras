@@ -5,7 +5,7 @@ import net.minecraft.world.level.Level;
 
 public class ExtraWorldUtils {
 
-    //Reference from "Evolved Mek Extras"
+    // Reference from "Evolved Mek Extras"
     public static boolean isWorldLoaded(Level level) {
         if (level == null) {
             return false;

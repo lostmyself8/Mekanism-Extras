@@ -1,7 +1,8 @@
 package com.jerry.mekanism_extras.common.block.transmitter;
 
-import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityMechanicalPipe;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityMechanicalPipe;
+
 import mekanism.common.block.attribute.AttributeTier;
 import mekanism.common.block.interfaces.IHasTileEntity;
 import mekanism.common.block.interfaces.ITypeBlock;
@@ -24,7 +25,6 @@ public class ExtraBlockMechanicalPipe extends BlockLargeTransmitter implements I
     }
 
     public TileEntityTypeRegistryObject<ExtraTileEntityMechanicalPipe> getTileType() {
-
         return switch (this.tier) {
             case BASIC -> ExtraTileEntityTypes.ABSOLUTE_MECHANICAL_PIPE;
             case ADVANCED -> ExtraTileEntityTypes.SUPREME_MECHANICAL_PIPE;

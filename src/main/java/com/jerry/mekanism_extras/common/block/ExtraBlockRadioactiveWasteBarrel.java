@@ -1,7 +1,8 @@
 package com.jerry.mekanism_extras.common.block;
 
-import com.jerry.mekanism_extras.common.tile.ExtraTileEntityRadioactiveWasteBarrel;
 import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
+import com.jerry.mekanism_extras.common.tile.ExtraTileEntityRadioactiveWasteBarrel;
+
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
@@ -9,6 +10,7 @@ import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.util.WorldUtils;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraBlockRadioactiveWasteBarrel extends BlockTile.BlockTileModel<ExtraTileEntityRadioactiveWasteBarrel, BlockTypeTile<ExtraTileEntityRadioactiveWasteBarrel>> {
