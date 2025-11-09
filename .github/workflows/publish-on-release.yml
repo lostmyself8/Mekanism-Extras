@@ -47,7 +47,7 @@ jobs:
   publish-19:
     name: 1.19.2
     needs: [ meta ]
-    if: ${{ contains(github.ref_name, '1.19.2') || !contains(github.ref_name, '1.19.2') }}
+    if: ${{ contains(github.ref_name, '1.19.2') || !contains(github.ref_name, 'master') }}
     secrets: inherit
     uses: ./.github/workflows/publish.yml
     with:
