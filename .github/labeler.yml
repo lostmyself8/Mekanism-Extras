@@ -1,0 +1,5 @@
+# https://github.com/github/issue-labeler#usage
+master:
+  - '/^master Forge$/m'
+1.19.2:
+  - '/^1\.19\.2 Forge$/m'
