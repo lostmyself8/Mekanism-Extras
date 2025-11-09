@@ -1,0 +1,3 @@
+# https://github.com/github/issue-labeler#usage
+master:
+  - '/^master Forge$/m'
