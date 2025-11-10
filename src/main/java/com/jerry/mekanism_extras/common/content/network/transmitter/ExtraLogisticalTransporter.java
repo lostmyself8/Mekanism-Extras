@@ -39,12 +39,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.function.IntConsumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@Setter
+@Getter
 public class ExtraLogisticalTransporter extends LogisticalTransporterBase implements IExtraUpgradeableTransmitter<LogisticalTransporterUpgradeData> {
 
     private EnumColor color;
@@ -55,14 +59,6 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
 
     public TransporterTier getTier() {
         return this.tier;
-    }
-
-    public EnumColor getColor() {
-        return this.color;
-    }
-
-    public void setColor(EnumColor c) {
-        this.color = c;
     }
 
     public InteractionResult onConfigure(Player player, Direction side) {

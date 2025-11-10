@@ -5,6 +5,8 @@ import com.jerry.mekanism_extras.api.tier.IAdvancedTier;
 
 import mekanism.common.config.value.CachedIntValue;
 
+import lombok.Getter;
+
 public enum BTier implements IAdvancedTier {
 
     ABSOLUTE(AdvancedTier.ABSOLUTE, 1_048_576),// x4
@@ -12,6 +14,7 @@ public enum BTier implements IAdvancedTier {
     COSMIC(AdvancedTier.COSMIC, 134_217_728),// x16
     INFINITE(AdvancedTier.INFINITE, Integer.MAX_VALUE); // x16
 
+    @Getter
     private final int advanceStorage;
     private final AdvancedTier advancedTier;
     private CachedIntValue storageReference;
@@ -28,10 +31,6 @@ public enum BTier implements IAdvancedTier {
 
     public int getStorage() {
         return storageReference == null ? getAdvanceStorage() : storageReference.getOrDefault();
-    }
-
-    public int getAdvanceStorage() {
-        return advanceStorage;
     }
 
     /**

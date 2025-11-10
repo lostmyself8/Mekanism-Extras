@@ -7,6 +7,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.material.MapColor;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -21,6 +22,7 @@ public enum AdvancedTier implements StringRepresentable, SupportsColorMap {
     private static final AdvancedTier[] TIERS = values();
 
     private final String name;
+    @Getter
     private final MapColor mapColor;
     private TextColor textColor;
     private int[] rgbCode;
@@ -37,10 +39,6 @@ public enum AdvancedTier implements StringRepresentable, SupportsColorMap {
 
     public String getLowerName() {
         return getSimpleName().toLowerCase(Locale.ROOT);
-    }
-
-    public MapColor getMapColor() {
-        return mapColor;
     }
 
     @Override

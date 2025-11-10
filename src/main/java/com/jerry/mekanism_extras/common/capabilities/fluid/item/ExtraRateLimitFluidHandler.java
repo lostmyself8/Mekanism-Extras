@@ -53,7 +53,7 @@ public class ExtraRateLimitFluidHandler extends ItemStackMekanismFluidHandler {
     }
 
     @Override
-    protected @NotNull List<IExtendedFluidTank> getInitialTanks() {
+    protected List<IExtendedFluidTank> getInitialTanks() {
         return Collections.singletonList(tank);
     }
 
@@ -89,12 +89,12 @@ public class ExtraRateLimitFluidHandler extends ItemStackMekanismFluidHandler {
         }
 
         @Override
-        public @NotNull FluidStack insert(@NotNull FluidStack stack, Action action, @NotNull AutomationType automationType) {
+        public FluidStack insert(FluidStack stack, Action action, AutomationType automationType) {
             return super.insert(stack, action.combine(!isCreative), automationType);
         }
 
         @Override
-        public @NotNull FluidStack extract(int amount, Action action, @NotNull AutomationType automationType) {
+        public FluidStack extract(int amount, Action action, AutomationType automationType) {
             return super.extract(amount, action.combine(!isCreative), automationType);
         }
 

@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import lombok.Getter;
 
 import java.util.Map;
 import java.util.Set;
@@ -32,7 +33,9 @@ public class ExtraMatrixEnergyContainer implements IEnergyContainer {
     // at the very least for keeping track of the cached values and rates
     private FloatingLong queuedOutput = FloatingLong.ZERO;
     private FloatingLong queuedInput = FloatingLong.ZERO;
+    @Getter
     private FloatingLong lastOutput = FloatingLong.ZERO;
+    @Getter
     private FloatingLong lastInput = FloatingLong.ZERO;
 
     private FloatingLong cachedTotal = FloatingLong.ZERO;
@@ -232,14 +235,6 @@ public class ExtraMatrixEnergyContainer implements IEnergyContainer {
 
     public FloatingLong getMaxTransfer() {
         return transferCap;
-    }
-
-    public FloatingLong getLastInput() {
-        return lastInput;
-    }
-
-    public FloatingLong getLastOutput() {
-        return lastOutput;
     }
 
     public int getCells() {

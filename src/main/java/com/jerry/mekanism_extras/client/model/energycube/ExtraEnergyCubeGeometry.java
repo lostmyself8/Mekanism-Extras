@@ -20,17 +20,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Function;
 
-public class ExtraEnergyCubeGeometry implements IUnbakedGeometry<ExtraEnergyCubeGeometry> {
-
-    private final List<BlockElement> frame;
-    private final Map<RelativeSide, List<BlockElement>> leds;
-    private final Map<RelativeSide, List<BlockElement>> ports;
-
-    ExtraEnergyCubeGeometry(List<BlockElement> frame, Map<RelativeSide, List<BlockElement>> leds, Map<RelativeSide, List<BlockElement>> ports) {
-        this.frame = frame;
-        this.leds = leds;
-        this.ports = ports;
-    }
+public record ExtraEnergyCubeGeometry(List<BlockElement> frame, Map<RelativeSide, List<BlockElement>> leds,
+                                      Map<RelativeSide, List<BlockElement>> ports)
+        implements IUnbakedGeometry<ExtraEnergyCubeGeometry> {
 
     @Override
     public BakedModel bake(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelState,
@@ -45,9 +37,9 @@ public class ExtraEnergyCubeGeometry implements IUnbakedGeometry<ExtraEnergyCube
             modelState = new SimpleModelState(modelState.getRotation().compose(rootTransform), modelState.isUvLocked());
         }
         Function<String, TextureAtlasSprite> rawSpriteGetter = spriteGetter.compose(context::getMaterial);
-        ExtraEnergyCubeGeometry.FaceData frame = bakeElement(rawSpriteGetter, modelState, modelLocation, this.frame);
-        Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> leds = bakeElements(rawSpriteGetter, modelState, modelLocation, this.leds);
-        Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> ports = bakeElements(rawSpriteGetter, modelState, modelLocation, this.ports);
+        FaceData frame = bakeElement(rawSpriteGetter, modelState, modelLocation, this.frame);
+        Map<RelativeSide, FaceData> leds = bakeElements(rawSpriteGetter, modelState, modelLocation, this.leds);
+        Map<RelativeSide, FaceData> ports = bakeElements(rawSpriteGetter, modelState, modelLocation, this.ports);
         return new ExtraEnergyCubeBakedModel(context.useAmbientOcclusion(), context.useBlockLight(), context.isGui3d(), context.getTransforms(), overrides, particle, frame, leds, ports,
                 renderTypes);
     }

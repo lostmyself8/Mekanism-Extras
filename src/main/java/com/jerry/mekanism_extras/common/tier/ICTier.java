@@ -5,6 +5,7 @@ import mekanism.api.tier.BaseTier;
 import mekanism.api.tier.ITier;
 import mekanism.common.config.value.CachedFloatingLongValue;
 
+import lombok.Getter;
 import org.jetbrains.annotations.Nullable;
 
 public enum ICTier implements ITier {
@@ -14,6 +15,7 @@ public enum ICTier implements ITier {
     COSMIC(BaseTier.ELITE, FloatingLong.createConst(2_097_152_000_000_000L)),
     INFINITE(BaseTier.ULTIMATE, FloatingLong.createConst(Long.MAX_VALUE));
 
+    @Getter
     private final FloatingLong baseMaxEnergy;
     private final BaseTier baseTier;
     @Nullable
@@ -31,10 +33,6 @@ public enum ICTier implements ITier {
 
     public FloatingLong getMaxEnergy() {
         return storageReference == null ? getBaseMaxEnergy() : storageReference.getOrDefault();
-    }
-
-    public FloatingLong getBaseMaxEnergy() {
-        return baseMaxEnergy;
     }
 
     /**

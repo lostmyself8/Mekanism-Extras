@@ -41,6 +41,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigurable {
@@ -49,8 +50,10 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
     public int removeTicks = 0;
     private int delayTicks;
 
+    @Getter
     private BTier tier;
 
+    @Getter
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getStored", docPlaceholder = "bin")
     ExtraBinInventorySlot binSlot;
 
@@ -73,16 +76,8 @@ public class ExtraTileEntityBin extends TileEntityMekanism implements IConfigura
         return builder.build();
     }
 
-    public BTier getTier() {
-        return tier;
-    }
-
     public int getItemCount() {
         return binSlot.getCount();
-    }
-
-    public ExtraBinInventorySlot getBinSlot() {
-        return binSlot;
     }
 
     @Override

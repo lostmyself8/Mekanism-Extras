@@ -11,8 +11,6 @@ import mekanism.common.capabilities.energy.BasicEnergyContainer;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 
 import javax.annotation.Nullable;
@@ -36,15 +34,15 @@ public class ExtraEnergyCubeEnergyContainer extends BasicEnergyContainer {
         this.rate = tier.getOutput();
     }
 
-    protected @NotNull FloatingLong getRate(@Nullable AutomationType automationType) {
+    protected FloatingLong getRate(@Nullable AutomationType automationType) {
         return automationType == AutomationType.INTERNAL ? this.rate : super.getRate(automationType);
     }
 
-    public @NotNull FloatingLong insert(@NotNull FloatingLong amount, Action action, @NotNull AutomationType automationType) {
+    public FloatingLong insert(FloatingLong amount, Action action, AutomationType automationType) {
         return super.insert(amount, action.combine(true), automationType);
     }
 
-    public @NotNull FloatingLong extract(@NotNull FloatingLong amount, Action action, @NotNull AutomationType automationType) {
+    public FloatingLong extract(FloatingLong amount, Action action, AutomationType automationType) {
         return super.extract(amount, action.combine(true), automationType);
     }
 }

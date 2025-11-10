@@ -58,6 +58,7 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.IFluidBlock;
 
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -90,6 +91,7 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
      */
     private final Set<BlockPos> recurringNodes = new ObjectOpenHashSet<>();
 
+    @Getter
     private MachineEnergyContainer<TileEntityAdvancedElectricPump> energyContainer;
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItem", docPlaceholder = "input slot")
     FluidInventorySlot inputSlot;
@@ -381,10 +383,6 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {
         return UpgradeUtils.getMultScaledInfo(this, upgrade);
-    }
-
-    public MachineEnergyContainer<TileEntityAdvancedElectricPump> getEnergyContainer() {
-        return energyContainer;
     }
 
     public boolean usedEnergy() {

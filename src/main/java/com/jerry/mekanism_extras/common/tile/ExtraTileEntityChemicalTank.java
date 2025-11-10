@@ -60,6 +60,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,7 +71,9 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
     @SyntheticComputerMethod(getter = "getDumpingMode", getterDescription = "Get the current Dumping configuration")
     public GasMode dumping = GasMode.IDLE;
 
+    @Getter
     private MergedChemicalTank chemicalTank;
+    @Getter
     private CTTier tier;
 
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getDrainItem", docPlaceholder = "drain slot")
@@ -196,14 +199,6 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
     IChemicalTank<?, ?> getCurrentTank() {
         MergedChemicalTank.Current current = chemicalTank.getCurrent();
         return chemicalTank.getTankFromCurrent(current == MergedChemicalTank.Current.EMPTY ? MergedChemicalTank.Current.GAS : current);
-    }
-
-    public CTTier getTier() {
-        return tier;
-    }
-
-    public MergedChemicalTank getChemicalTank() {
-        return chemicalTank;
     }
 
     public IGasTank getGasTank() {

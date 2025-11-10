@@ -11,13 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class ExtraAttributeUpgradeable implements ExtraAttribute {
-
-    private final Supplier<BlockRegistryObject<?, ?>> upgradeBlock;
-
-    public ExtraAttributeUpgradeable(Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
-        this.upgradeBlock = upgradeBlock;
-    }
+public record ExtraAttributeUpgradeable(Supplier<BlockRegistryObject<?, ?>> upgradeBlock) implements ExtraAttribute {
 
     @NotNull
     public BlockState upgradeResult(@NotNull BlockState current, @NotNull AdvancedTier tier) {

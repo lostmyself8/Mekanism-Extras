@@ -18,8 +18,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.LazyOptional;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
+@Getter
 public class ExtraItemAlloy extends Item {
 
     private final ExtraAlloyTier tier;
@@ -45,9 +47,5 @@ public class ExtraItemAlloy extends Item {
             }
         }
         return InteractionResult.PASS;
-    }
-
-    public ExtraAlloyTier getTier() {
-        return tier;
     }
 }
