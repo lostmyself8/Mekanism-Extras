@@ -37,6 +37,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -49,9 +50,11 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
     /**
      * This Energy Cube's tier.
      */
+    @Getter
     private ECTier tier;
     private float prevScale;
 
+    @Getter
     private ExtraEnergyCubeEnergyContainer energyContainer;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChargeItem", docPlaceholder = "")
     EnergyInventorySlot chargeSlot;
@@ -95,10 +98,6 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
         return builder.build();
     }
 
-    public ECTier getTier() {
-        return tier;
-    }
-
     @Override
     protected void onUpdateServer() {
         super.onUpdateServer();
@@ -136,10 +135,6 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
         } else {
             super.parseUpgradeData(upgradeData);
         }
-    }
-
-    public ExtraEnergyCubeEnergyContainer getEnergyContainer() {
-        return energyContainer;
     }
 
     @Nonnull

@@ -7,6 +7,7 @@ import mekanism.common.config.value.CachedLongValue;
 
 import net.minecraft.util.StringRepresentable;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -18,7 +19,9 @@ public enum CTTier implements IAdvancedTier, StringRepresentable {
     COSMIC(AdvancedTier.COSMIC, 268_435_456_000L, 134_217_728_000L),// x64 3/4
     INFINITE(AdvancedTier.INFINITE, 34_359_738_368_000L, 17_179_869_184_000L); // x128 3/4
 
+    @Getter
     private final long advanceStorage;
+    @Getter
     private final long advanceOutput;
     private final AdvancedTier advancedTier;
     private CachedLongValue storageReference;
@@ -47,14 +50,6 @@ public enum CTTier implements IAdvancedTier, StringRepresentable {
 
     public long getOutput() {
         return outputReference == null ? getAdvanceOutput() : outputReference.getOrDefault();
-    }
-
-    public long getAdvanceStorage() {
-        return advanceStorage;
-    }
-
-    public long getAdvanceOutput() {
-        return advanceOutput;
     }
 
     /**

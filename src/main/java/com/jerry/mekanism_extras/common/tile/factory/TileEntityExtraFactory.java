@@ -71,6 +71,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -118,6 +119,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
     @NotNull
     protected final FactoryType type;
 
+    @Getter
     protected MachineEnergyContainer<TileEntityExtraFactory<?>> energyContainer;
     protected final List<IInventorySlot> inputSlots;
     protected final List<IInventorySlot> outputSlots;
@@ -472,10 +474,6 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
 
     public boolean hasSecondaryResourceBar() {
         return false;
-    }
-
-    public MachineEnergyContainer<TileEntityExtraFactory<?>> getEnergyContainer() {
-        return energyContainer;
     }
 
     @Override

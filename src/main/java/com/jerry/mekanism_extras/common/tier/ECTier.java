@@ -8,6 +8,7 @@ import mekanism.common.config.value.CachedFloatingLongValue;
 
 import net.minecraft.util.StringRepresentable;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +21,9 @@ public enum ECTier implements IAdvancedTier, StringRepresentable {
     COSMIC(AdvancedTier.COSMIC, FloatingLong.createConst(16_384_000_000L), FloatingLong.createConst(16_384_000)),
     INFINITE(AdvancedTier.INFINITE, FloatingLong.createConst(65_536_000_000L), FloatingLong.createConst(65_536_000));
 
+    @Getter
     private final FloatingLong advanceMaxEnergy;
+    @Getter
     private final FloatingLong advanceOutput;
     private final AdvancedTier advancedTier;
     @Nullable
@@ -51,14 +54,6 @@ public enum ECTier implements IAdvancedTier, StringRepresentable {
 
     public FloatingLong getOutput() {
         return outputReference == null ? getAdvanceOutput() : outputReference.getOrDefault();
-    }
-
-    public FloatingLong getAdvanceMaxEnergy() {
-        return advanceMaxEnergy;
-    }
-
-    public FloatingLong getAdvanceOutput() {
-        return advanceOutput;
     }
 
     /**

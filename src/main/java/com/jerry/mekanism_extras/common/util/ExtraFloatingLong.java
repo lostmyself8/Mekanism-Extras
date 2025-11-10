@@ -5,13 +5,7 @@ import mekanism.api.math.FloatingLongSupplier;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ExtraFloatingLong implements FloatingLongSupplier {
-
-    private final FloatingLong number;
-
-    public ExtraFloatingLong(FloatingLong number) {
-        this.number = number;
-    }
+public record ExtraFloatingLong(FloatingLong number) implements FloatingLongSupplier {
 
     @Override
     public @NotNull FloatingLong get() {

@@ -54,6 +54,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -78,6 +79,7 @@ public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityIte
     private final ILongInputHandler<@NotNull GasStack> gasInputHandler;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChemicalItem", docPlaceholder = "chemical item (extra) slot")
     GasInventorySlot extraSlot;
+    @Getter
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class,
                             methodNames = { "getChemical", "getChemicalCapacity", "getChemicalNeeded",
                                     "getChemicalFilledPercentage" },
@@ -147,10 +149,6 @@ public class TileEntityItemStackGasToItemStackExtraFactory extends TileEntityIte
         super.addSlots(builder, listener, updateSortingListener);
         // Note: We care about the gas tank not the slot when it comes to recipes and updating sorting
         builder.addSlot(extraSlot = GasInventorySlot.fillOrConvert(gasTank, this::getLevel, listener, 7, 57));
-    }
-
-    public IGasTank getGasTank() {
-        return gasTank;
     }
 
     @Nullable

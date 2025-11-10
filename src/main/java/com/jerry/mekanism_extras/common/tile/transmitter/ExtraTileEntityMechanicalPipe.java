@@ -80,7 +80,6 @@ public class ExtraTileEntityMechanicalPipe extends ExtraTileEntityTransmitter im
             case SUPREME -> ExtraBlock.SUPREME_MECHANICAL_PIPE;
             case COSMIC -> ExtraBlock.COSMIC_MECHANICAL_PIPE;
             case INFINITE -> ExtraBlock.INFINITE_MECHANICAL_PIPE;
-            default -> null;
         });
     }
 

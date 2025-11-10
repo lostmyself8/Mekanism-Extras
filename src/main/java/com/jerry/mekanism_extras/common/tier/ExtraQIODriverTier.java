@@ -2,6 +2,8 @@ package com.jerry.mekanism_extras.common.tier;
 
 import mekanism.api.tier.BaseTier;
 
+import lombok.Getter;
+
 public enum ExtraQIODriverTier {
 
     COLLAPSE(BaseTier.BASIC, 512_000_000_000L, 131_072),// x32 x16
@@ -9,6 +11,7 @@ public enum ExtraQIODriverTier {
     BLACK_HOLE(BaseTier.ELITE, 33_554_432_000_000_000L, 33_554_432),// x512 x16
     SINGULARITY(BaseTier.ULTIMATE, Long.MAX_VALUE, Integer.MAX_VALUE);
 
+    @Getter
     private final BaseTier baseTier;
     private final long count;
     private final int types;
@@ -17,10 +20,6 @@ public enum ExtraQIODriverTier {
         baseTier = tier;
         this.count = count;
         this.types = types;
-    }
-
-    public BaseTier getBaseTier() {
-        return baseTier;
     }
 
     public long getMaxCount() {

@@ -18,10 +18,13 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.config.ModConfig;
 
+import lombok.Getter;
+
 import java.util.Locale;
 
 public class ExtraConfig extends BaseMekanismConfig {
 
+    @Getter
     private final ForgeConfigSpec configSpec;
     public final CachedBooleanValue transmitterAlloyUpgrade;
     public final CachedFloatingLongValue absoluteUniversalCableCapacity;
@@ -247,10 +250,6 @@ public class ExtraConfig extends BaseMekanismConfig {
 
     public String getFileName() {
         return MekanismExtras.MODID;
-    }
-
-    public ForgeConfigSpec getConfigSpec() {
-        return this.configSpec;
     }
 
     public ModConfig.Type getConfigType() {

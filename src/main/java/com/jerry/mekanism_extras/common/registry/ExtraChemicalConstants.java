@@ -26,7 +26,6 @@ public enum ExtraChemicalConstants implements IChemicalConstant {
     SUPERHEATED_HELIUM("superheated_helium", 0xFFCA6909, 0, 1_500F, 0.15F),
     VAPORIZED_IRON("vaporized_iron", 0xFF9F9F9F, 0, 1_539F, 7_000F),
     TUNGSTEN_HEXAFLUORIDE("tungsten_hexafluoride", 0xFF371100, 0, 290.65F, 3_441F);
-    ;
 
     private final String name;
     private final int color;

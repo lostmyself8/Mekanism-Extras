@@ -4,6 +4,9 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.LoadingModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 
+import lombok.Getter;
+
+@Getter
 public enum Addons {
 
     MEKANISMGENERATORS("Mekanism Generators"),
@@ -17,10 +20,6 @@ public enum Addons {
 
     public String getModId() {
         return name().toLowerCase();
-    }
-
-    public String getModName() {
-        return modName;
     }
 
     public boolean isLoaded() {

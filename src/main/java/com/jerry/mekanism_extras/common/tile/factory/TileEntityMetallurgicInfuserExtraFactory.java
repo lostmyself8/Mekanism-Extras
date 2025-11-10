@@ -41,6 +41,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,6 +65,7 @@ public class TileEntityMetallurgicInfuserExtraFactory extends TileEntityItemToIt
 
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getInfuseTypeItem", docPlaceholder = "infusion extra input slot")
     InfusionInventorySlot extraSlot;
+    @Getter
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class,
                             methodNames = { "getInfuseType", "getInfuseTypeCapacity", "getInfuseTypeNeeded",
                                     "getInfuseTypeFilledPercentage" },
@@ -96,10 +98,6 @@ public class TileEntityMetallurgicInfuserExtraFactory extends TileEntityItemToIt
         super.addSlots(builder, listener, updateSortingListener);
         // Note: We care about the infusion tank not the slot when it comes to recipes and updating sorting
         builder.addSlot(extraSlot = InfusionInventorySlot.fillOrConvert(infusionTank, this::getLevel, listener, 7, 57));
-    }
-
-    public IInfusionTank getInfusionTank() {
-        return infusionTank;
     }
 
     @Nullable

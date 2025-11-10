@@ -8,12 +8,14 @@ import mekanism.common.inventory.ItemStackMekanismInventory;
 
 import net.minecraft.world.item.ItemStack;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
 
+@Getter
 public class ExtraBinMekanismInventory extends ItemStackMekanismInventory {
 
     private ExtraBinInventorySlot binSlot;
@@ -35,9 +37,5 @@ public class ExtraBinMekanismInventory extends ItemStackMekanismInventory {
             return new ExtraBinMekanismInventory(stack);
         }
         return null;
-    }
-
-    public ExtraBinInventorySlot getBinSlot() {
-        return binSlot;
     }
 }

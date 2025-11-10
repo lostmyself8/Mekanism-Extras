@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,6 +33,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     }
 
     private final boolean isCreative;
+    @Getter
     private ItemStack lockStack = ItemStack.EMPTY;
 
     private ExtraBinInventorySlot(@Nullable IContentsListener listener, BTier tier) {
@@ -130,10 +132,6 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
 
     public ItemStack getRenderStack() {
         return isLocked() ? getLockStack() : getStack();
-    }
-
-    public ItemStack getLockStack() {
-        return lockStack;
     }
 
     @Override

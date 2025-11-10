@@ -14,10 +14,12 @@ import mekanism.common.tile.prefab.TileEntityInternalMultiblock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraTileEntityInductionCell extends TileEntityInternalMultiblock {
 
+    @Getter
     private MachineEnergyContainer<ExtraTileEntityInductionCell> energyContainer;
     public ICTier tier;
 
@@ -39,9 +41,5 @@ public class ExtraTileEntityInductionCell extends TileEntityInternalMultiblock {
     protected void presetVariables() {
         super.presetVariables();
         tier = Attribute.getTier(getBlockType(), ICTier.class);
-    }
-
-    public MachineEnergyContainer<ExtraTileEntityInductionCell> getEnergyContainer() {
-        return energyContainer;
     }
 }

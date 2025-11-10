@@ -76,7 +76,6 @@ public class ExtraTileEntityThermodynamicConductor extends ExtraTileEntityTransm
             case SUPREME -> ExtraBlock.SUPREME_THERMODYNAMIC_CONDUCTOR;
             case COSMIC -> ExtraBlock.COSMIC_THERMODYNAMIC_CONDUCTOR;
             case INFINITE -> ExtraBlock.INFINITE_THERMODYNAMIC_CONDUCTOR;
-            default -> null;
         });
     }
 

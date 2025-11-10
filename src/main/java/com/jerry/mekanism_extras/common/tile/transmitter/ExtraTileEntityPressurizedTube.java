@@ -104,7 +104,6 @@ public class ExtraTileEntityPressurizedTube extends ExtraTileEntityTransmitter i
             case SUPREME -> ExtraBlock.SUPREME_PRESSURIZED_TUBE;
             case COSMIC -> ExtraBlock.COSMIC_PRESSURIZED_TUBE;
             case INFINITE -> ExtraBlock.INFINITE_PRESSURIZED_TUBE;
-            default -> null;
         });
     }
 
