@@ -51,10 +51,12 @@ public abstract class MixinFusionReactorMultiblockData extends MultiblockData {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void meke$modifyFuelConsumption(Level world, CallbackInfoReturnable<Boolean> cir) {
-        if (injectionRate != MAX_INJECTION) {
-            markDirty();
+        if (meke$outputPlasma) {
+            if (injectionRate != MAX_INJECTION) {
+                markDirty();
+            }
+            injectionRate = MAX_INJECTION;
         }
-        injectionRate = MAX_INJECTION;
     }
 
     @Inject(method = "burnFuel", at = @At("TAIL"))
