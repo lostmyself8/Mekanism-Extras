@@ -14,7 +14,6 @@ import mekanism.client.gui.element.gauge.GuiFluidGauge;
 import mekanism.client.gui.element.gauge.GuiGasGauge;
 import mekanism.client.gui.element.tab.GuiWarningTab;
 import mekanism.common.MekanismLang;
-import mekanism.common.content.evaporation.EvaporationMultiblockData;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.inventory.warning.IWarningTracker;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
@@ -66,16 +65,16 @@ public class GuiPlasmaEvaporationController extends GuiMekanismTile<TileEntityPl
 
             @Override
             public double getLevel() {
-                return Math.min(1, tile.getMultiblock().getTemperature() / EvaporationMultiblockData.MAX_MULTIPLIER_TEMP); // Does
-                                                                                                                           // not
-                                                                                                                           // mean
-                                                                                                                           // that
-                                                                                                                           // it
-                                                                                                                           // really
-                                                                                                                           // has
-                                                                                                                           // a
-                                                                                                                           // rate
-                                                                                                                           // cap
+                return Math.min(1, tile.getMultiblock().getTemperature() / 2_000_000L); // Does
+                                                                                        // not
+                                                                                        // mean
+                                                                                        // that
+                                                                                        // it
+                                                                                        // really
+                                                                                        // has
+                                                                                        // a
+                                                                                        // rate
+                                                                                        // cap
             }
         }, 59, 83))
                 .warning(WarningType.INPUT_DOESNT_PRODUCE_OUTPUT, getWarningCheck(RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT));
