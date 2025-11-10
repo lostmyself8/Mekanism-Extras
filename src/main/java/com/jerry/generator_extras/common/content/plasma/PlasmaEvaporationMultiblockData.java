@@ -199,6 +199,16 @@ public class PlasmaEvaporationMultiblockData
         // After we update the heat capacitors, update our temperature multiplier
         tempMultiplier = getTemperature() * GenLoadConfig.generatorConfig.plasmaEvaporationTempMultiplier.get() *
                 ((double) height() / MAX_HEIGHT);
+
+        // 只有超过阈值时才应用对数压缩
+        double threshold = 500000; // 50万阈值
+        if (tempMultiplier > threshold) {
+            double compressionFactor = 1000000 / (Math.log(1000000) - Math.log(threshold) + threshold);
+            tempMultiplier = threshold + (Math.log(tempMultiplier) - Math.log(threshold)) * compressionFactor;
+        }
+        tempMultiplier = Math.min(tempMultiplier, 1000000);
+        // tempMultiplier = getTemperature() * GenLoadConfig.generatorConfig.plasmaEvaporationTempMultiplier.get() *
+        // ((double) height() / MAX_HEIGHT);
         // inputOutputSlot.drainTank(outputOutputSlot);
         // inputInputSlot.fillTank(outputInputSlot);
         recipeCacheLookupMonitor.updateAndProcess();
@@ -272,7 +282,7 @@ public class PlasmaEvaporationMultiblockData
                     // Also fix that the numbers don't quite accurately reflect the values as we modify number of
                     // operations, and not have a fractional
                     // amount
-                    if (active) {
+                    if (active && getTemperature() > 300) {
                         if (tempMultiplier > 0 && tempMultiplier < 1) {
                             lastGain = 1F / (int) Math.ceil(1 / tempMultiplier);
                         } else {
