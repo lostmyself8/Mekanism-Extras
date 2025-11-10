@@ -8,5 +8,5 @@ jobs:
     permissions:
       pull-requests: write
       contents: read
-    uses: qiuye2024github/GithubActions/.github/workflows/labeler.yml@main
+    uses: QiuYe-123/GithubActions/.github/workflows/labeler.yml@main
     secrets: inherit
