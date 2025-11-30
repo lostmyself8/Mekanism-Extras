@@ -34,25 +34,25 @@ jobs:
   publish-20:
     name: 1.20.1
     needs: [ meta ]
-    if: ${{ contains(github.ref_name, 'master') || !contains(github.ref_name, '1.19.2') }}
+    if: ${{ contains(github.ref_name, '1.20.1') || !contains(github.ref_name, '1.19.2') }}
     secrets: inherit
     uses: ./.github/workflows/publish.yml
     with:
       simulate: ${{ startsWith(github.event.release.name, 'simulate') || github.repository_owner != 'lostmyself8' }}
       branch: 'master'
-      tag-name: 1.20.1
+      tag-name: ${{ github.ref_name }}
       release-body: ${{ github.event.release.body }}
       changelog-body: ${{ needs.meta.outputs.CHANGELOG }}
 
   publish-19:
     name: 1.19.2
     needs: [ meta ]
-    if: ${{ contains(github.ref_name, '1.19.2') || !contains(github.ref_name, 'master') }}
+    if: ${{ contains(github.ref_name, '1.19.2') || !contains(github.ref_name, '1.20.1') }}
     secrets: inherit
     uses: ./.github/workflows/publish.yml
     with:
       simulate: ${{ startsWith(github.event.release.name, 'simulate') || github.repository_owner != 'lostmyself8' }}
       branch: '1.19.2'
-      tag-name: 1.19.2
+      tag-name: ${{ github.ref_name }}
       release-body: ${{ github.event.release.body }}
       changelog-body: ${{ needs.meta.outputs.CHANGELOG }}
