@@ -93,8 +93,10 @@ dependencies {
     implementation "mekanism:Mekanism:${mekanism_version}:generators"
     runtimeOnly "mekanism:Mekanism:${mekanism_version}:tools"
 
+    implementation "curse.maven:mekanism-more-machine-1275257:7324317"
+
     runtimeOnly "curse.maven:iglee-library-541199:7000755"
-    implementation "curse.maven:evolved-mekanism-1230085:7117030"
+    implementation "curse.maven:evolved-mekanism-1230085:7321395"
 
     runtimeOnly "cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cctVersion}"
 }

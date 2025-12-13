@@ -9,6 +9,7 @@ import com.jerry.genextras.common.registries.GenExtraTileEntityTypes;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.client.gui.*;
 import com.jerry.mekextras.client.gui.machine.GuiAdvanceElectricPump;
+import com.jerry.mekextras.client.gui.machine.GuiExtraAdvancedFactory;
 import com.jerry.mekextras.client.gui.machine.GuiExtraFactory;
 import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.client.model.energycube.ExtraEnergyCubeModelLoader;
@@ -20,6 +21,7 @@ import com.jerry.mekextras.client.render.tileentity.ExtraRenderEnergyCube;
 import com.jerry.mekextras.client.render.tileentity.ExtraRenderFluidTank;
 import com.jerry.mekextras.client.render.transmitter.*;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
 import com.jerry.mekextras.common.registries.ExtraFluids;
 import com.jerry.mekextras.common.tier.TierColor;
 import com.jerry.mekextras.common.tier.ECTier;
@@ -122,6 +124,11 @@ public class ClientRegistration {
             ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_HEAT, GuiNaquadahReactorHeat::new);
             ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_LOGIC_ADAPTER, GuiNaquadahReactorLogicAdapter::new);
             ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_STATS, GuiNaquadahReactorStats::new);
+        }
+
+        //MoreMachine
+        if (MekanismExtras.hooks.mekmm.isLoaded()) {
+            ClientRegistrationUtil.registerScreen(event, ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY, GuiExtraAdvancedFactory::new);
         }
     }
 

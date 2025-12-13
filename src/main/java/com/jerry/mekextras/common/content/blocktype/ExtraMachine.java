@@ -1,5 +1,7 @@
 package com.jerry.mekextras.common.content.blocktype;
 
+import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
@@ -26,9 +28,20 @@ public class ExtraMachine {
             add(new AttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraBlocks.getExtraFactory(ExtraFactoryTier.ABSOLUTE, getFactoryType())));
         }
 
+        public ExtraFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, AdvancedFactoryType factoryType) {
+            super(tileEntitySupplier, description);
+            // 让高级工厂可以插入新的升级
+            add(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES);
+            add(new AttributeAdvancedFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraBlocks.getExtraFactory(ExtraFactoryTier.ABSOLUTE, getFactoryType())));
+        }
+
 
         public FactoryType getFactoryType() {
             return Objects.requireNonNull(get(AttributeFactoryType.class)).getFactoryType();
+        }
+
+        public AdvancedFactoryType getAdvancedFactoryType() {
+            return Objects.requireNonNull(get(AttributeAdvancedFactoryType.class)).getAdvancedFactoryType();
         }
     }
 
@@ -40,6 +53,11 @@ public class ExtraMachine {
 
         public static <TILE extends TileEntityMekanism> ExtraMachineBuilder<ExtraFactoryMachine<TILE>, TILE, ?> createExtraFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar,
                                                                                                                                           ILangEntry description, FactoryType factoryType) {
+            return new ExtraMachineBuilder<>(new ExtraFactoryMachine<>(tileEntityRegistrar, description, factoryType));
+        }
+
+        public static <TILE extends TileEntityMekanism> ExtraMachineBuilder<ExtraFactoryMachine<TILE>, TILE, ?> createExtraAdvancedFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar,
+                                                                                                                                          ILangEntry description, AdvancedFactoryType factoryType) {
             return new ExtraMachineBuilder<>(new ExtraFactoryMachine<>(tileEntityRegistrar, description, factoryType));
         }
     }

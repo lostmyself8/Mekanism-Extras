@@ -10,6 +10,9 @@ import com.jerry.mekextras.common.command.builders.ExtraBuilders;
 import com.jerry.mekextras.common.config.ExtraConfig;
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixMultiblockData;
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixValidator;
+import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
+import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
+import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryTileEntityTypes;
 import com.jerry.mekextras.common.network.ExtraPacketHandler;
 import com.jerry.mekextras.common.registries.*;
 import com.jerry.mekextras.common.integration.ExtraHooks;
@@ -66,6 +69,10 @@ public class MekanismExtras implements IModModule {
         ExtraCreativeTabs.register(modEventBus);
         ExtraRecipeSerializersInternal.register(modEventBus);
         ExtraChemicals.register(modEventBus);
+
+        //MoreMachine
+        registerAdvancedFactory(modEventBus);
+
         extraPacketHandler = new ExtraPacketHandler(modEventBus, versionNumber);
         hooks.hookConstructor(modContainer, modEventBus);
     }
@@ -93,6 +100,14 @@ public class MekanismExtras implements IModModule {
             BuildCommand.register("naquadah", ExtraLang.NAQUADAH_REACTOR, new ExtraBuilders.NaquadahReactorBuilder());
         }
         event.getDispatcher().register(CommandMek.register());
+    }
+
+    private void registerAdvancedFactory(IEventBus modEventBus) {
+        if (hooks.mekmm.isLoaded()) {
+            ExtraAdvancedFactoryBlocks.AF_BLOCKS.register(modEventBus);
+            ExtraAdvancedFactoryContainerTypes.AF_CONTAINER_TYPES.register(modEventBus);
+            ExtraAdvancedFactoryTileEntityTypes.AF_TILE_ENTITY_TYPES.register(modEventBus);
+        }
     }
 
     @Override

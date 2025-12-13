@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.network.to_server;
 
 import com.jerry.mekextras.MekanismExtras;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedFactoryBase;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
 import io.netty.buffer.ByteBuf;
 import mekanism.api.functions.TriConsumer;
@@ -147,8 +148,11 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
         AUTO_SORT_BUTTON((tile, player, extra) -> {
             if (tile instanceof TileEntityExtraFactory<?> factory) {
                 factory.toggleSorting();
+            } else if (MekanismExtras.hooks.mekmm.isLoaded()) {
+                if (tile instanceof TileEntityExtraAdvancedFactoryBase<?> factory) factory.toggleSorting();
             }
-        });
+        }),
+        ;
 
         public static final IntFunction<ExtraGuiInteraction> BY_ID = ByIdMap.continuous(ExtraGuiInteraction::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
         public static final StreamCodec<ByteBuf, ExtraGuiInteraction> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, ExtraGuiInteraction::ordinal);
