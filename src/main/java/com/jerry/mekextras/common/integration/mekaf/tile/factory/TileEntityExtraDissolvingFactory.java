@@ -54,7 +54,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-public class TileEntityDissolvingExtraFactory extends TileEntityItemToChemicalExtraFactory<ChemicalDissolutionRecipe> implements IHasDumpButton, ConstantUsageRecipeLookupHandler,
+public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemicalFactory<ChemicalDissolutionRecipe> implements IHasDumpButton, ConstantUsageRecipeLookupHandler,
                                          ItemChemicalRecipeLookupHandler<ChemicalDissolutionRecipe> {
 
     private static final DoubleInputRecipeCache.CheckRecipeType<ItemStack, ChemicalStack, ChemicalDissolutionRecipe, ChemicalStack> OUTPUT_CHECK = (recipe, input, extra, output) -> ChemicalStack.isSameChemical(recipe.getOutput(input, extra), output);
@@ -79,7 +79,7 @@ public class TileEntityDissolvingExtraFactory extends TileEntityItemToChemicalEx
 
     ChemicalInventorySlot chemicalInputSlot;
 
-    public TileEntityDissolvingExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityExtraDissolvingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
 
         ConfigInfo itemConfig = configComponent.getConfig(TransmissionType.ITEM);

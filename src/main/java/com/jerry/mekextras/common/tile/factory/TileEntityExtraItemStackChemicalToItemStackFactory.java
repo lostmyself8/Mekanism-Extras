@@ -65,7 +65,7 @@ import java.util.List;
 import java.util.Set;
 
 //Compressing, injecting, purifying, infusing
-public class TileEntityItemStackChemicalToItemStackExtraFactory extends TileEntityItemToItemExtraFactory<ItemStackChemicalToItemStackRecipe> implements IHasDumpButton,
+public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEntityExtraItemToItemFactory<ItemStackChemicalToItemStackRecipe> implements IHasDumpButton,
         ItemChemicalRecipeLookupHandler<ItemStackChemicalToItemStackRecipe>, ConstantUsageRecipeLookupHandler {
 
     protected static final CheckRecipeType<ItemStack, ChemicalStack, ItemStackChemicalToItemStackRecipe, ItemStack> OUTPUT_CHECK =
@@ -93,7 +93,7 @@ public class TileEntityItemStackChemicalToItemStackExtraFactory extends TileEnti
     private double chemicalPerTickMeanMultiplier = 1;
     private long baseTotalUsage;
 
-    public TileEntityItemStackChemicalToItemStackExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityExtraItemStackChemicalToItemStackFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
         chemicalInputHandler = InputHelper.getConstantInputHandler(chemicalTank);
         if (allowExtractingChemical()) {

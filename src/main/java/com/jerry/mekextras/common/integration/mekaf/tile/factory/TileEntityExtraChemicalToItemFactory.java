@@ -1,13 +1,13 @@
 package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
-import com.jerry.mekaf.common.upgrade.ChemicalToChemicalUpgradeData;
+import com.jerry.mekaf.common.upgrade.ChemicalToItemUpgradeData;
 import com.jerry.mekmm.common.util.ChemicalStackMap;
 import mekanism.api.Action;
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.BasicChemicalTank;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalTank;
-import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
+import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.recipes.MekanismRecipe;
 import mekanism.api.recipes.cache.CachedRecipe;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
@@ -17,13 +17,15 @@ import mekanism.api.recipes.outputs.IOutputHandler;
 import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.CommonWorldTickHandler;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
+import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.inventory.slot.OutputInventorySlot;
+import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.recipe.lookup.monitor.FactoryRecipeCacheLookupMonitor;
 import mekanism.common.tile.component.ITileComponent;
 import mekanism.common.tile.component.config.ConfigInfo;
 import mekanism.common.tile.component.config.DataType;
 import mekanism.common.tile.component.config.slot.ChemicalSlotInfo;
-import mekanism.common.tile.component.config.slot.InventorySlotInfo;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import net.minecraft.core.BlockPos;
@@ -35,50 +37,56 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.ToIntBiFunction;
 
-public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityExtraAdvancedFactoryBase<RECIPE> {
+public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityExtraAdvancedBase<RECIPE> {
 
-    protected CCProcessInfo[] processInfoSlots;
-    protected IChemicalTank[] outputTank;
-    protected IChemicalTank[] inputTank;
-
-    protected int baselineMaxOperations = 1;
+    protected CIProcessInfo[] processInfoSlots;
+    public OutputInventorySlot[] outputSlot;
+    public IChemicalTank[] inputTank;
 
     public List<IChemicalTank> inputChemicalTanks;
-    public List<IChemicalTank> outputChemicalTanks;
+    public List<IInventorySlot> outputItemSlots;
 
-    protected TileEntityChemicalToChemicalExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
+    protected TileEntityExtraChemicalToItemFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
         super(blockProvider, pos, state, errorTypes, globalErrorTypes);
         inputChemicalTanks = new ArrayList<>();
-        outputChemicalTanks = new ArrayList<>();
+        outputItemSlots = new ArrayList<>();
 
-        for (CCProcessInfo info : processInfoSlots) {
+        processInfoSlots = new CIProcessInfo[tier.processes];
+        for (int i = 0; i < tier.processes; i++) {
+            processInfoSlots[i] = new CIProcessInfo(i, inputTank[i], outputSlot[i]);
+        }
+
+        for (CIProcessInfo info : processInfoSlots) {
             inputChemicalTanks.add(info.inputTank());
-            outputChemicalTanks.add(info.outputTank());
+            outputItemSlots.add(info.outputSlot());
         }
 
-        ConfigInfo config = configComponent.getConfig(TransmissionType.CHEMICAL);
-        if (config != null) {
-            config.addSlotInfo(DataType.OUTPUT, new ChemicalSlotInfo(false, true, outputChemicalTanks));
-        }
-        ConfigInfo itemConfig = configComponent.getConfig(TransmissionType.ITEM);
-        if (itemConfig != null) {
-            itemConfig.addSlotInfo(DataType.ENERGY, new InventorySlotInfo(true, true, energySlot));
+        configComponent.setupItemIOConfig(Collections.emptyList(), outputItemSlots, energySlot, false);
+        ConfigInfo chemicalConfig = configComponent.getConfig(TransmissionType.CHEMICAL);
+        if (chemicalConfig != null) {
+            chemicalConfig.addSlotInfo(DataType.INPUT, new ChemicalSlotInfo(true, false, inputChemicalTanks));
         }
     }
 
     @Override
     protected void addTanks(ChemicalTankHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         inputTank = new IChemicalTank[tier.processes];
-        outputTank = new IChemicalTank[tier.processes];
         chemicalInputHandlers = new IInputHandler[tier.processes];
-        chemicalOutputHandlers = new IOutputHandler[tier.processes];
-        processInfoSlots = new CCProcessInfo[tier.processes];
+        for (int i = 0; i < tier.processes; i++) {
+            int index = i;
+            inputTank[i] = BasicChemicalTank.inputModern(MAX_CHEMICAL * tier.processes, this::isValidInputChemical, stack -> isChemicalValidForTank(stack) && inputProducesOutput(index, stack, outputSlot[index], false), recipeCacheLookupMonitors[index]);
+            builder.addTank(inputTank[i]);
+            chemicalInputHandlers[i] = InputHelper.getInputHandler(inputTank[i], RecipeError.NOT_ENOUGH_INPUT);
+        }
+    }
+
+    @Override
+    protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
+        outputSlot = new OutputInventorySlot[tier.processes];
+        itemOutputHandlers = new IOutputHandler[tier.processes];
         for (int i = 0; i < tier.processes; i++) {
             FactoryRecipeCacheLookupMonitor<RECIPE> lookupMonitor = recipeCacheLookupMonitors[i];
             IContentsListener updateSortingAndUnpause = () -> {
@@ -86,29 +94,21 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
                 lookupMonitor.unpause();
             };
             int index = i;
-            outputTank[i] = BasicChemicalTank.output(MAX_CHEMICAL * tier.processes, updateSortingAndUnpause);
-            inputTank[i] = BasicChemicalTank.createModern(MAX_CHEMICAL * tier.processes,
-                    // 这个type似乎没什么用，就不增加isValidInputChemical的参数了
-                    ChemicalTankHelper.radioactiveInputTankPredicate(() -> outputTank[index]), (stack, type) -> isValidInputChemical(stack),
-                    stack -> isChemicalValidForTank(stack) && inputProducesOutput(index, stack, outputTank[index], false),
-                    ChemicalAttributeValidator.ALWAYS_ALLOW, recipeCacheLookupMonitors[index]);
-            builder.addTank(inputTank[i]);
-            builder.addTank(outputTank[i]);
-            chemicalInputHandlers[i] = InputHelper.getInputHandler(inputTank[i], RecipeError.NOT_ENOUGH_INPUT);
-            chemicalOutputHandlers[i] = OutputHelper.getOutputHandler(outputTank[i], RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
-            processInfoSlots[i] = new CCProcessInfo(i, inputTank[i], outputTank[i]);
+            outputSlot[i] = OutputInventorySlot.at(updateSortingAndUnpause, getXPos(i), 70);
+            builder.addSlot(outputSlot[i]).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));
+            itemOutputHandlers[i] = OutputHelper.getOutputHandler(outputSlot[i], RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
         }
     }
 
-    public boolean inputProducesOutput(int process, @NotNull ChemicalStack fallbackInput, @NotNull IChemicalTank outputTank, boolean updateCache) {
-        return outputTank.isEmpty() || getRecipeForInput(process, fallbackInput, outputTank, updateCache) != null;
+    public boolean inputProducesOutput(int process, @NotNull ChemicalStack fallbackInput, @NotNull IInventorySlot outputSlot, boolean updateCache) {
+        return outputSlot.isEmpty() || getRecipeForInput(process, fallbackInput, outputSlot, updateCache) != null;
     }
 
     @Contract("null, _ -> false")
     protected abstract boolean isCachedRecipeValid(@Nullable CachedRecipe<RECIPE> cached, @NotNull ChemicalStack stack);
 
     @Nullable
-    protected RECIPE getRecipeForInput(int process, @NotNull ChemicalStack fallbackInput, @NotNull IChemicalTank outputTank, boolean updateCache) {
+    protected RECIPE getRecipeForInput(int process, @NotNull ChemicalStack fallbackInput, @NotNull IInventorySlot outputSlot, boolean updateCache) {
         if (!CommonWorldTickHandler.flushTagAndRecipeCaches) {
             // If our recipe caches are valid, grab our cached recipe and see if it is still valid
             CachedRecipe<RECIPE> cached = getCachedRecipe(process);
@@ -119,7 +119,7 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
         }
         // If there is no cached item input, or it doesn't match our fallback then it is an out of date cache, so we
         // ignore the fact that we have a cache
-        RECIPE foundRecipe = findRecipe(process, fallbackInput, outputTank);
+        RECIPE foundRecipe = findRecipe(process, fallbackInput, outputSlot);
         if (foundRecipe == null) {
             // We could not find any valid recipe for the given item that matches the items in the current output slots
             return null;
@@ -132,7 +132,7 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
     }
 
     @Nullable
-    protected abstract RECIPE findRecipe(int process, @NotNull ChemicalStack fallbackInput, @NotNull IChemicalTank outputSlot);
+    protected abstract RECIPE findRecipe(int process, @NotNull ChemicalStack fallbackInput, @NotNull IInventorySlot outputSlot);
 
     public abstract boolean isChemicalValidForTank(@NotNull ChemicalStack stack);
 
@@ -145,7 +145,7 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
 
     @Override
     public void parseUpgradeData(HolderLookup.Provider provider, @NotNull IUpgradeData upgradeData) {
-        if (upgradeData instanceof ChemicalToChemicalUpgradeData data) {
+        if (upgradeData instanceof ChemicalToItemUpgradeData data) {
             redstone = data.redstone;
             setControlType(data.controlType);
             getEnergyContainer().setEnergy(data.energyContainer.getEnergy());
@@ -156,8 +156,8 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
                 // Copy the stack using NBT so that if it is not actually valid due to a reload we don't crash
                 inputChemicalTanks.get(i).deserializeNBT(provider, data.inputTanks.get(i).serializeNBT(provider));
             }
-            for (int i = 0; i < data.outputTanks.size(); i++) {
-                outputChemicalTanks.get(i).setStack(data.outputTanks.get(i).getStack());
+            for (int i = 0; i < data.outputSlots.size(); i++) {
+                outputItemSlots.get(i).setStack(data.outputSlots.get(i).getStack());
             }
             for (ITileComponent component : getComponents()) {
                 component.read(data.components, provider);
@@ -167,19 +167,18 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
         }
     }
 
-    @Override
     protected void sortInventoryOrTank() {
-        Map<ChemicalStack, CCRecipeProcessInfo<RECIPE>> processes = ChemicalStackMap.createTypeAndComponentsMap();
-        List<CCProcessInfo> emptyProcesses = new ArrayList<>();
-        for (CCProcessInfo processInfo : processInfoSlots) {
+        Map<ChemicalStack, CIRecipeProcessInfo<RECIPE>> processes = ChemicalStackMap.createTypeAndComponentsMap();
+        List<CIProcessInfo> emptyProcesses = new ArrayList<>();
+        for (CIProcessInfo processInfo : processInfoSlots) {
             IChemicalTank inputTank = processInfo.inputTank();
             if (inputTank.isEmpty()) {
                 emptyProcesses.add(processInfo);
             } else {
                 ChemicalStack inputStack = inputTank.getStack();
-                CCRecipeProcessInfo<RECIPE> recipeProcessInfo = processes.computeIfAbsent(inputStack, i -> new CCRecipeProcessInfo<>());
+                CIRecipeProcessInfo<RECIPE> recipeProcessInfo = processes.computeIfAbsent(inputStack, i -> new CIRecipeProcessInfo<>());
                 recipeProcessInfo.processes.add(processInfo);
-                recipeProcessInfo.totalAmount += inputStack.getAmount();
+                recipeProcessInfo.totalCount += inputStack.getAmount();
                 if (recipeProcessInfo.lazyMinPerTank == null && !CommonWorldTickHandler.flushTagAndRecipeCaches) {
                     // If we don't have a lazily initialized min per slot calculation set for it yet
                     // and our cache is not invalid/out of date due to a reload
@@ -199,11 +198,11 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
             // If all input slots are empty, just exit
             return;
         }
-        for (Map.Entry<ChemicalStack, CCRecipeProcessInfo<RECIPE>> entry : processes.entrySet()) {
-            CCRecipeProcessInfo<RECIPE> recipeProcessInfo = entry.getValue();
+        for (Map.Entry<ChemicalStack, CIRecipeProcessInfo<RECIPE>> entry : processes.entrySet()) {
+            CIRecipeProcessInfo<RECIPE> recipeProcessInfo = entry.getValue();
             if (recipeProcessInfo.lazyMinPerTank == null) {
                 recipeProcessInfo.item = entry.getKey();
-                // If we don't have a lazy initializer for our minPerSlot setup, that means that there is
+                // If we don't have a lazy initializer for our minPerTank setup, that means that there is
                 // no valid cached recipe for any of the slots of this type currently, so we want to try and
                 // get the recipe we will have for the first slot, once we end up with more items in the stack
                 recipeProcessInfo.lazyMinPerTank = (info, factory) -> {
@@ -211,10 +210,10 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
                     // until it is needed. That way if we have no empty slots and all our input slots are filled
                     // we don't do any extra processing here, and can properly short circuit
                     ChemicalStack item = (ChemicalStack) info.item;
-                    ChemicalStack largerInput = item.copyWithAmount(Math.min(MAX_CHEMICAL * tier.processes, info.totalAmount));
-                    CCProcessInfo processInfo = info.processes.getFirst();
+                    ChemicalStack largerInput = item.copyWithAmount(Math.min(MAX_CHEMICAL * tier.processes, info.totalCount));
+                    CIProcessInfo processInfo = info.processes.getFirst();
                     // Try getting a recipe for our input with a larger size, and update the cache if we find one
-                    info.recipe = factory.getRecipeForInput(processInfo.process(), largerInput, processInfo.outputTank(), true);
+                    info.recipe = factory.getRecipeForInput(processInfo.process(), largerInput, processInfo.outputSlot(), true);
                     if (info.recipe != null) {
                         return factory.getNeededInput(info.recipe, largerInput);
                     }
@@ -232,11 +231,11 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
         distributeItems(processes);
     }
 
-    protected void addEmptyTanksAsTargets(Map<ChemicalStack, CCRecipeProcessInfo<RECIPE>> processes, List<CCProcessInfo> emptyProcesses) {
-        for (Map.Entry<ChemicalStack, CCRecipeProcessInfo<RECIPE>> entry : processes.entrySet()) {
-            CCRecipeProcessInfo<RECIPE> recipeProcessInfo = entry.getValue();
+    protected void addEmptyTanksAsTargets(Map<ChemicalStack, CIRecipeProcessInfo<RECIPE>> processes, List<CIProcessInfo> emptyProcesses) {
+        for (Map.Entry<ChemicalStack, CIRecipeProcessInfo<RECIPE>> entry : processes.entrySet()) {
+            CIRecipeProcessInfo<RECIPE> recipeProcessInfo = entry.getValue();
             long minPerTank = recipeProcessInfo.getMinPerTank(this);
-            long maxTanks = recipeProcessInfo.totalAmount / minPerTank;
+            long maxTanks = recipeProcessInfo.totalCount / minPerTank;
             if (maxTanks <= 1) {
                 // If we don't have enough to even fill the input for a slot for a single recipe; skip
                 continue;
@@ -251,9 +250,9 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
             ChemicalStack sourceStack = entry.getKey();
             long emptyToAdd = maxTanks - processAmount;
             int added = 0;
-            List<CCProcessInfo> toRemove = new ArrayList<>();
-            for (CCProcessInfo emptyProcess : emptyProcesses) {
-                if (inputProducesOutput(emptyProcess.process(), sourceStack, emptyProcess.outputTank(), true)) {
+            List<CIProcessInfo> toRemove = new ArrayList<>();
+            for (CIProcessInfo emptyProcess : emptyProcesses) {
+                if (inputProducesOutput(emptyProcess.process(), sourceStack, emptyProcess.outputSlot(), true)) {
                     // If the input is valid for the stuff in the empty process' output slot
                     // then add our empty process to our recipeProcessInfo, and mark
                     // the empty process as accounted for
@@ -275,24 +274,24 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
         }
     }
 
-    protected void distributeItems(Map<ChemicalStack, CCRecipeProcessInfo<RECIPE>> processes) {
-        for (Map.Entry<ChemicalStack, CCRecipeProcessInfo<RECIPE>> entry : processes.entrySet()) {
-            CCRecipeProcessInfo<RECIPE> recipeProcessInfo = entry.getValue();
+    protected void distributeItems(Map<ChemicalStack, CIRecipeProcessInfo<RECIPE>> processes) {
+        for (Map.Entry<ChemicalStack, CIRecipeProcessInfo<RECIPE>> entry : processes.entrySet()) {
+            CIRecipeProcessInfo<RECIPE> recipeProcessInfo = entry.getValue();
             long processAmount = recipeProcessInfo.processes.size();
             if (processAmount == 1) {
                 // If there is only one process with the item in it; short-circuit, no balancing is needed
                 continue;
             }
             ChemicalStack item = entry.getKey();
-            // Note: This isn't based on any limits the tank may have (but we currently don't have any reduced ones
+            // Note: This isn't based on any limits the slot may have (but we currently don't have any reduced ones
             // here, so it doesn't matter)
             long maxAmount = MAX_CHEMICAL * tier.processes;
-            long numberPerTank = recipeProcessInfo.totalAmount / processAmount;
+            long numberPerTank = recipeProcessInfo.totalCount / processAmount;
             if (numberPerTank == maxAmount) {
                 // If all the slots are already maxed out; short-circuit, no balancing is needed
                 continue;
             }
-            long remainder = recipeProcessInfo.totalAmount % processAmount;
+            long remainder = recipeProcessInfo.totalCount % processAmount;
             long minPerTank = recipeProcessInfo.getMinPerTank(this);
             if (minPerTank > 1) {
                 long perSlotRemainder = numberPerTank % minPerTank;
@@ -316,16 +315,16 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
                     // Note: we can do this safely because while our remainder may be
                     // processAmount * minPerTank - 1 (as shown above), if we are in
                     // this if statement, that means that we really have at most:
-                    // processAmount * maxAmount - 1 items being distributed and
-                    // have: processAmount * numberPerTank + remainder
+                    // processAmount * maxStackSize - 1 items being distributed and
+                    // have: processAmount * numberPerSlot + remainder
                     // which means that our remainder is actually at most:
-                    // processAmount * (maxAmount - numberPerTank) - 1
-                    // so we can safely set our per slot distribution to maxAmount - numberPerTank
+                    // processAmount * (maxStackSize - numberPerSlot) - 1
+                    // so we can safely set our per slot distribution to maxStackSize - numberPerSlot
                     minPerTank = maxAmount - numberPerTank;
                 }
             }
             for (int i = 0; i < processAmount; i++) {
-                CCProcessInfo processInfo = recipeProcessInfo.processes.get(i);
+                CIProcessInfo processInfo = recipeProcessInfo.processes.get(i);
                 IChemicalTank inputTank = processInfo.inputTank();
                 long sizeForTank = numberPerTank;
                 if (remainder > 0) {
@@ -346,7 +345,7 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
                     }
                 }
                 if (inputTank.isEmpty()) {
-                    // Note: sizeForTank should never be zero here as we would not have added
+                    // Note: sizeForSlot should never be zero here as we would not have added
                     // the empty slot to this item's distribution grouping if it would not
                     // end up getting any items; check it just in case though before creating
                     // a stack for the slot and setting it
@@ -379,19 +378,19 @@ public abstract class TileEntityChemicalToChemicalExtraFactory<RECIPE extends Me
         }
     }
 
-    public record CCProcessInfo(int process, @NotNull IChemicalTank inputTank, @NotNull IChemicalTank outputTank) {}
+    public record CIProcessInfo(int process, @NotNull IChemicalTank inputTank, @NotNull IInventorySlot outputSlot) {}
 
-    protected static class CCRecipeProcessInfo<RECIPE extends MekanismRecipe<?>> {
+    protected static class CIRecipeProcessInfo<RECIPE extends MekanismRecipe<?>> {
 
-        private final List<CCProcessInfo> processes = new ArrayList<>();
+        private final List<CIProcessInfo> processes = new ArrayList<>();
         @Nullable
-        private ToIntBiFunction<CCRecipeProcessInfo<RECIPE>, TileEntityChemicalToChemicalExtraFactory<RECIPE>> lazyMinPerTank;
+        private ToIntBiFunction<CIRecipeProcessInfo<RECIPE>, TileEntityExtraChemicalToItemFactory<RECIPE>> lazyMinPerTank;
         private Object item;
         private RECIPE recipe;
         private long minPerTank = 1;
-        private long totalAmount;
+        private long totalCount;
 
-        public long getMinPerTank(TileEntityChemicalToChemicalExtraFactory<RECIPE> factory) {
+        public long getMinPerTank(TileEntityExtraChemicalToItemFactory<RECIPE> factory) {
             if (lazyMinPerTank != null) {
                 // Get the value lazily
                 minPerTank = Math.max(1, lazyMinPerTank.applyAsInt(this, factory));

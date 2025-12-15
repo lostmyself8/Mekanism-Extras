@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class TileEntityChemicalInfusingExtraFactory extends TileEntityChemicalToChemicalExtraFactory<ChemicalChemicalToChemicalRecipe> implements IHasDumpButton, EitherSideChemicalRecipeLookupHandler<ChemicalChemicalToChemicalRecipe> {
+public class TileEntityExtraChemicalInfusingFactory extends TileEntityExtraChemicalToChemicalFactory<ChemicalChemicalToChemicalRecipe> implements IHasDumpButton, EitherSideChemicalRecipeLookupHandler<ChemicalChemicalToChemicalRecipe> {
 
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
@@ -67,7 +67,7 @@ public class TileEntityChemicalInfusingExtraFactory extends TileEntityChemicalTo
 
     ChemicalInventorySlot rightInputSlot;
 
-    public TileEntityChemicalInfusingExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityExtraChemicalInfusingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
         ConfigInfo itemConfig = configComponent.getConfig(TransmissionType.ITEM);
         if (itemConfig != null) {

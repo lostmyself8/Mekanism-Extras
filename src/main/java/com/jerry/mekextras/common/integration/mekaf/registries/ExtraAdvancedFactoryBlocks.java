@@ -13,7 +13,7 @@ import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.prefab.BlockExtraAdvancedFactoryMachine.BlockExtraAdvancedFactory;
 import com.jerry.mekextras.common.integration.mekaf.content.blocktype.ExtraAdvancedFactory;
 import com.jerry.mekextras.common.integration.mekaf.item.block.machine.ItemBlockExtraAdvancedFactory;
-import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedFactoryBase;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedBase;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import com.jerry.mekmm.common.util.MoreMachineEnumUtils;
@@ -53,7 +53,7 @@ public class ExtraAdvancedFactoryBlocks {
         }
     }
 
-    private static <TILE extends TileEntityExtraAdvancedFactoryBase<?>> BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> registerAdvancedFactory(ExtraAdvancedFactory<TILE> type) {
+    private static <TILE extends TileEntityExtraAdvancedBase<?>> BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> registerAdvancedFactory(ExtraAdvancedFactory<TILE> type) {
         ExtraFactoryTier tier = (ExtraFactoryTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> factory = registerTieredBlock(tier, "_" + type.getAdvancedFactoryType().getRegistryNameComponent() + "_factory", () -> new BlockExtraAdvancedFactory<>(type), ItemBlockExtraAdvancedFactory::new);
         factory.forItemHolder(holder -> {

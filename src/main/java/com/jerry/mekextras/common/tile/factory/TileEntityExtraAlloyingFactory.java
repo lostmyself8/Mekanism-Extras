@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Set;
 
-public class TileEntityAlloyingExtraFactory extends TileEntityItemToItemExtraFactory<AlloyerRecipe> implements TripleItemRecipeLookupHandler<AlloyerRecipe> {
+public class TileEntityExtraAlloyingFactory extends TileEntityExtraItemToItemFactory<AlloyerRecipe> implements TripleItemRecipeLookupHandler<AlloyerRecipe> {
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
             RecipeError.NOT_ENOUGH_INPUT,
@@ -56,7 +56,7 @@ public class TileEntityAlloyingExtraFactory extends TileEntityItemToItemExtraFac
     private final IInputHandler<@NotNull ItemStack> extraInputHandler;
     private final IInputHandler<@NotNull ItemStack> secondExtraInputHandler;
 
-    public TileEntityAlloyingExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityExtraAlloyingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
 
         ConfigInfo itemConfig = configComponent.getConfig(TransmissionType.ITEM);

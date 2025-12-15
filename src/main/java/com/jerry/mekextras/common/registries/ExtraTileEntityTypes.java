@@ -51,15 +51,15 @@ public class ExtraTileEntityTypes {
 
     static {
         for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
-            registerFactory(tier, FactoryType.COMBINING, TileEntityCombiningExtraFactory::new);
-            registerFactory(tier, FactoryType.COMPRESSING, TileEntityItemStackChemicalToItemStackExtraFactory::new);
-            registerFactory(tier, FactoryType.CRUSHING, TileEntityItemStackToItemStackExtraFactory::new);
-            registerFactory(tier, FactoryType.ENRICHING, TileEntityItemStackToItemStackExtraFactory::new);
-            registerFactory(tier, FactoryType.INFUSING, TileEntityItemStackChemicalToItemStackExtraFactory::new);
-            registerFactory(tier, FactoryType.INJECTING, TileEntityItemStackChemicalToItemStackExtraFactory::new);
-            registerFactory(tier, FactoryType.PURIFYING, TileEntityItemStackChemicalToItemStackExtraFactory::new);
-            registerFactory(tier, FactoryType.SAWING, TileEntitySawingExtraFactory::new);
-            registerFactory(tier, FactoryType.SMELTING, TileEntityItemStackToItemStackExtraFactory::new);
+            registerFactory(tier, FactoryType.COMBINING, TileEntityExtraCombiningFactory::new);
+            registerFactory(tier, FactoryType.COMPRESSING, TileEntityExtraItemStackChemicalToItemStackFactory::new);
+            registerFactory(tier, FactoryType.CRUSHING, TileEntityExtraItemStackToItemStackFactory::new);
+            registerFactory(tier, FactoryType.ENRICHING, TileEntityExtraItemStackToItemStackFactory::new);
+            registerFactory(tier, FactoryType.INFUSING, TileEntityExtraItemStackChemicalToItemStackFactory::new);
+            registerFactory(tier, FactoryType.INJECTING, TileEntityExtraItemStackChemicalToItemStackFactory::new);
+            registerFactory(tier, FactoryType.PURIFYING, TileEntityExtraItemStackChemicalToItemStackFactory::new);
+            registerFactory(tier, FactoryType.SAWING, TileEntityExtraSawingFactory::new);
+            registerFactory(tier, FactoryType.SMELTING, TileEntityExtraItemStackToItemStackFactory::new);
         }
     }
 

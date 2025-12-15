@@ -68,7 +68,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 
-public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends MekanismRecipe<?>> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE> {
+public abstract class TileEntityExtraAdvancedBase<RECIPE extends MekanismRecipe<?>> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE> {
 
     /**
      * How many ticks it takes, by default, to run an operation.
@@ -116,7 +116,7 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
     protected IInputHandler<@NotNull FluidStack>[] fluidInputHandlers;
     protected IOutputHandler<@NotNull FluidStack>[] fluidOutputHandlers;
 
-    protected TileEntityExtraAdvancedFactoryBase(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
+    protected TileEntityExtraAdvancedBase(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
         super(blockProvider, pos, state);
         type = Attribute.getOrThrow(blockProvider, AttributeAdvancedFactoryType.class).getAdvancedFactoryType();
 

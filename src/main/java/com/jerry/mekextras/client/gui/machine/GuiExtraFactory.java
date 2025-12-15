@@ -2,8 +2,8 @@ package com.jerry.mekextras.client.gui.machine;
 
 import com.jerry.mekextras.client.gui.element.tab.ExtraGuiSortingTab;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
-import com.jerry.mekextras.common.tile.factory.TileEntityItemStackChemicalToItemStackExtraFactory;
-import com.jerry.mekextras.common.tile.factory.TileEntitySawingExtraFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntityExtraItemStackChemicalToItemStackFactory;
+import com.jerry.mekextras.common.tile.factory.TileEntityExtraSawingFactory;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
 import mekanism.client.gui.GuiConfigurableTile;
 import mekanism.client.gui.element.GuiDumpButton;
@@ -31,7 +31,7 @@ public class GuiExtraFactory extends GuiConfigurableTile<TileEntityExtraFactory<
         if (tile.hasSecondaryResourceBar()) {
             imageHeight += 11;
             inventoryLabelY = 85;
-        } else if (tile instanceof TileEntitySawingExtraFactory) {
+        } else if (tile instanceof TileEntityExtraSawingFactory) {
             imageHeight += 21;
             inventoryLabelY = 95;
         } else {
@@ -48,11 +48,11 @@ public class GuiExtraFactory extends GuiConfigurableTile<TileEntityExtraFactory<
     protected void addGuiElements() {
         super.addGuiElements();
         addRenderableWidget(new ExtraGuiSortingTab(this, tile));
-        addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), imageWidth - 12, 16, tile instanceof TileEntitySawingExtraFactory ? 73 : 52))
+        addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), imageWidth - 12, 16, tile instanceof TileEntityExtraSawingFactory ? 73 : 52))
               .warning(WarningType.NOT_ENOUGH_ENERGY, tile.getWarningCheck(RecipeError.NOT_ENOUGH_ENERGY, 0));
         addRenderableWidget(new GuiEnergyTab(this, tile.getEnergyContainer(), tile::getLastUsage));
         if (tile.hasSecondaryResourceBar()) {
-            if (tile instanceof TileEntityItemStackChemicalToItemStackExtraFactory factory) {
+            if (tile instanceof TileEntityExtraItemStackChemicalToItemStackFactory factory) {
                 int index = tile.tier.ordinal();
                 addRenderableWidget(new GuiChemicalBar(this, GuiChemicalBar.getProvider(factory.getChemicalTank(), tile.getChemicalTanks(null)), 7, 76,
                         210 + 38 * index, 4, true))

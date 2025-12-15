@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.network.to_server;
 
 import com.jerry.mekextras.MekanismExtras;
-import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedFactoryBase;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedBase;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
 import io.netty.buffer.ByteBuf;
 import mekanism.api.functions.TriConsumer;
@@ -149,7 +149,7 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
             if (tile instanceof TileEntityExtraFactory<?> factory) {
                 factory.toggleSorting();
             } else if (MekanismExtras.hooks.mekmm.isLoaded()) {
-                if (tile instanceof TileEntityExtraAdvancedFactoryBase<?> factory) factory.toggleSorting();
+                if (tile instanceof TileEntityExtraAdvancedBase<?> factory) factory.toggleSorting();
             }
         }),
         ;

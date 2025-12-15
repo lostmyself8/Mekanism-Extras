@@ -9,7 +9,7 @@ import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMac
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlockTypes;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
-import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedFactoryBase;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedBase;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import mekanism.api.math.MathUtils;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBase<?>> extends ExtraFactoryMachine<TILE> {
+public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> extends ExtraFactoryMachine<TILE> {
 
     private final ExtraFactoryMachine<?> origMachine;
 
@@ -50,7 +50,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBas
         }
     }
 
-    public static class ExtraAdvancedFactoryBuilder<FACTORY extends ExtraAdvancedFactory<TILE>, TILE extends TileEntityExtraAdvancedFactoryBase<?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
+    public static class ExtraAdvancedFactoryBuilder<FACTORY extends ExtraAdvancedFactory<TILE>, TILE extends TileEntityExtraAdvancedBase<?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
                                               extends BlockTileBuilder<FACTORY, TILE, T> {
 
         protected ExtraAdvancedFactoryBuilder(FACTORY holder) {
@@ -58,8 +58,8 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBas
         }
 
         @SuppressWarnings("unchecked")
-        public static <TILE extends TileEntityExtraAdvancedFactoryBase<?>> ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> createAdvancedFactory(Supplier<?> tileEntityRegistrar, AdvancedFactoryType type,
-                                                                                                                                                                  ExtraFactoryTier tier) {
+        public static <TILE extends TileEntityExtraAdvancedBase<?>> ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> createAdvancedFactory(Supplier<?> tileEntityRegistrar, AdvancedFactoryType type,
+                                                                                                                                                           ExtraFactoryTier tier) {
             // this is dirty but unfortunately necessary for things to play right
             ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> builder = getExtraAdvancedFactoryTILEAdvancedFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(AdvancedFactoryBlockShapes.getShape(type));
@@ -82,7 +82,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBas
         }
     }
 
-    private static <TILE extends TileEntityExtraAdvancedFactoryBase<?>> @NotNull ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> getExtraAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, AdvancedFactoryType type, ExtraFactoryTier tier) {
+    private static <TILE extends TileEntityExtraAdvancedBase<?>> @NotNull ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> getExtraAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, AdvancedFactoryType type, ExtraFactoryTier tier) {
 
         ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> builder = new ExtraAdvancedFactoryBuilder<>(new ExtraAdvancedFactory<>(tileEntityRegistrar,
                 () -> ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY,

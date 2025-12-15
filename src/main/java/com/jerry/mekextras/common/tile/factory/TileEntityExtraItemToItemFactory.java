@@ -22,12 +22,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Set;
 
-public abstract class TileEntityItemToItemExtraFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityExtraFactory<RECIPE> {
+public abstract class TileEntityExtraItemToItemFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityExtraFactory<RECIPE> {
 
     protected IInputHandler<@NotNull ItemStack>[] inputHandlers;
     protected IOutputHandler<@NotNull ItemStack>[] outputHandlers;
 
-    protected TileEntityItemToItemExtraFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
+    protected TileEntityExtraItemToItemFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
         super(blockProvider, pos, state, errorTypes, globalErrorTypes);
     }
 
