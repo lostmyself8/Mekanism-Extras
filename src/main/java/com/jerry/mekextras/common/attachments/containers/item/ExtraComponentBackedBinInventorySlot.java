@@ -28,7 +28,7 @@ public class ExtraComponentBackedBinInventorySlot extends ComponentBackedInvento
         if (!(attachedTo.getItem() instanceof ExtraItemBlockBin item)) {
             throw new IllegalStateException("Attached to should always be a bin item");
         }
-        return new ExtraComponentBackedBinInventorySlot(attachedTo, tankIndex, item.getAdvanceTier());
+        return new ExtraComponentBackedBinInventorySlot(attachedTo, tankIndex, item.getAdvancedTier());
     }
 
     private ExtraComponentBackedBinInventorySlot(ItemStack attachedTo, int slotIndex, BTier tier) {

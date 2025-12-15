@@ -65,14 +65,14 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
     }
 
     @Override
-    public ECTier getAdvanceTier() {
+    public ECTier getAdvancedTier() {
         return ExtraAttribute.getAdvanceTier(getBlock(), ECTier.class);
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Item.@NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         StorageUtils.addStoredEnergy(stack, tooltip, true);
-        tooltip.add(MekanismLang.CAPACITY.translateColored(EnumColor.INDIGO, EnumColor.GRAY, EnergyDisplay.of(getAdvanceTier().getMaxEnergy())));
+        tooltip.add(MekanismLang.CAPACITY.translateColored(EnumColor.INDIGO, EnumColor.GRAY, EnergyDisplay.of(getAdvancedTier().getMaxEnergy())));
         super.appendHoverText(stack, context, tooltip, flag);
     }
 

@@ -17,7 +17,7 @@ public class ExtraComponentBackedEnergyCubeContainer extends ComponentBackedEner
         if (!(attachedTo.getItem() instanceof ExtraItemBlockEnergyCube item)) {
             throw new IllegalStateException("Attached to should always be an energy cube item");
         }
-        return new ExtraComponentBackedEnergyCubeContainer(attachedTo, containerIndex, item.getAdvanceTier());
+        return new ExtraComponentBackedEnergyCubeContainer(attachedTo, containerIndex, item.getAdvancedTier());
     }
 
     private final boolean isCreative;

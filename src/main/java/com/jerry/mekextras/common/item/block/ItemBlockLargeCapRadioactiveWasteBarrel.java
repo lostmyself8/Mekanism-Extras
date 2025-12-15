@@ -22,15 +22,15 @@ public class ItemBlockLargeCapRadioactiveWasteBarrel extends ExtraItemBlockToolt
     }
 
     @Override
-    public RWBTier getAdvanceTier() {
+    public RWBTier getAdvancedTier() {
         return ExtraAttribute.getAdvanceTier(getBlock(), RWBTier.class);
     }
 
     @Override
     protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        tooltip.add(MekanismLang.CAPACITY_MB.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(getAdvanceTier().getStorage())));
-        int ticks = getAdvanceTier().getProcessTicks();
-        long decayAmount = getAdvanceTier().getDecayAmount();
+        tooltip.add(MekanismLang.CAPACITY_MB.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(getAdvancedTier().getStorage())));
+        int ticks = getAdvancedTier().getProcessTicks();
+        long decayAmount = getAdvancedTier().getDecayAmount();
         if (decayAmount == 0 || ticks == 1) {
             tooltip.add(MekanismLang.WASTE_BARREL_DECAY_RATE.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(decayAmount)));
         } else {

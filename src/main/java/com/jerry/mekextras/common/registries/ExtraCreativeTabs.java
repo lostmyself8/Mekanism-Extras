@@ -6,6 +6,7 @@ import com.jerry.genextras.common.registries.GenExtraItems;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.ExtraLang;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
+import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 import mekanism.common.registration.MekanismDeferredHolder;
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
 import net.minecraft.world.item.CreativeModeTab;
@@ -21,6 +22,7 @@ public class ExtraCreativeTabs {
                 CreativeTabDeferredRegister.addToDisplay(ExtraBlocks.EXTRA_BLOCKS, output);
                 CreativeTabDeferredRegister.addToDisplay(ExtraFluids.EXTRA_FLUIDS, output);
                 if (MekanismExtras.hooks.mekmm.isLoaded()) {
+                    CreativeTabDeferredRegister.addToDisplay(ExtraMoreMachineBlocks.MM_BLOCKS, output);
                     CreativeTabDeferredRegister.addToDisplay(ExtraAdvancedFactoryBlocks.AF_BLOCKS, output);
                 }
                 if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {

@@ -44,13 +44,13 @@ public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.
     }
 
     @Override
-    public CTTier getAdvanceTier() {
+    public CTTier getAdvancedTier() {
         return ExtraAttribute.getAdvanceTier(getBlock(), CTTier.class);
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        CTTier tier = getAdvanceTier();
+        CTTier tier = getAdvancedTier();
         StorageUtils.addStoredSubstance(stack, tooltip, false);
         tooltip.add(MekanismLang.CAPACITY_MB.translateColored(EnumColor.INDIGO, EnumColor.GRAY, TextUtils.format(tier.getStorage())));
         super.appendHoverText(stack, context, tooltip, flag);

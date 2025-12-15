@@ -26,14 +26,14 @@ public class ExtraItemBlockBin extends ExtraItemBlockTooltip<ExtraBlockBin> impl
     }
 
     @Override
-    public BTier getAdvanceTier() {
+    public BTier getAdvancedTier() {
         return ExtraAttribute.getAdvanceTier(getBlock(), BTier.class);
     }
 
     @Override
     protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         ExtraComponentBackedBinInventorySlot slot = ExtraBinInventorySlot.getForStack(stack);
-        BTier tier = getAdvanceTier();
+        BTier tier = getAdvancedTier();
         if (slot != null && tier != null) {
             if (slot.isEmpty()) {
                 tooltip.add(MekanismLang.EMPTY.translateColored(EnumColor.DARK_RED));

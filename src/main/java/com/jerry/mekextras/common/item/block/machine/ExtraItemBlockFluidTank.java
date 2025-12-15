@@ -76,13 +76,13 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockTooltip<BlockTile<?, 
 
     @NotNull
     @Override
-    public FTTier getAdvanceTier() {
+    public FTTier getAdvancedTier() {
         return Objects.requireNonNull(ExtraAttribute.getAdvanceTier(getBlock(), FTTier.class));
     }
 
     @Override
     protected void addStats(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        FTTier tier = getAdvanceTier();
+        FTTier tier = getAdvancedTier();
         FluidStack fluidStack = StorageUtils.getStoredFluidFromAttachment(stack);
         if (fluidStack.isEmpty()) {
             tooltip.add(MekanismLang.EMPTY.translateColored(EnumColor.DARK_RED));

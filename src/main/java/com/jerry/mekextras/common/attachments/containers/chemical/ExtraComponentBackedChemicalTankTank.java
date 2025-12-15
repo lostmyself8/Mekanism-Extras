@@ -21,7 +21,7 @@ public class ExtraComponentBackedChemicalTankTank extends ComponentBackedChemica
         if (!(attachedTo.getItem() instanceof ExtraItemBlockChemicalTank item)) {
             throw new IllegalStateException("Attached to should always be a chemical tank item");
         }
-        return new ExtraComponentBackedChemicalTankTank(attachedTo, tankIndex, item.getAdvanceTier());
+        return new ExtraComponentBackedChemicalTankTank(attachedTo, tankIndex, item.getAdvancedTier());
     }
 
     private ExtraComponentBackedChemicalTankTank(ItemStack attachedTo, int tankIndex, CTTier tier) {

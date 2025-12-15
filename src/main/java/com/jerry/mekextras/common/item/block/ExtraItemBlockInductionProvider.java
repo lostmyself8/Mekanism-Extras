@@ -25,13 +25,13 @@ public class ExtraItemBlockInductionProvider extends ExtraItemBlockTooltip<Block
 
     @Override
     @NotNull
-    public IPTier getAdvanceTier() {
+    public IPTier getAdvancedTier() {
         return Objects.requireNonNull(ExtraAttribute.getAdvanceTier(getBlock(), IPTier.class));
     }
 
     @Override
     protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        IPTier tier = getAdvanceTier();
+        IPTier tier = getAdvancedTier();
         tooltip.add(MekanismLang.INDUCTION_PORT_OUTPUT_RATE.translateColored(tier.getAdvanceTier().getColor(), EnumColor.GRAY, EnergyDisplay.of(tier.getOutput())));
     }
 }

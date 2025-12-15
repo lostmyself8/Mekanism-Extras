@@ -13,6 +13,9 @@ import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixValidator;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryTileEntityTypes;
+import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
+import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineContainerTypes;
+import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineTileEntityTypes;
 import com.jerry.mekextras.common.network.ExtraPacketHandler;
 import com.jerry.mekextras.common.registries.*;
 import com.jerry.mekextras.common.integration.ExtraHooks;
@@ -71,6 +74,7 @@ public class MekanismExtras implements IModModule {
         ExtraChemicals.register(modEventBus);
 
         //MoreMachine
+        registerMoreMachineFactory(modEventBus);
         registerAdvancedFactory(modEventBus);
 
         extraPacketHandler = new ExtraPacketHandler(modEventBus, versionNumber);
@@ -107,6 +111,14 @@ public class MekanismExtras implements IModModule {
             ExtraAdvancedFactoryBlocks.AF_BLOCKS.register(modEventBus);
             ExtraAdvancedFactoryContainerTypes.AF_CONTAINER_TYPES.register(modEventBus);
             ExtraAdvancedFactoryTileEntityTypes.AF_TILE_ENTITY_TYPES.register(modEventBus);
+        }
+    }
+
+    private void registerMoreMachineFactory(IEventBus modEventBus) {
+        if (hooks.mekmm.isLoaded()) {
+            ExtraMoreMachineBlocks.MM_BLOCKS.register(modEventBus);
+            ExtraMoreMachineContainerTypes.MM_CONTAINER_TYPES.register(modEventBus);
+            ExtraMoreMachineTileEntityTypes.MM_TILE_ENTITY_TYPES.register(modEventBus);
         }
     }
 

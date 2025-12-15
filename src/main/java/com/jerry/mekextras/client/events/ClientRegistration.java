@@ -11,6 +11,7 @@ import com.jerry.mekextras.client.gui.*;
 import com.jerry.mekextras.client.gui.machine.GuiAdvanceElectricPump;
 import com.jerry.mekextras.client.gui.machine.GuiExtraAdvancedFactory;
 import com.jerry.mekextras.client.gui.machine.GuiExtraFactory;
+import com.jerry.mekextras.client.gui.machine.GuiExtraMoreMachineFactory;
 import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.client.model.energycube.ExtraEnergyCubeModelLoader;
 import com.jerry.mekextras.client.render.ExtraRenderer;
@@ -22,6 +23,7 @@ import com.jerry.mekextras.client.render.tileentity.ExtraRenderFluidTank;
 import com.jerry.mekextras.client.render.transmitter.*;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
+import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineContainerTypes;
 import com.jerry.mekextras.common.registries.ExtraFluids;
 import com.jerry.mekextras.common.tier.TierColor;
 import com.jerry.mekextras.common.tier.ECTier;
@@ -129,6 +131,7 @@ public class ClientRegistration {
         //MoreMachine
         if (MekanismExtras.hooks.mekmm.isLoaded()) {
             ClientRegistrationUtil.registerScreen(event, ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY, GuiExtraAdvancedFactory::new);
+            ClientRegistrationUtil.registerScreen(event, ExtraMoreMachineContainerTypes.MORE_MACHINE_FACTORY, GuiExtraMoreMachineFactory::new);
         }
     }
 
@@ -187,7 +190,7 @@ public class ClientRegistration {
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ExtraItemBlockFluidTank tank) {
-                float[] color = TierColor.getColor(tank.getAdvanceTier());
+                float[] color = TierColor.getColor(tank.getAdvancedTier());
                 return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
             }
             return -1;
@@ -197,7 +200,7 @@ public class ClientRegistration {
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ExtraItemBlockEnergyCube cube) {
-                float[] color = TierColor.getColor(cube.getAdvanceTier());
+                float[] color = TierColor.getColor(cube.getAdvancedTier());
                 return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
             }
             return -1;

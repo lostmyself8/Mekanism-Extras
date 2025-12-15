@@ -4,7 +4,7 @@ import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
 import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryBlockShapes;
 import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
-import com.jerry.mekextras.common.content.blocktype.ExtraMachine;
+import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlockTypes;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
@@ -50,7 +50,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBas
         }
     }
 
-    public static class ExtraAdvancedFactoryBuilder<FACTORY extends ExtraAdvancedFactory<TILE>, TILE extends TileEntityExtraAdvancedFactoryBase<?>, T extends ExtraMachine.ExtraMachineBuilder<FACTORY, TILE, T>>
+    public static class ExtraAdvancedFactoryBuilder<FACTORY extends ExtraAdvancedFactory<TILE>, TILE extends TileEntityExtraAdvancedFactoryBase<?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
                                               extends BlockTileBuilder<FACTORY, TILE, T> {
 
         protected ExtraAdvancedFactoryBuilder(FACTORY holder) {

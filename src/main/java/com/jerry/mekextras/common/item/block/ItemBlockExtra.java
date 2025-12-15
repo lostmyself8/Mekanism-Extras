@@ -22,7 +22,7 @@ public class ItemBlockExtra <BLOCK extends Block> extends BlockItem {
         return (BLOCK) super.getBlock();
     }
 
-    public IAdvancedTier getAdvanceTier() {
+    public IAdvancedTier getAdvancedTier() {
         return null;
     }
 
@@ -32,7 +32,7 @@ public class ItemBlockExtra <BLOCK extends Block> extends BlockItem {
         if (getBlock() instanceof IColoredBlock coloredBlock) {
             return TextComponentUtil.build(coloredBlock.getColor(), super.getName(stack));
         }
-        IAdvancedTier tier = getAdvanceTier();
+        IAdvancedTier tier = getAdvancedTier();
         if (tier == null) {
             return super.getName(stack);
         }

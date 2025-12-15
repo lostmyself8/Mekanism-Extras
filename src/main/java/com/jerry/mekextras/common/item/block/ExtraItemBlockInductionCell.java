@@ -26,13 +26,13 @@ public class ExtraItemBlockInductionCell extends ExtraItemBlockTooltip<BlockTile
 
     @NotNull
     @Override
-    public ICTier getAdvanceTier() {
+    public ICTier getAdvancedTier() {
         return Objects.requireNonNull(ExtraAttribute.getAdvanceTier(getBlock(), ICTier.class));
     }
 
     @Override
     protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        ICTier tier = getAdvanceTier();
+        ICTier tier = getAdvancedTier();
         tooltip.add(MekanismLang.CAPACITY.translateColored(tier.getAdvanceTier().getColor(), EnumColor.GRAY, EnergyDisplay.of(tier.getMaxEnergy())));
         StorageUtils.addStoredEnergy(stack, tooltip, false);
     }

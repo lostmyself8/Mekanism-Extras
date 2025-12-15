@@ -39,7 +39,7 @@ public ItemBlockExtraFactory(BlockExtraFactory<?> block, Properties properties) 
 }
 
 @Override
-public ExtraFactoryTier getAdvanceTier() {
+public ExtraFactoryTier getAdvancedTier() {
     return ExtraAttribute.getAdvanceTier(getBlock(), ExtraFactoryTier.class);
 }
 

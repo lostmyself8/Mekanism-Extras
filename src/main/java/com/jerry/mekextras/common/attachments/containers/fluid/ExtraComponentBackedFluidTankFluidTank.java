@@ -22,7 +22,7 @@ public class ExtraComponentBackedFluidTankFluidTank extends ComponentBackedFluid
         if (!(attachedTo.getItem() instanceof ExtraItemBlockFluidTank item)) {
             throw new IllegalStateException("Attached to should always be a fluid tank item");
         }
-        return new ExtraComponentBackedFluidTankFluidTank(attachedTo, tankIndex, item.getAdvanceTier());
+        return new ExtraComponentBackedFluidTankFluidTank(attachedTo, tankIndex, item.getAdvancedTier());
     }
 
     private ExtraComponentBackedFluidTankFluidTank(ItemStack attachedTo, int tankIndex, FTTier tier) {

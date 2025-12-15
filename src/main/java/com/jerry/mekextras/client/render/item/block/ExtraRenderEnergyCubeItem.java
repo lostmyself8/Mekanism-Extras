@@ -37,7 +37,7 @@ public class ExtraRenderEnergyCubeItem extends MekanismISTER {
     @Override
     public void renderByItem(@NotNull ItemStack stack, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer,
                              int light, int overlayLight) {
-        ECTier tier = ((ExtraItemBlockEnergyCube) stack.getItem()).getAdvanceTier();
+        ECTier tier = ((ExtraItemBlockEnergyCube) stack.getItem()).getAdvancedTier();
         ExtraTileEntityEnergyCube.CubeSideState[] sideStates = new ExtraTileEntityEnergyCube.CubeSideState[EnumUtils.SIDES.length];
         AttachedSideConfig fallback = ExtraItemBlockEnergyCube.SIDE_CONFIG;
         IPersistentConfigInfo sideConfig = AttachedSideConfig.getStoredConfigInfo(stack, fallback, TransmissionType.ENERGY);
