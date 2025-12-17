@@ -16,8 +16,8 @@ import java.util.Locale;
 import java.util.function.IntFunction;
 
 public enum AdvancedTier implements StringRepresentable, SupportsColorMap {
-    ABSOLUTE("Absolute", new int[]{95, 255, 184}, MapColor.COLOR_LIGHT_GREEN),
-    SUPREME("Supreme", new int[]{255, 128, 106}, MapColor.TERRACOTTA_PINK),
+    ABSOLUTE("Absolute", new int[]{237, 238, 70}, MapColor.COLOR_LIGHT_GREEN),
+    SUPREME("Supreme", new int[]{166, 0, 2}, MapColor.TERRACOTTA_PINK),
     COSMIC("Cosmic", new int[]{75, 248, 255}, MapColor.DIAMOND),
     INFINITE("Infinite", new int[]{247, 135, 255}, MapColor.COLOR_MAGENTA);
 

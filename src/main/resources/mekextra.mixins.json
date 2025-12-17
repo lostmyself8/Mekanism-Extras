@@ -17,6 +17,8 @@
     "MixinTileEntityDigitalMiner",
     "MixinUpgrade",
     "MixinUpgradeUtils",
+    "integration.mekaf.MixinAdvancedFactory",
+    "integration.mekmm.MixinMoreMachineFactory",
     "resource.ore.MixinOreType"
   ],
   "client": [
