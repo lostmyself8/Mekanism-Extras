@@ -43,5 +43,4 @@ public class ExtraFactoryInputInventorySlot extends InputInventorySlot {
             case INFINITE -> super.getLimit(stack) * 64;
         };
     }
-
 }

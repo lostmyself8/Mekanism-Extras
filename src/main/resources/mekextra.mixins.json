@@ -13,6 +13,7 @@
     "MixinMachineEnergyContainer",
     "MixinMekanismBlocks",
     "MixinMekanismBlockTypes",
+    "MixinRecipeCacheLookupMonitor",
     "MixinTileComponentEjector",
     "MixinTileEntityDigitalMiner",
     "MixinUpgrade",
@@ -24,7 +25,8 @@
   "client": [
     "client.MixinMekanismRenderer",
     "client.MixinRecipeViewerRecipeType",
-    "client.recipe_viewer.emi.MixinMekanismEmi"
+    "client.recipe_viewer.emi.MixinMekanismEmi",
+    "client.recipe_viewer.jei.MixinMoreMachineJEI"
   ],
   "injectors": {
     "defaultRequire": 1

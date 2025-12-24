@@ -1,8 +1,11 @@
 package com.jerry.mekextras.common.integration.mekmm.tile.factory;
 
+import com.jerry.mekextras.api.ExtraUpgrade;
+import com.jerry.mekextras.api.mixin.IMixinMachineEnergyContainer;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.integration.mekmm.inventory.slot.ExtraMoreMachineFactoryInputInventorySlot;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
+import com.jerry.mekextras.common.util.ExtraUpgradeUtils;
 import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
 import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import com.jerry.mekmm.common.util.MoreMachineUtils;
@@ -77,12 +80,19 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
      * How many ticks it takes, by default, to run an operation.
      */
     protected static final int BASE_TICKS_REQUIRED = 10 * SharedConstants.TICKS_PER_SECOND;
+    protected static final int BASE_X = 27;
+    protected static final int BASE_X_MULT = 19;
 
     protected FactoryRecipeCacheLookupMonitor<RECIPE>[] recipeCacheLookupMonitors;
     protected BooleanSupplier[] recheckAllRecipeErrors;
     protected final ErrorTracker errorTracker;
     private final boolean[] activeStates;
     protected ProcessInfo[] processInfoSlots;
+
+    /**
+     * 堆叠升级提升的线程数
+     */
+    protected int upgradeMaxOperations = 1;
     /**
      * This Factory's tier.
      */
@@ -205,6 +215,10 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
     }
 
     protected abstract void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener);
+
+    public int getXPos(int index) {
+        return BASE_X + (index * BASE_X_MULT);
+    }
 
     @Nullable
     protected IInventorySlot getExtraSlot() {
@@ -377,11 +391,15 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
 
     @ComputerMethod(methodDescription = "Total number of ticks it takes currently for the recipe to complete")
     public int getTicksRequired() {
-        return ticksRequired;
+        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 : ticksRequired;
     }
 
     public int getOperationsPerTick() {
         return this.operationsPerTick;
+    }
+
+    public int getChemicalTicksRequired() {
+        return ticksRequired;
     }
 
     @Override
@@ -430,17 +448,22 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        super.recalculateUpgrades(upgrade);
+        ((IMixinMachineEnergyContainer) getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
-            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, 1);
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
+        } else if (upgrade == ExtraUpgrade.STACK) {
+            //实际上一直是整数所以强制转化为int也不会损失什么
+            upgradeMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
         }
     }
 
     @NotNull
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {
-        return UpgradeUtils.getMultScaledInfo(this, upgrade);
+        List<Component> ret = UpgradeUtils.getMultScaledInfo(this, upgrade);
+        return ExtraUpgradeUtils.getExpScaledInfo(ret, this, upgrade);
     }
 
     @Override

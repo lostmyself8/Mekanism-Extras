@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.integration.mekmm.tile.factory;
 
 import com.jerry.mekextras.common.integration.mekmm.inventory.slot.ExtraMoreMachineFactoryInputInventorySlot;
+import com.jerry.mekextras.common.integration.mekmm.inventory.slot.ExtraMoreMachineFactoryOutputInventorySlot;
 import mekanism.api.IContentsListener;
 import mekanism.api.recipes.MekanismRecipe;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
@@ -9,7 +10,6 @@ import mekanism.api.recipes.inputs.InputHelper;
 import mekanism.api.recipes.outputs.IOutputHandler;
 import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
-import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.recipe.lookup.monitor.FactoryRecipeCacheLookupMonitor;
 import net.minecraft.core.BlockPos;
@@ -36,19 +36,16 @@ public abstract class TileEntityExtraItemToItemMoreMachineFactory<RECIPE extends
         inputHandlers = new IInputHandler[tier.processes];
         outputHandlers = new IOutputHandler[tier.processes];
         processInfoSlots = new ProcessInfo[tier.processes];
-        int baseX = 27;
-        int baseXMult = 19;
         for (int i = 0; i < tier.processes; i++) {
-            int xPos = baseX + (i * baseXMult);
             FactoryRecipeCacheLookupMonitor<RECIPE> lookupMonitor = recipeCacheLookupMonitors[i];
             IContentsListener updateSortingAndUnpause = () -> {
                 updateSortingListener.onContentsChanged();
                 lookupMonitor.unpause();
             };
-            OutputInventorySlot outputSlot = OutputInventorySlot.at(updateSortingAndUnpause, xPos, 57);
+            ExtraMoreMachineFactoryOutputInventorySlot outputSlot = ExtraMoreMachineFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, getXPos(i), 57);
             // Note: As we are an item factory that has comparator's based on items we can just use the monitor as a
             // listener directly
-            ExtraMoreMachineFactoryInputInventorySlot inputSlot = ExtraMoreMachineFactoryInputInventorySlot.create(this, i, outputSlot, recipeCacheLookupMonitors[i], xPos, 13);
+            ExtraMoreMachineFactoryInputInventorySlot inputSlot = ExtraMoreMachineFactoryInputInventorySlot.create(this, i, outputSlot, recipeCacheLookupMonitors[i], getXPos(i), 13);
             int index = i;
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, index)));
             builder.addSlot(outputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Predicate;
 
 public class ExtraAdvancedFactoryEnergyContainer extends MachineEnergyContainer<TileEntityExtraAdvancedBase<?>> {
+
     public static ExtraAdvancedFactoryEnergyContainer input(TileEntityExtraAdvancedBase<?> tile, @Nullable IContentsListener listener) {
         AttributeEnergy electricBlock = validateBlock(tile);
         return new ExtraAdvancedFactoryEnergyContainer(electricBlock.getStorage(), electricBlock.getUsage(), notExternal, ConstantPredicates.alwaysTrue(), tile, listener);

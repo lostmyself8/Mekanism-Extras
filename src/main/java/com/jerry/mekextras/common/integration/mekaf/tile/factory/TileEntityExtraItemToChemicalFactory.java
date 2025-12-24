@@ -83,7 +83,7 @@ public abstract class TileEntityExtraItemToChemicalFactory<RECIPE extends Mekani
                 updateSortingListener.onContentsChanged();
                 lookupMonitor.unpause();
             };
-            outputTank[i] = BasicChemicalTank.output(MAX_CHEMICAL * tier.processes, updateSortingAndUnpause);
+            outputTank[i] = BasicChemicalTank.output(MAX_CHEMICAL * tier.processes * tier.processes, updateSortingAndUnpause);
             builder.addTank(outputTank[i]);
             chemicalOutputHandlers[i] = OutputHelper.getOutputHandler(outputTank[i], RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
         }

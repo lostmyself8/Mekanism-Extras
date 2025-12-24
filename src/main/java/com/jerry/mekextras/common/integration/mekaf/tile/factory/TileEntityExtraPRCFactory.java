@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
 import com.jerry.mekaf.common.upgrade.PRCUpgradeData;
 import com.jerry.mekextras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryInputInventorySlot;
+import com.jerry.mekextras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryOutputInventorySlot;
 import mekanism.api.Action;
 import mekanism.api.IContentsListener;
 import mekanism.api.Upgrade;
@@ -29,7 +30,6 @@ import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.fluid.FluidTankHelper;
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
-import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
@@ -133,15 +133,15 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedBase<Press
 
     @Override
     protected void addTanks(ChemicalTankHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
-        builder.addTank(inputChemicalTank = BasicChemicalTank.createModern(MAX_CHEMICAL * tier.processes, ChemicalTankHelper.radioactiveInputTankPredicate(() -> outputChemicalTank),
+        builder.addTank(inputChemicalTank = BasicChemicalTank.createModern(MAX_CHEMICAL * tier.processes * tier.processes, ChemicalTankHelper.radioactiveInputTankPredicate(() -> outputChemicalTank),
                 ConstantPredicates.alwaysTrueBi(), this::containsRecipeC, ChemicalAttributeValidator.ALWAYS_ALLOW, markAllMonitorsChanged(listener)));
-        builder.addTank(outputChemicalTank = BasicChemicalTank.output(MAX_CHEMICAL * tier.processes, markAllMonitorsChanged(listener)));
+        builder.addTank(outputChemicalTank = BasicChemicalTank.output(MAX_CHEMICAL * tier.processes * tier.processes, markAllMonitorsChanged(listener)));
     }
 
     @Override
     protected @Nullable IFluidTankHolder getInitialFluidTanks(IContentsListener listener) {
         FluidTankHelper builder = FluidTankHelper.forSideWithConfig(this);
-        builder.addTank(inputFluidTank = BasicFluidTank.input(MAX_FLUID * tier.processes, ConstantPredicates.alwaysTrue(),
+        builder.addTank(inputFluidTank = BasicFluidTank.input(MAX_FLUID * tier.processes * tier.processes, ConstantPredicates.alwaysTrue(),
                 this::containsRecipeB, markAllMonitorsChanged(listener)));
         return builder.build();
     }
@@ -157,7 +157,7 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedBase<Press
                 updateSortingListener.onContentsChanged();
                 lookupMonitor.unpause();
             };
-            OutputInventorySlot outputSlot = OutputInventorySlot.at(updateSortingAndUnpause, getXPos(i), 57);
+            ExtraAdvancedFactoryOutputInventorySlot outputSlot = ExtraAdvancedFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, getXPos(i), 57);
             // Note: As we are an item factory that has comparator's based on items we can just use the monitor as a
             // listener directly
             ExtraAdvancedFactoryInputInventorySlot inputSlot = ExtraAdvancedFactoryInputInventorySlot.create(this, i, outputSlot, outputChemicalTank, recipeCacheLookupMonitors[i], getXPos(i), 13);

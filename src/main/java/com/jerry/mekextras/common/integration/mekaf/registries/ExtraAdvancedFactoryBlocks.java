@@ -79,7 +79,7 @@ public class ExtraAdvancedFactoryBlocks {
                 case OXIDIZING -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> AFChemicalTanksBuilder.builder()
                                 // 化学品输出（多个）
-                                .addOutputFactoryTank(processes, TileEntityAdvancedFactoryBase.MAX_CHEMICAL * tier.processes)
+                                .addOutputFactoryTank(processes, TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes * processes)
                                 .build())
                         .addAttachmentOnlyContainers(ContainerType.ITEM, () -> AFItemSlotsBuilder.builder()
                                 // 物品输入（多个）
@@ -90,9 +90,9 @@ public class ExtraAdvancedFactoryBlocks {
                 case DISSOLVING -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> AFChemicalTanksBuilder.builder()
                                 // 化学品输入
-                                .addBasic(TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes, recipeChemicalInputPredicate)
+                                .addBasic(TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes * processes, recipeChemicalInputPredicate)
                                 // 化学品输出（多个）
-                                .addOutputFactoryTank(processes, TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes)
+                                .addOutputFactoryTank(processes, TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes * processes)
                                 .build())
                         .addAttachmentOnlyContainers(ContainerType.ITEM, () -> AFItemSlotsBuilder.builder()
                                 .addInputFactorySlots(processes, recipeItemInputPredicate)
@@ -116,7 +116,7 @@ public class ExtraAdvancedFactoryBlocks {
                 // 没问题
                 case WASHING -> holder
                         .addAttachmentOnlyContainers(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
-                                .addBasic(TileEntityAdvancedFactoryBase.MAX_FLUID * processes * processes, MekanismRecipeType.WASHING, InputRecipeCache.FluidChemical::containsInputA)
+                                .addBasic(TileEntityAdvancedFactoryBase.MAX_FLUID * processes, MekanismRecipeType.WASHING, InputRecipeCache.FluidChemical::containsInputA)
                                 .build())
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> AFChemicalTanksBuilder.builder()
                                 .addInputFactoryTank(processes, TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes, recipeChemicalInputPredicate)
@@ -130,11 +130,11 @@ public class ExtraAdvancedFactoryBlocks {
                 // 使用工作台合成升级机器导致能量槽错位（mek原生bug）
                 case PRESSURISED_REACTING -> holder
                         .addAttachmentOnlyContainers(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
-                                .addBasic(TileEntityAdvancedFactoryBase.MAX_FLUID * processes, MekanismRecipeType.REACTION, InputRecipeCache.ItemFluidChemical::containsInputB)
+                                .addBasic(TileEntityAdvancedFactoryBase.MAX_FLUID * processes * processes, MekanismRecipeType.REACTION, InputRecipeCache.ItemFluidChemical::containsInputB)
                                 .build())
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> AFChemicalTanksBuilder.builder()
-                                .addBasic(TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes, recipeChemicalInputPredicate)
-                                .addBasic(TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes)
+                                .addBasic(TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes * processes, recipeChemicalInputPredicate)
+                                .addBasic(TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes * processes)
                                 .build())
                         .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeItemInputPredicate)
@@ -142,7 +142,7 @@ public class ExtraAdvancedFactoryBlocks {
                                 .build());
                 // 使用工作台合成升级机器导致能量槽错位（mek原生bug）
                 case CRYSTALLIZING -> holder.addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> AFChemicalTanksBuilder.builder()
-                        .addInputFactoryTank(tier.processes, TileEntityAdvancedFactoryBase.MAX_CHEMICAL * tier.processes, recipeChemicalInputPredicate)
+                        .addInputFactoryTank(processes, TileEntityAdvancedFactoryBase.MAX_CHEMICAL * processes, recipeChemicalInputPredicate)
                         .build()).addAttachmentOnlyContainers(ContainerType.ITEM, () -> AFItemSlotsBuilder.builder()
                                 .addOutputFactorySlots(tier.processes)
                                 .addEnergy()
@@ -159,7 +159,7 @@ public class ExtraAdvancedFactoryBlocks {
                 // 偶现升级后槽位不可以的情况
                 case LIQUIFYING -> holder
                         .addAttachmentOnlyContainers(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
-                                .addBasic(TileEntityLiquifyingFactory.MAX_FLUID * processes)
+                                .addBasic(TileEntityLiquifyingFactory.MAX_FLUID * processes * processes)
                                 .build())
                         .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeItemInputPredicate)

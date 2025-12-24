@@ -44,7 +44,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
         setFrom(origMachine, AttributeSound.class, MoreMachineAttributeFactoryType.class, AttributeUpgradeSupport.class);
         AttributeEnergy origEnergy = origMachine.get(AttributeEnergy.class);
         if (origEnergy != null) {
-            add(new AttributeEnergy(origEnergy::getUsage, () -> MathUtils.clampToLong(Math.max(origEnergy.getConfigStorage() * 0.5, origEnergy.getUsage()) * tier.processes)));
+            add(new AttributeEnergy(origEnergy::getUsage, () -> MathUtils.clampToLong(Math.max(origEnergy.getConfigStorage(), origEnergy.getUsage()) * tier.processes)));
         }
     }
 

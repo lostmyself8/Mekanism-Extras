@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
 import com.jerry.mekaf.common.upgrade.ChemicalToItemUpgradeData;
+import com.jerry.mekextras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryOutputInventorySlot;
 import com.jerry.mekmm.common.util.ChemicalStackMap;
 import mekanism.api.Action;
 import mekanism.api.IContentsListener;
@@ -18,7 +19,6 @@ import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.CommonWorldTickHandler;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
-import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.recipe.lookup.monitor.FactoryRecipeCacheLookupMonitor;
@@ -43,7 +43,7 @@ import java.util.function.ToIntBiFunction;
 public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityExtraAdvancedBase<RECIPE> {
 
     protected CIProcessInfo[] processInfoSlots;
-    public OutputInventorySlot[] outputSlot;
+    public ExtraAdvancedFactoryOutputInventorySlot[] outputSlot;
     public IChemicalTank[] inputTank;
 
     public List<IChemicalTank> inputChemicalTanks;
@@ -85,7 +85,7 @@ public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends Mekani
 
     @Override
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
-        outputSlot = new OutputInventorySlot[tier.processes];
+        outputSlot = new ExtraAdvancedFactoryOutputInventorySlot[tier.processes];
         itemOutputHandlers = new IOutputHandler[tier.processes];
         for (int i = 0; i < tier.processes; i++) {
             FactoryRecipeCacheLookupMonitor<RECIPE> lookupMonitor = recipeCacheLookupMonitors[i];
@@ -94,7 +94,7 @@ public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends Mekani
                 lookupMonitor.unpause();
             };
             int index = i;
-            outputSlot[i] = OutputInventorySlot.at(updateSortingAndUnpause, getXPos(i), 70);
+            outputSlot[i] = ExtraAdvancedFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, getXPos(i), 70);
             builder.addSlot(outputSlot[i]).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));
             itemOutputHandlers[i] = OutputHelper.getOutputHandler(outputSlot[i], RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
         }

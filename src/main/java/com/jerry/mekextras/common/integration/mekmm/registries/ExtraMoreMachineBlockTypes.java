@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.integration.mekmm.registries;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
 import com.jerry.mekextras.common.integration.mekmm.content.blocktype.ExtraMoreMachineFactory;
@@ -10,7 +11,6 @@ import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import com.jerry.mekmm.common.MoreMachineLang;
 import com.jerry.mekmm.common.config.MoreMachineConfig;
-import com.jerry.mekmm.common.content.blocktype.MoreMachineBlockShapes;
 import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import com.jerry.mekmm.common.registries.MoreMachineContainerTypes;
 import com.jerry.mekmm.common.registries.MoreMachineTileEntityTypes;
@@ -31,51 +31,44 @@ public class ExtraMoreMachineBlockTypes {
             .withGui(() -> MoreMachineContainerTypes.RECYCLER)
             .withSound(MekanismSounds.PRECISION_SAWMILL)
             .withEnergyConfig(MoreMachineConfig.usage.recycler, MoreMachineConfig.storage.recycler)
-            .with(AttributeSideConfig.ELECTRIC_MACHINE)
-            .withComputerSupport("recycler")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
 
     // Planting Station
     public static final ExtraFactoryMachine<TileEntityPlantingStation> PLANTING_STATION = ExtraMachineBuilder
             .createExtraMoreMachineFactoryMachine(() -> MoreMachineTileEntityTypes.PLANTING_STATION, MoreMachineLang.DESCRIPTION_PLANTING_STATION, MoreMachineFactoryType.PLANTING_STATION)
             .withGui(() -> MoreMachineContainerTypes.PLANTING_STATION)
-            .withSound(MekanismSounds.ENRICHMENT_CHAMBER)
             .withEnergyConfig(MoreMachineConfig.usage.plantingStation, MoreMachineConfig.storage.plantingStation)
-            .with(AttributeUpgradeSupport.DEFAULT_ADVANCED_MACHINE_UPGRADES)
-            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
-            .withCustomShape(MoreMachineBlockShapes.PLANTING_STATION)
+            .with(ExtraAttributeUpgradeSupport.EXTRA_ADVANCED_MACHINE_UPGRADES)
+            .withSound(MekanismSounds.ENRICHMENT_CHAMBER)
             .with(AttributeHasBounding.ABOVE_ONLY)
-            .withComputerSupport("plantingStation")
             .build();
 
     // CNC Stamper
     public static final ExtraFactoryMachine<TileEntityStamper> CNC_STAMPER = ExtraMachineBuilder
             .createExtraMoreMachineFactoryMachine(() -> MoreMachineTileEntityTypes.CNC_STAMPER, MoreMachineLang.DESCRIPTION_CNC_STAMPER, MoreMachineFactoryType.CNC_STAMPING)
             .withGui(() -> MoreMachineContainerTypes.CNC_STAMPER)
-            .withSound(MekanismSounds.CRUSHER)
             .withEnergyConfig(MoreMachineConfig.usage.cnc_stamper, MoreMachineConfig.storage.cnc_stamper)
-            .with(AttributeSideConfig.ELECTRIC_MACHINE)
-            .withComputerSupport("cnc_stamper")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
+            .withSound(MekanismSounds.CRUSHER)
             .build();
 
     // CNC Lathe
     public static final ExtraFactoryMachine<TileEntityLathe> CNC_LATHE = ExtraMachineBuilder
             .createExtraMoreMachineFactoryMachine(() -> MoreMachineTileEntityTypes.CNC_LATHE, MoreMachineLang.DESCRIPTION_CNC_LATHE, MoreMachineFactoryType.CNC_LATHING)
             .withGui(() -> MoreMachineContainerTypes.CNC_LATHE)
-            .withSound(MekanismSounds.OSMIUM_COMPRESSOR)
             .withEnergyConfig(MoreMachineConfig.usage.cnc_lathe, MoreMachineConfig.storage.cnc_lathe)
-            .with(AttributeSideConfig.ELECTRIC_MACHINE)
-            .withComputerSupport("cnc_lathe")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
+            .withSound(MekanismSounds.OSMIUM_COMPRESSOR)
             .build();
 
     // CNC Rolling Mill
     public static final ExtraFactoryMachine<TileEntityRollingMill> CNC_ROLLING_MILL = ExtraMachineBuilder
             .createExtraMoreMachineFactoryMachine(() -> MoreMachineTileEntityTypes.CNC_ROLLING_MILL, MoreMachineLang.DESCRIPTION_CNC_ROLLING_MILL, MoreMachineFactoryType.CNC_ROLLING_MILL)
             .withGui(() -> MoreMachineContainerTypes.CNC_ROLLING_MILL)
-            .withSound(MekanismSounds.COMBINER)
             .withEnergyConfig(MoreMachineConfig.usage.cnc_rollingMill, MoreMachineConfig.storage.cnc_rollingMill)
-            .with(AttributeSideConfig.ELECTRIC_MACHINE)
-            .withComputerSupport("cnc_rolling_mill")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
+            .withSound(MekanismSounds.COMBINER)
             .build();
 
     // Replicator
@@ -83,10 +76,8 @@ public class ExtraMoreMachineBlockTypes {
             .createExtraMoreMachineFactoryMachine(() -> MoreMachineTileEntityTypes.REPLICATOR, MoreMachineLang.DESCRIPTION_REPLICATOR, MoreMachineFactoryType.REPLICATING)
             .withGui(() -> MoreMachineContainerTypes.REPLICATOR)
             .withEnergyConfig(MoreMachineConfig.usage.itemReplicator, MoreMachineConfig.storage.itemReplicator)
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .withSound(MekanismSounds.PURIFICATION_CHAMBER)
-            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
-            .withCustomShape(MoreMachineBlockShapes.REPLICATOR)
-            .withComputerSupport("itemReplicator")
             .build();
 
     static {

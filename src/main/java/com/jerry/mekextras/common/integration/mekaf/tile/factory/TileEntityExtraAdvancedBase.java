@@ -2,9 +2,12 @@ package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
 import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
 import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
+import com.jerry.mekextras.api.ExtraUpgrade;
+import com.jerry.mekextras.api.mixin.IMixinMachineEnergyContainer;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.integration.mekaf.capabilities.energy.ExtraAdvancedFactoryEnergyContainer;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
+import com.jerry.mekextras.common.util.ExtraUpgradeUtils;
 import com.jerry.mekmm.common.util.MoreMachineUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
@@ -76,11 +79,18 @@ public abstract class TileEntityExtraAdvancedBase<RECIPE extends MekanismRecipe<
     protected static final int BASE_TICKS_REQUIRED = 10 * SharedConstants.TICKS_PER_SECOND;
     public static final long MAX_CHEMICAL = 10L * FluidType.BUCKET_VOLUME;
     public static final int MAX_FLUID = 10 * FluidType.BUCKET_VOLUME;
+    protected static final int BASE_X = 27;
+    protected static final int BASE_X_MULT = 19;
 
     protected FactoryRecipeCacheLookupMonitor<RECIPE>[] recipeCacheLookupMonitors;
     protected BooleanSupplier[] recheckAllRecipeErrors;
     protected final ErrorTracker errorTracker;
     private final boolean[] activeStates;
+
+    /**
+     * 堆叠升级提升的线程数
+     */
+    protected int upgradeMaxOperations = 1;
     /**
      * This Factory's tier.
      */
@@ -204,9 +214,7 @@ public abstract class TileEntityExtraAdvancedBase<RECIPE extends MekanismRecipe<
     protected abstract void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener);
 
     public int getXPos(int index) {
-        int baseX = 27;
-        int baseXMult = 19;
-        return baseX + (index * baseXMult);
+        return BASE_X + (index * BASE_X_MULT);
     }
 
     /**
@@ -305,7 +313,8 @@ public abstract class TileEntityExtraAdvancedBase<RECIPE extends MekanismRecipe<
     /**
      * Handles filling the secondary fuel tank based on the item in the extra slot
      */
-    protected void handleSecondaryFuel() {}
+    protected void handleSecondaryFuel() {
+    }
 
     public int getProgress(int cacheIndex) {
         return progress[cacheIndex];
@@ -337,11 +346,19 @@ public abstract class TileEntityExtraAdvancedBase<RECIPE extends MekanismRecipe<
 
     @ComputerMethod(methodDescription = "Total number of ticks it takes currently for the recipe to complete")
     public int getTicksRequired() {
-        return ticksRequired;
+        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 : ticksRequired;
     }
 
     public int getOperationsPerTick() {
         return operationsPerTick;
+    }
+
+    public void setOperationsPerTick(int value) {
+        operationsPerTick = value;
+    }
+
+    public int getChemicalTicksRequired() {
+        return ticksRequired;
     }
 
     public void setTicksRequired(int value) {
@@ -394,17 +411,22 @@ public abstract class TileEntityExtraAdvancedBase<RECIPE extends MekanismRecipe<
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        super.recalculateUpgrades(upgrade);
+        ((IMixinMachineEnergyContainer) getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
-            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, 1);
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
+        } else if (upgrade == ExtraUpgrade.STACK) {
+            //实际上一直是整数所以强制转化为int也不会损失什么
+            upgradeMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
         }
     }
 
     @NotNull
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {
-        return UpgradeUtils.getMultScaledInfo(this, upgrade);
+        List<Component> ret = UpgradeUtils.getMultScaledInfo(this, upgrade);
+        return ExtraUpgradeUtils.getExpScaledInfo(ret, this, upgrade);
     }
 
     @Override

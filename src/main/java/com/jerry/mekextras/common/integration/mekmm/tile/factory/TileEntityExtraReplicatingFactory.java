@@ -94,7 +94,7 @@ public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItem
     @Override
     public @Nullable IChemicalTankHolder getInitialChemicalTanks(IContentsListener listener) {
         ChemicalTankHelper builder = ChemicalTankHelper.forSideWithConfig(this);
-        chemicalTank = BasicChemicalTank.inputModern(MAX_GAS * tier.processes, TileEntityExtraReplicatingFactory::isValidChemicalInput, markAllMonitorsChanged(listener));
+        chemicalTank = BasicChemicalTank.inputModern(MAX_GAS * tier.processes * tier.processes, TileEntityExtraReplicatingFactory::isValidChemicalInput, markAllMonitorsChanged(listener));
         builder.addTank(chemicalTank);
         return builder.build();
     }

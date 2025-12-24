@@ -1,5 +1,7 @@
 package com.jerry.mekextras.common.tile.factory;
 
+import com.jerry.mekextras.api.recipes.cache.StackableItemStackConstantChemicalToObjectCachedRecipe;
+import com.jerry.mekextras.api.recipes.cache.StackableItemStackConstantChemicalToObjectCachedRecipe.StackableChemicalUsageMultiplier;
 import com.jerry.mekextras.common.inventory.slot.chemical.ExtraFactoryChemicalInventorySlot;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
@@ -13,8 +15,6 @@ import mekanism.api.math.MathUtils;
 import mekanism.api.recipes.ItemStackChemicalToItemStackRecipe;
 import mekanism.api.recipes.cache.CachedRecipe;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
-import mekanism.api.recipes.cache.ItemStackConstantChemicalToObjectCachedRecipe;
-import mekanism.api.recipes.cache.ItemStackConstantChemicalToObjectCachedRecipe.ChemicalUsageMultiplier;
 import mekanism.api.recipes.cache.TwoInputCachedRecipe;
 import mekanism.api.recipes.inputs.ILongInputHandler;
 import mekanism.api.recipes.inputs.InputHelper;
@@ -88,7 +88,7 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getChemical", "getChemicalCapacity", "getChemicalNeeded",
             "getChemicalFilledPercentage"}, docPlaceholder = "chemical tank")
     IChemicalTank chemicalTank;
-    private final ChemicalUsageMultiplier chemicalUsageMultiplier;
+    private final StackableChemicalUsageMultiplier chemicalUsageMultiplier;
     private final long[] usedSoFar;
     private double chemicalPerTickMeanMultiplier = 1;
     private long baseTotalUsage;
@@ -106,11 +106,11 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
         if (useStatisticalMechanics()) {
             //Note: Statistical mechanics works best by just using the mean gas usage we want to target
             // rather than adjusting the mean each time to try and reach a given target
-            chemicalUsageMultiplier = (usedSoFar, operatingTicks) -> StatUtils.inversePoisson(chemicalPerTickMeanMultiplier);
+            chemicalUsageMultiplier = (usedSoFar, operatingTicks, operationsSoFar) -> StatUtils.inversePoisson(chemicalPerTickMeanMultiplier);
         } else {
             //插入创造升级后getTicksRequired变为0，导致chemicalUsageMultiplier为0，也就意味着不消耗化学品。
             //因此处理化学品消耗时按1计算，而工作时间依旧为0
-            chemicalUsageMultiplier = ChemicalUsageMultiplier.constantUse(() -> baseTotalUsage, this::getChemicalTicksRequired);
+            chemicalUsageMultiplier = StackableChemicalUsageMultiplier.constantUse(() -> baseTotalUsage, this::getChemicalTicksRequired);
         }
     }
 
@@ -228,7 +228,7 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
     public CachedRecipe<ItemStackChemicalToItemStackRecipe> createNewCachedRecipe(@NotNull ItemStackChemicalToItemStackRecipe recipe, int cacheIndex) {
         CachedRecipe<ItemStackChemicalToItemStackRecipe> cachedRecipe;
         if (recipe.perTickUsage()) {
-            cachedRecipe = ItemStackConstantChemicalToObjectCachedRecipe.toItem(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], chemicalInputHandler,
+            cachedRecipe = StackableItemStackConstantChemicalToObjectCachedRecipe.toItem(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], chemicalInputHandler,
                     chemicalUsageMultiplier, used -> usedSoFar[cacheIndex] = used, outputHandlers[cacheIndex]);
         } else {
             cachedRecipe = TwoInputCachedRecipe.itemChemicalToItem(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], chemicalInputHandler, outputHandlers[cacheIndex]);

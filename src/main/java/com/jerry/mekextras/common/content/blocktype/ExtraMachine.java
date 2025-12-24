@@ -27,22 +27,18 @@ public class ExtraMachine {
 
         public ExtraFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, FactoryType factoryType) {
             super(tileEntitySupplier, description);
-            // 让高级工厂可以插入新的升级
+            // 让额外工厂可以插入新的升级
             add(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES);
             add(new AttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraBlocks.getExtraFactory(ExtraFactoryTier.ABSOLUTE, getFactoryType())));
         }
 
         public ExtraFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, AdvancedFactoryType factoryType) {
             super(tileEntitySupplier, description);
-            // 让高级工厂可以插入新的升级
-            add(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES);
             add(new AttributeAdvancedFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraAdvancedFactoryBlocks.getAdvancedFactory(ExtraFactoryTier.ABSOLUTE, getAdvancedFactoryType())));
         }
 
         public ExtraFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, MoreMachineFactoryType factoryType) {
             super(tileEntitySupplier, description);
-            // 让高级工厂可以插入新的升级
-            add(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES);
             add(new MoreMachineAttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraMoreMachineBlocks.getMoreMachineFactory(ExtraFactoryTier.ABSOLUTE, getMoreMachineFactoryType())));
         }
 

@@ -46,7 +46,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
         AttributeEnergy origEnergy = origMachine.get(AttributeEnergy.class);
         if (origEnergy != null) {
             // 相比于原版，这里将0.5的乘数去除
-            add(new AttributeEnergy(origEnergy::getUsage, () -> MathUtils.clampToLong(Math.max(origEnergy.getConfigStorage(), origEnergy.getUsage()) * tier.processes)));
+            add(new AttributeEnergy(origEnergy::getUsage, () -> MathUtils.clampToLong(Math.max(origEnergy.getConfigStorage(), origEnergy.getUsage()) * tier.processes * tier.processes)));
         }
     }
 

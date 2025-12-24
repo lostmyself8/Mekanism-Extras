@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.integration.mekaf.registries;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
+import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
 import com.jerry.mekextras.common.integration.mekaf.content.blocktype.ExtraAdvancedFactory;
@@ -12,11 +13,7 @@ import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import com.jerry.mekmm.common.util.MoreMachineEnumUtils;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.AttributeHasBounding;
-import mekanism.common.block.attribute.AttributeSideConfig;
-import mekanism.common.block.attribute.AttributeUpgradeSupport;
 import mekanism.common.config.MekanismConfig;
-import mekanism.common.content.blocktype.BlockShapes;
-import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.registries.MekanismContainerTypes;
 import mekanism.common.registries.MekanismSounds;
 import mekanism.common.registries.MekanismTileEntityTypes;
@@ -34,9 +31,7 @@ public class ExtraAdvancedFactoryBlockTypes {
             .withGui(() -> MekanismContainerTypes.CHEMICAL_OXIDIZER)
             .withSound(MekanismSounds.CHEMICAL_OXIDIZER)
             .withEnergyConfig(MekanismConfig.usage.chemicalOxidizer, MekanismConfig.storage.chemicalOxidizer)
-            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
-            .withCustomShape(BlockShapes.CHEMICAL_OXIDIZER)
-            .withComputerSupport("chemicalOxidizer")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
 
     // Chemical Dissolution Chamber
@@ -45,10 +40,7 @@ public class ExtraAdvancedFactoryBlockTypes {
             .withGui(() -> MekanismContainerTypes.CHEMICAL_DISSOLUTION_CHAMBER)
             .withSound(MekanismSounds.CHEMICAL_DISSOLUTION_CHAMBER)
             .withEnergyConfig(MekanismConfig.usage.chemicalDissolutionChamber, MekanismConfig.storage.chemicalDissolutionChamber)
-            .with(AttributeUpgradeSupport.DEFAULT_ADVANCED_MACHINE_UPGRADES)
-            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
-            .withCustomShape(BlockShapes.CHEMICAL_DISSOLUTION_CHAMBER)
-            .withComputerSupport("chemicalDissolutionChamber")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_ADVANCED_MACHINE_UPGRADES)
             .build();
 
     // Chemical Infuser
@@ -57,9 +49,7 @@ public class ExtraAdvancedFactoryBlockTypes {
             .withGui(() -> MekanismContainerTypes.CHEMICAL_INFUSER)
             .withSound(MekanismSounds.CHEMICAL_INFUSER)
             .withEnergyConfig(MekanismConfig.usage.chemicalInfuser, MekanismConfig.storage.chemicalInfuser)
-            .withSideConfig(TransmissionType.CHEMICAL, TransmissionType.ITEM, TransmissionType.ENERGY)
-            .withCustomShape(BlockShapes.CHEMICAL_INFUSER)
-            .withComputerSupport("chemicalInfuser")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_NO_STACK_UPGRADES)
             .build();
 
     // Chemical Washer
@@ -68,9 +58,7 @@ public class ExtraAdvancedFactoryBlockTypes {
             .withGui(() -> MekanismContainerTypes.CHEMICAL_WASHER)
             .withSound(MekanismSounds.CHEMICAL_WASHER)
             .withEnergyConfig(MekanismConfig.usage.chemicalWasher, MekanismConfig.storage.chemicalWasher)
-            .withSideConfig(TransmissionType.CHEMICAL, TransmissionType.FLUID, TransmissionType.ITEM, TransmissionType.ENERGY)
-            .withCustomShape(BlockShapes.CHEMICAL_WASHER)
-            .withComputerSupport("chemicalWasher")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_NO_STACK_UPGRADES)
             .build();
 
     // Pressurized Reaction Chamber
@@ -79,9 +67,7 @@ public class ExtraAdvancedFactoryBlockTypes {
             .withGui(() -> MekanismContainerTypes.PRESSURIZED_REACTION_CHAMBER)
             .withSound(MekanismSounds.PRESSURIZED_REACTION_CHAMBER)
             .withEnergyConfig(MekanismConfig.usage.pressurizedReactionBase, MekanismConfig.storage.pressurizedReactionBase)
-            .withSideConfig(TransmissionType.ITEM, TransmissionType.CHEMICAL, TransmissionType.FLUID, TransmissionType.ENERGY)
-            .withCustomShape(BlockShapes.PRESSURIZED_REACTION_CHAMBER)
-            .withComputerSupport("pressurizedReactionChamber")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
 
     // Chemical Crystallizer
@@ -90,9 +76,7 @@ public class ExtraAdvancedFactoryBlockTypes {
             .withGui(() -> MekanismContainerTypes.CHEMICAL_CRYSTALLIZER)
             .withSound(MekanismSounds.CHEMICAL_CRYSTALLIZER)
             .withEnergyConfig(MekanismConfig.usage.chemicalCrystallizer, MekanismConfig.storage.chemicalCrystallizer)
-            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
-            .withCustomShape(BlockShapes.CHEMICAL_CRYSTALLIZER)
-            .withComputerSupport("chemicalCrystallizer")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
 
     // Isotopic Centrifuge
@@ -100,11 +84,9 @@ public class ExtraAdvancedFactoryBlockTypes {
             .createExtraAdvancedFactoryMachine(() -> MekanismTileEntityTypes.ISOTOPIC_CENTRIFUGE, MekanismLang.DESCRIPTION_ISOTOPIC_CENTRIFUGE, AdvancedFactoryType.CENTRIFUGING)
             .withGui(() -> MekanismContainerTypes.ISOTOPIC_CENTRIFUGE)
             .withEnergyConfig(MekanismConfig.usage.isotopicCentrifuge, MekanismConfig.storage.isotopicCentrifuge)
-            .withSideConfig(TransmissionType.CHEMICAL, TransmissionType.ITEM, TransmissionType.ENERGY)
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_NO_STACK_UPGRADES)
             .withSound(MekanismSounds.ISOTOPIC_CENTRIFUGE)
-            .withCustomShape(BlockShapes.ISOTOPIC_CENTRIFUGE)
             .with(AttributeHasBounding.ABOVE_ONLY)
-            .withComputerSupport("isotopicCentrifuge")
             .build();
 
     // Nutritional Liquifier
@@ -112,9 +94,8 @@ public class ExtraAdvancedFactoryBlockTypes {
             .createExtraAdvancedFactoryMachine(() -> MekanismTileEntityTypes.NUTRITIONAL_LIQUIFIER, MekanismLang.DESCRIPTION_NUTRITIONAL_LIQUIFIER, AdvancedFactoryType.LIQUIFYING)
             .withGui(() -> MekanismContainerTypes.NUTRITIONAL_LIQUIFIER)
             .withEnergyConfig(MekanismConfig.usage.nutritionalLiquifier, MekanismConfig.storage.nutritionalLiquifier)
-            .withSideConfig(TransmissionType.ITEM, TransmissionType.FLUID, TransmissionType.ENERGY)
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .withSound(MekanismSounds.NUTRITIONAL_LIQUIFIER)
-            .withComputerSupport("nutritionalLiquifier")
             .build();
 
     static {

@@ -1,9 +1,6 @@
 package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
 import com.jerry.mekaf.common.upgrade.FluidChemicalToChemicalUpgradeData;
-import com.jerry.mekextras.common.tier.ExtraFactoryTier;
-import com.jerry.mekmm.Mekmm;
-import fr.iglee42.evolvedmekanism.tiers.EMFactoryTier;
 import mekanism.api.IContentsListener;
 import mekanism.api.Upgrade;
 import mekanism.api.chemical.ChemicalStack;
@@ -102,22 +99,15 @@ public class TileEntityExtraWashingFactory extends TileEntityExtraChemicalToChem
     @Override
     protected IFluidTankHolder getInitialFluidTanks(IContentsListener listener) {
         FluidTankHelper builder = FluidTankHelper.forSideWithConfig(this);
-        builder.addTank(fluidTank = BasicFluidTank.input(MAX_FLUID * tier.processes * tier.processes, this::containsRecipeA, markAllMonitorsChanged(listener)));
+        builder.addTank(fluidTank = BasicFluidTank.input(MAX_FLUID * tier.processes, this::containsRecipeA, markAllMonitorsChanged(listener)));
         return builder.build();
     }
 
     @Override
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
-        builder.addSlot(fluidSlot = FluidInventorySlot.fill(fluidTank, listener, slotX(), 71));
-        builder.addSlot(fluidOutputSlot = OutputInventorySlot.at(listener, slotX(), 102));
+        builder.addSlot(fluidSlot = FluidInventorySlot.fill(fluidTank, listener, 214 + 38 * (tier.ordinal() + 1), 71));
+        builder.addSlot(fluidOutputSlot = OutputInventorySlot.at(listener, 214 + 38 * (tier.ordinal() + 1), 102));
         fluidSlot.setSlotOverlay(SlotOverlay.MINUS);
-    }
-
-    private int slotX() {
-        if (Mekmm.hooks.evolvedMekanism.isLoaded() && tier.ordinal() >= EMFactoryTier.OVERCLOCKED.ordinal()) {
-            return 214 + 8 * tier.ordinal();
-        }
-        return tier == ExtraFactoryTier.INFINITE ? 214 : 180;
     }
 
     public BasicFluidTank getFluidTankBar() {

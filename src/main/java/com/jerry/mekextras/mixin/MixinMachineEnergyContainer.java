@@ -65,7 +65,6 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
         }
     }
 
-
     @Override
     public void mekanism_Extras$extraRecalculateUpgrades(Upgrade upgrade) {
         if (upgrade == ExtraUpgrade.CREATIVE) {

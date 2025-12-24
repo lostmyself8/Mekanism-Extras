@@ -1,8 +1,10 @@
 package com.jerry.mekextras.common.integration.mekmm.tile.factory;
 
+import com.jerry.mekextras.api.recipes.cache.StackableItemStackConstantChemicalToObjectCachedRecipe.StackableChemicalUsageMultiplier;
+import com.jerry.mekextras.api.recipes.cache.StackablePlantingCachedRecipe;
 import com.jerry.mekextras.common.integration.mekmm.inventory.slot.ExtraMoreMachineFactoryInputInventorySlot;
+import com.jerry.mekextras.common.integration.mekmm.inventory.slot.ExtraMoreMachineFactoryOutputInventorySlot;
 import com.jerry.mekmm.api.recipes.PlantingRecipe;
-import com.jerry.mekmm.api.recipes.cache.PlantingCachedRecipe;
 import com.jerry.mekmm.api.recipes.cache.PlantingNoPerTickUsageCacheRecipe;
 import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
 import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
@@ -20,7 +22,6 @@ import mekanism.api.math.MathUtils;
 import mekanism.api.recipes.SawmillRecipe.ChanceOutput;
 import mekanism.api.recipes.cache.CachedRecipe;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
-import mekanism.api.recipes.cache.ItemStackConstantChemicalToObjectCachedRecipe.ChemicalUsageMultiplier;
 import mekanism.api.recipes.inputs.IInputHandler;
 import mekanism.api.recipes.inputs.ILongInputHandler;
 import mekanism.api.recipes.inputs.InputHelper;
@@ -32,7 +33,6 @@ import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.config.MekanismConfig;
-import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.inventory.slot.chemical.ChemicalInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.transmitter.TransmissionType;
@@ -99,7 +99,7 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
 
     IChemicalTank chemicalTank;
 
-    private final ChemicalUsageMultiplier chemicalUsageMultiplier;
+    private final StackableChemicalUsageMultiplier chemicalUsageMultiplier;
     private double chemicalPerTickMeanMultiplier = 1;
     private long baseTotalUsage;
     private final long[] usedSoFar;
@@ -114,16 +114,16 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
         baseTotalUsage = BASE_TICKS_REQUIRED;
         usedSoFar = new long[tier.processes];
         if (useStatisticalMechanics()) {
-            chemicalUsageMultiplier = (usedSoFar, operatingTicks) -> StatUtils.inversePoisson(chemicalPerTickMeanMultiplier);
+            chemicalUsageMultiplier = (usedSoFar, operatingTicks, operationsSoFar) -> StatUtils.inversePoisson(chemicalPerTickMeanMultiplier);
         } else {
-            chemicalUsageMultiplier = ChemicalUsageMultiplier.constantUse(() -> baseTotalUsage, this::getTicksRequired);
+            chemicalUsageMultiplier = StackableChemicalUsageMultiplier.constantUse(() -> baseTotalUsage, this::getChemicalTicksRequired);
         }
     }
 
     @Override
     public @Nullable IChemicalTankHolder getInitialChemicalTanks(IContentsListener listener) {
         ChemicalTankHelper builder = ChemicalTankHelper.forSideWithConfig(this);
-        chemicalTank = BasicChemicalTank.inputModern(TileEntityPlantingStation.MAX_GAS * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
+        chemicalTank = BasicChemicalTank.inputModern(TileEntityPlantingStation.MAX_GAS * tier.processes * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
         builder.addTank(chemicalTank);
         return builder.build();
     }
@@ -133,20 +133,17 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
         inputHandlers = new IInputHandler[tier.processes];
         outputHandlers = new IOutputHandler[tier.processes];
         processInfoSlots = new ProcessInfo[tier.processes];
-        int baseX = 27;
-        int baseXMult = 19;
         for (int i = 0; i < tier.processes; i++) {
-            int xPos = baseX + (i * baseXMult);
             FactoryRecipeCacheLookupMonitor<PlantingRecipe> lookupMonitor = recipeCacheLookupMonitors[i];
             IContentsListener updateSortingAndUnpause = () -> {
                 updateSortingListener.onContentsChanged();
                 lookupMonitor.unpause();
             };
-            OutputInventorySlot outputSlot = OutputInventorySlot.at(updateSortingAndUnpause, xPos, 57);
-            OutputInventorySlot secondaryOutputSlot = OutputInventorySlot.at(updateSortingAndUnpause, xPos, 77);
+            ExtraMoreMachineFactoryOutputInventorySlot outputSlot = ExtraMoreMachineFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, getXPos(i), 57);
+            ExtraMoreMachineFactoryOutputInventorySlot secondaryOutputSlot = ExtraMoreMachineFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, getXPos(i), 77);
             // Note: As we are an item factory that has comparator's based on items we can just use the monitor as a
             // listener directly
-            ExtraMoreMachineFactoryInputInventorySlot inputSlot = ExtraMoreMachineFactoryInputInventorySlot.create(this, i, outputSlot, secondaryOutputSlot, lookupMonitor, xPos, 13);
+            ExtraMoreMachineFactoryInputInventorySlot inputSlot = ExtraMoreMachineFactoryInputInventorySlot.create(this, i, outputSlot, secondaryOutputSlot, lookupMonitor, getXPos(i), 13);
             int index = i;
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, index)));
             builder.addSlot(outputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));
@@ -193,7 +190,7 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
     public @NotNull CachedRecipe<PlantingRecipe> createNewCachedRecipe(@NotNull PlantingRecipe recipe, int cacheIndex) {
         CachedRecipe<PlantingRecipe> cachedRecipe;
         if (recipe.perTickUsage()) {
-            cachedRecipe = PlantingCachedRecipe.planting(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], chemicalInputHandler,
+            cachedRecipe = StackablePlantingCachedRecipe.planting(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], chemicalInputHandler,
                     chemicalUsageMultiplier, used -> usedSoFar[cacheIndex] = used, outputHandlers[cacheIndex]);
         } else {
             cachedRecipe = PlantingNoPerTickUsageCacheRecipe.planting(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], chemicalInputHandler, outputHandlers[cacheIndex]);
@@ -206,7 +203,8 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
                 .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
                 .setRequiredTicks(this::getTicksRequired)
                 .setOnFinish(this::markForSave)
-                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
+                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks)
+                .setBaselineMaxOperations(this::getOperationsPerTick);
     }
 
     @Override
@@ -279,7 +277,7 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
         super.recalculateUpgrades(upgrade);
-        if (upgrade == Upgrade.SPEED || upgrade == Upgrade.CHEMICAL && supportsUpgrade(Upgrade.CHEMICAL)) {
+        if (upgrade == Upgrade.SPEED || upgrade == Upgrade.CHEMICAL) {
             if (useStatisticalMechanics()) {
                 chemicalPerTickMeanMultiplier = MekanismUtils.getGasPerTickMeanMultiplier(this);
             } else {

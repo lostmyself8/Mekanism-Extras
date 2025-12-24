@@ -70,11 +70,9 @@ public class GuiExtraMoreMachineFactory extends GuiConfigurableTile<TileEntityEx
             }
         }
 
-        int baseX = 27;
-        int baseXMult = 19;
         for (int i = 0; i < tile.tier.processes; i++) {
             int cacheIndex = i;
-            addRenderableWidget(new GuiProgress(() -> tile.getScaledProgress(1, cacheIndex), ProgressType.DOWN, this, 4 + baseX + (i * baseXMult), 33))
+            addRenderableWidget(new GuiProgress(() -> tile.getScaledProgress(1, cacheIndex), ProgressType.DOWN, this, 4 + tile.getXPos(i), 33))
                     .recipeViewerCategory(tile)
                     // Only can happen if recipes change because inputs are sanitized in the factory based on the output
                     .warning(WarningTracker.WarningType.INPUT_DOESNT_PRODUCE_OUTPUT, tile.getWarningCheck(CachedRecipe.OperationTracker.RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT, cacheIndex));

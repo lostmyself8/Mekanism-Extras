@@ -87,9 +87,9 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
     protected ProcessInfo[] processInfoSlots;
 
     /**
-     * 一次执行的配方数（并行数），默认为1
+     * 堆叠升级提升的线程数
      */
-    protected int baselineMaxOperations = 1;
+    protected int upgradeMaxOperations = 1;
     /**
      * This Factory's tier.
      */
@@ -440,11 +440,11 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
         ((IMixinMachineEnergyContainer) getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
-            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, baselineMaxOperations);
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
         } else if (upgrade == ExtraUpgrade.STACK) {
             //实际上一直是整数所以强制转化为int也不会损失什么
-            baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
-            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, baselineMaxOperations);
+            upgradeMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
         }
     }
 
@@ -452,7 +452,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {
         List<Component> ret = UpgradeUtils.getMultScaledInfo(this, upgrade);
-        return ExtraUpgradeUtils.getMultScaledInfo(ret, this, upgrade);
+        return ExtraUpgradeUtils.getExpScaledInfo(ret, this, upgrade);
     }
 
     @Override

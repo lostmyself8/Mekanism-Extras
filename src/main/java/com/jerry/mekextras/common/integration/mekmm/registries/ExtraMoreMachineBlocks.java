@@ -77,7 +77,7 @@ public class ExtraMoreMachineBlocks {
                         .build());
                 case PLANTING_STATION -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                                .addBasic(TileEntityPlantingStation.MAX_GAS * processes, switch (type.getMoreMachineFactoryType()) {
+                                .addBasic(TileEntityPlantingStation.MAX_GAS * processes * processes, switch (type.getMoreMachineFactoryType()) {
                                     case PLANTING_STATION -> MoreMachineRecipeType.PLANTING_STATION;
                                     default -> throw new IllegalStateException("Factory type doesn't have a known gas recipe.");
                                 }, InputRecipeCache.ItemChemical::containsInputB)
@@ -88,7 +88,7 @@ public class ExtraMoreMachineBlocks {
                                 .addEnergy()
                                 .build());
                 case REPLICATING -> holder.addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                        .addBasic(TileEntityReplicatingFactory.MAX_GAS * processes, TileEntityReplicatingFactory::isValidChemicalInput)
+                        .addBasic(TileEntityReplicatingFactory.MAX_GAS * processes * processes, TileEntityReplicatingFactory::isValidChemicalInput)
                         .build()).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeInputPredicate)
                                 .addChemicalFillOrConvertSlot(0)

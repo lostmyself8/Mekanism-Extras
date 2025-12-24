@@ -1,5 +1,7 @@
 package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
+import com.jerry.mekextras.api.recipes.cache.StackableItemStackConstantChemicalToObjectCachedRecipe;
+import com.jerry.mekextras.api.recipes.cache.StackableItemStackConstantChemicalToObjectCachedRecipe.StackableChemicalUsageMultiplier;
 import com.jerry.mekaf.common.upgrade.ItemChemicalToChemicalUpgradeData;
 import mekanism.api.IContentsListener;
 import mekanism.api.SerializationConstants;
@@ -11,7 +13,6 @@ import mekanism.api.math.MathUtils;
 import mekanism.api.recipes.ChemicalDissolutionRecipe;
 import mekanism.api.recipes.cache.CachedRecipe;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
-import mekanism.api.recipes.cache.ItemStackConstantChemicalToObjectCachedRecipe;
 import mekanism.api.recipes.cache.TwoInputCachedRecipe;
 import mekanism.api.recipes.inputs.ILongInputHandler;
 import mekanism.api.recipes.inputs.InputHelper;
@@ -55,7 +56,7 @@ import java.util.List;
 import java.util.Set;
 
 public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemicalFactory<ChemicalDissolutionRecipe> implements IHasDumpButton, ConstantUsageRecipeLookupHandler,
-                                         ItemChemicalRecipeLookupHandler<ChemicalDissolutionRecipe> {
+        ItemChemicalRecipeLookupHandler<ChemicalDissolutionRecipe> {
 
     private static final DoubleInputRecipeCache.CheckRecipeType<ItemStack, ChemicalStack, ChemicalDissolutionRecipe, ChemicalStack> OUTPUT_CHECK = (recipe, input, extra, output) -> ChemicalStack.isSameChemical(recipe.getOutput(input, extra), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
@@ -71,7 +72,7 @@ public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemi
 
     private final ILongInputHandler<@NotNull ChemicalStack> chemicalInputHandler;
 
-    private final ItemStackConstantChemicalToObjectCachedRecipe.ChemicalUsageMultiplier injectUsageMultiplier;
+    private final StackableChemicalUsageMultiplier injectUsageMultiplier;
     private double injectUsage = 1;
     private final long[] usedSoFar;
 
@@ -103,13 +104,13 @@ public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemi
 
         chemicalInputHandler = InputHelper.getConstantInputHandler(injectTank);
 
-        injectUsageMultiplier = (usedSoFar, operatingTicks) -> StatUtils.inversePoisson(injectUsage);
+        injectUsageMultiplier = (usedSoFar, operatingTicks, operationsSoFar) -> StatUtils.inversePoisson(injectUsage);
     }
 
     @Override
     protected void addTanks(ChemicalTankHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addTanks(builder, listener, updateSortingListener);
-        builder.addTank(injectTank = BasicChemicalTank.inputModern(MAX_CHEMICAL * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener)));
+        builder.addTank(injectTank = BasicChemicalTank.inputModern(MAX_CHEMICAL * tier.processes * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener)));
     }
 
     @Override
@@ -181,7 +182,7 @@ public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemi
     public @NotNull CachedRecipe<ChemicalDissolutionRecipe> createNewCachedRecipe(@NotNull ChemicalDissolutionRecipe recipe, int cacheIndex) {
         CachedRecipe<ChemicalDissolutionRecipe> cachedRecipe;
         if (recipe.perTickUsage()) {
-            cachedRecipe = ItemStackConstantChemicalToObjectCachedRecipe.dissolution(recipe, recheckAllRecipeErrors[cacheIndex], itemInputHandlers[cacheIndex], chemicalInputHandler,
+            cachedRecipe = StackableItemStackConstantChemicalToObjectCachedRecipe.dissolution(recipe, recheckAllRecipeErrors[cacheIndex], itemInputHandlers[cacheIndex], chemicalInputHandler,
                     injectUsageMultiplier, used -> usedSoFar[cacheIndex] = used, chemicalOutputHandlers[cacheIndex]);
         } else {
             cachedRecipe = TwoInputCachedRecipe.itemChemicalToChemical(recipe, recheckAllRecipeErrors[cacheIndex], itemInputHandlers[cacheIndex], chemicalInputHandler, chemicalOutputHandlers[cacheIndex]);

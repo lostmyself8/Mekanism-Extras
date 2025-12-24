@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ExtraUpgradeUtils {
 
-    public static List<Component> getMultScaledInfo(List<Component> ret, IUpgradeTile tile, Upgrade upgrade) {
+    public static List<Component> getExpScaledInfo(List<Component> ret, IUpgradeTile tile, Upgrade upgrade) {
         if (tile.supportsUpgrades()) {
             if (upgrade == ExtraUpgrade.STACK) {
                 // 有堆叠会默认添加上效率，因此这里清除掉
