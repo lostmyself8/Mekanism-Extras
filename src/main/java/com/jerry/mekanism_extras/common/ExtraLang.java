@@ -1,19 +1,24 @@
 package com.jerry.mekanism_extras.common;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+
 import mekanism.api.text.ILangEntry;
+
 import net.minecraft.Util;
+
 import org.jetbrains.annotations.NotNull;
 
 public enum ExtraLang implements ILangEntry {
+
     EXTRA_TAB("constants", "mod_name"),
 
-    //JEI
+    // JEI
     JEI_INFO_RICH_SILICON_FUEL("info", "jei.rich_silicon_fuel"),
     JEI_INFO_RICH_URANIUM_FUEL("info", "jei.rich_uranium_fuel"),
 
-    //Description
+    // Description
     DESCRIPTION_FORCEFIELD_GENERATOR("description", "forcefield_generator");
+
     private final String key;
 
     ExtraLang(String type, String path) {

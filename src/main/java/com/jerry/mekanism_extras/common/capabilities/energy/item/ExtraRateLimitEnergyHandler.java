@@ -1,15 +1,8 @@
 package com.jerry.mekanism_extras.common.capabilities.energy.item;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import com.jerry.mekanism_extras.common.tier.ECTier;
 import com.jerry.mekanism_extras.common.util.ExtraFloatingLong;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -21,13 +14,25 @@ import mekanism.api.math.FloatingLongSupplier;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import mekanism.common.capabilities.energy.VariableCapacityEnergyContainer;
 import mekanism.common.capabilities.energy.item.ItemStackEnergyHandler;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @NothingNullByDefault
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ExtraRateLimitEnergyHandler extends ItemStackEnergyHandler {
+
     public static ExtraRateLimitEnergyHandler create(ECTier tier) {
         Objects.requireNonNull(tier, "Energy cube tier cannot be null");
         return new ExtraRateLimitEnergyHandler(handler -> new EnergyCubeRateLimitEnergyContainer(tier, handler));
@@ -69,7 +74,7 @@ public class ExtraRateLimitEnergyHandler extends ItemStackEnergyHandler {
 
         @Override
         protected FloatingLong getRate(@Nullable AutomationType automationType) {
-            //Allow unknown or manual interaction to bypass rate limit for the item
+            // Allow unknown or manual interaction to bypass rate limit for the item
             return automationType == null || automationType == AutomationType.MANUAL ? super.getRate(automationType) : rate.get();
         }
     }

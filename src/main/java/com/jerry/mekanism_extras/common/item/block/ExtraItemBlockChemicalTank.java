@@ -1,9 +1,10 @@
 package com.jerry.mekanism_extras.common.item.block;
 
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekanism_extras.common.tier.CTTier;
 import com.jerry.mekanism_extras.common.capabilities.chemical.item.ExtraChemicalTankContentsHandler;
+import com.jerry.mekanism_extras.common.tier.CTTier;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
+
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
@@ -15,16 +16,19 @@ import mekanism.common.item.interfaces.IItemSustainedInventory;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class ExtraItemBlockChemicalTank extends ExtraItemBlockTooltip<BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>>> implements IItemSustainedInventory {
+
     public ExtraItemBlockChemicalTank(BlockTile.BlockTileModel<ExtraTileEntityChemicalTank, Machine<ExtraTileEntityChemicalTank>> block) {
         super(block);
     }

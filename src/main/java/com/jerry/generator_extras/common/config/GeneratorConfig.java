@@ -1,17 +1,20 @@
 package com.jerry.generator_extras.common.config;
 
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
+
 import mekanism.api.math.FloatingLong;
 import mekanism.common.config.BaseMekanismConfig;
 import mekanism.common.config.value.CachedDoubleValue;
 import mekanism.common.config.value.CachedFloatingLongValue;
 import mekanism.common.config.value.CachedIntValue;
 import mekanism.common.config.value.CachedLongValue;
+
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.config.ModConfig;
 
 public class GeneratorConfig extends BaseMekanismConfig {
+
     private static final String NAQUADAH_CATEGORY = "naquadah_reactor";
     private static final String HOHLRAUM_CATEGORY = "naquadah_hohlraum";
 
@@ -65,6 +68,7 @@ public class GeneratorConfig extends BaseMekanismConfig {
 
         this.configSpec = builder.build();
     }
+
     @Override
     public String getFileName() {
         return "generator_extras";

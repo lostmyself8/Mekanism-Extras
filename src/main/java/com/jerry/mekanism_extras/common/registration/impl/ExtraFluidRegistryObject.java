@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.registration.impl;
 
 import mekanism.api.annotations.ParametersAreNotNullByDefault;
 import mekanism.api.providers.IFluidProvider;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.level.block.LiquidBlock;
@@ -14,7 +15,7 @@ import java.util.Objects;
 @ParametersAreNotNullByDefault
 @MethodsReturnNonnullByDefault
 public class ExtraFluidRegistryObject<TYPE extends FluidType, STILL extends Fluid, FLOWING extends Fluid, BLOCK extends LiquidBlock, BUCKET extends BucketItem>
-      implements IFluidProvider {
+                                     implements IFluidProvider {
 
     private RegistryObject<TYPE> fluidTypeRO;
     private RegistryObject<STILL> stillRO;
@@ -42,7 +43,7 @@ public class ExtraFluidRegistryObject<TYPE extends FluidType, STILL extends Flui
         return bucketRO.get();
     }
 
-    //Make sure these update methods are package local as only the FluidDeferredRegister should be messing with them
+    // Make sure these update methods are package local as only the FluidDeferredRegister should be messing with them
     void updateFluidType(RegistryObject<TYPE> fluidTypeRO) {
         this.fluidTypeRO = Objects.requireNonNull(fluidTypeRO);
     }
@@ -65,7 +66,7 @@ public class ExtraFluidRegistryObject<TYPE extends FluidType, STILL extends Flui
 
     @Override
     public STILL getFluid() {
-        //Default our fluid to being the still variant
+        // Default our fluid to being the still variant
         return getStillFluid();
     }
 }

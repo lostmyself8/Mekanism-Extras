@@ -1,12 +1,15 @@
 package com.jerry.generator_extras.client.event;
 
-import com.jerry.generator_extras.client.gui.*;
-import com.jerry.generator_extras.client.render.RenderNaquadahReactor;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.integration.Addons;
+
+import com.jerry.generator_extras.client.gui.*;
+import com.jerry.generator_extras.client.render.RenderNaquadahReactor;
 import com.jerry.generator_extras.common.genregistry.ExtraGenContainerTypes;
 import com.jerry.generator_extras.common.genregistry.ExtraGenTileEntityTypes;
+
 import mekanism.client.ClientRegistrationUtil;
+
 import net.minecraft.core.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -28,7 +31,7 @@ public class ClientGUIRegister {
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void registerContainers(RegisterEvent event) {
         event.register(Registry.MENU_REGISTRY, helper -> {
-            if (Addons.MEKANISMGENERATORS.isLoaded()){
+            if (Addons.MEKANISMGENERATORS.isLoaded()) {
                 ClientRegistrationUtil.registerScreen(ExtraGenContainerTypes.NAQUADAH_REACTOR_CONTROLLER, GuiNaquadahReactorController::new);
                 ClientRegistrationUtil.registerScreen(ExtraGenContainerTypes.NAQUADAH_REACTOR_FUEL, GuiNaquadahReactorFuel::new);
                 ClientRegistrationUtil.registerScreen(ExtraGenContainerTypes.NAQUADAH_REACTOR_HEAT, GuiNaquadahReactorHeat::new);

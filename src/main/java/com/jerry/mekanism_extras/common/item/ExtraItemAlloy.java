@@ -3,9 +3,11 @@ package com.jerry.mekanism_extras.common.item;
 import com.jerry.mekanism_extras.api.IExtraAlloyInteraction;
 import com.jerry.mekanism_extras.api.tier.ExtraAlloyTier;
 import com.jerry.mekanism_extras.common.capabilities.ExtraCapabilities;
+
 import mekanism.common.config.MekanismConfig;
 import mekanism.common.util.CapabilityUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +16,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.LazyOptional;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraItemAlloy extends Item {

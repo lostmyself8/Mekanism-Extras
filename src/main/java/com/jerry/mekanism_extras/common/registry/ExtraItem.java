@@ -1,34 +1,38 @@
 package com.jerry.mekanism_extras.common.registry;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.api.tier.AdvanceTier;
 import com.jerry.mekanism_extras.api.tier.ExtraAlloyTier;
 import com.jerry.mekanism_extras.common.item.ExtraItemAlloy;
-import com.jerry.mekanism_extras.common.item.ExtraItemTierInstaller;
 import com.jerry.mekanism_extras.common.item.ExtraItemQIODrive;
+import com.jerry.mekanism_extras.common.item.ExtraItemTierInstaller;
 import com.jerry.mekanism_extras.common.registration.impl.ExtraItemDeferredRegister;
-import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
-import com.jerry.mekanism_extras.api.tier.AdvanceTier;
 import com.jerry.mekanism_extras.common.resource.ExtraResource;
+import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
+
 import mekanism.common.registration.impl.ItemRegistryObject;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ResourceType;
+
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 
 public class ExtraItem {
+
     public static final ExtraItemDeferredRegister EXTRA_ITEM = new ExtraItemDeferredRegister(MekanismExtras.MODID);
 
-//    public static final RegistryObject<Item> NAQUADAH_ORE_ITEM = ITEMS.register("naquadah_ore",
-//            () -> new BlockItem(ExtraBlock.NAQUADAH_ORE.get(), new Item.Properties()));
-//    public static final RegistryObject<Item> END_NAQUADAH_ORE_ITEM = ITEMS.register("end_naquadah_ore",
-//            () -> new BlockItem(ExtraBlock.END_NAQUADAH_ORE.get(), new Item.Properties()));
+    // public static final RegistryObject<Item> NAQUADAH_ORE_ITEM = ITEMS.register("naquadah_ore",
+    // () -> new BlockItem(ExtraBlock.NAQUADAH_ORE.get(), new Item.Properties()));
+    // public static final RegistryObject<Item> END_NAQUADAH_ORE_ITEM = ITEMS.register("end_naquadah_ore",
+    // () -> new BlockItem(ExtraBlock.END_NAQUADAH_ORE.get(), new Item.Properties()));
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MekanismExtras.MODID);
     public static final ItemRegistryObject<ExtraItemQIODrive> ABSOLUTE_QIO_DRIVE = registryQIODrive(ExtraQIODriverTier.COLLAPSE);
@@ -66,7 +70,7 @@ public class ExtraItem {
     }
 
     private static ItemRegistryObject<ExtraItemTierInstaller> registerInstaller(@Nullable AdvanceTier fromTier, @NotNull AdvanceTier toTier) {
-        //Ensure the name is lower case as with concatenating with values from enums it may not be
+        // Ensure the name is lower case as with concatenating with values from enums it may not be
         return EXTRA_ITEM.register(toTier.getLowerName() + "_tier_installer", properties -> new ExtraItemTierInstaller(fromTier, toTier, properties));
     }
 

@@ -1,18 +1,22 @@
 package com.jerry.mekanism_extras.client.gui.fluidtank;
 
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiSideHolder;
 import mekanism.client.gui.element.gauge.GaugeType;
 import mekanism.client.gui.element.gauge.GuiFluidGauge;
 import mekanism.client.gui.element.tab.GuiContainerEditModeTab;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraGuiFluidTank extends GuiMekanismTile<ExtraTileEntityFluidTank, MekanismTileContainer<ExtraTileEntityFluidTank>> {
+
     public ExtraGuiFluidTank(MekanismTileContainer<ExtraTileEntityFluidTank> container, Inventory inv, Component title) {
         super(container, inv, title);
         dynamicSlots = true;
@@ -20,7 +24,7 @@ public class ExtraGuiFluidTank extends GuiMekanismTile<ExtraTileEntityFluidTank,
 
     @Override
     protected void addGuiElements() {
-        //Add the side holder before the slots, as it holds a couple of the slots
+        // Add the side holder before the slots, as it holds a couple of the slots
         addRenderableWidget(GuiSideHolder.armorHolder(this));
         super.addGuiElements();
         addRenderableWidget(new GuiContainerEditModeTab<>(this, tile));

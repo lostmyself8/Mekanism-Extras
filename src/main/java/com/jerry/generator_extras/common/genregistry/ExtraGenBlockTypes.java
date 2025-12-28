@@ -3,10 +3,11 @@ package com.jerry.generator_extras.common.genregistry;
 import com.jerry.generator_extras.common.ExtraGenLang;
 import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
 import com.jerry.generator_extras.common.tile.reactor.*;
+
 import mekanism.common.block.attribute.AttributeMultiblock;
-import mekanism.generators.common.GeneratorsLang;
 import mekanism.common.block.attribute.Attributes;
 import mekanism.common.content.blocktype.BlockTypeTile;
+import mekanism.generators.common.GeneratorsLang;
 import mekanism.generators.common.registries.GeneratorsSounds;
 
 public class ExtraGenBlockTypes {

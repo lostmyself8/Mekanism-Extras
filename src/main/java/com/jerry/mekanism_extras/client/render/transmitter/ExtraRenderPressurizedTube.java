@@ -2,18 +2,21 @@ package com.jerry.mekanism_extras.client.render.transmitter;
 
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraBoxedPressurizedTube;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import mekanism.api.chemical.Chemical;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
 import mekanism.common.content.network.BoxedChemicalNetwork;
+
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraRenderPressurizedTube extends RenderTransmitterBase<ExtraTileEntityPressurizedTube> {

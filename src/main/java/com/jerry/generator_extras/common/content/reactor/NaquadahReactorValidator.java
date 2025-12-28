@@ -1,11 +1,13 @@
 package com.jerry.generator_extras.common.content.reactor;
 
+import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
+
 import mekanism.common.MekanismLang;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.math.voxel.VoxelCuboid;
 import mekanism.common.lib.multiblock.*;
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,15 +18,15 @@ public class NaquadahReactorValidator extends CuboidStructureValidator<NaquadahR
 
     private static final VoxelCuboid BOUNDS = new VoxelCuboid(9, 9, 9);
     private static final byte[][] ALLOWED_GRID = {
-            {0, 0, 0, 1, 1, 1, 0, 0, 0},
-            {0, 1, 1, 2, 2, 2, 1, 1, 0},
-            {0, 1, 2, 2, 2, 2, 2, 1, 0},
-            {1, 2, 2, 2, 2, 2, 2, 2, 1},
-            {1, 2, 2, 2, 2, 2, 2, 2, 1},
-            {1, 2, 2, 2, 2, 2, 2, 2, 1},
-            {0, 1, 2, 2, 2, 2, 2, 1, 0},
-            {0, 1, 1, 2, 2, 2, 1, 1, 0},
-            {0, 0, 0, 1, 1, 1, 0, 0, 0}
+            { 0, 0, 0, 1, 1, 1, 0, 0, 0 },
+            { 0, 1, 1, 2, 2, 2, 1, 1, 0 },
+            { 0, 1, 2, 2, 2, 2, 2, 1, 0 },
+            { 1, 2, 2, 2, 2, 2, 2, 2, 1 },
+            { 1, 2, 2, 2, 2, 2, 2, 2, 1 },
+            { 1, 2, 2, 2, 2, 2, 2, 2, 1 },
+            { 0, 1, 2, 2, 2, 2, 2, 1, 0 },
+            { 0, 1, 1, 2, 2, 2, 1, 1, 0 },
+            { 0, 0, 0, 1, 1, 1, 0, 0, 0 }
     };
 
     @Override
@@ -60,8 +62,8 @@ public class NaquadahReactorValidator extends CuboidStructureValidator<NaquadahR
             return FormationProtocol.CasingType.VALVE;
         } else if (BlockType.is(block, ExtraGenBlockTypes.NAQUADAH_REACTOR_CONTROLLER,
                 ExtraGenBlockTypes.NAQUADAH_REACTOR_LOGIC_ADAPTER, ExtraGenBlockTypes.LEAD_COATED_LASER_FOCUS_MATRIX)) {
-            return FormationProtocol.CasingType.OTHER;
-        }
+                    return FormationProtocol.CasingType.OTHER;
+                }
         return FormationProtocol.CasingType.INVALID;
     }
 

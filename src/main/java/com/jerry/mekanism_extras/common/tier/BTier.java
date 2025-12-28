@@ -2,9 +2,11 @@ package com.jerry.mekanism_extras.common.tier;
 
 import com.jerry.mekanism_extras.api.tier.AdvanceTier;
 import com.jerry.mekanism_extras.api.tier.IAdvanceTier;
+
 import mekanism.common.config.value.CachedIntValue;
 
 public enum BTier implements IAdvanceTier {
+
     ABSOLUTE(AdvanceTier.ABSOLUTE, 2_097_152),
     SUPREME(AdvanceTier.SUPREME, 16_777_216),
     COSMIC(AdvanceTier.COSMIC, 134_217_728),

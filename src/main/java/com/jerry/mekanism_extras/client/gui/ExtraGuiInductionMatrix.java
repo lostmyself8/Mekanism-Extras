@@ -2,7 +2,7 @@ package com.jerry.mekanism_extras.client.gui;
 
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCasing;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import mekanism.api.math.FloatingLong;
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.GuiMekanismTile;
@@ -17,8 +17,11 @@ import mekanism.client.gui.element.tab.GuiEnergyTab;
 import mekanism.common.MekanismLang;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.util.text.EnergyDisplay;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -33,7 +36,7 @@ public class ExtraGuiInductionMatrix extends GuiMekanismTile<ExtraTileEntityIndu
 
     @Override
     protected void addGuiElements() {
-        //Add the side holder before the slots, as it holds a couple of the slots
+        // Add the side holder before the slots, as it holds a couple of the slots
         addRenderableWidget(GuiSideHolder.create(this, -26, 36, 98, true, true, SpecialColors.TAB_ARMOR_SLOTS));
         addRenderableWidget(new GuiElementHolder(this, 141, 16, 26, 56));
         super.addGuiElements();
@@ -48,6 +51,7 @@ public class ExtraGuiInductionMatrix extends GuiMekanismTile<ExtraTileEntityIndu
         }).spacing(2));
         addRenderableWidget(new ExtraGuiMatrixTab(this, tile, ExtraGuiMatrixTab.MatrixTab.STAT));
         addRenderableWidget(new GuiEnergyGauge(new GuiEnergyGauge.IEnergyInfoHandler() {
+
             @Override
             public FloatingLong getEnergy() {
                 return tile.getMultiblock().getEnergy();

@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.gui.ElectricPump;
 
 import com.jerry.mekanism_extras.common.tile.machine.ExtraTileEntityElectricPump;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiDownArrow;
 import mekanism.client.gui.element.GuiInnerScreen;
@@ -15,9 +15,12 @@ import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.inventory.warning.WarningTracker;
 import mekanism.common.util.text.EnergyDisplay;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -58,7 +61,8 @@ public class ExtraGuiElectricPump extends GuiMekanismTile<ExtraTileEntityElectri
                 });
         addRenderableWidget(new GuiFluidGauge(() -> tile.fluidTank, () -> tile.getFluidTanks(null), GaugeType.STANDARD, this, 6, 13))
                 .warning(WarningTracker.WarningType.NO_SPACE_IN_OUTPUT, () -> tile.fluidTank.getNeeded() < tile.estimateIncrementAmount());
-        //TODO: Eventually we may want to consider showing a warning if the block under the pump is of the wrong type or there wasn't a valid spot to suck
+        // TODO: Eventually we may want to consider showing a warning if the block under the pump is of the wrong type
+        // or there wasn't a valid spot to suck
         addRenderableWidget(new GuiEnergyTab(this, tile.getEnergyContainer(), tile::usedEnergy));
     }
 

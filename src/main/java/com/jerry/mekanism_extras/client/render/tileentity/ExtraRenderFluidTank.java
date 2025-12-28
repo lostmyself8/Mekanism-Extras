@@ -1,16 +1,14 @@
 package com.jerry.mekanism_extras.client.render.tileentity;
 
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityFluidTank;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.ModelRenderer;
 import mekanism.client.render.RenderResizableCuboid;
 import mekanism.client.render.tileentity.MekanismTileEntityRenderer;
 import mekanism.common.base.ProfilerConstants;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -18,12 +16,18 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ExtraRenderFluidTank extends MekanismTileEntityRenderer<ExtraTileEntityFluidTank> {
+
     private static final Map<FluidStack, Int2ObjectMap<MekanismRenderer.Model3D>> cachedCenterFluids = new HashMap<>();
     private static final Map<FluidStack, Int2ObjectMap<MekanismRenderer.Model3D>> cachedValveFluids = new HashMap<>();
 
@@ -66,8 +70,7 @@ public class ExtraRenderFluidTank extends MekanismTileEntityRenderer<ExtraTileEn
                         .prepFlowing(fluid)
                         .xBounds(0.3225F, 0.6775F)
                         .yBounds(0.0625F + 0.875F * (stage / (float) stages), 0.9375F)
-                        .zBounds(0.3225F, 0.6775F)
-                );
+                        .zBounds(0.3225F, 0.6775F));
     }
 
     public static MekanismRenderer.Model3D getFluidModel(@NotNull FluidStack fluid, float fluidScale) {
@@ -78,7 +81,6 @@ public class ExtraRenderFluidTank extends MekanismTileEntityRenderer<ExtraTileEn
                         .setSideRender(Direction.UP, stage < stages)
                         .xBounds(0.135F, 0.865F)
                         .yBounds(0.0625F, 0.0625F + 0.875F * (stage / (float) stages))
-                        .zBounds(0.135F, 0.865F)
-                );
+                        .zBounds(0.135F, 0.865F));
     }
 }

@@ -1,11 +1,13 @@
 package com.jerry.mekanism_extras.common;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+
 import mekanism.api.chemical.ChemicalTags;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.infuse.InfuseType;
 import mekanism.api.chemical.slurry.Slurry;
 import mekanism.common.tags.LazyTagLookup;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
@@ -25,11 +27,9 @@ public class ExtraTag {
 
     public static class Items {
 
-        private static void init() {
-        }
+        private static void init() {}
 
-        private Items() {
-        }
+        private Items() {}
 
         public static final TagKey<Item> NAQUADAH = forgeTag("ores/naquadah");
         public static final TagKey<Item> END_NAQUADAH = forgeTag("ores/naquadah");
@@ -40,11 +40,11 @@ public class ExtraTag {
     }
 
     public static class Fluids {
-        private static void init() {
-        }
 
-        private Fluids() {
-        }
+        private static void init() {}
+
+        private Fluids() {}
+
         public static final TagKey<Fluid> SILICON_TETRAFLUORIDE = forgeTag("silicon_tetrafluoride");
         public static final TagKey<Fluid> FLUORINATED_SILICON_URANIUM_FUEL = forgeTag("fluorinated_silicon_uranium_fuel");
         public static final TagKey<Fluid> RICH_SILICON_LIQUID_FUEL = forgeTag("rich_silicon_liquid_fuel");
@@ -61,11 +61,9 @@ public class ExtraTag {
 
     public static class Gases {
 
-        private static void init() {
-        }
+        private static void init() {}
 
-        private Gases() {
-        }
+        private Gases() {}
 
         public static final TagKey<Gas> MOLTEN_THERMONUCLEAR = tag("molten_thermonuclear");
         public static final TagKey<Gas> SILICON_TETRAFLUORIDE = tag("silicon_tetrafluoride");
@@ -84,11 +82,9 @@ public class ExtraTag {
 
     public static class InfuseTypes {
 
-        private static void init() {
-        }
+        private static void init() {}
 
-        private InfuseTypes() {
-        }
+        private InfuseTypes() {}
 
         public static final TagKey<InfuseType> RADIANCE = tag("radiance");
         public static final TagKey<InfuseType> THERMONUCLEAR = tag("thermonuclear");
@@ -102,11 +98,9 @@ public class ExtraTag {
 
     public static class Slurries {
 
-        private static void init() {
-        }
+        private static void init() {}
 
-        private Slurries() {
-        }
+        private Slurries() {}
 
         public static final TagKey<Slurry> DIRTY = tag("dirty");
         public static final LazyTagLookup<Slurry> DIRTY_LOOKUP = LazyTagLookup.create(ChemicalTags.SLURRY, DIRTY);

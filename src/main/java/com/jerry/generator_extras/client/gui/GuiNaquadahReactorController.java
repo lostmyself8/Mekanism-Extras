@@ -3,7 +3,7 @@ package com.jerry.generator_extras.client.gui;
 import com.jerry.generator_extras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.generator_extras.common.content.reactor.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorController;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.tab.GuiEnergyTab;
 import mekanism.client.gui.element.tab.GuiHeatTab;
@@ -13,8 +13,11 @@ import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.UnitDisplayUtils;
 import mekanism.common.util.text.EnergyDisplay;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

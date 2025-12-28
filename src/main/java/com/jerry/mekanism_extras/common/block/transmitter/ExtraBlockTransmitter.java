@@ -1,8 +1,5 @@
 package com.jerry.mekanism_extras.common.block.transmitter;
 
-import it.unimi.dsi.fastutil.shorts.Short2ObjectMap;
-import it.unimi.dsi.fastutil.shorts.Short2ObjectMaps;
-import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.api.tier.BaseTier;
 import mekanism.common.block.BlockMekanism;
@@ -12,6 +9,7 @@ import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.registries.MekanismItems;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.util.*;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.MutableComponent;
@@ -33,6 +31,10 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import it.unimi.dsi.fastutil.shorts.Short2ObjectMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectMaps;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,8 +43,8 @@ import java.util.List;
 
 public abstract class ExtraBlockTransmitter extends BlockMekanism implements IStateFluidLoggable {
 
-    //Max retained size if we used a HashMap with a key of record(Size, ConnectionType[6]) ~= 1,343,576B
-    //Max retained size packing it like this 163,987B
+    // Max retained size if we used a HashMap with a key of record(Size, ConnectionType[6]) ~= 1,343,576B
+    // Max retained size packing it like this 163,987B
     private static final Short2ObjectMap<VoxelShape> cachedShapes = Short2ObjectMaps.synchronize(new Short2ObjectOpenHashMap<>());
 
     protected ExtraBlockTransmitter() {
@@ -120,22 +122,22 @@ public abstract class ExtraBlockTransmitter extends BlockMekanism implements ISt
         if (!context.isHoldingItem(MekanismItems.CONFIGURATOR.asItem())) {
             return getRealShape(world, pos);
         }
-        //Get the partial selection box if we are holding a configurator
+        // Get the partial selection box if we are holding a configurator
         if (!(context instanceof EntityCollisionContext entityContext) || entityContext.getEntity() == null) {
-            //If we don't have an entity get the full VoxelShape
+            // If we don't have an entity get the full VoxelShape
             return getRealShape(world, pos);
         }
         TileEntityTransmitter tile = WorldUtils.getTileEntity(TileEntityTransmitter.class, world, pos);
         if (tile == null) {
-            //If we failed to get the tile, just give the center shape
+            // If we failed to get the tile, just give the center shape
             return getCenter();
         }
-        //TODO: Try to cache some of this? At the very least the collision boxes
+        // TODO: Try to cache some of this? At the very least the collision boxes
         MultipartUtils.AdvancedRayTraceResult result = MultipartUtils.collisionRayTrace(entityContext.getEntity(), pos, tile.getCollisionBoxes());
         if (result != null && result.valid()) {
             return result.bounds;
         }
-        //If we failed to figure it out somehow, just fall back to the center. This should never happen
+        // If we failed to figure it out somehow, just fall back to the center. This should never happen
         return getCenter();
     }
 
@@ -143,7 +145,7 @@ public abstract class ExtraBlockTransmitter extends BlockMekanism implements ISt
     @Override
     @Deprecated
     public VoxelShape getOcclusionShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos) {
-        //Override this so that we ALWAYS have the full collision box, even if a configurator is being held
+        // Override this so that we ALWAYS have the full collision box, even if a configurator is being held
         return getRealShape(world, pos);
     }
 
@@ -151,7 +153,7 @@ public abstract class ExtraBlockTransmitter extends BlockMekanism implements ISt
     @Override
     @Deprecated
     public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        //Override this so that we ALWAYS have the full collision box, even if a configurator is being held
+        // Override this so that we ALWAYS have the full collision box, even if a configurator is being held
         return getRealShape(world, pos);
     }
 
@@ -162,27 +164,29 @@ public abstract class ExtraBlockTransmitter extends BlockMekanism implements ISt
     private VoxelShape getRealShape(BlockGetter world, BlockPos pos) {
         TileEntityTransmitter tile = WorldUtils.getTileEntity(TileEntityTransmitter.class, world, pos);
         if (tile == null) {
-            //If we failed to get the tile, just give the center shape
+            // If we failed to get the tile, just give the center shape
             return getCenter();
         }
         Transmitter<?, ?, ?> transmitter = tile.getTransmitter();
-        //Created a pack key as follows:
-        // first four bits of a short are used to represent size (realistically first three are ignored and fourth represents small or large)
+        // Created a pack key as follows:
+        // first four bits of a short are used to represent size (realistically first three are ignored and fourth
+        // represents small or large)
         // last 12 bits are separated into 6 sides each of 2 bits that represent the connection type
         int packedKey = tile.getTransmitterType().getSize().ordinal() << 12;
         for (Direction side : EnumUtils.DIRECTIONS) {
-            //Get the actual connection types
+            // Get the actual connection types
             ConnectionType connectionType = transmitter.getConnectionType(side);
-            //Bit shift in increments of two based on which side we are on
+            // Bit shift in increments of two based on which side we are on
             packedKey |= connectionType.ordinal() << (side.ordinal() * 2);
         }
-        //We can cast this to a short as we don't use more bits than are in a short, we just use an int to simplify bit shifting
+        // We can cast this to a short as we don't use more bits than are in a short, we just use an int to simplify bit
+        // shifting
         return cachedShapes.computeIfAbsent((short) packedKey, packed -> {
-            //If we don't have a cached version of our shape, then we need to calculate it
-            //size = Size.byIndexStatic(packed >> 12);
+            // If we don't have a cached version of our shape, then we need to calculate it
+            // size = Size.byIndexStatic(packed >> 12);
             List<VoxelShape> shapes = new ArrayList<>(EnumUtils.DIRECTIONS.length);
             for (Direction side : EnumUtils.DIRECTIONS) {
-                //Unpack the ordinal of the connection type (shift so that significant bits are the two rightmost
+                // Unpack the ordinal of the connection type (shift so that significant bits are the two rightmost
                 // and then read those two bits
                 int index = (packed >> (side.ordinal() * 2)) & 0b11;
                 ConnectionType connectionType = ConnectionType.byIndexStatic(index);
@@ -194,7 +198,7 @@ public abstract class ExtraBlockTransmitter extends BlockMekanism implements ISt
             if (shapes.isEmpty()) {
                 return center;
             }
-            //Call batchCombine directly rather than just combine so that we can skip a few checks
+            // Call batchCombine directly rather than just combine so that we can skip a few checks
             return VoxelShapeUtils.batchCombine(center, BooleanOp.OR, true, shapes);
         });
     }

@@ -1,7 +1,8 @@
 package com.jerry.mekanism_extras.common.block.transmitter;
 
-import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityUniversalCable;
 import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
+import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityUniversalCable;
+
 import mekanism.common.block.attribute.AttributeTier;
 import mekanism.common.block.interfaces.IHasTileEntity;
 import mekanism.common.block.interfaces.ITypeBlock;
@@ -11,6 +12,7 @@ import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tier.CableTier;
 
 public class ExtraBlockUniversalCable extends BlockSmallTransmitter implements ITypeBlock, IHasTileEntity<ExtraTileEntityUniversalCable> {
+
     private final CableTier tier;
 
     public ExtraBlockUniversalCable(CableTier tier) {

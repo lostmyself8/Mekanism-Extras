@@ -1,21 +1,26 @@
 package com.jerry.mekanism_extras.common.resource;
 
 import com.jerry.mekanism_extras.common.ExtraTag;
+
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ResourceType;
+
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
 public enum ExtraResource implements IResource {
+
     NAQUADAH("naquadah", 0x051602, ExtraTag.Items.NAQUADAH, ExtraBlockResourceInfo.NAQUADAH, ExtraBlockResourceInfo.RAW_NAQUADAH),
     END_NAQUADAH("end_naquadah", 0x051602, ExtraTag.Items.END_NAQUADAH);
 
     private final String name;
     private final int tint;
-    //Note: This is a supplier because of the chicken and egg of referencing OreType and OreType referencing PrimaryResource
+    // Note: This is a supplier because of the chicken and egg of referencing OreType and OreType referencing
+    // PrimaryResource
     private final Supplier<TagKey<Item>> oreTag;
     private final boolean isVanilla;
     private final ExtraBlockResourceInfo resourceBlockInfo;

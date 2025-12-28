@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.content.network.transmitter;
 
 import com.jerry.mekanism_extras.common.tier.transmitter.CTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.NBTConstants;
@@ -14,8 +15,10 @@ import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.upgrade.transmitter.UniversalCableUpgradeData;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +37,7 @@ public class ExtraUniversalCable extends UniversalCable implements IExtraUpgrade
             for (IStrictEnergyHandler connectedAcceptor : getAcceptorCache().getConnectedAcceptors(connections)) {
                 FloatingLong received = connectedAcceptor.extractEnergy(getAvailablePull(), Action.SIMULATE);
                 if (!received.isZero() && takeEnergy(received, Action.SIMULATE).isZero()) {
-                    //If we received some energy and are able to insert it all
+                    // If we received some energy and are able to insert it all
                     FloatingLong remainder = takeEnergy(received, Action.EXECUTE);
                     connectedAcceptor.extractEnergy(received.subtract(remainder), Action.EXECUTE);
                 }
@@ -48,7 +51,6 @@ public class ExtraUniversalCable extends UniversalCable implements IExtraUpgrade
         }
         return getCapacityAsFloatingLong().min(buffer.getNeeded());
     }
-
 
     @NotNull
     public FloatingLong getCapacityAsFloatingLong() {

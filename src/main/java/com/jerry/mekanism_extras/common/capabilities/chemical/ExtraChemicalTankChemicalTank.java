@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.capabilities.chemical;
 
 import com.jerry.mekanism_extras.common.tier.CTTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -25,20 +26,21 @@ import mekanism.api.chemical.slurry.ISlurryHandler;
 import mekanism.api.chemical.slurry.ISlurryTank;
 import mekanism.api.chemical.slurry.Slurry;
 import mekanism.api.chemical.slurry.SlurryStack;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.LongSupplier;
 
-public abstract class ExtraChemicalTankChemicalTank <CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends BasicChemicalTank<CHEMICAL, STACK> {
+public abstract class ExtraChemicalTankChemicalTank<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends BasicChemicalTank<CHEMICAL, STACK> {
+
     public static MergedChemicalTank create(CTTier tier, @Nullable IContentsListener listener) {
         Objects.requireNonNull(tier, "Chemical tank tier cannot be null");
         return MergedChemicalTank.create(
                 new GasTankChemicalTank(tier, listener),
                 new InfusionTankChemicalTank(tier, listener),
                 new PigmentTankChemicalTank(tier, listener),
-                new SlurryTankChemicalTank(tier, listener)
-        );
+                new SlurryTankChemicalTank(tier, listener));
     }
 
     private final boolean isCreative;
@@ -52,18 +54,20 @@ public abstract class ExtraChemicalTankChemicalTank <CHEMICAL extends Chemical<C
 
     @Override
     protected long getRate(@Nullable AutomationType automationType) {
-        //Only limit the internal rate to change the speed at which this can be filled from an item
+        // Only limit the internal rate to change the speed at which this can be filled from an item
         return automationType == AutomationType.INTERNAL ? rate.getAsLong() : super.getRate(automationType);
     }
 
     @Override
     public STACK insert(STACK stack, Action action, AutomationType automationType) {
         if (isCreative && isEmpty() && action.execute() && automationType != AutomationType.EXTERNAL) {
-            //If a player manually inserts into a creative tank (or internally, via a GasInventorySlot), that is empty we need to allow setting the type,
-            // Note: We check that it is not external insertion because an empty creative tanks acts as a "void" for automation
+            // If a player manually inserts into a creative tank (or internally, via a GasInventorySlot), that is empty
+            // we need to allow setting the type,
+            // Note: We check that it is not external insertion because an empty creative tanks acts as a "void" for
+            // automation
             STACK simulatedRemainder = super.insert(stack, Action.SIMULATE, automationType);
             if (simulatedRemainder.isEmpty()) {
-                //If we are able to insert it then set perform the action of setting it to full
+                // If we are able to insert it then set perform the action of setting it to full
                 setStackUnchecked(createStack(stack, getCapacity()));
             }
             return simulatedRemainder;
@@ -79,7 +83,8 @@ public abstract class ExtraChemicalTankChemicalTank <CHEMICAL extends Chemical<C
     /**
      * {@inheritDoc}
      *
-     * Note: We are only patching {@link #setStackSize(long, Action)}, as both {@link #growStack(long, Action)} and {@link #shrinkStack(long, Action)} are wrapped through
+     * Note: We are only patching {@link #setStackSize(long, Action)}, as both {@link #growStack(long, Action)} and
+     * {@link #shrinkStack(long, Action)} are wrapped through
      * this method.
      */
     @Override

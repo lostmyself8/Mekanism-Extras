@@ -3,7 +3,7 @@ package com.jerry.mekanism_extras.common.tile.machine;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
 import com.jerry.mekanism_extras.common.registry.ExtraFluids;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+
 import mekanism.api.*;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.Mekanism;
@@ -33,6 +33,7 @@ import mekanism.common.registries.MekanismFluids;
 import mekanism.common.tile.base.SubstanceType;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.*;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -54,12 +55,15 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.IFluidBlock;
+
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class ExtraTileEntityElectricPump extends TileEntityMekanism implements IConfigurable {
+
     /**
      * How many ticks it takes to run an operation.
      */
@@ -67,7 +71,7 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     /**
      * This pump's tank
      */
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getFluid", "getFluidCapacity", "getFluidNeeded", "getFluidFilledPercentage"})
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = { "getFluid", "getFluidCapacity", "getFluidNeeded", "getFluidFilledPercentage" })
     public BasicFluidTank fluidTank;
     /**
      * The type of fluid this pump is pumping
@@ -103,7 +107,7 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     @Override
     protected IFluidTankHolder getInitialFluidTanks(IContentsListener listener) {
         FluidTankHelper builder = FluidTankHelper.forSide(this::getDirection);
-        //Pump capacity and internal output speed
+        // Pump capacity and internal output speed
         builder.addTank(fluidTank = BasicFluidTank.output(10_000_000, listener), RelativeSide.TOP);
         return builder.build();
     }
@@ -136,8 +140,10 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
             FloatingLong energyPerTick = energyContainer.getEnergyPerTick();
             if (energyContainer.extract(energyPerTick, Action.SIMULATE, AutomationType.INTERNAL).equals(energyPerTick)) {
                 if (!activeType.isEmpty()) {
-                    //If we have an active type of fluid, use energy. This can cause there to be ticks where there isn't actually
-                    // anything to suck that use energy, but those will balance out with the first set of ticks where it doesn't
+                    // If we have an active type of fluid, use energy. This can cause there to be ticks where there
+                    // isn't actually
+                    // anything to suck that use energy, but those will balance out with the first set of ticks where it
+                    // doesn't
                     // use any energy until it actually picks up the first block
                     clientEnergyUsed = energyContainer.extract(energyPerTick, Action.EXECUTE, AutomationType.INTERNAL);
                 }
@@ -146,7 +152,8 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
                     operatingTicks = 0;
                     if (suck()) {
                         if (clientEnergyUsed.isZero()) {
-                            //If it didn't already have an active type (hasn't used energy this tick), then extract energy
+                            // If it didn't already have an active type (hasn't used energy this tick), then extract
+                            // energy
                             clientEnergyUsed = energyContainer.extract(energyPerTick, Action.EXECUTE, AutomationType.INTERNAL);
                         }
                     } else {
@@ -157,7 +164,7 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
         }
         usedEnergy = !clientEnergyUsed.isZero();
         if (!fluidTank.isEmpty()) {
-            //Automatic output speed top the pump
+            // Automatic output speed top the pump
             FluidUtils.emit(Collections.singleton(Direction.UP), fluidTank, this, 1024 * (1 + upgradeComponent.getUpgrades(Upgrade.SPEED)));
         }
     }
@@ -168,20 +175,23 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
 
     private boolean suck() {
         boolean hasFilter = upgradeComponent.isUpgradeInstalled(Upgrade.FILTER);
-        //First see if there are any fluid blocks under the pump - if so, suck and adds the location to the recurring list
+        // First see if there are any fluid blocks under the pump - if so, suck and adds the location to the recurring
+        // list
         if (suck(worldPosition.relative(Direction.DOWN), hasFilter, true)) {
             return true;
         }
-        //Even though we can add to recurring in the above for loop, we always then exit and don't get to here if we did so
+        // Even though we can add to recurring in the above for loop, we always then exit and don't get to here if we
+        // did so
         List<BlockPos> tempPumpList = new ArrayList<>(recurringNodes);
         Collections.shuffle(tempPumpList);
-        //Finally, go over the recurring list of nodes and see if there is a fluid block available to suck - if not, will iterate around the recurring block, attempt to suck,
-        //and then add the adjacent block to the recurring list
+        // Finally, go over the recurring list of nodes and see if there is a fluid block available to suck - if not,
+        // will iterate around the recurring block, attempt to suck,
+        // and then add the adjacent block to the recurring list
         for (BlockPos tempPumpPos : tempPumpList) {
             if (suck(tempPumpPos, hasFilter, false)) {
                 return true;
             }
-            //Add all the blocks surrounding this recurring node to the recurring node list
+            // Add all the blocks surrounding this recurring node to the recurring node list
             for (Direction orientation : EnumUtils.DIRECTIONS) {
                 BlockPos side = tempPumpPos.relative(orientation);
                 if (WorldUtils.distanceBetween(worldPosition, side) <= MekanismConfig.general.maxPumpRange.get()) {
@@ -196,18 +206,18 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     }
 
     private boolean suck(BlockPos pos, boolean hasFilter, boolean addRecurring) {
-        //Note: we get the block state from the world so that we can get the proper block in case it is fluid logged
+        // Note: we get the block state from the world so that we can get the proper block in case it is fluid logged
         Optional<BlockState> state = WorldUtils.getBlockState(level, pos);
         if (state.isPresent()) {
             BlockState blockState = state.get();
             FluidState fluidState = blockState.getFluidState();
             if (!fluidState.isEmpty() && fluidState.isSource()) {
-                //Just in case someone does weird things and has a fluid state that is empty and a source
+                // Just in case someone does weird things and has a fluid state that is empty and a source
                 // only allow collecting from non-empty sources
                 Block block = blockState.getBlock();
                 if (block instanceof IFluidBlock fluidBlock) {
                     if (validFluid(fluidBlock.drain(level, pos, FluidAction.SIMULATE))) {
-                        //Actually drain it
+                        // Actually drain it
                         suck(fluidBlock.drain(level, pos, FluidAction.EXECUTE), pos, addRecurring);
                         return true;
                     }
@@ -215,18 +225,20 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
                     Fluid sourceFluid = fluidState.getType();
                     FluidStack fluidStack = getOutput(sourceFluid, hasFilter);
                     if (validFluid(fluidStack)) {
-                        //If it can be picked up by a bucket, and we actually want to pick it up, do so to update the fluid type we are doing
+                        // If it can be picked up by a bucket, and we actually want to pick it up, do so to update the
+                        // fluid type we are doing
                         if (sourceFluid != Fluids.WATER || MekanismConfig.general.pumpWaterSources.get()) {
-                            //Note we only attempt taking if it is not water, or we want to pump water sources
+                            // Note we only attempt taking if it is not water, or we want to pump water sources
                             // otherwise we assume the type from the fluid state is correct
                             ItemStack pickedUpStack = bucketPickup.pickupBlock(level, pos, blockState);
                             if (pickedUpStack.isEmpty()) {
-                                //Couldn't actually pick it up, exit
+                                // Couldn't actually pick it up, exit
                                 return false;
                             } else if (pickedUpStack.getItem() instanceof BucketItem bucket) {
-                                //This isn't the best validation check given it may not return a bucket, but it is good enough for now
+                                // This isn't the best validation check given it may not return a bucket, but it is good
+                                // enough for now
                                 sourceFluid = bucket.getFluid();
-                                //Update the fluid stack in case something somehow changed about the type
+                                // Update the fluid stack in case something somehow changed about the type
                                 // making sure that we replace to heavy water if we got heavy water
                                 fluidStack = getOutput(sourceFluid, hasFilter);
                                 if (!validFluid(fluidStack)) {
@@ -240,7 +252,8 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
                         return true;
                     }
                 }
-                //Otherwise, we do not know how to drain from the block, or it is not valid, and we shouldn't take it so don't handle it
+                // Otherwise, we do not know how to drain from the block, or it is not valid, and we shouldn't take it
+                // so don't handle it
             }
         }
         return false;
@@ -249,19 +262,18 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     private FluidStack getOutput(Fluid sourceFluid, boolean hasFilter) {
         if (sourceFluid == Fluids.WATER) {
             if (hasFilter) {
-                //The speed of pumping heavy water
+                // The speed of pumping heavy water
                 return MekanismFluids.HEAVY_WATER.getFluidStack(LoadConfig.extraConfig.pumpHeavyWaterAmount.get());
             }
-            //The speed of pumping water
-            return MekanismConfig.general.pumpWaterSources.get() ? new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME)
-                : new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME * 100);
+            // The speed of pumping water
+            return MekanismConfig.general.pumpWaterSources.get() ? new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME) : new FluidStack(sourceFluid, FluidType.BUCKET_VOLUME * 100);
         }
-        if(sourceFluid == ExtraFluids.SILICON_TETRAFLUORIDE.getFluid()) {
+        if (sourceFluid == ExtraFluids.SILICON_TETRAFLUORIDE.getFluid()) {
             if (hasFilter) {
                 return new FluidStack(ExtraFluids.RICH_SILICON_LIQUID_FUEL.getFluid(), FluidType.BUCKET_VOLUME);
             }
         }
-        if(sourceFluid == MekanismFluids.URANIUM_HEXAFLUORIDE.getFluid()) {
+        if (sourceFluid == MekanismFluids.URANIUM_HEXAFLUORIDE.getFluid()) {
             if (hasFilter) {
                 return new FluidStack(ExtraFluids.RICH_URANIUM_LIQUID_FUEL.getFluid(), FluidType.BUCKET_VOLUME);
             }
@@ -270,15 +282,15 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
     }
 
     private void suck(@NotNull FluidStack fluidStack, BlockPos pos, boolean addRecurring) {
-        //Size doesn't matter, but we do want to take the NBT into account
+        // Size doesn't matter, but we do want to take the NBT into account
         activeType = new FluidStack(fluidStack, 1);
         if (addRecurring) {
             recurringNodes.add(pos);
         }
         fluidTank.insert(fluidStack, Action.EXECUTE, AutomationType.INTERNAL);
-//        if (level != null) {
-//            level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
-//        }
+        // if (level != null) {
+        // level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
+        // }
         level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
     }
 
@@ -388,11 +400,11 @@ public class ExtraTileEntityElectricPump extends TileEntityMekanism implements I
         container.track(SyncableFluidStack.create(this::getActiveType, value -> activeType = value));
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod(nameOverride = "reset")
     void resetPump() throws ComputerException {
         validateSecurityIsPublic();
         reset();
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

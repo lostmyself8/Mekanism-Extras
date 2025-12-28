@@ -3,22 +3,26 @@ package com.jerry.mekanism_extras.client.render.tileentity;
 import com.jerry.mekanism_extras.client.model.ExtraModelEnergyCore;
 import com.jerry.mekanism_extras.common.tier.TierColor;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+
 import mekanism.client.render.RenderTickHandler;
 import mekanism.client.render.tileentity.ModelTileEntityRenderer;
 import mekanism.common.base.ProfilerConstants;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraRenderEnergyCube extends ModelTileEntityRenderer<ExtraTileEntityEnergyCube, ExtraModelEnergyCore> {
+
     public static final Vector3f coreVec = new Vector3f(0.0F, MekanismUtils.ONE_OVER_ROOT_TWO, MekanismUtils.ONE_OVER_ROOT_TWO);
 
     public ExtraRenderEnergyCube(BlockEntityRendererProvider.Context context) {
@@ -30,6 +34,7 @@ public class ExtraRenderEnergyCube extends ModelTileEntityRenderer<ExtraTileEnti
         float energyScale = tile.getEnergyScale();
         Vec3 renderPos = Vec3.atCenterOf(tile.getBlockPos());
         RenderTickHandler.addTransparentRenderer(ExtraModelEnergyCore.BATCHED_RENDER_TYPE, new RenderTickHandler.LazyRender() {
+
             @Override
             public void render(Camera camera, VertexConsumer buffer, PoseStack poseStack, int renderTick, float partialTick, ProfilerFiller profiler) {
                 float ticks = renderTick + partialTick;

@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.capabilities.chemical.item;
 
 import com.jerry.mekanism_extras.common.capabilities.chemical.variable.ExtraRateLimitChemicalTank;
 import com.jerry.mekanism_extras.common.tier.CTTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -24,10 +25,12 @@ import mekanism.api.chemical.slurry.ISlurryHandler;
 import mekanism.api.chemical.slurry.ISlurryTank;
 import mekanism.api.chemical.slurry.Slurry;
 import mekanism.api.chemical.slurry.SlurryStack;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class ExtraChemicalTankRateLimitChemicalTank<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends ExtraRateLimitChemicalTank<CHEMICAL, STACK> {
+
     private final boolean isCreative;
 
     private ExtraChemicalTankRateLimitChemicalTank(CTTier tier, ChemicalTankBuilder<CHEMICAL, STACK, ?> tankBuilder, @Nullable IContentsListener listener) {
@@ -48,7 +51,8 @@ public abstract class ExtraChemicalTankRateLimitChemicalTank<CHEMICAL extends Ch
     /**
      * {@inheritDoc}
      *
-     * Note: We are only patching {@link #setStackSize(long, Action)}, as both {@link #growStack(long, Action)} and {@link #shrinkStack(long, Action)} are wrapped through
+     * Note: We are only patching {@link #setStackSize(long, Action)}, as both {@link #growStack(long, Action)} and
+     * {@link #shrinkStack(long, Action)} are wrapped through
      * this method.
      */
     @Override

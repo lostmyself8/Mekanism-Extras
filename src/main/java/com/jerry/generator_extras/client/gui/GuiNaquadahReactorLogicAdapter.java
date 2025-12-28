@@ -2,7 +2,7 @@ package com.jerry.generator_extras.client.gui;
 
 import com.jerry.generator_extras.common.network.to_server.ExtraPacketGeneratorsGuiInteract;
 import com.jerry.generator_extras.common.tile.reactor.TileEntityNaquadahReactorLogicAdapter;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import mekanism.api.text.EnumColor;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiElementHolder;
@@ -16,8 +16,11 @@ import mekanism.common.util.text.BooleanStateDisplay;
 import mekanism.generators.client.gui.element.button.ReactorLogicButton;
 import mekanism.generators.common.GeneratorsLang;
 import mekanism.generators.common.MekanismGenerators;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
 public class GuiNaquadahReactorLogicAdapter extends GuiMekanismTile<TileEntityNaquadahReactorLogicAdapter, EmptyTileContainer<TileEntityNaquadahReactorLogicAdapter>> {
@@ -25,6 +28,7 @@ public class GuiNaquadahReactorLogicAdapter extends GuiMekanismTile<TileEntityNa
     private static final int DISPLAY_COUNT = 4;
 
     private GuiScrollBar scrollBar;
+
     public GuiNaquadahReactorLogicAdapter(EmptyTileContainer<TileEntityNaquadahReactorLogicAdapter> container, Inventory inv, Component title) {
         super(container, inv, title);
     }

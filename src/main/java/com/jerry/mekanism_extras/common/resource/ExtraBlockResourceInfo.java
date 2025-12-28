@@ -1,12 +1,15 @@
 package com.jerry.mekanism_extras.common.resource;
 
 import mekanism.common.resource.IResource;
+
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
+
 import org.jetbrains.annotations.Nullable;
 
 public enum ExtraBlockResourceInfo implements IResource {
+
     NAQUADAH("naquadah", 7.5F, 12, MaterialColor.COLOR_CYAN),
     RAW_NAQUADAH("raw_naquadah", 7.5F, 12, MaterialColor.COLOR_CYAN, Material.STONE);
 
@@ -19,7 +22,7 @@ public enum ExtraBlockResourceInfo implements IResource {
     private final float resistance;
     private final float hardness;
     private final int burnTime;
-    //Number between 0 and 15
+    // Number between 0 and 15
     private final int lightValue;
 
     ExtraBlockResourceInfo(String registrySuffix, float hardness, float resistance, MaterialColor mapColor) {
@@ -39,7 +42,7 @@ public enum ExtraBlockResourceInfo implements IResource {
     }
 
     ExtraBlockResourceInfo(String registrySuffix, float hardness, float resistance, MaterialColor mapColor, @Nullable Material material, int burnTime, int lightValue,
-                      boolean burnsInFire, boolean portalFrame, PushReaction pushReaction) {
+                           boolean burnsInFire, boolean portalFrame, PushReaction pushReaction) {
         this.registrySuffix = registrySuffix;
         this.pushReaction = pushReaction;
         this.portalFrame = portalFrame;
@@ -92,5 +95,4 @@ public enum ExtraBlockResourceInfo implements IResource {
     public MaterialColor getMaterialColor() {
         return mapColor;
     }
-
 }

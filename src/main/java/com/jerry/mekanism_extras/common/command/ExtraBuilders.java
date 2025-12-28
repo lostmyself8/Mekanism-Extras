@@ -1,18 +1,20 @@
 package com.jerry.mekanism_extras.common.command;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+
+import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+
 import mekanism.common.command.builders.StructureBuilder;
 import mekanism.common.registries.MekanismBlocks;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 public class ExtraBuilders {
-    private ExtraBuilders() {
 
-    }
+    private ExtraBuilders() {}
 
     public static class NaquadahReactorBuilder extends StructureBuilder {
 
@@ -62,5 +64,4 @@ public class ExtraBuilders {
             return MekanismBlocks.INDUCTION_CASING.getBlock();
         }
     }
-
 }

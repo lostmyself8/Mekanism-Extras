@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.item.block.transmitter;
 import com.jerry.mekanism_extras.common.block.transmitter.ExtraBlockUniversalCable;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockMultipartAble;
 import com.jerry.mekanism_extras.common.tier.transmitter.CTier;
+
 import mekanism.api.text.EnumColor;
 import mekanism.client.key.MekKeyHandler;
 import mekanism.client.key.MekanismKeyHandler;
@@ -10,16 +11,19 @@ import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.tier.CableTier;
 import mekanism.common.util.text.EnergyDisplay;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
 
 public class ExtraItemBlockUniversalCable extends ExtraItemBlockMultipartAble<ExtraBlockUniversalCable> {
+
     public ExtraItemBlockUniversalCable(ExtraBlockUniversalCable block) {
         super(block);
     }

@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.tier;
 import mekanism.api.tier.BaseTier;
 
 public enum ExtraQIODriverTier {
+
     COLLAPSE(BaseTier.BASIC, 128_000_000_000L, 16384),
     GAMMA(BaseTier.ADVANCED, 1_048_000_000_000L, 65536),
     BLACK_HOLE(BaseTier.ELITE, 8_000_000_000_000L, 262144),

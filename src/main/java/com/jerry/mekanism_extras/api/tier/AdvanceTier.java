@@ -2,12 +2,15 @@ package com.jerry.mekanism_extras.api.tier;
 
 import mekanism.api.math.MathUtils;
 import mekanism.api.text.EnumColor;
+
 import net.minecraft.util.StringRepresentable;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
 public enum AdvanceTier implements StringRepresentable {
+
     ABSOLUTE("Absolute", EnumColor.BRIGHT_GREEN, EnumColor.BRIGHT_GREEN),
     SUPREME("Supreme", EnumColor.RED, EnumColor.RED),
     COSMIC("Cosmic", EnumColor.INDIGO, EnumColor.INDIGO),

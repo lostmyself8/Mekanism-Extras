@@ -1,12 +1,11 @@
 package com.jerry.mekanism_extras.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import mekanism.client.model.MekanismJavaModel;
 import mekanism.client.model.ModelPartData;
 import mekanism.client.render.MekanismRenderType;
 import mekanism.common.Mekanism;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -15,9 +14,13 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraModelEnergyCore extends MekanismJavaModel {
+
     public static final ModelLayerLocation CORE_LAYER = new ModelLayerLocation(Mekanism.rl("energy_core"), "main");
     private static final ResourceLocation CORE_TEXTURE = MekanismUtils.getResource(MekanismUtils.ResourceType.RENDER, "energy_core.png");
 

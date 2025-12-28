@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.item.block;
 
 import com.jerry.mekanism_extras.common.registration.impl.ExtraItemDeferredRegister;
+
 import mekanism.api.MekanismAPI;
 import mekanism.api.text.EnumColor;
 import mekanism.client.key.MekKeyHandler;
@@ -18,6 +19,7 @@ import mekanism.common.util.StorageUtils;
 import mekanism.common.util.WorldUtils;
 import mekanism.common.util.text.BooleanStateDisplay;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -29,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -52,7 +55,7 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
 
     @Override
     public void onDestroyed(@NotNull ItemEntity item, @NotNull DamageSource damageSource) {
-        //Try to drop the inventory contents if we are a block item that persists our inventory
+        // Try to drop the inventory contents if we are a block item that persists our inventory
         InventoryUtils.dropItemContents(item, damageSource);
     }
 
@@ -78,11 +81,10 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
         }
     }
 
-    protected void addStats(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-    }
+    protected void addStats(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {}
 
     protected void addDetails(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        //Note: Security and owner info gets skipped if the stack doesn't expose them
+        // Note: Security and owner info gets skipped if the stack doesn't expose them
         MekanismAPI.getSecurityUtils().addSecurityTooltip(stack, tooltip);
         addTypeDetails(stack, world, tooltip, flag);
         FluidStack fluidStack = StorageUtils.getStoredFluidFromNBT(stack);
@@ -98,7 +100,7 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
     }
 
     protected void addTypeDetails(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        //Put this here so that energy cubes can skip rendering energy here
+        // Put this here so that energy cubes can skip rendering energy here
         if (exposesEnergyCap(stack)) {
             StorageUtils.addStoredEnergy(stack, tooltip, false);
         }

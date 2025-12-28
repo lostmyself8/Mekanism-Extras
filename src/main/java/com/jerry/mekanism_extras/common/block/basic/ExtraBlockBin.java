@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.block.basic;
 
 import com.jerry.mekanism_extras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityBin;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.common.block.prefab.BlockTile;
@@ -10,6 +11,7 @@ import mekanism.common.tile.base.WrenchResult;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.StackUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraBlockBin extends BlockTile<ExtraTileEntityBin, BlockTypeTile<ExtraTileEntityBin>> {

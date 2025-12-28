@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.common.content.network.transmitter;
 
 import com.jerry.mekanism_extras.common.capabilities.heat.ExtraVariableHeatCapacitor;
 import com.jerry.mekanism_extras.common.tier.transmitter.TCTier;
+
 import mekanism.api.DataHandlerUtils;
 import mekanism.api.NBTConstants;
 import mekanism.api.heat.IHeatCapacitor;
@@ -18,10 +19,12 @@ import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.upgrade.transmitter.ThermodynamicConductorUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,8 +32,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class ExtraThermodynamicConductor extends ThermodynamicConductor implements IExtraUpgradeableTransmitter<ThermodynamicConductorUpgradeData> {
+
     private final CachedAmbientTemperature ambientTemperature = new CachedAmbientTemperature(this::getTileWorld, this::getTilePos);
-    //Default to negative one, so we know we need to calculate it when needed
+    // Default to negative one, so we know we need to calculate it when needed
     public final ConductorTier tier;
     private final List<IHeatCapacitor> capacitors;
     public final ExtraVariableHeatCapacitor buffer;
@@ -45,7 +49,8 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
 
     @Override
     public AcceptorCache<IHeatHandler> getAcceptorCache() {
-        //Cast it here to make things a bit easier, as we know createAcceptorCache by default returns an object of type AcceptorCache
+        // Cast it here to make things a bit easier, as we know createAcceptorCache by default returns an object of type
+        // AcceptorCache
         return super.getAcceptorCache();
     }
 
@@ -111,7 +116,8 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
     @Override
     public IHeatHandler getAdjacent(@NotNull Direction side) {
         if (connectionMapContainsSide(getAllCurrentConnections(), side)) {
-            //Note: We use the acceptor cache as the heat network is different and the transmitters count the other transmitters in the
+            // Note: We use the acceptor cache as the heat network is different and the transmitters count the other
+            // transmitters in the
             // network as valid acceptors
             return getAcceptorCache().getConnectedAcceptor(side).resolve().orElse(null);
         }
@@ -121,10 +127,10 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
     @Override
     public double incrementAdjacentTransfer(double currentAdjacentTransfer, double tempToTransfer, @NotNull Direction side) {
         if (tempToTransfer > 0) {
-            //Look up the adjacent tile from the acceptor cache and then do the type checking
+            // Look up the adjacent tile from the acceptor cache and then do the type checking
             BlockEntity sink = getAcceptorCache().getConnectedAcceptorTile(side);
             if (sink instanceof TileEntityTransmitter transmitter && TransmissionType.HEAT.checkTransmissionType(transmitter)) {
-                //Heat transmitter to heat transmitter, don't count as "adjacent transfer"
+                // Heat transmitter to heat transmitter, don't count as "adjacent transfer"
                 return currentAdjacentTransfer;
             }
         }

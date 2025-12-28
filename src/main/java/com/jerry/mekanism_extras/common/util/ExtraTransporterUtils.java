@@ -1,22 +1,25 @@
 package com.jerry.mekanism_extras.common.util;
 
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraLogisticalTransporter;
+
 import mekanism.api.text.EnumColor;
 import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.TransporterManager;
 import mekanism.common.content.transporter.TransporterStack;
 import mekanism.common.util.TransporterUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Block;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class ExtraTransporterUtils {
-    private ExtraTransporterUtils() {
-    }
+
+    private ExtraTransporterUtils() {}
 
     public static final List<EnumColor> colors = List.of(EnumColor.DARK_BLUE, EnumColor.DARK_GREEN, EnumColor.DARK_AQUA, EnumColor.DARK_RED, EnumColor.PURPLE,
             EnumColor.INDIGO, EnumColor.BRIGHT_GREEN, EnumColor.AQUA, EnumColor.RED, EnumColor.PINK, EnumColor.YELLOW, EnumColor.BLACK);
@@ -43,7 +46,7 @@ public class ExtraTransporterUtils {
     public static float[] getStackPosition(LogisticalTransporterBase transporter, TransporterStack stack, float partial) {
         Direction side = stack.getSide(transporter);
         float progress = ((stack.progress + partial) / 100F) - 0.5F;
-        return new float[]{0.5F + side.getStepX() * progress, 0.25F + side.getStepY() * progress, 0.5F + side.getStepZ() * progress};
+        return new float[] { 0.5F + side.getStepX() * progress, 0.25F + side.getStepY() * progress, 0.5F + side.getStepZ() * progress };
     }
 
     public static void incrementColor(ExtraLogisticalTransporter tile) {

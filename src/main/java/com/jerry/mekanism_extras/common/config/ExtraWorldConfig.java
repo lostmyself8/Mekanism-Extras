@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.common.config;
 
-import com.google.common.collect.ImmutableList;
 import com.jerry.mekanism_extras.common.resource.ore.ExtraOreType;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
+
 import mekanism.api.functions.FloatSupplier;
 import mekanism.common.config.BaseMekanismConfig;
 import mekanism.common.config.IMekanismConfig;
@@ -11,8 +11,11 @@ import mekanism.common.config.value.CachedFloatValue;
 import mekanism.common.config.value.CachedIntValue;
 import mekanism.common.resource.ore.BaseOreConfig;
 import mekanism.common.world.height.ConfigurableHeightRange;
+
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
+
+import com.google.common.collect.ImmutableList;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -67,8 +70,7 @@ public class ExtraWorldConfig extends BaseMekanismConfig {
     }
 
     public record OreVeinConfig(BooleanSupplier shouldGenerate, CachedIntValue perChunk, IntSupplier maxVeinSize, FloatSupplier discardChanceOnAirExposure,
-                                ConfigurableHeightRange range) {
-    }
+                                ConfigurableHeightRange range) {}
 
     private static class OreConfig {
 
@@ -94,8 +96,7 @@ public class ExtraWorldConfig extends BaseMekanismConfig {
                                 .defineInRange("maxVeinSize", baseConfig.maxVeinSize(), 1, 64)),
                         CachedFloatValue.wrap(config, builder.comment("Chance that blocks that are directly exposed to air in a " + veinType + " are not placed.")
                                 .defineInRange("discardChanceOnAirExposure", baseConfig.discardChanceOnAirExposure(), 0, 1)),
-                        ConfigurableHeightRange.create(config, builder, veinType, baseConfig)
-                ));
+                        ConfigurableHeightRange.create(config, builder, veinType, baseConfig)));
                 builder.pop();
             }
             veinConfigs = veinBuilder.build();

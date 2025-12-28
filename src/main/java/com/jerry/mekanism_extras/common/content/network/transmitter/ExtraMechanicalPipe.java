@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.content.network.transmitter;
 
 import com.jerry.mekanism_extras.common.tier.transmitter.PTier;
+
 import mekanism.api.Action;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.content.network.transmitter.MechanicalPipe;
@@ -8,15 +9,18 @@ import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.upgrade.transmitter.MechanicalPipeUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
+
 import net.minecraft.core.Direction;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
 public class ExtraMechanicalPipe extends MechanicalPipe implements IExtraUpgradeableTransmitter<MechanicalPipeUpgradeData> {
+
     public ExtraMechanicalPipe(IBlockProvider blockProvider, TileEntityTransmitter tile) {
         super(blockProvider, tile);
     }
@@ -40,7 +44,6 @@ public class ExtraMechanicalPipe extends MechanicalPipe implements IExtraUpgrade
                 }
             }
         }
-
     }
 
     private int getAvailablePull() {

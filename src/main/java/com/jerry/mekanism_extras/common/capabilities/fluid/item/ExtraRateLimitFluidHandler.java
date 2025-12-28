@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.capabilities.fluid.item;
 
 import com.jerry.mekanism_extras.common.tier.FTTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -9,7 +10,9 @@ import mekanism.api.fluid.IExtendedFluidTank;
 import mekanism.common.capabilities.fluid.BasicFluidTank;
 import mekanism.common.capabilities.fluid.VariableCapacityFluidTank;
 import mekanism.common.capabilities.fluid.item.ItemStackMekanismFluidHandler;
+
 import net.minecraftforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,12 +26,13 @@ import java.util.function.Predicate;
 
 @NothingNullByDefault
 public class ExtraRateLimitFluidHandler extends ItemStackMekanismFluidHandler {
+
     public static ExtraRateLimitFluidHandler create(IntSupplier rate, IntSupplier capacity) {
         return create(rate, capacity, BasicFluidTank.alwaysTrueBi, BasicFluidTank.alwaysTrueBi, BasicFluidTank.alwaysTrue);
     }
 
     public static ExtraRateLimitFluidHandler create(IntSupplier rate, IntSupplier capacity, BiPredicate<@NotNull FluidStack, @NotNull AutomationType> canExtract,
-                                               BiPredicate<@NotNull FluidStack, @NotNull AutomationType> canInsert, Predicate<@NotNull FluidStack> isValid) {
+                                                    BiPredicate<@NotNull FluidStack, @NotNull AutomationType> canInsert, Predicate<@NotNull FluidStack> isValid) {
         Objects.requireNonNull(rate, "Rate supplier cannot be null");
         Objects.requireNonNull(capacity, "Capacity supplier cannot be null");
         Objects.requireNonNull(canExtract, "Extraction validity check cannot be null");
@@ -69,7 +73,7 @@ public class ExtraRateLimitFluidHandler extends ItemStackMekanismFluidHandler {
 
         @Override
         protected int getRate(@Nullable AutomationType automationType) {
-            //Allow unknown or manual interaction to bypass rate limit for the item
+            // Allow unknown or manual interaction to bypass rate limit for the item
             return automationType == null || automationType == AutomationType.MANUAL ? super.getRate(automationType) : rate.getAsInt();
         }
     }
@@ -80,10 +84,9 @@ public class ExtraRateLimitFluidHandler extends ItemStackMekanismFluidHandler {
 
         private FluidTankRateLimitFluidTank(FTTier tier, @Nullable IContentsListener listener) {
             super(tier::getOutput, tier::getStorage, BasicFluidTank.alwaysTrueBi, BasicFluidTank.alwaysTrueBi, BasicFluidTank.alwaysTrue, listener);
-//            isCreative = tier == ExtraFluidTankTier.CREATIVE;
+            // isCreative = tier == ExtraFluidTankTier.CREATIVE;
             isCreative = false;
         }
-
 
         @Override
         public @NotNull FluidStack insert(@NotNull FluidStack stack, Action action, @NotNull AutomationType automationType) {
@@ -98,7 +101,8 @@ public class ExtraRateLimitFluidHandler extends ItemStackMekanismFluidHandler {
         /**
          * {@inheritDoc}
          *
-         * Note: We are only patching {@link #setStackSize(int, Action)}, as both {@link #growStack(int, Action)} and {@link #shrinkStack(int, Action)} are wrapped
+         * Note: We are only patching {@link #setStackSize(int, Action)}, as both {@link #growStack(int, Action)} and
+         * {@link #shrinkStack(int, Action)} are wrapped
          * through this method.
          */
         @Override

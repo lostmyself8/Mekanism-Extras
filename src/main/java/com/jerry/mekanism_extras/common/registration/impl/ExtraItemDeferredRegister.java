@@ -1,16 +1,19 @@
 package com.jerry.mekanism_extras.common.registration.impl;
 
 import com.jerry.mekanism_extras.common.registry.ExtraTab;
+
 import mekanism.api.providers.IItemProvider;
 import mekanism.api.text.EnumColor;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.registration.WrappedDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -20,8 +23,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ExtraItemDeferredRegister extends WrappedDeferredRegister<Item> {
+
     private static final ExtraTab tabExtra = new ExtraTab();
     private final List<IItemProvider> allItems = new ArrayList<>();
+
     public ExtraItemDeferredRegister(String modid) {
         super(modid, ForgeRegistries.ITEMS);
     }
@@ -44,6 +49,7 @@ public class ExtraItemDeferredRegister extends WrappedDeferredRegister<Item> {
 
     public ItemRegistryObject<Item> register(String name, EnumColor color) {
         return register(name, properties -> new Item(properties) {
+
             @NotNull
             @Override
             public Component getName(@NotNull ItemStack stack) {

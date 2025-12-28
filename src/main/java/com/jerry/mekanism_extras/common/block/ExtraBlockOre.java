@@ -2,8 +2,10 @@ package com.jerry.mekanism_extras.common.block;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.resource.ore.ExtraOreType;
+
 import mekanism.api.text.ILangEntry;
 import mekanism.common.block.interfaces.IHasDescription;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -13,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraBlockOre extends Block implements IHasDescription {

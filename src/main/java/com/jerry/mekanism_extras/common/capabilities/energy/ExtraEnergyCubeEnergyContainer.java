@@ -1,18 +1,22 @@
 package com.jerry.mekanism_extras.common.capabilities.energy;
 
 import com.jerry.mekanism_extras.common.tier.ECTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
+
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Objects;
 
 @NothingNullByDefault
 @ParametersAreNonnullByDefault

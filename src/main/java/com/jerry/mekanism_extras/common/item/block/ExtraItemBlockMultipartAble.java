@@ -1,8 +1,10 @@
 package com.jerry.mekanism_extras.common.item.block;
 
 import com.jerry.mekanism_extras.common.registration.impl.ExtraItemDeferredRegister;
+
 import mekanism.common.item.block.ItemBlockMekanism;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -14,13 +16,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Copy from class ItemBlockMultipartAble which was created by Thiakil on 19/11/2017.
  * Hhhh,I can't be blamed for that.
  */
-//TODO: Re-evaluate this class
+// TODO: Re-evaluate this class
 public class ExtraItemBlockMultipartAble<BLOCK extends Block> extends ItemBlockMekanism<BLOCK> {
 
     public ExtraItemBlockMultipartAble(@NotNull BLOCK block) {
@@ -39,7 +42,7 @@ public class ExtraItemBlockMultipartAble<BLOCK extends Block> extends ItemBlockM
         }
         ItemStack stack = context.getItemInHand();
         if (stack.isEmpty()) {
-            return InteractionResult.FAIL;//WTF
+            return InteractionResult.FAIL;// WTF
         }
         Level world = context.getLevel();
         BlockPos pos = context.getClickedPos();
