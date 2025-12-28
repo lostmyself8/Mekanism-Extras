@@ -2,7 +2,7 @@ name: Sync Github Folder
 
 on:
   push:
-    branches: ['master']
+    branches: ['1.20.1']
     paths: ['.github/**']
 
 jobs:
@@ -11,15 +11,38 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: '1.19.2'
-      - run: |
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure Git user
+        run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Create and switch to gh/workflow-sync branch
+        run: |
           git switch -C gh/workflow-sync
+
+      - name: Fetch origin
+        run: |
           git fetch origin
-          git checkout origin/master -- .github
+
+      - name: Checkout .github folder from 1.20.1 branch
+        run: |
+          git checkout origin/1.20.1 -- .github
+
+      - name: Commit changes
+        run: |
           git commit -am "Sync Workflows"
+
+      - name: Push changes to gh/workflow-sync branch
+        run: |
           git push --force --set-upstream origin gh/workflow-sync
-          gh pr create -B 1.19.2 -H gh/workflow-sync --title "Sync Workflows with master [no-snapshot]" --body "Created by GH Workflow" --label "ignore changelog"
+
+      - name: Create PR for 1.19.2
+        run: |
+          gh pr create -B 1.19.2 -H gh/workflow-sync --title "Sync Workflows with 1.19.2 [no-snapshot]" --body "Created by GH Workflow" --label "ignore changelog"
+
+      - name: Create PR for 1.21.1
+        run: |
+          gh pr create -B 1.21.1 -H gh/workflow-sync --title "Sync Workflows with 1.21.1 [no-snapshot]" --body "Created by GH Workflow" --label "ignore changelog"

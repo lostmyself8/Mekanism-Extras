@@ -15,6 +15,7 @@ body:
       description: The version of Minecraft you wish this feature was added for. / 您希望此功能添加到的 Minecraft 版本。
       options:
         - "Both"
+        - "1.21.1 NeoForge"
         - "1.20.1 Forge"
         - "1.19.2 Forge"
   - type: textarea
