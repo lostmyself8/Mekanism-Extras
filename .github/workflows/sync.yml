@@ -40,6 +40,7 @@ jobs:
           git push --force --set-upstream origin gh/workflow-sync
 
       - name: Create PR for 1.19.2
+        continue-on-error: true
         run: |
           gh pr create -B 1.19.2 -H gh/workflow-sync --title "Sync Workflows with 1.19.2 [no-snapshot]" --body "Created by GH Workflow" --label "ignore changelog"
 
