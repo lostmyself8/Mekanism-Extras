@@ -11,7 +11,7 @@ mekanism = "1.19.2-10.3.9.13"
 jade = "8.9.2"
 embeddium = "0.3.18.1+mc1.19.2"
 oculus = "1.19.2-1.6.9a"
-ferritecore = "5.0.3"
+ferritecore = "5.0.3-forge"
 modernfix = "5.18.1+mc1.19.2"
 
 ## curseforge maven ##
