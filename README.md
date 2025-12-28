@@ -7,7 +7,7 @@
 [badge_modrinth]: https://img.shields.io/modrinth/dt/HUZkxNTQ?color=5da545&label=Modrinth&style=for-the-badge&logo=modrinth
 [modrinth]: https://modrinth.com/mod/mekanism_extra
 
-**Ported [Mekanism Evolution](https://github.com/Pocky-l/Mekanism-Evolution) to 1.20.1 and added some other things**
+**Ported [Mekanism Evolution](https://github.com/Pocky-l/Mekanism-Evolution) to a higher version and added some other things**
 
 **My textures drawing may not be very good. If you want to provide better textures, you can contact me.**
 

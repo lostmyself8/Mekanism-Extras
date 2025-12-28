@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:enriching",
+  "input": {
+    "count": 1,
+    "tag": "c:raw_materials/naquadah"
+  },
+  "output": {
+    "count": 4,
+    "id": "mekanism_extras:dust_naquadah"
+  }
+}

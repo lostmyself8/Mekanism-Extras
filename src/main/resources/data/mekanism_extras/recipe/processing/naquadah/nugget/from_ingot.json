@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:ingots/naquadah"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "mekanism_extras:nugget_naquadah"
+  }
+}

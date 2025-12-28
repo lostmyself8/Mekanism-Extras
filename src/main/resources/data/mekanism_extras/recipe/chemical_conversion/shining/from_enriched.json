@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:chemical_conversion",
+  "input": {
+    "count": 1,
+    "tag": "mekanism_extras:enriched/shining"
+  },
+  "output": {
+    "amount": 40,
+    "id": "mekanism_extras:shining"
+  }
+}

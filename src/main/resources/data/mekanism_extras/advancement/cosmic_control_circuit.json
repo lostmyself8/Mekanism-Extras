@@ -1,0 +1,33 @@
+{
+  "parent": "mekanism_extras:shining_alloy",
+  "criteria": {
+    "cosmic_control_circuit": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekanism_extras:cosmic_control_circuit"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.mekanism_extras.cosmic_control_circuit.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "mekanism_extras:cosmic_control_circuit"
+    },
+    "title": {
+      "translate": "advancements.mekanism_extras.cosmic_control_circuit.title"
+    }
+  },
+  "requirements": [
+    [
+      "cosmic_control_circuit"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

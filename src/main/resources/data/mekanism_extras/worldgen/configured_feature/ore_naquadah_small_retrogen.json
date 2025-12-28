@@ -1,0 +1,20 @@
+{
+  "type": "mekanism:ore_retrogen",
+  "config": {
+    "ore_type": {
+      "type": "naquadah",
+      "index": 0
+    },
+    "targets": [
+      {
+        "state": {
+          "Name": "mekanism_extras:naquadah_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:oxidizing",
+  "input": {
+    "count": 1,
+    "tag": "mekanism_extras:enriched/osmium"
+  },
+  "output": {
+    "amount": 1600,
+    "id": "mekanism:osmium"
+  }
+}

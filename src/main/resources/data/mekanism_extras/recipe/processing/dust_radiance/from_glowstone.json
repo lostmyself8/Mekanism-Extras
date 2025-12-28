@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:compressing",
+  "chemical_input": {
+    "amount": 1,
+    "chemical": "mekanism:uranium_oxide"
+  },
+  "item_input": {
+    "count": 1,
+    "tag": "c:dusts/glowstone"
+  },
+  "output": {
+    "count": 1,
+    "id": "mekanism_extras:dust_radiance"
+  },
+  "per_tick_usage":true
+}

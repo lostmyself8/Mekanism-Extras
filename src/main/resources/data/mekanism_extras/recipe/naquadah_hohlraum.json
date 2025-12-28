@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanismgenerators"
+    }
+  ],
+  "type": "mekanism:metallurgic_infusing",
+  "chemical_input": {
+    "amount": 10,
+    "chemical": "mekanism_extras:lead"
+  },
+  "item_input": {
+    "amount": 4,
+    "tag": "c:dusts/naquadah"
+  },
+  "output": {
+    "id": "mekanism_extras:naquadah_hohlraum"
+  },
+  "per_tick_usage": false
+}

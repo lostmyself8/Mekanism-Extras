@@ -1,0 +1,15 @@
+{
+  "type": "mekanism:washing",
+  "chemical_input": {
+    "amount": 1,
+    "chemical": "mekanism_extras:dirty_naquadah"
+  },
+  "fluid_input": {
+    "amount": 5,
+    "tag": "minecraft:water"
+  },
+  "output": {
+    "amount": 1,
+    "id": "mekanism_extras:clean_naquadah"
+  }
+}

@@ -30,21 +30,22 @@ tasks.matching { it.name.startsWith('prepare') }.configureEach {
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
-    var forgeVers = libs.versions.forge.get().split("\\.")[0]
+    var neoVersion = libs.versions.neoForge.get()
+    neoVersion = neoVersion.substring(0, neoVersion.lastIndexOf('.'))
     var replaceProperties = [
-            version                 : version_toml,
-            mod_id                  : mod_id,
-            minecraft_version       : libs.versions.minecraft.get(),
-            loader_version          : forgeVers,
-            forge_version           : forgeVers,
-            jei_version             : forge.versions.jei.get(),
-            emi_version             : forge.versions.emi.get(),
-            jade_version            : forge.versions.jade.get(),
-            mod_license             : mod_license,
-            mod_name                : mod_name,
-            mod_description         : mod_description,
-            mod_url                 : mod_url,
-            mod_issue_tracker       : mod_issue_tracker
+            version             : version_toml,
+            mod_id              : mod_id,
+            minecraft_version   : "[1.21, 1.21.1]",
+            loader_version      : libs.versions.loader.get(),
+            neo_version         : neoVersion,
+            jei_version         : forge.versions.jei.get(),
+            emi_version         : forge.versions.emi.get(),
+            jade_version        : forge.versions.jade.get(),
+            mod_license         : mod_license,
+            mod_name            : mod_name,
+            mod_description     : mod_description,
+            mod_url             : mod_url,
+            mod_issue_tracker   : mod_issue_tracker
     ]
     inputs.properties replaceProperties
     expand replaceProperties
@@ -52,4 +53,4 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
     into "build/generated/sources/modMetadata"
 }
 sourceSets.main.resources.srcDir generateModMetadata
-legacyForge.ideSyncTask generateModMetadata
+neoForge.ideSyncTask generateModMetadata

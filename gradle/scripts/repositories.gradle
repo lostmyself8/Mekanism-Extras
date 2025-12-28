@@ -4,9 +4,17 @@ repositories {
     }
     mavenLocal()
     mavenCentral()
+    maven {//CrT
+        url = 'https://maven.blamejared.com'
+        name = 'BlameJared Maven'
+    }
     maven { // JEI
         name = "Jared's Maven"
         url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "blakes's Maven"
+        url 'https://maven.blakesmods.com'
     }
     maven { // JEI mirror, AE2
         name = "ModMaven"
@@ -30,6 +38,14 @@ repositories {
     exclusiveContent { // terraformers - EMI
         forRepository { maven { url = "https://maven.terraformersmc.com/releases/" } }
         filter { includeGroup("dev.emi") }
+    }
+    exclusiveContent { // KotlinForForge
+        forRepository { maven { url = "https://thedarkcolour.github.io/KotlinForForge/" } }
+        filter { includeGroup("thedarkcolour") }
+    }
+    exclusiveContent { // CC: Tweaked
+        forRepository { maven { url = "https://maven.squiddev.cc" } }
+        filter { includeGroup("cc.tweaked") }
     }
     exclusiveContent { // Modrinth Maven
         forRepository { maven { url = "https://api.modrinth.com/maven" } }

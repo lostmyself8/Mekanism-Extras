@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanismgenerators"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "c:circuits/cosmic"
+    },
+    "F": {
+      "item": "mekanism_extras:naquadah_reactor_casing"
+    },
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "T": {
+      "item": "mekanism_extras:absolute_chemical_tank"
+    }
+  },
+  "pattern": [
+    "CGC",
+    "FTF",
+    "FFF"
+  ],
+  "result": {
+    "id": "mekanism_extras:naquadah_reactor_controller"
+  }
+}

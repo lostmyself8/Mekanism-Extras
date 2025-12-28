@@ -1,0 +1,20 @@
+{
+  "type": "mekanism:ore",
+  "config": {
+    "ore_type": {
+      "type": "naquadah",
+      "index": 1
+    },
+    "targets": [
+      {
+        "state": {
+          "Name": "mekanism_extras:end_naquadah_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "minecraft:end_stone"
+        }
+      }
+    ]
+  }
+}

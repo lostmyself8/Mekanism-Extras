@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/thermonuclear"
+    },
+    "C": {
+      "tag": "c:circuits/absolute"
+    }
+  },
+  "pattern": [
+    "ACA"
+  ],
+  "result": {
+    "id": "mekanism_extras:supreme_control_circuit"
+  }
+}

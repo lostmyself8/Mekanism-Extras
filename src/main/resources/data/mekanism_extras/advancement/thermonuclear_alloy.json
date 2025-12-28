@@ -1,0 +1,34 @@
+{
+  "parent": "mekanism_extras:radiance_alloy",
+  "criteria": {
+    "alloy_thermonuclear": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekanism_extras:alloy_thermonuclear"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.mekanism_extras.thermonuclear_alloy.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "mekanism_extras:alloy_thermonuclear"
+    },
+    "title": {
+      "translate": "advancements.mekanism_extras.thermonuclear_alloy.title"
+    }
+  },
+  "requirements": [
+    [
+      "alloy_thermonuclear"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

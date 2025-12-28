@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:oxidizing",
+  "input": {
+    "count": 1,
+    "tag": "mekanism_extras:enriched/spectrum"
+  },
+  "output": {
+    "amount": 50,
+    "id": "mekanism_extras:spectrum"
+  }
+}

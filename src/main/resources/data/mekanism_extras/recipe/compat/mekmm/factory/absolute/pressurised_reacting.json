@@ -1,0 +1,33 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekmm"
+    }
+  ],
+  "type": "mekanism:mek_data",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/radiance"
+    },
+    "C": {
+      "tag": "c:circuits/absolute"
+    },
+    "I": {
+      "tag": "c:gems/emerald"
+    },
+    "P": {
+      "item": "mekmm:ultimate_pressurised_reacting_factory"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IPI",
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekanism_extras:absolute_pressurised_reacting_factory"
+  }
+}

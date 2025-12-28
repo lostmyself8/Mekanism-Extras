@@ -1,0 +1,11 @@
+{
+  "type": "mekanism:oxidizing",
+  "input": {
+    "count": 1,
+    "tag": "c:dusts/radiance"
+  },
+  "output": {
+    "amount": 10,
+    "id": "mekanism_extras:radiance"
+  }
+}

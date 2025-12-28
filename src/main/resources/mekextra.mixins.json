@@ -1,0 +1,34 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.jerry.mekextras.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "Mekanism_Extras.refmap.json",
+  "mixins": [
+    "MixinBinInventorySlot",
+    "MixinBlockEnergyCube",
+    "MixinBlockTileBuilder",
+    "MixinFactory",
+    "MixinLogisticalTransporterBase",
+    "MixinMachineEnergyContainer",
+    "MixinMekanismBlocks",
+    "MixinMekanismBlockTypes",
+    "MixinRecipeCacheLookupMonitor",
+    "MixinTileComponentEjector",
+    "MixinTileEntityDigitalMiner",
+    "MixinUpgrade",
+    "MixinUpgradeUtils",
+    "integration.mekaf.MixinAdvancedFactory",
+    "integration.mekmm.MixinMoreMachineFactory",
+    "resource.ore.MixinOreType"
+  ],
+  "client": [
+    "client.MixinMekanismRenderer",
+    "client.MixinRecipeViewerRecipeType",
+    "client.recipe_viewer.emi.MixinMekanismEmi",
+    "client.recipe_viewer.jei.MixinMoreMachineJEI"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

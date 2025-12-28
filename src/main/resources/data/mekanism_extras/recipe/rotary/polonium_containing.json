@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanismgenerators"
+    }
+  ],
+  "type": "mekanism:rotary",
+  "fluid_input": {
+    "amount": 1,
+    "fluid": "mekanism_extras:polonium_containing_solution"
+  },
+  "fluid_output": {
+    "amount": 1,
+    "id": "mekanism_extras:polonium_containing_solution"
+  },
+  "chemical_input": {
+    "amount": 1,
+    "chemical": "mekanism_extras:polonium_containing_steam"
+  },
+  "chemical_output": {
+    "amount": 1,
+    "id": "mekanism_extras:polonium_containing_steam"
+  }
+}

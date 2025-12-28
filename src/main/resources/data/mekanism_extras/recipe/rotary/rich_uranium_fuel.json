@@ -1,0 +1,19 @@
+{
+  "type": "mekanism:rotary",
+  "fluid_input": {
+    "amount": 1,
+    "fluid": "mekanism_extras:rich_uranium_fuel"
+  },
+  "fluid_output": {
+    "amount": 1,
+    "id": "mekanism_extras:rich_uranium_fuel"
+  },
+  "chemical_input": {
+    "amount": 1,
+    "chemical": "mekanism_extras:rich_uranium_fuel"
+  },
+  "chemical_output": {
+    "amount": 1,
+    "id": "mekanism_extras:rich_uranium_fuel"
+  }
+}

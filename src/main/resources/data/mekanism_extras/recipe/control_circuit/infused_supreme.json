@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemical_input": {
+    "amount": 720,
+    "tag": "mekanism_extras:thermonuclear"
+  },
+  "item_input": {
+    "count": 1,
+    "tag": "c:circuits/absolute"
+  },
+  "output": {
+    "count": 1,
+    "id": "mekanism_extras:supreme_control_circuit"
+  },
+  "per_tick_usage": false
+}

@@ -1,0 +1,16 @@
+{
+  "type": "mekanism:metallurgic_infusing",
+  "chemical_input": {
+    "amount": 240,
+    "tag": "mekanism_extras:radiance"
+  },
+  "item_input": {
+    "count": 1,
+    "tag": "c:circuits/ultimate"
+  },
+  "output": {
+    "count": 1,
+    "id": "mekanism_extras:absolute_control_circuit"
+  },
+  "per_tick_usage": false
+}

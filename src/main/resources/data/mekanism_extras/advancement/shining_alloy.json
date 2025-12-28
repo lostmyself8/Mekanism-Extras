@@ -1,0 +1,34 @@
+{
+  "parent": "mekanism_extras:thermonuclear_alloy",
+  "criteria": {
+    "alloy_shining": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekanism_extras:alloy_shining"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.mekanism_extras.shining_alloy.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "mekanism_extras:alloy_shining"
+    },
+    "title": {
+      "translate": "advancements.mekanism_extras.shining_alloy.title"
+    }
+  },
+  "requirements": [
+    [
+      "alloy_shining"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

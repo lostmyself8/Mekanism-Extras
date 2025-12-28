@@ -1,0 +1,33 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekmm"
+    }
+  ],
+  "type": "mekanism:mek_data",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/shining"
+    },
+    "C": {
+      "tag": "c:circuits/cosmic"
+    },
+    "I": {
+      "tag": "c:ingots/refined_obsidian"
+    },
+    "P": {
+      "item": "mekanism_extras:supreme_rolling_mill_factory"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IPI",
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekanism_extras:cosmic_rolling_mill_factory"
+  }
+}
