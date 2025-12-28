@@ -34,10 +34,10 @@ public class ComputerMethodRegistry_mekextras implements IComputerMethodRegistry
         FactoryRegistry.register(TileEntityExtraItemStackChemicalToItemStackFactory.class, TileEntityExtraItemStackChemicalToItemStackFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
         FactoryRegistry.register(TileEntityExtraCombiningFactory.class, TileEntityExtraCombiningFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
         FactoryRegistry.register(TileEntityExtraSawingFactory.class, TileEntityExtraSawingFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
-        FactoryRegistry.register(ExtraTileEntityBin.class, ExtraTileEntityBin$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
-        FactoryRegistry.register(ExtraTileEntityChemicalTank.class, ExtraTileEntityChemicalTank$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
-        FactoryRegistry.register(ExtraTileEntityEnergyCube.class, ExtraTileEntityEnergyCube$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
-        FactoryRegistry.register(ExtraTileEntityFluidTank.class, ExtraTileEntityFluidTank$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
+        FactoryRegistry.register(TileEntityExtraBin.class, TileEntityExtraBin$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
+        FactoryRegistry.register(TileEntityExtraChemicalTank.class, TileEntityExtraChemicalTank$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
+        FactoryRegistry.register(TileEntityExtraEnergyCube.class, TileEntityExtraEnergyCube$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
+        FactoryRegistry.register(TileEntityExtraFluidTank.class, TileEntityExtraFluidTank$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
         FactoryRegistry.register(TileEntityLargeCapRadioactiveWasteBarrel.class, TileEntityLargeCapRadioactiveWasteBarrel$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class);
         FactoryRegistry.register(TileEntityAdvancedElectricPump.class, TileEntityAdvancedElectricPump$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class);
 
@@ -46,9 +46,9 @@ public class ComputerMethodRegistry_mekextras implements IComputerMethodRegistry
         FactoryRegistry.register(ReinforcedMatrixMultiblockData.class, ReinforcedMatrixMultiblockData$ComputerHandler::new, MultiblockData.class);
 
         //Transmitter Tile
-        FactoryRegistry.register(ExtraTileEntityMechanicalPipe.class, ExtraTileEntityMechanicalPipe$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityTransmitter.class);
-        FactoryRegistry.register(ExtraTileEntityPressurizedTube.class, ExtraTileEntityPressurizedTube$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityTransmitter.class);
-        FactoryRegistry.register(ExtraTileEntityUniversalCable.class, ExtraTileEntityUniversalCable$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityTransmitter.class);
+        FactoryRegistry.register(TileEntityExtraMechanicalPipe.class, TileEntityExtraMechanicalPipe$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityTransmitter.class);
+        FactoryRegistry.register(TileEntityExtraPressurizedTube.class, TileEntityExtraPressurizedTube$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityTransmitter.class);
+        FactoryRegistry.register(TileEntityExtraUniversalCable.class, TileEntityExtraUniversalCable$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityTransmitter.class);
 
         //Generator Extras
         if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {

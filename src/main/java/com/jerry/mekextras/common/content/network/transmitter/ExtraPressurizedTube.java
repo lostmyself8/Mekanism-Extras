@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.common.tier.transmitter.TTier;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ExtraPressurizedTube extends PressurizedTube implements IChemicalTracker,
         IExtraUpgradeableTransmitter<PressurizedTubeUpgradeData> {
-    public ExtraPressurizedTube(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraPressurizedTube(Holder<Block> blockProvider, TileEntityExtraTransmitter tile) {
         super(blockProvider, tile);
     }
 

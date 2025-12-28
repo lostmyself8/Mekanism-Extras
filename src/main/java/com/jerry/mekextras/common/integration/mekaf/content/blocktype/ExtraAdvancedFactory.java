@@ -4,6 +4,7 @@ import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
 import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryBlockShapes;
 import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
+import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlockTypes;
@@ -37,7 +38,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
         add(new AttributeGui(containerRegistrar, null), new ExtraAttributeTier<>(tier));
 
         if (tier.ordinal() < ExtraEnumUtils.EXTRA_FACTORY_TIERS.length - 1) {
-            add(new AttributeUpgradeable(() -> ExtraAdvancedFactoryBlocks.getAdvancedFactory(ExtraEnumUtils.EXTRA_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getAdvancedFactoryType())));
+            add(new ExtraAttributeUpgradeable(() -> ExtraAdvancedFactoryBlocks.getAdvancedFactory(ExtraEnumUtils.EXTRA_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getAdvancedFactoryType())));
         }
     }
 

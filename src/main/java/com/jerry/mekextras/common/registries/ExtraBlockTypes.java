@@ -14,17 +14,17 @@ import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMac
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.tier.*;
 import com.jerry.mekextras.common.tile.*;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityUniversalCable;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityLogisticalTransporter;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityMechanicalPipe;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityThermodynamicConductor;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraUniversalCable;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraMechanicalPipe;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraThermodynamicConductor;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraPressurizedTube;
 import com.jerry.mekextras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
-import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
-import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
 import mekanism.api.Upgrade;
@@ -57,8 +57,7 @@ public class ExtraBlockTypes {
             .withGui(() -> MekanismContainerTypes.ENRICHMENT_CHAMBER)
             .withSound(MekanismSounds.ENRICHMENT_CHAMBER)
             .withEnergyConfig(MekanismConfig.usage.enrichmentChamber, MekanismConfig.storage.enrichmentChamber)
-            .with(AttributeSideConfig.ELECTRIC_MACHINE)
-            .withComputerSupport("enrichmentChamber")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
     // Crusher
     public static final ExtraFactoryMachine<TileEntityCrusher> CRUSHER = ExtraMachineBuilder
@@ -66,8 +65,7 @@ public class ExtraBlockTypes {
             .withGui(() -> MekanismContainerTypes.CRUSHER)
             .withSound(MekanismSounds.CRUSHER)
             .withEnergyConfig(MekanismConfig.usage.crusher, MekanismConfig.storage.crusher)
-            .with(AttributeSideConfig.ELECTRIC_MACHINE)
-            .withComputerSupport("crusher")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
     // Energized Smelter
     public static final ExtraFactoryMachine<TileEntityEnergizedSmelter> ENERGIZED_SMELTER = ExtraMachineBuilder
@@ -75,8 +73,7 @@ public class ExtraBlockTypes {
             .withGui(() -> MekanismContainerTypes.ENERGIZED_SMELTER)
             .withSound(MekanismSounds.ENERGIZED_SMELTER)
             .withEnergyConfig(MekanismConfig.usage.energizedSmelter, MekanismConfig.storage.energizedSmelter)
-            .with(AttributeSideConfig.ELECTRIC_MACHINE)
-            .withComputerSupport("energizedSmelter")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
     // Precision Sawmill
     public static final ExtraFactoryMachine<TileEntityPrecisionSawmill> PRECISION_SAWMILL = ExtraMachineBuilder
@@ -84,8 +81,7 @@ public class ExtraBlockTypes {
             .withGui(() -> MekanismContainerTypes.PRECISION_SAWMILL)
             .withSound(MekanismSounds.PRECISION_SAWMILL)
             .withEnergyConfig(MekanismConfig.usage.precisionSawmill, MekanismConfig.storage.precisionSawmill)
-            .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
-            .withComputerSupport("precisionSawmill")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
     // Osmium Compressor
     public static final ExtraFactoryMachine<TileEntityOsmiumCompressor> OSMIUM_COMPRESSOR = ExtraMachineBuilder
@@ -93,8 +89,7 @@ public class ExtraBlockTypes {
             .withGui(() -> MekanismContainerTypes.OSMIUM_COMPRESSOR)
             .withSound(MekanismSounds.OSMIUM_COMPRESSOR)
             .withEnergyConfig(MekanismConfig.usage.osmiumCompressor, MekanismConfig.storage.osmiumCompressor)
-            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
-            .withComputerSupport("osmiumCompressor")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
     // Combiner
     public static final ExtraFactoryMachine<TileEntityCombiner> COMBINER = ExtraMachineBuilder
@@ -102,8 +97,7 @@ public class ExtraBlockTypes {
             .withGui(() -> MekanismContainerTypes.COMBINER)
             .withSound(MekanismSounds.COMBINER)
             .withEnergyConfig(MekanismConfig.usage.combiner, MekanismConfig.storage.combiner)
-            .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
-            .withComputerSupport("combiner")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
     // Metallurgic Infuser
     public static final ExtraFactoryMachine<TileEntityMetallurgicInfuser> METALLURGIC_INFUSER = ExtraMachineBuilder
@@ -111,9 +105,7 @@ public class ExtraBlockTypes {
             .withGui(() -> MekanismContainerTypes.METALLURGIC_INFUSER)
             .withSound(MekanismSounds.METALLURGIC_INFUSER)
             .withEnergyConfig(MekanismConfig.usage.metallurgicInfuser, MekanismConfig.storage.metallurgicInfuser)
-            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
-            .withCustomShape(BlockShapes.METALLURGIC_INFUSER)
-            .withComputerSupport("metallurgicInfuser")
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .build();
     // Purification Chamber
     public static final ExtraFactoryMachine<TileEntityPurificationChamber> PURIFICATION_CHAMBER = ExtraMachineBuilder
@@ -122,8 +114,6 @@ public class ExtraBlockTypes {
             .withSound(MekanismSounds.PURIFICATION_CHAMBER)
             .withEnergyConfig(MekanismConfig.usage.purificationChamber, MekanismConfig.storage.purificationChamber)
             .with(ExtraAttributeUpgradeSupport.EXTRA_ADVANCED_MACHINE_UPGRADES)
-            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
-            .withComputerSupport("purificationChamber")
             .build();
     // Chemical Injection Chamber
     public static final ExtraFactoryMachine<TileEntityChemicalInjectionChamber> CHEMICAL_INJECTION_CHAMBER = ExtraMachineBuilder
@@ -132,8 +122,6 @@ public class ExtraBlockTypes {
             .withSound(MekanismSounds.CHEMICAL_INJECTION_CHAMBER)
             .withEnergyConfig(MekanismConfig.usage.chemicalInjectionChamber, MekanismConfig.storage.chemicalInjectionChamber)
             .with(ExtraAttributeUpgradeSupport.EXTRA_ADVANCED_MACHINE_UPGRADES)
-            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
-            .withComputerSupport("chemicalInjectionChamber")
             .build();
 
     // Electric Pump
@@ -143,15 +131,15 @@ public class ExtraBlockTypes {
             .withEnergyConfig(ExtraConfig.extraUsageConfig.advanceElectricPump, ExtraConfig.extraStorageConfig.advanceElectricPump)
             .withSupportedUpgrades(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.FILTER, ExtraUpgrade.IONIC_MEMBRANE)
             .withCustomShape(BlockShapes.ELECTRIC_PUMP)
-            .withComputerSupport("electricPump")
+            .withComputerSupport("advancedElectricPump")
             .replace(Attributes.ACTIVE)
             .build();
 
     // Bins
-    public static final Machine<ExtraTileEntityBin> ABSOLUTE_BIN = createBin(BTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_BIN, () -> ExtraBlocks.SUPREME_BIN);
-    public static final Machine<ExtraTileEntityBin> SUPREME_BIN = createBin(BTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_BIN, () -> ExtraBlocks.COSMIC_BIN);
-    public static final Machine<ExtraTileEntityBin> COSMIC_BIN = createBin(BTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_BIN, () -> ExtraBlocks.INFINITE_BIN);
-    public static final Machine<ExtraTileEntityBin> INFINITE_BIN = createBin(BTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_BIN, null);
+    public static final Machine<TileEntityExtraBin> ABSOLUTE_BIN = createBin(BTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_BIN, () -> ExtraBlocks.SUPREME_BIN);
+    public static final Machine<TileEntityExtraBin> SUPREME_BIN = createBin(BTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_BIN, () -> ExtraBlocks.COSMIC_BIN);
+    public static final Machine<TileEntityExtraBin> COSMIC_BIN = createBin(BTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_BIN, () -> ExtraBlocks.INFINITE_BIN);
+    public static final Machine<TileEntityExtraBin> INFINITE_BIN = createBin(BTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_BIN, null);
 
     // Induction Casing
     public static final BlockTypeTile<TileEntityReinforcedInductionCasing> REINFORCED_INDUCTION_CASING = BlockTypeTile.BlockTileBuilder
@@ -170,34 +158,34 @@ public class ExtraBlockTypes {
             .build();
 
     // Induction Cells
-    public static final BlockTypeTile<ExtraTileEntityInductionCell> ABSOLUTE_INDUCTION_CELL = createInductionCell(ICTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_INDUCTION_CELL);
-    public static final BlockTypeTile<ExtraTileEntityInductionCell> SUPREME_INDUCTION_CELL = createInductionCell(ICTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_INDUCTION_CELL);
-    public static final BlockTypeTile<ExtraTileEntityInductionCell> COSMIC_INDUCTION_CELL = createInductionCell(ICTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_INDUCTION_CELL);
-    public static final BlockTypeTile<ExtraTileEntityInductionCell> INFINITE_INDUCTION_CELL = createInductionCell(ICTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_INDUCTION_CELL);
+    public static final BlockTypeTile<TileEntityExtraInductionCell> ABSOLUTE_INDUCTION_CELL = createInductionCell(ICTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_INDUCTION_CELL);
+    public static final BlockTypeTile<TileEntityExtraInductionCell> SUPREME_INDUCTION_CELL = createInductionCell(ICTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_INDUCTION_CELL);
+    public static final BlockTypeTile<TileEntityExtraInductionCell> COSMIC_INDUCTION_CELL = createInductionCell(ICTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_INDUCTION_CELL);
+    public static final BlockTypeTile<TileEntityExtraInductionCell> INFINITE_INDUCTION_CELL = createInductionCell(ICTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_INDUCTION_CELL);
 
     // Induction Provider
-    public static final BlockTypeTile<ExtraTileEntityInductionProvider> ABSOLUTE_INDUCTION_PROVIDER = createInductionProvider(IPTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_INDUCTION_PROVIDER);
-    public static final BlockTypeTile<ExtraTileEntityInductionProvider> SUPREME_INDUCTION_PROVIDER = createInductionProvider(IPTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_INDUCTION_PROVIDER);
-    public static final BlockTypeTile<ExtraTileEntityInductionProvider> COSMIC_INDUCTION_PROVIDER = createInductionProvider(IPTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_INDUCTION_PROVIDER);
-    public static final BlockTypeTile<ExtraTileEntityInductionProvider> INFINITE_INDUCTION_PROVIDER = createInductionProvider(IPTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_INDUCTION_PROVIDER);
+    public static final BlockTypeTile<TileEntityExtraInductionProvider> ABSOLUTE_INDUCTION_PROVIDER = createInductionProvider(IPTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_INDUCTION_PROVIDER);
+    public static final BlockTypeTile<TileEntityExtraInductionProvider> SUPREME_INDUCTION_PROVIDER = createInductionProvider(IPTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_INDUCTION_PROVIDER);
+    public static final BlockTypeTile<TileEntityExtraInductionProvider> COSMIC_INDUCTION_PROVIDER = createInductionProvider(IPTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_INDUCTION_PROVIDER);
+    public static final BlockTypeTile<TileEntityExtraInductionProvider> INFINITE_INDUCTION_PROVIDER = createInductionProvider(IPTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_INDUCTION_PROVIDER);
 
     // Energy Cubes
-    public static final Machine<ExtraTileEntityEnergyCube> ABSOLUTE_ENERGY_CUBE = createEnergyCube(ECTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_ENERGY_CUBE, () -> ExtraBlocks.SUPREME_ENERGY_CUBE);
-    public static final Machine<ExtraTileEntityEnergyCube> SUPREME_ENERGY_CUBE = createEnergyCube(ECTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_ENERGY_CUBE, () -> ExtraBlocks.COSMIC_ENERGY_CUBE);
-    public static final Machine<ExtraTileEntityEnergyCube> COSMIC_ENERGY_CUBE = createEnergyCube(ECTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_ENERGY_CUBE, () -> ExtraBlocks.INFINITE_ENERGY_CUBE);
-    public static final Machine<ExtraTileEntityEnergyCube> INFINITE_ENERGY_CUBE = createEnergyCube(ECTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_ENERGY_CUBE, null);
+    public static final Machine<TileEntityExtraEnergyCube> ABSOLUTE_ENERGY_CUBE = createEnergyCube(ECTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_ENERGY_CUBE, () -> ExtraBlocks.SUPREME_ENERGY_CUBE);
+    public static final Machine<TileEntityExtraEnergyCube> SUPREME_ENERGY_CUBE = createEnergyCube(ECTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_ENERGY_CUBE, () -> ExtraBlocks.COSMIC_ENERGY_CUBE);
+    public static final Machine<TileEntityExtraEnergyCube> COSMIC_ENERGY_CUBE = createEnergyCube(ECTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_ENERGY_CUBE, () -> ExtraBlocks.INFINITE_ENERGY_CUBE);
+    public static final Machine<TileEntityExtraEnergyCube> INFINITE_ENERGY_CUBE = createEnergyCube(ECTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_ENERGY_CUBE, null);
 
     // Fluid Tanks
-    public static final Machine<ExtraTileEntityFluidTank> ABSOLUTE_FLUID_TANK = createFluidTank(FTTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_FLUID_TANK, () -> ExtraBlocks.SUPREME_FLUID_TANK);
-    public static final Machine<ExtraTileEntityFluidTank> SUPREME_FLUID_TANK = createFluidTank(FTTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_FLUID_TANK, () -> ExtraBlocks.COSMIC_FLUID_TANK);
-    public static final Machine<ExtraTileEntityFluidTank> COSMIC_FLUID_TANK = createFluidTank(FTTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_FLUID_TANK, () -> ExtraBlocks.INFINITE_FLUID_TANK);
-    public static final Machine<ExtraTileEntityFluidTank> INFINITE_FLUID_TANK = createFluidTank(FTTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_FLUID_TANK, null);
+    public static final Machine<TileEntityExtraFluidTank> ABSOLUTE_FLUID_TANK = createFluidTank(FTTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_FLUID_TANK, () -> ExtraBlocks.SUPREME_FLUID_TANK);
+    public static final Machine<TileEntityExtraFluidTank> SUPREME_FLUID_TANK = createFluidTank(FTTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_FLUID_TANK, () -> ExtraBlocks.COSMIC_FLUID_TANK);
+    public static final Machine<TileEntityExtraFluidTank> COSMIC_FLUID_TANK = createFluidTank(FTTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_FLUID_TANK, () -> ExtraBlocks.INFINITE_FLUID_TANK);
+    public static final Machine<TileEntityExtraFluidTank> INFINITE_FLUID_TANK = createFluidTank(FTTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_FLUID_TANK, null);
 
     // Chemical Tanks
-    public static final Machine<ExtraTileEntityChemicalTank> ABSOLUTE_CHEMICAL_TANK = createChemicalTank(CTTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_CHEMICAL_TANK, () -> ExtraBlocks.SUPREME_CHEMICAL_TANK);
-    public static final Machine<ExtraTileEntityChemicalTank> SUPREME_CHEMICAL_TANK = createChemicalTank(CTTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_CHEMICAL_TANK, () -> ExtraBlocks.COSMIC_CHEMICAL_TANK);
-    public static final Machine<ExtraTileEntityChemicalTank> COSMIC_CHEMICAL_TANK = createChemicalTank(CTTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_CHEMICAL_TANK, () -> ExtraBlocks.INFINITE_CHEMICAL_TANK);
-    public static final Machine<ExtraTileEntityChemicalTank> INFINITE_CHEMICAL_TANK = createChemicalTank(CTTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_CHEMICAL_TANK, null);
+    public static final Machine<TileEntityExtraChemicalTank> ABSOLUTE_CHEMICAL_TANK = createChemicalTank(CTTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_CHEMICAL_TANK, () -> ExtraBlocks.SUPREME_CHEMICAL_TANK);
+    public static final Machine<TileEntityExtraChemicalTank> SUPREME_CHEMICAL_TANK = createChemicalTank(CTTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_CHEMICAL_TANK, () -> ExtraBlocks.COSMIC_CHEMICAL_TANK);
+    public static final Machine<TileEntityExtraChemicalTank> COSMIC_CHEMICAL_TANK = createChemicalTank(CTTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_CHEMICAL_TANK, () -> ExtraBlocks.INFINITE_CHEMICAL_TANK);
+    public static final Machine<TileEntityExtraChemicalTank> INFINITE_CHEMICAL_TANK = createChemicalTank(CTTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_CHEMICAL_TANK, null);
 
     public static final BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel> ABSOLUTE_RADIOACTIVE_WASTE_BARREL = createWasteBarrel(RWBTier.ABSOLUTE, () -> ExtraTileEntityTypes.ABSOLUTE_RADIOACTIVE_WASTE_BARREL, () -> ExtraBlocks.SUPREME_RADIOACTIVE_WASTE_BARREL);
     public static final BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel> SUPREME_RADIOACTIVE_WASTE_BARREL = createWasteBarrel(RWBTier.SUPREME, () -> ExtraTileEntityTypes.SUPREME_RADIOACTIVE_WASTE_BARREL, () -> ExtraBlocks.COSMIC_RADIOACTIVE_WASTE_BARREL);
@@ -205,30 +193,30 @@ public class ExtraBlockTypes {
     public static final BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel> INFINITE_RADIOACTIVE_WASTE_BARREL = createWasteBarrel(RWBTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_RADIOACTIVE_WASTE_BARREL, null);
 
     //Transmitters
-    public static final BlockTypeTile<ExtraTileEntityUniversalCable> ABSOLUTE_UNIVERSAL_CABLE = createCable(CableTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_UNIVERSAL_CABLE);
-    public static final BlockTypeTile<ExtraTileEntityUniversalCable> SUPREME_UNIVERSAL_CABLE = createCable(CableTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_UNIVERSAL_CABLE);
-    public static final BlockTypeTile<ExtraTileEntityUniversalCable> COSMIC_UNIVERSAL_CABLE = createCable(CableTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_UNIVERSAL_CABLE);
-    public static final BlockTypeTile<ExtraTileEntityUniversalCable> INFINITE_UNIVERSAL_CABLE = createCable(CableTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_UNIVERSAL_CABLE);
+    public static final BlockTypeTile<TileEntityExtraUniversalCable> ABSOLUTE_UNIVERSAL_CABLE = createCable(CableTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_UNIVERSAL_CABLE);
+    public static final BlockTypeTile<TileEntityExtraUniversalCable> SUPREME_UNIVERSAL_CABLE = createCable(CableTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_UNIVERSAL_CABLE);
+    public static final BlockTypeTile<TileEntityExtraUniversalCable> COSMIC_UNIVERSAL_CABLE = createCable(CableTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_UNIVERSAL_CABLE);
+    public static final BlockTypeTile<TileEntityExtraUniversalCable> INFINITE_UNIVERSAL_CABLE = createCable(CableTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_UNIVERSAL_CABLE);
 
-    public static final BlockTypeTile<ExtraTileEntityMechanicalPipe> ABSOLUTE_MECHANICAL_PIPE = createPipe(PipeTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_MECHANICAL_PIPE);
-    public static final BlockTypeTile<ExtraTileEntityMechanicalPipe> SUPREME_MECHANICAL_PIPE = createPipe(PipeTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_MECHANICAL_PIPE);
-    public static final BlockTypeTile<ExtraTileEntityMechanicalPipe> COSMIC_MECHANICAL_PIPE = createPipe(PipeTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_MECHANICAL_PIPE);
-    public static final BlockTypeTile<ExtraTileEntityMechanicalPipe> INFINITE_MECHANICAL_PIPE = createPipe(PipeTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_MECHANICAL_PIPE);
+    public static final BlockTypeTile<TileEntityExtraMechanicalPipe> ABSOLUTE_MECHANICAL_PIPE = createPipe(PipeTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_MECHANICAL_PIPE);
+    public static final BlockTypeTile<TileEntityExtraMechanicalPipe> SUPREME_MECHANICAL_PIPE = createPipe(PipeTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_MECHANICAL_PIPE);
+    public static final BlockTypeTile<TileEntityExtraMechanicalPipe> COSMIC_MECHANICAL_PIPE = createPipe(PipeTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_MECHANICAL_PIPE);
+    public static final BlockTypeTile<TileEntityExtraMechanicalPipe> INFINITE_MECHANICAL_PIPE = createPipe(PipeTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_MECHANICAL_PIPE);
 
-    public static final BlockTypeTile<ExtraTileEntityPressurizedTube> ABSOLUTE_PRESSURIZED_TUBE = createTube(TubeTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_PRESSURIZED_TUBE);
-    public static final BlockTypeTile<ExtraTileEntityPressurizedTube> SUPREME_PRESSURIZED_TUBE = createTube(TubeTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_PRESSURIZED_TUBE);
-    public static final BlockTypeTile<ExtraTileEntityPressurizedTube> COSMIC_PRESSURIZED_TUBE = createTube(TubeTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_PRESSURIZED_TUBE);
-    public static final BlockTypeTile<ExtraTileEntityPressurizedTube> INFINITE_PRESSURIZED_TUBE = createTube(TubeTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_PRESSURIZED_TUBE);
+    public static final BlockTypeTile<TileEntityExtraPressurizedTube> ABSOLUTE_PRESSURIZED_TUBE = createTube(TubeTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_PRESSURIZED_TUBE);
+    public static final BlockTypeTile<TileEntityExtraPressurizedTube> SUPREME_PRESSURIZED_TUBE = createTube(TubeTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_PRESSURIZED_TUBE);
+    public static final BlockTypeTile<TileEntityExtraPressurizedTube> COSMIC_PRESSURIZED_TUBE = createTube(TubeTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_PRESSURIZED_TUBE);
+    public static final BlockTypeTile<TileEntityExtraPressurizedTube> INFINITE_PRESSURIZED_TUBE = createTube(TubeTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_PRESSURIZED_TUBE);
 
-    public static final BlockTypeTile<ExtraTileEntityLogisticalTransporter> ABSOLUTE_LOGISTICAL_TRANSPORTER = createTransporter(TransporterTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_LOGISTICAL_TRANSPORTER);
-    public static final BlockTypeTile<ExtraTileEntityLogisticalTransporter> SUPREME_LOGISTICAL_TRANSPORTER = createTransporter(TransporterTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_LOGISTICAL_TRANSPORTER);
-    public static final BlockTypeTile<ExtraTileEntityLogisticalTransporter> COSMIC_LOGISTICAL_TRANSPORTER = createTransporter(TransporterTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_LOGISTICAL_TRANSPORTER);
-    public static final BlockTypeTile<ExtraTileEntityLogisticalTransporter> INFINITE_LOGISTICAL_TRANSPORTER = createTransporter(TransporterTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_LOGISTICAL_TRANSPORTER);
+    public static final BlockTypeTile<TileEntityExtraLogisticalTransporter> ABSOLUTE_LOGISTICAL_TRANSPORTER = createTransporter(TransporterTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_LOGISTICAL_TRANSPORTER);
+    public static final BlockTypeTile<TileEntityExtraLogisticalTransporter> SUPREME_LOGISTICAL_TRANSPORTER = createTransporter(TransporterTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_LOGISTICAL_TRANSPORTER);
+    public static final BlockTypeTile<TileEntityExtraLogisticalTransporter> COSMIC_LOGISTICAL_TRANSPORTER = createTransporter(TransporterTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_LOGISTICAL_TRANSPORTER);
+    public static final BlockTypeTile<TileEntityExtraLogisticalTransporter> INFINITE_LOGISTICAL_TRANSPORTER = createTransporter(TransporterTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_LOGISTICAL_TRANSPORTER);
 
-    public static final BlockTypeTile<ExtraTileEntityThermodynamicConductor> ABSOLUTE_THERMODYNAMIC_CONDUCTOR = createConductor(ConductorTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_THERMODYNAMIC_CONDUCTOR);
-    public static final BlockTypeTile<ExtraTileEntityThermodynamicConductor> SUPREME_THERMODYNAMIC_CONDUCTOR = createConductor(ConductorTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_THERMODYNAMIC_CONDUCTOR);
-    public static final BlockTypeTile<ExtraTileEntityThermodynamicConductor> COSMIC_THERMODYNAMIC_CONDUCTOR = createConductor(ConductorTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_THERMODYNAMIC_CONDUCTOR);
-    public static final BlockTypeTile<ExtraTileEntityThermodynamicConductor> INFINITE_THERMODYNAMIC_CONDUCTOR = createConductor(ConductorTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_THERMODYNAMIC_CONDUCTOR);
+    public static final BlockTypeTile<TileEntityExtraThermodynamicConductor> ABSOLUTE_THERMODYNAMIC_CONDUCTOR = createConductor(ConductorTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_THERMODYNAMIC_CONDUCTOR);
+    public static final BlockTypeTile<TileEntityExtraThermodynamicConductor> SUPREME_THERMODYNAMIC_CONDUCTOR = createConductor(ConductorTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_THERMODYNAMIC_CONDUCTOR);
+    public static final BlockTypeTile<TileEntityExtraThermodynamicConductor> COSMIC_THERMODYNAMIC_CONDUCTOR = createConductor(ConductorTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_THERMODYNAMIC_CONDUCTOR);
+    public static final BlockTypeTile<TileEntityExtraThermodynamicConductor> INFINITE_THERMODYNAMIC_CONDUCTOR = createConductor(ConductorTier.ULTIMATE, () -> ExtraTileEntityTypes.INFINITE_THERMODYNAMIC_CONDUCTOR);
 
     static {
         for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
@@ -247,7 +235,7 @@ public class ExtraBlockTypes {
         return FACTORIES.get(tier, type);
     }
 
-    private static <TILE extends ExtraTileEntityInductionCell> BlockTypeTile<TILE> createInductionCell(ICTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile) {
+    private static <TILE extends TileEntityExtraInductionCell> BlockTypeTile<TILE> createInductionCell(ICTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile) {
         return BlockTypeTile.BlockTileBuilder.createBlock(tile, MekanismLang.DESCRIPTION_INDUCTION_CELL)
                 .withEnergyConfig(tier::getMaxEnergy)
                 .with(new ExtraAttributeTier<>(tier))
@@ -255,14 +243,14 @@ public class ExtraBlockTypes {
                 .build();
     }
 
-    private static <TILE extends ExtraTileEntityInductionProvider> BlockTypeTile<TILE> createInductionProvider(IPTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile) {
+    private static <TILE extends TileEntityExtraInductionProvider> BlockTypeTile<TILE> createInductionProvider(IPTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile) {
         return BlockTypeTile.BlockTileBuilder.createBlock(tile, MekanismLang.DESCRIPTION_INDUCTION_PROVIDER)
                 .with(new ExtraAttributeTier<>(tier))
                 .internalMultiblock()
                 .build();
     }
 
-    private static <TILE extends ExtraTileEntityBin> Machine<TILE> createBin(BTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
+    private static <TILE extends TileEntityExtraBin> Machine<TILE> createBin(BTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
         return Machine.MachineBuilder.createMachine(tile, MekanismLang.DESCRIPTION_BIN)
                 .with(new ExtraAttributeTier<>(tier), new ExtraAttributeUpgradeable(upgradeBlock))
                 .without(AttributeParticleFX.class, Attributes.AttributeSecurity.class, AttributeUpgradeSupport.class, Attributes.AttributeRedstone.class)
@@ -270,7 +258,7 @@ public class ExtraBlockTypes {
                 .build();
     }
 
-    private static <TILE extends ExtraTileEntityEnergyCube> Machine<TILE> createEnergyCube(ECTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
+    private static <TILE extends TileEntityExtraEnergyCube> Machine<TILE> createEnergyCube(ECTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
         return Machine.MachineBuilder.createMachine(tile, MekanismLang.DESCRIPTION_ENERGY_CUBE)
                 .withGui(() -> ExtraContainerTypes.EXTRA_ENERGY_CUBE)
                 .withEnergyConfig(tier::getMaxEnergy)
@@ -281,7 +269,7 @@ public class ExtraBlockTypes {
                 .build();
     }
 
-    private static <TILE extends ExtraTileEntityFluidTank> Machine<TILE> createFluidTank(FTTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
+    private static <TILE extends TileEntityExtraFluidTank> Machine<TILE> createFluidTank(FTTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
         return Machine.MachineBuilder.createMachine(tile, MekanismLang.DESCRIPTION_FLUID_TANK)
                 .withGui(() -> ExtraContainerTypes.EXTRA_FLUID_TANK)
                 .withCustomShape(BlockShapes.FLUID_TANK)
@@ -291,7 +279,7 @@ public class ExtraBlockTypes {
                 .build();
     }
 
-    private static <TILE extends ExtraTileEntityChemicalTank> Machine<TILE> createChemicalTank(CTTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
+    private static <TILE extends TileEntityExtraChemicalTank> Machine<TILE> createChemicalTank(CTTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, Supplier<BlockRegistryObject<?, ?>> upgradeBlock) {
         return Machine.MachineBuilder.createMachine(tile, MekanismLang.DESCRIPTION_CHEMICAL_TANK)
                 .withGui(() -> ExtraContainerTypes.EXTRA_CHEMICAL_TANK)
                 .withCustomShape(BlockShapes.CHEMICAL_TANK)
@@ -310,27 +298,27 @@ public class ExtraBlockTypes {
                 .build();
     }
 
-    private static BlockTypeTile<ExtraTileEntityUniversalCable> createCable(CableTier tier, Supplier<TileEntityTypeRegistryObject<ExtraTileEntityUniversalCable>> tile) {
+    private static BlockTypeTile<TileEntityExtraUniversalCable> createCable(CableTier tier, Supplier<TileEntityTypeRegistryObject<TileEntityExtraUniversalCable>> tile) {
         return createTransmitter(tier, tile, MekanismLang.DESCRIPTION_CABLE);
     }
 
-    private static BlockTypeTile<ExtraTileEntityMechanicalPipe> createPipe(PipeTier tier, Supplier<TileEntityTypeRegistryObject<ExtraTileEntityMechanicalPipe>> tile) {
+    private static BlockTypeTile<TileEntityExtraMechanicalPipe> createPipe(PipeTier tier, Supplier<TileEntityTypeRegistryObject<TileEntityExtraMechanicalPipe>> tile) {
         return createTransmitter(tier, tile, MekanismLang.DESCRIPTION_PIPE);
     }
 
-    private static BlockTypeTile<ExtraTileEntityPressurizedTube> createTube(TubeTier tier, Supplier<TileEntityTypeRegistryObject<ExtraTileEntityPressurizedTube>> tile) {
+    private static BlockTypeTile<TileEntityExtraPressurizedTube> createTube(TubeTier tier, Supplier<TileEntityTypeRegistryObject<TileEntityExtraPressurizedTube>> tile) {
         return createTransmitter(tier, tile, MekanismLang.DESCRIPTION_TUBE);
     }
 
-    private static BlockTypeTile<ExtraTileEntityLogisticalTransporter> createTransporter(TransporterTier tier, Supplier<TileEntityTypeRegistryObject<ExtraTileEntityLogisticalTransporter>> tile) {
+    private static BlockTypeTile<TileEntityExtraLogisticalTransporter> createTransporter(TransporterTier tier, Supplier<TileEntityTypeRegistryObject<TileEntityExtraLogisticalTransporter>> tile) {
         return createTransmitter(tier, tile, MekanismLang.DESCRIPTION_TRANSPORTER);
     }
 
-    private static BlockTypeTile<ExtraTileEntityThermodynamicConductor> createConductor(ConductorTier tier, Supplier<TileEntityTypeRegistryObject<ExtraTileEntityThermodynamicConductor>> tile) {
+    private static BlockTypeTile<TileEntityExtraThermodynamicConductor> createConductor(ConductorTier tier, Supplier<TileEntityTypeRegistryObject<TileEntityExtraThermodynamicConductor>> tile) {
         return createTransmitter(tier, tile, MekanismLang.DESCRIPTION_CONDUCTOR);
     }
 
-    private static <TILE extends ExtraTileEntityTransmitter> BlockTypeTile<TILE> createTransmitter(ITier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, ILangEntry description) {
+    private static <TILE extends TileEntityExtraTransmitter> BlockTypeTile<TILE> createTransmitter(ITier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile, ILangEntry description) {
         return BlockTypeTile.BlockTileBuilder.createBlock(tile, description)
                 .with(new AttributeTier<>(tier))
                 .build();

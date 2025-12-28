@@ -2,8 +2,8 @@ package com.jerry.mekextras.common.content.matrix;
 
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
-import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
-import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
@@ -75,11 +75,11 @@ public class ReinforcedMatrixMultiblockData extends MultiblockData {
         return type != MultiblockCache.CacheSubstance.ENERGY;
     }
 
-    public void addCell(ExtraTileEntityInductionCell cell) {
+    public void addCell(TileEntityExtraInductionCell cell) {
         energyContainer.addCell(cell.getBlockPos(), cell);
     }
 
-    public void addProvider(ExtraTileEntityInductionProvider provider) {
+    public void addProvider(TileEntityExtraInductionProvider provider) {
         energyContainer.addProvider(provider.getBlockPos(), provider);
     }
 

@@ -1,8 +1,8 @@
 package com.jerry.mekextras.common.content.matrix;
 
 import com.jerry.mekextras.common.registries.ExtraBlockTypes;
-import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
-import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.multiblock.CuboidStructureValidator;
@@ -19,8 +19,8 @@ import java.util.List;
 
 public class ReinforcedMatrixValidator extends CuboidStructureValidator<ReinforcedMatrixMultiblockData> {
 
-    private final List<ExtraTileEntityInductionCell> cells = new ArrayList<>();
-    private final List<ExtraTileEntityInductionProvider> providers = new ArrayList<>();
+    private final List<TileEntityExtraInductionCell> cells = new ArrayList<>();
+    private final List<TileEntityExtraInductionProvider> providers = new ArrayList<>();
 
     @Override
     protected FormationProtocol.CasingType getCasingType(BlockState state) {
@@ -43,10 +43,10 @@ public class ReinforcedMatrixValidator extends CuboidStructureValidator<Reinforc
                 ExtraBlockTypes.SUPREME_INDUCTION_PROVIDER, ExtraBlockTypes.COSMIC_INDUCTION_PROVIDER, ExtraBlockTypes.INFINITE_INDUCTION_PROVIDER)) {
             //Compare blocks against the type before bothering to look up the tile
             BlockEntity tile = WorldUtils.getTileEntity(world, chunkMap, pos);
-            if (tile instanceof ExtraTileEntityInductionCell cell) {
+            if (tile instanceof TileEntityExtraInductionCell cell) {
                 cells.add(cell);
                 return true;
-            } else if (tile instanceof ExtraTileEntityInductionProvider provider) {
+            } else if (tile instanceof TileEntityExtraInductionProvider provider) {
                 providers.add(provider);
                 return true;
             }
@@ -57,10 +57,10 @@ public class ReinforcedMatrixValidator extends CuboidStructureValidator<Reinforc
 
     @Override
     public FormationProtocol.FormationResult postcheck(ReinforcedMatrixMultiblockData structure, Long2ObjectMap<ChunkAccess> chunkMap) {
-        for (ExtraTileEntityInductionCell cell : cells) {
+        for (TileEntityExtraInductionCell cell : cells) {
             structure.addCell(cell);
         }
-        for (ExtraTileEntityInductionProvider provider : providers) {
+        for (TileEntityExtraInductionProvider provider : providers) {
             structure.addProvider(provider);
         }
         return FormationProtocol.FormationResult.SUCCESS;

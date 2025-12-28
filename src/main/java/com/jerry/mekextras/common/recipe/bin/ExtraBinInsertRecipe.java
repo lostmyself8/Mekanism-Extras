@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.recipe.bin;
 
 import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
-import com.jerry.mekextras.common.item.block.ExtraItemBlockBin;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
 import com.jerry.mekextras.common.registries.ExtraRecipeSerializersInternal;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -40,7 +40,7 @@ public class ExtraBinInsertRecipe extends ExtraBinRecipe {
         for (int i = 0, slots = inv.size(); i < slots; ++i) {
             ItemStack stackInSlot = inv.getItem(i);
             if (!stackInSlot.isEmpty()) {
-                if (stackInSlot.getItem() instanceof ExtraItemBlockBin) {
+                if (stackInSlot.getItem() instanceof ItemBlockExtraBin) {
                     if (!binStack.isEmpty() || stackInSlot.getCount() > 1) {
                         //If we already have a bin, or our first bin has a stack size greater than one then this is not a bin recipe
                         return false;
@@ -74,7 +74,7 @@ public class ExtraBinInsertRecipe extends ExtraBinRecipe {
         for (int i = 0, slots = inv.size(); i < slots; ++i) {
             ItemStack stackInSlot = inv.getItem(i);
             if (!stackInSlot.isEmpty()) {
-                if (stackInSlot.getItem() instanceof ExtraItemBlockBin) {
+                if (stackInSlot.getItem() instanceof ItemBlockExtraBin) {
                     if (!binStack.isEmpty() || stackInSlot.getCount() > 1) {
                         //If we already have a bin, or our first bin has a stack size greater than one then this is not a bin recipe
                         return ItemStack.EMPTY;
@@ -132,7 +132,7 @@ public class ExtraBinInsertRecipe extends ExtraBinRecipe {
         for (int i = 0; i < slots; ++i) {
             ItemStack stackInSlot = inv.getItem(i);
             if (!stackInSlot.isEmpty()) {
-                if (stackInSlot.getItem() instanceof ExtraItemBlockBin) {
+                if (stackInSlot.getItem() instanceof ItemBlockExtraBin) {
                     if (!binStack.isEmpty()) {
                         //If we already have a bin then this is not a bin recipe
                         return remainingItems;
@@ -184,7 +184,7 @@ public class ExtraBinInsertRecipe extends ExtraBinRecipe {
 
     public static void onCrafting(ItemCraftedEvent event) {
         ItemStack result = event.getCrafting();
-        if (!result.isEmpty() && result.getItem() instanceof ExtraItemBlockBin) {
+        if (!result.isEmpty() && result.getItem() instanceof ItemBlockExtraBin) {
             //Remove the marker that the bin was crafted from a bin recipe
             Boolean fromRecipe = result.remove(MekanismDataComponents.FROM_RECIPE);
             if (fromRecipe != null && fromRecipe) {

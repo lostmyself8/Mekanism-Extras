@@ -161,7 +161,7 @@ public abstract class TileEntityExtraAdvancedBase<RECIPE extends MekanismRecipe<
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getAdvanceTier(getBlockHolder(), ExtraFactoryTier.class);
+        tier = ExtraAttribute.getAdvancedTier(getBlockHolder(), ExtraFactoryTier.class);
         Runnable setSortingNeeded = () -> sortingNeeded = true;
         recipeCacheLookupMonitors = new FactoryRecipeCacheLookupMonitor[tier.processes];
         for (int i = 0; i < recipeCacheLookupMonitors.length; i++) {

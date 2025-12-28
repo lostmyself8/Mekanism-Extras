@@ -10,25 +10,25 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 public enum ExtraResource implements IResource {
-    NAQUADAH("naquadah", 0x051602, () -> ExtraTags.Items.NAQUADAH, ExtraBlockResourceInfo.NAQUADAH, ExtraBlockResourceInfo.RAW_NAQUADAH);
+    NAQUADAH("naquadah", 0x051602, () -> ExtraTags.Items.NAQUADAH, BlockExtraResourceInfo.NAQUADAH, BlockExtraResourceInfo.RAW_NAQUADAH);
 
     private final String name;
     private final int tint;
     //Note: This is a supplier because of the chicken and egg of referencing OreType and OreType referencing PrimaryResource
     private final Supplier<TagKey<Item>> oreTag;
     private final boolean isVanilla;
-    private final ExtraBlockResourceInfo resourceBlockInfo;
-    private final ExtraBlockResourceInfo rawResourceBlockInfo;
+    private final BlockExtraResourceInfo resourceBlockInfo;
+    private final BlockExtraResourceInfo rawResourceBlockInfo;
 
     ExtraResource(String name, int tint, TagKey<Item> oreTag) {
         this(name, tint, () -> oreTag, true, null, null);
     }
 
-    ExtraResource(String name, int tint, Supplier<TagKey<Item>> oreTag, ExtraBlockResourceInfo resourceBlockInfo, ExtraBlockResourceInfo rawResourceBlockInfo) {
+    ExtraResource(String name, int tint, Supplier<TagKey<Item>> oreTag, BlockExtraResourceInfo resourceBlockInfo, BlockExtraResourceInfo rawResourceBlockInfo) {
         this(name, tint, oreTag, false, resourceBlockInfo, rawResourceBlockInfo);
     }
 
-    ExtraResource(String name, int tint, Supplier<TagKey<Item>> oreTag, boolean isVanilla, ExtraBlockResourceInfo resourceBlockInfo, ExtraBlockResourceInfo rawResourceBlockInfo) {
+    ExtraResource(String name, int tint, Supplier<TagKey<Item>> oreTag, boolean isVanilla, BlockExtraResourceInfo resourceBlockInfo, BlockExtraResourceInfo rawResourceBlockInfo) {
         this.name = name;
         this.tint = tint;
         this.oreTag = oreTag;
@@ -60,12 +60,12 @@ public enum ExtraResource implements IResource {
     }
 
     @Nullable
-    public ExtraBlockResourceInfo getResourceBlockInfo() {
+    public BlockExtraResourceInfo getResourceBlockInfo() {
         return resourceBlockInfo;
     }
 
     @Nullable
-    public ExtraBlockResourceInfo getRawResourceBlockInfo() {
+    public BlockExtraResourceInfo getRawResourceBlockInfo() {
         return rawResourceBlockInfo;
     }
 }

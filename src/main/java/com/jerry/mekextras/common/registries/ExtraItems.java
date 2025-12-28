@@ -42,10 +42,10 @@ public class ExtraItems {
     public static final ItemRegistryObject<ItemUpgrade> IONIC_MEMBRANE = registerUpgrade(ExtraUpgrade.IONIC_MEMBRANE, Rarity.RARE);
     public static final ItemRegistryObject<ItemUpgrade> CREATIVE = registerUpgrade(ExtraUpgrade.CREATIVE, Rarity.EPIC);
 
-    public static final ItemRegistryObject<ExtraItemTierInstaller> ABSOLUTE_TIER_INSTALLER = registerInstaller(null, AdvancedTier.ABSOLUTE);
-    public static final ItemRegistryObject<ExtraItemTierInstaller> SUPREME_TIER_INSTALLER = registerInstaller(AdvancedTier.ABSOLUTE, AdvancedTier.SUPREME);
-    public static final ItemRegistryObject<ExtraItemTierInstaller> COSMIC_TIER_INSTALLER = registerInstaller(AdvancedTier.SUPREME, AdvancedTier.COSMIC);
-    public static final ItemRegistryObject<ExtraItemTierInstaller> INFINITE_TIER_INSTALLER = registerInstaller(AdvancedTier.COSMIC, AdvancedTier.INFINITE);
+    public static final ItemRegistryObject<ItemExtraTierInstaller> ABSOLUTE_TIER_INSTALLER = registerInstaller(null, AdvancedTier.ABSOLUTE);
+    public static final ItemRegistryObject<ItemExtraTierInstaller> SUPREME_TIER_INSTALLER = registerInstaller(AdvancedTier.ABSOLUTE, AdvancedTier.SUPREME);
+    public static final ItemRegistryObject<ItemExtraTierInstaller> COSMIC_TIER_INSTALLER = registerInstaller(AdvancedTier.SUPREME, AdvancedTier.COSMIC);
+    public static final ItemRegistryObject<ItemExtraTierInstaller> INFINITE_TIER_INSTALLER = registerInstaller(AdvancedTier.COSMIC, AdvancedTier.INFINITE);
 
     public static final ItemRegistryObject<Item> ABSOLUTE_CONTROL_CIRCUIT = registerCircuit(AdvancedTier.ABSOLUTE);
     public static final ItemRegistryObject<Item> SUPREME_CONTROL_CIRCUIT = registerCircuit(AdvancedTier.SUPREME);
@@ -53,9 +53,9 @@ public class ExtraItems {
     public static final ItemRegistryObject<Item> INFINITE_CONTROL_CIRCUIT = registerCircuit(AdvancedTier.INFINITE);
 
     public static final ItemRegistryObject<Item> RADIANCE_ALLOY = EXTRA_ITEMS.registerItem("alloy_radiance", properties -> new ItemAlloyRadiance(properties.rarity(Rarity.COMMON)));
-    public static final ItemRegistryObject<ExtraItemAlloy> THERMONUCLEAR_ALLOY = registerAlloy(ExtraAlloyTier.THERMONUCLEAR, Rarity.UNCOMMON);
-    public static final ItemRegistryObject<ExtraItemAlloy> SHINING_ALLOY = registerAlloy(ExtraAlloyTier.SHINING, Rarity.RARE);
-    public static final ItemRegistryObject<ExtraItemAlloy> SPECTRUM_ALLOY = registerAlloy(ExtraAlloyTier.SPECTRUM, Rarity.EPIC);
+    public static final ItemRegistryObject<ItemExtraAlloy> THERMONUCLEAR_ALLOY = registerAlloy(ExtraAlloyTier.THERMONUCLEAR, Rarity.UNCOMMON);
+    public static final ItemRegistryObject<ItemExtraAlloy> SHINING_ALLOY = registerAlloy(ExtraAlloyTier.SHINING, Rarity.RARE);
+    public static final ItemRegistryObject<ItemExtraAlloy> SPECTRUM_ALLOY = registerAlloy(ExtraAlloyTier.SPECTRUM, Rarity.EPIC);
 
     public static final ItemRegistryObject<Item> ENRICHED_OSMIUM = registerEnrich("osmium", Rarity.COMMON);
     public static final ItemRegistryObject<Item> ENRICHED_LEAD = registerEnrich("lead", Rarity.COMMON);
@@ -84,9 +84,9 @@ public class ExtraItems {
         return EXTRA_ITEMS.registerItem("upgrade_" + type.getSerializedName(), properties -> new ItemUpgrade(type, properties.rarity(rarity)));
     }
 
-    private static ItemRegistryObject<ExtraItemTierInstaller> registerInstaller(@Nullable AdvancedTier fromTier, @NotNull AdvancedTier toTier) {
+    private static ItemRegistryObject<ItemExtraTierInstaller> registerInstaller(@Nullable AdvancedTier fromTier, @NotNull AdvancedTier toTier) {
         //Ensure the name is lower case as with concatenating with values from enums it may not be
-        return EXTRA_ITEMS.registerItem(toTier.getLowerName() + "_tier_installer", properties -> new ExtraItemTierInstaller(fromTier, toTier, properties));
+        return EXTRA_ITEMS.registerItem(toTier.getLowerName() + "_tier_installer", properties -> new ItemExtraTierInstaller(fromTier, toTier, properties));
     }
 
     private static ItemRegistryObject<Item> registerCircuit(AdvancedTier tier) {
@@ -99,8 +99,8 @@ public class ExtraItems {
         });
     }
 
-    private static ItemRegistryObject<ExtraItemAlloy> registerAlloy(ExtraAlloyTier tier, Rarity rarity) {
-        return EXTRA_ITEMS.registerItem("alloy_" + tier.getName(), properties -> new ExtraItemAlloy(tier, properties.rarity(rarity)));
+    private static ItemRegistryObject<ItemExtraAlloy> registerAlloy(ExtraAlloyTier tier, Rarity rarity) {
+        return EXTRA_ITEMS.registerItem("alloy_" + tier.getName(), properties -> new ItemExtraAlloy(tier, properties.rarity(rarity)));
     }
 
     private static ItemRegistryObject<Item> registerResource(ResourceType type, IResource resource) {

@@ -3,7 +3,7 @@ package com.jerry.mekextras.client.model.energycube;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.jerry.mekextras.common.tile.ExtraTileEntityEnergyCube;
+import com.jerry.mekextras.common.tile.TileEntityExtraEnergyCube;
 import mekanism.api.RelativeSide;
 import mekanism.client.model.baked.ExtensionBakedModel;
 import mekanism.client.render.lib.QuadTransformation;
@@ -29,14 +29,14 @@ import java.util.*;
 import java.util.function.BiPredicate;
 
 public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
-    private static final ExtraTileEntityEnergyCube.CubeSideState[] INACTIVE = Util.make(new ExtraTileEntityEnergyCube.CubeSideState[EnumUtils.DIRECTIONS.length], sideStates -> Arrays.fill(sideStates, ExtraTileEntityEnergyCube.CubeSideState.INACTIVE));
+    private static final TileEntityExtraEnergyCube.CubeSideState[] INACTIVE = Util.make(new TileEntityExtraEnergyCube.CubeSideState[EnumUtils.DIRECTIONS.length], sideStates -> Arrays.fill(sideStates, TileEntityExtraEnergyCube.CubeSideState.INACTIVE));
     private static final QuadTransformation LED_TRANSFORMS = QuadTransformation.list(QuadTransformation.fullbright, QuadTransformation.uvShift(-0.125F, 0));
-    private static final BiPredicate<ExtraTileEntityEnergyCube.CubeSideState[], ExtraTileEntityEnergyCube.CubeSideState[]> DATA_EQUALITY_CHECK = Arrays::equals;
+    private static final BiPredicate<TileEntityExtraEnergyCube.CubeSideState[], TileEntityExtraEnergyCube.CubeSideState[]> DATA_EQUALITY_CHECK = Arrays::equals;
 
-    private final LoadingCache<ExtensionBakedModel.QuadsKey<ExtraTileEntityEnergyCube.CubeSideState[]>, List<BakedQuad>> cache = CacheBuilder.newBuilder().build(new CacheLoader<>() {
+    private final LoadingCache<ExtensionBakedModel.QuadsKey<TileEntityExtraEnergyCube.CubeSideState[]>, List<BakedQuad>> cache = CacheBuilder.newBuilder().build(new CacheLoader<>() {
         @NotNull
         @Override
-        public List<BakedQuad> load(@NotNull ExtensionBakedModel.QuadsKey<ExtraTileEntityEnergyCube.CubeSideState[]> key) {
+        public List<BakedQuad> load(@NotNull ExtensionBakedModel.QuadsKey<TileEntityExtraEnergyCube.CubeSideState[]> key) {
             return createQuads(key);
         }
     });
@@ -92,32 +92,32 @@ public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData data,
                                     @Nullable RenderType renderType) {
-        ExtraTileEntityEnergyCube.CubeSideState[] sideStates = data.get(ExtraTileEntityEnergyCube.SIDE_STATE_PROPERTY);
+        TileEntityExtraEnergyCube.CubeSideState[] sideStates = data.get(TileEntityExtraEnergyCube.SIDE_STATE_PROPERTY);
         if (sideStates == null || sideStates.length != EnumUtils.SIDES.length) {
             //If there is no side data then treat everything as inactive
             sideStates = INACTIVE;
         }
         //Note: We intentionally ignore the state and use null here to minimize cache size as it doesn't actually matter
         // or get used for energy cube models
-        ExtensionBakedModel.QuadsKey<ExtraTileEntityEnergyCube.CubeSideState[]> key = new ExtensionBakedModel.QuadsKey<>(null, side, rand, renderType, frame.getFaces(side));
+        ExtensionBakedModel.QuadsKey<TileEntityExtraEnergyCube.CubeSideState[]> key = new ExtensionBakedModel.QuadsKey<>(null, side, rand, renderType, frame.getFaces(side));
         key.data(sideStates, Arrays.hashCode(sideStates), DATA_EQUALITY_CHECK);
         return cache.getUnchecked(key);
     }
 
-    private List<BakedQuad> createQuads(ExtensionBakedModel.QuadsKey<ExtraTileEntityEnergyCube.CubeSideState[]> key) {
+    private List<BakedQuad> createQuads(ExtensionBakedModel.QuadsKey<TileEntityExtraEnergyCube.CubeSideState[]> key) {
         Direction side = key.getSide();
-        ExtraTileEntityEnergyCube.CubeSideState[] data = Objects.requireNonNull(key.getData());
+        TileEntityExtraEnergyCube.CubeSideState[] data = Objects.requireNonNull(key.getData());
         //Make the list of quads mutable so that we can add the proper extra portions to it
         List<BakedQuad> quads = new ArrayList<>(key.getQuads());
         for (int i = 0; i < EnumUtils.SIDES.length; i++) {
             RelativeSide dir = EnumUtils.SIDES[i];
-            ExtraTileEntityEnergyCube.CubeSideState sideState = data[i];
-            if (sideState == ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_LIT) {
+            TileEntityExtraEnergyCube.CubeSideState sideState = data[i];
+            if (sideState == TileEntityExtraEnergyCube.CubeSideState.ACTIVE_LIT) {
                 quads.addAll(activeLEDs.get(dir).getFaces(side));
                 quads.addAll(activePorts.get(dir).getFaces(side));
             } else {
                 quads.addAll(leds.get(dir).getFaces(side));
-                if (sideState == ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_UNLIT) {
+                if (sideState == TileEntityExtraEnergyCube.CubeSideState.ACTIVE_UNLIT) {
                     quads.addAll(ports.get(dir).getFaces(side));
                 }
             }

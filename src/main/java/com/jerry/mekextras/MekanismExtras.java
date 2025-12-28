@@ -66,7 +66,6 @@ public class MekanismExtras implements IModModule {
         ExtraItems.register(modEventBus);
         ExtraBlocks.register(modEventBus);
         ExtraFluids.register(modEventBus);
-        ExtraDataComponents.register(modEventBus);
         ExtraContainerTypes.register(modEventBus);
         ExtraTileEntityTypes.register(modEventBus);
         ExtraCreativeTabs.register(modEventBus);

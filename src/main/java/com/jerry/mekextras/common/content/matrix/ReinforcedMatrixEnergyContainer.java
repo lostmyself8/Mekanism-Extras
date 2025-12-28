@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.content.matrix;
 
-import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionCell;
-import com.jerry.mekextras.common.tile.multiblock.ExtraTileEntityInductionProvider;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
 import com.jerry.mekextras.common.tier.IPTier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -41,15 +41,15 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
         this.multiblock = multiblock;
     }
 
-    public void addCell(BlockPos pos, ExtraTileEntityInductionCell cell) {
+    public void addCell(BlockPos pos, TileEntityExtraInductionCell cell) {
         //As we already have the two different variables just pass them instead of accessing world to get tile again
-        MachineEnergyContainer<ExtraTileEntityInductionCell> energyContainer = cell.getEnergyContainer();
+        MachineEnergyContainer<TileEntityExtraInductionCell> energyContainer = cell.getEnergyContainer();
         cells.put(pos, energyContainer);
         storageCap = MathUtils.addClamped(storageCap, energyContainer.getMaxEnergy());
         cachedTotal = MathUtils.addClamped(cachedTotal, energyContainer.getEnergy());
     }
 
-    public void addProvider(BlockPos pos, ExtraTileEntityInductionProvider provider) {
+    public void addProvider(BlockPos pos, TileEntityExtraInductionProvider provider) {
         providers.put(pos, provider.tier);
         transferCap = MathUtils.addClamped(transferCap, provider.tier.getOutput());
     }

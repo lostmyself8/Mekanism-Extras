@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.item;
 
 import com.jerry.mekextras.common.registries.ExtraBlocks;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import mekanism.api.IAlloyInteraction;
 import mekanism.api.tier.BaseTier;
@@ -96,7 +96,7 @@ public class ItemAlloyRadiance extends Item {
                                 transmitterPos, transmitterWorld);
                     } else {
                         transmitterWorld.setBlockAndUpdate(transmitterPos, upgradeState);
-                        ExtraTileEntityTransmitter upgradedTile = WorldUtils.getTileEntity(ExtraTileEntityTransmitter.class, transmitterWorld, transmitterPos);
+                        TileEntityExtraTransmitter upgradedTile = WorldUtils.getTileEntity(TileEntityExtraTransmitter.class, transmitterWorld, transmitterPos);
                         if (upgradedTile == null) {
                             Mekanism.logger.warn("Error upgrading transmitter at position: {} in {}.", transmitterPos, transmitterWorld);
                         } else {

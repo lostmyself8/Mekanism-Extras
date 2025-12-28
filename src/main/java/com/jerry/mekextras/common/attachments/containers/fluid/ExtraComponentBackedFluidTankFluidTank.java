@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.attachments.containers.fluid;
 
-import com.jerry.mekextras.common.item.block.machine.ExtraItemBlockFluidTank;
+import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFluidTank;
 import com.jerry.mekextras.common.tier.FTTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -19,7 +19,7 @@ public class ExtraComponentBackedFluidTankFluidTank extends ComponentBackedFluid
     private final boolean isCreative;
 
     public static ExtraComponentBackedFluidTankFluidTank create(ContainerType<?, ?, ?> ignored, ItemStack attachedTo, int tankIndex) {
-        if (!(attachedTo.getItem() instanceof ExtraItemBlockFluidTank item)) {
+        if (!(attachedTo.getItem() instanceof ItemBlockExtraFluidTank item)) {
             throw new IllegalStateException("Attached to should always be a fluid tank item");
         }
         return new ExtraComponentBackedFluidTankFluidTank(attachedTo, tankIndex, item.getAdvancedTier());

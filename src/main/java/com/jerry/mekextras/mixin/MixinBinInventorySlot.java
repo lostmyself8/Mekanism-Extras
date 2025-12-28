@@ -1,6 +1,6 @@
 package com.jerry.mekextras.mixin;
 
-import com.jerry.mekextras.common.item.block.ExtraItemBlockBin;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
 import mekanism.api.IContentsListener;
 import mekanism.common.inventory.slot.BasicInventorySlot;
 import mekanism.common.inventory.slot.BinInventorySlot;
@@ -31,6 +31,6 @@ public abstract class MixinBinInventorySlot extends BasicInventorySlot {
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void modifyValidator(CallbackInfo ci) {
-        validator = stack -> !(stack.getItem() instanceof ExtraItemBlockBin) && !(stack.getItem() instanceof ItemBlockBin);
+        validator = stack -> !(stack.getItem() instanceof ItemBlockExtraBin) && !(stack.getItem() instanceof ItemBlockBin);
     }
 }

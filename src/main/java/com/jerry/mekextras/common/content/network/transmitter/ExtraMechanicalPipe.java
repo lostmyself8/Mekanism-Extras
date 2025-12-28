@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import com.jerry.mekextras.common.tier.transmitter.PTier;
 import mekanism.api.Action;
 import mekanism.api.fluid.IMekanismFluidHandler;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 public class ExtraMechanicalPipe extends MechanicalPipe implements IMekanismFluidHandler,
         IExtraUpgradeableTransmitter<MechanicalPipeUpgradeData> {
 
-    public ExtraMechanicalPipe(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraMechanicalPipe(Holder<Block> blockProvider, TileEntityExtraTransmitter tile) {
         super(blockProvider, tile);
     }
 

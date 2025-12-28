@@ -60,7 +60,7 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getAdvanceTier(getBlockHolder(), RWBTier.class);
+        tier = ExtraAttribute.getAdvancedTier(getBlockHolder(), RWBTier.class);
     }
 
     @NotNull

@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.attachments.containers.chemical;
 
-import com.jerry.mekextras.common.item.block.ExtraItemBlockChemicalTank;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraChemicalTank;
 import com.jerry.mekextras.common.tier.CTTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -18,7 +18,7 @@ public class ExtraComponentBackedChemicalTankTank extends ComponentBackedChemica
     private final boolean isCreative;
 
     public static ExtraComponentBackedChemicalTankTank create(ContainerType<?, ?, ?> ignored, ItemStack attachedTo, int tankIndex) {
-        if (!(attachedTo.getItem() instanceof ExtraItemBlockChemicalTank item)) {
+        if (!(attachedTo.getItem() instanceof ItemBlockExtraChemicalTank item)) {
             throw new IllegalStateException("Attached to should always be a chemical tank item");
         }
         return new ExtraComponentBackedChemicalTankTank(attachedTo, tankIndex, item.getAdvancedTier());

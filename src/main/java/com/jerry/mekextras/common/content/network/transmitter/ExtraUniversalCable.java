@@ -2,7 +2,7 @@ package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import com.jerry.mekextras.common.tier.transmitter.CTier;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.SerializationConstants;
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ExtraUniversalCable extends UniversalCable implements IMekanismStrictEnergyHandler,
         IExtraUpgradeableTransmitter<UniversalCableUpgradeData> {
-    public ExtraUniversalCable(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraUniversalCable(Holder<Block> blockProvider, TileEntityExtraTransmitter tile) {
         super(blockProvider, tile);
     }
 

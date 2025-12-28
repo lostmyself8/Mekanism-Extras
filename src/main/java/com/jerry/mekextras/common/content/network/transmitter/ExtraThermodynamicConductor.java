@@ -3,7 +3,7 @@ package com.jerry.mekextras.common.content.network.transmitter;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import com.jerry.mekextras.common.capabilities.heat.ExtraVariableHeatCapacitor;
 import com.jerry.mekextras.common.tier.transmitter.TCTier;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import mekanism.api.SerializationConstants;
 import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IHeatHandler;
@@ -39,7 +39,7 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
     private double clientTemperature = -1;
     private final List<IHeatCapacitor> capacitors;
     public final ExtraVariableHeatCapacitor buffer;
-    public ExtraThermodynamicConductor(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraThermodynamicConductor(Holder<Block> blockProvider, TileEntityExtraTransmitter tile) {
         super(blockProvider, tile);
         this.tier = Attribute.getTier(blockProvider, ConductorTier.class);
         buffer = ExtraVariableHeatCapacitor.create(TCTier.getHeatCapacity(tier), TCTier.getConduction(tier), TCTier.getConductionInsulation(tier), ambientTemperature, this);

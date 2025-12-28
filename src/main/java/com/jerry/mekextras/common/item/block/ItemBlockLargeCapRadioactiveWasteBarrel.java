@@ -16,14 +16,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ItemBlockLargeCapRadioactiveWasteBarrel extends ExtraItemBlockTooltip<BlockLargeCapRadioactiveWasteBarrel> {
+public class ItemBlockLargeCapRadioactiveWasteBarrel extends ItemBlockExtraTooltip<BlockLargeCapRadioactiveWasteBarrel> {
     public ItemBlockLargeCapRadioactiveWasteBarrel(BlockLargeCapRadioactiveWasteBarrel block, Properties properties) {
         super(block, properties);
     }
 
     @Override
     public RWBTier getAdvancedTier() {
-        return ExtraAttribute.getAdvanceTier(getBlock(), RWBTier.class);
+        return ExtraAttribute.getAdvancedTier(getBlock(), RWBTier.class);
     }
 
     @Override

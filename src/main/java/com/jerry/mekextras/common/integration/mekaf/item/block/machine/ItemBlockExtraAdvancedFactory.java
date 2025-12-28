@@ -4,7 +4,7 @@ import com.jerry.mekaf.common.attachments.component.AdvancedFactoryAttachedSideC
 import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.block.prefab.BlockExtraAdvancedFactoryMachine.BlockExtraAdvancedFactory;
-import com.jerry.mekextras.common.item.block.ExtraItemBlockTooltip;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraTooltip;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ItemBlockExtraAdvancedFactory extends ExtraItemBlockTooltip<BlockTile<?, ?>> {
+public class ItemBlockExtraAdvancedFactory extends ItemBlockExtraTooltip<BlockTile<?, ?>> {
 
     private static AttachedSideConfig getSideConfig(BlockExtraAdvancedFactory<?> block) {
         return switch (Attribute.getOrThrow(block.builtInRegistryHolder(), AttributeAdvancedFactoryType.class).getAdvancedFactoryType()) {
@@ -45,7 +45,7 @@ public class ItemBlockExtraAdvancedFactory extends ExtraItemBlockTooltip<BlockTi
 
     @Override
     public ExtraFactoryTier getAdvancedTier() {
-        return ExtraAttribute.getAdvanceTier(getBlock(), ExtraFactoryTier.class);
+        return ExtraAttribute.getAdvancedTier(getBlock(), ExtraFactoryTier.class);
     }
 
     @Override

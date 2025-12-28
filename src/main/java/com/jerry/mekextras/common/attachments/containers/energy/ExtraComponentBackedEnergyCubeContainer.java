@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.attachments.containers.energy;
 
-import com.jerry.mekextras.common.item.block.ExtraItemBlockEnergyCube;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraEnergyCube;
 import com.jerry.mekextras.common.tier.ECTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 public class ExtraComponentBackedEnergyCubeContainer extends ComponentBackedEnergyContainer {
 
     public static ExtraComponentBackedEnergyCubeContainer create(ContainerType<?, ?, ?> ignored, ItemStack attachedTo, int containerIndex) {
-        if (!(attachedTo.getItem() instanceof ExtraItemBlockEnergyCube item)) {
+        if (!(attachedTo.getItem() instanceof ItemBlockExtraEnergyCube item)) {
             throw new IllegalStateException("Attached to should always be an energy cube item");
         }
         return new ExtraComponentBackedEnergyCubeContainer(attachedTo, containerIndex, item.getAdvancedTier());

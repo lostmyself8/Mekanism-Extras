@@ -2,12 +2,6 @@ package com.jerry.mekextras.common.content.blocktype;
 
 import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
 import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
-import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
-import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
-import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
-import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
-import com.jerry.mekextras.common.registries.ExtraBlocks;
-import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
 import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import mekanism.api.text.ILangEntry;
@@ -27,19 +21,17 @@ public class ExtraMachine {
 
         public ExtraFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, FactoryType factoryType) {
             super(tileEntitySupplier, description);
-            // 让额外工厂可以插入新的升级
-            add(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES);
-            add(new AttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraBlocks.getExtraFactory(ExtraFactoryTier.ABSOLUTE, getFactoryType())));
+            add(new AttributeFactoryType(factoryType));
         }
 
         public ExtraFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, AdvancedFactoryType factoryType) {
             super(tileEntitySupplier, description);
-            add(new AttributeAdvancedFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraAdvancedFactoryBlocks.getAdvancedFactory(ExtraFactoryTier.ABSOLUTE, getAdvancedFactoryType())));
+            add(new AttributeAdvancedFactoryType(factoryType));
         }
 
         public ExtraFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntitySupplier, ILangEntry description, MoreMachineFactoryType factoryType) {
             super(tileEntitySupplier, description);
-            add(new MoreMachineAttributeFactoryType(factoryType), new ExtraAttributeUpgradeable(() -> ExtraMoreMachineBlocks.getMoreMachineFactory(ExtraFactoryTier.ABSOLUTE, getMoreMachineFactoryType())));
+            add(new MoreMachineAttributeFactoryType(factoryType));
         }
 
         public FactoryType getFactoryType() {

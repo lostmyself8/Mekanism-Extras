@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.recipe.bin;
 
 import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
-import com.jerry.mekextras.common.item.block.ExtraItemBlockBin;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
 import com.jerry.mekextras.common.registries.ExtraRecipeSerializersInternal;
 import mekanism.api.Action;
 import mekanism.api.annotations.NothingNullByDefault;
@@ -49,7 +49,7 @@ public class ExtraBinExtractRecipe extends ExtraBinRecipe {
         for (int i = 0, slots = inv.size(); i < slots; ++i) {
             ItemStack stackInSlot = inv.getItem(i);
             if (!stackInSlot.isEmpty()) {
-                if (stackInSlot.getItem() instanceof ExtraItemBlockBin) {
+                if (stackInSlot.getItem() instanceof ItemBlockExtraBin) {
                     if (!binStack.isEmpty() || stackInSlot.getCount() > 1) {
                         //If we already have a bin, or our first bin has a stack size greater than one then this is not a bin recipe
                         return ItemStack.EMPTY;
@@ -70,7 +70,7 @@ public class ExtraBinExtractRecipe extends ExtraBinRecipe {
         NonNullList<ItemStack> remaining = NonNullList.withSize(slots, ItemStack.EMPTY);
         for (int i = 0; i < slots; ++i) {
             ItemStack stackInSlot = inv.getItem(i);
-            if (stackInSlot.getItem() instanceof ExtraItemBlockBin) {
+            if (stackInSlot.getItem() instanceof ItemBlockExtraBin) {
                 ItemStack binStack = stackInSlot.copy();
                 ExtraComponentBackedBinInventorySlot slot = convertToSlot(binStack);
                 ItemStack bottomStack = slot.getBottomStack();

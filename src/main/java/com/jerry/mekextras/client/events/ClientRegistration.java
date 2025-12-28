@@ -15,11 +15,11 @@ import com.jerry.mekextras.client.gui.machine.GuiExtraMoreMachineFactory;
 import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.client.model.energycube.ExtraEnergyCubeModelLoader;
 import com.jerry.mekextras.client.render.ExtraRenderer;
-import com.jerry.mekextras.client.render.item.block.ExtraRenderEnergyCubeItem;
-import com.jerry.mekextras.client.render.item.block.ExtraRenderFluidTankItem;
-import com.jerry.mekextras.client.render.tileentity.ExtraRenderBin;
-import com.jerry.mekextras.client.render.tileentity.ExtraRenderEnergyCube;
-import com.jerry.mekextras.client.render.tileentity.ExtraRenderFluidTank;
+import com.jerry.mekextras.client.render.item.block.RenderExtraEnergyCubeItem;
+import com.jerry.mekextras.client.render.item.block.RenderExtraFluidTankItem;
+import com.jerry.mekextras.client.render.tileentity.RenderExtraBin;
+import com.jerry.mekextras.client.render.tileentity.RenderExtraEnergyCube;
+import com.jerry.mekextras.client.render.tileentity.RenderExtraFluidTank;
 import com.jerry.mekextras.client.render.transmitter.*;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
@@ -27,12 +27,12 @@ import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineC
 import com.jerry.mekextras.common.registries.ExtraFluids;
 import com.jerry.mekextras.common.tier.TierColor;
 import com.jerry.mekextras.common.tier.ECTier;
-import com.jerry.mekextras.common.item.block.ExtraItemBlockEnergyCube;
-import com.jerry.mekextras.common.item.block.machine.ExtraItemBlockFluidTank;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraEnergyCube;
+import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFluidTank;
 import com.jerry.mekextras.common.tier.FTTier;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.registries.ExtraContainerTypes;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityLogisticalTransporter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporter;
 import mekanism.api.text.EnumColor;
 import mekanism.client.ClientRegistrationUtil;
 import com.jerry.mekextras.common.registries.ExtraTileEntityTypes;
@@ -72,22 +72,22 @@ public class ClientRegistration {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderBin::new, ExtraTileEntityTypes.ABSOLUTE_BIN, ExtraTileEntityTypes.SUPREME_BIN, ExtraTileEntityTypes.COSMIC_BIN,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraBin::new, ExtraTileEntityTypes.ABSOLUTE_BIN, ExtraTileEntityTypes.SUPREME_BIN, ExtraTileEntityTypes.COSMIC_BIN,
                 ExtraTileEntityTypes.INFINITE_BIN);
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderEnergyCube::new, ExtraTileEntityTypes.ABSOLUTE_ENERGY_CUBE, ExtraTileEntityTypes.SUPREME_ENERGY_CUBE,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraEnergyCube::new, ExtraTileEntityTypes.ABSOLUTE_ENERGY_CUBE, ExtraTileEntityTypes.SUPREME_ENERGY_CUBE,
                 ExtraTileEntityTypes.COSMIC_ENERGY_CUBE, ExtraTileEntityTypes.INFINITE_ENERGY_CUBE);
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderFluidTank::new, ExtraTileEntityTypes.ABSOLUTE_FLUID_TANK, ExtraTileEntityTypes.SUPREME_FLUID_TANK,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraFluidTank::new, ExtraTileEntityTypes.ABSOLUTE_FLUID_TANK, ExtraTileEntityTypes.SUPREME_FLUID_TANK,
                 ExtraTileEntityTypes.COSMIC_FLUID_TANK, ExtraTileEntityTypes.INFINITE_FLUID_TANK);
         //Transmitters
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderLogisticalTransporter::new, ExtraTileEntityTypes.ABSOLUTE_LOGISTICAL_TRANSPORTER, ExtraTileEntityTypes.SUPREME_LOGISTICAL_TRANSPORTER,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraLogisticalTransporter::new, ExtraTileEntityTypes.ABSOLUTE_LOGISTICAL_TRANSPORTER, ExtraTileEntityTypes.SUPREME_LOGISTICAL_TRANSPORTER,
                 ExtraTileEntityTypes.COSMIC_LOGISTICAL_TRANSPORTER, ExtraTileEntityTypes.INFINITE_LOGISTICAL_TRANSPORTER);
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderMechanicalPipe::new, ExtraTileEntityTypes.ABSOLUTE_MECHANICAL_PIPE,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraMechanicalPipe::new, ExtraTileEntityTypes.ABSOLUTE_MECHANICAL_PIPE,
                 ExtraTileEntityTypes.SUPREME_MECHANICAL_PIPE, ExtraTileEntityTypes.COSMIC_MECHANICAL_PIPE, ExtraTileEntityTypes.INFINITE_MECHANICAL_PIPE);
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderPressurizedTube::new, ExtraTileEntityTypes.ABSOLUTE_PRESSURIZED_TUBE,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraPressurizedTube::new, ExtraTileEntityTypes.ABSOLUTE_PRESSURIZED_TUBE,
                 ExtraTileEntityTypes.SUPREME_PRESSURIZED_TUBE, ExtraTileEntityTypes.COSMIC_PRESSURIZED_TUBE, ExtraTileEntityTypes.INFINITE_PRESSURIZED_TUBE);
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderUniversalCable::new, ExtraTileEntityTypes.ABSOLUTE_UNIVERSAL_CABLE,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraUniversalCable::new, ExtraTileEntityTypes.ABSOLUTE_UNIVERSAL_CABLE,
                 ExtraTileEntityTypes.SUPREME_UNIVERSAL_CABLE, ExtraTileEntityTypes.COSMIC_UNIVERSAL_CABLE, ExtraTileEntityTypes.INFINITE_UNIVERSAL_CABLE);
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderThermodynamicConductor::new, ExtraTileEntityTypes.ABSOLUTE_THERMODYNAMIC_CONDUCTOR,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraThermodynamicConductor::new, ExtraTileEntityTypes.ABSOLUTE_THERMODYNAMIC_CONDUCTOR,
                 ExtraTileEntityTypes.SUPREME_THERMODYNAMIC_CONDUCTOR, ExtraTileEntityTypes.COSMIC_THERMODYNAMIC_CONDUCTOR, ExtraTileEntityTypes.INFINITE_THERMODYNAMIC_CONDUCTOR);
 
         //Generator Extras
@@ -103,16 +103,16 @@ public class ClientRegistration {
 
     @SubscribeEvent
     public static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
-        ClientRegistrationUtil.registerClientReloadListeners(event, ExtraRenderEnergyCubeItem.EXTRA_RENDERER);
+        ClientRegistrationUtil.registerClientReloadListeners(event, RenderExtraEnergyCubeItem.EXTRA_RENDERER);
     }
 
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.ADVANCE_ELECTRIC_PUMP, GuiAdvanceElectricPump::new);
 
-        ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.EXTRA_ENERGY_CUBE,ExtraGuiEnergyCube::new);
-        ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.EXTRA_FLUID_TANK, ExtraGuiFluidTank::new);
-        ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.EXTRA_CHEMICAL_TANK, ExtraGuiChemicalTank::new);
+        ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.EXTRA_ENERGY_CUBE, GuiExtraEnergyCube::new);
+        ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.EXTRA_FLUID_TANK, GuiExtraFluidTank::new);
+        ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.EXTRA_CHEMICAL_TANK, GuiExtraChemicalTank::new);
 
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.FACTORY, GuiExtraFactory::new);
 
@@ -144,7 +144,7 @@ public class ClientRegistration {
     public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, tintIndex) -> {
             if (tintIndex == 1) {
-                FTTier tier = ExtraAttribute.getAdvanceTier(state.getBlock(), FTTier.class);
+                FTTier tier = ExtraAttribute.getAdvancedTier(state.getBlock(), FTTier.class);
                 if (tier != null) {
                     float[] color = TierColor.getColor(tier);
                     return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
@@ -155,7 +155,7 @@ public class ClientRegistration {
 
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, index) -> {
                     if (index == 1) {
-                        ECTier tier = ExtraAttribute.getAdvanceTier(state.getBlock(), ECTier.class);
+                        ECTier tier = ExtraAttribute.getAdvancedTier(state.getBlock(), ECTier.class);
                         if (tier != null) {
                             float[] color = TierColor.getColor(tier);
                             return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
@@ -167,7 +167,7 @@ public class ClientRegistration {
 
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, tintIndex) -> {
                     if (tintIndex == 1 && pos != null) {
-                        ExtraTileEntityLogisticalTransporter transporter = WorldUtils.getTileEntity(ExtraTileEntityLogisticalTransporter.class, world, pos);
+                        TileEntityExtraLogisticalTransporter transporter = WorldUtils.getTileEntity(TileEntityExtraLogisticalTransporter.class, world, pos);
                         if (transporter != null) {
                             EnumColor renderColor = transporter.getTransmitter().getColor();
                             if (renderColor != null) {
@@ -189,7 +189,7 @@ public class ClientRegistration {
         //fluid tank
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
-            if (tintIndex == 1 && item instanceof ExtraItemBlockFluidTank tank) {
+            if (tintIndex == 1 && item instanceof ItemBlockExtraFluidTank tank) {
                 float[] color = TierColor.getColor(tank.getAdvancedTier());
                 return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
             }
@@ -199,7 +199,7 @@ public class ClientRegistration {
         //energy cube
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
-            if (tintIndex == 1 && item instanceof ExtraItemBlockEnergyCube cube) {
+            if (tintIndex == 1 && item instanceof ItemBlockExtraEnergyCube cube) {
                 float[] color = TierColor.getColor(cube.getAdvancedTier());
                 return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
             }
@@ -217,9 +217,9 @@ public class ClientRegistration {
 
     @SubscribeEvent
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        ClientRegistrationUtil.registerItemExtensions(event, new RenderPropertiesProvider.MekRenderProperties(ExtraRenderEnergyCubeItem.EXTRA_RENDERER), ExtraBlocks.ABSOLUTE_ENERGY_CUBE,
+        ClientRegistrationUtil.registerItemExtensions(event, new RenderPropertiesProvider.MekRenderProperties(RenderExtraEnergyCubeItem.EXTRA_RENDERER), ExtraBlocks.ABSOLUTE_ENERGY_CUBE,
                 ExtraBlocks.SUPREME_ENERGY_CUBE, ExtraBlocks.COSMIC_ENERGY_CUBE, ExtraBlocks.INFINITE_ENERGY_CUBE);
-        ClientRegistrationUtil.registerItemExtensions(event, new RenderPropertiesProvider.MekRenderProperties(ExtraRenderFluidTankItem.EXTRA_RENDERER), ExtraBlocks.ABSOLUTE_FLUID_TANK,
+        ClientRegistrationUtil.registerItemExtensions(event, new RenderPropertiesProvider.MekRenderProperties(RenderExtraFluidTankItem.EXTRA_RENDERER), ExtraBlocks.ABSOLUTE_FLUID_TANK,
                 ExtraBlocks.SUPREME_FLUID_TANK, ExtraBlocks.COSMIC_FLUID_TANK, ExtraBlocks.INFINITE_FLUID_TANK);
         ClientRegistrationUtil.registerBlockExtensions(event, ExtraBlocks.EXTRA_BLOCKS);
         ClientRegistrationUtil.registerFluidExtensions(event, ExtraFluids.EXTRA_FLUIDS);

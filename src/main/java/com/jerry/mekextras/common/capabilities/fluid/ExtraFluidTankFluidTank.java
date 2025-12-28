@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.capabilities.fluid;
 
-import com.jerry.mekextras.common.tile.ExtraTileEntityFluidTank;
+import com.jerry.mekextras.common.tile.TileEntityExtraFluidTank;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -17,16 +17,16 @@ import java.util.function.IntSupplier;
 
 @NothingNullByDefault
 public class ExtraFluidTankFluidTank extends BasicFluidTank {
-    public static ExtraFluidTankFluidTank create(ExtraTileEntityFluidTank tile, @Nullable IContentsListener listener) {
+    public static ExtraFluidTankFluidTank create(TileEntityExtraFluidTank tile, @Nullable IContentsListener listener) {
         Objects.requireNonNull(tile, "Fluid tank tile entity cannot be null");
         return new ExtraFluidTankFluidTank(tile, listener);
     }
 
-    private final ExtraTileEntityFluidTank tile;
+    private final TileEntityExtraFluidTank tile;
     private final boolean isCreative;
     private final IntSupplier rate;
 
-    private ExtraFluidTankFluidTank(ExtraTileEntityFluidTank tile, @Nullable IContentsListener listener) {
+    private ExtraFluidTankFluidTank(TileEntityExtraFluidTank tile, @Nullable IContentsListener listener) {
         super(tile.tier.getStorage(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrueBi(), ConstantPredicates.alwaysTrue(), listener);
         this.tile = tile;
         rate = tile.tier::getOutput;
@@ -61,7 +61,7 @@ public class ExtraFluidTankFluidTank extends BasicFluidTank {
         }
         if (!remainder.isEmpty()) {
             //If we have any leftover check if we can send it to the tank that is above
-            ExtraTileEntityFluidTank tileAbove = WorldUtils.getTileEntity(ExtraTileEntityFluidTank.class, this.tile.getLevel(), this.tile.getBlockPos().above());
+            TileEntityExtraFluidTank tileAbove = WorldUtils.getTileEntity(TileEntityExtraFluidTank.class, this.tile.getLevel(), this.tile.getBlockPos().above());
             if (tileAbove != null) {
                 //Note: We do external so that it is not limited by the internal rate limits
                 remainder = tileAbove.fluidTank.insert(remainder, action, AutomationType.EXTERNAL);
@@ -77,7 +77,7 @@ public class ExtraFluidTankFluidTank extends BasicFluidTank {
             //If we grew our stack less than we tried to, and we were actually growing and not shrinking it
             // try inserting into above tiles
             if (!tile.getActive()) {
-                ExtraTileEntityFluidTank tileAbove = WorldUtils.getTileEntity(ExtraTileEntityFluidTank.class, this.tile.getLevel(), this.tile.getBlockPos().above());
+                TileEntityExtraFluidTank tileAbove = WorldUtils.getTileEntity(TileEntityExtraFluidTank.class, this.tile.getLevel(), this.tile.getBlockPos().above());
                 if (tileAbove != null) {
                     int leftOverToInsert = amount - grownAmount;
                     //Note: We do external so that it is not limited by the internal rate limits

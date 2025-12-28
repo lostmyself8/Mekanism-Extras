@@ -2,7 +2,7 @@ package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import com.jerry.mekextras.common.tier.transmitter.TPTier;
-import com.jerry.mekextras.common.tile.transmitter.ExtraTileEntityTransmitter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import com.jerry.mekextras.api.mixin.IMixinLogisticalTransporterBase;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -49,7 +49,7 @@ import java.util.PrimitiveIterator;
 public class ExtraLogisticalTransporter extends LogisticalTransporterBase implements IExtraUpgradeableTransmitter<LogisticalTransporterUpgradeData> {
     @Nullable
     private EnumColor color;
-    public ExtraLogisticalTransporter(Holder<Block> blockProvider, ExtraTileEntityTransmitter tile) {
+    public ExtraLogisticalTransporter(Holder<Block> blockProvider, TileEntityExtraTransmitter tile) {
         super(tile, Attribute.getTier(blockProvider, TransporterTier.class));
     }
 

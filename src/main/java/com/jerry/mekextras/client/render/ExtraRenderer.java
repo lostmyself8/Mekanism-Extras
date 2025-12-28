@@ -1,7 +1,7 @@
 package com.jerry.mekextras.client.render;
 
 import com.jerry.mekextras.MekanismExtras;
-import com.jerry.mekextras.client.render.tileentity.ExtraRenderFluidTank;
+import com.jerry.mekextras.client.render.tileentity.RenderExtraFluidTank;
 import net.minecraft.util.FastColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.client.event.TextureAtlasStitchedEvent;
 public class ExtraRenderer {
     @SubscribeEvent
     public static void onStitch(TextureAtlasStitchedEvent event) {
-        ExtraRenderFluidTank.resetCachedModels();
+        RenderExtraFluidTank.resetCachedModels();
     }
 
     /**

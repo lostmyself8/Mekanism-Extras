@@ -1,7 +1,7 @@
 package com.jerry.mekextras.common.attachments.containers.item;
 
 import com.jerry.mekextras.common.inventory.slot.ExtraBinInventorySlot;
-import com.jerry.mekextras.common.item.block.ExtraItemBlockBin;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
 import com.jerry.mekextras.common.tier.BTier;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -25,7 +25,7 @@ public class ExtraComponentBackedBinInventorySlot extends ComponentBackedInvento
     private final boolean isCreative;
 
     public static ExtraComponentBackedBinInventorySlot create(ContainerType<?, ?, ?> ignored, ItemStack attachedTo, int tankIndex) {
-        if (!(attachedTo.getItem() instanceof ExtraItemBlockBin item)) {
+        if (!(attachedTo.getItem() instanceof ItemBlockExtraBin item)) {
             throw new IllegalStateException("Attached to should always be a bin item");
         }
         return new ExtraComponentBackedBinInventorySlot(attachedTo, tankIndex, item.getAdvancedTier());

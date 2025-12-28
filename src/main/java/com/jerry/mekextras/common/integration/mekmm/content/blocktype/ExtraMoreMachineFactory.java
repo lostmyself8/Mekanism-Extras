@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.integration.mekmm.content.blocktype;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
+import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlockTypes;
@@ -36,7 +37,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
         add(new AttributeGui(containerRegistrar, null), new ExtraAttributeTier<>(tier));
 
         if (tier.ordinal() < ExtraEnumUtils.EXTRA_FACTORY_TIERS.length - 1) {
-            add(new AttributeUpgradeable(() -> ExtraMoreMachineBlocks.getMoreMachineFactory(ExtraEnumUtils.EXTRA_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getMoreMachineFactoryType())));
+            add(new ExtraAttributeUpgradeable(() -> ExtraMoreMachineBlocks.getMoreMachineFactory(ExtraEnumUtils.EXTRA_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getMoreMachineFactoryType())));
         }
     }
 
@@ -49,7 +50,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
     }
 
     public static class ExtraMoreMachineFactoryBuilder<FACTORY extends ExtraMoreMachineFactory<TILE>, TILE extends TileEntityExtraMoreMachineFactory<?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
-                                                 extends BlockTileBuilder<FACTORY, TILE, T> {
+            extends BlockTileBuilder<FACTORY, TILE, T> {
 
         protected ExtraMoreMachineFactoryBuilder(FACTORY holder) {
             super(holder);
@@ -57,7 +58,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
 
         @SuppressWarnings("unchecked")
         public static <TILE extends TileEntityExtraMoreMachineFactory<?>> ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> createMoreMachineFactory(Supplier<?> tileEntityRegistrar, MoreMachineFactoryType type,
-                                                                                                                                                                     ExtraFactoryTier tier) {
+                                                                                                                                                                          ExtraFactoryTier tier) {
             // this is dirty but unfortunately necessary for things to play right
             ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> builder = getExtraMoreMachineFactoryTILEMoreMachineFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(MoreMachineBlockShapes.getShape(type));
