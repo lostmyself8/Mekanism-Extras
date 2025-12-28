@@ -1,149 +1,103 @@
-buildscript {
-    repositories {
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-    }
-}
-
 plugins {
+    id 'java-library'
     id 'eclipse'
     id 'idea'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'maven-publish'
+    alias libs.plugins.modDevGradle
+    alias libs.plugins.spotless
+    alias libs.plugins.lombok
 }
 
-apply plugin: 'org.spongepowered.mixin'
-
-group = mod_group_id
-version = mod_version
-
-base {
-    archivesName = mod_id
-}
+group = maven_group
+boolean isSnapshot = System.getenv("SNAPSHOT")
+version = "${mod_version}" + (isSnapshot ? "-SNAPSHOT" : "")
+boolean isCI = System.getenv("CI") != null
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-    copyIdeResources = true
-    runs {
-        configureEach {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        client {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        data {
-            workingDirectory project.file('run-data')
-
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-        }
-    }
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-}
-
-mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
-
-    config "${mod_id}.mixins.json"
-}
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-repositories {
-    flatDir { dirs 'libs' }
-
-    maven { url 'https://modmaven.dev/' }
-
-    maven {
-        name = "Jared's maven"
-        url = "https://maven.blamejared.com/"
+sourceSets {
+    main.resources {
+        srcDir 'src/generated/resources'
     }
 
-//    maven {
-//        // Shedaniel's maven (Architectury API)
-//        url = "https://maven.architectury.dev"
-//        content {
-//            includeGroup "dev.architectury"
-//        }
-//    }
-//
-//    maven {
-//        // saps.dev Maven (KubeJS and Rhino)
-//        url = "https://maven.saps.dev/minecraft"
-//        content {
-//            includeGroup "dev.latvian.mods"
-//        }
-//    }
-}
-
-dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-
-    //Mekanism
-    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}")
-    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")
-    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")
-    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")
-
-    // jei
-    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-}
-
-tasks.named('processResources', ProcessResources).configure {
-    var replaceProperties = [
-            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
-            forge_version: forge_version, forge_version_range: forge_version_range,
-            loader_version_range: loader_version_range,
-            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-            mod_authors: mod_authors, mod_description: mod_description,
-    ]
-
-    inputs.properties replaceProperties
-
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-        expand replaceProperties + [project: project]
-    }}
-
-tasks.named('jar', Jar).configure {
-    manifest {
-        attributes([
-                "Specification-Title": mod_id,
-                "Specification-Vendor": mod_authors,
-                "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": project.name,
-                "Implementation-Version": project.jar.archiveVersion,
-                "Implementation-Vendor": mod_authors,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
+    client {
+        compileClasspath += main.output
+        runtimeClasspath += main.output + main.runtimeClasspath
     }
 
-    finalizedBy 'reobfJar'
+    test {
+        compileClasspath += main.output
+        runtimeClasspath += main.output + main.runtimeClasspath
+    }
+
+    extra {
+        compileClasspath += main.output
+        runtimeClasspath += main.output + main.runtimeClasspath
+    }
+
+    clientExtra {
+        compileClasspath += client.output + extra.compileClasspath
+        runtimeClasspath += client.output + client.runtimeClasspath + extra.runtimeClasspath
+    }
+}
+
+configurations {
+    library
+    implementation.extendsFrom library
+    // set these as unresolvable so we don't accidentally force all dependents to use them with us
+    clientRuntimeOnly.canBeResolved = false
+    extraRuntimeOnly.canBeResolved = false
+    clientExtraRuntimeOnly.canBeResolved = false
+
+    runtimeClasspath.extendsFrom localRuntime
+    extraRuntimeClasspath.extendsFrom extraLocalRuntime
+    clientRuntimeClasspath.extendsFrom clientLocalRuntime
+    extraClientRuntimeClasspath.extendsFrom clientExtraLocalRuntime
+
+    renderNurseCfg {
+        canBeConsumed = false
+    }
+}
+
+afterEvaluate {
+    configurations {
+        // same as above but for the modRuntimeOnly configurations
+        modClientRuntimeOnly.canBeResolved = false
+        modExtraRuntimeOnly.canBeResolved = false
+        modClientExtraRuntimeOnly.canBeResolved = false
+    }
+}
+
+obfuscation {
+    createRemappingConfiguration(configurations.localRuntime)
+    createRemappingConfiguration(configurations.clientLocalRuntime)
+
+    createRemappingConfiguration(configurations.extraLocalRuntime)
+    createRemappingConfiguration(configurations.clientExtraLocalRuntime)
+}
+
+apply from: "$rootDir/gradle/scripts/jars.gradle"
+apply from: "$rootDir/gradle/scripts/moddevgradle.gradle"
+apply from: "$rootDir/gradle/scripts/repositories.gradle"
+apply from: "$rootDir/dependencies.gradle"
+apply from: "$rootDir/gradle/scripts/resources.gradle"
+apply from: "$rootDir/gradle/scripts/publishing.gradle"
+apply from: "$rootDir/gradle/scripts/spotless.gradle"
+
+generateModMetadata.doFirst {
+    mkdir('run/client')
+    mkdir('run/server')
+    mkdir('run/data')
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
+    options.encoding = "UTF-8"
+    options.compilerArgs << "-Xlint:-removal"
+    options.compilerArgs << "-Aquiet=true" // Suppress mixin notes
+}
+
+lombok {
+    version = "1.18.38"
 }
