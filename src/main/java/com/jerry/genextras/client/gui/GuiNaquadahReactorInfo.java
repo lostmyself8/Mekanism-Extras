@@ -1,9 +1,11 @@
 package com.jerry.genextras.client.gui;
 
-import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.jerry.mekextras.common.network.to_server.button.ExtraPacketTileButtonPress;
 import com.jerry.mekextras.common.network.to_server.button.ExtraPacketTileButtonPress.ClickedTileButton;
+
+import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
+import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
+
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.button.MekanismImageButton;
 import mekanism.client.gui.element.tab.GuiEnergyTab;
@@ -16,9 +18,11 @@ import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.UnitDisplayUtils;
 import mekanism.common.util.text.EnergyDisplay;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -52,7 +56,7 @@ public abstract class GuiNaquadahReactorInfo extends GuiMekanismTile<TileEntityN
 
     @Override
     protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        renderTitleTextWithOffset(guiGraphics, 18);//Adjust spacing for back button
+        renderTitleTextWithOffset(guiGraphics, 18);// Adjust spacing for back button
         super.drawForegroundText(guiGraphics, mouseX, mouseY);
     }
 }

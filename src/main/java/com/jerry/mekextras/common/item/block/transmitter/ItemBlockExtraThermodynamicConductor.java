@@ -1,16 +1,19 @@
 package com.jerry.mekextras.common.item.block.transmitter;
 
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraThermodynamicConductor;
 import com.jerry.mekextras.common.tier.transmitter.TCTier;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraThermodynamicConductor;
+
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.transmitter.BlockSmallTransmitter;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.tier.ConductorTier;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ItemBlockExtraThermodynamicConductor extends ItemBlockTooltip<BlockSmallTransmitter<TileEntityExtraThermodynamicConductor>> {
+
     public ItemBlockExtraThermodynamicConductor(BlockSmallTransmitter<TileEntityExtraThermodynamicConductor> block, Properties properties) {
         super(block, true, properties);
     }

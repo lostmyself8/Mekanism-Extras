@@ -2,6 +2,7 @@ package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.api.mixin.IMixinMachineEnergyContainer;
+
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.Upgrade;
@@ -9,6 +10,7 @@ import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import mekanism.common.capabilities.energy.MachineEnergyContainer;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.MekanismUtils;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -45,7 +47,6 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
     protected MixinMachineEnergyContainer(long maxEnergy, Predicate<@NotNull AutomationType> canExtract, Predicate<@NotNull AutomationType> canInsert, @Nullable IContentsListener listener) {
         super(maxEnergy, canExtract, canInsert, listener);
     }
-
 
     @Inject(method = "getEnergyPerTick", at = @At(value = "RETURN"), cancellable = true)
     public void mixinGetEnergyPerTick(CallbackInfoReturnable<Long> cir) {

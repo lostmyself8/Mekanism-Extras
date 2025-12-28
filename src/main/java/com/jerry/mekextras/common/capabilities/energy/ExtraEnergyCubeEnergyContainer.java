@@ -1,11 +1,13 @@
 package com.jerry.mekextras.common.capabilities.energy;
 
 import com.jerry.mekextras.common.tier.ECTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +32,7 @@ public class ExtraEnergyCubeEnergyContainer extends BasicEnergyContainer {
 
     @Override
     protected long getInsertRate(@Nullable AutomationType automationType) {
-        //Only limit the internal rate to change the speed at which this can be filled from an item
+        // Only limit the internal rate to change the speed at which this can be filled from an item
         return automationType == AutomationType.INTERNAL ? rate.getAsLong() : super.getInsertRate(automationType);
     }
 
@@ -41,7 +43,7 @@ public class ExtraEnergyCubeEnergyContainer extends BasicEnergyContainer {
 
     @Override
     public long insert(long amount, Action action, @NotNull AutomationType automationType) {
-        //Note: Unlike other creative items, the creative energy cube does not allow changing it to always full
+        // Note: Unlike other creative items, the creative energy cube does not allow changing it to always full
         return super.insert(amount, action.combine(!isCreative), automationType);
     }
 

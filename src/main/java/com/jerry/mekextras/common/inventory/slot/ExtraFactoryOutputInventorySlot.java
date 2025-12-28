@@ -1,12 +1,15 @@
 package com.jerry.mekextras.common.inventory.slot;
 
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.inventory.container.slot.ContainerSlotType;
 import mekanism.common.inventory.slot.BasicInventorySlot;
+
 import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.Nullable;
 
 @NothingNullByDefault
@@ -33,7 +36,4 @@ public class ExtraFactoryOutputInventorySlot extends BasicInventorySlot {
             case INFINITE -> super.getLimit(stack) * 64;
         };
     }
-
 }
-
-

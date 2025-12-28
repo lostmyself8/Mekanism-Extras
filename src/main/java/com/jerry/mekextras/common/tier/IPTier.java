@@ -2,12 +2,15 @@ package com.jerry.mekextras.common.tier;
 
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.api.tier.IAdvancedTier;
+
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.common.config.value.CachedLongValue;
+
 import org.jetbrains.annotations.Nullable;
 
 @NothingNullByDefault
 public enum IPTier implements IAdvancedTier {
+
     ABSOLUTE(AdvancedTier.ABSOLUTE, 1_048_576_000L),
     SUPREME(AdvancedTier.SUPREME, 8_388_608_000L),
     COSMIC(AdvancedTier.COSMIC, 67_108_864_000L),
@@ -37,7 +40,8 @@ public enum IPTier implements IAdvancedTier {
     }
 
     /**
-     * ONLY CALL THIS FROM TierConfig. It is used to give the InductionProviderTier a reference to the actual config value object
+     * ONLY CALL THIS FROM TierConfig. It is used to give the InductionProviderTier a reference to the actual config
+     * value object
      */
     public void setConfigReference(CachedLongValue outputReference) {
         this.outputReference = outputReference;

@@ -4,16 +4,16 @@ import mekanism.api.chemical.ChemicalStack;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
 import mekanism.common.tile.TileEntityChemicalTank.GasMode;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(
-        target = TileEntityExtraChemicalTank.class
-)
+               target = TileEntityExtraChemicalTank.class)
 public class TileEntityExtraChemicalTank$ComputerHandler extends ComputerMethodFactory<TileEntityExtraChemicalTank> {
 
-    private final String[] NAMES_mode = new String[]{"mode"};
+    private final String[] NAMES_mode = new String[] { "mode" };
 
-    private final Class[] TYPES_ef806282 = new Class[]{GasMode.class};
+    private final Class[] TYPES_ef806282 = new Class[] { GasMode.class };
 
     public TileEntityExtraChemicalTank$ComputerHandler() {
         register(MethodData.builder("getDumpingMode", TileEntityExtraChemicalTank$ComputerHandler::getDumpingMode_0).returnType(GasMode.class).methodDescription("Get the current Dumping configuration"));
@@ -29,7 +29,7 @@ public class TileEntityExtraChemicalTank$ComputerHandler extends ComputerMethodF
     }
 
     public static Object getDumpingMode_0(TileEntityExtraChemicalTank subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                          throws ComputerException {
         return helper.convert(subject.dumping);
     }
 
@@ -64,7 +64,7 @@ public class TileEntityExtraChemicalTank$ComputerHandler extends ComputerMethodF
     }
 
     public static Object setDumpingMode_1(TileEntityExtraChemicalTank subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                          throws ComputerException {
         subject.setDumpingMode(helper.getEnum(0, GasMode.class));
         return helper.voidResult();
     }

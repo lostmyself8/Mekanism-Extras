@@ -3,11 +3,11 @@ package com.jerry.mekextras.common.block.prefab;
 import com.jerry.mekextras.common.content.blocktype.ExtraFactory;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
+
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.block.states.IStateFluidLoggable;
 import mekanism.common.resource.BlockResourceInfo;
 import mekanism.common.tile.base.TileEntityMekanism;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.UnaryOperator;
 

@@ -1,13 +1,14 @@
 package com.jerry.mekextras.client.render.transmitter;
 
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraUniversalCable;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
 import mekanism.common.content.network.EnergyNetwork;
 import mekanism.common.content.network.transmitter.UniversalCable;
+
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
@@ -15,8 +16,11 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 @NothingNullByDefault
 public class RenderExtraUniversalCable extends RenderTransmitterBase<TileEntityExtraUniversalCable> {
+
     public RenderExtraUniversalCable(BlockEntityRendererProvider.Context context) {
         super(context);
     }
@@ -42,7 +46,8 @@ public class RenderExtraUniversalCable extends RenderTransmitterBase<TileEntityE
             UniversalCable cable = tile.getTransmitter();
             if (cable.hasTransmitterNetwork()) {
                 EnergyNetwork network = cable.getTransmitterNetwork();
-                //Note: We don't check if the network is empty as we don't actually ever sync the energy value to the client
+                // Note: We don't check if the network is empty as we don't actually ever sync the energy value to the
+                // client
                 return network.currentScale > 0;
             }
         }

@@ -1,12 +1,14 @@
 package com.jerry.genextras.common.content.naquadah;
 
+import com.jerry.mekextras.common.registries.ExtraChemicals;
+
 import com.jerry.genextras.common.GeneratorExtraTags;
+import com.jerry.genextras.common.config.GeneratorsExtraConfig;
 import com.jerry.genextras.common.item.ItemNaquadahHohlraum;
 import com.jerry.genextras.common.registries.GenExtraChemicals;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorPort;
-import com.jerry.mekextras.common.registries.ExtraChemicals;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.SerializationConstants;
@@ -33,9 +35,9 @@ import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.tile.prefab.TileEntityStructuralMultiblock;
 import mekanism.common.util.*;
-import com.jerry.genextras.common.config.GeneratorsExtraConfig;
 import mekanism.generators.common.registries.GeneratorsDamageTypes;
 import mekanism.generators.common.slot.ReactorInventorySlot;
+
 import net.minecraft.SharedConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -47,6 +49,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
+
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -59,15 +63,16 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
     public static final String FUEL_TAB = "fuel";
     public static final String STATS_TAB = "stats";
 
-    public static final int MAX_INJECTION = 98;//this is the effective cap in the GUI, as text field is limited to 2 chars
-    //Reaction characteristics
+    public static final int MAX_INJECTION = 98;// this is the effective cap in the GUI, as text field is limited to 2
+                                               // chars
+    // Reaction characteristics
     private static final double burnTemperature = 400_000_000;
     private static final double burnRatio = 1;
-    //Thermal characteristics
+    // Thermal characteristics
     private static final long plasmaHeatCapacity = 100;
     private static final double caseHeatCapacity = 1;
     private static final double inverseInsulation = 100_000;
-    //Heat transfer metrics
+    // Heat transfer metrics
     private static final double plasmaCaseConductivity = 0.2;
 
     private final List<EnergyOutputTarget> energyOutputTargets = new ArrayList<>();
@@ -82,12 +87,16 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
     public IHeatCapacitor heatCapacitor;
 
     @ContainerSync(tags = HEAT_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getWater", "getWaterCapacity", "getWaterNeeded",
-            "getWaterFilledPercentage"}, docPlaceholder = "water tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class,
+                            methodNames = { "getWater", "getWaterCapacity", "getWaterNeeded",
+                                    "getWaterFilledPercentage" },
+                            docPlaceholder = "water tank")
     public IExtendedFluidTank waterTank;
     @ContainerSync(tags = HEAT_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getSteam", "getSteamCapacity", "getSteamNeeded",
-            "getSteamFilledPercentage"}, docPlaceholder = "steam tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class,
+                            methodNames = { "getSteam", "getSteamCapacity", "getSteamNeeded",
+                                    "getSteamFilledPercentage" },
+                            docPlaceholder = "steam tank")
     public IChemicalTank steamTank;
 
     private double biomeAmbientTemp;
@@ -103,20 +112,26 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
     public double lastTransferLoss;
 
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getNaquadah", "getNaquadahCapacity", "getNaquadahNeeded",
-            "getNaquadahFilledPercentage"}, docPlaceholder = "naquadah tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class,
+                            methodNames = { "getNaquadah", "getNaquadahCapacity", "getNaquadahNeeded",
+                                    "getNaquadahFilledPercentage" },
+                            docPlaceholder = "naquadah tank")
     public IChemicalTank naquadahTank;
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getUranium", "getUraniumCapacity", "getUraniumNeeded",
-            "getUraniumFilledPercentage"}, docPlaceholder = "uranium tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class,
+                            methodNames = { "getUranium", "getUraniumCapacity", "getUraniumNeeded",
+                                    "getUraniumFilledPercentage" },
+                            docPlaceholder = "uranium tank")
     public IChemicalTank uraniumTank;
     @ContainerSync(tags = FUEL_TAB)
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getNqUFuel", "getNqUFuelCapacity", "getNqUFuelNeeded",
-            "getNqUFuelFilledPercentage"}, docPlaceholder = "fuel tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class,
+                            methodNames = { "getNqUFuel", "getNqUFuelCapacity", "getNqUFuelNeeded",
+                                    "getNqUFuelFilledPercentage" },
+                            docPlaceholder = "fuel tank")
     public IChemicalTank fuelTank;
-    @ContainerSync(tags = {FUEL_TAB, HEAT_TAB, STATS_TAB}, getter = "getInjectionRate", setter = "setInjectionRate")
+    @ContainerSync(tags = { FUEL_TAB, HEAT_TAB, STATS_TAB }, getter = "getInjectionRate", setter = "setInjectionRate")
     private int injectionRate = 2;
-    @ContainerSync(tags = {FUEL_TAB, HEAT_TAB, STATS_TAB})
+    @ContainerSync(tags = { FUEL_TAB, HEAT_TAB, STATS_TAB })
     private long lastBurned;
 
     public double plasmaTemperature;
@@ -134,7 +149,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
 
     public NaquadahReactorMultiblockData(TileEntityNaquadahReactorCasing tile) {
         super(tile);
-        //Default biome temp to the ambient temperature at the block we are at
+        // Default biome temp to the ambient temperature at the block we are at
         biomeAmbientTemp = HeatAPI.getAmbientTemp(tile.getLevel(), tile.getBlockPos());
         lastPlasmaTemperature = biomeAmbientTemp;
         lastCaseTemperature = biomeAmbientTemp;
@@ -199,7 +214,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
             if (hohlraum.getItem() instanceof ItemNaquadahHohlraum) {
                 IChemicalHandler gasHandlerItem = Capabilities.CHEMICAL.getCapability(hohlraum);
                 if (gasHandlerItem != null && gasHandlerItem.getChemicalTanks() > 0) {
-                    //Validate something didn't go terribly wrong, and we actually do have the tank we expect to have
+                    // Validate something didn't go terribly wrong, and we actually do have the tank we expect to have
                     return gasHandlerItem.getChemicalInTank(0).getAmount() == gasHandlerItem.getChemicalTankCapacity(0);
                 }
             }
@@ -211,14 +226,14 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
     public boolean tick(Level world) {
         boolean needsPacket = super.tick(world);
         long fuelBurned = 0;
-        //Only thermal transfer happens unless we're hot enough to burn.
+        // Only thermal transfer happens unless we're hot enough to burn.
         if (getPlasmaTemp() >= burnTemperature) {
-            //If we're not burning, yet we need a hohlraum to ignite
+            // If we're not burning, yet we need a hohlraum to ignite
             if (!burning && hasHohlraum()) {
                 vaporiseHohlraum();
             }
 
-            //Only inject fuel if we're burning
+            // Only inject fuel if we're burning
             if (isBurning()) {
                 injectFuel();
                 fuelBurned = burnFuel();
@@ -234,7 +249,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
             lastBurned = fuelBurned;
         }
 
-        //Perform the heat transfer calculations
+        // Perform the heat transfer calculations
         transferHeat();
         updateHeatCapacitors(null);
         updateTemperatures();
@@ -320,14 +335,14 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
     }
 
     private void transferHeat() {
-        //Transfer from plasma to casing
+        // Transfer from plasma to casing
         double plasmaCaseHeat = plasmaCaseConductivity * (lastPlasmaTemperature - lastCaseTemperature);
         if (Math.abs(plasmaCaseHeat) > HeatAPI.EPSILON) {
             setPlasmaTemp(getPlasmaTemp() - plasmaCaseHeat / plasmaHeatCapacity);
             heatCapacitor.handleHeat(plasmaCaseHeat);
         }
 
-        //Transfer from casing to water if necessary
+        // Transfer from casing to water if necessary
         double caseWaterHeat = GeneratorsExtraConfig.extraGenerators.reactorWaterHeatingRatio.get() * (lastCaseTemperature - biomeAmbientTemp);
         if (Math.abs(caseWaterHeat) > HeatAPI.EPSILON) {
             int waterToVaporize = (int) (HeatUtils.getSteamEnergyEfficiency() * caseWaterHeat / HeatUtils.getWaterThermalEnthalpy());
@@ -344,7 +359,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
         lastEnvironmentLoss = heatTransfer.environmentTransfer();
         lastTransferLoss = heatTransfer.adjacentTransfer();
 
-        //Passive energy generation
+        // Passive energy generation
         double caseAirHeat = GeneratorsExtraConfig.extraGenerators.reactorCasingThermalConductivity.get() * (lastCaseTemperature - biomeAmbientTemp);
         if (Math.abs(caseAirHeat) > HeatAPI.EPSILON) {
             heatCapacitor.handleHeat(-caseAirHeat);
@@ -464,8 +479,7 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
     public double getMaxCasingTemperature(boolean active) {
         double k = active ? GeneratorsExtraConfig.extraGenerators.reactorWaterHeatingRatio.get() : 0;
         long injectionRate = Math.max(this.injectionRate, lastBurned);
-        return MathUtils.multiplyClamped(GeneratorsExtraConfig.extraGenerators.energyPerReactorFuel.get(), injectionRate)
-                / (k + GeneratorsExtraConfig.extraGenerators.reactorCasingThermalConductivity.get());
+        return MathUtils.multiplyClamped(GeneratorsExtraConfig.extraGenerators.energyPerReactorFuel.get(), injectionRate) / (k + GeneratorsExtraConfig.extraGenerators.reactorCasingThermalConductivity.get());
     }
 
     @ComputerMethod(methodDescription = "true -> water cooled, false -> air cooled")
@@ -492,14 +506,14 @@ public class NaquadahReactorMultiblockData extends MultiblockData {
         return 1 / GeneratorsExtraConfig.extraGenerators.reactorCasingThermalConductivity.get();
     }
 
-    //Computer related methods
+    // Computer related methods
     @ComputerMethod(nameOverride = "setInjectionRate")
     void computerSetInjectionRate(int rate) throws ComputerException {
         if (rate < 0 || rate > MAX_INJECTION) {
-            //Validate bounds even though we can clamp
+            // Validate bounds even though we can clamp
             throw new ComputerException("Injection Rate '%d' is out of range must be an even number between 0 and %d. (Inclusive)", rate, MAX_INJECTION);
         } else if (rate % 2 != 0) {
-            //Validate it is even
+            // Validate it is even
             throw new ComputerException("Injection Rate '%d' must be an even number between 0 and %d. (Inclusive)", rate, MAX_INJECTION);
         }
         setInjectionRate(rate);

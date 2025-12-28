@@ -1,9 +1,11 @@
 package com.jerry.mekextras.common.tier.transmitter;
 
 import com.jerry.mekextras.common.config.ExtraConfig;
+
 import mekanism.common.tier.CableTier;
 
 public class CTier {
+
     public static long getCapacityAsLong(CableTier tier) {
         if (tier == null) return 8000L;
         return switch (tier) {

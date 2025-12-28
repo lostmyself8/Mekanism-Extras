@@ -2,7 +2,9 @@ package com.jerry.mekextras.common.tile.multiblock;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.tier.IPTier;
+
 import mekanism.common.tile.prefab.TileEntityInternalMultiblock;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;

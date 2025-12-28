@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.tile;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.capabilities.energy.ExtraEnergyCubeEnergyContainer;
 import com.jerry.mekextras.common.tier.ECTier;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.SerializationConstants;
@@ -27,6 +28,7 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.EnumUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -35,6 +37,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
+
 import org.jetbrains.annotations.NotNull;
 
 public class TileEntityExtraEnergyCube extends TileEntityConfigurableMachine {
@@ -120,7 +123,7 @@ public class TileEntityExtraEnergyCube extends TileEntityConfigurableMachine {
             setControlType(data.controlType);
             getEnergyContainer().setEnergy(data.energyContainer.getEnergy());
             chargeSlot.setStack(data.chargeSlot.getStack());
-            //Copy the contents using NBT so that if it is not actually valid due to a reload we don't crash
+            // Copy the contents using NBT so that if it is not actually valid due to a reload we don't crash
             dischargeSlot.deserializeNBT(provider, data.dischargeSlot.serializeNBT(provider));
             for (ITileComponent component : getComponents()) {
                 component.read(data.components, provider);
@@ -166,7 +169,7 @@ public class TileEntityExtraEnergyCube extends TileEntityConfigurableMachine {
         if (config != null) {
             for (RelativeSide side : EnumUtils.SIDES) {
                 if (currentConfig[side.ordinal()] != config.getDataType(side)) {
-                    //Only update the model data if at least one side had the config change
+                    // Only update the model data if at least one side had the config change
                     updateModelData();
                     break;
                 }
@@ -178,7 +181,7 @@ public class TileEntityExtraEnergyCube extends TileEntityConfigurableMachine {
     @Override
     public ModelData getModelData() {
         ConfigInfo config = getConfig().getConfig(TransmissionType.ENERGY);
-        if (config == null) {//Should not happen but validate it anyway
+        if (config == null) {// Should not happen but validate it anyway
             return super.getModelData();
         }
         CubeSideState[] sideStates = new CubeSideState[EnumUtils.SIDES.length];

@@ -1,7 +1,9 @@
 package com.jerry.genextras.common.registries;
 
-import com.jerry.genextras.common.tile.naquadah.*;
 import com.jerry.mekextras.MekanismExtras;
+
+import com.jerry.genextras.common.tile.naquadah.*;
+
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
@@ -10,19 +12,18 @@ import mekanism.common.tile.base.TileEntityMekanism;
 
 public class GenExtraTileEntityTypes {
 
-    private GenExtraTileEntityTypes() {
-
-    }
+    private GenExtraTileEntityTypes() {}
 
     public static final TileEntityTypeDeferredRegister GEN_EXTRA_TILE_ENTITY_TYPES = new TileEntityTypeDeferredRegister(MekanismExtras.MOD_ID);
 
-    //Naquadah Reactor
+    // Naquadah Reactor
     public static final TileEntityTypeRegistryObject<TileEntityNaquadahReactorController> NAQUADAH_REACTOR_CONTROLLER = GEN_EXTRA_TILE_ENTITY_TYPES
             .mekBuilder(GenExtraBlocks.NAQUADAH_REACTOR_CONTROLLER, TileEntityNaquadahReactorController::new)
             .clientTicker(TileEntityMekanism::tickClient)
             .serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIGURABLE)
-            //Never allow the gas handler, fluid handler, or energy cap to be enabled here even though internally we can handle both of them
+            // Never allow the gas handler, fluid handler, or energy cap to be enabled here even though internally we
+            // can handle both of them
             .without(Capabilities.CHEMICAL.block(), Capabilities.FLUID.block(), Capabilities.HEAT)
             .without(EnergyCompatUtils.getLoadedEnergyCapabilities())
             .build();

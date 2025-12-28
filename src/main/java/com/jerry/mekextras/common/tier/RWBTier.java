@@ -2,10 +2,12 @@ package com.jerry.mekextras.common.tier;
 
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.api.tier.IAdvancedTier;
+
 import mekanism.common.config.value.CachedIntValue;
 import mekanism.common.config.value.CachedLongValue;
 
 public enum RWBTier implements IAdvancedTier {
+
     ABSOLUTE(AdvancedTier.ABSOLUTE, 2_048_000, 20, 4),
     SUPREME(AdvancedTier.SUPREME, 8_192_000, 10, 16),
     COSMIC(AdvancedTier.COSMIC, 32_768_000, 5, 64),
@@ -18,6 +20,7 @@ public enum RWBTier implements IAdvancedTier {
     private CachedLongValue storageReference;
     private CachedIntValue tickReference;
     private CachedLongValue amountReference;
+
     RWBTier(AdvancedTier tier, long s, int t, long a) {
         advanceStorage = s;
         processTicks = t;

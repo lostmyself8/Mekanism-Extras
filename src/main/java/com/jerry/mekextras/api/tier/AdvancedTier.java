@@ -1,8 +1,8 @@
 package com.jerry.mekextras.api.tier;
 
-import io.netty.buffer.ByteBuf;
 import mekanism.api.SupportsColorMap;
 import mekanism.api.math.MathUtils;
+
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -10,16 +10,19 @@ import net.minecraft.util.ByIdMap;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.material.MapColor;
+
+import io.netty.buffer.ByteBuf;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.function.IntFunction;
 
 public enum AdvancedTier implements StringRepresentable, SupportsColorMap {
-    ABSOLUTE("Absolute", new int[]{237, 238, 70}, MapColor.COLOR_LIGHT_GREEN),
-    SUPREME("Supreme", new int[]{166, 0, 2}, MapColor.TERRACOTTA_PINK),
-    COSMIC("Cosmic", new int[]{75, 248, 255}, MapColor.DIAMOND),
-    INFINITE("Infinite", new int[]{247, 135, 255}, MapColor.COLOR_MAGENTA);
+
+    ABSOLUTE("Absolute", new int[] { 237, 238, 70 }, MapColor.COLOR_LIGHT_GREEN),
+    SUPREME("Supreme", new int[] { 166, 0, 2 }, MapColor.TERRACOTTA_PINK),
+    COSMIC("Cosmic", new int[] { 75, 248, 255 }, MapColor.DIAMOND),
+    INFINITE("Infinite", new int[] { 247, 135, 255 }, MapColor.COLOR_MAGENTA);
 
     public static final IntFunction<AdvancedTier> BY_ID = ByIdMap.continuous(AdvancedTier::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
     public static final StreamCodec<ByteBuf, AdvancedTier> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, AdvancedTier::ordinal);

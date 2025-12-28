@@ -1,13 +1,16 @@
 package com.jerry.genextras.common.tile.naquadah;
 
+import com.jerry.mekextras.MekanismExtras;
+
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.genextras.common.registries.GenExtraBlocks;
 import com.jerry.genextras.common.registries.GenExtraContainerTypes;
-import com.jerry.mekextras.MekanismExtras;
+
 import mekanism.common.inventory.container.MekanismContainer;
 import mekanism.common.inventory.container.sync.dynamic.SyncMapper;
 import mekanism.common.lib.multiblock.MultiblockManager;
 import mekanism.common.tile.prefab.TileEntityMultiblock;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;

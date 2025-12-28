@@ -3,11 +3,13 @@ package com.jerry.mekextras.common.config;
 import com.jerry.mekextras.common.config.ExtraConfigTranslations.AdvancedTierTranslations;
 import com.jerry.mekextras.common.tier.*;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
+
 import mekanism.api.heat.HeatAPI;
 import mekanism.common.config.BaseMekanismConfig;
 import mekanism.common.config.MekanismConfigTranslations;
-import mekanism.common.config.value.CachedLongValue;
 import mekanism.common.config.value.CachedIntValue;
+import mekanism.common.config.value.CachedLongValue;
+
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -66,9 +68,9 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
         addQIODriverCategory(builder);
-        //Blocks
+        // Blocks
         addStoragesCategory(builder);
-        //Transmitters
+        // Transmitters
         MekanismConfigTranslations.TIER_TRANSMITTERS.applyToBuilder(builder).push("transmitters");
         MekanismConfigTranslations.TIER_TRANSMITTERS_ENERGY.applyToBuilder(builder).push("energy");
         this.absoluteUniversalCableCapacity = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_UNIVERSAL_CABLE_CAPACITY, "absoluteCapacity", 65536000L, 1, Long.MAX_VALUE);

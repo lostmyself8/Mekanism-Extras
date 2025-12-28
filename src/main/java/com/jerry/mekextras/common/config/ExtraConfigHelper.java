@@ -1,7 +1,9 @@
 package com.jerry.mekextras.common.config;
 
 import com.jerry.mekextras.MekanismExtras;
+
 import mekanism.common.config.IMekanismConfig;
+
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.config.IConfigSpec;
 import net.neoforged.fml.config.ModConfig;
@@ -13,9 +15,7 @@ import java.util.Map;
 
 public class ExtraConfigHelper {
 
-    private ExtraConfigHelper() {
-
-    }
+    private ExtraConfigHelper() {}
 
     public static final Path CONFIG_DIR = FMLPaths.getOrCreateGameRelativePath(FMLPaths.CONFIGDIR.get().resolve(MekanismExtras.FOLD_NAME));
 
@@ -28,10 +28,10 @@ public class ExtraConfigHelper {
     }
 
     public static void onConfigLoad(ModConfigEvent event, String modid, Map<IConfigSpec, IMekanismConfig> knownConfigs) {
-        //Note: We listen to both the initial load and the reload, to make sure that we fix any accidentally
+        // Note: We listen to both the initial load and the reload, to make sure that we fix any accidentally
         // cached values from calls before the initial loading
         ModConfig config = event.getConfig();
-        //Make sure it is for the same modid as us
+        // Make sure it is for the same modid as us
         if (config.getModId().equals(modid)) {
             IMekanismConfig mekanismConfig = knownConfigs.get(config.getSpec());
             if (mekanismConfig != null) {

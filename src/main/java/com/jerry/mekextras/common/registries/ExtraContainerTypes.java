@@ -8,16 +8,18 @@ import com.jerry.mekextras.common.tile.TileEntityExtraFluidTank;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
 import com.jerry.mekextras.common.tile.machine.TileEntityAdvancedElectricPump;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.registration.impl.ContainerTypeDeferredRegister;
 import mekanism.common.registration.impl.ContainerTypeRegistryObject;
+
 import net.neoforged.bus.api.IEventBus;
 
 public class ExtraContainerTypes {
-    private ExtraContainerTypes() {
 
-    }
+    private ExtraContainerTypes() {}
+
     public static final ContainerTypeDeferredRegister EXTRA_CONTAINER_TYPES = new ContainerTypeDeferredRegister(MekanismExtras.MOD_ID);
 
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityAdvancedElectricPump>> ADVANCE_ELECTRIC_PUMP = EXTRA_CONTAINER_TYPES.register(ExtraBlocks.ADVANCED_ELECTRIC_PUMP, TileEntityAdvancedElectricPump.class);
@@ -30,7 +32,7 @@ public class ExtraContainerTypes {
 
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityExtraFactory<?>>> FACTORY = EXTRA_CONTAINER_TYPES.register("factory", factoryClass(), ExtraFactoryContainer::new);
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private static Class<TileEntityExtraFactory<?>> factoryClass() {
         return (Class) TileEntityExtraFactory.class;
     }

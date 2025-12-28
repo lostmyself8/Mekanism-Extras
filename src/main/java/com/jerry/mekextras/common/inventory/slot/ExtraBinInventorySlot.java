@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.inventory.slot;
 import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
 import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
 import com.jerry.mekextras.common.tier.BTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -16,9 +17,11 @@ import mekanism.common.inventory.container.slot.InventoryContainerSlot;
 import mekanism.common.inventory.slot.BasicInventorySlot;
 import mekanism.common.item.block.ItemBlockBin;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +31,7 @@ import java.util.function.Predicate;
 
 @NothingNullByDefault
 public class ExtraBinInventorySlot extends BasicInventorySlot {
+
     public static final Predicate<@NotNull ItemStack> validator = stack -> !(stack.getItem() instanceof ItemBlockExtraBin) && !(stack.getItem() instanceof ItemBlockBin);
 
     @Nullable
@@ -68,11 +72,12 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
                 // When locked, we need to make sure the correct item type is being inserted
                 return stack;
             } else if (isCreative && action.execute() && automationType != AutomationType.EXTERNAL) {
-                //If a player manually inserts into a creative bin, that is empty we need to allow setting the type,
-                // Note: We check that it is not external insertion because an empty creative bin acts as a "void" for automation
+                // If a player manually inserts into a creative bin, that is empty we need to allow setting the type,
+                // Note: We check that it is not external insertion because an empty creative bin acts as a "void" for
+                // automation
                 ItemStack simulatedRemainder = super.insertItem(stack, Action.SIMULATE, automationType);
                 if (simulatedRemainder.isEmpty()) {
-                    //If we are able to insert it then set perform the action of setting it to full
+                    // If we are able to insert it then set perform the action of setting it to full
                     setStackUnchecked(stack.copyWithCount(getLimit(stack)));
                 }
                 return simulatedRemainder;

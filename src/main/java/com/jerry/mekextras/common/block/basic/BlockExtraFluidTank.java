@@ -1,12 +1,14 @@
 package com.jerry.mekextras.common.block.basic;
 
 import com.jerry.mekextras.common.tile.TileEntityExtraFluidTank;
+
 import mekanism.api.security.IBlockSecurityUtils;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.resource.BlockResourceInfo;
 import mekanism.common.util.FluidUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,9 +20,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 
 public class BlockExtraFluidTank extends BlockTile.BlockTileModel<TileEntityExtraFluidTank, Machine<TileEntityExtraFluidTank>> {
+
     public BlockExtraFluidTank(Machine<TileEntityExtraFluidTank> type) {
         super(type, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor()));
     }
@@ -29,7 +33,8 @@ public class BlockExtraFluidTank extends BlockTile.BlockTileModel<TileEntityExtr
     public int getLightEmission(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos) {
         int ambientLight = super.getLightEmission(state, world, pos);
         if (ambientLight == 15) {
-            //If we are already at the max light value don't bother looking up the tile to see if it has a fluid that gives off light
+            // If we are already at the max light value don't bother looking up the tile to see if it has a fluid that
+            // gives off light
             return ambientLight;
         }
         TileEntityExtraFluidTank tile = WorldUtils.getTileEntity(TileEntityExtraFluidTank.class, world, pos);
@@ -60,7 +65,7 @@ public class BlockExtraFluidTank extends BlockTile.BlockTileModel<TileEntityExtr
         if (wrenchResult.result() != InteractionResult.PASS) {
             return wrenchResult;
         }
-        //Handle filling fluid tank
+        // Handle filling fluid tank
         if (!player.isShiftKeyDown()) {
             if (!IBlockSecurityUtils.INSTANCE.canAccessOrDisplayError(player, world, pos, tile)) {
                 return ItemInteractionResult.FAIL;

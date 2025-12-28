@@ -1,6 +1,7 @@
 package com.jerry.genextras.common.item;
 
 import com.jerry.mekextras.common.registries.ExtraChemicals;
+
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalHandler;
 import mekanism.api.text.EnumColor;
@@ -10,11 +11,13 @@ import mekanism.common.registration.impl.CreativeTabDeferredRegister;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.StorageUtils;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -30,7 +33,7 @@ public class ItemNaquadahHohlraum extends Item implements CreativeTabDeferredReg
     public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         IChemicalHandler gasHandlerItem = Capabilities.CHEMICAL.getCapability(stack);
         if (gasHandlerItem != null && gasHandlerItem.getChemicalTanks() > 0) {
-            //Validate something didn't go terribly wrong, and we actually do have the tank we expect to have
+            // Validate something didn't go terribly wrong, and we actually do have the tank we expect to have
             ChemicalStack storedGas = gasHandlerItem.getChemicalInTank(0);
             if (!storedGas.isEmpty()) {
                 tooltip.add(MekanismLang.STORED.translate(storedGas, storedGas.getAmount()));

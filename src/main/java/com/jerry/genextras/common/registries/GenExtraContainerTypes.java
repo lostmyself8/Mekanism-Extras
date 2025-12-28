@@ -1,8 +1,10 @@
 package com.jerry.genextras.common.registries;
 
+import com.jerry.mekextras.MekanismExtras;
+
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
-import com.jerry.mekextras.MekanismExtras;
+
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.registration.impl.ContainerTypeDeferredRegister;
@@ -10,9 +12,7 @@ import mekanism.common.registration.impl.ContainerTypeRegistryObject;
 
 public class GenExtraContainerTypes {
 
-    private GenExtraContainerTypes() {
-
-    }
+    private GenExtraContainerTypes() {}
 
     public static final ContainerTypeDeferredRegister GEN_EXTRA_CONTAINER_TYPE = new ContainerTypeDeferredRegister(MekanismExtras.MOD_ID);
 

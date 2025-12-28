@@ -1,9 +1,11 @@
 package com.jerry.mekextras.common.tier.transmitter;
 
 import com.jerry.mekextras.common.config.ExtraConfig;
+
 import mekanism.common.tier.TubeTier;
 
 public class TTier {
+
     public static long getTubePullAmount(TubeTier tier) {
         return switch (tier) {
             case BASIC -> ExtraConfig.extraTierConfig.absolutePressurizedTubePullAmount.get();

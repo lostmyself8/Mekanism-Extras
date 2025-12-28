@@ -4,6 +4,7 @@ import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.heat.HeatAPI;
 import mekanism.common.capabilities.heat.BasicHeatCapacitor;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.DoubleSupplier;
@@ -19,12 +20,12 @@ public class ExtraVariableHeatCapacitor extends BasicHeatCapacitor {
     }
 
     public static ExtraVariableHeatCapacitor create(double heatCapacity, DoubleSupplier conductionCoefficient1, DoubleSupplier insulationCoefficient1,
-                                               @Nullable DoubleSupplier ambientTempSupplier, @Nullable IContentsListener listener) {
+                                                    @Nullable DoubleSupplier ambientTempSupplier, @Nullable IContentsListener listener) {
         return new ExtraVariableHeatCapacitor(heatCapacity, conductionCoefficient1, insulationCoefficient1, ambientTempSupplier, listener);
     }
 
     public static ExtraVariableHeatCapacitor create(double heatCapacity, double conductionCoefficient, double insulationCoefficient,
-                                               @Nullable DoubleSupplier ambientTempSupplier, @Nullable IContentsListener listener) {
+                                                    @Nullable DoubleSupplier ambientTempSupplier, @Nullable IContentsListener listener) {
         return new ExtraVariableHeatCapacitor(heatCapacity, conductionCoefficient, insulationCoefficient, ambientTempSupplier, listener);
     }
 
@@ -36,7 +37,7 @@ public class ExtraVariableHeatCapacitor extends BasicHeatCapacitor {
     }
 
     protected ExtraVariableHeatCapacitor(double heatCapacity, double conductionCoefficient, double insulationCoefficient,
-                                    @Nullable DoubleSupplier ambientTempSupplier, @Nullable IContentsListener listener) {
+                                         @Nullable DoubleSupplier ambientTempSupplier, @Nullable IContentsListener listener) {
         super(heatCapacity, conductionCoefficient, insulationCoefficient, ambientTempSupplier, listener);
         this.conductionCoefficientSupplier = conductionCoefficient;
         this.insulationCoefficientSupplier = insulationCoefficient;

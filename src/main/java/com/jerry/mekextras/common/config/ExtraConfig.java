@@ -1,7 +1,9 @@
 package com.jerry.mekextras.common.config;
 
 import com.jerry.mekextras.MekanismExtras;
+
 import mekanism.common.config.IMekanismConfig;
+
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.config.IConfigSpec;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -13,9 +15,7 @@ import java.util.Map;
 
 public class ExtraConfig {
 
-    private ExtraConfig() {
-
-    }
+    private ExtraConfig() {}
 
     private static final Map<IConfigSpec, IMekanismConfig> KNOWN_CONFIGS = new HashMap<>();
     public static final ExtraTierConfig extraTierConfig = new ExtraTierConfig();

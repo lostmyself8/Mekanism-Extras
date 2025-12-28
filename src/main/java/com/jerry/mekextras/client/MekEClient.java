@@ -2,6 +2,7 @@ package com.jerry.mekextras.client;
 
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.ExtraLang;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;

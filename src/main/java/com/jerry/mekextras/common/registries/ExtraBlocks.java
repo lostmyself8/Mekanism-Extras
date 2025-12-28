@@ -1,12 +1,11 @@
 package com.jerry.mekextras.common.registries;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.tier.IAdvancedTier;
 import com.jerry.mekextras.common.attachments.containers.chemical.ExtraComponentBackedChemicalTankTank;
 import com.jerry.mekextras.common.attachments.containers.fluid.ExtraComponentBackedFluidTankFluidTank;
 import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
+import com.jerry.mekextras.common.block.BlockExtraEnergyCube;
 import com.jerry.mekextras.common.block.BlockLargeCapRadioactiveWasteBarrel;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.basic.BlockExtraBin;
@@ -16,31 +15,30 @@ import com.jerry.mekextras.common.block.prefab.BlockExtraFactoryMachine.BlockExt
 import com.jerry.mekextras.common.content.blocktype.ExtraFactory;
 import com.jerry.mekextras.common.item.block.*;
 import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFactory;
+import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFluidTank;
+import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraLogisticalTransporter;
+import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraMechanicalPipe;
+import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraPressurizedTube;
+import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraThermodynamicConductor;
+import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraUniversalCable;
 import com.jerry.mekextras.common.resource.BlockExtraResourceInfo;
 import com.jerry.mekextras.common.resource.ExtraResource;
 import com.jerry.mekextras.common.resource.ore.ExtraOreType;
 import com.jerry.mekextras.common.tier.*;
 import com.jerry.mekextras.common.tile.*;
-import com.jerry.mekextras.common.block.BlockExtraEnergyCube;
-import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraUniversalCable;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraUniversalCable;
-import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraLogisticalTransporter;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporter;
-import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraMechanicalPipe;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraMechanicalPipe;
-import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraThermodynamicConductor;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraThermodynamicConductor;
-import com.jerry.mekextras.common.item.block.transmitter.ItemBlockExtraPressurizedTube;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraPressurizedTube;
-import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFluidTank;
 import com.jerry.mekextras.common.tile.machine.TileEntityAdvancedElectricPump;
-import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
-import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraMechanicalPipe;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraPressurizedTube;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraThermodynamicConductor;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraUniversalCable;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
-import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
+
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.chemical.ChemicalTanksBuilder;
 import mekanism.common.attachments.containers.fluid.FluidTanksBuilder;
@@ -67,6 +65,7 @@ import mekanism.common.resource.ore.OreType;
 import mekanism.common.tile.machine.TileEntityMetallurgicInfuser;
 import mekanism.common.tile.prefab.TileEntityAdvancedElectricMachine;
 import mekanism.common.util.EnumUtils;
+
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -75,6 +74,10 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -208,19 +211,16 @@ public class ExtraBlocks {
     public static final BlockRegistryObject<BlockLargeCapRadioactiveWasteBarrel, ItemBlockLargeCapRadioactiveWasteBarrel> COSMIC_RADIOACTIVE_WASTE_BARREL = registryWasteBarrel(ExtraBlockTypes.COSMIC_RADIOACTIVE_WASTE_BARREL);
     public static final BlockRegistryObject<BlockLargeCapRadioactiveWasteBarrel, ItemBlockLargeCapRadioactiveWasteBarrel> INFINITE_RADIOACTIVE_WASTE_BARREL = registryWasteBarrel(ExtraBlockTypes.INFINITE_RADIOACTIVE_WASTE_BARREL);
 
-    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>>> ADVANCED_ELECTRIC_PUMP =
-            EXTRA_BLOCKS.register("advanced_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockTypes.ADVANCED_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockTooltip::new)
-                    .forItemHolder(holder -> holder
-                            .addAttachmentOnlyContainers(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
-                                    .addBasic(TileEntityAdvancedElectricPump.MAX_FLUID)
-                                    .build()
-                            ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
-                                    .addFluidDrainSlot(0)
-                                    .addOutput()
-                                    .addEnergy()
-                                    .build()
-                            )
-                    );
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>>> ADVANCED_ELECTRIC_PUMP = EXTRA_BLOCKS.register("advanced_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockTypes.ADVANCED_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockTooltip::new)
+            .forItemHolder(holder -> holder
+                    .addAttachmentOnlyContainers(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
+                            .addBasic(TileEntityAdvancedElectricPump.MAX_FLUID)
+                            .build())
+                    .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                            .addFluidDrainSlot(0)
+                            .addOutput()
+                            .addEnergy()
+                            .build()));
 
     private static BlockRegistryObject<BlockExtraResource, ItemBlockMekanism<BlockExtraResource>> registerResourceBlock(BlockExtraResourceInfo resource) {
         return EXTRA_BLOCKS.register("block_" + resource.getRegistrySuffix(), () -> new BlockExtraResource(resource), (block, properties) -> {
@@ -236,7 +236,8 @@ public class ExtraBlocks {
         BlockRegistryObject<BlockOre, ItemBlockTooltip<BlockOre>> stoneOre = registerBlock(name, () -> new BlockOre(ore));
         BlockRegistryObject<BlockOre, ItemBlockTooltip<BlockOre>> endOre = EXTRA_BLOCKS.register("end_" + name,
                 () -> new BlockOre(ore, BlockBehaviour.Properties.ofLegacyCopy(stoneOre.value()).mapColor(MapColor.SAND)
-                        .strength(3.0F, 9.0F).sound(SoundType.STONE)), ItemBlockTooltip::new);
+                        .strength(3.0F, 9.0F).sound(SoundType.STONE)),
+                ItemBlockTooltip::new);
         return new OreBlockType(stoneOre, endOre);
     }
 
@@ -245,8 +246,7 @@ public class ExtraBlocks {
         return registerTieredBlock(tier, "_bin", color -> new BlockExtraBin(type, properties -> properties.mapColor(color)), ItemBlockExtraBin::new)
                 .forItemHolder(holder -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                         .addSlot(ExtraComponentBackedBinInventorySlot::create)
-                        .build()
-                ));
+                        .build()));
     }
 
     private static BlockRegistryObject<BlockTile<TileEntityExtraInductionCell, BlockTypeTile<TileEntityExtraInductionCell>>, ItemBlockExtraInductionCell> registerInductionCell(BlockTypeTile<TileEntityExtraInductionCell> type) {
@@ -265,8 +265,7 @@ public class ExtraBlocks {
                 .forItemHolder(holder -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                         .addEnergy()
                         .addDrainEnergy()
-                        .build()
-                ));
+                        .build()));
     }
 
     private static BlockRegistryObject<BlockExtraFluidTank, ItemBlockExtraFluidTank> registerFluidTank(Machine<TileEntityExtraFluidTank> type) {
@@ -275,57 +274,53 @@ public class ExtraBlocks {
                 .forItemHolder(holder -> holder
                         .addAttachedContainerCapabilities(ContainerType.FLUID, () -> FluidTanksBuilder.builder()
                                 .addTank(ExtraComponentBackedFluidTankFluidTank::create)
-                                .build()
-                        ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .build())
+                        .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addFluidInputSlot(0)
                                 .addOutput()
-                                .build()
-                        )
-                );
+                                .build()));
     }
 
     private static BlockRegistryObject<BlockSmallTransmitter<TileEntityExtraUniversalCable>, ItemBlockExtraUniversalCable> registerUniversalCable(
-            String nameTier, BlockTypeTile<TileEntityExtraUniversalCable> type) {
+                                                                                                                                                  String nameTier, BlockTypeTile<TileEntityExtraUniversalCable> type) {
         return registerTieredBlock(nameTier + "_universal_cable", () -> new BlockSmallTransmitter<>(type), ItemBlockExtraUniversalCable::new);
     }
 
     private static BlockRegistryObject<BlockLargeTransmitter<TileEntityExtraMechanicalPipe>, ItemBlockExtraMechanicalPipe> registerMechanicalPipe(
-            String nameTier, BlockTypeTile<TileEntityExtraMechanicalPipe> type) {
+                                                                                                                                                  String nameTier, BlockTypeTile<TileEntityExtraMechanicalPipe> type) {
         return registerTieredBlock(nameTier + "_mechanical_pipe", () -> new BlockLargeTransmitter<>(type), ItemBlockExtraMechanicalPipe::new);
     }
 
     private static BlockRegistryObject<BlockSmallTransmitter<TileEntityExtraPressurizedTube>, ItemBlockExtraPressurizedTube> registerPressurizedTube(
-            String nameTier, BlockTypeTile<TileEntityExtraPressurizedTube> type) {
+                                                                                                                                                     String nameTier, BlockTypeTile<TileEntityExtraPressurizedTube> type) {
         return registerTieredBlock(nameTier + "_pressurized_tube", () -> new BlockSmallTransmitter<>(type), ItemBlockExtraPressurizedTube::new);
     }
 
     private static BlockRegistryObject<BlockLargeTransmitter<TileEntityExtraLogisticalTransporter>, ItemBlockExtraLogisticalTransporter> registerLogisticalTransporter(
-            String nameTier, BlockTypeTile<TileEntityExtraLogisticalTransporter> type) {
+                                                                                                                                                                       String nameTier, BlockTypeTile<TileEntityExtraLogisticalTransporter> type) {
         return registerTieredBlock(nameTier + "_logistical_transporter", () -> new BlockLargeTransmitter<>(type), ItemBlockExtraLogisticalTransporter::new);
     }
 
     private static BlockRegistryObject<BlockSmallTransmitter<TileEntityExtraThermodynamicConductor>, ItemBlockExtraThermodynamicConductor> registerThermodynamicConductor(
-            String nameTier, BlockTypeTile<TileEntityExtraThermodynamicConductor> type) {
+                                                                                                                                                                          String nameTier, BlockTypeTile<TileEntityExtraThermodynamicConductor> type) {
         return registerTieredBlock(nameTier + "_thermodynamic_conductor", () -> new BlockSmallTransmitter<>(type), ItemBlockExtraThermodynamicConductor::new);
     }
 
     private static BlockRegistryObject<BlockTile.BlockTileModel<TileEntityExtraChemicalTank, Machine<TileEntityExtraChemicalTank>>, ItemBlockExtraChemicalTank> registerChemicalTank(
-            Machine<TileEntityExtraChemicalTank> type) {
+                                                                                                                                                                                     Machine<TileEntityExtraChemicalTank> type) {
         CTTier tier = (CTTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(tier, "_chemical_tank", color -> new BlockTile.BlockTileModel<>(type, properties -> properties.mapColor(color)), ItemBlockExtraChemicalTank::new)
                 .forItemHolder(holder -> holder
                         .addAttachedContainerCapabilities(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                                .addTank(ExtraComponentBackedChemicalTankTank::create).build()
-                        ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .addTank(ExtraComponentBackedChemicalTankTank::create).build())
+                        .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addChemicalDrainSlot(0)
                                 .addChemicalFillSlot(0)
-                                .build()
-                        )
-                );
+                                .build()));
     }
 
     private static BlockRegistryObject<BlockLargeCapRadioactiveWasteBarrel, ItemBlockLargeCapRadioactiveWasteBarrel> registryWasteBarrel(
-            BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel> type) {
+                                                                                                                                         BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel> type) {
         RWBTier tier = (RWBTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         return registerTieredBlock(tier, "_radioactive_waste_barrel", () -> new BlockLargeCapRadioactiveWasteBarrel(type), ItemBlockLargeCapRadioactiveWasteBarrel::new);
     }
@@ -347,50 +342,42 @@ public class ExtraBlocks {
                 case SAWING -> s -> MekanismRecipeType.SAWING.getInputCache().containsInput(null, s);
             };
             switch (type.getFactoryType()) {
-                case SMELTING, ENRICHING, CRUSHING ->
-                        holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
-                                .addBasicFactorySlots(processes, recipeInputPredicate)
-                                .addEnergy()
-                                .build()
-                        );
+                case SMELTING, ENRICHING, CRUSHING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                        .addBasicFactorySlots(processes, recipeInputPredicate)
+                        .addEnergy()
+                        .build());
                 case COMPRESSING, INJECTING, PURIFYING -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
                                 .addBasic(TileEntityAdvancedElectricMachine.MAX_GAS * processes * processes, switch (type.getFactoryType()) {
                                     case COMPRESSING -> MekanismRecipeType.COMPRESSING;
                                     case INJECTING -> MekanismRecipeType.INJECTING;
                                     case PURIFYING -> MekanismRecipeType.PURIFYING;
-                                    default ->
-                                            throw new IllegalStateException("Factory type doesn't have a known gas recipe");
+                                    default -> throw new IllegalStateException("Factory type doesn't have a known gas recipe");
                                 }, InputRecipeCache.ItemChemical::containsInputB)
-                                .build()
-                        ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .build())
+                        .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeInputPredicate)
                                 .addChemicalFillOrConvertSlot(0)
                                 .addEnergy()
-                                .build()
-                        );
-                case COMBINING ->
-                        holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
-                                .addBasicFactorySlots(processes, recipeInputPredicate)
-                                .addInput(MekanismRecipeType.COMBINING, InputRecipeCache.DoubleItem::containsInputB)
-                                .addEnergy()
-                                .build()
-                        );
+                                .build());
+                case COMBINING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                        .addBasicFactorySlots(processes, recipeInputPredicate)
+                        .addInput(MekanismRecipeType.COMBINING, InputRecipeCache.DoubleItem::containsInputB)
+                        .addEnergy()
+                        .build());
                 case INFUSING -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
                                 .addBasic(TileEntityMetallurgicInfuser.MAX_INFUSE * processes * processes, MekanismRecipeType.METALLURGIC_INFUSING, InputRecipeCache.ItemChemical::containsInputB)
-                                .build()
-                        ).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                                .build())
+                        .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeInputPredicate)
                                 .addInfusionFillOrConvertSlot(0)
                                 .addEnergy()
-                                .build()
-                        );
+                                .build());
                 case SAWING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                         .addBasicFactorySlots(processes, recipeInputPredicate, true)
                         .addEnergy()
-                        .build()
-                );
+                        .build());
             }
 
         });

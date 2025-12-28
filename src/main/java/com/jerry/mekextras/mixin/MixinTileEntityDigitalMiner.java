@@ -2,6 +2,7 @@ package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.api.mixin.IMixinMachineEnergyContainer;
+
 import mekanism.api.Upgrade;
 import mekanism.common.capabilities.energy.MinerEnergyContainer;
 import mekanism.common.content.miner.MinerFilter;
@@ -11,10 +12,12 @@ import mekanism.common.tile.interfaces.IBoundingBlock;
 import mekanism.common.tile.interfaces.IHasVisualization;
 import mekanism.common.tile.interfaces.ITileFilterHolder;
 import mekanism.common.tile.machine.TileEntityDigitalMiner;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,6 +45,6 @@ public abstract class MixinTileEntityDigitalMiner extends TileEntityMekanism imp
 
     @Inject(method = "recalculateUpgrades", at = @At(value = "HEAD"))
     public void recalculateUpgrades(Upgrade upgrade, CallbackInfo ci) {
-        ((IMixinMachineEnergyContainer)getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
+        ((IMixinMachineEnergyContainer) getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
     }
 }

@@ -2,8 +2,10 @@ package com.jerry.mekextras.common.registries;
 
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.ExtraChemicalConstants;
+
 import mekanism.common.registration.impl.FluidDeferredRegister;
 import mekanism.common.registration.impl.FluidRegistryObject;
+
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.neoforged.bus.api.IEventBus;
@@ -11,8 +13,7 @@ import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 
 public class ExtraFluids {
 
-    private ExtraFluids() {
-    }
+    private ExtraFluids() {}
 
     public static final FluidDeferredRegister EXTRA_FLUIDS = new FluidDeferredRegister(MekanismExtras.MOD_ID);
 

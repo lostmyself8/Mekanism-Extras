@@ -2,12 +2,14 @@ package com.jerry.mekextras.common.block.basic;
 
 import com.jerry.mekextras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekextras.common.tile.TileEntityExtraBin;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
@@ -23,11 +25,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.UnaryOperator;
 
 public class BlockExtraBin extends BlockTile<TileEntityExtraBin, BlockTypeTile<TileEntityExtraBin>> {
+
     public BlockExtraBin(BlockTypeTile<TileEntityExtraBin> type, UnaryOperator<Properties> propertiesModifier) {
         super(type, propertiesModifier);
     }
@@ -94,7 +98,8 @@ public class BlockExtraBin extends BlockTile<TileEntityExtraBin, BlockTypeTile<T
                         ItemStack remain = binSlot.insertItem(stack, Action.EXECUTE, AutomationType.MANUAL);
                         player.setItemInHand(hand, remain);
                     }
-                    //Note: We set the add ticks regardless so that we can allow double right-clicking to insert items from the player's inventory
+                    // Note: We set the add ticks regardless so that we can allow double right-clicking to insert items
+                    // from the player's inventory
                     // without requiring them to first be holding the same item
                     bin.addTicks = 5;
                 } else if (bin.addTicks > 0 && !storedStack.isEmpty()) {

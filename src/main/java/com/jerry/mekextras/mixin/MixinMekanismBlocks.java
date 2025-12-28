@@ -2,9 +2,11 @@ package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.resource.ore.ExtraOreType;
+
 import mekanism.common.registries.MekanismBlocks;
 import mekanism.common.resource.ore.OreBlockType;
 import mekanism.common.resource.ore.OreType;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

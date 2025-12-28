@@ -1,10 +1,12 @@
 package com.jerry.genextras.common.config;
 
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
+
 import mekanism.common.config.BaseMekanismConfig;
 import mekanism.common.config.value.CachedDoubleValue;
 import mekanism.common.config.value.CachedIntValue;
 import mekanism.common.config.value.CachedLongValue;
+
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.fluids.FluidType;

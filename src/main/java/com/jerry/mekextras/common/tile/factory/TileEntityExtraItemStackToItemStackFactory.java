@@ -14,6 +14,7 @@ import mekanism.common.recipe.lookup.ISingleRecipeLookupHandler.ItemRecipeLookup
 import mekanism.common.recipe.lookup.cache.InputRecipeCache.SingleItem;
 import mekanism.common.upgrade.MachineUpgradeData;
 import mekanism.common.util.InventoryUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -22,24 +23,23 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.TriPredicate;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
 
-//Smelting, enriching, crushing
+// Smelting, enriching, crushing
 public class TileEntityExtraItemStackToItemStackFactory extends TileEntityExtraItemToItemFactory<ItemStackToItemStackRecipe> implements
-        ItemRecipeLookupHandler<ItemStackToItemStackRecipe> {
+                                                        ItemRecipeLookupHandler<ItemStackToItemStackRecipe> {
 
-    private static final TriPredicate<ItemStackToItemStackRecipe, ItemStack, ItemStack> OUTPUT_CHECK =
-            (recipe, input, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input), output);
+    private static final TriPredicate<ItemStackToItemStackRecipe, ItemStack, ItemStack> OUTPUT_CHECK = (recipe, input, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
             RecipeError.NOT_ENOUGH_INPUT,
             RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
-    );
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(RecipeError.NOT_ENOUGH_ENERGY);
 
     public TileEntityExtraItemStackToItemStackFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
@@ -48,7 +48,7 @@ public class TileEntityExtraItemStackToItemStackFactory extends TileEntityExtraI
 
     @Override
     public boolean isItemValidForSlot(@NotNull ItemStack stack) {
-        //contains recipe in general already validated by isValidInputItem
+        // contains recipe in general already validated by isValidInputItem
         return true;
     }
 
@@ -79,7 +79,7 @@ public class TileEntityExtraItemStackToItemStackFactory extends TileEntityExtraI
         return switch (type) {
             case ENRICHING -> MekanismRecipeType.ENRICHING;
             case CRUSHING -> MekanismRecipeType.CRUSHING;
-            //TODO: Make it so that it throws an error if it is not one of the three types
+            // TODO: Make it so that it throws an error if it is not one of the three types
             default -> MekanismRecipeType.SMELTING;
         };
     }
@@ -89,7 +89,7 @@ public class TileEntityExtraItemStackToItemStackFactory extends TileEntityExtraI
         return switch (type) {
             case ENRICHING -> RecipeViewerRecipeType.ENRICHING;
             case CRUSHING -> RecipeViewerRecipeType.CRUSHING;
-            //TODO: Make it so that it throws an error if it is not one of the three types
+            // TODO: Make it so that it throws an error if it is not one of the three types
             default -> RecipeViewerRecipeType.SMELTING;
         };
     }

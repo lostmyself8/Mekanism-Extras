@@ -8,8 +8,7 @@ import mekanism.common.integration.computer.MethodData;
 import mekanism.common.integration.computer.annotation.MethodFactory;
 
 @MethodFactory(
-        target = TileEntityExtraPressurizedTube.class
-)
+               target = TileEntityExtraPressurizedTube.class)
 public class TileEntityExtraPressurizedTube$ComputerHandler extends ComputerMethodFactory<TileEntityExtraPressurizedTube> {
 
     public TileEntityExtraPressurizedTube$ComputerHandler() {
@@ -20,17 +19,17 @@ public class TileEntityExtraPressurizedTube$ComputerHandler extends ComputerMeth
     }
 
     public static Object getBuffer_0(TileEntityExtraPressurizedTube subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                        throws ComputerException {
         return helper.convert(subject.getBuffer());
     }
 
     public static Object getCapacity_0(TileEntityExtraPressurizedTube subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                          throws ComputerException {
         return helper.convert(subject.getCapacity());
     }
 
     public static Object getNeeded_0(TileEntityExtraPressurizedTube subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                        throws ComputerException {
         return helper.convert(subject.getNeeded());
     }
 

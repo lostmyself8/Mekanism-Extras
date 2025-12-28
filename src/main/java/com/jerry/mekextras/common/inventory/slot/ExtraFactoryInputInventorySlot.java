@@ -1,11 +1,14 @@
 package com.jerry.mekextras.common.inventory.slot;
 
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.common.inventory.slot.InputInventorySlot;
+
 import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;

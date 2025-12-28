@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.block;
 
 import com.jerry.mekextras.common.tile.TileEntityExtraEnergyCube;
+
 import mekanism.api.RelativeSide;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.prefab.BlockTile;
@@ -10,20 +11,22 @@ import mekanism.common.tile.component.config.ConfigInfo;
 import mekanism.common.tile.component.config.slot.ISlotInfo;
 import mekanism.common.util.VoxelShapeUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
 import org.jetbrains.annotations.NotNull;
 
 public class BlockExtraEnergyCube extends BlockTile.BlockTileModel<TileEntityExtraEnergyCube, Machine<TileEntityExtraEnergyCube>> {
+
     private static final VoxelShape[] bounds = new VoxelShape[256];
 
     static {
@@ -40,42 +43,42 @@ public class BlockExtraEnergyCube extends BlockTile.BlockTileModel<TileEntityExt
                 box(13, 3, 0, 16, 13, 3),
                 box(13, 3, 13, 16, 13, 16),
                 box(13, 13, 3, 16, 16, 13),
-                box(12.5, 15, 7.5, 13.5, 15.9, 8.5),//ledTop1
-                box(2.5, 15, 7.5, 3.5, 15.9, 8.5),//ledTop2
-                box(12.5, 7.5, 0.1, 13.5, 8.5, 1),//ledBack1
-                box(2.5, 7.5, 0.1, 3.5, 8.5, 1),//ledBack2
-                box(2.5, 0.1, 7.5, 3.5, 1, 8.5),//ledBottom2
-                box(12.5, 0.1, 7.5, 13.5, 1, 8.5),//ledBottom1
-                box(12.5, 7.5, 15, 13.5, 8.5, 15.9),//ledFront1
-                box(2.5, 7.5, 15, 3.5, 8.5, 15.9),//ledFront2
-                box(0.1, 7.5, 2.5, 1, 8.5, 3.5),//ledRight2
-                box(0.1, 7.5, 12.5, 1, 8.5, 13.5),//ledRight1
-                box(15, 7.5, 2.5, 15.9, 8.5, 3.5),//ledLeft1
-                box(15, 7.5, 12.5, 15.9, 8.5, 13.5)//ledLeft2
+                box(12.5, 15, 7.5, 13.5, 15.9, 8.5),// ledTop1
+                box(2.5, 15, 7.5, 3.5, 15.9, 8.5),// ledTop2
+                box(12.5, 7.5, 0.1, 13.5, 8.5, 1),// ledBack1
+                box(2.5, 7.5, 0.1, 3.5, 8.5, 1),// ledBack2
+                box(2.5, 0.1, 7.5, 3.5, 1, 8.5),// ledBottom2
+                box(12.5, 0.1, 7.5, 13.5, 1, 8.5),// ledBottom1
+                box(12.5, 7.5, 15, 13.5, 8.5, 15.9),// ledFront1
+                box(2.5, 7.5, 15, 3.5, 8.5, 15.9),// ledFront2
+                box(0.1, 7.5, 2.5, 1, 8.5, 3.5),// ledRight2
+                box(0.1, 7.5, 12.5, 1, 8.5, 13.5),// ledRight1
+                box(15, 7.5, 2.5, 15.9, 8.5, 3.5),// ledLeft1
+                box(15, 7.5, 12.5, 15.9, 8.5, 13.5)// ledLeft2
         );
         VoxelShape frontPanel = VoxelShapeUtils.combine(
-                box(3, 5, 14, 13, 11, 15),//connectorFrontToggle
-                box(4, 4, 15, 12, 12, 16)//portFrontToggle
+                box(3, 5, 14, 13, 11, 15),// connectorFrontToggle
+                box(4, 4, 15, 12, 12, 16)// portFrontToggle
         );
         VoxelShape rightPanel = VoxelShapeUtils.combine(
-                box(1, 5, 3, 2, 11, 13),//connectorRightToggle
-                box(0, 4, 4, 1, 12, 12)//portRightToggle
+                box(1, 5, 3, 2, 11, 13),// connectorRightToggle
+                box(0, 4, 4, 1, 12, 12)// portRightToggle
         );
         VoxelShape leftPanel = VoxelShapeUtils.combine(
-                box(14, 5, 3, 15, 11, 13),//connectorLeftToggle
-                box(15, 4, 4, 16, 12, 12)//portLeftToggle
+                box(14, 5, 3, 15, 11, 13),// connectorLeftToggle
+                box(15, 4, 4, 16, 12, 12)// portLeftToggle
         );
         VoxelShape backPanel = VoxelShapeUtils.combine(
-                box(3, 5, 1, 13, 11, 2),//connectorBackToggle
-                box(4, 4, 0, 12, 12, 1)//portBackToggle
+                box(3, 5, 1, 13, 11, 2),// connectorBackToggle
+                box(4, 4, 0, 12, 12, 1)// portBackToggle
         );
         VoxelShape topPanel = VoxelShapeUtils.combine(
-                box(3, 14, 5, 13, 15, 11),//connectorTopToggle
-                box(4, 15, 4, 12, 16, 12)//portTopToggle
+                box(3, 14, 5, 13, 15, 11),// connectorTopToggle
+                box(4, 15, 4, 12, 16, 12)// portTopToggle
         );
         VoxelShape bottomPanel = VoxelShapeUtils.combine(
-                box(3, 1, 5, 13, 2, 11),//connectorBottomToggle
-                box(4, 0, 4, 12, 1, 12)//portBottomToggle
+                box(3, 1, 5, 13, 2, 11),// connectorBottomToggle
+                box(4, 0, 4, 12, 1, 12)// portBottomToggle
         );
         VoxelShape frameRotated = VoxelShapeUtils.rotate(frame, Rotation.CLOCKWISE_90);
         VoxelShape topRotated = VoxelShapeUtils.rotate(topPanel, Rotation.CLOCKWISE_90);
@@ -84,7 +87,7 @@ public class BlockExtraEnergyCube extends BlockTile.BlockTileModel<TileEntityExt
         VoxelShape rightRotated = VoxelShapeUtils.rotate(rightPanel, Direction.NORTH);
         VoxelShape leftRotated = VoxelShapeUtils.rotate(leftPanel, Direction.NORTH);
         for (int rotated = 0; rotated < 3; rotated++) {
-            //If we don't need to rotate anything, this is zero
+            // If we don't need to rotate anything, this is zero
             // If we need to rotate the top and bottom frames, this is one
             // If we need to rotate the left and right frames, this is two
             boolean rotateVertical = rotated == 1;
@@ -119,7 +122,6 @@ public class BlockExtraEnergyCube extends BlockTile.BlockTileModel<TileEntityExt
         return ((((((top | bottom << 1) | front << 2) | back << 3) | left << 4) | right << 5) | (rotateVertical ? 1 : 0) << 6) | (rotateHorizontal ? 1 : 0) << 7;
     }
 
-
     public BlockExtraEnergyCube(Machine<TileEntityExtraEnergyCube> type) {
         super(type, Properties.of().strength(2, 2.4F).requiresCorrectToolForDrops().dynamicShape().mapColor(MapColor.DEEPSLATE));
     }
@@ -137,25 +139,24 @@ public class BlockExtraEnergyCube extends BlockTile.BlockTileModel<TileEntityExt
         TileEntityExtraEnergyCube energyCube = WorldUtils.getTileEntity(TileEntityExtraEnergyCube.class, world, pos);
         int index;
         if (energyCube == null) {
-            //Default to facing north all enabled
+            // Default to facing north all enabled
             index = getIndex(1, 1, 1, 1, 1, 1, false, false);
         } else {
             ConfigInfo energyConfig = energyCube.configComponent.getConfig(TransmissionType.ENERGY);
             if (energyConfig == null) {
-                //Default to facing north all enabled
+                // Default to facing north all enabled
                 index = getIndex(1, 1, 1, 1, 1, 1, false, false);
             } else {
                 Direction facing = Attribute.getFacing(state);
                 index = getIndex(
-                        isSideEnabled(energyConfig, facing, Direction.UP),//top
-                        isSideEnabled(energyConfig, facing, Direction.DOWN),//bottom
-                        isSideEnabled(energyConfig, facing, Direction.SOUTH),//front
-                        isSideEnabled(energyConfig, facing, Direction.NORTH),//back
-                        isSideEnabled(energyConfig, facing, Direction.EAST),//left
-                        isSideEnabled(energyConfig, facing, Direction.WEST),//right
+                        isSideEnabled(energyConfig, facing, Direction.UP),// top
+                        isSideEnabled(energyConfig, facing, Direction.DOWN),// bottom
+                        isSideEnabled(energyConfig, facing, Direction.SOUTH),// front
+                        isSideEnabled(energyConfig, facing, Direction.NORTH),// back
+                        isSideEnabled(energyConfig, facing, Direction.EAST),// left
+                        isSideEnabled(energyConfig, facing, Direction.WEST),// right
                         facing == Direction.EAST || facing == Direction.WEST,
-                        facing == Direction.DOWN || facing == Direction.UP
-                );
+                        facing == Direction.DOWN || facing == Direction.UP);
             }
         }
         return bounds[index];

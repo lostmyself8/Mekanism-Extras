@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.tile.factory;
 import com.jerry.mekextras.api.recipes.cache.StackableItemStackConstantChemicalToObjectCachedRecipe;
 import com.jerry.mekextras.api.recipes.cache.StackableItemStackConstantChemicalToObjectCachedRecipe.StackableChemicalUsageMultiplier;
 import com.jerry.mekextras.common.inventory.slot.chemical.ExtraFactoryChemicalInventorySlot;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.SerializationConstants;
@@ -49,6 +50,7 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.InventoryUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.StatUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -57,6 +59,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,29 +67,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-//Compressing, injecting, purifying, infusing
+// Compressing, injecting, purifying, infusing
 public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEntityExtraItemToItemFactory<ItemStackChemicalToItemStackRecipe> implements IHasDumpButton,
-        ItemChemicalRecipeLookupHandler<ItemStackChemicalToItemStackRecipe>, ConstantUsageRecipeLookupHandler {
+                                                                ItemChemicalRecipeLookupHandler<ItemStackChemicalToItemStackRecipe>, ConstantUsageRecipeLookupHandler {
 
-    protected static final CheckRecipeType<ItemStack, ChemicalStack, ItemStackChemicalToItemStackRecipe, ItemStack> OUTPUT_CHECK =
-            (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
+    protected static final CheckRecipeType<ItemStack, ChemicalStack, ItemStackChemicalToItemStackRecipe, ItemStack> OUTPUT_CHECK = (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
             RecipeError.NOT_ENOUGH_INPUT,
             RecipeError.NOT_ENOUGH_SECONDARY_INPUT,
             RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
-    );
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(
             RecipeError.NOT_ENOUGH_ENERGY,
-            RecipeError.NOT_ENOUGH_SECONDARY_INPUT
-    );
+            RecipeError.NOT_ENOUGH_SECONDARY_INPUT);
 
     private final ILongInputHandler<@NotNull ChemicalStack> chemicalInputHandler;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChemicalItem", docPlaceholder = "chemical item (extra) slot")
     ExtraFactoryChemicalInventorySlot extraSlot;
-    @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = {"getChemical", "getChemicalCapacity", "getChemicalNeeded",
-            "getChemicalFilledPercentage"}, docPlaceholder = "chemical tank")
+    @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class,
+                            methodNames = { "getChemical", "getChemicalCapacity", "getChemicalNeeded",
+                                    "getChemicalFilledPercentage" },
+                            docPlaceholder = "chemical tank")
     IChemicalTank chemicalTank;
     private final StackableChemicalUsageMultiplier chemicalUsageMultiplier;
     private final long[] usedSoFar;
@@ -104,12 +106,12 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
         baseTotalUsage = BASE_TICKS_REQUIRED;
         usedSoFar = new long[tier.processes];
         if (useStatisticalMechanics()) {
-            //Note: Statistical mechanics works best by just using the mean gas usage we want to target
+            // Note: Statistical mechanics works best by just using the mean gas usage we want to target
             // rather than adjusting the mean each time to try and reach a given target
             chemicalUsageMultiplier = (usedSoFar, operatingTicks, operationsSoFar) -> StatUtils.inversePoisson(chemicalPerTickMeanMultiplier);
         } else {
-            //插入创造升级后getTicksRequired变为0，导致chemicalUsageMultiplier为0，也就意味着不消耗化学品。
-            //因此处理化学品消耗时按1计算，而工作时间依旧为0
+            // 插入创造升级后getTicksRequired变为0，导致chemicalUsageMultiplier为0，也就意味着不消耗化学品。
+            // 因此处理化学品消耗时按1计算，而工作时间依旧为0
             chemicalUsageMultiplier = StackableChemicalUsageMultiplier.constantUse(() -> baseTotalUsage, this::getChemicalTicksRequired);
         }
     }
@@ -118,8 +120,10 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
     @Override
     public IChemicalTankHolder getInitialChemicalTanks(IContentsListener listener) {
         ChemicalTankHelper builder = ChemicalTankHelper.forSideWithConfig(this);
-        //If the tank's contents change make sure to call our extended content listener that also marks sorting as being needed
-        // as maybe the valid recipes have changed, and we need to sort again and have all recipes know they may need to be rechecked
+        // If the tank's contents change make sure to call our extended content listener that also marks sorting as
+        // being needed
+        // as maybe the valid recipes have changed, and we need to sort again and have all recipes know they may need to
+        // be rechecked
         // if they are not still valid
         long capacity = Attribute.getOrThrow(getBlockHolder(), AttributeFactoryType.class).getFactoryType() == FactoryType.INFUSING ? TileEntityMetallurgicInfuser.MAX_INFUSE : TileEntityAdvancedElectricMachine.MAX_GAS;
         if (allowExtractingChemical()) {
@@ -134,7 +138,7 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
     @Override
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addSlots(builder, listener, updateSortingListener);
-        //Note: We care about the gas tank not the slot when it comes to recipes and updating sorting
+        // Note: We care about the gas tank not the slot when it comes to recipes and updating sorting
         builder.addSlot(extraSlot = ExtraFactoryChemicalInventorySlot.fillOrConverts(this, chemicalTank, this::getLevel, listener, 7, 57));
     }
 
@@ -175,7 +179,7 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
     @Override
     protected ItemStackChemicalToItemStackRecipe findRecipe(int process, @NotNull ItemStack fallbackInput, @NotNull IInventorySlot outputSlot,
                                                             @Nullable IInventorySlot secondaryOutputSlot) {
-        //TODO: Give it something that is not empty when we don't have a stored gas stack for getting the output?
+        // TODO: Give it something that is not empty when we don't have a stored gas stack for getting the output?
         return getRecipeType().getInputCache().findTypeBasedRecipe(level, fallbackInput, chemicalTank.getStack(), outputSlot.getStack(), OUTPUT_CHECK);
     }
 
@@ -208,7 +212,8 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
     }
 
     private boolean allowExtractingChemical() {
-        //Note: We can't use type directly as when this is being used for creating the chemical tank the type field hasn't been set yet
+        // Note: We can't use type directly as when this is being used for creating the chemical tank the type field
+        // hasn't been set yet
         FactoryType factoryType = Attribute.getOrThrow(getBlockHolder(), AttributeFactoryType.class).getFactoryType();
         return factoryType == FactoryType.COMPRESSING || factoryType == FactoryType.INFUSING;
     }
@@ -291,9 +296,9 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
     @Override
     public void parseUpgradeData(HolderLookup.Provider provider, @NotNull IUpgradeData upgradeData) {
         if (upgradeData instanceof AdvancedMachineUpgradeData data) {
-            //Generic factory upgrade data handling
+            // Generic factory upgrade data handling
             super.parseUpgradeData(provider, upgradeData);
-            //Copy the contents using NBT so that if it is not actually valid due to a reload we don't crash
+            // Copy the contents using NBT so that if it is not actually valid due to a reload we don't crash
             chemicalTank.deserializeNBT(provider, data.stored.serializeNBT(provider));
             extraSlot.deserializeNBT(provider, data.chemicalSlot.serializeNBT(provider));
             System.arraycopy(data.usedSoFar, 0, usedSoFar, 0, data.usedSoFar.length);
@@ -314,11 +319,11 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
         chemicalTank.setEmpty();
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod(requiresPublicSecurity = true, methodDescription = "Empty the contents of the chemical tank into the environment")
     void dumpChemical() throws ComputerException {
         validateSecurityIsPublic();
         dump();
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

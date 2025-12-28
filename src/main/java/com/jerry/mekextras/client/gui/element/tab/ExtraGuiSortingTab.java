@@ -3,6 +3,7 @@ package com.jerry.mekextras.client.gui.element.tab;
 import com.jerry.mekextras.common.network.to_server.ExtraPacketGuiInteract;
 import com.jerry.mekextras.common.network.to_server.ExtraPacketGuiInteract.ExtraGuiInteraction;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
+
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.IGuiWrapper;
 import mekanism.client.gui.element.GuiInsetElement;
@@ -11,7 +12,9 @@ import mekanism.common.MekanismLang;
 import mekanism.common.network.PacketUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.text.BooleanStateDisplay;
+
 import net.minecraft.client.gui.GuiGraphics;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ExtraGuiSortingTab extends GuiInsetElement<TileEntityExtraFactory<?>> {

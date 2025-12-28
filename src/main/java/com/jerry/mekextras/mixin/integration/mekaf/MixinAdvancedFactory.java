@@ -1,13 +1,15 @@
 package com.jerry.mekextras.mixin.integration.mekaf;
 
-import com.jerry.mekaf.common.content.blocktype.AdvancedFactory;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
-import com.jerry.mekmm.common.content.blocktype.MoreMachineMachine.MoreMachineFactoryMachine;
+
 import mekanism.api.text.ILangEntry;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.tier.FactoryTier;
+
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactory;
+import com.jerry.mekmm.common.content.blocktype.MoreMachineMachine.MoreMachineFactoryMachine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

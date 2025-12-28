@@ -1,7 +1,5 @@
 package com.jerry.mekextras.common.integration.mekmm.registries;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.tier.IAdvancedTier;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
@@ -11,12 +9,7 @@ import com.jerry.mekextras.common.integration.mekmm.item.block.machine.ItemBlock
 import com.jerry.mekextras.common.integration.mekmm.tile.factory.TileEntityExtraMoreMachineFactory;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
-import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
-import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
-import com.jerry.mekmm.common.tile.factory.TileEntityReplicatingFactory;
-import com.jerry.mekmm.common.tile.machine.TileEntityPlantingStation;
-import com.jerry.mekmm.common.tile.machine.TileEntityReplicator;
-import com.jerry.mekmm.common.util.MoreMachineEnumUtils;
+
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.chemical.ChemicalTanksBuilder;
 import mekanism.common.attachments.containers.item.ItemSlotsBuilder;
@@ -24,10 +17,20 @@ import mekanism.common.recipe.MekanismRecipeType;
 import mekanism.common.recipe.lookup.cache.InputRecipeCache;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
+
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
+import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
+import com.jerry.mekmm.common.tile.factory.TileEntityReplicatingFactory;
+import com.jerry.mekmm.common.tile.machine.TileEntityPlantingStation;
+import com.jerry.mekmm.common.tile.machine.TileEntityReplicator;
+import com.jerry.mekmm.common.util.MoreMachineEnumUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

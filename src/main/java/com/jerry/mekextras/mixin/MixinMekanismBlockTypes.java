@@ -2,6 +2,7 @@ package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
+
 import mekanism.api.tier.BaseTier;
 import mekanism.api.tier.ITier;
 import mekanism.common.content.blocktype.BlockType;
@@ -12,6 +13,7 @@ import mekanism.common.tier.BinTier;
 import mekanism.common.tier.ChemicalTankTier;
 import mekanism.common.tier.EnergyCubeTier;
 import mekanism.common.tier.FluidTankTier;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,6 +24,7 @@ import java.util.function.Supplier;
 
 @Mixin(value = MekanismBlockTypes.class, remap = false)
 public abstract class MixinMekanismBlockTypes {
+
     @Inject(method = "createBin", at = @At("RETURN"))
     private static void injectBinUltimateToAbsolute(BinTier tier, Supplier<?> tile, Supplier<?> upgradeBlock, CallbackInfoReturnable<Machine<?>> cir) {
         mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlocks.ABSOLUTE_BIN);

@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.item;
 
 import com.jerry.mekextras.common.tier.ExtraQIODriveTier;
+
 import mekanism.api.text.EnumColor;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.MekanismLang;
@@ -8,15 +9,18 @@ import mekanism.common.attachments.qio.DriveMetadata;
 import mekanism.common.content.qio.IQIODriveItem;
 import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class ExtraItemQIODrive extends Item implements IQIODriveItem {
+
     private final ExtraQIODriveTier tier;
 
     public ExtraItemQIODrive(ExtraQIODriveTier tier, Properties properties) {

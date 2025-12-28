@@ -1,11 +1,13 @@
 package com.jerry.mekextras.common.integration.mekaf.inventory.container.tile;
 
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
-import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraChemicalToChemicalFactory;
 import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedBase;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraChemicalToChemicalFactory;
 import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraLiquifyingFactory;
 import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraPRCFactory;
+
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
+
 import net.minecraft.world.entity.player.Inventory;
 
 public class ExtraAdvancedFactoryContainer extends MekanismTileContainer<TileEntityExtraAdvancedBase<?>> {

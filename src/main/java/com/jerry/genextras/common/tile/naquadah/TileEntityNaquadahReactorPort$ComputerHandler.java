@@ -7,13 +7,12 @@ import mekanism.common.integration.computer.MethodData;
 import mekanism.common.integration.computer.annotation.MethodFactory;
 
 @MethodFactory(
-        target = TileEntityNaquadahReactorPort.class
-)
+               target = TileEntityNaquadahReactorPort.class)
 public class TileEntityNaquadahReactorPort$ComputerHandler extends ComputerMethodFactory<TileEntityNaquadahReactorPort> {
 
-    private final String[] NAMES_output = new String[]{"output"};
+    private final String[] NAMES_output = new String[] { "output" };
 
-    private final Class[] TYPES_3db6c47 = new Class[]{boolean.class};
+    private final Class[] TYPES_3db6c47 = new Class[] { boolean.class };
 
     public TileEntityNaquadahReactorPort$ComputerHandler() {
         register(MethodData.builder("getMode", TileEntityNaquadahReactorPort$ComputerHandler::getMode_0).returnType(boolean.class).methodDescription("true -> output, false -> input"));
@@ -21,12 +20,12 @@ public class TileEntityNaquadahReactorPort$ComputerHandler extends ComputerMetho
     }
 
     public static Object getMode_0(TileEntityNaquadahReactorPort subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                     throws ComputerException {
         return helper.convert(subject.getMode());
     }
 
     public static Object setMode_1(TileEntityNaquadahReactorPort subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                     throws ComputerException {
         subject.setMode(helper.getBoolean(0));
         return helper.voidResult();
     }

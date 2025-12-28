@@ -3,6 +3,7 @@ package com.jerry.genextras.client.gui;
 import com.jerry.genextras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.genextras.common.network.to_server.PacketGenExtraGuiInteract;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
+
 import mekanism.client.gui.element.gauge.GaugeType;
 import mekanism.client.gui.element.gauge.GuiChemicalGauge;
 import mekanism.client.gui.element.progress.GuiProgress;
@@ -12,9 +13,11 @@ import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.network.PacketUtils;
 import mekanism.common.util.text.InputValidator;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 
 public class GuiNaquadahReactorFuel extends GuiNaquadahReactorInfo {
@@ -23,7 +26,6 @@ public class GuiNaquadahReactorFuel extends GuiNaquadahReactorInfo {
 
     public GuiNaquadahReactorFuel(EmptyTileContainer<TileEntityNaquadahReactorController> container, Inventory inv, Component title) {
         super(container, inv, title);
-
     }
 
     @Override

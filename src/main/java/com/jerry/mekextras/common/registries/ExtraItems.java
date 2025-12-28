@@ -1,7 +1,5 @@
 package com.jerry.mekextras.common.registries;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.api.tier.AdvancedTier;
@@ -10,6 +8,7 @@ import com.jerry.mekextras.common.item.*;
 import com.jerry.mekextras.common.resource.ExtraResource;
 import com.jerry.mekextras.common.tier.ExtraQIODriveTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
+
 import mekanism.api.Upgrade;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.item.ItemUpgrade;
@@ -18,17 +17,22 @@ import mekanism.common.registration.impl.ItemRegistryObject;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ResourceType;
 import mekanism.common.util.EnumUtils;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 
 public class ExtraItems {
+
     public static final ItemDeferredRegister EXTRA_ITEMS = new ItemDeferredRegister(MekanismExtras.MOD_ID);
     public static final Table<ResourceType, ExtraResource, ItemRegistryObject<Item>> PROCESSED_RESOURCES = HashBasedTable.create();
 
@@ -85,12 +89,13 @@ public class ExtraItems {
     }
 
     private static ItemRegistryObject<ItemExtraTierInstaller> registerInstaller(@Nullable AdvancedTier fromTier, @NotNull AdvancedTier toTier) {
-        //Ensure the name is lower case as with concatenating with values from enums it may not be
+        // Ensure the name is lower case as with concatenating with values from enums it may not be
         return EXTRA_ITEMS.registerItem(toTier.getLowerName() + "_tier_installer", properties -> new ItemExtraTierInstaller(fromTier, toTier, properties));
     }
 
     private static ItemRegistryObject<Item> registerCircuit(AdvancedTier tier) {
         return EXTRA_ITEMS.registerItem(tier.getLowerName() + "_control_circuit", properties -> new Item(properties) {
+
             @NotNull
             @Override
             public Component getName(@NotNull ItemStack stack) {

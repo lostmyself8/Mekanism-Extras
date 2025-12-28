@@ -1,13 +1,16 @@
 package com.jerry.mekextras.common.resource;
 
 import mekanism.common.resource.IResource;
+
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+
 import org.jetbrains.annotations.Nullable;
 
 public enum BlockExtraResourceInfo implements IResource {
+
     NAQUADAH("naquadah", 7.5F, 12, MapColor.COLOR_GREEN),
     RAW_NAQUADAH("raw_naquadah", 7.5F, 12, MapColor.COLOR_GREEN, NoteBlockInstrument.BASEDRUM);
 
@@ -20,7 +23,7 @@ public enum BlockExtraResourceInfo implements IResource {
     private final float resistance;
     private final float hardness;
     private final int burnTime;
-    //Number between 0 and 15
+    // Number between 0 and 15
     private final int lightValue;
 
     BlockExtraResourceInfo(String registrySuffix, float hardness, float resistance, MapColor mapColor) {

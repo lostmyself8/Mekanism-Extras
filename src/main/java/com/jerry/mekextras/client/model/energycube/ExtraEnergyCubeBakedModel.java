@@ -1,13 +1,12 @@
 package com.jerry.mekextras.client.model.energycube;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.jerry.mekextras.common.tile.TileEntityExtraEnergyCube;
+
 import mekanism.api.RelativeSide;
 import mekanism.client.model.baked.ExtensionBakedModel;
 import mekanism.client.render.lib.QuadTransformation;
 import mekanism.common.util.EnumUtils;
+
 import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -22,6 +21,10 @@ import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.RenderTypeGroup;
 import net.neoforged.neoforge.client.model.IDynamicBakedModel;
 import net.neoforged.neoforge.client.model.data.ModelData;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,11 +32,13 @@ import java.util.*;
 import java.util.function.BiPredicate;
 
 public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
+
     private static final TileEntityExtraEnergyCube.CubeSideState[] INACTIVE = Util.make(new TileEntityExtraEnergyCube.CubeSideState[EnumUtils.DIRECTIONS.length], sideStates -> Arrays.fill(sideStates, TileEntityExtraEnergyCube.CubeSideState.INACTIVE));
     private static final QuadTransformation LED_TRANSFORMS = QuadTransformation.list(QuadTransformation.fullbright, QuadTransformation.uvShift(-0.125F, 0));
     private static final BiPredicate<TileEntityExtraEnergyCube.CubeSideState[], TileEntityExtraEnergyCube.CubeSideState[]> DATA_EQUALITY_CHECK = Arrays::equals;
 
     private final LoadingCache<ExtensionBakedModel.QuadsKey<TileEntityExtraEnergyCube.CubeSideState[]>, List<BakedQuad>> cache = CacheBuilder.newBuilder().build(new CacheLoader<>() {
+
         @NotNull
         @Override
         public List<BakedQuad> load(@NotNull ExtensionBakedModel.QuadsKey<TileEntityExtraEnergyCube.CubeSideState[]> key) {
@@ -57,7 +62,7 @@ public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
     private final ItemTransforms transforms;
 
     ExtraEnergyCubeBakedModel(boolean useAmbientOcclusion, boolean usesBlockLight, boolean isGui3d, ItemTransforms transforms, ItemOverrides overrides,
-                         TextureAtlasSprite particle, ExtraEnergyCubeGeometry.FaceData frame, Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> leds, Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> ports, RenderTypeGroup renderTypes) {
+                              TextureAtlasSprite particle, ExtraEnergyCubeGeometry.FaceData frame, Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> leds, Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> ports, RenderTypeGroup renderTypes) {
         this.isAmbientOcclusion = useAmbientOcclusion;
         this.usesBlockLight = usesBlockLight;
         this.isGui3d = isGui3d;
@@ -69,7 +74,8 @@ public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
         this.ports = ports;
         this.activeLEDs = new EnumMap<>(RelativeSide.class);
         this.activePorts = new EnumMap<>(RelativeSide.class);
-        //Note: We don't bother having any form of lazy transformations take place here as this should only have a memory
+        // Note: We don't bother having any form of lazy transformations take place here as this should only have a
+        // memory
         // impact equivalent to having two models: one with the leds and ports off, and one with all of them active
         for (Map.Entry<RelativeSide, ExtraEnergyCubeGeometry.FaceData> entry : this.leds.entrySet()) {
             activeLEDs.put(entry.getKey(), entry.getValue().transform(LED_TRANSFORMS));
@@ -94,10 +100,11 @@ public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
                                     @Nullable RenderType renderType) {
         TileEntityExtraEnergyCube.CubeSideState[] sideStates = data.get(TileEntityExtraEnergyCube.SIDE_STATE_PROPERTY);
         if (sideStates == null || sideStates.length != EnumUtils.SIDES.length) {
-            //If there is no side data then treat everything as inactive
+            // If there is no side data then treat everything as inactive
             sideStates = INACTIVE;
         }
-        //Note: We intentionally ignore the state and use null here to minimize cache size as it doesn't actually matter
+        // Note: We intentionally ignore the state and use null here to minimize cache size as it doesn't actually
+        // matter
         // or get used for energy cube models
         ExtensionBakedModel.QuadsKey<TileEntityExtraEnergyCube.CubeSideState[]> key = new ExtensionBakedModel.QuadsKey<>(null, side, rand, renderType, frame.getFaces(side));
         key.data(sideStates, Arrays.hashCode(sideStates), DATA_EQUALITY_CHECK);
@@ -107,7 +114,7 @@ public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
     private List<BakedQuad> createQuads(ExtensionBakedModel.QuadsKey<TileEntityExtraEnergyCube.CubeSideState[]> key) {
         Direction side = key.getSide();
         TileEntityExtraEnergyCube.CubeSideState[] data = Objects.requireNonNull(key.getData());
-        //Make the list of quads mutable so that we can add the proper extra portions to it
+        // Make the list of quads mutable so that we can add the proper extra portions to it
         List<BakedQuad> quads = new ArrayList<>(key.getQuads());
         for (int i = 0; i < EnumUtils.SIDES.length; i++) {
             RelativeSide dir = EnumUtils.SIDES[i];

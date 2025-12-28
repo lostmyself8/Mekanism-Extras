@@ -1,24 +1,25 @@
 package com.jerry.mekextras.client.model.energycube;
 
+import mekanism.api.RelativeSide;
+import mekanism.common.util.EnumUtils;
+
+import net.minecraft.client.renderer.block.model.BlockElement;
+import net.minecraft.util.GsonHelper;
+import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import mekanism.api.RelativeSide;
-import mekanism.common.util.EnumUtils;
-import net.minecraft.client.renderer.block.model.BlockElement;
-import net.minecraft.util.GsonHelper;
-import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 public class ExtraEnergyCubeModelLoader implements IGeometryLoader<ExtraEnergyCubeGeometry> {
+
     public static final ExtraEnergyCubeModelLoader INSTANCE = new ExtraEnergyCubeModelLoader();
 
-    private ExtraEnergyCubeModelLoader() {
-
-    }
+    private ExtraEnergyCubeModelLoader() {}
 
     @Override
     public @NotNull ExtraEnergyCubeGeometry read(@NotNull JsonObject jsonObject, @NotNull JsonDeserializationContext ctx) throws JsonParseException {

@@ -1,30 +1,35 @@
 package com.jerry.mekextras.common.content.matrix;
 
+import com.jerry.mekextras.common.tier.IPTier;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
-import com.jerry.mekextras.common.tier.IPTier;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.math.MathUtils;
 import mekanism.common.capabilities.energy.MachineEnergyContainer;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 import java.util.Map;
 import java.util.Set;
 
 @NothingNullByDefault
 public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
+
     private final Map<BlockPos, IPTier> providers = new Object2ObjectOpenHashMap<>();
     private final Map<BlockPos, IEnergyContainer> cells = new Object2ObjectOpenHashMap<>();
     private final Set<BlockPos> invalidPositions = new ObjectOpenHashSet<>();
 
-    //TODO: Eventually we could look into extending long to have a "BigInt" styled implementation that is used by the class
+    // TODO: Eventually we could look into extending long to have a "BigInt" styled implementation that is used by the
+    // class
     // at the very least for keeping track of the cached values and rates
     private long queuedOutput = 0L;
     private long queuedInput = 0L;
@@ -42,7 +47,7 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
     }
 
     public void addCell(BlockPos pos, TileEntityExtraInductionCell cell) {
-        //As we already have the two different variables just pass them instead of accessing world to get tile again
+        // As we already have the two different variables just pass them instead of accessing world to get tile again
         MachineEnergyContainer<TileEntityExtraInductionCell> energyContainer = cell.getEnergyContainer();
         cells.put(pos, energyContainer);
         storageCap = MathUtils.addClamped(storageCap, energyContainer.getMaxEnergy());
@@ -54,19 +59,22 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
         transferCap = MathUtils.addClamped(transferCap, provider.tier.getOutput());
     }
 
-    //TODO: I believe this is needed or at least will be after we eventually rewrite some of the multiblock system
+    // TODO: I believe this is needed or at least will be after we eventually rewrite some of the multiblock system
     // currently I think it may just be rechecking the entire structure when something changes internally
-    // We need to validate that does properly happen even if the cell is floating in the middle and not touching any walls
+    // We need to validate that does properly happen even if the cell is floating in the middle and not touching any
+    // walls
     // We may also want to make cells and providers extend TileEntityInternalMultiblock
     public void removeInternal(BlockPos pos) {
         if (invalidPositions.add(pos)) {
             if (providers.containsKey(pos)) {
-                //It is a provider
+                // It is a provider
                 transferCap -= providers.get(pos).getOutput();
             } else if (cells.containsKey(pos)) {
-                //It is a cell
-                //TODO: Handle this better, as I believe we *technically* could have this cause the cached total to become negative
-                // It may work better if we just flush the buffer writing immediately, and then recalculate the cached totals/caps
+                // It is a cell
+                // TODO: Handle this better, as I believe we *technically* could have this cause the cached total to
+                // become negative
+                // It may work better if we just flush the buffer writing immediately, and then recalculate the cached
+                // totals/caps
                 IEnergyContainer cellContainer = cells.get(pos);
                 storageCap += cellContainer.getMaxEnergy();
                 cachedTotal -= cellContainer.getEnergy();
@@ -75,9 +83,9 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
     }
 
     public void invalidate() {
-        //Force save
+        // Force save
         tick();
-        //And reset everything
+        // And reset everything
         cells.clear();
         providers.clear();
         queuedOutput = 0L;
@@ -98,10 +106,10 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
             invalidPositions.clear();
         }
         if (queuedInput < queuedOutput) {
-            //queuedInput is smaller - we are removing energy
+            // queuedInput is smaller - we are removing energy
             removeEnergy(queuedOutput - queuedInput);
         } else if (queuedInput > queuedOutput) {
-            //queuedInput is larger - we are adding energy
+            // queuedInput is larger - we are adding energy
             addEnergy(queuedInput - queuedOutput);
         }
         lastInput = queuedInput;
@@ -113,12 +121,12 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
     private void addEnergy(long energy) {
         cachedTotal += energy;
         for (IEnergyContainer container : cells.values()) {
-            //Note: inserting into the cell's energy container handles marking the cell for saving if it changes
+            // Note: inserting into the cell's energy container handles marking the cell for saving if it changes
             long remainder = container.insert(energy, Action.EXECUTE, AutomationType.INTERNAL);
             if (remainder < energy) {
-                //Our cell accepted at least some energy
+                // Our cell accepted at least some energy
                 if (remainder == 0L) {
-                    //Check less than equal rather than just equal in case something went wrong
+                    // Check less than equal rather than just equal in case something went wrong
                     // and break if we don't have any energy left to add
                     break;
                 }
@@ -130,12 +138,12 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
     private void removeEnergy(long energy) {
         cachedTotal -= energy;
         for (IEnergyContainer container : cells.values()) {
-            //Note: extracting from the cell's energy container handles marking the cell for saving if it changes
+            // Note: extracting from the cell's energy container handles marking the cell for saving if it changes
             long extracted = container.extract(energy, Action.EXECUTE, AutomationType.INTERNAL);
             if (extracted > 0L) {
                 energy -= extracted;
                 if (energy == 0L) {
-                    //Check less than equal rather than just equal in case something went wrong
+                    // Check less than equal rather than just equal in case something went wrong
                     // and break if we don't need to remove any more energy
                     break;
                 }
@@ -155,7 +163,7 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
 
     @Override
     public void setEnergy(long energy) {
-        //Throws a RuntimeException as specified is allowed when something unexpected happens
+        // Throws a RuntimeException as specified is allowed when something unexpected happens
         // As setEnergy is more meant to be used as an internal method
         throw new RuntimeException("Unexpected call to setEnergy. The matrix energy container does not support directly setting the energy.");
     }
@@ -167,12 +175,12 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
         }
         long toAdd = Math.min(Math.min(amount, getRemainingInput()), getNeeded());
         if (toAdd == 0L) {
-            //Exit if we don't actually have anything to add, either due to how much we need
+            // Exit if we don't actually have anything to add, either due to how much we need
             // or due to the remaining rate limit
             return amount;
         }
         if (action.execute()) {
-            //Increase how much we are inputting
+            // Increase how much we are inputting
             queuedInput += toAdd;
         }
         return amount - toAdd;
@@ -183,13 +191,13 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
         if (isEmpty() || amount <= 0L || !multiblock.isFormed()) {
             return 0L;
         }
-        //We limit it overall by the amount we can extract plus how much energy we have
+        // We limit it overall by the amount we can extract plus how much energy we have
         // as we want to be as accurate as possible with the values we return
         // It is possible that the energy we have stored is a lot less than the amount we
         // can output at once such as if the matrix is almost empty.
         amount = Math.min(Math.min(amount, getRemainingOutput()), getEnergy());
         if (amount > 0L && action.execute()) {
-            //Increase how much we are outputting by the amount we accepted
+            // Increase how much we are outputting by the amount we accepted
             queuedOutput += amount;
         }
         return amount;
@@ -202,19 +210,17 @@ public class ReinforcedMatrixEnergyContainer implements IEnergyContainer {
 
     @Override
     public void onContentsChanged() {
-        //Unused
+        // Unused
     }
 
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        //Note: We don't actually have any specific serialization
+        // Note: We don't actually have any specific serialization
         return new CompoundTag();
     }
 
     @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-
-    }
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {}
 
     private long getRemainingInput() {
         return transferCap - queuedInput;

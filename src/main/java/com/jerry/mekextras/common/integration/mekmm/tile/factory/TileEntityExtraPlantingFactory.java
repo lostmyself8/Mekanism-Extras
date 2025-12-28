@@ -4,12 +4,7 @@ import com.jerry.mekextras.api.recipes.cache.StackableItemStackConstantChemicalT
 import com.jerry.mekextras.api.recipes.cache.StackablePlantingCachedRecipe;
 import com.jerry.mekextras.common.integration.mekmm.inventory.slot.ExtraMoreMachineFactoryInputInventorySlot;
 import com.jerry.mekextras.common.integration.mekmm.inventory.slot.ExtraMoreMachineFactoryOutputInventorySlot;
-import com.jerry.mekmm.api.recipes.PlantingRecipe;
-import com.jerry.mekmm.api.recipes.cache.PlantingNoPerTickUsageCacheRecipe;
-import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
-import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
-import com.jerry.mekmm.common.tile.machine.TileEntityPlantingStation;
-import com.jerry.mekmm.common.upgrade.PlantingUpgradeData;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.SerializationConstants;
@@ -48,6 +43,7 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.InventoryUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.StatUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -56,6 +52,13 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
+import com.jerry.mekmm.api.recipes.PlantingRecipe;
+import com.jerry.mekmm.api.recipes.cache.PlantingNoPerTickUsageCacheRecipe;
+import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
+import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
+import com.jerry.mekmm.common.tile.machine.TileEntityPlantingStation;
+import com.jerry.mekmm.common.upgrade.PlantingUpgradeData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,7 +67,7 @@ import java.util.List;
 import java.util.Set;
 
 public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFactory<PlantingRecipe> implements IBoundingBlock, IHasDumpButton, ConstantUsageRecipeLookupHandler,
-        ItemChemicalRecipeLookupHandler<PlantingRecipe> {
+                                            ItemChemicalRecipeLookupHandler<PlantingRecipe> {
 
     protected static final DoubleInputRecipeCache.CheckRecipeType<ItemStack, ChemicalStack, PlantingRecipe, PackedStack> OUTPUT_CHECK = (recipe, itemStack, chemicalStack, output) -> {
         ChanceOutput chanceOutput = recipe.getOutput(itemStack, chemicalStack);

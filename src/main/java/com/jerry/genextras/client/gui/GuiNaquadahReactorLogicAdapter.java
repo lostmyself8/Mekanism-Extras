@@ -2,6 +2,7 @@ package com.jerry.genextras.client.gui;
 
 import com.jerry.genextras.common.network.to_server.PacketGenExtraGuiInteract;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
+
 import mekanism.api.text.EnumColor;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiElementHolder;
@@ -14,9 +15,11 @@ import mekanism.common.network.to_server.PacketGuiInteract;
 import mekanism.common.util.text.BooleanStateDisplay;
 import mekanism.generators.client.gui.element.button.ReactorLogicButton;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 
 public class GuiNaquadahReactorLogicAdapter extends GuiMekanismTile<TileEntityNaquadahReactorLogicAdapter, EmptyTileContainer<TileEntityNaquadahReactorLogicAdapter>> {

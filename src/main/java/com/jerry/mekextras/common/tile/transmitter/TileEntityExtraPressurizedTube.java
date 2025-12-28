@@ -2,7 +2,8 @@ package com.jerry.mekextras.common.tile.transmitter;
 
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraPressurizedTube;
-import com.mojang.serialization.DataResult;
+import com.jerry.mekextras.common.registries.ExtraBlocks;
+
 import mekanism.api.MekanismAPI;
 import mekanism.api.SerializationConstants;
 import mekanism.api.chemical.Chemical;
@@ -21,8 +22,8 @@ import mekanism.common.content.network.transmitter.PressurizedTube;
 import mekanism.common.integration.computer.IComputerTile;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.lib.transmitter.ConnectionType;
-import com.jerry.mekextras.common.registries.ExtraBlocks;
 import mekanism.common.tile.interfaces.ITileRadioactive;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -32,6 +33,8 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
+import com.mojang.serialization.DataResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,7 +43,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class TileEntityExtraPressurizedTube extends TileEntityExtraTransmitter implements IComputerTile, ITileRadioactive {
+
     private final ChemicalHandlerManager chemicalHandlerManager;
+
     public TileEntityExtraPressurizedTube(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         Predicate<@Nullable Direction> canExtract = getExtractPredicate();
@@ -48,7 +53,8 @@ public class TileEntityExtraPressurizedTube extends TileEntityExtraTransmitter i
         addCapabilityResolver(chemicalHandlerManager = new ChemicalHandlerManager(direction -> {
             ExtraPressurizedTube tube = getTransmitter();
             if (direction != null && (tube.getConnectionTypeRaw(direction) == ConnectionType.NONE) || tube.isRedstoneActivated()) {
-                //If we actually have a side, and our connection type on that side is none, or we are currently activated by redstone,
+                // If we actually have a side, and our connection type on that side is none, or we are currently
+                // activated by redstone,
                 // then return that we have no tanks
                 return Collections.emptyList();
             }
@@ -91,7 +97,8 @@ public class TileEntityExtraPressurizedTube extends TileEntityExtraTransmitter i
     @NotNull
     @Override
     public CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
-        //Note: We add the stored information to the initial update tag and not to the one we sync on side changes which uses getReducedUpdateTag
+        // Note: We add the stored information to the initial update tag and not to the one we sync on side changes
+        // which uses getReducedUpdateTag
         CompoundTag updateTag = super.getUpdateTag(provider);
         if (getTransmitter().hasTransmitterNetwork()) {
             ChemicalNetwork network = getTransmitter().getTransmitterNetwork();
@@ -116,7 +123,7 @@ public class TileEntityExtraPressurizedTube extends TileEntityExtraTransmitter i
                 if (tube.hasTransmitterNetwork()) {
                     ChemicalNetwork network = tube.getTransmitterNetwork();
                     if (!network.lastChemical.is(MekanismAPI.EMPTY_CHEMICAL_KEY) && !network.getChemicalTank().isEmpty() && network.lastChemical.value().isRadioactive()) {
-                        //Note: This may act as full when the network isn't actually full if there is radioactive stuff
+                        // Note: This may act as full when the network isn't actually full if there is radioactive stuff
                         // going through it, but it shouldn't matter too much
                         return network.currentScale;
                     }
@@ -144,11 +151,12 @@ public class TileEntityExtraPressurizedTube extends TileEntityExtraTransmitter i
     public void sideChanged(@NotNull Direction side, @NotNull ConnectionType old, @NotNull ConnectionType type) {
         super.sideChanged(side, old, type);
         if (type == ConnectionType.NONE) {
-            //We no longer have a capability, invalidate it, which will also notify the level
+            // We no longer have a capability, invalidate it, which will also notify the level
             invalidateCapability(Capabilities.CHEMICAL.block(), side);
         } else if (old == ConnectionType.NONE) {
-            //Notify any listeners to our position that we now do have a capability
-            //Note: We don't invalidate our impls because we know they are already invalid, so we can short circuit setting them to null from null
+            // Notify any listeners to our position that we now do have a capability
+            // Note: We don't invalidate our impls because we know they are already invalid, so we can short circuit
+            // setting them to null from null
             invalidateCapabilities();
         }
     }
@@ -157,18 +165,20 @@ public class TileEntityExtraPressurizedTube extends TileEntityExtraTransmitter i
     public void redstoneChanged(boolean powered) {
         super.redstoneChanged(powered);
         if (powered) {
-            //The transmitter now is powered by redstone and previously was not
-            //Note: While at first glance the below invalidation may seem over aggressive, it is not actually that aggressive as
+            // The transmitter now is powered by redstone and previously was not
+            // Note: While at first glance the below invalidation may seem over aggressive, it is not actually that
+            // aggressive as
             // if a cap has not been initialized yet on a side then invalidating it will just NO-OP
             invalidateCapabilityAll(Capabilities.CHEMICAL.block());
         } else {
-            //Notify any listeners to our position that we now do have a capability
-            //Note: We don't invalidate our impls because we know they are already invalid, so we can short circuit setting them to null from null
+            // Notify any listeners to our position that we now do have a capability
+            // Note: We don't invalidate our impls because we know they are already invalid, so we can short circuit
+            // setting them to null from null
             invalidateCapabilities();
         }
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @Override
     public String getComputerName() {
         return getTransmitter().getTier().getBaseTier().getLowerName() + "PressurizedTube";
@@ -194,5 +204,5 @@ public class TileEntityExtraPressurizedTube extends TileEntityExtraTransmitter i
     double getFilledPercentage() {
         return getBuffer().getAmount() / (double) getCapacity();
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

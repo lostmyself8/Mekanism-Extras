@@ -2,17 +2,17 @@ package com.jerry.mekextras.common.registries;
 
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.ExtraChemicalConstants;
+
 import mekanism.api.chemical.Chemical;
 import mekanism.common.registration.impl.ChemicalDeferredRegister;
 import mekanism.common.registration.impl.DeferredChemical;
 import mekanism.common.registration.impl.SlurryRegistryObject;
+
 import net.neoforged.bus.api.IEventBus;
 
 public class ExtraChemicals {
 
-    private ExtraChemicals() {
-
-    }
+    private ExtraChemicals() {}
 
     public static final ChemicalDeferredRegister EXTRA_CHEMICALS = new ChemicalDeferredRegister(MekanismExtras.MOD_ID);
 

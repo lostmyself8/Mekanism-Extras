@@ -3,16 +3,19 @@ package com.jerry.mekextras.common.content.matrix;
 import com.jerry.mekextras.common.registries.ExtraBlockTypes;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
-import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.lib.multiblock.CuboidStructureValidator;
 import mekanism.common.lib.multiblock.FormationProtocol;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
+
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +44,7 @@ public class ReinforcedMatrixValidator extends CuboidStructureValidator<Reinforc
         if (BlockType.is(state.getBlock(), ExtraBlockTypes.ABSOLUTE_INDUCTION_CELL, ExtraBlockTypes.SUPREME_INDUCTION_CELL,
                 ExtraBlockTypes.COSMIC_INDUCTION_CELL, ExtraBlockTypes.INFINITE_INDUCTION_CELL, ExtraBlockTypes.ABSOLUTE_INDUCTION_PROVIDER,
                 ExtraBlockTypes.SUPREME_INDUCTION_PROVIDER, ExtraBlockTypes.COSMIC_INDUCTION_PROVIDER, ExtraBlockTypes.INFINITE_INDUCTION_PROVIDER)) {
-            //Compare blocks against the type before bothering to look up the tile
+            // Compare blocks against the type before bothering to look up the tile
             BlockEntity tile = WorldUtils.getTileEntity(world, chunkMap, pos);
             if (tile instanceof TileEntityExtraInductionCell cell) {
                 cells.add(cell);
@@ -50,7 +53,7 @@ public class ReinforcedMatrixValidator extends CuboidStructureValidator<Reinforc
                 providers.add(provider);
                 return true;
             }
-            //Else something went wrong
+            // Else something went wrong
         }
         return false;
     }

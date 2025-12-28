@@ -4,6 +4,7 @@ import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekextras.common.tier.BTier;
 import com.jerry.mekextras.common.upgrade.ExtraBinUpgradeData;
+
 import mekanism.api.Action;
 import mekanism.api.IConfigurable;
 import mekanism.api.IContentsListener;
@@ -27,6 +28,7 @@ import mekanism.common.upgrade.BinUpgradeData;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -45,6 +47,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.items.IItemHandler;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,6 +63,7 @@ public class TileEntityExtraBin extends TileEntityMekanism implements IConfigura
 
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getStored", docPlaceholder = "bin")
     ExtraBinInventorySlot binSlot;
+
     public TileEntityExtraBin(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         delaySupplier = NO_DELAY;
@@ -95,8 +99,10 @@ public class TileEntityExtraBin extends TileEntityMekanism implements IConfigura
         delayTicks = Math.max(0, delayTicks - 1);
         if (delayTicks == 0) {
             if (getActive()) {
-                //Note: We can't just pass "this" and have to instead look up the capability to make sure we respect any sidedness
-                // we short circuit looking it up from the world though, and just query the provider we add to the tile directly
+                // Note: We can't just pass "this" and have to instead look up the capability to make sure we respect
+                // any sidedness
+                // we short circuit looking it up from the world though, and just query the provider we add to the tile
+                // directly
                 IItemHandler capability = CapabilityTileEntity.ITEM_HANDLER_PROVIDER.getCapability(this, Direction.DOWN);
                 HandlerTransitRequest request = new HandlerTransitRequest(capability);
                 request.addItem(binSlot.getBottomStack(), 0);
@@ -197,7 +203,7 @@ public class TileEntityExtraBin extends TileEntityMekanism implements IConfigura
 
     @Override
     protected void collectImplicitComponents(@NotNull DataComponentMap.Builder builder) {
-        //Note: In theory doing this before super doesn't matter, but we want to make sure that the lock is set before
+        // Note: In theory doing this before super doesn't matter, but we want to make sure that the lock is set before
         // setting the data on the item just for good measure
         builder.set(MekanismDataComponents.LOCK, LockData.create(binSlot.getLockStack()));
         super.collectImplicitComponents(builder);
@@ -205,12 +211,12 @@ public class TileEntityExtraBin extends TileEntityMekanism implements IConfigura
 
     @Override
     protected void applyImplicitComponents(@NotNull BlockEntity.DataComponentInput input) {
-        //Apply the lock before processing the stored data
+        // Apply the lock before processing the stored data
         binSlot.setLockStack(input.getOrDefault(MekanismDataComponents.LOCK, LockData.EMPTY).lock());
         super.applyImplicitComponents(input);
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod(methodDescription = "Get the maximum number of items the bin can contain.")
     int getCapacity() {
         return binSlot.getLimit(binSlot.getStack());
@@ -241,5 +247,5 @@ public class TileEntityExtraBin extends TileEntityMekanism implements IConfigura
             throw new ComputerException("This bin is not locked!");
         }
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

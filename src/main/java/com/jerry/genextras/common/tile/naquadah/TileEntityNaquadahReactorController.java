@@ -2,7 +2,9 @@ package com.jerry.genextras.common.tile.naquadah;
 
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.genextras.common.registries.GenExtraBlocks;
+
 import mekanism.common.attachments.containers.ContainerType;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 

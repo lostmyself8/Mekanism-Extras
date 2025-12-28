@@ -1,20 +1,24 @@
 package com.jerry.mekextras.common.item.block.transmitter;
 
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporterBase;
+
 import mekanism.api.text.EnumColor;
 import mekanism.api.text.ILangEntry;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.transmitter.BlockLargeTransmitter;
 import mekanism.common.item.block.ItemBlockTooltip;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class ItemBlockExtraTransporter<TILE extends TileEntityExtraLogisticalTransporterBase> extends ItemBlockTooltip<BlockLargeTransmitter<TILE>> {
+
     @Nullable
     private final ILangEntry extraDetails;
 
@@ -23,7 +27,7 @@ public class ItemBlockExtraTransporter<TILE extends TileEntityExtraLogisticalTra
     }
 
     public ItemBlockExtraTransporter(BlockLargeTransmitter<TILE> block, Properties properties, @Nullable ILangEntry extraDetails) {
-        super(block,true, properties);
+        super(block, true, properties);
         this.extraDetails = extraDetails;
     }
 

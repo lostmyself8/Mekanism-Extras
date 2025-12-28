@@ -1,11 +1,9 @@
 package com.jerry.mekextras.common.registries;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.ExtraUpgrade;
-import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
+import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.config.ExtraConfig;
 import com.jerry.mekextras.common.content.blocktype.ExtraFactory;
@@ -14,19 +12,19 @@ import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMac
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.tier.*;
 import com.jerry.mekextras.common.tile.*;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraUniversalCable;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporter;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraMechanicalPipe;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraThermodynamicConductor;
-import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraPressurizedTube;
 import com.jerry.mekextras.common.tile.machine.TileEntityAdvancedElectricPump;
-import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
-import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraMechanicalPipe;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraPressurizedTube;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraThermodynamicConductor;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
+import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraUniversalCable;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
-import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
+
 import mekanism.api.Upgrade;
 import mekanism.api.text.ILangEntry;
 import mekanism.api.tier.ITier;
@@ -43,7 +41,12 @@ import mekanism.common.registries.MekanismTileEntityTypes;
 import mekanism.common.tier.*;
 import mekanism.common.tile.machine.*;
 import mekanism.common.util.EnumUtils;
+
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+import fr.iglee42.evolvedmekanism.registries.EMFactoryType;
 
 import java.util.function.Supplier;
 
@@ -192,7 +195,7 @@ public class ExtraBlockTypes {
     public static final BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel> COSMIC_RADIOACTIVE_WASTE_BARREL = createWasteBarrel(RWBTier.COSMIC, () -> ExtraTileEntityTypes.COSMIC_RADIOACTIVE_WASTE_BARREL, () -> ExtraBlocks.INFINITE_RADIOACTIVE_WASTE_BARREL);
     public static final BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel> INFINITE_RADIOACTIVE_WASTE_BARREL = createWasteBarrel(RWBTier.INFINITE, () -> ExtraTileEntityTypes.INFINITE_RADIOACTIVE_WASTE_BARREL, null);
 
-    //Transmitters
+    // Transmitters
     public static final BlockTypeTile<TileEntityExtraUniversalCable> ABSOLUTE_UNIVERSAL_CABLE = createCable(CableTier.BASIC, () -> ExtraTileEntityTypes.ABSOLUTE_UNIVERSAL_CABLE);
     public static final BlockTypeTile<TileEntityExtraUniversalCable> SUPREME_UNIVERSAL_CABLE = createCable(CableTier.ADVANCED, () -> ExtraTileEntityTypes.SUPREME_UNIVERSAL_CABLE);
     public static final BlockTypeTile<TileEntityExtraUniversalCable> COSMIC_UNIVERSAL_CABLE = createCable(CableTier.ELITE, () -> ExtraTileEntityTypes.COSMIC_UNIVERSAL_CABLE);

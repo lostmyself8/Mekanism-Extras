@@ -3,9 +3,12 @@ package com.jerry.mekextras.common.config;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.tier.IAdvancedTier;
 import com.jerry.mekextras.common.tier.*;
+
 import mekanism.common.config.IConfigTranslation;
 import mekanism.common.config.TranslationPreset;
+
 import net.minecraft.Util;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,6 +18,7 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 public enum ExtraConfigTranslations implements IConfigTranslation {
+
     GENERAL_ADVANCED_PUMP_HEAVY_WATER("general.pump.heavy_water", "Heavy Water Amount",
             "Amount of Heavy Water in mB that is extracted per block of Water by the Advanced Electric Pump with a Filter Upgrade."),
 
@@ -169,32 +173,28 @@ public enum ExtraConfigTranslations implements IConfigTranslation {
         }
 
         public static AdvancedTierTranslations create(IAdvancedTier tier, String type, @Nullable UnaryOperator<String> storageTooltip, @Nullable UnaryOperator<String> outputTooltip,
-                                                                         String rateSuffix) {
+                                                      String rateSuffix) {
             String tierName = tier.getAdvanceTier().getSimpleName();
             String key = tierName.toLowerCase(Locale.ROOT);
             return new AdvancedTierTranslations(
                     storageTooltip == null ? null : new ConfigTranslation(getKey(type, key, "storage"), tierName + " Storage", storageTooltip.apply(tierName)),
                     outputTooltip == null ? null : new ConfigTranslation(getKey(type, key, "rate"), tierName + rateSuffix, outputTooltip.apply(tierName)),
-                    null
-            );
+                    null);
         }
 
         public static AdvancedTierTranslations create(ECTier tier) {
             return create(tier, "energy_cube", name -> "Maximum number of Joules " + name + " energy cubes can store.",
-                    name -> "Output rate in Joules of " + name + " energy cubes."
-            );
+                    name -> "Output rate in Joules of " + name + " energy cubes.");
         }
 
         public static AdvancedTierTranslations create(FTTier tier) {
             return create(tier, "fluid_tank", name -> "Storage size of " + name + " fluid tanks in mB.",
-                    name -> "Output rate of " + name + " fluid tanks in mB."
-            );
+                    name -> "Output rate of " + name + " fluid tanks in mB.");
         }
 
         public static AdvancedTierTranslations create(CTTier tier) {
             return create(tier, "chemical_tank", name -> "Storage size of " + name + " chemical tanks in mB.",
-                    name -> "Output rate of " + name + " chemical tanks in mB."
-            );
+                    name -> "Output rate of " + name + " chemical tanks in mB.");
         }
 
         public static AdvancedTierTranslations create(BTier tier) {
@@ -214,10 +214,10 @@ public enum ExtraConfigTranslations implements IConfigTranslation {
             String tierName = tier.getAdvanceTier().getSimpleName();
             String key = tierName.toLowerCase(Locale.ROOT);
             return new AdvancedTierTranslations(new ConfigTranslation(getKey(type, key, "count"), tierName + " Count",
-                    "The number of items that the " + tierName + " QIO Drive can store."
-            ), new ConfigTranslation(getKey(type, key, "type"), tierName + " Types",
-                    "The number of types that the " + tierName + " QIO Drive can store."
-            ), null);
+                    "The number of items that the " + tierName + " QIO Drive can store."),
+                    new ConfigTranslation(getKey(type, key, "type"), tierName + " Types",
+                            "The number of types that the " + tierName + " QIO Drive can store."),
+                    null);
         }
 
         public static AdvancedTierTranslations create(RWBTier tier) {
@@ -225,12 +225,11 @@ public enum ExtraConfigTranslations implements IConfigTranslation {
             String tierName = tier.getAdvanceTier().getSimpleName();
             String key = tierName.toLowerCase(Locale.ROOT);
             return new AdvancedTierTranslations(new ConfigTranslation(getKey(type, key, "storage"), tierName + " Storage",
-                    "Amount of gas (mB) that can be stored in " + tierName + " Radioactive Waste Barrel."
-            ), new ConfigTranslation(getKey(type, key, "process_ticks"), tierName + " Process Ticks",
-                    "Number of ticks required for radioactive gas stored in " + tierName + " Radioactive Waste Barrel to decay radioactiveWasteBarrelDecayAmount mB."
-            ), new ConfigTranslation(getKey(type, key, "decay_amount"), tierName + " Decay Amount",
-                    "Number of mB of gas that decay every radioactiveWasteBarrelProcessTicks ticks when stored in " + tierName + " Radioactive Waste Barrel. Set to zero to disable decay all together. (Gases in the mekanism:waste_barrel_decay_blacklist tag will not decay)."
-            ));
+                    "Amount of gas (mB) that can be stored in " + tierName + " Radioactive Waste Barrel."),
+                    new ConfigTranslation(getKey(type, key, "process_ticks"), tierName + " Process Ticks",
+                            "Number of ticks required for radioactive gas stored in " + tierName + " Radioactive Waste Barrel to decay radioactiveWasteBarrelDecayAmount mB."),
+                    new ConfigTranslation(getKey(type, key, "decay_amount"), tierName + " Decay Amount",
+                            "Number of mB of gas that decay every radioactiveWasteBarrelProcessTicks ticks when stored in " + tierName + " Radioactive Waste Barrel. Set to zero to disable decay all together. (Gases in the mekanism:waste_barrel_decay_blacklist tag will not decay)."));
         }
     }
 }

@@ -24,6 +24,7 @@ import mekanism.common.util.*;
 import mekanism.common.util.text.BooleanStateDisplay;
 import mekanism.common.util.text.TextUtils;
 import mekanism.common.util.text.UpgradeDisplay;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -36,6 +37,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -44,6 +46,7 @@ import java.util.function.LongSupplier;
 import java.util.function.Predicate;
 
 public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extends ItemBlockExtra<BLOCK> implements ICapabilityAware, IAttachmentAware {
+
     private final boolean hasDetails;
 
     public ItemBlockExtraTooltip(BLOCK block, Properties properties) {
@@ -57,7 +60,7 @@ public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extend
 
     @Override
     public void onDestroyed(@NotNull ItemEntity item, @NotNull DamageSource damageSource) {
-        //Try to drop the inventory contents if we are a block item that persists our inventory
+        // Try to drop the inventory contents if we are a block item that persists our inventory
         InventoryUtils.dropItemContents(item, damageSource);
     }
 
@@ -86,14 +89,13 @@ public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extend
         }
     }
 
-    protected void addStats(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-    }
+    protected void addStats(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {}
 
     protected void addDetails(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        //Note: Security and owner info gets skipped if the stack doesn't expose them
+        // Note: Security and owner info gets skipped if the stack doesn't expose them
         IItemSecurityUtils.INSTANCE.addSecurityTooltip(stack, tooltip);
         addTypeDetails(stack, context, tooltip, flag);
-        //TODO: Make this support "multiple" fluid types (and maybe display multiple tanks of the same fluid)
+        // TODO: Make this support "multiple" fluid types (and maybe display multiple tanks of the same fluid)
         FluidStack fluidStack = StorageUtils.getStoredFluidFromAttachment(stack);
         if (!fluidStack.isEmpty()) {
             tooltip.add(MekanismLang.GENERIC_STORED_MB.translateColored(EnumColor.PINK, fluidStack, EnumColor.GRAY, TextUtils.format(fluidStack.getAmount())));
@@ -112,7 +114,7 @@ public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extend
     }
 
     protected void addTypeDetails(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        //Put this here so that energy cubes can skip rendering energy here
+        // Put this here so that energy cubes can skip rendering energy here
         if (exposesEnergyCapOrTooltips()) {
             StorageUtils.addStoredEnergy(stack, tooltip, false);
         }
@@ -121,8 +123,8 @@ public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extend
     @Override
     public boolean shouldCauseReequipAnimation(@NotNull ItemStack oldStack, @NotNull ItemStack newStack, boolean slotChanged) {
         if (exposesEnergyCapOrTooltips()) {
-            //Ignore NBT for energized items causing re-equip animations
-            //TODO: Only ignore the energy attachment?
+            // Ignore NBT for energized items causing re-equip animations
+            // TODO: Only ignore the energy attachment?
             return slotChanged || oldStack.getItem() != newStack.getItem();
         }
         return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
@@ -131,8 +133,8 @@ public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extend
     @Override
     public boolean shouldCauseBlockBreakReset(@NotNull ItemStack oldStack, @NotNull ItemStack newStack) {
         if (exposesEnergyCapOrTooltips()) {
-            //Ignore NBT for energized items causing block break reset
-            //TODO: Only ignore the energy attachment?
+            // Ignore NBT for energized items causing block break reset
+            // TODO: Only ignore the energy attachment?
             return oldStack.getItem() != newStack.getItem();
         }
         return super.shouldCauseBlockBreakReset(oldStack, newStack);
@@ -159,13 +161,15 @@ public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extend
         LongSupplier maxEnergy = attributeEnergy::getStorage;
         if (Attribute.matches(block, AttributeUpgradeSupport.class, attribute -> attribute.supportedUpgrades().contains(Upgrade.ENERGY))) {
             return builder.addContainer((type, attachedTo, containerIndex) -> {
-                //If our block supports energy upgrades, make a more dynamically updating cache for our item's max energy
+                // If our block supports energy upgrades, make a more dynamically updating cache for our item's max
+                // energy
                 LongSupplier capacity = new UpgradeBasedLongCache(attachedTo, maxEnergy);
                 return new ComponentBackedNoClampEnergyContainer(attachedTo, containerIndex, BasicEnergyContainer.manualOnly, getEnergyCapInsertPredicate(),
                         () -> MekanismUtils.calculateUsage(capacity.getAsLong()), capacity);
             });
         }
-        //If we don't support energy upgrades, our max energy isn't dependent on another attachment, we can safely clamp to the config values
+        // If we don't support energy upgrades, our max energy isn't dependent on another attachment, we can safely
+        // clamp to the config values
         return builder.addBasic(BasicEnergyContainer.manualOnly, getEnergyCapInsertPredicate(), () -> MekanismUtils.calculateUsage(maxEnergy.getAsLong()), maxEnergy);
     }
 
@@ -180,7 +184,7 @@ public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extend
     @Override
     public void attachAttachments(IEventBus eventBus) {
         if (Attribute.has(getBlock(), AttributeEnergy.class)) {
-            //Only expose the capability the required configs are loaded and the item wants to
+            // Only expose the capability the required configs are loaded and the item wants to
             IEventBus energyEventBus = exposesEnergyCap() ? eventBus : null;
             ContainerType.ENERGY.addDefaultCreators(energyEventBus, this, () -> addDefaultEnergyContainers(EnergyContainersBuilder.builder()).build(),
                     MekanismConfig.storage, MekanismConfig.usage);
@@ -189,7 +193,8 @@ public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extend
 
     private static class UpgradeBasedLongCache implements LongSupplier {
 
-        //TODO: Eventually fix this, ideally we want this to update the overall cached value if this changes because of the config
+        // TODO: Eventually fix this, ideally we want this to update the overall cached value if this changes because of
+        // the config
         // for how much energy a machine can store changes
         private final LongSupplier baseStorage;
         private final ItemStack stack;

@@ -1,13 +1,17 @@
 package com.jerry.genextras.common.config;
 
 import com.jerry.mekextras.MekanismExtras;
+
 import mekanism.common.config.IConfigTranslation;
 import mekanism.common.config.TranslationPreset;
+
 import net.minecraft.Util;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public enum GenExtraConfigTranslations implements IConfigTranslation {
+
     SERVER_HOHLRAUM("server.hohlraum", "Hohlraum", "Settings for configuring Hohlraum", true),
     SERVER_HOHLRAUM_CAPACITY("server.hohlraum.capacity", "Capacity", "Hohlraum capacity in mB."),
     SERVER_HOHLRAUM_FILL_RATE("server.hohlraum.fill_rate", "Fill Rate", "Rate in mB/t at which Hohlraum can accept Nq-U Fuel."),
@@ -17,8 +21,7 @@ public enum GenExtraConfigTranslations implements IConfigTranslation {
     SERVER_REACTOR_THERMOCOUPLE_EFFICIENCY("server.reactor.thermocouple_efficiency", "Thermocouple Efficiency",
             "The fraction of the heat dissipated from the case that is converted to Joules."),
     SERVER_REACTOR_THERMAL_CONDUCTIVITY("server.reactor.casing_thermal_conductivity", "Casing Thermal Conductivity",
-            "The fraction of heat from the casing that can be transferred to all sources that are not water. Will impact max heat, heat transfer to "
-                    + "thermodynamic conductors, and power generation."),
+            "The fraction of heat from the casing that can be transferred to all sources that are not water. Will impact max heat, heat transfer to " + "thermodynamic conductors, and power generation."),
     SERVER_REACTOR_HEATING_RATE("server.reactor.water_heating_ratio", "Water Heating Ratio",
             "The fraction of the heat from the casing that is dissipated to water when water cooling is in use. Will impact max heat, and steam generation."),
     SERVER_REACTOR_FUEL_CAPACITY("server.reactor.capacity.fuel", "Fuel Capacity", "Amount of fuel (mB) that the naquadah reactor can store."),

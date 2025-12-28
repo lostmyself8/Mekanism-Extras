@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.tile.transmitter;
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.common.content.network.transmitter.ExtraUniversalCable;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
+
 import mekanism.api.SerializationConstants;
 import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.math.MathUtils;
@@ -15,6 +16,7 @@ import mekanism.common.integration.computer.IComputerTile;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.lib.transmitter.ConnectionType;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -22,6 +24,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,6 +34,7 @@ import java.util.List;
 public class TileEntityExtraUniversalCable extends TileEntityExtraTransmitter implements IComputerTile {
 
     private final EnergyHandlerManager energyHandlerManager;
+
     public TileEntityExtraUniversalCable(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         addCapabilityResolver(energyHandlerManager = new EnergyHandlerManager(direction -> {
@@ -77,7 +81,8 @@ public class TileEntityExtraUniversalCable extends TileEntityExtraTransmitter im
     @NotNull
     @Override
     public CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
-        //Note: We add the stored information to the initial update tag and not to the one we sync on side changes which uses getReducedUpdateTag
+        // Note: We add the stored information to the initial update tag and not to the one we sync on side changes
+        // which uses getReducedUpdateTag
         CompoundTag updateTag = super.getUpdateTag(provider);
         if (getTransmitter().hasTransmitterNetwork()) {
             EnergyNetwork network = getTransmitter().getTransmitterNetwork();
@@ -95,11 +100,12 @@ public class TileEntityExtraUniversalCable extends TileEntityExtraTransmitter im
     public void sideChanged(@NotNull Direction side, @NotNull ConnectionType old, @NotNull ConnectionType type) {
         super.sideChanged(side, old, type);
         if (type == ConnectionType.NONE) {
-            //We no longer have a capability, invalidate it, which will also notify the level
+            // We no longer have a capability, invalidate it, which will also notify the level
             invalidateCapabilities(EnergyCompatUtils.getLoadedEnergyCapabilities(), side);
         } else if (old == ConnectionType.NONE) {
-            //Notify any listeners to our position that we now do have a capability
-            //Note: We don't invalidate our impls because we know they are already invalid, so we can short circuit setting them to null from null
+            // Notify any listeners to our position that we now do have a capability
+            // Note: We don't invalidate our impls because we know they are already invalid, so we can short circuit
+            // setting them to null from null
             invalidateCapabilities();
         }
     }
@@ -114,7 +120,7 @@ public class TileEntityExtraUniversalCable extends TileEntityExtraTransmitter im
         }
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @Override
     public String getComputerName() {
         return getTransmitter().getTier().getBaseTier().getLowerName() + "UniversalCable";

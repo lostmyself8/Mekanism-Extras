@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.block;
 
 import com.jerry.mekextras.common.tile.TileEntityLargeCapRadioactiveWasteBarrel;
+
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
@@ -8,6 +9,7 @@ import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.util.WorldUtils;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -16,9 +18,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
+
 import org.jetbrains.annotations.NotNull;
 
 public class BlockLargeCapRadioactiveWasteBarrel extends BlockTile.BlockTileModel<TileEntityLargeCapRadioactiveWasteBarrel, BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel>> {
+
     public BlockLargeCapRadioactiveWasteBarrel(BlockTypeTile<TileEntityLargeCapRadioactiveWasteBarrel> type) {
         super(type, properties -> properties.mapColor(MapColor.COLOR_BLACK));
     }

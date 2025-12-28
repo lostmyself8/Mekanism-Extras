@@ -4,6 +4,7 @@ import com.jerry.mekextras.api.IExtraAlloyInteraction;
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.api.tier.IAdvancedTier;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
+
 import mekanism.common.Mekanism;
 import mekanism.common.advancements.MekanismCriteriaTriggers;
 import mekanism.common.block.states.TransmitterType;
@@ -14,6 +15,7 @@ import mekanism.common.lib.transmitter.DynamicNetwork;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -71,12 +74,13 @@ public class TileEntityExtraTransmitter extends TileEntityTransmitter implements
                     BlockState state = transmitterTile.getBlockState();
                     BlockState upgradeState = transmitterTile.upgradeResult(state, tier.getAdvanceTier());
                     if (state == upgradeState) {
-                        //Skip if it would not actually upgrade anything
+                        // Skip if it would not actually upgrade anything
                         continue;
                     }
                     if (!sharesSet) {
                         if (transmitterNetwork instanceof DynamicBufferedNetwork dynamicNetwork) {
-                            //Ensure we save the shares to the tiles so that they can properly take them, and they don't get voided
+                            // Ensure we save the shares to the tiles so that they can properly take them, and they
+                            // don't get voided
                             dynamicNetwork.validateSaveShares((BufferedTransmitter<?, ?, ?, ?>) transmitter);
                         }
                         sharesSet = true;
@@ -109,7 +113,7 @@ public class TileEntityExtraTransmitter extends TileEntityTransmitter implements
                 }
             }
             if (upgraded > 0) {
-                //Invalidate the network so that it properly has new references to everything
+                // Invalidate the network so that it properly has new references to everything
                 transmitterNetwork.invalidate(null);
                 if (!player.isCreative()) {
                     stack.shrink(1);

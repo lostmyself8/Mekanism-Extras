@@ -4,6 +4,7 @@ import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
+
 import mekanism.api.MekanismAPITags;
 import mekanism.api.security.IBlockSecurityUtils;
 import mekanism.api.text.TextComponentUtil;
@@ -17,6 +18,7 @@ import mekanism.common.tile.interfaces.ITierUpgradable;
 import mekanism.common.tile.interfaces.ITileDirectional;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -30,12 +32,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class ItemExtraTierInstaller extends Item {
+
     @Nullable
     private final AdvancedTier fromTier;
     @NotNull
@@ -76,7 +80,7 @@ public class ItemExtraTierInstaller extends Item {
         if (state.is(MekanismBlocks.BOUNDING_BLOCK)) {
             BlockPos mainPos = BlockBounding.getMainBlockPos(world, pos);
             if (mainPos != null) {
-                //If we are a bounding block with a main pos, update to pretend we interacted with the logic block
+                // If we are a bounding block with a main pos, update to pretend we interacted with the logic block
                 pos = mainPos;
                 state = world.getBlockState(mainPos);
             }
@@ -108,7 +112,8 @@ public class ItemExtraTierInstaller extends Item {
                         }
                     } else {
                         AttributeHasBounding upgradeBounding = Attribute.get(upgradeState, AttributeHasBounding.class);
-                        //If the resulting block has bounding blocks, validate that all of them will be able to be placed
+                        // If the resulting block has bounding blocks, validate that all of them will be able to be
+                        // placed
                         if (upgradeBounding != null && !upgradeBounding.handle(world, pos, upgradeState, pos, (level, boundingPos, mainPos) -> {
                             Optional<BlockState> blockState = WorldUtils.getBlockState(level, boundingPos);
                             if (blockState.isPresent()) {
@@ -116,23 +121,25 @@ public class ItemExtraTierInstaller extends Item {
                                 if (boundingCurrentState.canBeReplaced()) {
                                     return true;
                                 } else if (boundingCurrentState.is(MekanismBlocks.BOUNDING_BLOCK)) {
-                                    //Treat bounding blocks that will be removed because they are actually part of the unupgraded multiblock as valid
+                                    // Treat bounding blocks that will be removed because they are actually part of the
+                                    // unupgraded multiblock as valid
                                     // for us to put a new bounding block in
                                     return mainPos.equals(BlockBounding.getMainBlockPos(level, boundingPos));
                                 }
                             }
                             return false;
                         })) {
-                            //At least one bounding block we would be adding can't be placed. Error out instead of upgrading the block
+                            // At least one bounding block we would be adding can't be placed. Error out instead of
+                            // upgrading the block
                             return InteractionResult.FAIL;
                         }
-                        //Update the block
+                        // Update the block
                         if (!world.setBlockAndUpdate(pos, upgradeState)) {
-                            //Something went wrong, bail rather than trying to
+                            // Something went wrong, bail rather than trying to
                             MekanismExtras.LOGGER.warn("Error upgrading block at position: {} in {}.", pos, world.dimension().location());
                             return InteractionResult.FAIL;
                         }
-                        //Place any bounding blocks the new state may have
+                        // Place any bounding blocks the new state may have
                         if (upgradeBounding != null) {
                             upgradeBounding.placeBoundingBlocks(world, pos, upgradeState);
                         }
@@ -141,7 +148,7 @@ public class ItemExtraTierInstaller extends Item {
                             MekanismExtras.LOGGER.warn("Error upgrading block at position: {} in {}. Expected a mekanism block as the result.", pos, world.dimension().location());
                             return InteractionResult.FAIL;
                         }
-                        //TODO: Make it so it doesn't have to be a TileEntityMekanism in order to do these things?
+                        // TODO: Make it so it doesn't have to be a TileEntityMekanism in order to do these things?
                         if (tile instanceof ITileDirectional directional && directional.isDirectional()) {
                             upgradedTile.setFacing(directional.getDirection(), false);
                         }
@@ -149,15 +156,16 @@ public class ItemExtraTierInstaller extends Item {
                         upgradedTile.resyncMasterToBounding();
                         upgradedTile.sendUpdatePacket();
                         upgradedTile.setChanged();
-                        //Notify the level that the caps at the position are no longer valid
+                        // Notify the level that the caps at the position are no longer valid
                         // In general replacing the tile likely will have caused this to be invalidated
-                        // but mark it just to be safe, and in case there are any bounding blocks so that they notify the level their caps might have changed
+                        // but mark it just to be safe, and in case there are any bounding blocks so that they notify
+                        // the level their caps might have changed
                         upgradedTile.invalidateCapabilitiesFull();
                         if (!player.isCreative()) {
                             context.getItemInHand().shrink(1);
                         }
                         if (player instanceof ServerPlayer serverPlayer) {
-                            //似乎可以直接使用null
+                            // 似乎可以直接使用null
                             MekanismCriteriaTriggers.USE_TIER_INSTALLER.value().trigger(serverPlayer, null);
                         }
                         return InteractionResult.CONSUME;

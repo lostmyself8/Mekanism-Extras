@@ -2,7 +2,9 @@ package com.jerry.genextras.common.tile.naquadah;
 
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.genextras.common.registries.GenExtraBlocks;
+
 import mekanism.api.lasers.ILaserReceptor;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;

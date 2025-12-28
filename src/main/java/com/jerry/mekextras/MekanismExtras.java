@@ -1,15 +1,12 @@
 package com.jerry.mekextras;
 
-import com.jerry.genextras.common.content.naquadah.NaquadahReactorCache;
-import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
-import com.jerry.genextras.common.content.naquadah.NaquadahReactorValidator;
-import com.jerry.genextras.common.registries.GenExtraFluids;
 import com.jerry.mekextras.common.ExtraLang;
 import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
 import com.jerry.mekextras.common.command.builders.ExtraBuilders;
 import com.jerry.mekextras.common.config.ExtraConfig;
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixMultiblockData;
 import com.jerry.mekextras.common.content.matrix.ReinforcedMatrixValidator;
+import com.jerry.mekextras.common.integration.ExtraHooks;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryTileEntityTypes;
@@ -18,14 +15,19 @@ import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineC
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineTileEntityTypes;
 import com.jerry.mekextras.common.network.ExtraPacketHandler;
 import com.jerry.mekextras.common.registries.*;
-import com.jerry.mekextras.common.integration.ExtraHooks;
-import com.mojang.logging.LogUtils;
+
+import com.jerry.genextras.common.content.naquadah.NaquadahReactorCache;
+import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
+import com.jerry.genextras.common.content.naquadah.NaquadahReactorValidator;
+import com.jerry.genextras.common.registries.GenExtraFluids;
+
 import mekanism.common.base.IModModule;
 import mekanism.common.command.CommandMek;
 import mekanism.common.command.builders.BuildCommand;
 import mekanism.common.lib.Version;
 import mekanism.common.lib.multiblock.MultiblockCache;
 import mekanism.common.lib.multiblock.MultiblockManager;
+
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -33,6 +35,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+
+import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
 @Mod(MekanismExtras.MOD_ID)
@@ -72,7 +76,7 @@ public class MekanismExtras implements IModModule {
         ExtraRecipeSerializersInternal.register(modEventBus);
         ExtraChemicals.register(modEventBus);
 
-        //MoreMachine
+        // MoreMachine
         registerMoreMachineFactory(modEventBus);
         registerAdvancedFactory(modEventBus);
 
@@ -91,7 +95,7 @@ public class MekanismExtras implements IModModule {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ExtraFluids.EXTRA_FLUIDS.registerBucketDispenserBehavior();
-            if (hooks.mekanismGenerators.isLoaded()){
+            if (hooks.mekanismGenerators.isLoaded()) {
                 GenExtraFluids.GEN_EXTRA_FLUIDS.registerBucketDispenserBehavior();
             }
         });
@@ -99,7 +103,7 @@ public class MekanismExtras implements IModModule {
 
     private void registerCommands(RegisterCommandsEvent event) {
         BuildCommand.register("reinforced_matrix", ExtraLang.REINFORCED_MATRIX, new ExtraBuilders.ReinforcedMatrixBuilder());
-        if (hooks.mekanismGenerators.isLoaded()){
+        if (hooks.mekanismGenerators.isLoaded()) {
             BuildCommand.register("naquadah", ExtraLang.NAQUADAH_REACTOR, new ExtraBuilders.NaquadahReactorBuilder());
         }
         event.getDispatcher().register(CommandMek.register());

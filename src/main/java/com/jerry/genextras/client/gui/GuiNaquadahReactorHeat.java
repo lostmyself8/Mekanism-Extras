@@ -3,6 +3,7 @@ package com.jerry.genextras.client.gui;
 import com.jerry.genextras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
+
 import mekanism.client.gui.element.gauge.*;
 import mekanism.client.gui.element.progress.GuiProgress;
 import mekanism.client.gui.element.progress.ProgressType;
@@ -11,12 +12,13 @@ import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.UnitDisplayUtils;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.material.Fluids;
 
-public class GuiNaquadahReactorHeat extends GuiNaquadahReactorInfo{
+public class GuiNaquadahReactorHeat extends GuiNaquadahReactorInfo {
 
     private static final double MAX_LEVEL = 500_000_000;
 
@@ -28,6 +30,7 @@ public class GuiNaquadahReactorHeat extends GuiNaquadahReactorInfo{
     protected void addGuiElements() {
         super.addGuiElements();
         addRenderableWidget(new GuiNumberGauge(new GuiNumberGauge.INumberInfoHandler() {
+
             @Override
             public TextureAtlasSprite getIcon() {
                 return MekanismRenderer.getBaseFluidTexture(Fluids.LAVA, MekanismRenderer.FluidTextureType.STILL);
@@ -53,6 +56,7 @@ public class GuiNaquadahReactorHeat extends GuiNaquadahReactorInfo{
             return multiblock.getLastPlasmaTemp() > multiblock.getLastCaseTemp();
         }, ProgressType.SMALL_RIGHT, this, 34, 76));
         addRenderableWidget(new GuiNumberGauge(new GuiNumberGauge.INumberInfoHandler() {
+
             @Override
             public TextureAtlasSprite getIcon() {
                 return MekanismRenderer.getBaseFluidTexture(Fluids.LAVA, MekanismRenderer.FluidTextureType.STILL);

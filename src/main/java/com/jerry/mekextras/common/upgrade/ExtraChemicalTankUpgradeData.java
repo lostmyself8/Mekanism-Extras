@@ -6,12 +6,14 @@ import mekanism.common.tile.TileEntityChemicalTank.GasMode;
 import mekanism.common.tile.component.ITileComponent;
 import mekanism.common.tile.interfaces.IRedstoneControl;
 import mekanism.common.upgrade.IUpgradeData;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
 import java.util.List;
 
 public class ExtraChemicalTankUpgradeData implements IUpgradeData {
+
     public final boolean redstone;
     public final IRedstoneControl.RedstoneControl controlType;
     public final ChemicalInventorySlot drainSlot;

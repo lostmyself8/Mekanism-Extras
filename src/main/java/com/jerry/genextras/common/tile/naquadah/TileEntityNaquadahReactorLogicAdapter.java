@@ -3,8 +3,7 @@ package com.jerry.genextras.common.tile.naquadah;
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.genextras.common.registries.GenExtraBlocks;
 import com.jerry.genextras.common.registries.GenExtraDataComponents;
-import com.mojang.serialization.Codec;
-import io.netty.buffer.ByteBuf;
+
 import mekanism.api.SerializationConstants;
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.text.EnumColor;
@@ -20,6 +19,7 @@ import mekanism.generators.common.GeneratorsLang;
 import mekanism.generators.common.base.IReactorLogic;
 import mekanism.generators.common.base.IReactorLogicMode;
 import mekanism.generators.common.registries.GeneratorsDataComponents;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -36,6 +36,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.event.EventHooks;
+
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
@@ -62,7 +65,7 @@ public class TileEntityNaquadahReactorLogicAdapter extends TileEntityNaquadahRea
                 Direction side = multiblock.getOutsideSide(worldPosition);
                 BlockState state = getBlockState();
                 if (side == null) {
-                    //Not formed, just update all sides
+                    // Not formed, just update all sides
                     world.updateNeighborsAt(getBlockPos(), state.getBlock());
                 } else if (!EventHooks.onNeighborNotify(world, worldPosition, state, EnumSet.of(side), false).isCanceled()) {
                     world.neighborChanged(worldPosition.relative(side), state.getBlock(), worldPosition);
@@ -89,7 +92,7 @@ public class TileEntityNaquadahReactorLogicAdapter extends TileEntityNaquadahRea
                 case DEPLETED -> {
                     if (multiblock.fuelTank.isEmpty()) {
                         int injectionPortion = multiblock.getInjectionRate() / 2;
-                        //No fuel and no injection rate set, or no fuel and not enough of at least one component
+                        // No fuel and no injection rate set, or no fuel and not enough of at least one component
                         yield injectionPortion == 0 || multiblock.naquadahTank.getStored() < injectionPortion || multiblock.uraniumTank.getStored() < injectionPortion;
                     }
                     yield false;
@@ -136,7 +139,7 @@ public class TileEntityNaquadahReactorLogicAdapter extends TileEntityNaquadahRea
 
     @Override
     public void previousMode() {
-        //We only have two modes just flip it
+        // We only have two modes just flip it
         nextMode();
     }
 
@@ -172,17 +175,18 @@ public class TileEntityNaquadahReactorLogicAdapter extends TileEntityNaquadahRea
         container.track(SyncableBoolean.create(() -> prevOutputting, value -> prevOutputting = value));
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod
     void setActiveCooledLogic(boolean active) {
         if (activeCooled != active) {
             nextMode();
         }
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 
     @NothingNullByDefault
     public enum NaquadahReactorLogic implements IReactorLogicMode<NaquadahReactorLogic>, IHasTranslationKey.IHasEnumNameTranslationKey, StringRepresentable {
+
         DISABLED(GeneratorsLang.REACTOR_LOGIC_DISABLED, GeneratorsLang.DESCRIPTION_REACTOR_DISABLED, new ItemStack(Items.GUNPOWDER)),
         READY(GeneratorsLang.REACTOR_LOGIC_READY, GeneratorsLang.DESCRIPTION_REACTOR_READY, new ItemStack(Items.REDSTONE)),
         CAPACITY(GeneratorsLang.REACTOR_LOGIC_CAPACITY, GeneratorsLang.DESCRIPTION_REACTOR_CAPACITY, new ItemStack(Items.REDSTONE)),

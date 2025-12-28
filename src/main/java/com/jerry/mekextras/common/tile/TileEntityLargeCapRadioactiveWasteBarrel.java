@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.tile;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.capabilities.chemical.StackedLargeCapWasteBarrel;
 import com.jerry.mekextras.common.tier.RWBTier;
+
 import mekanism.api.*;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalHandler;
@@ -19,6 +20,7 @@ import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -33,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,8 +45,10 @@ import java.util.List;
 public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism implements IConfigurable {
 
     private long lastProcessTick;
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded",
-            "getFilledPercentage"}, docPlaceholder = "barrel")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.class,
+                            methodNames = { "getStored", "getCapacity", "getNeeded",
+                                    "getFilledPercentage" },
+                            docPlaceholder = "barrel")
     StackedLargeCapWasteBarrel chemicalTank;
     @Nullable
     private IChemicalTank belowTank;
@@ -79,7 +84,7 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
     protected boolean onUpdateServer() {
         boolean sendUpdatePacket = super.onUpdateServer();
         if (level != null && level.getGameTime() > lastProcessTick) {
-            //If we are not on the same tick do stuff, otherwise ignore it (anti tick accelerator protection)
+            // If we are not on the same tick do stuff, otherwise ignore it (anti tick accelerator protection)
             lastProcessTick = level.getGameTime();
             if (tier.getDecayAmount() > 0 && !chemicalTank.isEmpty() &&
                     !chemicalTank.getStack().is(MekanismAPITags.Chemicals.WASTE_BARREL_DECAY_BLACKLIST) &&
@@ -90,7 +95,7 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
             if (getActive()) {
                 if (chemicalHandlerBelow.isEmpty()) {
                     chemicalHandlerBelow = List.of(Capabilities.CHEMICAL.createCache((ServerLevel) level, worldPosition.below(), Direction.UP, ConstantPredicates.ALWAYS_TRUE, () -> {
-                        //Reset the tank that we know is below this
+                        // Reset the tank that we know is below this
                         resolvedBelowTank = false;
                         belowTank = null;
                     }));
@@ -99,12 +104,13 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
                 if (below == null) {
                     ChemicalUtil.emit(chemicalHandlerBelow, chemicalTank);
                 } else {
-                    //If the block below this barrel, is also a barrel. Only emit as much as it might be able to accept.
+                    // If the block below this barrel, is also a barrel. Only emit as much as it might be able to
+                    // accept.
                     // This prevents it then trying to go up the chain back to this barrel and any ones above it
                     ChemicalUtil.emit(chemicalHandlerBelow, chemicalTank, Math.min(below.getNeeded(), chemicalTank.getCapacity()));
                 }
             }
-            //Note: We don't need to do any checking here if the packet needs due to capacity changing as we do it
+            // Note: We don't need to do any checking here if the packet needs due to capacity changing as we do it
             // in TileentityMekanism after this method is called. And given radioactive waste barrels can only contain
             // radioactive substances the check for radiation scale also will work for syncing capacity for purposes
             // of when the client sneak right-clicks on the barrel
@@ -118,7 +124,8 @@ public class TileEntityLargeCapRadioactiveWasteBarrel extends TileEntityMekanism
             resolvedBelowTank = true;
             IChemicalHandler belowHandler = chemicalHandlerBelow.getFirst().getCapability();
             if (belowHandler instanceof ProxyChemicalHandler chemicalHandler && chemicalHandler.getInternalHandler() instanceof TileEntityLargeCapRadioactiveWasteBarrel barrel) {
-                //Note: We don't need to bother with weak references as these are vertical so will always be in the same chunk
+                // Note: We don't need to bother with weak references as these are vertical so will always be in the
+                // same chunk
                 belowTank = barrel.chemicalTank;
             }
         }

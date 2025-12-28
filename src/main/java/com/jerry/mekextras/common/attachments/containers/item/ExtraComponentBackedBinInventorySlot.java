@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.attachments.containers.item;
 import com.jerry.mekextras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
 import com.jerry.mekextras.common.tier.BTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.SerializationConstants;
@@ -14,9 +15,11 @@ import mekanism.common.attachments.containers.item.AttachedItems;
 import mekanism.common.attachments.containers.item.ComponentBackedInventorySlot;
 import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.NotNull;
 
 @NothingNullByDefault
@@ -44,11 +47,12 @@ public class ExtraComponentBackedBinInventorySlot extends ComponentBackedInvento
                 // When locked, we need to make sure the correct item type is being inserted
                 return stack;
             } else if (isCreative && action.execute() && automationType != AutomationType.EXTERNAL) {
-                //If a player manually inserts into a creative bin, that is empty we need to allow setting the type,
-                // Note: We check that it is not external insertion because an empty creative bin acts as a "void" for automation
+                // If a player manually inserts into a creative bin, that is empty we need to allow setting the type,
+                // Note: We check that it is not external insertion because an empty creative bin acts as a "void" for
+                // automation
                 ItemStack simulatedRemainder = super.insertItem(attachedItems, current, stack, Action.SIMULATE, automationType);
                 if (simulatedRemainder.isEmpty()) {
-                    //If we are able to insert it then set perform the action of setting it to full
+                    // If we are able to insert it then set perform the action of setting it to full
                     setContents(attachedItems, stack.copyWithCount(getLimit(stack)));
                 }
                 return simulatedRemainder;
@@ -65,7 +69,8 @@ public class ExtraComponentBackedBinInventorySlot extends ComponentBackedInvento
     /**
      * {@inheritDoc}
      *
-     * Note: We are only patching {@link #setStackSize(AttachedItems, ItemStack, int, Action)}, as both {@link #growStack(int, Action)} and
+     * Note: We are only patching {@link #setStackSize(AttachedItems, ItemStack, int, Action)}, as both
+     * {@link #growStack(int, Action)} and
      * {@link #shrinkStack(int, Action)} are wrapped through this method.
      */
     @Override

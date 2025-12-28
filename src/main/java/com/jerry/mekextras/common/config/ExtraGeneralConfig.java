@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.config;
 import mekanism.common.config.BaseMekanismConfig;
 import mekanism.common.config.MekanismConfigTranslations;
 import mekanism.common.config.value.CachedIntValue;
+
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -10,7 +11,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 public class ExtraGeneralConfig extends BaseMekanismConfig {
 
     private final ModConfigSpec configSpec;
-    //Pump
+    // Pump
     public final CachedIntValue pumpHeavyWaterAmount;
 
     ExtraGeneralConfig() {

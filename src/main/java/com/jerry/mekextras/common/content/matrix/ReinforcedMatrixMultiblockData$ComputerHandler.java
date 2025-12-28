@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.content.matrix;
 
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(target = ReinforcedMatrixMultiblockData.class)
@@ -28,22 +29,22 @@ public class ReinforcedMatrixMultiblockData$ComputerHandler extends ComputerMeth
     }
 
     public static Object getTransferCap_0(ReinforcedMatrixMultiblockData subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                             throws ComputerException {
         return helper.convert(subject.getTransferCap());
     }
 
     public static Object getLastInput_0(ReinforcedMatrixMultiblockData subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                           throws ComputerException {
         return helper.convert(subject.getLastInput());
     }
 
     public static Object getLastOutput_0(ReinforcedMatrixMultiblockData subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                            throws ComputerException {
         return helper.convert(subject.getLastOutput());
     }
 
     public static Object getInstalledCells_0(ReinforcedMatrixMultiblockData subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                                throws ComputerException {
         return helper.convert(subject.getCellCount());
     }
 

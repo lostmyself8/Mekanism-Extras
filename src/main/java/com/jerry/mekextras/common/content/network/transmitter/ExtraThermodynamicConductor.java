@@ -1,9 +1,10 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
-import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import com.jerry.mekextras.common.capabilities.heat.ExtraVariableHeatCapacitor;
 import com.jerry.mekextras.common.tier.transmitter.TCTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
+import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
+
 import mekanism.api.SerializationConstants;
 import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IHeatHandler;
@@ -19,12 +20,14 @@ import mekanism.common.tier.ConductorTier;
 import mekanism.common.upgrade.transmitter.ThermodynamicConductorUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,13 +35,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class ExtraThermodynamicConductor extends ThermodynamicConductor implements ITileHeatHandler,
-        IExtraUpgradeableTransmitter<ThermodynamicConductorUpgradeData> {
+                                         IExtraUpgradeableTransmitter<ThermodynamicConductorUpgradeData> {
+
     private final CachedAmbientTemperature ambientTemperature = new CachedAmbientTemperature(this::getLevel, this::getBlockPos);
     public final ConductorTier tier;
-    //Default to negative one, so we know we need to calculate it when needed
+    // Default to negative one, so we know we need to calculate it when needed
     private double clientTemperature = -1;
     private final List<IHeatCapacitor> capacitors;
     public final ExtraVariableHeatCapacitor buffer;
+
     public ExtraThermodynamicConductor(Holder<Block> blockProvider, TileEntityExtraTransmitter tile) {
         super(blockProvider, tile);
         this.tier = Attribute.getTier(blockProvider, ConductorTier.class);
@@ -63,7 +68,7 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
 
     @Override
     protected boolean isValidAcceptor(@Nullable BlockEntity tile, Direction side) {
-        //Note: We intentionally do not call super here as other elements in the network are intentionally acceptors
+        // Note: We intentionally do not call super here as other elements in the network are intentionally acceptors
         return getAcceptorCache().getConnectedAcceptor(side) != null;
     }
 
@@ -97,7 +102,7 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
 
     @Override
     public boolean handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
-        boolean refreshModelData= super.handleUpdateTag(tag, provider);
+        boolean refreshModelData = super.handleUpdateTag(tag, provider);
         NBTUtils.setDoubleIfPresent(tag, SerializationConstants.TEMPERATURE, buffer::setHeat);
         return refreshModelData;
     }
@@ -125,8 +130,10 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
     @Override
     public IHeatHandler getAdjacent(@NotNull Direction side) {
         if (connectionMapContainsSide(getAllCurrentConnections(), side)) {
-            //Note: We use the acceptor cache as the heat network is different and the transmitters count the other transmitters in the
-            // network as valid acceptors, which means we don't have to differentiate between acceptors and other transmitters here
+            // Note: We use the acceptor cache as the heat network is different and the transmitters count the other
+            // transmitters in the
+            // network as valid acceptors, which means we don't have to differentiate between acceptors and other
+            // transmitters here
             return getAcceptorCache().getConnectedAcceptor(side);
         }
         return null;
@@ -138,7 +145,7 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
             HeatNetwork transmitterNetwork = getTransmitterNetwork();
             ThermodynamicConductor adjacent = transmitterNetwork.getTransmitter(getBlockPos().relative(side));
             if (adjacent != null) {
-                //Heat transmitter to heat transmitter, don't count as "adjacent transfer"
+                // Heat transmitter to heat transmitter, don't count as "adjacent transfer"
                 return currentAdjacentTransfer;
             }
         }

@@ -2,8 +2,11 @@ package com.jerry.mekextras.mixin.client;
 
 import com.jerry.mekextras.client.render.tileentity.RenderExtraFluidTank;
 import com.jerry.mekextras.client.render.transmitter.RenderExtraMechanicalPipe;
+
 import mekanism.client.render.MekanismRenderer;
+
 import net.neoforged.neoforge.client.event.TextureAtlasStitchedEvent;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

@@ -1,16 +1,13 @@
 package com.jerry.mekextras.common.integration.mekaf.registries;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
-import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
-import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
+import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.integration.mekaf.content.blocktype.ExtraAdvancedFactory;
 import com.jerry.mekextras.common.integration.mekaf.content.blocktype.ExtraAdvancedFactory.ExtraAdvancedFactoryBuilder;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
-import com.jerry.mekmm.common.util.MoreMachineEnumUtils;
+
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.AttributeHasBounding;
 import mekanism.common.config.MekanismConfig;
@@ -18,6 +15,11 @@ import mekanism.common.registries.MekanismContainerTypes;
 import mekanism.common.registries.MekanismSounds;
 import mekanism.common.registries.MekanismTileEntityTypes;
 import mekanism.common.tile.machine.*;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
+import com.jerry.mekmm.common.util.MoreMachineEnumUtils;
 
 public class ExtraAdvancedFactoryBlockTypes {
 

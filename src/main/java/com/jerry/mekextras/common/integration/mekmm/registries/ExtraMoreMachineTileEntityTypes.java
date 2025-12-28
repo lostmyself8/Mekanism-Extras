@@ -1,24 +1,27 @@
 package com.jerry.mekextras.common.integration.mekmm.registries;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.integration.mekmm.block.prefab.ExtraMoreMachineBlockFactoryMachine.BlockExtraMoreMachineFactory;
 import com.jerry.mekextras.common.integration.mekmm.item.block.machine.ItemBlockExtraMoreMachineFactory;
 import com.jerry.mekextras.common.integration.mekmm.tile.factory.*;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
-import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
+
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.TileEntityMekanism;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 
 public class ExtraMoreMachineTileEntityTypes {
 

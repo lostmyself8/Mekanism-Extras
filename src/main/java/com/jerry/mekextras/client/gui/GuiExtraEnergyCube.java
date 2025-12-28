@@ -1,6 +1,7 @@
 package com.jerry.mekextras.client.gui;
 
 import com.jerry.mekextras.common.tile.TileEntityExtraEnergyCube;
+
 import mekanism.client.SpecialColors;
 import mekanism.client.gui.GuiConfigurableTile;
 import mekanism.client.gui.element.GuiSideHolder;
@@ -11,9 +12,11 @@ import mekanism.client.gui.element.tab.GuiSecurityTab;
 import mekanism.common.MekanismLang;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.util.text.EnergyDisplay;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -27,13 +30,13 @@ public class GuiExtraEnergyCube extends GuiConfigurableTile<TileEntityExtraEnerg
 
     @Override
     protected void addSecurityTab() {
-        //Shift if upwards so the armor holder can fit
+        // Shift if upwards so the armor holder can fit
         addRenderableWidget(new GuiSecurityTab(this, tile, 6));
     }
 
     @Override
     protected void addGuiElements() {
-        //Add the side holder before the slots, as it holds a couple of the slots
+        // Add the side holder before the slots, as it holds a couple of the slots
         addRenderableWidget(GuiSideHolder.create(this, imageWidth, 36, 98, false, true, SpecialColors.TAB_ARMOR_SLOTS));
         super.addGuiElements();
         addRenderableWidget(new GuiEnergyGauge(tile.getEnergyContainer(), GaugeType.WIDE, this, 55, 18));

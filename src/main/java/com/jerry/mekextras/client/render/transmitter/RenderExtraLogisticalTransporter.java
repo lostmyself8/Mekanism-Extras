@@ -2,8 +2,7 @@ package com.jerry.mekextras.client.render.transmitter;
 
 import com.jerry.mekextras.common.tier.transmitter.TPTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporterBase;
-import com.mojang.blaze3d.vertex.PoseStack;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+
 import mekanism.api.text.EnumColor;
 import mekanism.client.model.ModelTransporterBox;
 import mekanism.client.render.MekanismRenderer;
@@ -14,6 +13,7 @@ import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.TransporterStack;
 import mekanism.common.lib.inventory.HashedItem;
 import mekanism.common.util.TransporterUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -26,6 +26,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +51,7 @@ public class RenderExtraLogisticalTransporter extends RenderTransmitterBase<Tile
         BlockPos pos = tile.getBlockPos();
         if (!MekanismConfig.client.opaqueTransmitters.get()) {
             Collection<TransporterStack> inTransit = transporter.getTransit();
-//            System.out.println(inTransit);
+            // System.out.println(inTransit);
             if (!inTransit.isEmpty()) {
                 matrix.pushPose();
                 itemRenderer.init(tile.getLevel(), pos);

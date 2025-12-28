@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.item.block;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.tier.CTTier;
 import com.jerry.mekextras.common.tile.TileEntityExtraChemicalTank;
+
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.attachments.component.AttachedEjector;
@@ -15,10 +16,12 @@ import mekanism.common.tile.TileEntityChemicalTank.GasMode;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,8 +42,7 @@ public class ItemBlockExtraChemicalTank extends ItemBlockExtraTooltip<BlockTile.
         super(block, true, properties
                 .component(MekanismDataComponents.DUMP_MODE, GasMode.IDLE)
                 .component(MekanismDataComponents.EJECTOR, AttachedEjector.DEFAULT)
-                .component(MekanismDataComponents.SIDE_CONFIG, SIDE_CONFIG)
-        );
+                .component(MekanismDataComponents.SIDE_CONFIG, SIDE_CONFIG));
     }
 
     @Override
@@ -60,7 +62,7 @@ public class ItemBlockExtraChemicalTank extends ItemBlockExtraTooltip<BlockTile.
     public boolean isBarVisible(@NotNull ItemStack stack) {
         // No bar for empty or stacked containers as bars are drawn on top of stack count number
         if (stack.getCount() > 1) {
-            //Note: Technically this is handled by the below checks as the capability isn't exposed,
+            // Note: Technically this is handled by the below checks as the capability isn't exposed,
             // but we may as well short circuit it here
             return false;
         }

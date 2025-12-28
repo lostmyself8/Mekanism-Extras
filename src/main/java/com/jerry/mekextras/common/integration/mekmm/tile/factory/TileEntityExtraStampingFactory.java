@@ -1,10 +1,5 @@
 package com.jerry.mekextras.common.integration.mekmm.tile.factory;
 
-import com.jerry.mekmm.api.recipes.StamperRecipe;
-import com.jerry.mekmm.api.recipes.cache.StamperCachedRecipe;
-import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
-import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
-import com.jerry.mekmm.common.upgrade.StamperUpgradeData;
 import mekanism.api.IContentsListener;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.MathUtils;
@@ -25,6 +20,7 @@ import mekanism.common.recipe.lookup.cache.DoubleInputRecipeCache.CheckRecipeTyp
 import mekanism.common.recipe.lookup.cache.InputRecipeCache.DoubleItem;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.InventoryUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -32,6 +28,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
+import com.jerry.mekmm.api.recipes.StamperRecipe;
+import com.jerry.mekmm.api.recipes.cache.StamperCachedRecipe;
+import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
+import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
+import com.jerry.mekmm.common.upgrade.StamperUpgradeData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

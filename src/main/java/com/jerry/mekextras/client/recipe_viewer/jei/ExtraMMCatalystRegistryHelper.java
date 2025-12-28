@@ -3,15 +3,18 @@ package com.jerry.mekextras.client.recipe_viewer.jei;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
-import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
+
 import mekanism.client.recipe_viewer.jei.MekanismJEI;
 import mekanism.client.recipe_viewer.type.IRecipeViewerRecipeType;
 import mekanism.common.block.attribute.Attribute;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
+
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+
+import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
+import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
 
 import java.util.List;
 

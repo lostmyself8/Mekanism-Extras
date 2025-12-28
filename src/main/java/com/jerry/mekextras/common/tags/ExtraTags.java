@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.tags;
 
 import com.jerry.mekextras.MekanismExtras;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -10,8 +11,7 @@ public class ExtraTags {
 
     public static class Items {
 
-        private Items() {
-        }
+        private Items() {}
 
         public static final TagKey<Item> NAQUADAH = commonTag("ores/naquadah");
         public static final TagKey<Item> END_NAQUADAH = commonTag("ores/naquadah");
@@ -27,7 +27,7 @@ public class ExtraTags {
         public static final TagKey<Item> ALLOYS_THERMONUCLEAR = tag("alloys/thermonuclear");
         public static final TagKey<Item> ALLOYS_SHINING = tag("alloys/shining");
         public static final TagKey<Item> ALLOYS_SPECTRUM = tag("alloys/spectrum");
-        //NeoForge alloy tags
+        // NeoForge alloy tags
         public static final TagKey<Item> COMMON_ALLOYS = commonTag("alloys");
         public static final TagKey<Item> ALLOYS_ABSOLUTE = commonTag("alloys/absolute");
         public static final TagKey<Item> ALLOYS_SUPREME = commonTag("alloys/supreme");

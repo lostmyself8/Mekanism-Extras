@@ -17,6 +17,6 @@ spotless {
         importOrderFile(orderFile)
         removeUnusedImports('cleanthat-javaparser-unnecessaryimport')
         endWithNewline()
-        eclipse('4.31').configFile(formatFile)
+        eclipse('4.36').configFile(formatFile)
     }
 }

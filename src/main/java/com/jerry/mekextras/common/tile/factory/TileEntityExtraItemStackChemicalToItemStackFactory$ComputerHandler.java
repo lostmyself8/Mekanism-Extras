@@ -3,10 +3,12 @@ package com.jerry.mekextras.common.tile.factory;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.minecraft.world.item.ItemStack;
 
 @MethodFactory(target = TileEntityExtraItemStackChemicalToItemStackFactory.class)
 public class TileEntityExtraItemStackChemicalToItemStackFactory$ComputerHandler extends ComputerMethodFactory<TileEntityExtraItemStackChemicalToItemStackFactory> {
+
     public TileEntityExtraItemStackChemicalToItemStackFactory$ComputerHandler() {
         register(MethodData.builder("getChemicalItem", TileEntityExtraItemStackChemicalToItemStackFactory$ComputerHandler::extraSlot$getChemicalItem).returnType(ItemStack.class).methodDescription("Get the contents of the chemical item (extra) slot."));
         register(MethodData.builder("getChemical", TileEntityExtraItemStackChemicalToItemStackFactory$ComputerHandler::chemicalTank$getChemical).returnType(ChemicalStack.class).methodDescription("Get the contents of the chemical tank."));
@@ -17,32 +19,27 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory$ComputerHandler 
     }
 
     public static Object extraSlot$getChemicalItem(
-            TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                                   TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.getStack(subject.extraSlot));
     }
 
     public static Object chemicalTank$getChemical(
-            TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                                  TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getStack(subject.chemicalTank));
     }
 
     public static Object chemicalTank$getChemicalCapacity(
-            TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                                          TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getCapacity(subject.chemicalTank));
     }
 
     public static Object chemicalTank$getChemicalNeeded(
-            TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                                        TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getNeeded(subject.chemicalTank));
     }
 
     public static Object chemicalTank$getChemicalFilledPercentage(
-            TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws
-            ComputerException {
+                                                                  TileEntityExtraItemStackChemicalToItemStackFactory subject, BaseComputerHelper helper) throws ComputerException {
         return helper.convert(SpecialComputerMethodWrapper.ComputerChemicalTankWrapper.getFilledPercentage(subject.chemicalTank));
     }
 

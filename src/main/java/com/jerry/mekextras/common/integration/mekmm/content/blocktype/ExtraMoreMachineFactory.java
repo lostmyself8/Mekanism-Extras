@@ -2,16 +2,15 @@ package com.jerry.mekextras.common.integration.mekmm.content.blocktype;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
-import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
+import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlockTypes;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineContainerTypes;
 import com.jerry.mekextras.common.integration.mekmm.tile.factory.TileEntityExtraMoreMachineFactory;
+import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
-import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
-import com.jerry.mekmm.common.content.blocktype.MoreMachineBlockShapes;
-import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
+
 import mekanism.api.math.MathUtils;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
@@ -19,8 +18,12 @@ import mekanism.common.inventory.container.MekanismContainer;
 import mekanism.common.lib.math.Pos3D;
 import mekanism.common.registration.impl.ContainerTypeRegistryObject;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
-import com.jerry.mekextras.common.tier.ExtraFactoryTier;
+
 import net.minecraft.core.particles.ParticleTypes;
+
+import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
+import com.jerry.mekmm.common.content.blocktype.MoreMachineBlockShapes;
+import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -50,7 +53,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
     }
 
     public static class ExtraMoreMachineFactoryBuilder<FACTORY extends ExtraMoreMachineFactory<TILE>, TILE extends TileEntityExtraMoreMachineFactory<?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
-            extends BlockTileBuilder<FACTORY, TILE, T> {
+                                                      extends BlockTileBuilder<FACTORY, TILE, T> {
 
         protected ExtraMoreMachineFactoryBuilder(FACTORY holder) {
             super(holder);
@@ -78,7 +81,6 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
         }
 
         private static <TILE extends TileEntityExtraMoreMachineFactory<?>> @NotNull ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> getExtraMoreMachineFactoryTILEMoreMachineFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, MoreMachineFactoryType type, ExtraFactoryTier tier) {
-
             ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> builder = new ExtraMoreMachineFactoryBuilder<>(new ExtraMoreMachineFactory<>(tileEntityRegistrar,
                     () -> ExtraMoreMachineContainerTypes.MORE_MACHINE_FACTORY,
                     switch (type) {
@@ -89,8 +91,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
                         case CNC_ROLLING_MILL -> ExtraMoreMachineBlockTypes.CNC_ROLLING_MILL;
                         case REPLICATING -> ExtraMoreMachineBlockTypes.REPLICATOR;
                     },
-                    tier)
-            );
+                    tier));
             builder.withComputerSupport(tier.getAdvanceTier().getLowerName() + type.getRegistryNameComponentCapitalized() + "Factory");
             return builder;
         }

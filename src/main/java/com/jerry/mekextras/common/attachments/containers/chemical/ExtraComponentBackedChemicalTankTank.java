@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.attachments.containers.chemical;
 
 import com.jerry.mekextras.common.item.block.ItemBlockExtraChemicalTank;
 import com.jerry.mekextras.common.tier.CTTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.annotations.NothingNullByDefault;
@@ -10,6 +11,7 @@ import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.chemical.AttachedChemicals;
 import mekanism.common.attachments.containers.chemical.ComponentBackedChemicalTank;
+
 import net.minecraft.world.item.ItemStack;
 
 @NothingNullByDefault
@@ -43,7 +45,8 @@ public class ExtraComponentBackedChemicalTankTank extends ComponentBackedChemica
     /**
      * {@inheritDoc}
      *
-     * Note: We are only patching {@link #setStackSize(AttachedChemicals, ChemicalStack, long, Action)}, as both {@link #growStack(long, Action)} and
+     * Note: We are only patching {@link #setStackSize(AttachedChemicals, ChemicalStack, long, Action)}, as both
+     * {@link #growStack(long, Action)} and
      * {@link #shrinkStack(long, Action)} are wrapped through this method.
      */
     @Override

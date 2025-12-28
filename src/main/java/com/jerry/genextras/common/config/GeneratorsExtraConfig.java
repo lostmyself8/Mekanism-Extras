@@ -2,7 +2,9 @@ package com.jerry.genextras.common.config;
 
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.config.ExtraConfigHelper;
+
 import mekanism.common.config.IMekanismConfig;
+
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.config.IConfigSpec;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -14,8 +16,7 @@ import java.util.Map;
 
 public class GeneratorsExtraConfig {
 
-    private GeneratorsExtraConfig() {
-    }
+    private GeneratorsExtraConfig() {}
 
     private static final Map<IConfigSpec, IMekanismConfig> KNOWN_CONFIGS = new HashMap<>();
     public static final ExtraGeneratorsConfig extraGenerators = new ExtraGeneratorsConfig();

@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.content.network.transmitter;
 import com.jerry.mekextras.common.tier.transmitter.TTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.chemical.ChemicalStack;
@@ -15,14 +16,17 @@ import mekanism.common.lib.transmitter.acceptor.AcceptorCache;
 import mekanism.common.upgrade.transmitter.PressurizedTubeUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.EnumUtils;
+
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtraPressurizedTube extends PressurizedTube implements IChemicalTracker,
-        IExtraUpgradeableTransmitter<PressurizedTubeUpgradeData> {
+                                  IExtraUpgradeableTransmitter<PressurizedTubeUpgradeData> {
+
     public ExtraPressurizedTube(Holder<Block> blockProvider, TileEntityExtraTransmitter tile) {
         super(blockProvider, tile);
     }
@@ -39,7 +43,7 @@ public class ExtraPressurizedTube extends PressurizedTube implements IChemicalTr
             }
             IChemicalHandler connectedAcceptor = acceptorCache.getConnectedAcceptor(side);
             if (connectedAcceptor != null) {
-                //Note: We recheck the buffer each time in case we ended up accepting chemical somewhere
+                // Note: We recheck the buffer each time in case we ended up accepting chemical somewhere
                 // and our buffer changed and is no longer empty
                 ChemicalStack bufferWithFallback = getBufferWithFallback();
                 pullFromAcceptor(connectedAcceptor, bufferWithFallback, bufferWithFallback.isEmpty());
@@ -54,17 +58,21 @@ public class ExtraPressurizedTube extends PressurizedTube implements IChemicalTr
         long availablePull = getAvailablePull();
         ChemicalStack received;
         if (bufferIsEmpty) {
-            //If we don't have a chemical stored try pulling as much as we are able to
+            // If we don't have a chemical stored try pulling as much as we are able to
             received = connectedAcceptor.extractChemical(availablePull, Action.SIMULATE);
         } else {
-            //Otherwise, try draining the same type of chemical we have stored requesting up to as much as we are able to pull
-            // We do this to better support multiple tanks in case the chemical we have stored we could pull out of a block's
+            // Otherwise, try draining the same type of chemical we have stored requesting up to as much as we are able
+            // to pull
+            // We do this to better support multiple tanks in case the chemical we have stored we could pull out of a
+            // block's
             // second tank but just asking to drain a specific amount
             received = connectedAcceptor.extractChemical(bufferWithFallback.copyWithAmount(availablePull), Action.SIMULATE);
         }
         if (!received.isEmpty() && takeChemical(received, Action.SIMULATE).isEmpty()) {
-            //If we received some chemical and are able to insert it all, then actually extract it and insert it into our thing.
-            // Note: We extract first after simulating ourselves because if the target gave a faulty simulation value, we want to handle it properly
+            // If we received some chemical and are able to insert it all, then actually extract it and insert it into
+            // our thing.
+            // Note: We extract first after simulating ourselves because if the target gave a faulty simulation value,
+            // we want to handle it properly
             // and not accidentally dupe anything, and we know our simulation we just performed on taking it is valid
             takeChemical(connectedAcceptor.extractChemical(received, Action.EXECUTE), Action.EXECUTE);
             return true;

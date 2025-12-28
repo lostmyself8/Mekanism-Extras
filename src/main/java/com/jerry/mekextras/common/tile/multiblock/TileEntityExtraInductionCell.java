@@ -2,15 +2,18 @@ package com.jerry.mekextras.common.tile.multiblock;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.tier.ICTier;
+
 import mekanism.api.IContentsListener;
 import mekanism.common.capabilities.energy.MachineEnergyContainer;
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper;
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder;
 import mekanism.common.tile.prefab.TileEntityInternalMultiblock;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 public class TileEntityExtraInductionCell extends TileEntityInternalMultiblock {

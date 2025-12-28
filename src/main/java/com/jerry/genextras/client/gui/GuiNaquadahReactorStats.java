@@ -3,6 +3,7 @@ package com.jerry.genextras.client.gui;
 import com.jerry.genextras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
+
 import mekanism.api.text.EnumColor;
 import mekanism.common.inventory.container.tile.EmptyTileContainer;
 import mekanism.common.util.MekanismUtils;
@@ -10,9 +11,11 @@ import mekanism.common.util.UnitDisplayUtils;
 import mekanism.common.util.text.EnergyDisplay;
 import mekanism.common.util.text.TextUtils;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 
 public class GuiNaquadahReactorStats extends GuiNaquadahReactorInfo {
@@ -47,7 +50,7 @@ public class GuiNaquadahReactorStats extends GuiNaquadahReactorInfo {
             drawScrollingString(guiGraphics, GeneratorsLang.REACTOR_PASSIVE_RATE.translate(EnergyDisplay.of(multiblock.getPassiveGeneration(false, false))),
                     indentation, 76, TextAlignment.LEFT, titleTextColor(), textArea, 6, false);
 
-            drawScrollingString(guiGraphics,GeneratorsLang.REACTOR_ACTIVE.translateColored(EnumColor.DARK_BLUE),
+            drawScrollingString(guiGraphics, GeneratorsLang.REACTOR_ACTIVE.translateColored(EnumColor.DARK_BLUE),
                     0, 92, TextAlignment.LEFT, titleTextColor(), 6, false);
             drawScrollingString(guiGraphics, GeneratorsLang.REACTOR_MIN_INJECTION.translate(multiblock.getMinInjectionRate(true)),
                     indentation, 102, TextAlignment.LEFT, titleTextColor(), textArea, 6, false);

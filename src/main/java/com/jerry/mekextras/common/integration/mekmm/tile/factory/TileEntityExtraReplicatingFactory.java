@@ -1,12 +1,5 @@
 package com.jerry.mekextras.common.integration.mekmm.tile.factory;
 
-import com.jerry.mekmm.api.recipes.basic.MMBasicItemStackChemicalToItemStackRecipe;
-import com.jerry.mekmm.api.recipes.cache.ReplicatorCachedRecipe;
-import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
-import com.jerry.mekmm.common.config.MoreMachineConfig;
-import com.jerry.mekmm.common.recipe.impl.ReplicatorIRecipeSingle;
-import com.jerry.mekmm.common.registries.MoreMachineChemicals;
-import com.jerry.mekmm.common.util.ValidatorUtils;
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.BasicChemicalTank;
 import mekanism.api.chemical.ChemicalStack;
@@ -35,6 +28,7 @@ import mekanism.common.upgrade.AdvancedMachineUpgradeData;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.InventoryUtils;
 import mekanism.common.util.RegistryUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -43,6 +37,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidType;
+
+import com.jerry.mekmm.api.recipes.basic.MMBasicItemStackChemicalToItemStackRecipe;
+import com.jerry.mekmm.api.recipes.cache.ReplicatorCachedRecipe;
+import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
+import com.jerry.mekmm.common.config.MoreMachineConfig;
+import com.jerry.mekmm.common.recipe.impl.ReplicatorIRecipeSingle;
+import com.jerry.mekmm.common.registries.MoreMachineChemicals;
+import com.jerry.mekmm.common.util.ValidatorUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +54,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItemMoreMachineFactory<MMBasicItemStackChemicalToItemStackRecipe> implements IHasDumpButton,
-                                          ItemChemicalRecipeLookupHandler<MMBasicItemStackChemicalToItemStackRecipe> {
+                                               ItemChemicalRecipeLookupHandler<MMBasicItemStackChemicalToItemStackRecipe> {
 
     protected static final DoubleInputRecipeCache.CheckRecipeType<ItemStack, ChemicalStack, MMBasicItemStackChemicalToItemStackRecipe, ItemStack> OUTPUT_CHECK = (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(

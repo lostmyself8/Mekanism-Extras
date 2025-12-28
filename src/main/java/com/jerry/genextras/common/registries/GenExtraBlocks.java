@@ -1,17 +1,20 @@
 package com.jerry.genextras.common.registries;
 
+import com.jerry.mekextras.MekanismExtras;
+
 import com.jerry.genextras.common.block.naquadah.BlockLeadCoatedLaserFocusMatrix;
 import com.jerry.genextras.common.item.ItemBlockNaquadahLogicAdapter;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorLogicAdapter;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorPort;
-import com.jerry.mekextras.MekanismExtras;
+
 import mekanism.common.block.interfaces.IHasDescription;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
+
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 
@@ -19,9 +22,7 @@ import java.util.function.Supplier;
 
 public class GenExtraBlocks {
 
-    private GenExtraBlocks() {
-
-    }
+    private GenExtraBlocks() {}
 
     public static final BlockDeferredRegister GEN_EXTRA_BLOCKS = new BlockDeferredRegister(MekanismExtras.MOD_ID);
 

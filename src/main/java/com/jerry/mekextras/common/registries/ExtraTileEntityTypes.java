@@ -1,29 +1,28 @@
 package com.jerry.mekextras.common.registries;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.jerry.mekextras.MekanismExtras;
+import com.jerry.mekextras.common.block.BlockExtraEnergyCube;
 import com.jerry.mekextras.common.block.basic.BlockExtraBin;
+import com.jerry.mekextras.common.block.basic.BlockExtraFluidTank;
 import com.jerry.mekextras.common.block.prefab.BlockExtraFactoryMachine.BlockExtraFactory;
+import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
 import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraChemicalTank;
+import com.jerry.mekextras.common.item.block.ItemBlockExtraEnergyCube;
 import com.jerry.mekextras.common.item.block.ItemBlockLargeCapRadioactiveWasteBarrel;
 import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFactory;
+import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFluidTank;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.tile.*;
-import com.jerry.mekextras.common.item.block.ItemBlockExtraChemicalTank;
-import com.jerry.mekextras.common.block.BlockExtraEnergyCube;
-import com.jerry.mekextras.common.item.block.ItemBlockExtraEnergyCube;
-import com.jerry.mekextras.common.block.basic.BlockExtraFluidTank;
-import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFluidTank;
 import com.jerry.mekextras.common.tile.factory.*;
-import com.jerry.mekextras.common.tile.transmitter.*;
-import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
 import com.jerry.mekextras.common.tile.machine.TileEntityAdvancedElectricPump;
-import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
-import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
+import com.jerry.mekextras.common.tile.transmitter.*;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
+
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.Mekanism;
 import mekanism.common.capabilities.Capabilities;
@@ -36,12 +35,16 @@ import mekanism.common.registration.impl.TileEntityTypeDeferredRegister.BlockEnt
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.CapabilityTileEntity;
 import mekanism.common.tile.base.TileEntityMekanism;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 
 public class ExtraTileEntityTypes {
 
@@ -80,8 +83,8 @@ public class ExtraTileEntityTypes {
             .withSimple(Capabilities.CONFIGURABLE)
             .build();
 
-    //Tiered Tiles
-    //Bins
+    // Tiered Tiles
+    // Bins
     public static final TileEntityTypeRegistryObject<TileEntityExtraBin> ABSOLUTE_BIN = registerBin(ExtraBlocks.ABSOLUTE_BIN);
     public static final TileEntityTypeRegistryObject<TileEntityExtraBin> SUPREME_BIN = registerBin(ExtraBlocks.SUPREME_BIN);
     public static final TileEntityTypeRegistryObject<TileEntityExtraBin> COSMIC_BIN = registerBin(ExtraBlocks.COSMIC_BIN);
@@ -94,7 +97,7 @@ public class ExtraTileEntityTypes {
                 .build();
     }
 
-    //Energy Cubes
+    // Energy Cubes
     public static final TileEntityTypeRegistryObject<TileEntityExtraEnergyCube> ABSOLUTE_ENERGY_CUBE = registerEnergyCube(ExtraBlocks.ABSOLUTE_ENERGY_CUBE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraEnergyCube> SUPREME_ENERGY_CUBE = registerEnergyCube(ExtraBlocks.SUPREME_ENERGY_CUBE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraEnergyCube> COSMIC_ENERGY_CUBE = registerEnergyCube(ExtraBlocks.COSMIC_ENERGY_CUBE);
@@ -107,7 +110,7 @@ public class ExtraTileEntityTypes {
                 .build();
     }
 
-    //Fluid Tanks
+    // Fluid Tanks
     public static final TileEntityTypeRegistryObject<TileEntityExtraFluidTank> ABSOLUTE_FLUID_TANK = registerFluidTank(ExtraBlocks.ABSOLUTE_FLUID_TANK);
     public static final TileEntityTypeRegistryObject<TileEntityExtraFluidTank> SUPREME_FLUID_TANK = registerFluidTank(ExtraBlocks.SUPREME_FLUID_TANK);
     public static final TileEntityTypeRegistryObject<TileEntityExtraFluidTank> COSMIC_FLUID_TANK = registerFluidTank(ExtraBlocks.COSMIC_FLUID_TANK);
@@ -122,7 +125,7 @@ public class ExtraTileEntityTypes {
                 .build();
     }
 
-    //Chemical Tanks
+    // Chemical Tanks
     public static final TileEntityTypeRegistryObject<TileEntityExtraChemicalTank> ABSOLUTE_CHEMICAL_TANK = registerChemicalTank(ExtraBlocks.ABSOLUTE_CHEMICAL_TANK);
     public static final TileEntityTypeRegistryObject<TileEntityExtraChemicalTank> SUPREME_CHEMICAL_TANK = registerChemicalTank(ExtraBlocks.SUPREME_CHEMICAL_TANK);
     public static final TileEntityTypeRegistryObject<TileEntityExtraChemicalTank> COSMIC_CHEMICAL_TANK = registerChemicalTank(ExtraBlocks.COSMIC_CHEMICAL_TANK);
@@ -146,28 +149,28 @@ public class ExtraTileEntityTypes {
                 .build();
     }
 
-    //Transmitters
-    //Universal Cables
+    // Transmitters
+    // Universal Cables
     public static final TileEntityTypeRegistryObject<TileEntityExtraUniversalCable> ABSOLUTE_UNIVERSAL_CABLE = registerCable(ExtraBlocks.ABSOLUTE_UNIVERSAL_CABLE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraUniversalCable> SUPREME_UNIVERSAL_CABLE = registerCable(ExtraBlocks.SUPREME_UNIVERSAL_CABLE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraUniversalCable> COSMIC_UNIVERSAL_CABLE = registerCable(ExtraBlocks.COSMIC_UNIVERSAL_CABLE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraUniversalCable> INFINITE_UNIVERSAL_CABLE = registerCable(ExtraBlocks.INFINITE_UNIVERSAL_CABLE);
-    //Mechanical Pipes
+    // Mechanical Pipes
     public static final TileEntityTypeRegistryObject<TileEntityExtraMechanicalPipe> ABSOLUTE_MECHANICAL_PIPE = registerPipe(ExtraBlocks.ABSOLUTE_MECHANICAL_PIPE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraMechanicalPipe> SUPREME_MECHANICAL_PIPE = registerPipe(ExtraBlocks.SUPREME_MECHANICAL_PIPE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraMechanicalPipe> COSMIC_MECHANICAL_PIPE = registerPipe(ExtraBlocks.COSMIC_MECHANICAL_PIPE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraMechanicalPipe> INFINITE_MECHANICAL_PIPE = registerPipe(ExtraBlocks.INFINITE_MECHANICAL_PIPE);
-    //Pressurized Tubes
+    // Pressurized Tubes
     public static final TileEntityTypeRegistryObject<TileEntityExtraPressurizedTube> ABSOLUTE_PRESSURIZED_TUBE = registerTube(ExtraBlocks.ABSOLUTE_PRESSURIZED_TUBE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraPressurizedTube> SUPREME_PRESSURIZED_TUBE = registerTube(ExtraBlocks.SUPREME_PRESSURIZED_TUBE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraPressurizedTube> COSMIC_PRESSURIZED_TUBE = registerTube(ExtraBlocks.COSMIC_PRESSURIZED_TUBE);
     public static final TileEntityTypeRegistryObject<TileEntityExtraPressurizedTube> INFINITE_PRESSURIZED_TUBE = registerTube(ExtraBlocks.INFINITE_PRESSURIZED_TUBE);
-    //Logistic Transporters
+    // Logistic Transporters
     public static final TileEntityTypeRegistryObject<TileEntityExtraLogisticalTransporter> ABSOLUTE_LOGISTICAL_TRANSPORTER = registerTransporter(ExtraBlocks.ABSOLUTE_LOGISTICAL_TRANSPORTER, TileEntityExtraLogisticalTransporter::new);
     public static final TileEntityTypeRegistryObject<TileEntityExtraLogisticalTransporter> SUPREME_LOGISTICAL_TRANSPORTER = registerTransporter(ExtraBlocks.SUPREME_LOGISTICAL_TRANSPORTER, TileEntityExtraLogisticalTransporter::new);
     public static final TileEntityTypeRegistryObject<TileEntityExtraLogisticalTransporter> COSMIC_LOGISTICAL_TRANSPORTER = registerTransporter(ExtraBlocks.COSMIC_LOGISTICAL_TRANSPORTER, TileEntityExtraLogisticalTransporter::new);
     public static final TileEntityTypeRegistryObject<TileEntityExtraLogisticalTransporter> INFINITE_LOGISTICAL_TRANSPORTER = registerTransporter(ExtraBlocks.INFINITE_LOGISTICAL_TRANSPORTER, TileEntityExtraLogisticalTransporter::new);
-    //Thermodynamic Conductors
+    // Thermodynamic Conductors
     public static final TileEntityTypeRegistryObject<TileEntityExtraThermodynamicConductor> ABSOLUTE_THERMODYNAMIC_CONDUCTOR = registerConductor(ExtraBlocks.ABSOLUTE_THERMODYNAMIC_CONDUCTOR);
     public static final TileEntityTypeRegistryObject<TileEntityExtraThermodynamicConductor> SUPREME_THERMODYNAMIC_CONDUCTOR = registerConductor(ExtraBlocks.SUPREME_THERMODYNAMIC_CONDUCTOR);
     public static final TileEntityTypeRegistryObject<TileEntityExtraThermodynamicConductor> COSMIC_THERMODYNAMIC_CONDUCTOR = registerConductor(ExtraBlocks.COSMIC_THERMODYNAMIC_CONDUCTOR);
@@ -181,6 +184,7 @@ public class ExtraTileEntityTypes {
         }
         return builder.build();
     }
+
     private static TileEntityTypeRegistryObject<TileEntityExtraMechanicalPipe> registerPipe(BlockRegistryObject<?, ?> block) {
         BlockEntityTypeBuilder<TileEntityExtraMechanicalPipe> builder = transmitterBuilder(block, TileEntityExtraMechanicalPipe::new)
                 .with(Capabilities.FLUID.block(), CapabilityTileEntity.FLUID_HANDLER_PROVIDER);
@@ -189,6 +193,7 @@ public class ExtraTileEntityTypes {
         }
         return builder.build();
     }
+
     private static TileEntityTypeRegistryObject<TileEntityExtraPressurizedTube> registerTube(BlockRegistryObject<?, ?> block) {
         BlockEntityTypeBuilder<TileEntityExtraPressurizedTube> builder = transmitterBuilder(block, TileEntityExtraPressurizedTube::new)
                 .with(Capabilities.CHEMICAL.block(), CapabilityTileEntity.CHEMICAL_HANDLER_PROVIDER);
@@ -197,31 +202,36 @@ public class ExtraTileEntityTypes {
         }
         return builder.build();
     }
+
     private static <BE extends TileEntityExtraLogisticalTransporterBase> TileEntityTypeRegistryObject<BE> registerTransporter(BlockRegistryObject<?, ?> block, BlockEntityFactory<BE> factory) {
         return transporterBuilder(block, factory).build();
     }
+
     private static <BE extends TileEntityExtraLogisticalTransporterBase> BlockEntityTypeBuilder<BE> transporterBuilder(BlockRegistryObject<?, ?> block, BlockEntityFactory<BE> factory) {
         return transmitterBuilder(block, factory)
                 .clientTicker(TileEntityExtraLogisticalTransporterBase::tickClient)
                 .with(Capabilities.ITEM.block(), CapabilityTileEntity.ITEM_HANDLER_PROVIDER);
     }
+
     private static TileEntityTypeRegistryObject<TileEntityExtraThermodynamicConductor> registerConductor(BlockRegistryObject<?, ?> block) {
         return transmitterBuilder(block, TileEntityExtraThermodynamicConductor::new)
                 .with(Capabilities.HEAT, CapabilityTileEntity.HEAT_HANDLER_PROVIDER)
                 .build();
     }
+
     private static <BE extends TileEntityExtraTransmitter> BlockEntityTypeBuilder<BE> transmitterBuilder(BlockRegistryObject<?, ?> block, BlockEntityFactory<BE> factory) {
         return EXTRA_TILE_ENTITY_TYPES.builder(block, (pos, state) -> factory.create(block, pos, state))
                 .serverTicker(TileEntityExtraTransmitter::tickServer)
                 .withSimple(ExtraCapabilities.EXTRA_ALLOY_INTERACTION)
                 .with(Capabilities.CONFIGURABLE, TileEntityExtraTransmitter.CONFIGURABLE_PROVIDER);
     }
+
     public static final TileEntityTypeRegistryObject<TileEntityReinforcedInductionCasing> REINFORCED_INDUCTION_CASING = EXTRA_TILE_ENTITY_TYPES
             .mekBuilder(ExtraBlocks.REINFORCED_INDUCTION_CASING, TileEntityReinforcedInductionCasing::new)
             .clientTicker(TileEntityMekanism::tickClient)
             .serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIGURABLE)
-            //Disable item handler caps if we are the induction casing (but not the port)
+            // Disable item handler caps if we are the induction casing (but not the port)
             .without(Capabilities.ITEM.block())
             .build();
     public static final TileEntityTypeRegistryObject<TileEntityReinforcedInductionPort> REINFORCED_INDUCTION_PORT = EXTRA_TILE_ENTITY_TYPES
@@ -230,12 +240,12 @@ public class ExtraTileEntityTypes {
             .serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIGURABLE)
             .build();
-    //Induction Cells
+    // Induction Cells
     public static final TileEntityTypeRegistryObject<TileEntityExtraInductionCell> ABSOLUTE_INDUCTION_CELL = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.ABSOLUTE_INDUCTION_CELL, (pos, state) -> new TileEntityExtraInductionCell(ExtraBlocks.ABSOLUTE_INDUCTION_CELL, pos, state)).build();
     public static final TileEntityTypeRegistryObject<TileEntityExtraInductionCell> SUPREME_INDUCTION_CELL = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.SUPREME_INDUCTION_CELL, (pos, state) -> new TileEntityExtraInductionCell(ExtraBlocks.SUPREME_INDUCTION_CELL, pos, state)).build();
     public static final TileEntityTypeRegistryObject<TileEntityExtraInductionCell> COSMIC_INDUCTION_CELL = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.COSMIC_INDUCTION_CELL, (pos, state) -> new TileEntityExtraInductionCell(ExtraBlocks.COSMIC_INDUCTION_CELL, pos, state)).build();
     public static final TileEntityTypeRegistryObject<TileEntityExtraInductionCell> INFINITE_INDUCTION_CELL = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.INFINITE_INDUCTION_CELL, (pos, state) -> new TileEntityExtraInductionCell(ExtraBlocks.INFINITE_INDUCTION_CELL, pos, state)).build();
-    //Induction Providers
+    // Induction Providers
     public static final TileEntityTypeRegistryObject<TileEntityExtraInductionProvider> ABSOLUTE_INDUCTION_PROVIDER = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.ABSOLUTE_INDUCTION_PROVIDER, (pos, state) -> new TileEntityExtraInductionProvider(ExtraBlocks.ABSOLUTE_INDUCTION_PROVIDER, pos, state)).build();
     public static final TileEntityTypeRegistryObject<TileEntityExtraInductionProvider> SUPREME_INDUCTION_PROVIDER = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.SUPREME_INDUCTION_PROVIDER, (pos, state) -> new TileEntityExtraInductionProvider(ExtraBlocks.SUPREME_INDUCTION_PROVIDER, pos, state)).build();
     public static final TileEntityTypeRegistryObject<TileEntityExtraInductionProvider> COSMIC_INDUCTION_PROVIDER = EXTRA_TILE_ENTITY_TYPES.builder(ExtraBlocks.COSMIC_INDUCTION_PROVIDER, (pos, state) -> new TileEntityExtraInductionProvider(ExtraBlocks.COSMIC_INDUCTION_PROVIDER, pos, state)).build();
@@ -255,6 +265,7 @@ public class ExtraTileEntityTypes {
 
         BE create(Holder<Block> block, BlockPos pos, BlockState state);
     }
+
     public static void register(IEventBus eventBus) {
         EXTRA_TILE_ENTITY_TYPES.register(eventBus);
     }

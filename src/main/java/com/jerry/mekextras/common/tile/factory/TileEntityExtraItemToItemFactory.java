@@ -1,8 +1,9 @@
 package com.jerry.mekextras.common.tile.factory;
 
+import com.jerry.mekextras.api.recipes.outputs.ExtraOutputHelper;
 import com.jerry.mekextras.common.inventory.slot.ExtraFactoryInputInventorySlot;
 import com.jerry.mekextras.common.inventory.slot.ExtraFactoryOutputInventorySlot;
-import com.jerry.mekextras.api.recipes.outputs.ExtraOutputHelper;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.recipes.MekanismRecipe;
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
@@ -12,11 +13,13 @@ import mekanism.api.recipes.outputs.IOutputHandler;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.recipe.lookup.monitor.FactoryRecipeCacheLookupMonitor;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -46,7 +49,8 @@ public abstract class TileEntityExtraItemToItemFactory<RECIPE extends MekanismRe
                 lookupMonitor.unpause();
             };
             ExtraFactoryOutputInventorySlot outputSlot = ExtraFactoryOutputInventorySlot.at(this, updateSortingAndUnpause, xPos, 57);
-            //Note: As we are an item factory that has comparator's based on items we can just use the monitor as a listener directly
+            // Note: As we are an item factory that has comparator's based on items we can just use the monitor as a
+            // listener directly
             ExtraFactoryInputInventorySlot inputSlot = ExtraFactoryInputInventorySlot.create(this, i, outputSlot, recipeCacheLookupMonitors[i], xPos, 13);
             int index = i;
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, index)));

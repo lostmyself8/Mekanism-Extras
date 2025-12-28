@@ -3,8 +3,7 @@ package com.jerry.mekextras.common.tile;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.capabilities.fluid.ExtraFluidTankFluidTank;
 import com.jerry.mekextras.common.tier.FTTier;
-import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.DataResult;
+
 import mekanism.api.Action;
 import mekanism.api.IConfigurable;
 import mekanism.api.IContentsListener;
@@ -35,6 +34,7 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.FluidUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -61,6 +61,9 @@ import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.DataResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,8 +74,10 @@ import java.util.Optional;
 
 public class TileEntityExtraFluidTank extends TileEntityMekanism implements IConfigurable, IFluidContainerManager {
 
-    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class, methodNames = {"getStored", "getCapacity", "getNeeded",
-            "getFilledPercentage"}, docPlaceholder = "tank")
+    @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerFluidTankWrapper.class,
+                            methodNames = { "getStored", "getCapacity", "getNeeded",
+                                    "getFilledPercentage" },
+                            docPlaceholder = "tank")
     public ExtraFluidTankFluidTank fluidTank;
 
     private ContainerEditMode editMode = ContainerEditMode.BOTH;
@@ -158,7 +163,8 @@ public class TileEntityExtraFluidTank extends TileEntityMekanism implements ICon
         float scale = MekanismUtils.getScale(prevScale, fluidTank);
         if (scale != prevScale) {
             if (prevScale == 0 || scale == 0) {
-                //If it was empty and no longer is, or wasn't empty and now is empty we want to recheck the block lighting
+                // If it was empty and no longer is, or wasn't empty and now is empty we want to recheck the block
+                // lighting
                 // as the fluid may have changed and have a light value
                 if (lightUpdateDelay == 0) {
                     lightUpdateDelay = prevScale == 0 ? 1 : MekanismConfig.general.blockDeactivationDelay.get();
@@ -305,10 +311,10 @@ public class TileEntityExtraFluidTank extends TileEntityMekanism implements ICon
     @Override
     public CompoundTag getReducedUpdateTag(@NotNull HolderLookup.Provider provider) {
         CompoundTag updateTag = super.getReducedUpdateTag(provider);
-        //updateTag.put(SerializationConstants.FLUID, fluidTank.getFluid().saveOptional(provider));
-        //updateTag.put(SerializationConstants.VALVE, valveFluid.saveOptional(provider));
+        // updateTag.put(SerializationConstants.FLUID, fluidTank.getFluid().saveOptional(provider));
+        // updateTag.put(SerializationConstants.VALVE, valveFluid.saveOptional(provider));
         updateTag.putFloat(SerializationConstants.SCALE, prevScale);
-        //TODO - 1.21: Re-evaluate this alternate encoding further
+        // TODO - 1.21: Re-evaluate this alternate encoding further
         CompoundTag fluidData = new CompoundTag();
         FluidStack fluid = fluidTank.getFluid();
         if (fluid.isEmpty()) {
@@ -317,12 +323,13 @@ public class TileEntityExtraFluidTank extends TileEntityMekanism implements ICon
             fluidData.putInt(SerializationConstants.AMOUNT, fluid.getAmount());
         }
         if (!fluid.isEmpty()) {
-            //Note: This should never be null as it returns a reference holder
+            // Note: This should never be null as it returns a reference holder
             // We throw if it is, so that we can find the bug if it gets introduced during porting
             ResourceKey<Fluid> key = Objects.requireNonNull(fluid.getFluidHolder().getKey(), "Resource key should always be present");
             fluidData.putString(SerializationConstants.ID, key.location().toString());
             if (!fluid.isComponentsPatchEmpty()) {
-                //Note: This isn't necessarily optimal, but it does mean in general we can avoid codecs unless it happens to be a fluid that
+                // Note: This isn't necessarily optimal, but it does mean in general we can avoid codecs unless it
+                // happens to be a fluid that
                 // does have component data
                 DataResult<Tag> componentData = DataComponentPatch.CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), fluid.getComponentsPatch());
                 if (componentData.isError()) {
@@ -343,14 +350,17 @@ public class TileEntityExtraFluidTank extends TileEntityMekanism implements ICon
     @Override
     public void handleUpdateTag(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider provider) {
         super.handleUpdateTag(tag, provider);
-        //NBTUtils.setFluidStackIfPresent(provider, tag, SerializationConstants.FLUID, fluid -> fluidTank.setStack(fluid));
-        //NBTUtils.setFluidStackIfPresent(provider, tag, SerializationConstants.VALVE, fluid -> valveFluid = fluid);
+        // NBTUtils.setFluidStackIfPresent(provider, tag, SerializationConstants.FLUID, fluid ->
+        // fluidTank.setStack(fluid));
+        // NBTUtils.setFluidStackIfPresent(provider, tag, SerializationConstants.VALVE, fluid -> valveFluid = fluid);
         NBTUtils.setFloatIfPresent(tag, SerializationConstants.SCALE, scale -> {
             if (lightUpdateDelay == 0 && MekanismUtils.scaleChanged(prevScale, scale)) {
                 if (prevScale == 0 || scale == 0) {
-                    //If it was empty and no longer is, or wasn't empty and now is empty we want to recheck the block lighting
-                    // as the fluid may have changed and have a light value, mark that the client should update the light value
-                    //Note: If we previously had no fluid, we queue the lighting for the next client tick
+                    // If it was empty and no longer is, or wasn't empty and now is empty we want to recheck the block
+                    // lighting
+                    // as the fluid may have changed and have a light value, mark that the client should update the
+                    // light value
+                    // Note: If we previously had no fluid, we queue the lighting for the next client tick
                     lightUpdateDelay = prevScale == 0 ? 1 : MekanismConfig.general.blockDeactivationDelay.get();
                 }
             }
@@ -372,8 +382,7 @@ public class TileEntityExtraFluidTank extends TileEntityMekanism implements ICon
                     if (fluidData.contains(SerializationConstants.DATA)) {
                         DataResult<Pair<DataComponentPatch, Tag>> componentPatch = DataComponentPatch.CODEC.decode(
                                 provider.createSerializationContext(NbtOps.INSTANCE),
-                                fluidData.get(SerializationConstants.DATA)
-                        );
+                                fluidData.get(SerializationConstants.DATA));
                         if (componentPatch.isSuccess()) {
                             patch = componentPatch.getOrThrow().getFirst();
                         } else {
@@ -384,7 +393,7 @@ public class TileEntityExtraFluidTank extends TileEntityMekanism implements ICon
                             });
                         }
                     }
-                    //We actually have something to set, so mark that we shouldn't reset the stored fluid data
+                    // We actually have something to set, so mark that we shouldn't reset the stored fluid data
                     unsetFluid = false;
                     if (amount == 0) {
                         fluidTank.setEmpty();
@@ -405,7 +414,7 @@ public class TileEntityExtraFluidTank extends TileEntityMekanism implements ICon
         }
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod(requiresPublicSecurity = true)
     void setContainerEditMode(ContainerEditMode mode) throws ComputerException {
         validateSecurityIsPublic();
@@ -426,5 +435,5 @@ public class TileEntityExtraFluidTank extends TileEntityMekanism implements ICon
         validateSecurityIsPublic();
         previousMode();
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

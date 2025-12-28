@@ -1,25 +1,30 @@
 package com.jerry.mekextras.client.recipe_viewer.jei;
 
-import com.jerry.genextras.common.GenExtraLang;
-import com.jerry.genextras.common.registries.GenExtraFluids;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.ExtraLang;
 import com.jerry.mekextras.common.registries.ExtraFluids;
+
+import com.jerry.genextras.common.GenExtraLang;
+import com.jerry.genextras.common.registries.GenExtraFluids;
+
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.client.recipe_viewer.jei.MekanismJEI;
 import mekanism.client.recipe_viewer.type.RecipeViewerRecipeType;
+
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.fluids.FluidType;
+
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.fluids.FluidType;
 
 @JeiPlugin
 @NothingNullByDefault
 public class ExtrasJEI implements IModPlugin {
+
     @Override
     public ResourceLocation getPluginUid() {
         // 不能使用MekanismExtras.rl()，原因见MekanismJEI.class

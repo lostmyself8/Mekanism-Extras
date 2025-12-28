@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.attachments.containers.fluid;
 
 import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFluidTank;
 import com.jerry.mekextras.common.tier.FTTier;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.annotations.NothingNullByDefault;
@@ -9,8 +10,10 @@ import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.fluid.AttachedFluids;
 import mekanism.common.attachments.containers.fluid.ComponentBackedFluidTank;
+
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 
 @NothingNullByDefault
@@ -43,7 +46,8 @@ public class ExtraComponentBackedFluidTankFluidTank extends ComponentBackedFluid
     /**
      * {@inheritDoc}
      *
-     * Note: We are only patching {@link #setStackSize(AttachedFluids, FluidStack, int, Action)}, as both {@link #growStack(int, Action)} and
+     * Note: We are only patching {@link #setStackSize(AttachedFluids, FluidStack, int, Action)}, as both
+     * {@link #growStack(int, Action)} and
      * {@link #shrinkStack(int, Action)} are wrapped through this method.
      */
     @Override

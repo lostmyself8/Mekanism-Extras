@@ -1,12 +1,13 @@
 package com.jerry.mekextras.client.render.item.block;
 
 import com.jerry.mekextras.client.render.tileentity.RenderExtraFluidTank;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import mekanism.api.fluid.IMekanismFluidHandler;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.RenderResizableCuboid;
 import mekanism.client.render.item.MekanismISTER;
 import mekanism.common.attachments.containers.ContainerType;
+
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -14,6 +15,8 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.fluids.FluidStack;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
 public class RenderExtraFluidTankItem extends MekanismISTER {
@@ -22,7 +25,8 @@ public class RenderExtraFluidTankItem extends MekanismISTER {
 
     @Override
     public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
-        //Note: We don't need to register this as a reload listener as we don't have an in code model or make use of this
+        // Note: We don't need to register this as a reload listener as we don't have an in code model or make use of
+        // this
         // reload in any way
     }
 

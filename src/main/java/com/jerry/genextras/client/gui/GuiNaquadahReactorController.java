@@ -3,6 +3,7 @@ package com.jerry.genextras.client.gui;
 import com.jerry.genextras.client.gui.element.GuiNaquadahReactorTab;
 import com.jerry.genextras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
+
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.tab.GuiEnergyTab;
 import mekanism.client.gui.element.tab.GuiHeatTab;
@@ -12,9 +13,11 @@ import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.UnitDisplayUtils;
 import mekanism.common.util.text.EnergyDisplay;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -58,5 +61,4 @@ public class GuiNaquadahReactorController extends GuiMekanismTile<TileEntityNaqu
         drawScrollingString(guiGraphics, MekanismLang.MULTIBLOCK_FORMED.translate(), 0, 16, TextAlignment.LEFT, titleTextColor(), 13, false);
         super.drawForegroundText(guiGraphics, mouseX, mouseY);
     }
-
 }

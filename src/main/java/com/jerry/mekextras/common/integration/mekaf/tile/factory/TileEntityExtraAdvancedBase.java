@@ -1,16 +1,12 @@
 package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
-import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
-import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.api.mixin.IMixinMachineEnergyContainer;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.integration.mekaf.capabilities.energy.ExtraAdvancedFactoryEnergyContainer;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraUpgradeUtils;
-import com.jerry.mekmm.common.util.MoreMachineUtils;
-import it.unimi.dsi.fastutil.ints.IntArraySet;
-import it.unimi.dsi.fastutil.ints.IntSet;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.SerializationConstants;
 import mekanism.api.Upgrade;
@@ -49,6 +45,7 @@ import mekanism.common.tile.prefab.TileEntityRecipeMachine;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.NBTUtils;
 import mekanism.common.util.UpgradeUtils;
+
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -63,6 +60,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
+
+import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
+import com.jerry.mekmm.common.util.MoreMachineUtils;
+import it.unimi.dsi.fastutil.ints.IntArraySet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -313,8 +316,7 @@ public abstract class TileEntityExtraAdvancedBase<RECIPE extends MekanismRecipe<
     /**
      * Handles filling the secondary fuel tank based on the item in the extra slot
      */
-    protected void handleSecondaryFuel() {
-    }
+    protected void handleSecondaryFuel() {}
 
     public int getProgress(int cacheIndex) {
         return progress[cacheIndex];
@@ -416,7 +418,7 @@ public abstract class TileEntityExtraAdvancedBase<RECIPE extends MekanismRecipe<
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
             operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
         } else if (upgrade == ExtraUpgrade.STACK) {
-            //实际上一直是整数所以强制转化为int也不会损失什么
+            // 实际上一直是整数所以强制转化为int也不会损失什么
             upgradeMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
             operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
         }

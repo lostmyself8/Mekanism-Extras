@@ -1,9 +1,10 @@
 package com.jerry.mekextras.common.item.block;
 
 import com.jerry.mekextras.common.attachments.containers.energy.ExtraComponentBackedEnergyCubeContainer;
+import com.jerry.mekextras.common.block.BlockExtraEnergyCube;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.tier.ECTier;
-import com.jerry.mekextras.common.block.BlockExtraEnergyCube;
+
 import mekanism.api.RelativeSide;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
@@ -18,12 +19,14 @@ import mekanism.common.tile.component.config.DataType;
 import mekanism.common.util.EnumUtils;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.text.EnergyDisplay;
+
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,8 +63,7 @@ public class ItemBlockExtraEnergyCube extends ItemBlockExtraTooltip<BlockExtraEn
     public ItemBlockExtraEnergyCube(BlockExtraEnergyCube block, Properties properties) {
         super(block, true, properties
                 .component(MekanismDataComponents.EJECTOR, AttachedEjector.DEFAULT)
-                .component(MekanismDataComponents.SIDE_CONFIG, SIDE_CONFIG)
-        );
+                .component(MekanismDataComponents.SIDE_CONFIG, SIDE_CONFIG));
     }
 
     @Override
@@ -78,12 +80,12 @@ public class ItemBlockExtraEnergyCube extends ItemBlockExtraTooltip<BlockExtraEn
 
     @Override
     protected void addTypeDetails(@NotNull ItemStack stack, @Nullable Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        //Don't call super so that we can exclude the stored energy from being shown as we show it in hover text
+        // Don't call super so that we can exclude the stored energy from being shown as we show it in hover text
     }
 
     @Override
     public boolean isBarVisible(@NotNull ItemStack stack) {
-        //If we are currently stacked, don't display the bar as it will overlap the stack count
+        // If we are currently stacked, don't display the bar as it will overlap the stack count
         return stack.getCount() == 1;
     }
 

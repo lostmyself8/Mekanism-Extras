@@ -1,9 +1,5 @@
 package com.jerry.mekextras.common.content.blocktype;
 
-import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
-import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
-import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
-import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import mekanism.api.text.ILangEntry;
 import mekanism.common.block.attribute.AttributeFactoryType;
 import mekanism.common.content.blocktype.BlockTypeTile;
@@ -11,6 +7,11 @@ import mekanism.common.content.blocktype.FactoryType;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.TileEntityMekanism;
+
+import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
+import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
+import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -59,12 +60,12 @@ public class ExtraMachine {
         }
 
         public static <TILE extends TileEntityMekanism> ExtraMachineBuilder<ExtraFactoryMachine<TILE>, TILE, ?> createExtraAdvancedFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar,
-                                                                                                                                          ILangEntry description, AdvancedFactoryType factoryType) {
+                                                                                                                                                  ILangEntry description, AdvancedFactoryType factoryType) {
             return new ExtraMachineBuilder<>(new ExtraFactoryMachine<>(tileEntityRegistrar, description, factoryType));
         }
 
         public static <TILE extends TileEntityMekanism> ExtraMachineBuilder<ExtraFactoryMachine<TILE>, TILE, ?> createExtraMoreMachineFactoryMachine(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar,
-                                                                                                                                                  ILangEntry description, MoreMachineFactoryType factoryType) {
+                                                                                                                                                     ILangEntry description, MoreMachineFactoryType factoryType) {
             return new ExtraMachineBuilder<>(new ExtraFactoryMachine<>(tileEntityRegistrar, description, factoryType));
         }
     }

@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.tile.multiblock;
 
 import com.jerry.mekextras.common.registries.ExtraBlocks;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
@@ -11,19 +12,22 @@ import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.integration.energy.BlockEnergyCapabilityCache;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.util.text.BooleanStateDisplay;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class TileEntityReinforcedInductionPort extends TileEntityReinforcedInductionCasing{
+public class TileEntityReinforcedInductionPort extends TileEntityReinforcedInductionCasing {
+
     private final Map<Direction, BlockEnergyCapabilityCache> energyCapabilityCaches = new EnumMap<>(Direction.class);
 
     public TileEntityReinforcedInductionPort(BlockPos pos, BlockState state) {
@@ -34,13 +38,13 @@ public class TileEntityReinforcedInductionPort extends TileEntityReinforcedInduc
     @NotNull
     @Override
     protected IEnergyContainerHolder getInitialEnergyContainers(IContentsListener listener) {
-        //Don't allow inserting if we are on output mode, or extracting if we are on input mode
+        // Don't allow inserting if we are on output mode, or extracting if we are on input mode
         return ProxiedEnergyContainerHolder.create(side -> !getActive(), side -> getActive(), side -> getMultiblock().getEnergyContainers(side));
     }
 
     @Override
     public boolean persists(ContainerType<?, ?, ?> type) {
-        //Do not handle energy when it comes to syncing it/saving this tile to disk
+        // Do not handle energy when it comes to syncing it/saving this tile to disk
         if (type == ContainerType.ENERGY) {
             return false;
         }
@@ -71,7 +75,7 @@ public class TileEntityReinforcedInductionPort extends TileEntityReinforcedInduc
         return getMultiblock().getCurrentRedstoneLevel();
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @ComputerMethod(methodDescription = "true -> output, false -> input.")
     boolean getMode() {
         return getActive();
@@ -81,5 +85,5 @@ public class TileEntityReinforcedInductionPort extends TileEntityReinforcedInduc
     void setMode(boolean output) {
         setActive(output);
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

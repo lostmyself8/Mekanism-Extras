@@ -1,9 +1,10 @@
 package com.jerry.mekextras.common.content.matrix;
 
-import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
-import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionCell;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityExtraInductionProvider;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
+import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionPort;
+
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
@@ -17,13 +18,16 @@ import mekanism.common.lib.multiblock.Structure;
 import mekanism.common.util.CableUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReinforcedMatrixMultiblockData extends MultiblockData {
+
     public static final String STATS_TAB = "stats";
 
     private final List<EnergyOutputTarget> energyOutputTargets = new ArrayList<>();

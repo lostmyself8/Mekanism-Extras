@@ -1,55 +1,70 @@
 dependencies {
     compileOnly(libs.jetbrains.annotations)
 
-    modClientLocalRuntime(forge.jecharacters.get())
-
-    // Mixin (& Extras)
-    annotationProcessor(variantOf(libs.mixin) { classifier("processor") })
-    api(annotationProcessor(forge.mixinExtras.common.get()))
+    clientLocalRuntime(forge.jecharacters.get())
 
     // Recipe Viewers
-    modCompileOnly(forge.bundles.jei)
-//    modCompileOnly(forge.emi)
+    compileOnly(forge.bundles.jei)
+    compileOnly(forge.emi)
 //    modCompileOnly(forge.jer)
 
     // Mekanism
-    modCompileOnly(forge.mekanism)
-    modCompileOnly(variantOf(forge.mekanism) { classifier("additions") })
-    modCompileOnly(variantOf(forge.mekanism) { classifier("generators") })
-    modCompileOnly(variantOf(forge.mekanism) { classifier("tools") })
+    compileOnly(forge.mekanism)
+    compileOnly(variantOf(forge.mekanism) { classifier("additions") })
+    compileOnly(variantOf(forge.mekanism) { classifier("generators") })
+    compileOnly(variantOf(forge.mekanism) { classifier("tools") })
 
-    modCompileOnly(forge.mekanismcovers)
-    modCompileOnly(forge.evolvedmekanism)
+    compileOnly(forge.mekanismcovers)
+    compileOnly(forge.evolvedmekanism)
+
+    compileOnly(forge.mekmm)
+
+    // Crt
+    compileOnly(forge.crt)
+
+    // mysticalAgriculture
+    compileOnly(forge.mysticalagriculture)
+
+    // CC: Tweaked
+    compileOnly(forge.cc.tweaked.core.api)
+    compileOnly(forge.cc.tweaked.forge.api)
 
     // WAILA-likes
-    modCompileOnly(forge.jade)
+    compileOnly(forge.jade)
 
     // Standard runtime mods //
-    modLocalRuntime(forge.jade)
-    modLocalRuntime(forge.modernfix)
-    modLocalRuntime(forge.ferritecore)
+    localRuntime(forge.jade)
+    localRuntime(forge.modernfix)
+    localRuntime(forge.ferritecore)
 
     // Mekanism
-    modLocalRuntime(forge.mekanism)
-    modLocalRuntime(variantOf(forge.mekanism) { classifier("additions") })
-    modLocalRuntime(variantOf(forge.mekanism) { classifier("generators") })
-    modLocalRuntime(variantOf(forge.mekanism) { classifier("tools") })
+    localRuntime(forge.mekanism)
+    localRuntime(variantOf(forge.mekanism) { classifier("additions") })
+    localRuntime(variantOf(forge.mekanism) { classifier("generators") })
+    localRuntime(variantOf(forge.mekanism) { classifier("tools") })
 
-    modLocalRuntime(forge.mekanismcovers)
-    modLocalRuntime(forge.igleelibrary)
-    modLocalRuntime(forge.evolvedmekanism)
+    localRuntime(forge.mekanismcovers)
+    localRuntime(forge.igleelibrary)
+    localRuntime(forge.evolvedmekanism)
+
+    localRuntime(forge.mekmm)
+
+    // Crt
+    localRuntime(forge.crt)
+
+    // mysticalAgriculture
+    localRuntime(forge.cucumber)
+    localRuntime(forge.mysticalagriculture)
 
     // Runtime Recipe Viewers - uncomment whichever one you want to use //
 //    modLocalRuntime(forge.jer)
 //    modLocalRuntime(forge.emi)
-    modLocalRuntime(forge.jei.forge.impl)
-
-    modLocalRuntime(forge.modernui)
+    localRuntime(forge.jei.neoforge.impl)
 
     // Client-only runtime mods //
-    modClientLocalRuntime(forge.embeddium)
-    modClientLocalRuntime(forge.oculus)
-    renderNurseCfg(libs.renderNurse)
+    clientLocalRuntime(forge.sodium)
+    clientLocalRuntime(forge.iris)
+    clientLocalRuntime(forge.modernui)
 
     //////////////////////////////////////////////////////
     // Runtime mods for dev testing with unclean client //

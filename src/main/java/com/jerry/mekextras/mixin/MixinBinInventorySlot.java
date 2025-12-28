@@ -1,11 +1,14 @@
 package com.jerry.mekextras.mixin;
 
 import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
+
 import mekanism.api.IContentsListener;
 import mekanism.common.inventory.slot.BasicInventorySlot;
 import mekanism.common.inventory.slot.BinInventorySlot;
 import mekanism.common.item.block.ItemBlockBin;
+
 import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -20,6 +23,7 @@ import java.util.function.Predicate;
 
 @Mixin(value = BinInventorySlot.class, remap = false)
 public abstract class MixinBinInventorySlot extends BasicInventorySlot {
+
     @Final
     @Shadow
     @Mutable

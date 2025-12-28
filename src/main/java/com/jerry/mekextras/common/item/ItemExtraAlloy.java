@@ -3,14 +3,17 @@ package com.jerry.mekextras.common.item;
 import com.jerry.mekextras.api.IExtraAlloyInteraction;
 import com.jerry.mekextras.api.tier.ExtraAlloyTier;
 import com.jerry.mekextras.common.capabilities.ExtraCapabilities;
+
 import mekanism.common.config.MekanismConfig;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.NotNull;
 
 public class ItemExtraAlloy extends Item {

@@ -3,7 +3,8 @@ package com.jerry.mekextras.common;
 import mekanism.common.base.IChemicalConstant;
 
 public enum ExtraChemicalConstants implements IChemicalConstant {
-    //一定要加FF不然jei不会有流体贴图
+
+    // 一定要加FF不然jei不会有流体贴图
     MOLTEN_THERMONUCLEAR("molten_thermonuclear", 0xFF810C0C, 15, 6276.3F, 2_300),
     NAQUADAH_HEXAFLUORIDE("naquadah_hexafluoride", 0xFFC8C8C8, 0, 100F, 4_690),
     FLUORINATED_NAQUADAH_URANIUM_FUEL("fluorinated_naquadah_uranium_fuel", 0xFFB1B30C, 0, 500F, 6_520),

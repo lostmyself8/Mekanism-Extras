@@ -4,9 +4,9 @@ import com.jerry.mekextras.common.resource.ExtraResource;
 import com.jerry.mekextras.common.tier.*;
 
 public class ExtraEnumUtils {
-    private ExtraEnumUtils() {
 
-    }
+    private ExtraEnumUtils() {}
+
     // Items
     public static final ExtraQIODriveTier[] QIO_DRIVE_TIERS = ExtraQIODriveTier.values();
 

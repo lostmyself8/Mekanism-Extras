@@ -1,8 +1,9 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
-import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
 import com.jerry.mekextras.common.tier.transmitter.CTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
+import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.SerializationConstants;
@@ -16,16 +17,19 @@ import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.upgrade.transmitter.UniversalCableUpgradeData;
 import mekanism.common.util.EnumUtils;
 import mekanism.common.util.NBTUtils;
+
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Block;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtraUniversalCable extends UniversalCable implements IMekanismStrictEnergyHandler,
-        IExtraUpgradeableTransmitter<UniversalCableUpgradeData> {
+                                 IExtraUpgradeableTransmitter<UniversalCableUpgradeData> {
+
     public ExtraUniversalCable(Holder<Block> blockProvider, TileEntityExtraTransmitter tile) {
         super(blockProvider, tile);
     }
@@ -44,7 +48,7 @@ public class ExtraUniversalCable extends UniversalCable implements IMekanismStri
             if (connectedAcceptor != null) {
                 long received = connectedAcceptor.extractEnergy(getAvailablePull(), Action.SIMULATE);
                 if (received > 0L && takeEnergy(received, Action.SIMULATE) == 0L) {
-                    //If we received some energy and are able to insert it all
+                    // If we received some energy and are able to insert it all
                     long remainder = takeEnergy(received, Action.EXECUTE);
                     connectedAcceptor.extractEnergy(received - remainder, Action.EXECUTE);
                 }

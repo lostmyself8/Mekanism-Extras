@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.item.block.transmitter;
 
 import com.jerry.mekextras.common.tier.transmitter.PTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraMechanicalPipe;
+
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
@@ -9,9 +10,11 @@ import mekanism.common.block.transmitter.BlockLargeTransmitter;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.tier.PipeTier;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

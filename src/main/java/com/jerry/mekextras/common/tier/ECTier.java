@@ -2,9 +2,12 @@ package com.jerry.mekextras.common.tier;
 
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.api.tier.IAdvancedTier;
+
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.common.config.value.CachedLongValue;
+
 import net.minecraft.util.StringRepresentable;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,6 +15,7 @@ import java.util.Locale;
 
 @NothingNullByDefault
 public enum ECTier implements IAdvancedTier, StringRepresentable {
+
     ABSOLUTE(AdvancedTier.ABSOLUTE, 1_024_000_000, 1_024_000),
     SUPREME(AdvancedTier.SUPREME, 4_096_000_000L, 4_096_000),
     COSMIC(AdvancedTier.COSMIC, 16_384_000_000L, 16_384_000),
@@ -59,7 +63,8 @@ public enum ECTier implements IAdvancedTier, StringRepresentable {
     }
 
     /**
-     * ONLY CALL THIS FROM TierConfig. It is used to give the EnergyCubeTier a reference to the actual config value object
+     * ONLY CALL THIS FROM TierConfig. It is used to give the EnergyCubeTier a reference to the actual config value
+     * object
      */
     public void setConfigReference(CachedLongValue storageReference, CachedLongValue outputReference) {
         this.storageReference = storageReference;

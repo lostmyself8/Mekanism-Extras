@@ -4,11 +4,12 @@ import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedBase;
 import com.jerry.mekextras.common.integration.mekmm.tile.factory.TileEntityExtraMoreMachineFactory;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
-import io.netty.buffer.ByteBuf;
+
 import mekanism.api.functions.TriConsumer;
 import mekanism.common.network.IMekanismPacket;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -19,6 +20,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+
+import io.netty.buffer.ByteBuf;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.IntFunction;
@@ -35,42 +38,42 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
                 case INT -> StreamCodec.composite(
                         ExtraGuiInteraction.STREAM_CODEC, packet -> packet.interaction,
                         BlockPos.STREAM_CODEC, packet -> packet.tilePosition,
-                        //TODO - 1.18?: Eventually we may want to try to make some form of this that can compact negatives better as well
+                        // TODO - 1.18?: Eventually we may want to try to make some form of this that can compact
+                        // negatives better as well
                         ByteBufCodecs.VAR_INT, packet -> packet.extra,
-                        ExtraPacketGuiInteract::new
-                );
-//                case ITEM -> StreamCodec.composite(
-//                        GuiInteractionItem.STREAM_CODEC, packet -> packet.itemInteraction,
-//                        BlockPos.STREAM_CODEC, packet -> packet.tilePosition,
-//                        ItemStack.OPTIONAL_STREAM_CODEC, packet -> packet.extraItem,
-//                        ExtraPacketGuiInteract::new
-//                );
+                        ExtraPacketGuiInteract::new);
+                // case ITEM -> StreamCodec.composite(
+                // GuiInteractionItem.STREAM_CODEC, packet -> packet.itemInteraction,
+                // BlockPos.STREAM_CODEC, packet -> packet.tilePosition,
+                // ItemStack.OPTIONAL_STREAM_CODEC, packet -> packet.extraItem,
+                // ExtraPacketGuiInteract::new
+                // );
             });
 
     private final ExtraInteractionType interactionType;
 
     private ExtraGuiInteraction interaction;
-    //    private GuiInteractionItem itemInteraction;
-//    private PacketGuiInteract.GuiInteractionEntity entityInteraction;
+    // private GuiInteractionItem itemInteraction;
+    // private PacketGuiInteract.GuiInteractionEntity entityInteraction;
     private BlockPos tilePosition;
     private ItemStack extraItem;
     private int entityID;
     private int extra;
 
-//    public PacketGuiInteract(PacketGuiInteract.GuiInteractionEntity interaction, Entity entity) {
-//        this(interaction, entity, 0);
-//    }
-//
-//    public PacketGuiInteract(PacketGuiInteract.GuiInteractionEntity interaction, Entity entity, int extra) {
-//        this(interaction, entity.getId(), extra);
-//    }
-//
-//    public PacketGuiInteract(PacketGuiInteract.GuiInteractionEntity interaction, int entityID, int extra) {
-//        this.interactionType = PacketGuiInteract.MMInteractionType.ENTITY;
-//        this.entityInteraction = interaction;
-//        this.entityID = entityID;
-//        this.extra = extra;
-//    }
+    // public PacketGuiInteract(PacketGuiInteract.GuiInteractionEntity interaction, Entity entity) {
+    // this(interaction, entity, 0);
+    // }
+    //
+    // public PacketGuiInteract(PacketGuiInteract.GuiInteractionEntity interaction, Entity entity, int extra) {
+    // this(interaction, entity.getId(), extra);
+    // }
+    //
+    // public PacketGuiInteract(PacketGuiInteract.GuiInteractionEntity interaction, int entityID, int extra) {
+    // this.interactionType = PacketGuiInteract.MMInteractionType.ENTITY;
+    // this.entityInteraction = interaction;
+    // this.entityID = entityID;
+    // this.extra = extra;
+    // }
 
     public ExtraPacketGuiInteract(ExtraGuiInteraction interaction, BlockEntity tile) {
         this(interaction, tile.getBlockPos());
@@ -91,34 +94,34 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
         this.extra = extra;
     }
 
-//    public ExtraPacketGuiInteract(GuiInteractionItem interaction, BlockEntity tile, ItemStack stack) {
-//        this(interaction, tile.getBlockPos(), stack);
-//    }
-//
-//    public ExtraPacketGuiInteract(GuiInteractionItem interaction, BlockPos tilePosition, ItemStack stack) {
-//        this.interactionType = ExtraInteractionType.ITEM;
-//        this.itemInteraction = interaction;
-//        this.tilePosition = tilePosition;
-//        this.extraItem = stack;
-//    }
+    // public ExtraPacketGuiInteract(GuiInteractionItem interaction, BlockEntity tile, ItemStack stack) {
+    // this(interaction, tile.getBlockPos(), stack);
+    // }
+    //
+    // public ExtraPacketGuiInteract(GuiInteractionItem interaction, BlockPos tilePosition, ItemStack stack) {
+    // this.interactionType = ExtraInteractionType.ITEM;
+    // this.itemInteraction = interaction;
+    // this.tilePosition = tilePosition;
+    // this.extraItem = stack;
+    // }
 
     @Override
     public void handle(IPayloadContext context) {
         Player player = context.player();
         if (interactionType == ExtraInteractionType.ENTITY) {
             Entity entity = player.level().getEntity(entityID);
-//            if (entity != null) {
-//                entityInteraction.consume(entity, player, extra);
-//            }
+            // if (entity != null) {
+            // entityInteraction.consume(entity, player, extra);
+            // }
         } else {
             TileEntityMekanism tile = WorldUtils.getTileEntity(TileEntityMekanism.class, player.level(), tilePosition);
             if (tile != null) {
                 if (interactionType == ExtraInteractionType.INT) {
                     interaction.consume(tile, player, extra);
                 }
-//                else if (interactionType == ExtraInteractionType.ITEM) {
-//                    itemInteraction.consume(tile, player, extraItem);
-//                }
+                // else if (interactionType == ExtraInteractionType.ITEM) {
+                // itemInteraction.consume(tile, player, extraItem);
+                // }
             }
         }
     }
@@ -128,24 +131,27 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
         return TYPE;
     }
 
-//    public enum GuiInteractionItem {
-//        ;
-//
-//        public static final IntFunction<GuiInteractionItem> BY_ID = ByIdMap.continuous(GuiInteractionItem::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
-//        public static final StreamCodec<ByteBuf, GuiInteractionItem> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, GuiInteractionItem::ordinal);
-//
-//        private final TriConsumer<TileEntityMekanism, Player, ItemStack> consumerForTile;
-//
-//        GuiInteractionItem(TriConsumer<TileEntityMekanism, Player, ItemStack> consumerForTile) {
-//            this.consumerForTile = consumerForTile;
-//        }
-//
-//        public void consume(TileEntityMekanism tile, Player player, ItemStack stack) {
-//            consumerForTile.accept(tile, player, stack);
-//        }
-//    }
+    // public enum GuiInteractionItem {
+    // ;
+    //
+    // public static final IntFunction<GuiInteractionItem> BY_ID = ByIdMap.continuous(GuiInteractionItem::ordinal,
+    // values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+    // public static final StreamCodec<ByteBuf, GuiInteractionItem> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID,
+    // GuiInteractionItem::ordinal);
+    //
+    // private final TriConsumer<TileEntityMekanism, Player, ItemStack> consumerForTile;
+    //
+    // GuiInteractionItem(TriConsumer<TileEntityMekanism, Player, ItemStack> consumerForTile) {
+    // this.consumerForTile = consumerForTile;
+    // }
+    //
+    // public void consume(TileEntityMekanism tile, Player player, ItemStack stack) {
+    // consumerForTile.accept(tile, player, stack);
+    // }
+    // }
 
     public enum ExtraGuiInteraction {
+
         AUTO_SORT_BUTTON((tile, player, extra) -> {
             if (tile instanceof TileEntityExtraFactory<?> factory) {
                 factory.toggleSorting();
@@ -171,6 +177,7 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
     }
 
     private enum ExtraInteractionType {
+
         ENTITY,
         ITEM,
         INT;

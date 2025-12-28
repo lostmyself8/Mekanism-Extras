@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.integration.mekaf.registries;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.integration.mekaf.inventory.container.tile.ExtraAdvancedFactoryContainer;
 import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedBase;
+
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.registration.impl.ContainerTypeDeferredRegister;
 import mekanism.common.registration.impl.ContainerTypeRegistryObject;
@@ -15,7 +16,7 @@ public class ExtraAdvancedFactoryContainerTypes {
 
     public static ContainerTypeRegistryObject<MekanismTileContainer<TileEntityExtraAdvancedBase<?>>> ADVANCED_FACTORY = AF_CONTAINER_TYPES.register("advanced_factory", advancedFactoryClass(), ExtraAdvancedFactoryContainer::new);
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private static Class<TileEntityExtraAdvancedBase<?>> advancedFactoryClass() {
         return (Class) TileEntityExtraAdvancedBase.class;
     }

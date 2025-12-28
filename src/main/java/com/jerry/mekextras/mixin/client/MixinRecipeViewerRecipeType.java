@@ -1,6 +1,7 @@
 package com.jerry.mekextras.mixin.client;
 
 import com.jerry.mekextras.common.registries.ExtraBlocks;
+
 import mekanism.api.recipes.ItemStackToEnergyRecipe;
 import mekanism.client.recipe_viewer.type.RecipeViewerRecipeType;
 import mekanism.client.recipe_viewer.type.SimpleRVRecipeType;
@@ -8,6 +9,7 @@ import mekanism.common.MekanismLang;
 import mekanism.common.recipe.MekanismRecipeType;
 import mekanism.common.registries.MekanismBlocks;
 import mekanism.common.util.MekanismUtils;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;

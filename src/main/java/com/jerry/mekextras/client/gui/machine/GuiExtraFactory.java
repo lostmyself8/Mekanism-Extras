@@ -4,6 +4,7 @@ import com.jerry.mekextras.client.gui.element.tab.ExtraGuiSortingTab;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraFactory;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraItemStackChemicalToItemStackFactory;
 import com.jerry.mekextras.common.tile.factory.TileEntityExtraSawingFactory;
+
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
 import mekanism.client.gui.GuiConfigurableTile;
 import mekanism.client.gui.element.GuiDumpButton;
@@ -15,9 +16,11 @@ import mekanism.client.gui.element.tab.GuiEnergyTab;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.tile.interfaces.IHasDumpButton;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,14 +52,14 @@ public class GuiExtraFactory extends GuiConfigurableTile<TileEntityExtraFactory<
         super.addGuiElements();
         addRenderableWidget(new ExtraGuiSortingTab(this, tile));
         addRenderableWidget(new GuiVerticalPowerBar(this, tile.getEnergyContainer(), imageWidth - 12, 16, tile instanceof TileEntityExtraSawingFactory ? 73 : 52))
-              .warning(WarningType.NOT_ENOUGH_ENERGY, tile.getWarningCheck(RecipeError.NOT_ENOUGH_ENERGY, 0));
+                .warning(WarningType.NOT_ENOUGH_ENERGY, tile.getWarningCheck(RecipeError.NOT_ENOUGH_ENERGY, 0));
         addRenderableWidget(new GuiEnergyTab(this, tile.getEnergyContainer(), tile::getLastUsage));
         if (tile.hasSecondaryResourceBar()) {
             if (tile instanceof TileEntityExtraItemStackChemicalToItemStackFactory factory) {
                 int index = tile.tier.ordinal();
                 addRenderableWidget(new GuiChemicalBar(this, GuiChemicalBar.getProvider(factory.getChemicalTank(), tile.getChemicalTanks(null)), 7, 76,
                         210 + 38 * index, 4, true))
-                      .warning(WarningType.NO_MATCHING_RECIPE, tile.getWarningCheck(RecipeError.NOT_ENOUGH_SECONDARY_INPUT, 0));
+                        .warning(WarningType.NO_MATCHING_RECIPE, tile.getWarningCheck(RecipeError.NOT_ENOUGH_SECONDARY_INPUT, 0));
                 dumpButton = addRenderableWidget(new GuiDumpButton<>(this, (TileEntityExtraFactory<?> & IHasDumpButton) tile,
                         220 + 38 * index, 76));
             }
@@ -67,9 +70,9 @@ public class GuiExtraFactory extends GuiConfigurableTile<TileEntityExtraFactory<
         for (int i = 0; i < tile.tier.processes; i++) {
             int cacheIndex = i;
             addRenderableWidget(new GuiProgress(() -> tile.getScaledProgress(1, cacheIndex), ProgressType.DOWN, this, 4 + baseX + (i * baseXMult), 33))
-                  .recipeViewerCategory(tile)
-                  //Only can happen if recipes change because inputs are sanitized in the factory based on the output
-                  .warning(WarningType.INPUT_DOESNT_PRODUCE_OUTPUT, tile.getWarningCheck(RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT, cacheIndex));
+                    .recipeViewerCategory(tile)
+                    // Only can happen if recipes change because inputs are sanitized in the factory based on the output
+                    .warning(WarningType.INPUT_DOESNT_PRODUCE_OUTPUT, tile.getWarningCheck(RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT, cacheIndex));
         }
     }
 
@@ -81,8 +84,8 @@ public class GuiExtraFactory extends GuiConfigurableTile<TileEntityExtraFactory<
     }
 
     // 或许之后会用到它
-//    @Override
-//    protected void addGenericTabs() {
-//        super.addGenericTabs();
-//    }
+    // @Override
+    // protected void addGenericTabs() {
+    // super.addGenericTabs();
+    // }
 }

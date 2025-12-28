@@ -2,6 +2,7 @@ package com.jerry.genextras.common.registries;
 
 import com.jerry.genextras.common.GenExtraLang;
 import com.jerry.genextras.common.tile.naquadah.*;
+
 import mekanism.common.block.attribute.AttributeMultiblock;
 import mekanism.common.block.attribute.Attributes;
 import mekanism.common.content.blocktype.BlockTypeTile;
@@ -10,9 +11,7 @@ import mekanism.generators.common.registries.GeneratorsSounds;
 
 public class GenExtraBlockTypes {
 
-    private GenExtraBlockTypes() {
-
-    }
+    private GenExtraBlockTypes() {}
 
     // Naquadah Reactor Controller
     public static final BlockTypeTile<TileEntityNaquadahReactorController> NAQUADAH_REACTOR_CONTROLLER = BlockTypeTile.BlockTileBuilder

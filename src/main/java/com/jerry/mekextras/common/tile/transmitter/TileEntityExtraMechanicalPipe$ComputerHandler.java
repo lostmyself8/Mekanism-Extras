@@ -5,11 +5,11 @@ import mekanism.common.integration.computer.ComputerException;
 import mekanism.common.integration.computer.ComputerMethodFactory;
 import mekanism.common.integration.computer.MethodData;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+
 import net.neoforged.neoforge.fluids.FluidStack;
 
 @MethodFactory(
-        target = TileEntityExtraMechanicalPipe.class
-)
+               target = TileEntityExtraMechanicalPipe.class)
 public class TileEntityExtraMechanicalPipe$ComputerHandler extends ComputerMethodFactory<TileEntityExtraMechanicalPipe> {
 
     public TileEntityExtraMechanicalPipe$ComputerHandler() {
@@ -20,17 +20,17 @@ public class TileEntityExtraMechanicalPipe$ComputerHandler extends ComputerMetho
     }
 
     public static Object getBuffer_0(TileEntityExtraMechanicalPipe subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                       throws ComputerException {
         return helper.convert(subject.getBuffer());
     }
 
     public static Object getCapacity_0(TileEntityExtraMechanicalPipe subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                         throws ComputerException {
         return helper.convert(subject.getCapacity());
     }
 
     public static Object getNeeded_0(TileEntityExtraMechanicalPipe subject, BaseComputerHelper helper)
-            throws ComputerException {
+                                                                                                       throws ComputerException {
         return helper.convert(subject.getNeeded());
     }
 

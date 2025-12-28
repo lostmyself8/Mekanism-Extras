@@ -1,16 +1,19 @@
 package com.jerry.mekextras.client.recipe_viewer.jei;
 
-import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
+
 import mekanism.client.recipe_viewer.jei.MekanismJEI;
 import mekanism.client.recipe_viewer.type.IRecipeViewerRecipeType;
 import mekanism.common.registries.MekanismBlocks;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
+
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
+import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
 
 import java.util.List;
 
@@ -19,7 +22,7 @@ public class ExtraAFCatalystRegistryHelper {
     private ExtraAFCatalystRegistryHelper() {}
 
     /**
-     *与Mekanism的CatalystRegistryHelper中的register方法功能是一致的，只是多了一个需否需要基础机器的参数，
+     * 与Mekanism的CatalystRegistryHelper中的register方法功能是一致的，只是多了一个需否需要基础机器的参数，
      * 平常使用可以直接填true，对于“ENERGY_CONVERSION”或“CHEMICAL_CONVERSION”
      * 可能得填写false。
      *

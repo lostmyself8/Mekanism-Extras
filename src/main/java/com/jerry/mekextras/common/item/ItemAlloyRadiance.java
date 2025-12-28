@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.item;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
+
 import mekanism.api.IAlloyInteraction;
 import mekanism.api.tier.BaseTier;
 import mekanism.common.Mekanism;
@@ -18,6 +19,7 @@ import mekanism.common.lib.transmitter.DynamicNetwork;
 import mekanism.common.tile.transmitter.*;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,12 +31,14 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAlloyRadiance extends Item {
+
     public ItemAlloyRadiance(Properties properties) {
         super(properties);
     }
@@ -77,12 +81,13 @@ public class ItemAlloyRadiance extends Item {
                     Holder<Block> target = getiBlockProvider(transmitterTile);
                     BlockState upgradeState = BlockStateHelper.copyStateData(state, target);
                     if (state == upgradeState) {
-                        //Skip if it would not actually upgrade anything
+                        // Skip if it would not actually upgrade anything
                         continue;
                     }
                     if (!sharesSet) {
                         if (transmitterNetwork instanceof DynamicBufferedNetwork dynamicNetwork) {
-                            //Ensure we save the shares to the tiles so that they can properly take them, and they don't get voided
+                            // Ensure we save the shares to the tiles so that they can properly take them, and they
+                            // don't get voided
                             dynamicNetwork.validateSaveShares((BufferedTransmitter<?, ?, ?, ?>) transmitter);
                         }
                         sharesSet = true;
@@ -115,7 +120,7 @@ public class ItemAlloyRadiance extends Item {
                 }
             }
             if (upgraded > 0) {
-                //Invalidate the network so that it properly has new references to everything
+                // Invalidate the network so that it properly has new references to everything
                 transmitterNetwork.invalidate(null);
                 if (!player.isCreative()) {
                     stack.shrink(1);

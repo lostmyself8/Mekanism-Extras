@@ -2,9 +2,11 @@ package com.jerry.mekextras.common.tier;
 
 import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.api.tier.IAdvancedTier;
+
 import mekanism.common.config.value.CachedIntValue;
 
 public enum FTTier implements IAdvancedTier {
+
     ABSOLUTE(AdvancedTier.ABSOLUTE, 4_096_000, 2_048_000),// x16
     SUPREME(AdvancedTier.SUPREME, 32_768_000, 16_384_000),// x8
     COSMIC(AdvancedTier.COSMIC, 262_144_000, 131_072_000),// x8
@@ -44,7 +46,8 @@ public enum FTTier implements IAdvancedTier {
     }
 
     /**
-     * ONLY CALL THIS FROM TierConfig. It is used to give the FluidTankTier a reference to the actual config value object
+     * ONLY CALL THIS FROM TierConfig. It is used to give the FluidTankTier a reference to the actual config value
+     * object
      */
     public void setConfigReference(CachedIntValue storageReference, CachedIntValue outputReference) {
         this.storageReference = storageReference;

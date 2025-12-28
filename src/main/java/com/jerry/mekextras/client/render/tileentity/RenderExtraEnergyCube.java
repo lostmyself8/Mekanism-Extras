@@ -1,16 +1,15 @@
 package com.jerry.mekextras.client.render.tileentity;
 
-import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.api.tier.AdvancedTier;
+import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.common.tile.TileEntityExtraEnergyCube;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
+
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.client.render.RenderTickHandler;
 import mekanism.client.render.tileentity.ModelTileEntityRenderer;
 import mekanism.common.base.ProfilerConstants;
 import mekanism.common.util.MekanismUtils;
+
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -18,6 +17,10 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
@@ -36,6 +39,7 @@ public class RenderExtraEnergyCube extends ModelTileEntityRenderer<TileEntityExt
         Vec3 renderPos = tile.getBlockPos().getCenter();
         AdvancedTier advancedTier = tile.getAdvanceTier().getAdvanceTier();
         RenderTickHandler.addTransparentRenderer(new RenderTickHandler.LazyRender() {
+
             @Override
             public void render(Camera camera, VertexConsumer buffer, PoseStack poseStack, int renderTick, float partialTick, ProfilerFiller profiler) {
                 float ticks = renderTick + partialTick;

@@ -1,6 +1,7 @@
 package com.jerry.genextras.common.tile.naquadah;
 
 import com.jerry.genextras.common.registries.GenExtraBlocks;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.IChemicalHandler;
 import mekanism.api.heat.IHeatHandler;
@@ -18,6 +19,7 @@ import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.util.WorldUtils;
 import mekanism.common.util.text.BooleanStateDisplay;
 import mekanism.generators.common.GeneratorsLang;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -25,6 +27,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,14 +42,14 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
 
     public TileEntityNaquadahReactorPort(BlockPos pos, BlockState state) {
         super(GenExtraBlocks.NAQUADAH_REACTOR_PORT, pos, state);
-        //没有这个会导致连续切换模式时卡住
+        // 没有这个会导致连续切换模式时卡住
         delaySupplier = NO_DELAY;
     }
 
     @NotNull
     @Override
     public IChemicalTankHolder getInitialChemicalTanks(IContentsListener listener) {
-        //Note: We can just use a proxied holder as the input/output restrictions are done in the tanks themselves
+        // Note: We can just use a proxied holder as the input/output restrictions are done in the tanks themselves
         return side -> getMultiblock().getChemicalTanks(side);
     }
 
@@ -122,7 +125,7 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
         return getMultiblock().getCurrentRedstoneLevel();
     }
 
-    //Methods relating to IComputerTile
+    // Methods relating to IComputerTile
     @Override
     public boolean exposesMultiblockToComputer() {
         return false;
@@ -137,5 +140,5 @@ public class TileEntityNaquadahReactorPort extends TileEntityNaquadahReactorCasi
     void setMode(boolean output) {
         setActive(output);
     }
-    //End methods IComputerTile
+    // End methods IComputerTile
 }

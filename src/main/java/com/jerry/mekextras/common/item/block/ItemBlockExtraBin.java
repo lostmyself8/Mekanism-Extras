@@ -2,25 +2,28 @@ package com.jerry.mekextras.common.item.block;
 
 import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBackedBinInventorySlot;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekextras.common.tier.BTier;
-import com.jerry.mekextras.common.inventory.slot.ExtraBinInventorySlot;
 import com.jerry.mekextras.common.block.basic.BlockExtraBin;
+import com.jerry.mekextras.common.inventory.slot.ExtraBinInventorySlot;
+import com.jerry.mekextras.common.tier.BTier;
+
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.attachments.LockData;
 import mekanism.common.item.interfaces.IDroppableContents;
 import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.text.TextUtils;
+
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class ItemBlockExtraBin extends ItemBlockExtraTooltip<BlockExtraBin> implements IDroppableContents.IDroppableAttachmentContents {
+
     public ItemBlockExtraBin(BlockExtraBin block, Properties properties) {
         super(block, properties.component(MekanismDataComponents.LOCK, LockData.EMPTY));
     }

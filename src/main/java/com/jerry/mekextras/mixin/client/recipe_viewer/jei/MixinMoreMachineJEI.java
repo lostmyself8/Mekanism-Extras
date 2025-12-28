@@ -3,9 +3,11 @@ package com.jerry.mekextras.mixin.client.recipe_viewer.jei;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.client.recipe_viewer.jei.ExtraAFCatalystRegistryHelper;
 import com.jerry.mekextras.client.recipe_viewer.jei.ExtraMMCatalystRegistryHelper;
+
+import mekanism.client.recipe_viewer.type.RecipeViewerRecipeType;
+
 import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
 import com.jerry.mekmm.client.recipe_viewer.jei.MoreMachineJEI;
-import mekanism.client.recipe_viewer.type.RecipeViewerRecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,7 +1,7 @@
 package com.jerry.mekextras.api.recipes.cache;
 
 import com.jerry.mekextras.api.recipes.cache.StackableItemStackConstantChemicalToObjectCachedRecipe.StackableChemicalUsageMultiplier;
-import com.jerry.mekmm.api.recipes.PlantingRecipe;
+
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.functions.ConstantPredicates;
@@ -11,7 +11,10 @@ import mekanism.api.recipes.cache.TwoInputCachedRecipe;
 import mekanism.api.recipes.inputs.IInputHandler;
 import mekanism.api.recipes.inputs.ILongInputHandler;
 import mekanism.api.recipes.outputs.IOutputHandler;
+
 import net.minecraft.world.item.ItemStack;
+
+import com.jerry.mekmm.api.recipes.PlantingRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -178,8 +181,8 @@ public class StackablePlantingCachedRecipe extends CachedRecipe<PlantingRecipe> 
     }
 
     public static StackablePlantingCachedRecipe planting(PlantingRecipe recipe, BooleanSupplier recheckAllErrors, IInputHandler<@NotNull ItemStack> itemInputHandler,
-                                                ILongInputHandler<@NotNull ChemicalStack> chemicalInputHandler, StackableChemicalUsageMultiplier chemicalUsage,
-                                                LongConsumer chemicalUsedSoFarChanged, IOutputHandler<ChanceOutput> outputHandler) {
+                                                         ILongInputHandler<@NotNull ChemicalStack> chemicalInputHandler, StackableChemicalUsageMultiplier chemicalUsage,
+                                                         LongConsumer chemicalUsedSoFarChanged, IOutputHandler<ChanceOutput> outputHandler) {
         return new StackablePlantingCachedRecipe(recipe, recheckAllErrors, itemInputHandler, chemicalInputHandler, chemicalUsage,
                 chemicalUsedSoFarChanged, outputHandler, ConstantPredicates.alwaysFalse());
     }

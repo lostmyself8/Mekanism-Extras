@@ -1,14 +1,5 @@
 package com.jerry.mekextras.common.tile.factory;
 
-import fr.iglee42.evolvedmekanism.interfaces.EMInputRecipeCache.IFindRecipes;
-import fr.iglee42.evolvedmekanism.interfaces.EMInputRecipeCache.TripleItem;
-import fr.iglee42.evolvedmekanism.interfaces.IGetEnergySlot;
-import fr.iglee42.evolvedmekanism.interfaces.ThreeInputCachedRecipe;
-import fr.iglee42.evolvedmekanism.interfaces.TripleItemRecipeLookupHandler;
-import fr.iglee42.evolvedmekanism.recipes.AlloyerRecipe;
-import fr.iglee42.evolvedmekanism.registries.EMRecipeType;
-import fr.iglee42.evolvedmekanism.tiles.LimitedInputInventorySlot;
-import fr.iglee42.evolvedmekanism.tiles.upgrade.AlloyerUpgradeData;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.MathUtils;
 import mekanism.api.recipes.cache.CachedRecipe;
@@ -25,12 +16,23 @@ import mekanism.common.tile.component.config.DataType;
 import mekanism.common.tile.component.config.slot.InventorySlotInfo;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.InventoryUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
+import fr.iglee42.evolvedmekanism.interfaces.EMInputRecipeCache.IFindRecipes;
+import fr.iglee42.evolvedmekanism.interfaces.EMInputRecipeCache.TripleItem;
+import fr.iglee42.evolvedmekanism.interfaces.IGetEnergySlot;
+import fr.iglee42.evolvedmekanism.interfaces.ThreeInputCachedRecipe;
+import fr.iglee42.evolvedmekanism.interfaces.TripleItemRecipeLookupHandler;
+import fr.iglee42.evolvedmekanism.recipes.AlloyerRecipe;
+import fr.iglee42.evolvedmekanism.registries.EMRecipeType;
+import fr.iglee42.evolvedmekanism.tiles.LimitedInputInventorySlot;
+import fr.iglee42.evolvedmekanism.tiles.upgrade.AlloyerUpgradeData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,17 +40,16 @@ import java.util.List;
 import java.util.Set;
 
 public class TileEntityExtraAlloyingFactory extends TileEntityExtraItemToItemFactory<AlloyerRecipe> implements TripleItemRecipeLookupHandler<AlloyerRecipe> {
+
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
             RecipeError.NOT_ENOUGH_INPUT,
             RecipeError.NOT_ENOUGH_SECONDARY_INPUT,
             RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
-            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT
-    );
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(
             RecipeError.NOT_ENOUGH_ENERGY,
-            RecipeError.NOT_ENOUGH_SECONDARY_INPUT
-    );
+            RecipeError.NOT_ENOUGH_SECONDARY_INPUT);
 
     LimitedInputInventorySlot extraSlot;
     LimitedInputInventorySlot secondExtraSlot;
@@ -132,7 +133,6 @@ public class TileEntityExtraAlloyingFactory extends TileEntityExtraItemToItemFac
         } else {
             Mekanism.logger.warn("Unhandled upgrade data.", new Throwable());
         }
-
     }
 
     public @NotNull AlloyerUpgradeData getUpgradeData(HolderLookup.Provider provider) {

@@ -1,9 +1,9 @@
 package com.jerry.mekextras.client.model.energycube;
 
-import com.mojang.math.Transformation;
 import mekanism.api.RelativeSide;
 import mekanism.client.render.lib.QuadTransformation;
 import mekanism.client.render.lib.QuadUtils;
+
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
@@ -16,6 +16,8 @@ import net.neoforged.neoforge.client.RenderTypeGroup;
 import net.neoforged.neoforge.client.model.SimpleModelState;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
+
+import com.mojang.math.Transformation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,7 +71,7 @@ public class ExtraEnergyCubeGeometry implements IUnbakedGeometry<ExtraEnergyCube
             for (Map.Entry<Direction, BlockElementFace> faceEntry : element.faces.entrySet()) {
                 BlockElementFace face = faceEntry.getValue();
                 TextureAtlasSprite sprite = spriteGetter.apply(face.texture());
-                //noinspection ConstantConditions (can be null)
+                // noinspection ConstantConditions (can be null)
                 Direction direction = face.cullForDirection() == null ? null : modelState.getRotation().rotateTransform(face.cullForDirection());
                 data.addFace(direction, BlockModel.bakeFace(element, face, sprite, faceEntry.getKey(), modelState));
             }

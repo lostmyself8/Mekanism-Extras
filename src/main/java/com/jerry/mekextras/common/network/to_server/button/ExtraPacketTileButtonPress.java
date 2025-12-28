@@ -1,18 +1,20 @@
 package com.jerry.mekextras.common.network.to_server.button;
 
-import com.jerry.genextras.common.GenExtraLang;
-import com.jerry.genextras.common.registries.GenExtraContainerTypes;
-import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.registries.ExtraContainerTypes;
 import com.jerry.mekextras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
-import io.netty.buffer.ByteBuf;
+
+import com.jerry.genextras.common.GenExtraLang;
+import com.jerry.genextras.common.registries.GenExtraContainerTypes;
+import com.jerry.genextras.common.tile.naquadah.TileEntityNaquadahReactorController;
+
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.attribute.AttributeGui;
 import mekanism.common.network.IMekanismPacket;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -23,6 +25,8 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+
+import io.netty.buffer.ByteBuf;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,7 +35,9 @@ import java.util.function.Function;
 import java.util.function.IntFunction;
 
 public record ExtraPacketTileButtonPress(ClickedTileButton buttonClicked,
-                                         BlockPos pos) implements IMekanismPacket {
+                                         BlockPos pos)
+        implements IMekanismPacket {
+
     public static final Type<ExtraPacketTileButtonPress> TYPE = new Type<>(MekanismExtras.rl("tile_button"));
     public static final StreamCodec<ByteBuf, ExtraPacketTileButtonPress> STREAM_CODEC = StreamCodec.composite(ClickedTileButton.STREAM_CODEC, ExtraPacketTileButtonPress::buttonClicked, BlockPos.STREAM_CODEC, ExtraPacketTileButtonPress::pos, ExtraPacketTileButtonPress::new);
 
@@ -71,8 +77,9 @@ public record ExtraPacketTileButtonPress(ClickedTileButton buttonClicked,
     }
 
     public enum ClickedTileButton {
+
         BACK_BUTTON(tile -> {
-            //Special handling to basically reset to the tiles default gui container
+            // Special handling to basically reset to the tiles default gui container
             AttributeGui attributeGui = Attribute.get(tile.getBlockHolder(), AttributeGui.class);
             return attributeGui != null ? attributeGui.getProvider(tile, false) : null;
         }),

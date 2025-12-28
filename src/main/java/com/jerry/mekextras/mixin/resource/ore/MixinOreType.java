@@ -2,13 +2,16 @@ package com.jerry.mekextras.mixin.resource.ore;
 
 import com.jerry.mekextras.common.resource.ExtraResource;
 import com.jerry.mekextras.common.resource.ore.ExtraOreType;
-import com.mojang.serialization.Codec;
+
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ore.BaseOreConfig;
 import mekanism.common.resource.ore.OreAnchor;
 import mekanism.common.resource.ore.OreType;
 import mekanism.common.world.height.HeightShape;
+
 import net.minecraft.util.StringRepresentable;
+
+import com.mojang.serialization.Codec;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +23,7 @@ import java.util.Arrays;
 
 @Mixin(value = OreType.class, remap = false)
 public class MixinOreType {
+
     @Shadow
     @Final
     @Mutable
@@ -29,8 +33,7 @@ public class MixinOreType {
     @Shadow
     public static Codec<OreType> CODEC;
 
-    public MixinOreType() {
-    }
+    public MixinOreType() {}
 
     @Invoker("<init>")
     public static OreType oreType$initInvoker(String internalName, int internalId, IResource resource, BaseOreConfig... configs) {
@@ -47,7 +50,7 @@ public class MixinOreType {
         throw new AssertionError();
     }
 
-    @Inject(method = "<clinit>",at = @At("TAIL"))
+    @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void oreTypeClinit(CallbackInfo ci) {
         ExtraOreType.NAQUADAH = mekanismExtras$addVariant("NAQUADAH", ExtraResource.NAQUADAH,
                 new BaseOreConfig("small", 8, 0, 4, HeightShape.TRAPEZOID, OreAnchor.absolute(-62), OreAnchor.absolute(-59)),

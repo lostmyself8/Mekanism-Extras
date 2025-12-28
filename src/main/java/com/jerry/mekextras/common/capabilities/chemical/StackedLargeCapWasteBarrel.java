@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.capabilities.chemical;
 
 import com.jerry.mekextras.common.capabilities.chemical.variable.ExtraVariableCapacityChemicalTank;
 import com.jerry.mekextras.common.tile.TileEntityLargeCapRadioactiveWasteBarrel;
+
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -15,6 +16,7 @@ import mekanism.api.datamaps.chemical.attribute.ChemicalRadioactivity;
 import mekanism.api.datamaps.chemical.attribute.IChemicalAttribute;
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.util.WorldUtils;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -24,6 +26,7 @@ public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTan
 
     @SuppressWarnings("removal")
     private static final ChemicalAttributeValidator ATTRIBUTE_VALIDATOR = new ChemicalAttributeValidator.ChemicalAttributeValidatorLegacyAdapter() {
+
         @Override
         public boolean validate(IChemicalAttribute attr) {
             return attr instanceof ChemicalRadioactivity;
@@ -51,10 +54,10 @@ public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTan
     public ChemicalStack insert(ChemicalStack stack, Action action, AutomationType automationType) {
         ChemicalStack remainder = super.insert(stack, action, automationType);
         if (!remainder.isEmpty()) {
-            //If we have any leftover check if we can send it to the tank that is above
+            // If we have any leftover check if we can send it to the tank that is above
             TileEntityLargeCapRadioactiveWasteBarrel tileAbove = WorldUtils.getTileEntity(TileEntityLargeCapRadioactiveWasteBarrel.class, tile.getLevel(), tile.getBlockPos().above());
             if (tileAbove != null) {
-                //Note: We do external so that it is not limited by the internal rate limits
+                // Note: We do external so that it is not limited by the internal rate limits
                 remainder = tileAbove.getGasTank().insert(remainder, action, AutomationType.EXTERNAL);
             }
         }
@@ -65,13 +68,13 @@ public class StackedLargeCapWasteBarrel extends ExtraVariableCapacityChemicalTan
     public long growStack(long amount, Action action) {
         long grownAmount = super.growStack(amount, action);
         if (amount > 0 && grownAmount < amount) {
-            //If we grew our stack less than we tried to, and we were actually growing and not shrinking it
+            // If we grew our stack less than we tried to, and we were actually growing and not shrinking it
             // try inserting into above tiles
             if (!tile.getActive()) {
                 TileEntityLargeCapRadioactiveWasteBarrel tileAbove = WorldUtils.getTileEntity(TileEntityLargeCapRadioactiveWasteBarrel.class, tile.getLevel(), tile.getBlockPos().above());
                 if (tileAbove != null) {
                     long leftOverToInsert = amount - grownAmount;
-                    //Note: We do external so that it is not limited by the internal rate limits
+                    // Note: We do external so that it is not limited by the internal rate limits
                     ChemicalStack remainder = tileAbove.getGasTank().insert(stored.copyWithAmount(leftOverToInsert), action, AutomationType.EXTERNAL);
                     grownAmount += leftOverToInsert - remainder.getAmount();
                 }

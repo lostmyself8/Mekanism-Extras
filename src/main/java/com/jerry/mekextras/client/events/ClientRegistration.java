@@ -1,11 +1,5 @@
 package com.jerry.mekextras.client.events;
 
-import com.jerry.genextras.client.gui.*;
-import com.jerry.genextras.client.render.RenderNaquadahReactor;
-import com.jerry.genextras.common.registries.GenExtraBlocks;
-import com.jerry.genextras.common.registries.GenExtraContainerTypes;
-import com.jerry.genextras.common.registries.GenExtraFluids;
-import com.jerry.genextras.common.registries.GenExtraTileEntityTypes;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.client.gui.*;
 import com.jerry.mekextras.client.gui.machine.GuiAdvanceElectricPump;
@@ -24,21 +18,30 @@ import com.jerry.mekextras.client.render.transmitter.*;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineContainerTypes;
-import com.jerry.mekextras.common.registries.ExtraFluids;
-import com.jerry.mekextras.common.tier.TierColor;
-import com.jerry.mekextras.common.tier.ECTier;
 import com.jerry.mekextras.common.item.block.ItemBlockExtraEnergyCube;
 import com.jerry.mekextras.common.item.block.machine.ItemBlockExtraFluidTank;
-import com.jerry.mekextras.common.tier.FTTier;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.registries.ExtraContainerTypes;
+import com.jerry.mekextras.common.registries.ExtraFluids;
+import com.jerry.mekextras.common.registries.ExtraTileEntityTypes;
+import com.jerry.mekextras.common.tier.ECTier;
+import com.jerry.mekextras.common.tier.FTTier;
+import com.jerry.mekextras.common.tier.TierColor;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporter;
+
+import com.jerry.genextras.client.gui.*;
+import com.jerry.genextras.client.render.RenderNaquadahReactor;
+import com.jerry.genextras.common.registries.GenExtraBlocks;
+import com.jerry.genextras.common.registries.GenExtraContainerTypes;
+import com.jerry.genextras.common.registries.GenExtraFluids;
+import com.jerry.genextras.common.registries.GenExtraTileEntityTypes;
+
 import mekanism.api.text.EnumColor;
 import mekanism.client.ClientRegistrationUtil;
-import com.jerry.mekextras.common.registries.ExtraTileEntityTypes;
 import mekanism.client.render.RenderPropertiesProvider;
 import mekanism.client.render.item.TransmitterTypeDecorator;
 import mekanism.common.util.WorldUtils;
+
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Holder;
@@ -78,7 +81,7 @@ public class ClientRegistration {
                 ExtraTileEntityTypes.COSMIC_ENERGY_CUBE, ExtraTileEntityTypes.INFINITE_ENERGY_CUBE);
         ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraFluidTank::new, ExtraTileEntityTypes.ABSOLUTE_FLUID_TANK, ExtraTileEntityTypes.SUPREME_FLUID_TANK,
                 ExtraTileEntityTypes.COSMIC_FLUID_TANK, ExtraTileEntityTypes.INFINITE_FLUID_TANK);
-        //Transmitters
+        // Transmitters
         ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraLogisticalTransporter::new, ExtraTileEntityTypes.ABSOLUTE_LOGISTICAL_TRANSPORTER, ExtraTileEntityTypes.SUPREME_LOGISTICAL_TRANSPORTER,
                 ExtraTileEntityTypes.COSMIC_LOGISTICAL_TRANSPORTER, ExtraTileEntityTypes.INFINITE_LOGISTICAL_TRANSPORTER);
         ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraMechanicalPipe::new, ExtraTileEntityTypes.ABSOLUTE_MECHANICAL_PIPE,
@@ -90,7 +93,7 @@ public class ClientRegistration {
         ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraThermodynamicConductor::new, ExtraTileEntityTypes.ABSOLUTE_THERMODYNAMIC_CONDUCTOR,
                 ExtraTileEntityTypes.SUPREME_THERMODYNAMIC_CONDUCTOR, ExtraTileEntityTypes.COSMIC_THERMODYNAMIC_CONDUCTOR, ExtraTileEntityTypes.INFINITE_THERMODYNAMIC_CONDUCTOR);
 
-        //Generator Extras
+        // Generator Extras
         if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {
             event.registerBlockEntityRenderer(GenExtraTileEntityTypes.NAQUADAH_REACTOR_CONTROLLER.get(), RenderNaquadahReactor::new);
         }
@@ -119,7 +122,7 @@ public class ClientRegistration {
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.REINFORCED_INDUCTION_MATRIX, GuiReinforcedInductionMatrix::new);
         ClientRegistrationUtil.registerScreen(event, ExtraContainerTypes.REINFORCED_MATRIX_STATS, GuiReinforcedMatrixStats::new);
 
-        //Generator Extras
+        // Generator Extras
         if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {
             ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_CONTROLLER, GuiNaquadahReactorController::new);
             ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_FUEL, GuiNaquadahReactorFuel::new);
@@ -128,7 +131,7 @@ public class ClientRegistration {
             ClientRegistrationUtil.registerScreen(event, GenExtraContainerTypes.NAQUADAH_REACTOR_STATS, GuiNaquadahReactorStats::new);
         }
 
-        //MoreMachine
+        // MoreMachine
         if (MekanismExtras.hooks.mekmm.isLoaded()) {
             ClientRegistrationUtil.registerScreen(event, ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY, GuiExtraAdvancedFactory::new);
             ClientRegistrationUtil.registerScreen(event, ExtraMoreMachineContainerTypes.MORE_MACHINE_FACTORY, GuiExtraMoreMachineFactory::new);
@@ -154,29 +157,29 @@ public class ClientRegistration {
         }, ExtraBlocks.ABSOLUTE_FLUID_TANK, ExtraBlocks.SUPREME_FLUID_TANK, ExtraBlocks.COSMIC_FLUID_TANK, ExtraBlocks.INFINITE_FLUID_TANK);
 
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, index) -> {
-                    if (index == 1) {
-                        ECTier tier = ExtraAttribute.getAdvancedTier(state.getBlock(), ECTier.class);
-                        if (tier != null) {
-                            float[] color = TierColor.getColor(tier);
-                            return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
-                        }
-                    }
-                    return -1;
-                }, ExtraBlocks.ABSOLUTE_ENERGY_CUBE, ExtraBlocks.SUPREME_ENERGY_CUBE, ExtraBlocks.COSMIC_ENERGY_CUBE,
+            if (index == 1) {
+                ECTier tier = ExtraAttribute.getAdvancedTier(state.getBlock(), ECTier.class);
+                if (tier != null) {
+                    float[] color = TierColor.getColor(tier);
+                    return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                }
+            }
+            return -1;
+        }, ExtraBlocks.ABSOLUTE_ENERGY_CUBE, ExtraBlocks.SUPREME_ENERGY_CUBE, ExtraBlocks.COSMIC_ENERGY_CUBE,
                 ExtraBlocks.INFINITE_ENERGY_CUBE);
 
         ClientRegistrationUtil.registerBlockColorHandler(event, (state, world, pos, tintIndex) -> {
-                    if (tintIndex == 1 && pos != null) {
-                        TileEntityExtraLogisticalTransporter transporter = WorldUtils.getTileEntity(TileEntityExtraLogisticalTransporter.class, world, pos);
-                        if (transporter != null) {
-                            EnumColor renderColor = transporter.getTransmitter().getColor();
-                            if (renderColor != null) {
-                                return renderColor.getPackedColor();
-                            }
-                        }
+            if (tintIndex == 1 && pos != null) {
+                TileEntityExtraLogisticalTransporter transporter = WorldUtils.getTileEntity(TileEntityExtraLogisticalTransporter.class, world, pos);
+                if (transporter != null) {
+                    EnumColor renderColor = transporter.getTransmitter().getColor();
+                    if (renderColor != null) {
+                        return renderColor.getPackedColor();
                     }
-                    return -1;
-                }, ExtraBlocks.ABSOLUTE_LOGISTICAL_TRANSPORTER, ExtraBlocks.SUPREME_LOGISTICAL_TRANSPORTER, ExtraBlocks.COSMIC_LOGISTICAL_TRANSPORTER,
+                }
+            }
+            return -1;
+        }, ExtraBlocks.ABSOLUTE_LOGISTICAL_TRANSPORTER, ExtraBlocks.SUPREME_LOGISTICAL_TRANSPORTER, ExtraBlocks.COSMIC_LOGISTICAL_TRANSPORTER,
                 ExtraBlocks.INFINITE_LOGISTICAL_TRANSPORTER);
     }
 
@@ -186,7 +189,7 @@ public class ClientRegistration {
         if (MekanismExtras.hooks.mekanismGenerators.isLoaded()) {
             ClientRegistrationUtil.registerBucketColorHandler(event, GenExtraFluids.GEN_EXTRA_FLUIDS);
         }
-        //fluid tank
+        // fluid tank
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ItemBlockExtraFluidTank tank) {
@@ -196,7 +199,7 @@ public class ClientRegistration {
             return -1;
         }, ExtraBlocks.ABSOLUTE_FLUID_TANK, ExtraBlocks.SUPREME_FLUID_TANK, ExtraBlocks.COSMIC_FLUID_TANK, ExtraBlocks.INFINITE_FLUID_TANK);
 
-        //energy cube
+        // energy cube
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ItemBlockExtraEnergyCube cube) {

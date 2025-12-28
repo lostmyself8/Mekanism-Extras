@@ -1,14 +1,15 @@
 package com.jerry.mekextras.common.advancements;
 
 import com.jerry.mekextras.MekanismExtras;
+
 import mekanism.common.advancements.MekanismAdvancement;
 import mekanism.common.advancements.MekanismAdvancements;
+
 import org.jetbrains.annotations.Nullable;
 
 public class ExtraAdvancements {
 
-    private ExtraAdvancements() {
-    }
+    private ExtraAdvancements() {}
 
     private static MekanismAdvancement advancement(@Nullable MekanismAdvancement parent, String name) {
         return new MekanismAdvancement(parent, MekanismExtras.rl(name));

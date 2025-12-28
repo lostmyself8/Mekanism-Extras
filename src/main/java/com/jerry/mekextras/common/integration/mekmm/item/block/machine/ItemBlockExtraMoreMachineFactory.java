@@ -4,7 +4,7 @@ import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.integration.mekmm.block.prefab.ExtraMoreMachineBlockFactoryMachine.BlockExtraMoreMachineFactory;
 import com.jerry.mekextras.common.item.block.ItemBlockExtraTooltip;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
-import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
+
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.attachments.component.AttachedEjector;
@@ -12,10 +12,13 @@ import mekanism.common.attachments.component.AttachedSideConfig;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.registries.MekanismDataComponents;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+
+import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
