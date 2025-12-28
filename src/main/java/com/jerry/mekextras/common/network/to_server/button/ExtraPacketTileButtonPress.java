@@ -32,8 +32,8 @@ import java.util.function.IntFunction;
 
 public record ExtraPacketTileButtonPress(ClickedTileButton buttonClicked,
                                          BlockPos pos) implements IMekanismPacket {
-    public static final CustomPacketPayload.Type<ExtraPacketTileButtonPress> TYPE = new CustomPacketPayload.Type<>(MekanismExtras.rl("tile_button"));
-    public static final StreamCodec<ByteBuf, ExtraPacketTileButtonPress> STREAM_CODEC = StreamCodec.composite(ExtraPacketTileButtonPress.ClickedTileButton.STREAM_CODEC, ExtraPacketTileButtonPress::buttonClicked, BlockPos.STREAM_CODEC, ExtraPacketTileButtonPress::pos, ExtraPacketTileButtonPress::new);
+    public static final Type<ExtraPacketTileButtonPress> TYPE = new Type<>(MekanismExtras.rl("tile_button"));
+    public static final StreamCodec<ByteBuf, ExtraPacketTileButtonPress> STREAM_CODEC = StreamCodec.composite(ClickedTileButton.STREAM_CODEC, ExtraPacketTileButtonPress::buttonClicked, BlockPos.STREAM_CODEC, ExtraPacketTileButtonPress::pos, ExtraPacketTileButtonPress::new);
 
     public ExtraPacketTileButtonPress(ClickedTileButton buttonClicked, BlockEntity tile) {
         this(buttonClicked, tile.getBlockPos());
@@ -62,7 +62,7 @@ public record ExtraPacketTileButtonPress(ClickedTileButton buttonClicked,
         }
     }
 
-    public ExtraPacketTileButtonPress.ClickedTileButton buttonClicked() {
+    public ClickedTileButton buttonClicked() {
         return this.buttonClicked;
     }
 
@@ -93,8 +93,8 @@ public record ExtraPacketTileButtonPress(ClickedTileButton buttonClicked,
             return null;
         });
 
-        public static final IntFunction<ExtraPacketTileButtonPress.ClickedTileButton> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
-        public static final StreamCodec<ByteBuf, ExtraPacketTileButtonPress.ClickedTileButton> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
+        public static final IntFunction<ClickedTileButton> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+        public static final StreamCodec<ByteBuf, ClickedTileButton> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
         private final Function<TileEntityMekanism, MenuProvider> providerFromTile;
         @Nullable
         private final BiConsumer<RegistryFriendlyByteBuf, TileEntityMekanism> extraEncodingData;

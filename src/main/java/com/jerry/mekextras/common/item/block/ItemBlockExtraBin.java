@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ItemBlockExtraBin extends ItemBlockExtraTooltip<BlockExtraBin> implements IDroppableContents.IDroppableAttachmentContents {
-    public ItemBlockExtraBin(BlockExtraBin block, Item.Properties properties) {
+    public ItemBlockExtraBin(BlockExtraBin block, Properties properties) {
         super(block, properties.component(MekanismDataComponents.LOCK, LockData.EMPTY));
     }
 

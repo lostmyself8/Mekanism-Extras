@@ -69,7 +69,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class ItemBlockExtraFluidTank extends ItemBlockExtraTooltip<BlockTile<?, ?>> implements IModeItem.IAttachmentBasedModeItem<Boolean> {
-    public ItemBlockExtraFluidTank(BlockExtraFluidTank block, Item.Properties properties) {
+    public ItemBlockExtraFluidTank(BlockExtraFluidTank block, Properties properties) {
         super(block, true, properties.component(MekanismDataComponents.BUCKET_MODE, false)
                 .component(MekanismDataComponents.EDIT_MODE, IFluidContainerManager.ContainerEditMode.BOTH));
     }

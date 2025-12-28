@@ -46,7 +46,7 @@ import java.util.function.Predicate;
 public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extends ItemBlockExtra<BLOCK> implements ICapabilityAware, IAttachmentAware {
     private final boolean hasDetails;
 
-    public ItemBlockExtraTooltip(BLOCK block, Item.Properties properties) {
+    public ItemBlockExtraTooltip(BLOCK block, Properties properties) {
         this(block, false, properties);
     }
 
@@ -160,7 +160,7 @@ public class ItemBlockExtraTooltip<BLOCK extends Block & IHasDescription> extend
         if (Attribute.matches(block, AttributeUpgradeSupport.class, attribute -> attribute.supportedUpgrades().contains(Upgrade.ENERGY))) {
             return builder.addContainer((type, attachedTo, containerIndex) -> {
                 //If our block supports energy upgrades, make a more dynamically updating cache for our item's max energy
-                LongSupplier capacity = new ItemBlockExtraTooltip.UpgradeBasedLongCache(attachedTo, maxEnergy);
+                LongSupplier capacity = new UpgradeBasedLongCache(attachedTo, maxEnergy);
                 return new ComponentBackedNoClampEnergyContainer(attachedTo, containerIndex, BasicEnergyContainer.manualOnly, getEnergyCapInsertPredicate(),
                         () -> MekanismUtils.calculateUsage(capacity.getAsLong()), capacity);
             });

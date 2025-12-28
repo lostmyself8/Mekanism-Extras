@@ -57,7 +57,7 @@ public class ItemBlockExtraEnergyCube extends ItemBlockExtraTooltip<BlockExtraEn
         return new AttachedSideConfig(configInfo);
     }
 
-    public ItemBlockExtraEnergyCube(BlockExtraEnergyCube block, Item.Properties properties) {
+    public ItemBlockExtraEnergyCube(BlockExtraEnergyCube block, Properties properties) {
         super(block, true, properties
                 .component(MekanismDataComponents.EJECTOR, AttachedEjector.DEFAULT)
                 .component(MekanismDataComponents.SIDE_CONFIG, SIDE_CONFIG)
@@ -70,7 +70,7 @@ public class ItemBlockExtraEnergyCube extends ItemBlockExtraTooltip<BlockExtraEn
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.@NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         StorageUtils.addStoredEnergy(stack, tooltip, true);
         tooltip.add(MekanismLang.CAPACITY.translateColored(EnumColor.INDIGO, EnumColor.GRAY, EnergyDisplay.of(getAdvancedTier().getMaxEnergy())));
         super.appendHoverText(stack, context, tooltip, flag);

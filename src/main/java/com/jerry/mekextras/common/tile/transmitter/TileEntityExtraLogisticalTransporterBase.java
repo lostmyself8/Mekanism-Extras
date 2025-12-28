@@ -28,7 +28,7 @@ import java.util.Map;
 public abstract class TileEntityExtraLogisticalTransporterBase extends TileEntityExtraTransmitter {
     public TileEntityExtraLogisticalTransporterBase(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
-        addCapabilityResolver(new TileEntityExtraLogisticalTransporterBase.TransporterCapabilityResolver());
+        addCapabilityResolver(new TransporterCapabilityResolver());
     }
 
     @Override

@@ -121,7 +121,7 @@ public class BlockExtraEnergyCube extends BlockTile.BlockTileModel<TileEntityExt
 
 
     public BlockExtraEnergyCube(Machine<TileEntityExtraEnergyCube> type) {
-        super(type, BlockBehaviour.Properties.of().strength(2, 2.4F).requiresCorrectToolForDrops().dynamicShape().mapColor(MapColor.DEEPSLATE));
+        super(type, Properties.of().strength(2, 2.4F).requiresCorrectToolForDrops().dynamicShape().mapColor(MapColor.DEEPSLATE));
     }
 
     @Override

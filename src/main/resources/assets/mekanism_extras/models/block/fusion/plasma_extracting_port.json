@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "mekanism_extras:block/fusion_reactor_plasma_extracting_port"
-  }
-}

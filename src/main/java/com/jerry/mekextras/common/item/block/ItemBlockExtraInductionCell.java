@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ItemBlockExtraInductionCell extends ItemBlockExtraTooltip<BlockTile<TileEntityExtraInductionCell, BlockTypeTile<TileEntityExtraInductionCell>>> {
-    public ItemBlockExtraInductionCell(BlockTile<TileEntityExtraInductionCell, BlockTypeTile<TileEntityExtraInductionCell>> block, Item.Properties properties) {
+    public ItemBlockExtraInductionCell(BlockTile<TileEntityExtraInductionCell, BlockTypeTile<TileEntityExtraInductionCell>> block, Properties properties) {
         super(block, properties);
     }
 

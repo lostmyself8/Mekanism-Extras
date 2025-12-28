@@ -19,7 +19,7 @@ public class BlockExtraFactoryMachine<TILE extends TileEntityMekanism, MACHINE e
 
     public static class BlockExtraFactoryMachineModel<TILE extends TileEntityMekanism, MACHINE extends ExtraFactoryMachine<TILE>> extends BlockExtraFactoryMachine<TILE, MACHINE> implements IStateFluidLoggable {
 
-        public BlockExtraFactoryMachineModel(MACHINE machineType, UnaryOperator<BlockBehaviour.Properties> propertiesModifier) {
+        public BlockExtraFactoryMachineModel(MACHINE machineType, UnaryOperator<Properties> propertiesModifier) {
             super(machineType, propertiesModifier);
         }
     }

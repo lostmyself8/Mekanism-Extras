@@ -35,7 +35,7 @@ public class RenderExtraLogisticalTransporter extends RenderTransmitterBase<Tile
 
     private static final Map<Direction, MekanismRenderer.Model3D> cachedOverlays = new EnumMap<>(Direction.class);
     private final ModelTransporterBox modelBox;
-    private final RenderExtraLogisticalTransporter.LazyItemRenderer itemRenderer = new RenderExtraLogisticalTransporter.LazyItemRenderer();
+    private final LazyItemRenderer itemRenderer = new LazyItemRenderer();
 
     public RenderExtraLogisticalTransporter(BlockEntityRendererProvider.Context context) {
         super(context);
@@ -83,9 +83,9 @@ public class RenderExtraLogisticalTransporter extends RenderTransmitterBase<Tile
 
     private Collection<TransporterStack> getReducedTransit(Collection<TransporterStack> inTransit) {
         Collection<TransporterStack> reducedTransit = new ArrayList<>();
-        Set<RenderExtraLogisticalTransporter.TransportInformation> information = new ObjectOpenHashSet<>();
+        Set<TransportInformation> information = new ObjectOpenHashSet<>();
         for (TransporterStack stack : inTransit) {
-            if (stack != null && !stack.itemStack.isEmpty() && information.add(new RenderExtraLogisticalTransporter.TransportInformation(stack))) {
+            if (stack != null && !stack.itemStack.isEmpty() && information.add(new TransportInformation(stack))) {
                 reducedTransit.add(stack);
             }
         }
@@ -121,7 +121,7 @@ public class RenderExtraLogisticalTransporter extends RenderTransmitterBase<Tile
             if (obj == this) {
                 return true;
             }
-            return obj instanceof RenderExtraLogisticalTransporter.TransportInformation other && progress == other.progress && color == other.color && item.equals(other.item);
+            return obj instanceof TransportInformation other && progress == other.progress && color == other.color && item.equals(other.item);
         }
     }
 
