@@ -6,7 +6,7 @@ out/
 *.iml
 .gradle/
 output/
-bin/
+/bin/
 libs/
 
 .classpath
