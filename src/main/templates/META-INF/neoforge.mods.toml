@@ -38,3 +38,10 @@ credits="Thank you to all those who have made any contributions to this mod"
     versionRange = "[10.7.17]"
     ordering = "AFTER"
     side = "BOTH"
+
+[[dependencies.${mod_id}]]
+    modId = "mekmm"
+    type = "optional"
+    versionRange = "[1.2.2,)"
+    ordering = "AFTER"
+    side = "BOTH"
