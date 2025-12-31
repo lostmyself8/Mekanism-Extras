@@ -53,7 +53,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
     }
 
     public static class ExtraMoreMachineFactoryBuilder<FACTORY extends ExtraMoreMachineFactory<TILE>, TILE extends TileEntityExtraMoreMachineFactory<?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
-            extends BlockTileBuilder<FACTORY, TILE, T> {
+                                                      extends BlockTileBuilder<FACTORY, TILE, T> {
 
         protected ExtraMoreMachineFactoryBuilder(FACTORY holder) {
             super(holder);
@@ -84,8 +84,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
             ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> builder = new ExtraMoreMachineFactoryBuilder<>(new ExtraMoreMachineFactory<>(tileEntityRegistrar,
                     () -> ExtraMoreMachineContainerTypes.MORE_MACHINE_FACTORY,
                     getBaseMachine(type),
-                    tier)
-            );
+                    tier));
             builder.withComputerSupport(tier.getAdvanceTier().getLowerName() + type.getRegistryNameComponentCapitalized() + "Factory");
             return builder;
         }

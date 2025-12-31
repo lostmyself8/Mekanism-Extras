@@ -90,8 +90,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
         ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> builder = new ExtraAdvancedFactoryBuilder<>(new ExtraAdvancedFactory<>(tileEntityRegistrar,
                 () -> ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY,
                 getBaseMachine(type),
-                tier)
-        );
+                tier));
         builder.withComputerSupport(tier.getAdvanceTier().getLowerName() + type.getRegistryNameComponentCapitalized() + "Factory");
         return builder;
     }

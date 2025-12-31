@@ -33,7 +33,7 @@ public class ExtraMoreMachineBlockTypes {
             .withGui(() -> MoreMachineContainerTypes.RECYCLER)
             .withSound(MekanismSounds.PRECISION_SAWMILL)
             .withEnergyConfig(MoreMachineConfig.usage.recycler, MoreMachineConfig.storage.recycler)
-            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_NO_STACK_UPGRADES)
             .build();
 
     // Planting Station
