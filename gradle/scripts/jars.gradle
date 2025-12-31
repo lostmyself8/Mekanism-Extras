@@ -28,10 +28,10 @@ afterEvaluate {
                 'MixinConfigs': "mekextra.mixins.json",
                 'Specification-Title': project.name,
                 'Specification-Version': mod_version,
-                'Specification-Vendor': 'Mekanism: More Machine Team',
+                'Specification-Vendor': 'MekanismExtras Team',
                 'Implementation-Title': base.archivesName,
                 'Implementation-Version': version,
-                'Implementation-Vendor': 'Mekanism: More Machine Team',
+                'Implementation-Vendor': 'MekanismExtras Team',
         ])
     }
 }

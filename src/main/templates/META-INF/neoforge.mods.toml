@@ -14,27 +14,27 @@ displayURL = "${mod_url}"
 credits="Thank you to all those who have made any contributions to this mod"
 
 [[mixins]]
-config = "${mod_id}.mixins.json"
+    config = "mekextra.mixins.json"
 [[accessTransformers]]
-file = "META-INF/accesstransformer.cfg"
+    file = "META-INF/accesstransformer.cfg"
 
 [[dependencies.${mod_id}]]
-modId = "neoforge"
-type = "required"
-versionRange = "[${neo_version},)"
-ordering = "NONE"
-side = "BOTH"
+    modId = "neoforge"
+    type = "required"
+    versionRange = "[${neo_version},)"
+    ordering = "NONE"
+    side = "BOTH"
 
 [[dependencies."${mod_id}"]]
-modId = "minecraft"
-type = "required"
-versionRange = "${minecraft_version}"
-ordering = "NONE"
-side = "BOTH"
+    modId = "minecraft"
+    type = "required"
+    versionRange = "${minecraft_version}"
+    ordering = "NONE"
+    side = "BOTH"
 
 [[dependencies.${mod_id}]]
-modId = "mekanism"
-type = "required"
-versionRange = "[10.7.17]"
-ordering = "AFTER"
-side = "BOTH"
+    modId = "mekanism"
+    type = "required"
+    versionRange = "[10.7.17]"
+    ordering = "AFTER"
+    side = "BOTH"
