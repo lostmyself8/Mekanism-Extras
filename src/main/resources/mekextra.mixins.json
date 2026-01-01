@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "com.jerry.mekextras.mixin",
   "compatibilityLevel": "JAVA_21",
-  "refmap": "Mekanism_Extras.refmap.json",
   "mixins": [
     "MixinBinInventorySlot",
     "MixinBlockEnergyCube",
@@ -29,6 +28,7 @@
     "client.recipe_viewer.jei.MixinMoreMachineJEI"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 1,
+    "maxShiftBy": 5
   }
 }
