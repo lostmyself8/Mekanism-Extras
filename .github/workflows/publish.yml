@@ -95,8 +95,8 @@ jobs:
       - name: Publish Mod
         env:
           MC_VERSION: ${{ inputs.branch }}
-          LOADER: ${{ inputs.branch == '1.21' && 'neoforge' || 'forge' }}
-          JAVA: ${{ inputs.branch == '1.21' && '21' || '17' }}
+          LOADER: ${{ inputs.branch == '1.21.1' && 'neoforge' || 'forge' }}
+          JAVA: ${{ inputs.branch == '1.21.1' && '21' || '17' }}
           VERSION_TYPE: 'release'
         uses: Kir-Antipov/mc-publish@v3.3.0
         with:
@@ -128,8 +128,8 @@ jobs:
       - name: Publish Mod
         env:
           MC_VERSION: ${{ inputs.branch }}
-          LOADER: ${{ inputs.branch == '1.21' && 'neoforge' || 'forge' }}
-          JAVA: ${{ inputs.branch == '1.21' && '21' || '17' }}
+          LOADER: ${{ inputs.branch == '1.21.1' && 'neoforge' || 'forge' }}
+          JAVA: ${{ inputs.branch == '1.21.1' && '21' || '17' }}
           VERSION_TYPE: 'release'
         uses: Kir-Antipov/mc-publish@v3.3.0
         with:
