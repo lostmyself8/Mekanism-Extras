@@ -40,7 +40,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
         add(new AttributeGui(containerRegistrar, null), new ExtraAttributeTier<>(tier));
 
         if (tier.ordinal() < ExtraEnumUtils.EXTRA_FACTORY_TIERS.length - 1) {
-            add(new ExtraAttributeUpgradeable(() -> ExtraMoreMachineBlocks.getMoreMachineFactory(ExtraEnumUtils.EXTRA_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getMoreMachineFactoryType())));
+            add(new ExtraAttributeUpgradeable(() -> ExtraMoreMachineBlocks.getExtraMoreMachineFactory(ExtraEnumUtils.EXTRA_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getMoreMachineFactoryType())));
         }
     }
 

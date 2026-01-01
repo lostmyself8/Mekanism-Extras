@@ -42,21 +42,21 @@ public class ExtraAFCatalystRegistryHelper {
             }
             for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
                 if (workstation == MekanismBlocks.CHEMICAL_OXIDIZER) {
-                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getAdvancedFactory(tier, AdvancedFactoryType.OXIDIZING), recipeType);
+                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(tier, AdvancedFactoryType.OXIDIZING), recipeType);
                 } else if (workstation == MekanismBlocks.CHEMICAL_INFUSER) {
-                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getAdvancedFactory(tier, AdvancedFactoryType.CHEMICAL_INFUSING), recipeType);
+                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(tier, AdvancedFactoryType.CHEMICAL_INFUSING), recipeType);
                 } else if (workstation == MekanismBlocks.CHEMICAL_DISSOLUTION_CHAMBER) {
-                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getAdvancedFactory(tier, AdvancedFactoryType.DISSOLVING), recipeType);
+                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(tier, AdvancedFactoryType.DISSOLVING), recipeType);
                 } else if (workstation == MekanismBlocks.CHEMICAL_WASHER) {
-                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getAdvancedFactory(tier, AdvancedFactoryType.WASHING), recipeType);
+                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(tier, AdvancedFactoryType.WASHING), recipeType);
                 } else if (workstation == MekanismBlocks.CHEMICAL_CRYSTALLIZER) {
-                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getAdvancedFactory(tier, AdvancedFactoryType.CRYSTALLIZING), recipeType);
+                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(tier, AdvancedFactoryType.CRYSTALLIZING), recipeType);
                 } else if (workstation == MekanismBlocks.PRESSURIZED_REACTION_CHAMBER) {
-                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getAdvancedFactory(tier, AdvancedFactoryType.PRESSURISED_REACTING), recipeType);
+                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(tier, AdvancedFactoryType.PRESSURISED_REACTING), recipeType);
                 } else if (workstation == MekanismBlocks.ISOTOPIC_CENTRIFUGE) {
-                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getAdvancedFactory(tier, AdvancedFactoryType.CENTRIFUGING), recipeType);
+                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(tier, AdvancedFactoryType.CENTRIFUGING), recipeType);
                 } else if (workstation == MekanismBlocks.NUTRITIONAL_LIQUIFIER) {
-                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getAdvancedFactory(tier, AdvancedFactoryType.LIQUIFYING), recipeType);
+                    registry.addRecipeCatalyst(ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(tier, AdvancedFactoryType.LIQUIFYING), recipeType);
                 }
             }
         }

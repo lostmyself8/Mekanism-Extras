@@ -185,12 +185,12 @@ public class ExtraAdvancedFactoryBlocks {
      * @param type - recipe type to add to the Factory
      * @return factory with defined tier and recipe type
      */
-    public static BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> getAdvancedFactory(@NotNull ExtraFactoryTier tier, @NotNull AdvancedFactoryType type) {
+    public static BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> getExtraAdvancedFactory(@NotNull ExtraFactoryTier tier, @NotNull AdvancedFactoryType type) {
         return AF_FACTORIES.get(tier, type);
     }
 
     @SuppressWarnings("unchecked")
-    public static BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory>[] getAdvancedFactoryBlocks() {
+    public static BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory>[] getExtraAdvancedFactoryBlocks() {
         return AF_FACTORIES.values().toArray(new BlockRegistryObject[0]);
     }
 }

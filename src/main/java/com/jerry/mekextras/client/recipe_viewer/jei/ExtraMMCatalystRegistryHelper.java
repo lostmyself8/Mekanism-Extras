@@ -45,7 +45,7 @@ public class ExtraMMCatalystRegistryHelper {
                 MoreMachineAttributeFactoryType factoryType = Attribute.get(blockItem.getBlock(), MoreMachineAttributeFactoryType.class);
                 if (factoryType != null) {
                     for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
-                        registry.addRecipeCatalyst(ExtraMoreMachineBlocks.getMoreMachineFactory(tier, factoryType.getMoreMachineFactoryType()), recipeType);
+                        registry.addRecipeCatalyst(ExtraMoreMachineBlocks.getExtraMoreMachineFactory(tier, factoryType.getMoreMachineFactoryType()), recipeType);
                     }
                 }
             }

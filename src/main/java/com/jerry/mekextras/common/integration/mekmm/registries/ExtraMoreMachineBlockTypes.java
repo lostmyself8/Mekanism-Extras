@@ -85,12 +85,12 @@ public class ExtraMoreMachineBlockTypes {
     static {
         for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
             for (MoreMachineFactoryType type : MoreMachineEnumUtils.MM_FACTORY_TYPES) {
-                MM_FACTORIES.put(tier, type, ExtraMoreMachineFactoryBuilder.createMoreMachineFactory(() -> ExtraMoreMachineTileEntityTypes.getMoreMachineFactoryTile(tier, type), type, tier).build());
+                MM_FACTORIES.put(tier, type, ExtraMoreMachineFactoryBuilder.createMoreMachineFactory(() -> ExtraMoreMachineTileEntityTypes.getExtraMoreMachineFactoryTile(tier, type), type, tier).build());
             }
         }
     }
 
-    public static ExtraMoreMachineFactory<?> getMoreMachineFactory(ExtraFactoryTier tier, MoreMachineFactoryType type) {
+    public static ExtraMoreMachineFactory<?> getExtraMoreMachineFactory(ExtraFactoryTier tier, MoreMachineFactoryType type) {
         return MM_FACTORIES.get(tier, type);
     }
 }
