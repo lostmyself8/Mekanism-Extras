@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
+import com.jerry.mekmm.common.tile.factory.TileEntityMoreMachineFactory;
 
 public class ExtraMoreMachineTileEntityTypes {
 
@@ -43,7 +44,7 @@ public class ExtraMoreMachineTileEntityTypes {
     }
 
     private static void registerFactory(ExtraFactoryTier tier, MoreMachineFactoryType type, MMBlockEntityFactory<? extends TileEntityExtraMoreMachineFactory<?>> factoryConstructor) {
-        BlockRegistryObject<BlockExtraMoreMachineFactory<?>, ItemBlockExtraMoreMachineFactory> block = ExtraMoreMachineBlocks.getMoreMachineFactory(tier, type);
+        BlockRegistryObject<BlockExtraMoreMachineFactory<?>, ItemBlockExtraMoreMachineFactory> block = ExtraMoreMachineBlocks.getExtraMoreMachineFactory(tier, type);
         TileEntityTypeRegistryObject<? extends TileEntityExtraMoreMachineFactory<?>> tileRO = MM_TILE_ENTITY_TYPES.mekBuilder(block, (pos, state) -> factoryConstructor.create(block, pos, state))
                 .clientTicker(TileEntityMekanism::tickClient)
                 .serverTicker(TileEntityMekanism::tickServer)
@@ -52,8 +53,13 @@ public class ExtraMoreMachineTileEntityTypes {
         MM_FACTORIES.put(tier, type, tileRO);
     }
 
-    public static TileEntityTypeRegistryObject<? extends TileEntityExtraMoreMachineFactory<?>> getMoreMachineFactoryTile(ExtraFactoryTier tier, MoreMachineFactoryType type) {
+    public static TileEntityTypeRegistryObject<? extends TileEntityExtraMoreMachineFactory<?>> getExtraMoreMachineFactoryTile(ExtraFactoryTier tier, MoreMachineFactoryType type) {
         return MM_FACTORIES.get(tier, type);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static TileEntityTypeRegistryObject<? extends TileEntityMoreMachineFactory<?>>[] getExtraMoreMachineFactoryTiles() {
+        return MM_FACTORIES.values().toArray(new TileEntityTypeRegistryObject[0]);
     }
 
     @FunctionalInterface

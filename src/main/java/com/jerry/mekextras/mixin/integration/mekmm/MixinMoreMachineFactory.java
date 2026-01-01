@@ -27,7 +27,7 @@ public abstract class MixinMoreMachineFactory extends BlockType {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void injectFactoryUltimateToAbsolute(Supplier<?> tileEntityRegistrar, Supplier<?> containerRegistrar, MoreMachineFactoryMachine<?> origMachine, FactoryTier tier, CallbackInfo ci) {
         if (tier == FactoryTier.ULTIMATE) {
-            add(new ExtraAttributeUpgradeable(() -> ExtraMoreMachineBlocks.getMoreMachineFactory(ExtraFactoryTier.ABSOLUTE, origMachine.getMoreMachineFactoryType())));
+            add(new ExtraAttributeUpgradeable(() -> ExtraMoreMachineBlocks.getExtraMoreMachineFactory(ExtraFactoryTier.ABSOLUTE, origMachine.getMoreMachineFactoryType())));
         }
     }
 }

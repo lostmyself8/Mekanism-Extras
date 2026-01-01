@@ -45,7 +45,7 @@ public class ExtraAdvancedFactoryTileEntityTypes {
     }
 
     private static void registerFactory(ExtraFactoryTier tier, AdvancedFactoryType type, ExtraAdvancedBlockEntityFactory<? extends TileEntityExtraAdvancedBase<?>> factoryConstructor) {
-        BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> block = ExtraAdvancedFactoryBlocks.getAdvancedFactory(tier, type);
+        BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> block = ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(tier, type);
         TileEntityTypeRegistryObject<? extends TileEntityExtraAdvancedBase<?>> tileRO = AF_TILE_ENTITY_TYPES.mekBuilder(block, (pos, state) -> factoryConstructor.create(block, pos, state))
                 .clientTicker(TileEntityMekanism::tickClient)
                 .serverTicker(TileEntityMekanism::tickServer)
@@ -54,12 +54,12 @@ public class ExtraAdvancedFactoryTileEntityTypes {
         AF_FACTORIES.put(tier, type, tileRO);
     }
 
-    public static TileEntityTypeRegistryObject<? extends TileEntityExtraAdvancedBase<?>> getAdvancedFactoryTile(ExtraFactoryTier tier, AdvancedFactoryType type) {
+    public static TileEntityTypeRegistryObject<? extends TileEntityExtraAdvancedBase<?>> getExtraAdvancedFactoryTile(ExtraFactoryTier tier, AdvancedFactoryType type) {
         return AF_FACTORIES.get(tier, type);
     }
 
     @SuppressWarnings("unchecked")
-    public static TileEntityTypeRegistryObject<? extends TileEntityExtraAdvancedBase<?>>[] getFactoryTiles() {
+    public static TileEntityTypeRegistryObject<? extends TileEntityExtraAdvancedBase<?>>[] getExtraAdvancedFactoryTiles() {
         return AF_FACTORIES.values().toArray(new TileEntityTypeRegistryObject[0]);
     }
 

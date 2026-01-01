@@ -50,7 +50,7 @@ public class ExtraMoreMachineBlocks {
         // factories
         for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
             for (MoreMachineFactoryType type : MoreMachineEnumUtils.MM_FACTORY_TYPES) {
-                MM_FACTORIES.put(tier, type, registerMoreMachineFactory(ExtraMoreMachineBlockTypes.getMoreMachineFactory(tier, type)));
+                MM_FACTORIES.put(tier, type, registerMoreMachineFactory(ExtraMoreMachineBlockTypes.getExtraMoreMachineFactory(tier, type)));
             }
         }
     }
@@ -114,7 +114,12 @@ public class ExtraMoreMachineBlocks {
      * @param type - recipe type to add to the Factory
      * @return factory with defined tier and recipe type
      */
-    public static BlockRegistryObject<BlockExtraMoreMachineFactory<?>, ItemBlockExtraMoreMachineFactory> getMoreMachineFactory(@NotNull ExtraFactoryTier tier, @NotNull MoreMachineFactoryType type) {
+    public static BlockRegistryObject<BlockExtraMoreMachineFactory<?>, ItemBlockExtraMoreMachineFactory> getExtraMoreMachineFactory(@NotNull ExtraFactoryTier tier, @NotNull MoreMachineFactoryType type) {
         return MM_FACTORIES.get(tier, type);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static BlockRegistryObject<BlockExtraMoreMachineFactory<?>, ItemBlockExtraMoreMachineFactory>[] getExtraMoreMachineFactoryBlocks() {
+        return MM_FACTORIES.values().toArray(new BlockRegistryObject[0]);
     }
 }

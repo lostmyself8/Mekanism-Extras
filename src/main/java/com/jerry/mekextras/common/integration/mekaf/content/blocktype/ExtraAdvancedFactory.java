@@ -41,7 +41,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
         add(new AttributeGui(containerRegistrar, null), new ExtraAttributeTier<>(tier));
 
         if (tier.ordinal() < ExtraEnumUtils.EXTRA_FACTORY_TIERS.length - 1) {
-            add(new ExtraAttributeUpgradeable(() -> ExtraAdvancedFactoryBlocks.getAdvancedFactory(ExtraEnumUtils.EXTRA_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getAdvancedFactoryType())));
+            add(new ExtraAttributeUpgradeable(() -> ExtraAdvancedFactoryBlocks.getExtraAdvancedFactory(ExtraEnumUtils.EXTRA_FACTORY_TIERS[tier.ordinal() + 1], origMachine.getAdvancedFactoryType())));
         }
     }
 
@@ -75,7 +75,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
                 case LIQUIFYING -> AttributeSideConfig.create(TransmissionType.FLUID, TransmissionType.ITEM, TransmissionType.ENERGY);
             });
             // 如果有Bounding属性就添加，但或许会有更复杂的形状
-            if (type.getBaseMachine().has(AttributeHasBounding.class)) {
+            if (getBaseMachine(type).has(AttributeHasBounding.class)) {
                 builder.with(AttributeHasBounding.ABOVE_ONLY);
             }
             builder.replace(new AttributeParticleFX().addDense(ParticleTypes.SMOKE, 5, rand -> new Pos3D(
@@ -89,18 +89,22 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
     private static <TILE extends TileEntityExtraAdvancedBase<?>> @NotNull ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> getExtraAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, AdvancedFactoryType type, ExtraFactoryTier tier) {
         ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> builder = new ExtraAdvancedFactoryBuilder<>(new ExtraAdvancedFactory<>(tileEntityRegistrar,
                 () -> ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY,
-                switch (type) {
-                    case OXIDIZING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_OXIDIZER;
-                    case CHEMICAL_INFUSING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_INFUSER;
-                    case DISSOLVING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_DISSOLUTION_CHAMBER;
-                    case WASHING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_WASHER;
-                    case CRYSTALLIZING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_CRYSTALLIZER;
-                    case PRESSURISED_REACTING -> ExtraAdvancedFactoryBlockTypes.PRESSURIZED_REACTION_CHAMBER;
-                    case CENTRIFUGING -> ExtraAdvancedFactoryBlockTypes.ISOTOPIC_CENTRIFUGE;
-                    case LIQUIFYING -> ExtraAdvancedFactoryBlockTypes.NUTRITIONAL_LIQUIFIER;
-                },
+                getBaseMachine(type),
                 tier));
         builder.withComputerSupport(tier.getAdvanceTier().getLowerName() + type.getRegistryNameComponentCapitalized() + "Factory");
         return builder;
+    }
+
+    private static ExtraFactoryMachine<?> getBaseMachine(AdvancedFactoryType type) {
+        return switch (type) {
+            case OXIDIZING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_OXIDIZER;
+            case CHEMICAL_INFUSING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_INFUSER;
+            case DISSOLVING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_DISSOLUTION_CHAMBER;
+            case WASHING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_WASHER;
+            case CRYSTALLIZING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_CRYSTALLIZER;
+            case PRESSURISED_REACTING -> ExtraAdvancedFactoryBlockTypes.PRESSURIZED_REACTION_CHAMBER;
+            case CENTRIFUGING -> ExtraAdvancedFactoryBlockTypes.ISOTOPIC_CENTRIFUGE;
+            case LIQUIFYING -> ExtraAdvancedFactoryBlockTypes.NUTRITIONAL_LIQUIFIER;
+        };
     }
 }

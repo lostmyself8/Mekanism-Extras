@@ -103,7 +103,7 @@ public class ExtraAdvancedFactoryBlockTypes {
     static {
         for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
             for (AdvancedFactoryType type : MoreMachineEnumUtils.ADVANCED_FACTORY_TYPES) {
-                AF_FACTORIES.put(tier, type, ExtraAdvancedFactoryBuilder.createAdvancedFactory(() -> ExtraAdvancedFactoryTileEntityTypes.getAdvancedFactoryTile(tier, type), type, tier).build());
+                AF_FACTORIES.put(tier, type, ExtraAdvancedFactoryBuilder.createAdvancedFactory(() -> ExtraAdvancedFactoryTileEntityTypes.getExtraAdvancedFactoryTile(tier, type), type, tier).build());
             }
         }
     }
