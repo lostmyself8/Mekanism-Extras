@@ -18,7 +18,8 @@ jobs:
           git switch -C gh/workflow-sync
           git fetch origin
           git checkout origin/1.20.1 -- .github
-          git commit -am "Sync Workflows"
+          git add .github
+          git commit --allow-empty -m "Sync Workflows"
           git push --force --set-upstream origin gh/workflow-sync
 
   sync-1-21:
