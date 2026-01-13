@@ -12,7 +12,8 @@ import java.util.Set;
 
 public record ExtraAttributeUpgradeSupport(@NotNull Set<Upgrade> supportedUpgrades) implements Attribute {
 
-    public static final AttributeUpgradeSupport EXTRA_MACHINE_NO_STACK_UPGRADES = AttributeUpgradeSupport.create(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.CHEMICAL, Upgrade.MUFFLING, ExtraUpgrade.CREATIVE);
+    public static final AttributeUpgradeSupport EXTRA_MACHINE_NO_STACK_UPGRADES = AttributeUpgradeSupport.create(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.MUFFLING, ExtraUpgrade.CREATIVE);
+    public static final AttributeUpgradeSupport EXTRA_ADVANCED_MACHINE_NO_STACK_UPGRADES = AttributeUpgradeSupport.create(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.CHEMICAL, Upgrade.MUFFLING, ExtraUpgrade.CREATIVE);
     public static final AttributeUpgradeSupport EXTRA_MACHINE_UPGRADES = AttributeUpgradeSupport.create(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.MUFFLING, ExtraUpgrade.STACK, ExtraUpgrade.CREATIVE);
     public static final AttributeUpgradeSupport EXTRA_ADVANCED_MACHINE_UPGRADES = AttributeUpgradeSupport.create(Upgrade.SPEED, Upgrade.ENERGY, Upgrade.CHEMICAL, Upgrade.MUFFLING, ExtraUpgrade.STACK, ExtraUpgrade.CREATIVE);
 }
