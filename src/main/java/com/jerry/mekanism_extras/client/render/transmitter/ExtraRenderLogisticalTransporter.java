@@ -5,6 +5,7 @@ import com.jerry.mekanism_extras.common.tier.transmitter.TPTier;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityLogisticalTransporterBase;
 import com.jerry.mekanism_extras.common.util.ExtraTransporterUtils;
 
+import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.text.EnumColor;
 import mekanism.client.model.ModelTransporterBox;
 import mekanism.client.render.MekanismRenderer;
@@ -35,6 +36,7 @@ import java.util.*;
 
 import javax.annotation.Nullable;
 
+@NothingNullByDefault
 public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<ExtraTileEntityLogisticalTransporterBase> {
 
     private static final Map<Direction, MekanismRenderer.Model3D> cachedOverlays = new EnumMap<>(Direction.class);
