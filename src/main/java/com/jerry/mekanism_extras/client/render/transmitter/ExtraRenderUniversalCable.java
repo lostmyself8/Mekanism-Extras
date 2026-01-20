@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.client.render.transmitter;
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraUniversalCable;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityUniversalCable;
 
+import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
@@ -18,6 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
+@NothingNullByDefault
 public class ExtraRenderUniversalCable extends RenderTransmitterBase<ExtraTileEntityUniversalCable> {
 
     public ExtraRenderUniversalCable(BlockEntityRendererProvider.Context context) {
@@ -28,6 +30,9 @@ public class ExtraRenderUniversalCable extends RenderTransmitterBase<ExtraTileEn
     protected void render(ExtraTileEntityUniversalCable tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight,
                           @NotNull ProfilerFiller profiler) {
         EnergyNetwork network = tile.getTransmitter().getTransmitterNetwork();
+        if (network == null) {
+            return;// race condition perhaps
+        }
         matrix.pushPose();
         matrix.translate(0.5, 0.5, 0.5);
         renderModel(tile, matrix, renderer.getBuffer(Sheets.translucentCullBlockSheet()), 0xFFFFFF, network.currentScale, LightTexture.FULL_BRIGHT,

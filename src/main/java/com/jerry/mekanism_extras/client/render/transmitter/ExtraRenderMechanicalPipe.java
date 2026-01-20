@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.client.render.transmitter;
 
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityMechanicalPipe;
 
+import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.ModelRenderer;
 import mekanism.client.render.RenderResizableCuboid;
@@ -30,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+@NothingNullByDefault
 public class ExtraRenderMechanicalPipe extends RenderTransmitterBase<ExtraTileEntityMechanicalPipe> {
 
     private static final int stages = 100;
@@ -52,6 +54,9 @@ public class ExtraRenderMechanicalPipe extends RenderTransmitterBase<ExtraTileEn
                           ProfilerFiller profiler) {
         MechanicalPipe pipe = tile.getTransmitter();
         FluidNetwork network = pipe.getTransmitterNetwork();
+        if (network == null) {
+            return;// race conditions
+        }
         FluidStack fluidStack = network.lastFluid;
         if (fluidStack.isEmpty()) {
             // Shouldn't be the case but validate it

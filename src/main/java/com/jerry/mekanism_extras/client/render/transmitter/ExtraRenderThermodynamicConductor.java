@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.client.render.transmitter;
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraThermodynamicConductor;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityThermodynamicConductor;
 
+import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
 import mekanism.common.base.ProfilerConstants;
@@ -17,6 +18,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
+@NothingNullByDefault
 public class ExtraRenderThermodynamicConductor extends RenderTransmitterBase<ExtraTileEntityThermodynamicConductor> {
 
     public ExtraRenderThermodynamicConductor(BlockEntityRendererProvider.Context context) {

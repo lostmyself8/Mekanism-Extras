@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.client.render.transmitter;
 import com.jerry.mekanism_extras.common.content.network.transmitter.ExtraBoxedPressurizedTube;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityPressurizedTube;
 
+import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.Chemical;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.render.transmitter.RenderTransmitterBase;
@@ -19,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
+@NothingNullByDefault
 public class ExtraRenderPressurizedTube extends RenderTransmitterBase<ExtraTileEntityPressurizedTube> {
 
     public ExtraRenderPressurizedTube(BlockEntityRendererProvider.Context context) {
@@ -29,6 +31,9 @@ public class ExtraRenderPressurizedTube extends RenderTransmitterBase<ExtraTileE
     protected void render(ExtraTileEntityPressurizedTube tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight,
                           @NotNull ProfilerFiller profiler) {
         BoxedChemicalNetwork network = tile.getTransmitter().getTransmitterNetwork();
+        if (network == null) {
+            return;// race conditions, yay
+        }
         matrix.pushPose();
         matrix.translate(0.5, 0.5, 0.5);
         Chemical<?> chemical = network.lastChemical.getChemical();
