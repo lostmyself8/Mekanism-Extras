@@ -106,7 +106,7 @@ jobs:
             ./mekanism_extras-${{ env.MC_VERSION }}-${{ needs.build.outputs.ver }}.jar
             ./!(mekanism_extras-${{ env.MC_VERSION }}-${{ needs.build.outputs.ver }}.jar)
           name: 'MekanismExtras ${{ env.MC_VERSION }}-${{ needs.build.outputs.ver }}'
-          version: 'mc${{ env.MC_VERSION }}-${{ needs.build.outputs.ver }}'
+          version: '${{ env.MC_VERSION }}-${{ needs.build.outputs.ver }}'
           version-type: ${{ env.VERSION_TYPE }}
           changelog: ${{ inputs.release-body }}
           loaders: ${{ env.LOADER }}
