@@ -1,0 +1,25 @@
+{
+  "type": "mekanism:mek_data",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/radiance"
+    },
+    "C": {
+      "tag": "c:circuits/absolute"
+    },
+    "P": {
+      "item": "mekanism:ultimate_bin"
+    },
+    "_": {
+      "tag": "mekanism:stone_crafting_materials"
+    }
+  },
+  "pattern": [
+    "_C_",
+    "APA",
+    "___"
+  ],
+  "result": {
+    "id": "mekanism_extras:absolute_bin"
+  }
+}
