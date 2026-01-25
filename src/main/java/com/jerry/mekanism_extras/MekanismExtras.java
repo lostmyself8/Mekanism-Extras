@@ -8,6 +8,7 @@ import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.integration.Addons;
+import com.jerry.mekanism_extras.common.network.ExtraPacketHandler;
 import com.jerry.mekanism_extras.common.registry.*;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
@@ -60,11 +61,22 @@ public class MekanismExtras implements IModModule {
      */
     public final Version versionNumber;
 
+    /**
+     * Mekanism Extras Machine Packet Handler
+     */
+    private final ExtraPacketHandler packetHandler;
+
+    /**
+     * Mekanism Extras mod instance
+     */
+    public static MekanismExtras instance;
+
     public static final MultiblockManager<ExtraMatrixMultiblockData> extraMatrixManager = new MultiblockManager<>("extraInductionMatrix", MultiblockCache::new, ExtraMatrixValidator::new);
     public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", NaquadahReactorCache::new, NaquadahReactorValidator::new);
     public static final MultiblockManager<PlasmaEvaporationMultiblockData> plasmaEvaporationPlantManager = new MultiblockManager<>("plasmaEvaporationPlant", MultiblockCache::new, PlasmaEvaporationValidator::new);
 
     public MekanismExtras(FMLJavaModLoadingContext context) {
+        instance = this;
         IEventBus modEventBus = context.getModEventBus();
         ModContainer modContainer = context.getContainer();
         versionNumber = new Version(modContainer);
@@ -84,6 +96,12 @@ public class MekanismExtras implements IModModule {
         conditionalRegistry(modEventBus);
         MinecraftForge.EVENT_BUS.register(new ClientTick());
         MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
+
+        packetHandler = new ExtraPacketHandler();
+    }
+
+    public static ExtraPacketHandler packetHandler() {
+        return instance.packetHandler;
     }
 
     public static ResourceLocation rl(String path) {
@@ -100,6 +118,7 @@ public class MekanismExtras implements IModModule {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+        packetHandler.initialize();
         event.enqueueWork(ExtraTags::init);
     }
 
