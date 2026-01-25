@@ -8,7 +8,6 @@ import mekanism.client.SpecialColors;
 import mekanism.client.gui.IGuiWrapper;
 import mekanism.client.gui.element.GuiInsetElement;
 import mekanism.client.render.MekanismRenderer;
-import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.text.BooleanStateDisplay;

@@ -10,7 +10,6 @@ import mekanism.client.gui.IGuiWrapper;
 import mekanism.client.gui.element.tab.GuiTabElementType;
 import mekanism.client.gui.element.tab.TabType;
 import mekanism.client.render.lib.ColorAtlas;
-import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
 import mekanism.common.util.MekanismUtils;
 
