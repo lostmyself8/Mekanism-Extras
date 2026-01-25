@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.client.gui;
 
+import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiButtonPress;
 import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 
@@ -46,7 +47,7 @@ public class GuiReinforcedMatrixTab extends GuiTabElementType<TileEntityReinforc
 
         @Override
         public void onClick(TileEntityReinforcedInductionCasing tile) {
-            Mekanism.packetHandler().sendToServer(new ExtraPacketGuiButtonPress(button, tile));
+            MekanismExtras.packetHandler().sendToServer(new ExtraPacketGuiButtonPress(button, tile));
         }
 
         @Override
