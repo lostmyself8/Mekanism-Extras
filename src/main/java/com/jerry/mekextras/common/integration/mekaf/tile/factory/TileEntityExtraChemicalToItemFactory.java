@@ -57,6 +57,7 @@ public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends Mekani
         inputChemicalTanks = new ArrayList<>();
         outputItemSlots = new ArrayList<>();
 
+        // 由于化学品储罐的添加顺序在物品槽位之前，所以这里需要在构造器中初始化processInfoSlots
         processInfoSlots = new CIProcessInfo[tier.processes];
         for (int i = 0; i < tier.processes; i++) {
             processInfoSlots[i] = new CIProcessInfo(i, inputTank[i], outputSlot[i]);
