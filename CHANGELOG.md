@@ -1,5 +1,12 @@
 # ChangeLog
 
+## Version [v1.3.3](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.3.2-1.21.1...v1.3.3-1.21.1)
+### Fixed
+
+- Repair lost bin recipe by @lostmyself8 in [#144](https://github.com/lostmyself8/Mekanism-Extras/pull/144)
+- Adapt mek-10.7.18.84 by @lostmyself8 in [#145](https://github.com/lostmyself8/Mekanism-Extras/pull/145)
+
+ 
 ## Version [v1.3.2](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.3.1-1.21.1...v1.3.2-1.21.1)
 ### Fixed
 
