@@ -9,13 +9,16 @@ import com.jerry.mekanism_extras.common.resource.ExtraResource;
 import com.jerry.mekanism_extras.common.tier.ExtraQIODriverTier;
 
 import mekanism.api.Upgrade;
+import mekanism.api.text.TextComponentUtil;
 import mekanism.common.item.ItemUpgrade;
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
 import mekanism.common.resource.IResource;
 import mekanism.common.resource.ResourceType;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
 
@@ -47,10 +50,10 @@ public class ExtraItem {
     public static final ItemRegistryObject<ExtraItemTierInstaller> COSMIC_TIER_INSTALLER = registerInstaller(AdvancedTier.SUPREME, AdvancedTier.COSMIC);
     public static final ItemRegistryObject<ExtraItemTierInstaller> INFINITE_TIER_INSTALLER = registerInstaller(AdvancedTier.COSMIC, AdvancedTier.INFINITE);
 
-    public static final ItemRegistryObject<Item> ABSOLUTE_CONTROL_CIRCUIT = registerCircuit("absolute", Rarity.COMMON);
-    public static final ItemRegistryObject<Item> SUPREME_CONTROL_CIRCUIT = registerCircuit("supreme", Rarity.UNCOMMON);
-    public static final ItemRegistryObject<Item> COSMIC_CONTROL_CIRCUIT = registerCircuit("cosmic", Rarity.RARE);
-    public static final ItemRegistryObject<Item> INFINITE_CONTROL_CIRCUIT = registerCircuit("infinite", Rarity.EPIC);
+    public static final ItemRegistryObject<Item> ABSOLUTE_CONTROL_CIRCUIT = registerCircuit(AdvancedTier.ABSOLUTE);
+    public static final ItemRegistryObject<Item> SUPREME_CONTROL_CIRCUIT = registerCircuit(AdvancedTier.SUPREME);
+    public static final ItemRegistryObject<Item> COSMIC_CONTROL_CIRCUIT = registerCircuit(AdvancedTier.COSMIC);
+    public static final ItemRegistryObject<Item> INFINITE_CONTROL_CIRCUIT = registerCircuit(AdvancedTier.INFINITE);
 
     public static final ItemRegistryObject<Item> RADIANCE_ALLOY = EXTRA_ITEMS.register("alloy_radiance", properties -> new ItemAlloyRadiance(properties.rarity(Rarity.COMMON)));
     public static final ItemRegistryObject<ExtraItemAlloy> THERMONUCLEAR_ALLOY = registerAlloy(ExtraAlloyTier.THERMONUCLEAR, Rarity.UNCOMMON);
@@ -97,8 +100,16 @@ public class ExtraItem {
         return EXTRA_ITEMS.register(toTier.getLowerName() + "_tier_installer", properties -> new ExtraItemTierInstaller(fromTier, toTier, properties));
     }
 
-    private static ItemRegistryObject<Item> registerCircuit(String name, Rarity rarity) {
-        return EXTRA_ITEMS.register(name + "_control_circuit", properties -> new Item(properties.rarity(rarity)));
+    private static ItemRegistryObject<Item> registerCircuit(AdvancedTier tier) {
+        // Ensure the name is lower case as with concatenating with values from enums it may not be
+        return EXTRA_ITEMS.register(tier.getLowerName() + "_control_circuit", properties -> new Item(properties) {
+
+            @NotNull
+            @Override
+            public Component getName(@NotNull ItemStack stack) {
+                return TextComponentUtil.build(tier.getColor(), super.getName(stack));
+            }
+        });
     }
 
     private static ItemRegistryObject<ExtraItemAlloy> registerAlloy(ExtraAlloyTier tier, Rarity rarity) {
