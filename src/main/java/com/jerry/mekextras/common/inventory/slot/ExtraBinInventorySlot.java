@@ -4,7 +4,6 @@ import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBack
 import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
 import com.jerry.mekextras.common.tier.BTier;
 
-import lombok.Getter;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -23,6 +22,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
