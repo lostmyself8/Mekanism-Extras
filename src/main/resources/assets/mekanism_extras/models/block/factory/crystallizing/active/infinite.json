@@ -9,7 +9,7 @@
       "parent": "mekmm:block/factory/crystallizing/base"
     },
     "front_led": {
-      "mekanism_extras": "mekanism:block/factory/front_led/active/infinite"
+      "parent": "mekanism_extras:block/factory/front_led/active/infinite"
     }
   }
 }
