@@ -1,5 +1,11 @@
 # ChangeLog
 
+## Version [v1.3.4](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.3.3-1.21.1...v1.3.4-1.21.1)
+### Fixed
+
+- 更换矩阵材质，修复部分bug，修正模型路径 by @lostmyself8 in [#153](https://github.com/lostmyself8/Mekanism-Extras/pull/153)
+
+ 
 ## Version [v1.3.3](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.3.2-1.21.1...v1.3.3-1.21.1)
 ### Fixed
 
