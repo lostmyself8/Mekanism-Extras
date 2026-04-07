@@ -588,7 +588,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
                     // until it is needed. That way if we have no empty slots and all our input slots are filled
                     // we don't do any extra processing here, and can properly short circuit
                     ItemStack item = (ItemStack) info.item;
-                    ItemStack largerInput = item.copyWithCount(Math.min(item.getMaxStackSize(), info.totalCount));
+                    ItemStack largerInput = item.copyWithCount(Math.min(item.getMaxStackSize() * 8 << tier.ordinal(), info.totalCount));
                     ProcessInfo processInfo = info.processes.getFirst();
                     // Try getting a recipe for our input with a larger size, and update the cache if we find one
                     info.recipe = factory.getRecipeForInput(processInfo.process(), largerInput, processInfo.outputSlot(), processInfo.secondaryOutputSlot(), true);
@@ -663,12 +663,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
             ItemStack item = entry.getKey();
             // Note: This isn't based on any limits the slot may have (but we currently don't have any reduced ones
             // here, so it doesn't matter)
-            int maxStackSize = switch (tier) {
-                case ABSOLUTE -> item.getMaxStackSize() * 8;
-                case SUPREME -> item.getMaxStackSize() * 16;
-                case COSMIC -> item.getMaxStackSize() * 32;
-                case INFINITE -> item.getMaxStackSize() * 64;
-            };
+            int maxStackSize = item.getMaxStackSize() * 8 << tier.ordinal();
             int numberPerSlot = recipeProcessInfo.totalCount / processCount;
             if (numberPerSlot == maxStackSize) {
                 // If all the slots are already maxed out; short-circuit, no balancing is needed

@@ -4,6 +4,7 @@ import com.jerry.mekextras.common.attachments.containers.item.ExtraComponentBack
 import com.jerry.mekextras.common.item.block.ItemBlockExtraBin;
 import com.jerry.mekextras.common.tier.BTier;
 
+import lombok.Getter;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
@@ -41,7 +42,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
             if (attachment != null) {
                 List<IInventorySlot> slots = attachment.getInventorySlots(null);
                 if (slots.size() == 1) {
-                    IInventorySlot slot = slots.get(0);
+                    IInventorySlot slot = slots.getFirst();
                     if (slot instanceof ExtraComponentBackedBinInventorySlot binSlot) {
                         return binSlot;
                     }
@@ -57,6 +58,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     }
 
     private final boolean isCreative;
+    @Getter
     private ItemStack lockStack = ItemStack.EMPTY;
 
     private ExtraBinInventorySlot(@Nullable IContentsListener listener, BTier tier) {
@@ -127,10 +129,6 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
 
     public ItemStack getRenderStack() {
         return isLocked() ? getLockStack() : getStack();
-    }
-
-    public ItemStack getLockStack() {
-        return lockStack;
     }
 
     @Override
