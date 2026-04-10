@@ -22,6 +22,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +42,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
             if (attachment != null) {
                 List<IInventorySlot> slots = attachment.getInventorySlots(null);
                 if (slots.size() == 1) {
-                    IInventorySlot slot = slots.get(0);
+                    IInventorySlot slot = slots.getFirst();
                     if (slot instanceof ExtraComponentBackedBinInventorySlot binSlot) {
                         return binSlot;
                     }
@@ -57,6 +58,7 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
     }
 
     private final boolean isCreative;
+    @Getter
     private ItemStack lockStack = ItemStack.EMPTY;
 
     private ExtraBinInventorySlot(@Nullable IContentsListener listener, BTier tier) {
@@ -127,10 +129,6 @@ public class ExtraBinInventorySlot extends BasicInventorySlot {
 
     public ItemStack getRenderStack() {
         return isLocked() ? getLockStack() : getStack();
-    }
-
-    public ItemStack getLockStack() {
-        return lockStack;
     }
 
     @Override

@@ -57,6 +57,7 @@ public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends Mekani
         inputChemicalTanks = new ArrayList<>();
         outputItemSlots = new ArrayList<>();
 
+        // 由于化学品储罐的添加顺序在物品槽位之前，所以这里需要在构造器中初始化processInfoSlots
         processInfoSlots = new CIProcessInfo[tier.processes];
         for (int i = 0; i < tier.processes; i++) {
             processInfoSlots[i] = new CIProcessInfo(i, inputTank[i], outputSlot[i]);
@@ -187,12 +188,12 @@ public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends Mekani
                     // and our cache is not invalid/out of date due to a reload
                     CachedRecipe<RECIPE> cachedRecipe = getCachedRecipe(processInfo.process());
                     if (isCachedRecipeValid(cachedRecipe, inputStack)) {
-                        recipeProcessInfo.item = inputStack;
+                        recipeProcessInfo.chemical = inputStack;
                         recipeProcessInfo.recipe = cachedRecipe.getRecipe();
                         // And our current process has a cached recipe then set the lazily initialized per slot value
                         // Note: If something goes wrong, and we end up with zero as how much we need as an input
                         // we just bump the value up to one to make sure we properly handle it
-                        recipeProcessInfo.lazyMinPerTank = (info, factory) -> factory.getNeededInput(info.recipe, (ChemicalStack) info.item);
+                        recipeProcessInfo.lazyMinPerTank = (info, factory) -> factory.getNeededInput(info.recipe, (ChemicalStack) info.chemical);
                     }
                 }
             }
@@ -204,7 +205,7 @@ public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends Mekani
         for (Map.Entry<ChemicalStack, CIRecipeProcessInfo<RECIPE>> entry : processes.entrySet()) {
             CIRecipeProcessInfo<RECIPE> recipeProcessInfo = entry.getValue();
             if (recipeProcessInfo.lazyMinPerTank == null) {
-                recipeProcessInfo.item = entry.getKey();
+                recipeProcessInfo.chemical = entry.getKey();
                 // If we don't have a lazy initializer for our minPerTank setup, that means that there is
                 // no valid cached recipe for any of the slots of this type currently, so we want to try and
                 // get the recipe we will have for the first slot, once we end up with more items in the stack
@@ -212,7 +213,7 @@ public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends Mekani
                     // Note: We put all of this logic in the lazy init, so that we don't actually call any of this
                     // until it is needed. That way if we have no empty slots and all our input slots are filled
                     // we don't do any extra processing here, and can properly short circuit
-                    ChemicalStack item = (ChemicalStack) info.item;
+                    ChemicalStack item = (ChemicalStack) info.chemical;
                     ChemicalStack largerInput = item.copyWithAmount(Math.min(MAX_CHEMICAL * tier.processes, info.totalCount));
                     CIProcessInfo processInfo = info.processes.getFirst();
                     // Try getting a recipe for our input with a larger size, and update the cache if we find one
@@ -388,7 +389,7 @@ public abstract class TileEntityExtraChemicalToItemFactory<RECIPE extends Mekani
         private final List<CIProcessInfo> processes = new ArrayList<>();
         @Nullable
         private ToIntBiFunction<CIRecipeProcessInfo<RECIPE>, TileEntityExtraChemicalToItemFactory<RECIPE>> lazyMinPerTank;
-        private Object item;
+        private Object chemical;
         private RECIPE recipe;
         private long minPerTank = 1;
         private long totalCount;

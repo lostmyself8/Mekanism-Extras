@@ -87,13 +87,11 @@ public class ExtraFactoryChemicalInventorySlot extends ChemicalInventorySlot {
         if (!stack.isEmpty() && Capabilities.CHEMICAL.hasCapability(stack)) {
             return super.getLimit(stack);
         } else {
-            int processes = factory.tier.processes;
-            return switch (factory.tier) {
-                case ABSOLUTE -> super.getLimit(stack) * 8 * processes;
-                case SUPREME -> super.getLimit(stack) * 16 * processes;
-                case COSMIC -> super.getLimit(stack) * 32 * processes;
-                case INFINITE -> super.getLimit(stack) * 64 * processes;
-            };
+            try {
+                return Math.multiplyExact(super.getLimit(stack) * factory.tier.processes, 8 << factory.tier.ordinal());
+            } catch (ArithmeticException ignored) {
+                return Integer.MAX_VALUE;
+            }
         }
     }
 }

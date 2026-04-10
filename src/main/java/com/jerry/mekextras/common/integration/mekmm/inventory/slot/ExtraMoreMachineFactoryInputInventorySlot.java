@@ -38,11 +38,10 @@ public class ExtraMoreMachineFactoryInputInventorySlot extends InputInventorySlo
 
     @Override
     public int getLimit(@NotNull ItemStack stack) {
-        return switch (factory.tier) {
-            case ABSOLUTE -> super.getLimit(stack) * 8;
-            case SUPREME -> super.getLimit(stack) * 16;
-            case COSMIC -> super.getLimit(stack) * 32;
-            case INFINITE -> super.getLimit(stack) * 64;
-        };
+        try {
+            return Math.multiplyExact(super.getLimit(stack), 8 << factory.tier.ordinal());
+        } catch (ArithmeticException ignored) {
+            return Integer.MAX_VALUE;
+        }
     }
 }

@@ -35,7 +35,7 @@ credits="Thank you to all those who have made any contributions to this mod"
 [[dependencies.${mod_id}]]
     modId = "mekanism"
     type = "required"
-    versionRange = "[10.7.17,)"
+    versionRange = "[10.7.18,)"
     ordering = "AFTER"
     side = "BOTH"
 
