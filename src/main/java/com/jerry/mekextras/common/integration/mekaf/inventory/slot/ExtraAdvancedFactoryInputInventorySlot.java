@@ -1,10 +1,9 @@
 package com.jerry.mekextras.common.integration.mekaf.inventory.slot;
 
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedBase;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraItemToChemicalFactory;
 import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraLiquifyingFactory;
 import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraPRCFactory;
-import com.jerry.mekextras.common.integration.mekaf.tile.factory.base.TileEntityExtraAdvancedFactoryBase;
-import com.jerry.mekextras.common.integration.mekaf.tile.factory.base.TileEntityExtraItemToChemicalFactory;
-import com.jerry.mekextras.common.integration.mekaf.tile.factory.base.TileEntityExtraItemToItemAdvancedFactory;
 
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.IChemicalTank;
@@ -21,19 +20,7 @@ import java.util.Objects;
 
 public class ExtraAdvancedFactoryInputInventorySlot extends InputInventorySlot {
 
-    private final TileEntityExtraAdvancedFactoryBase<?> factory;
-
-    public static ExtraAdvancedFactoryInputInventorySlot create(TileEntityExtraItemToItemAdvancedFactory<?> factory, int process, IInventorySlot outputSlot, @Nullable IContentsListener listener, int x, int y) {
-        Objects.requireNonNull(factory, "Factory cannot be null");
-        Objects.requireNonNull(outputSlot, "Item output tank cannot be null");
-        return new ExtraAdvancedFactoryInputInventorySlot(factory, process, outputSlot, listener, x, y);
-    }
-
-    private ExtraAdvancedFactoryInputInventorySlot(TileEntityExtraItemToItemAdvancedFactory<?> factory, int process, IInventorySlot outputSlot, @Nullable IContentsListener listener, int x, int y) {
-        super(stack -> factory.isItemValidForSlot(stack) && factory.inputProducesOutput(process, stack, outputSlot, false),
-                factory::isValidInputItem, listener, x, y);
-        this.factory = factory;
-    }
+    private final TileEntityExtraAdvancedBase<?> factory;
 
     public static ExtraAdvancedFactoryInputInventorySlot create(TileEntityExtraItemToChemicalFactory<?> factory, int process, IChemicalTank outputTank, @Nullable IContentsListener listener, int x, int y) {
         Objects.requireNonNull(factory, "Factory cannot be null");

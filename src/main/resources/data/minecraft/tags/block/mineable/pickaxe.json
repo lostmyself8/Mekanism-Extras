@@ -125,6 +125,10 @@
     {"id": "mekanism_extras:supreme_oxidizing_factory", "required": false},
     {"id": "mekanism_extras:cosmic_oxidizing_factory", "required": false},
     {"id": "mekanism_extras:infinite_oxidizing_factory", "required": false},
+    {"id": "mekanism_extras:absolute_chemical_infusing_factory", "required": false},
+    {"id": "mekanism_extras:supreme_chemical_infusing_factory", "required": false},
+    {"id": "mekanism_extras:cosmic_chemical_infusing_factory", "required": false},
+    {"id": "mekanism_extras:infinite_chemical_infusing_factory", "required": false},
     {"id": "mekanism_extras:absolute_dissolving_factory", "required": false},
     {"id": "mekanism_extras:supreme_dissolving_factory", "required": false},
     {"id": "mekanism_extras:cosmic_dissolving_factory", "required": false},
@@ -148,14 +152,6 @@
     {"id": "mekanism_extras:absolute_liquifying_factory", "required": false},
     {"id": "mekanism_extras:supreme_liquifying_factory", "required": false},
     {"id": "mekanism_extras:cosmic_liquifying_factory", "required": false},
-    {"id": "mekanism_extras:infinite_liquifying_factory", "required": false},
-    {"id": "mekanism_extras:absolute_pigment_extracting_factory", "required": false},
-    {"id": "mekanism_extras:supreme_pigment_extracting_factory", "required": false},
-    {"id": "mekanism_extras:cosmic_pigment_extracting_factory", "required": false},
-    {"id": "mekanism_extras:infinite_pigment_extracting_factory", "required": false},
-    {"id": "mekanism_extras:absolute_painting_factory", "required": false},
-    {"id": "mekanism_extras:supreme_painting_factory", "required": false},
-    {"id": "mekanism_extras:cosmic_painting_factory", "required": false},
-    {"id": "mekanism_extras:infinite_painting_factory", "required": false}
+    {"id": "mekanism_extras:infinite_liquifying_factory", "required": false}
   ]
 }

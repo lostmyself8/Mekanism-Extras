@@ -14,7 +14,6 @@ import mekanism.client.recipe_viewer.type.RecipeViewerRecipeType;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.fluids.FluidType;
 
-import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -58,12 +57,5 @@ public class ExtrasJEI implements IModPlugin {
                 RecipeViewerRecipeType.METALLURGIC_INFUSING, RecipeViewerRecipeType.SMELTING, RecipeViewerRecipeType.CHEMICAL_CONVERSION);
 
         ExtraCatalystRegistryHelper.register(registry, RecipeTypes.SMELTING, RecipeViewerRecipeType.VANILLA_SMELTING.workstations());
-
-        if (MekanismExtras.hooks.mekmm.isLoaded()) {
-            ExtraMMCatalystRegistryHelper.register(registry, MMRecipeViewerRecipeType.RECYCLER, MMRecipeViewerRecipeType.PLANTING_STATION, MMRecipeViewerRecipeType.REPLICATOR,
-                    MMRecipeViewerRecipeType.FLUID_REPLICATOR, MMRecipeViewerRecipeType.CHEMICAL_REPLICATOR, MMRecipeViewerRecipeType.STAMPING, MMRecipeViewerRecipeType.LATHE, MMRecipeViewerRecipeType.ROLLING_MILL);
-            ExtraAFCatalystRegistryHelper.register(registry, RecipeViewerRecipeType.OXIDIZING, RecipeViewerRecipeType.DISSOLUTION, RecipeViewerRecipeType.WASHING, RecipeViewerRecipeType.CRYSTALLIZING,
-                    RecipeViewerRecipeType.REACTION, RecipeViewerRecipeType.CENTRIFUGING, RecipeViewerRecipeType.NUTRITIONAL_LIQUIFICATION, RecipeViewerRecipeType.PIGMENT_EXTRACTING, RecipeViewerRecipeType.PAINTING);
-        }
     }
 }
