@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
 import com.jerry.mekextras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryInputInventorySlot;
 import com.jerry.mekextras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryOutputInventorySlot;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.base.TileEntityExtraAdvancedFactoryBase;
 
 import mekanism.api.Action;
 import mekanism.api.IContentsListener;
@@ -25,6 +26,8 @@ import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.fluid.FluidTankHelper;
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
@@ -58,7 +61,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.ToIntBiFunction;
 
-public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedBase<BasicItemStackToFluidOptionalItemRecipe> implements ItemRecipeLookupHandler<BasicItemStackToFluidOptionalItemRecipe> {
+public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedFactoryBase<BasicItemStackToFluidOptionalItemRecipe> implements ItemRecipeLookupHandler<BasicItemStackToFluidOptionalItemRecipe> {
 
     public static final RecipeError NOT_ENOUGH_SPACE_ITEM_OUTPUT_ERROR = RecipeError.create();
     // 单个槽位报错，例如输入槽和输出槽
@@ -260,6 +263,20 @@ public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedBas
         return new NutritionLiquifyingUpgradeData(provider, redstone, getControlType(), getEnergyContainer(), progress,
                 energySlot, inputItemSlots, outputItemSlots, fluidTank, isSorting(), getComponents());
     }
+
+    // Methods relating to IComputerTile
+    @ComputerMethod
+    ItemStack getInput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputSlot().getStack();
+    }
+
+    @ComputerMethod
+    ItemStack getOutput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputSlot().getStack();
+    }
+    // End methods IComputerTile
 
     @Override
     protected void sortInventoryOrTank() {

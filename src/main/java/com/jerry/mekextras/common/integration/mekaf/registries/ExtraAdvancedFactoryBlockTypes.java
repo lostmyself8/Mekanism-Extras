@@ -10,6 +10,8 @@ import com.jerry.mekextras.common.util.ExtraEnumUtils;
 
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.AttributeHasBounding;
+import mekanism.common.block.attribute.AttributeSideConfig;
+import mekanism.common.block.attribute.AttributeUpgradeSupport;
 import mekanism.common.config.MekanismConfig;
 import mekanism.common.registries.MekanismContainerTypes;
 import mekanism.common.registries.MekanismSounds;
@@ -43,15 +45,6 @@ public class ExtraAdvancedFactoryBlockTypes {
             .withSound(MekanismSounds.CHEMICAL_DISSOLUTION_CHAMBER)
             .withEnergyConfig(MekanismConfig.usage.chemicalDissolutionChamber, MekanismConfig.storage.chemicalDissolutionChamber)
             .with(ExtraAttributeUpgradeSupport.EXTRA_ADVANCED_MACHINE_UPGRADES)
-            .build();
-
-    // Chemical Infuser
-    public static final ExtraFactoryMachine<TileEntityChemicalInfuser> CHEMICAL_INFUSER = ExtraMachineBuilder
-            .createExtraAdvancedFactoryMachine(() -> MekanismTileEntityTypes.CHEMICAL_INFUSER, MekanismLang.DESCRIPTION_CHEMICAL_INFUSER, AdvancedFactoryType.CHEMICAL_INFUSING)
-            .withGui(() -> MekanismContainerTypes.CHEMICAL_INFUSER)
-            .withSound(MekanismSounds.CHEMICAL_INFUSER)
-            .withEnergyConfig(MekanismConfig.usage.chemicalInfuser, MekanismConfig.storage.chemicalInfuser)
-            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_NO_STACK_UPGRADES)
             .build();
 
     // Chemical Washer
@@ -98,6 +91,28 @@ public class ExtraAdvancedFactoryBlockTypes {
             .withEnergyConfig(MekanismConfig.usage.nutritionalLiquifier, MekanismConfig.storage.nutritionalLiquifier)
             .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
             .withSound(MekanismSounds.NUTRITIONAL_LIQUIFIER)
+            .build();
+
+    // Pigment Extractor
+    public static final ExtraFactoryMachine<TileEntityPigmentExtractor> PIGMENT_EXTRACTOR = ExtraMachineBuilder
+            .createExtraAdvancedFactoryMachine(() -> MekanismTileEntityTypes.PIGMENT_EXTRACTOR, MekanismLang.DESCRIPTION_PIGMENT_EXTRACTOR, AdvancedFactoryType.PIGMENT_EXTRACTING)
+            .withGui(() -> MekanismContainerTypes.PIGMENT_EXTRACTOR)
+            .withSound(MekanismSounds.PIGMENT_EXTRACTOR)
+            .withEnergyConfig(MekanismConfig.usage.pigmentExtractor, MekanismConfig.storage.pigmentExtractor)
+            .with(AttributeUpgradeSupport.DEFAULT_MACHINE_UPGRADES)
+            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
+            .withComputerSupport("pigmentExtractor")
+            .build();
+
+    // Painting Machine
+    public static final ExtraFactoryMachine<TileEntityPaintingMachine> PAINTING_MACHINE = ExtraMachineBuilder
+            .createExtraAdvancedFactoryMachine(() -> MekanismTileEntityTypes.PAINTING_MACHINE, MekanismLang.DESCRIPTION_PAINTING_MACHINE, AdvancedFactoryType.PAINTING)
+            .withGui(() -> MekanismContainerTypes.PAINTING_MACHINE)
+            .withSound(MekanismSounds.PAINTING_MACHINE)
+            .withEnergyConfig(MekanismConfig.usage.paintingMachine, MekanismConfig.storage.paintingMachine)
+            .with(AttributeUpgradeSupport.DEFAULT_MACHINE_UPGRADES)
+            .with(AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE)
+            .withComputerSupport("paintingMachine")
             .build();
 
     static {

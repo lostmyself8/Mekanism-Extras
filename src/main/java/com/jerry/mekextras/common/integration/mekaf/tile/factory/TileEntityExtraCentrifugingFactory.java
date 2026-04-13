@@ -1,5 +1,7 @@
 package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.base.TileEntityExtraChemicalToChemicalFactory;
+
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.Upgrade;

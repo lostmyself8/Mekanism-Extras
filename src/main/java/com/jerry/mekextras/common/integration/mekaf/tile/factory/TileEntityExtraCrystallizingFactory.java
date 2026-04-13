@@ -1,5 +1,7 @@
 package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.base.TileEntityExtraChemicalToItemFactory;
+
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.MathUtils;
