@@ -1,0 +1,36 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekmm"
+    }
+  ],
+  "type": "mekanism:mek_data",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/spectrum"
+    },
+    "C": {
+      "tag": "c:circuits/infinite"
+    },
+    "I": {
+      "tag": "c:pellets/plutonium"
+    },
+    "J": {
+      "tag": "c:pellets/polonium"
+    },
+    "P": {
+      "item": "mekanism_extras:cosmic_painting_factory"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IPJ",
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekanism_extras:infinite_painting_factory"
+  }
+}

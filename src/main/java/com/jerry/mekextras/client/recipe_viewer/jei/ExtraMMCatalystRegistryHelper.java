@@ -22,25 +22,15 @@ public class ExtraMMCatalystRegistryHelper {
 
     private ExtraMMCatalystRegistryHelper() {}
 
-    /**
-     * 与Mekanism的CatalystRegistryHelper中的register方法功能是一致的，只是多了一个需否需要基础机器的参数，
-     * 平常使用可以直接填true，对于“ENERGY_CONVERSION”或“CHEMICAL_CONVERSION”
-     * 可能得填写false。
-     *
-     * @param needOrdinary 是否需要注册最基础的机器
-     */
-    public static void register(IRecipeCatalystRegistration registry, boolean needOrdinary, IRecipeViewerRecipeType<?>... categories) {
+    public static void register(IRecipeCatalystRegistration registry, IRecipeViewerRecipeType<?>... categories) {
         for (IRecipeViewerRecipeType<?> category : categories) {
-            register(registry, MekanismJEI.genericRecipeType(category), category.workstations(), needOrdinary);
+            register(registry, MekanismJEI.genericRecipeType(category), category.workstations());
         }
     }
 
-    public static void register(IRecipeCatalystRegistration registry, RecipeType<?> recipeType, List<ItemLike> workstations, boolean needOrdinary) {
+    public static void register(IRecipeCatalystRegistration registry, RecipeType<?> recipeType, List<ItemLike> workstations) {
         for (ItemLike workstation : workstations) {
             Item item = workstation.asItem();
-            if (needOrdinary) {
-                registry.addRecipeCatalyst(item, recipeType);
-            }
             if (item instanceof BlockItem blockItem) {
                 MoreMachineAttributeFactoryType factoryType = Attribute.get(blockItem.getBlock(), MoreMachineAttributeFactoryType.class);
                 if (factoryType != null) {
