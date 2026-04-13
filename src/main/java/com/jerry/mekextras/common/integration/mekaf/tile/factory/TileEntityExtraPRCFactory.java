@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.integration.mekaf.tile.factory;
 
 import com.jerry.mekextras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryInputInventorySlot;
 import com.jerry.mekextras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryOutputInventorySlot;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.base.TileEntityExtraAdvancedFactoryBase;
 
 import mekanism.api.Action;
 import mekanism.api.IContentsListener;
@@ -30,6 +31,8 @@ import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.fluid.FluidTankHelper;
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
@@ -67,7 +70,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.ToIntBiFunction;
 
-public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedBase<PressurizedReactionRecipe> implements IHasDumpButton,
+public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBase<PressurizedReactionRecipe> implements IHasDumpButton,
                                        ItemFluidChemicalRecipeLookupHandler<PressurizedReactionRecipe> {
 
     public static final RecipeError NOT_ENOUGH_ITEM_INPUT_ERROR = RecipeError.create();
@@ -343,6 +346,20 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedBase<Press
         }
         inputChemicalTank.setEmpty();
     }
+
+    // Methods relating to IComputerTile
+    @ComputerMethod
+    ItemStack getInput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputSlot().getStack();
+    }
+
+    @ComputerMethod
+    ItemStack getOutput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputSlot().getStack();
+    }
+    // End methods IComputerTile
 
     @Override
     protected void sortInventoryOrTank() {

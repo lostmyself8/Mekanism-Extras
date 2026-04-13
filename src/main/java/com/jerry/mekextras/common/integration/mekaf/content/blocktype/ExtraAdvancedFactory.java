@@ -7,7 +7,7 @@ import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBui
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlockTypes;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
 import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
-import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedBase;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.base.TileEntityExtraAdvancedFactoryBase;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> extends ExtraFactoryMachine<TILE> {
+public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBase<?>> extends ExtraFactoryMachine<TILE> {
 
     private final ExtraFactoryMachine<?> origMachine;
 
@@ -54,7 +54,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
         }
     }
 
-    public static class ExtraAdvancedFactoryBuilder<FACTORY extends ExtraAdvancedFactory<TILE>, TILE extends TileEntityExtraAdvancedBase<?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
+    public static class ExtraAdvancedFactoryBuilder<FACTORY extends ExtraAdvancedFactory<TILE>, TILE extends TileEntityExtraAdvancedFactoryBase<?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
                                                    extends BlockTileBuilder<FACTORY, TILE, T> {
 
         protected ExtraAdvancedFactoryBuilder(FACTORY holder) {
@@ -62,14 +62,14 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
         }
 
         @SuppressWarnings("unchecked")
-        public static <TILE extends TileEntityExtraAdvancedBase<?>> ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> createAdvancedFactory(Supplier<?> tileEntityRegistrar, AdvancedFactoryType type,
-                                                                                                                                                           ExtraFactoryTier tier) {
+        public static <TILE extends TileEntityExtraAdvancedFactoryBase<?>> ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> createAdvancedFactory(Supplier<?> tileEntityRegistrar, AdvancedFactoryType type,
+                                                                                                                                                                  ExtraFactoryTier tier) {
             // this is dirty but unfortunately necessary for things to play right
             ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> builder = getExtraAdvancedFactoryTILEAdvancedFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(AdvancedFactoryBlockShapes.getShape(type));
             builder.with(switch (type) {
-                case OXIDIZING, DISSOLVING, CRYSTALLIZING -> AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE;
-                case CHEMICAL_INFUSING, CENTRIFUGING -> AttributeSideConfig.create(TransmissionType.CHEMICAL, TransmissionType.ITEM, TransmissionType.ENERGY);
+                case OXIDIZING, DISSOLVING, CRYSTALLIZING, PIGMENT_EXTRACTING, PAINTING -> AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE;
+                case CENTRIFUGING -> AttributeSideConfig.create(TransmissionType.CHEMICAL, TransmissionType.ITEM, TransmissionType.ENERGY);
                 case WASHING -> AttributeSideConfig.create(TransmissionType.CHEMICAL, TransmissionType.FLUID, TransmissionType.ITEM, TransmissionType.ENERGY);
                 case PRESSURISED_REACTING -> AttributeSideConfig.create(TransmissionType.ITEM, TransmissionType.CHEMICAL, TransmissionType.FLUID, TransmissionType.ENERGY);
                 case LIQUIFYING -> AttributeSideConfig.create(TransmissionType.FLUID, TransmissionType.ITEM, TransmissionType.ENERGY);
@@ -86,7 +86,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
         }
     }
 
-    private static <TILE extends TileEntityExtraAdvancedBase<?>> @NotNull ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> getExtraAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, AdvancedFactoryType type, ExtraFactoryTier tier) {
+    private static <TILE extends TileEntityExtraAdvancedFactoryBase<?>> @NotNull ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> getExtraAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, AdvancedFactoryType type, ExtraFactoryTier tier) {
         ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> builder = new ExtraAdvancedFactoryBuilder<>(new ExtraAdvancedFactory<>(tileEntityRegistrar,
                 () -> ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY,
                 getBaseMachine(type),
@@ -98,13 +98,14 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> e
     private static ExtraFactoryMachine<?> getBaseMachine(AdvancedFactoryType type) {
         return switch (type) {
             case OXIDIZING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_OXIDIZER;
-            case CHEMICAL_INFUSING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_INFUSER;
             case DISSOLVING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_DISSOLUTION_CHAMBER;
             case WASHING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_WASHER;
             case CRYSTALLIZING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_CRYSTALLIZER;
             case PRESSURISED_REACTING -> ExtraAdvancedFactoryBlockTypes.PRESSURIZED_REACTION_CHAMBER;
             case CENTRIFUGING -> ExtraAdvancedFactoryBlockTypes.ISOTOPIC_CENTRIFUGE;
             case LIQUIFYING -> ExtraAdvancedFactoryBlockTypes.NUTRITIONAL_LIQUIFIER;
+            case PIGMENT_EXTRACTING -> ExtraAdvancedFactoryBlockTypes.PIGMENT_EXTRACTOR;
+            case PAINTING -> ExtraAdvancedFactoryBlockTypes.PAINTING_MACHINE;
         };
     }
 }
