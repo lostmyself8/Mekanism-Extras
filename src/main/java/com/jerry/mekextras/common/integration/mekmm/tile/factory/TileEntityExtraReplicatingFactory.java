@@ -16,6 +16,8 @@ import mekanism.common.Mekanism;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.inventory.slot.chemical.ChemicalInventorySlot;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
@@ -45,6 +47,7 @@ import com.jerry.mekmm.common.config.MoreMachineConfig;
 import com.jerry.mekmm.common.recipe.impl.ReplicatorIRecipeSingle;
 import com.jerry.mekmm.common.registries.MoreMachineChemicals;
 import com.jerry.mekmm.common.util.ValidatorUtils;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,6 +76,7 @@ public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItem
 
     private final ILongInputHandler<ChemicalStack> chemicalInputHandler;
     // 化学品存储槽
+    @Getter
     public IChemicalTank chemicalTank;
     // 气罐槽
     ChemicalInventorySlot chemicalSlot;
@@ -105,10 +109,6 @@ public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItem
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addSlots(builder, listener, updateSortingListener);
         builder.addSlot(chemicalSlot = ChemicalInventorySlot.fillOrConvert(chemicalTank, this::getLevel, listener, 7, 57));
-    }
-
-    public IChemicalTank getChemicalTank() {
-        return chemicalTank;
     }
 
     @Override
@@ -223,4 +223,12 @@ public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItem
     public void dump() {
         chemicalTank.setEmpty();
     }
+
+    // Methods relating to IComputerTile
+    @ComputerMethod(requiresPublicSecurity = true, methodDescription = "Empty the contents of the chemical tank into the environment")
+    void dumpChemical() throws ComputerException {
+        validateSecurityIsPublic();
+        dump();
+    }
+    // End methods IComputerTile
 }
