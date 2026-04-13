@@ -2,7 +2,7 @@ package com.jerry.mekextras.common.block.prefab;
 
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
 import com.jerry.mekextras.common.integration.mekaf.content.blocktype.ExtraAdvancedFactory;
-import com.jerry.mekextras.common.integration.mekaf.tile.factory.TileEntityExtraAdvancedBase;
+import com.jerry.mekextras.common.integration.mekaf.tile.factory.base.TileEntityExtraAdvancedFactoryBase;
 
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.block.states.IStateFluidLoggable;
@@ -24,7 +24,7 @@ public class BlockExtraAdvancedFactoryMachine<TILE extends TileEntityMekanism, M
         }
     }
 
-    public static class BlockExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedBase<?>> extends MoreMachineBlockAdvancedFactoryMachineModel<TILE, ExtraAdvancedFactory<TILE>> {
+    public static class BlockExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBase<?>> extends MoreMachineBlockAdvancedFactoryMachineModel<TILE, ExtraAdvancedFactory<TILE>> {
 
         public BlockExtraAdvancedFactory(ExtraAdvancedFactory<TILE> factoryType) {
             super(factoryType, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor()));
