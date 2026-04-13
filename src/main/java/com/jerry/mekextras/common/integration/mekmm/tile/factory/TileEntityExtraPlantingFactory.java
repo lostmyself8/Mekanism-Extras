@@ -28,6 +28,8 @@ import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.config.MekanismConfig;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.inventory.slot.chemical.ChemicalInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.transmitter.TransmissionType;
@@ -316,4 +318,20 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
     protected record PackedStack(ItemStack firstStack, ItemStack secondaryStack) {
 
     }
+
+    // Methods relating to IComputerTile
+    @ComputerMethod
+    ItemStack getSecondaryOutput(int process) throws ComputerException {
+        validateValidProcess(process);
+        IInventorySlot secondaryOutputSlot = processInfoSlots[process].secondaryOutputSlot();
+        // This should never be null, but in case it is, handle it
+        return secondaryOutputSlot == null ? ItemStack.EMPTY : secondaryOutputSlot.getStack();
+    }
+
+    @ComputerMethod(requiresPublicSecurity = true, methodDescription = "Empty the contents of the chemical tank into the environment")
+    void dumpChemical() throws ComputerException {
+        validateSecurityIsPublic();
+        dump();
+    }
+    // End methods IComputerTile
 }
