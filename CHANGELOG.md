@@ -1,5 +1,18 @@
 # ChangeLog
 
+## Version [v1.4.0](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.3.4-1.21.1...v1.4.0-1.21.1)
+### Added
+
+- Adapted to mekmm-1.3.3 by @lostmyself8 in [#159](https://github.com/lostmyself8/Mekanism-Extras/pull/159)
+
+### Fixed
+
+- HotFix by @QiuYe-123 in [#155](https://github.com/lostmyself8/Mekanism-Extras/pull/155)
+- 升级mek版本 by @lostmyself8 in [#156](https://github.com/lostmyself8/Mekanism-Extras/pull/156)
+- Adapted to mekmm-1.3.3 by @lostmyself8 in [#159](https://github.com/lostmyself8/Mekanism-Extras/pull/159)
+- 适配mekmm-1.3.3 by @lostmyself8 in [#163](https://github.com/lostmyself8/Mekanism-Extras/pull/163)
+
+ 
 ## Version [v1.3.4](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.3.3-1.21.1...v1.3.4-1.21.1)
 ### Fixed
 
