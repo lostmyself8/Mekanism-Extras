@@ -2,7 +2,7 @@ package com.jerry.mekanism_extras.common.tile;
 
 import com.jerry.mekanism_extras.common.capabilities.chemical.ExtraStackedWasteBarrel;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
 
 import mekanism.api.*;
 import mekanism.api.chemical.gas.Gas;
@@ -47,7 +47,7 @@ public class ExtraTileEntityRadioactiveWasteBarrel extends TileEntityMekanism im
     private int processTicks;
 
     public ExtraTileEntityRadioactiveWasteBarrel(BlockPos pos, BlockState state) {
-        super(ExtraBlock.EXPAND_RADIOACTIVE_WASTE_BARREL, pos, state);
+        super(ExtraBlocks.EXPAND_RADIOACTIVE_WASTE_BARREL, pos, state);
         addCapabilityResolver(BasicCapabilityResolver.constant(Capabilities.CONFIGURABLE, this));
     }
 

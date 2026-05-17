@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.mixin;
 
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeUpgradeable;
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
 
 import mekanism.api.tier.BaseTier;
 import mekanism.api.tier.ITier;
@@ -27,22 +27,22 @@ public class MixinMekanismBlockTypes {
 
     @Inject(method = "createBin", at = @At("RETURN"))
     private static void injectBinUltimateToAbsolute(BinTier tier, Supplier<?> tile, Supplier<?> upgradeBlock, CallbackInfoReturnable<Machine<?>> cir) {
-        mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlock.ABSOLUTE_BIN);
+        mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlocks.ABSOLUTE_BIN);
     }
 
     @Inject(method = "createEnergyCube", at = @At("RETURN"))
     private static void injectEnergyCubeUltimateToAbsolute(EnergyCubeTier tier, Supplier<?> tile, Supplier<?> upgradeBlock, CallbackInfoReturnable<Machine<?>> cir) {
-        mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlock.ABSOLUTE_ENERGY_CUBE);
+        mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlocks.ABSOLUTE_ENERGY_CUBE);
     }
 
     @Inject(method = "createFluidTank", at = @At("RETURN"))
     private static void injectFluidTankUltimateToAbsolute(FluidTankTier tier, Supplier<?> tile, Supplier<?> upgradeBlock, CallbackInfoReturnable<Machine<?>> cir) {
-        mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlock.ABSOLUTE_FLUID_TANK);
+        mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlocks.ABSOLUTE_FLUID_TANK);
     }
 
     @Inject(method = "createChemicalTank", at = @At("RETURN"))
     private static void injectChemicalTankUltimateToAbsolute(ChemicalTankTier tier, Supplier<?> tile, Supplier<?> upgradeBlock, CallbackInfoReturnable<Machine<?>> cir) {
-        mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlock.ABSOLUTE_CHEMICAL_TANK);
+        mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlocks.ABSOLUTE_CHEMICAL_TANK);
     }
 
     @Unique

@@ -2,8 +2,8 @@ package com.jerry.mekanism_extras.common.tile.multiblock;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
-import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
+import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
+import com.jerry.mekanism_extras.common.registries.ExtraContainerTypes;
 
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.inventory.container.MekanismContainer;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 public class TileEntityReinforcedInductionCasing extends TileEntityMultiblock<ExtraMatrixMultiblockData> {
 
     public TileEntityReinforcedInductionCasing(BlockPos pos, BlockState state) {
-        this(ExtraBlock.REINFORCED_INDUCTION_CASING, pos, state);
+        this(ExtraBlocks.REINFORCED_INDUCTION_CASING, pos, state);
         // Disable item handler caps if we are the induction casing, don't disable it for the subclassed port though
         addDisabledCapabilities(ForgeCapabilities.ITEM_HANDLER);
     }

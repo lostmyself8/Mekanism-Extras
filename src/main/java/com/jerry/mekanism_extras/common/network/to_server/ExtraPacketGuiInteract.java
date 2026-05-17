@@ -1,5 +1,7 @@
 package com.jerry.mekanism_extras.common.network.to_server;
 
+import com.jerry.mekanism_extras.common.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.mekmm.tile.TileEntityExtraMoreMachineFactory;
 import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 
 import mekanism.api.functions.TriConsumer;
@@ -149,6 +151,9 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
         AUTO_SORT_BUTTON((tile, player, extra) -> {
             if (tile instanceof TileEntityExtraFactory<?> factory) {
                 factory.toggleSorting();
+            } else if (Addons.MEKMM.isLoaded()) {
+                // if (tile instanceof TileEntityExtraAdvancedFactoryBase<?> factory) factory.toggleSorting();
+                if (tile instanceof TileEntityExtraMoreMachineFactory<?> factory) factory.toggleSorting();
             }
         });
 

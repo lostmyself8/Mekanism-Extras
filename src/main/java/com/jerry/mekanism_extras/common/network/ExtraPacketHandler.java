@@ -10,7 +10,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class ExtraPacketHandler extends BasePacketHandler {
 
-    private final SimpleChannel netHandler = createChannel(MekanismExtras.rl(MekanismExtras.MODID), MekanismExtras.instance.versionNumber);
+    private final SimpleChannel netHandler = createChannel(MekanismExtras.rl(MekanismExtras.MOD_ID), MekanismExtras.instance.versionNumber);
 
     @Override
     protected SimpleChannel getChannel() {

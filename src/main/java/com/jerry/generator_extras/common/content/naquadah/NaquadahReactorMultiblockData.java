@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.content.naquadah;
 
 import com.jerry.mekanism_extras.common.ExtraTags;
-import com.jerry.mekanism_extras.common.registry.ExtraGases;
+import com.jerry.mekanism_extras.common.registries.ExtraGases;
 
 import com.jerry.generator_extras.common.config.GenLoadConfig;
 import com.jerry.generator_extras.common.genregistry.ExtraGenGases;

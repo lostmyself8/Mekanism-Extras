@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.content.matrix;
 
-import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
+import com.jerry.mekanism_extras.common.registries.ExtraBlockTypes;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionCell;
 import com.jerry.mekanism_extras.common.tile.multiblock.ExtraTileEntityInductionProvider;
 
@@ -28,9 +28,9 @@ public class ExtraMatrixValidator extends CuboidStructureValidator<ExtraMatrixMu
     @Override
     protected FormationProtocol.CasingType getCasingType(BlockState state) {
         Block block = state.getBlock();
-        if (BlockType.is(block, ExtraBlockType.REINFORCED_INDUCTION_CASING)) {
+        if (BlockType.is(block, ExtraBlockTypes.REINFORCED_INDUCTION_CASING)) {
             return FormationProtocol.CasingType.FRAME;
-        } else if (BlockType.is(block, ExtraBlockType.REINFORCED_INDUCTION_PORT)) {
+        } else if (BlockType.is(block, ExtraBlockTypes.REINFORCED_INDUCTION_PORT)) {
             return FormationProtocol.CasingType.VALVE;
         }
         return FormationProtocol.CasingType.INVALID;
@@ -42,14 +42,14 @@ public class ExtraMatrixValidator extends CuboidStructureValidator<ExtraMatrixMu
             return true;
         }
         if (BlockType.is(state.getBlock(),
-                ExtraBlockType.ABSOLUTE_INDUCTION_CELL,
-                ExtraBlockType.SUPREME_INDUCTION_CELL,
-                ExtraBlockType.COSMIC_INDUCTION_CELL,
-                ExtraBlockType.INFINITE_INDUCTION_CELL,
-                ExtraBlockType.ABSOLUTE_INDUCTION_PROVIDER,
-                ExtraBlockType.SUPREME_INDUCTION_PROVIDER,
-                ExtraBlockType.COSMIC_INDUCTION_PROVIDER,
-                ExtraBlockType.INFINITE_INDUCTION_PROVIDER)) {
+                ExtraBlockTypes.ABSOLUTE_INDUCTION_CELL,
+                ExtraBlockTypes.SUPREME_INDUCTION_CELL,
+                ExtraBlockTypes.COSMIC_INDUCTION_CELL,
+                ExtraBlockTypes.INFINITE_INDUCTION_CELL,
+                ExtraBlockTypes.ABSOLUTE_INDUCTION_PROVIDER,
+                ExtraBlockTypes.SUPREME_INDUCTION_PROVIDER,
+                ExtraBlockTypes.COSMIC_INDUCTION_PROVIDER,
+                ExtraBlockTypes.INFINITE_INDUCTION_PROVIDER)) {
             // Compare blocks against the type before bothering to look up the tile
             BlockEntity tile = WorldUtils.getTileEntity(world, chunkMap, pos);
             if (tile instanceof ExtraTileEntityInductionCell cell) {

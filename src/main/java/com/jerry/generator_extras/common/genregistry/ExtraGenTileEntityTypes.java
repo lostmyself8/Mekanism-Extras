@@ -14,7 +14,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ExtraGenTileEntityTypes {
 
-    public static final TileEntityTypeDeferredRegister GEN_TILE_ENTITY_TYPES = new TileEntityTypeDeferredRegister(MekanismExtras.MODID);
+    public static final TileEntityTypeDeferredRegister GEN_TILE_ENTITY_TYPES = new TileEntityTypeDeferredRegister(MekanismExtras.MOD_ID);
     // Naquadah Reactor
     public static final TileEntityTypeRegistryObject<TileEntityNaquadahReactorController> NAQUADAH_REACTOR_CONTROLLER = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.NAQUADAH_REACTOR_CONTROLLER, TileEntityNaquadahReactorController::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);
     public static final TileEntityTypeRegistryObject<TileEntityNaquadahReactorCasing> NAQUADAH_REACTOR_CASING = GEN_TILE_ENTITY_TYPES.register(ExtraGenBlocks.NAQUADAH_REACTOR_CASING, TileEntityNaquadahReactorCasing::new, TileEntityMekanism::tickServer, TileEntityMekanism::tickClient);

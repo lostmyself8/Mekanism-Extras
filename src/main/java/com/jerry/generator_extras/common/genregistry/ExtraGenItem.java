@@ -14,7 +14,7 @@ public class ExtraGenItem {
 
     private ExtraGenItem() {}
 
-    public static final ItemDeferredRegister EXTRA_GEN_ITEMS = new ItemDeferredRegister(MekanismExtras.MODID);
+    public static final ItemDeferredRegister EXTRA_GEN_ITEMS = new ItemDeferredRegister(MekanismExtras.MOD_ID);
     public static final ItemRegistryObject<ItemNquadahHohlraum> HOHLRAUM = EXTRA_GEN_ITEMS.register("naquadah_hohlraum", ItemNquadahHohlraum::new);
     public static final ItemRegistryObject<Item> HEAT_INSULATING_MATERIAL = EXTRA_GEN_ITEMS.register("heat_insulating_material");
     public static final ItemRegistryObject<Item> HEAT_INSULATING_MATERIAL_PIECE = EXTRA_GEN_ITEMS.register("heat_insulating_material_piece");

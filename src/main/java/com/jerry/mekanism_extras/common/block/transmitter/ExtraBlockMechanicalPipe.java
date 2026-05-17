@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block.transmitter;
 
-import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
+import com.jerry.mekanism_extras.common.registries.ExtraTileEntityTypes;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityMechanicalPipe;
 
 import mekanism.common.block.attribute.AttributeTier;

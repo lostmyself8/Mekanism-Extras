@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.common.item;
 
 import com.jerry.mekanism_extras.common.content.network.transmitter.IExtraUpgradeableTransmitter;
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
 
 import mekanism.api.IAlloyInteraction;
 import mekanism.api.providers.IBlockProvider;
@@ -135,16 +135,16 @@ public class ItemAlloyRadiance extends Item {
 
     private static IBlockProvider getiBlockProvider(TileEntityTransmitter transmitterTile) {
         if (transmitterTile instanceof TileEntityPressurizedTube) {
-            return ExtraBlock.ABSOLUTE_PRESSURIZED_TUBE;
+            return ExtraBlocks.ABSOLUTE_PRESSURIZED_TUBE;
         } else if (transmitterTile instanceof TileEntityUniversalCable) {
-            return ExtraBlock.ABSOLUTE_UNIVERSAL_CABLE;
+            return ExtraBlocks.ABSOLUTE_UNIVERSAL_CABLE;
         } else if (transmitterTile instanceof TileEntityMechanicalPipe) {
-            return ExtraBlock.ABSOLUTE_MECHANICAL_PIPE;
+            return ExtraBlocks.ABSOLUTE_MECHANICAL_PIPE;
         } else if (transmitterTile instanceof TileEntityThermodynamicConductor) {
-            return ExtraBlock.ABSOLUTE_THERMODYNAMIC_CONDUCTOR;
+            return ExtraBlocks.ABSOLUTE_THERMODYNAMIC_CONDUCTOR;
         } else if (transmitterTile instanceof TileEntityLogisticalTransporter) {
             // 默认情况或其他类型的处理
-            return ExtraBlock.ABSOLUTE_LOGISTICAL_TRANSPORTER;
+            return ExtraBlocks.ABSOLUTE_LOGISTICAL_TRANSPORTER;
         } else {
             return null;
         }

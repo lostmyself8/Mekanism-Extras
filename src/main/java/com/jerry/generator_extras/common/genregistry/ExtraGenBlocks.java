@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 
 public class ExtraGenBlocks {
 
-    public static final BlockDeferredRegister EXTRA_GEN_BLOCK = new BlockDeferredRegister(MekanismExtras.MODID);
+    public static final BlockDeferredRegister EXTRA_GEN_BLOCK = new BlockDeferredRegister(MekanismExtras.MOD_ID);
 
     // Naquadah Reactor
     public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityNaquadahReactorController>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityNaquadahReactorController>>> NAQUADAH_REACTOR_CONTROLLER = registerBlock("naquadah_reactor_controller", () -> new BlockBasicMultiblock<>(ExtraGenBlockTypes.NAQUADAH_REACTOR_CONTROLLER, properties -> properties.mapColor(MapColor.COLOR_ORANGE)));

@@ -20,6 +20,7 @@ dependencies {
 
     modCompileOnly(forge.mekanismcovers)
     modCompileOnly(forge.evolvedmekanism)
+    modCompileOnly(forge.mekmm)
 
     // WAILA-likes
     modCompileOnly(forge.jade)
@@ -38,6 +39,7 @@ dependencies {
     modLocalRuntime(forge.mekanismcovers)
     modLocalRuntime(forge.igleelibrary)
     modLocalRuntime(forge.evolvedmekanism)
+    modLocalRuntime(forge.mekmm)
 
     // Runtime Recipe Viewers - uncomment whichever one you want to use //
 //    modLocalRuntime(forge.jer)

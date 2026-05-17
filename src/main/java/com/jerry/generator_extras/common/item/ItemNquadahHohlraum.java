@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.item;
 
 import com.jerry.mekanism_extras.common.ExtraTags;
-import com.jerry.mekanism_extras.common.registry.ExtraGases;
+import com.jerry.mekanism_extras.common.registries.ExtraGases;
 
 import com.jerry.generator_extras.common.config.GenLoadConfig;
 

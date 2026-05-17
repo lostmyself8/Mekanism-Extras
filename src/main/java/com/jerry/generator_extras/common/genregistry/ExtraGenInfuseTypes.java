@@ -12,7 +12,7 @@ public class ExtraGenInfuseTypes {
 
     private ExtraGenInfuseTypes() {}
 
-    public static final InfuseTypeDeferredRegister EXTRA_GEN_INFUSE_TYPES = new InfuseTypeDeferredRegister(MekanismExtras.MODID);
+    public static final InfuseTypeDeferredRegister EXTRA_GEN_INFUSE_TYPES = new InfuseTypeDeferredRegister(MekanismExtras.MOD_ID);
 
     public static final InfuseTypeRegistryObject<InfuseType> HEAT_INSULATING_COATING = EXTRA_GEN_INFUSE_TYPES.register("heat_insulating_coating", 0xB3AF08);
 

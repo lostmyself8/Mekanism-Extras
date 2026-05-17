@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.network.to_server;
 
-import com.jerry.mekanism_extras.common.registry.ExtraContainerTypes;
+import com.jerry.mekanism_extras.common.registries.ExtraContainerTypes;
 import com.jerry.mekanism_extras.common.tile.multiblock.TileEntityReinforcedInductionCasing;
 
 import mekanism.common.MekanismLang;

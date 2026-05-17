@@ -3,10 +3,10 @@ package com.jerry.mekanism_extras.common.tile.factory;
 import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.api.IMixinMachineEnergyContainer;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
-import com.jerry.mekanism_extras.common.inventory.slot.AdvancedFactoryInputInventorySlot;
-import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
-import com.jerry.mekanism_extras.common.registry.ExtraTileEntityTypes;
-import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekanism_extras.common.inventory.slot.ExtraFactoryInputInventorySlot;
+import com.jerry.mekanism_extras.common.registries.ExtraBlockTypes;
+import com.jerry.mekanism_extras.common.registries.ExtraTileEntityTypes;
+import com.jerry.mekanism_extras.common.tier.ExtraFactoryTier;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
 
@@ -100,7 +100,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
     /**
      * This Factory's tier.
      */
-    public AdvancedFactoryTier tier;
+    public ExtraFactoryTier tier;
     /**
      * An int[] used to track all current operations' progress.
      */
@@ -183,7 +183,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
     @Override
     protected void presetVariables() {
         super.presetVariables();
-        tier = ExtraAttribute.getTier(getBlockType(), AdvancedFactoryTier.class);
+        tier = ExtraAttribute.getTier(getBlockType(), ExtraFactoryTier.class);
         Runnable setSortingNeeded = () -> sortingNeeded = true;
         recipeCacheLookupMonitors = new FactoryRecipeCacheLookupMonitor[tier.processes];
         for (int i = 0; i < recipeCacheLookupMonitors.length; i++) {
@@ -451,8 +451,8 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
             return true;
         }
         // Then check other factory tiers
-        for (AdvancedFactoryTier factoryTier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
-            if (factoryTier != tier && ExtraTileEntityTypes.getAdvancedFactoryTile(factoryTier, type).get() == tileType) {
+        for (ExtraFactoryTier factoryTier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
+            if (factoryTier != tier && ExtraTileEntityTypes.getExtraFactoryTile(factoryTier, type).get() == tileType) {
                 return true;
             }
         }
@@ -460,15 +460,15 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
         // And finally check if it is the non factory version (it will be missing sorting data, but we can gracefully
         // ignore that)
         return switch (type) {
-            case SAWING -> ExtraBlockType.PRECISION_SAWMILL.getTileType().get();
-            case SMELTING -> ExtraBlockType.ENERGIZED_SMELTER.getTileType().get();
-            case ENRICHING -> ExtraBlockType.ENRICHMENT_CHAMBER.getTileType().get();
-            case CRUSHING -> ExtraBlockType.CRUSHER.getTileType().get();
-            case COMPRESSING -> ExtraBlockType.OSMIUM_COMPRESSOR.getTileType().get();
-            case COMBINING -> ExtraBlockType.COMBINER.getTileType().get();
-            case PURIFYING -> ExtraBlockType.PURIFICATION_CHAMBER.getTileType().get();
-            case INJECTING -> ExtraBlockType.CHEMICAL_INJECTION_CHAMBER.getTileType().get();
-            case INFUSING -> ExtraBlockType.METALLURGIC_INFUSER.getTileType().get();
+            case SAWING -> ExtraBlockTypes.PRECISION_SAWMILL.getTileType().get();
+            case SMELTING -> ExtraBlockTypes.ENERGIZED_SMELTER.getTileType().get();
+            case ENRICHING -> ExtraBlockTypes.ENRICHMENT_CHAMBER.getTileType().get();
+            case CRUSHING -> ExtraBlockTypes.CRUSHER.getTileType().get();
+            case COMPRESSING -> ExtraBlockTypes.OSMIUM_COMPRESSOR.getTileType().get();
+            case COMBINING -> ExtraBlockTypes.COMBINER.getTileType().get();
+            case PURIFYING -> ExtraBlockTypes.PURIFICATION_CHAMBER.getTileType().get();
+            case INJECTING -> ExtraBlockTypes.CHEMICAL_INJECTION_CHAMBER.getTileType().get();
+            case INFUSING -> ExtraBlockTypes.METALLURGIC_INFUSER.getTileType().get();
         } == tileType;
     }
 
@@ -706,7 +706,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
             }
             for (int i = 0; i < processCount; i++) {
                 ProcessInfo processInfo = recipeProcessInfo.processes.get(i);
-                AdvancedFactoryInputInventorySlot inputSlot = processInfo.inputSlot();
+                ExtraFactoryInputInventorySlot inputSlot = processInfo.inputSlot();
                 int sizeForSlot = numberPerSlot;
                 if (remainder > 0) {
                     // If we have a remainder, factor it into our slots
@@ -759,7 +759,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
         }
     }
 
-    public record ProcessInfo(int process, @NotNull AdvancedFactoryInputInventorySlot inputSlot,
+    public record ProcessInfo(int process, @NotNull ExtraFactoryInputInventorySlot inputSlot,
                               @NotNull IInventorySlot outputSlot,
                               @Nullable IInventorySlot secondaryOutputSlot) {}
 

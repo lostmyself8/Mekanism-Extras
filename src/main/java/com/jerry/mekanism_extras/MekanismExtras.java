@@ -8,8 +8,11 @@ import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
+import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineContainerTypes;
+import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineTileEntityTypes;
 import com.jerry.mekanism_extras.common.network.ExtraPacketHandler;
-import com.jerry.mekanism_extras.common.registry.*;
+import com.jerry.mekanism_extras.common.registries.*;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorCache;
@@ -50,10 +53,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.nio.file.Path;
 
-@Mod(MekanismExtras.MODID)
+@Mod(MekanismExtras.MOD_ID)
 public class MekanismExtras implements IModModule {
 
-    public static final String MODID = "mekanism_extras";
+    public static final String MOD_ID = "mekanism_extras";
     public static final String MOD_NAME = "MekanismExtras";
     private static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
     /**
@@ -84,10 +87,10 @@ public class MekanismExtras implements IModModule {
         LoadConfig.registerConfigs(context);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupBuiltinPack);
-        ExtraBlock.register(modEventBus);
-        ExtraItem.register(modEventBus);
+        ExtraBlocks.register(modEventBus);
+        ExtraItems.register(modEventBus);
         ExtraFluids.register(modEventBus);
-        ExtraTab.register(modEventBus);
+        ExtraCreativeTab.register(modEventBus);
         ExtraTileEntityTypes.register(modEventBus);
         ExtraContainerTypes.register(modEventBus);
         ExtraGases.register(modEventBus);
@@ -105,7 +108,7 @@ public class MekanismExtras implements IModModule {
     }
 
     public static ResourceLocation rl(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MekanismExtras.MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(MekanismExtras.MOD_ID, path);
     }
 
     private void registerCommands(RegisterCommandsEvent event) {
@@ -134,14 +137,19 @@ public class MekanismExtras implements IModModule {
             // ExtraGenRecipeType.EXTRA_GEN_RECIPE_TYPES.register(modEventBus);
             // ExtraGenRecipeSerializers.GEN_RECIPE_SERIALIZERS.register(modEventBus);
         }
+        if (Addons.MEKMM.isLoaded()) {
+            ExtraMoreMachineBlocks.register(modEventBus);
+            ExtraMoreMachineContainerTypes.register(modEventBus);
+            ExtraMoreMachineTileEntityTypes.register(modEventBus);
+        }
     }
 
     private void setupBuiltinPack(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.CLIENT_RESOURCES) {
 
-            Path resourcePath = ModList.get().getModFileById(MekanismExtras.MODID).getFile().findResource("stop_flashing");
+            Path resourcePath = ModList.get().getModFileById(MekanismExtras.MOD_ID).getFile().findResource("stop_flashing");
 
-            PathPackResources pack = new PathPackResources(ModList.get().getModFileById(MekanismExtras.MODID).getFile().getFileName() + ":" + resourcePath, resourcePath, true);
+            PathPackResources pack = new PathPackResources(ModList.get().getModFileById(MekanismExtras.MOD_ID).getFile().getFileName() + ":" + resourcePath, resourcePath, true);
 
             PackMetadataSection metadata = new PackMetadataSection(Component.translatable(ExtraLang.STOP_FLASHING_DESC.getTranslationKey()),
                     SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES));

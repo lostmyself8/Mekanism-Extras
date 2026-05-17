@@ -15,7 +15,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ExtraGenContainerTypes {
 
-    public static final ContainerTypeDeferredRegister GEN_CONTAINER_TYPES = new ContainerTypeDeferredRegister(MekanismExtras.MODID);
+    public static final ContainerTypeDeferredRegister GEN_CONTAINER_TYPES = new ContainerTypeDeferredRegister(MekanismExtras.MOD_ID);
 
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityNaquadahReactorController>> NAQUADAH_REACTOR_CONTROLLER = GEN_CONTAINER_TYPES.register(ExtraGenBlocks.NAQUADAH_REACTOR_CONTROLLER, TileEntityNaquadahReactorController.class);
     public static final ContainerTypeRegistryObject<EmptyTileContainer<TileEntityNaquadahReactorController>> NAQUADAH_REACTOR_FUEL = GEN_CONTAINER_TYPES.registerEmpty("naquadah_reactor_fuel", TileEntityNaquadahReactorController.class);
