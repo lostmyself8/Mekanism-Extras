@@ -147,13 +147,13 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
     }
 
     public enum ExtraGuiInteraction {// TODO: Cleanup this enum/the elements in it as it is rather disorganized order
-                                     // wise currently
+        // wise currently
 
         AUTO_SORT_BUTTON((tile, player, extra) -> {
             if (tile instanceof TileEntityExtraFactory<?> factory) {
                 factory.toggleSorting();
             } else if (Addons.MEKMM.isLoaded()) {
-                 if (tile instanceof TileEntityExtraAdvancedFactoryBase<?> factory) factory.toggleSorting();
+                if (tile instanceof TileEntityExtraAdvancedFactoryBase<?> factory) factory.toggleSorting();
                 if (tile instanceof TileEntityExtraMoreMachineFactory<?> factory) factory.toggleSorting();
             }
         });

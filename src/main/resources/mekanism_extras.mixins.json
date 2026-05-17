@@ -22,7 +22,8 @@
     "MixinTurbineGasTank",
     "MixinTurbineMultiblockData",
     "MixinUpgrade",
-    "MixinUpgradeUtils"
+    "MixinUpgradeUtils",
+    "integration.mekaf.MixinAdvancedFactory"
   ],
   "injectors": {
     "defaultRequire": 1

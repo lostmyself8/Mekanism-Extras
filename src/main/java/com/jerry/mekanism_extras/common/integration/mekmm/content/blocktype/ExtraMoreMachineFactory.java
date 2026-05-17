@@ -62,7 +62,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
         @SuppressWarnings("unchecked")
         public static <TILE extends TileEntityExtraMoreMachineFactory<?>> ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> createExtraMoreMachineFactory(Supplier<?> tileEntityRegistrar, MoreMachineFactoryType type,
                                                                                                                                                                                ExtraFactoryTier tier) {
-            ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> builder = getExtraMoreMachineFactoryTILEAdvancedFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
+            ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> builder = getExtraMoreMachineFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(MoreMachineBlockShapes.getShape(type));
             builder.replace(new AttributeParticleFX().addDense(ParticleTypes.SMOKE, 5, rand -> new Pos3D(
                     rand.nextFloat() * 0.7F - 0.3F,
@@ -72,7 +72,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
         }
     }
 
-    private static <TILE extends TileEntityExtraMoreMachineFactory<?>> @NotNull ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> getExtraMoreMachineFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, MoreMachineFactoryType type, ExtraFactoryTier tier) {
+    private static <TILE extends TileEntityExtraMoreMachineFactory<?>> @NotNull ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> getExtraMoreMachineFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, MoreMachineFactoryType type, ExtraFactoryTier tier) {
         ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> builder = new ExtraMoreMachineFactoryBuilder<>(new ExtraMoreMachineFactory<>(tileEntityRegistrar,
                 () -> ExtraMoreMachineContainerTypes.MORE_MACHINE_FACTORY,
                 switch (type) {

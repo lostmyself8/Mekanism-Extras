@@ -3,7 +3,6 @@ package com.jerry.mekanism_extras.common.integration.mekmm.registries;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.integration.mekmm.tile.*;
 import com.jerry.mekanism_extras.common.tier.ExtraFactoryTier;
-import com.jerry.mekanism_extras.common.tile.factory.*;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
