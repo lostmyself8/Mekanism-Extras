@@ -3,6 +3,8 @@ package com.jerry.mekanism_extras.common.registries;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.ExtraLang;
 import com.jerry.mekanism_extras.common.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
+import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 
 import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
 import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
@@ -29,6 +31,10 @@ public class ExtraCreativeTab {
             CreativeTabDeferredRegister.addToDisplay(ExtraGenItem.EXTRA_GEN_ITEMS, output);
             CreativeTabDeferredRegister.addToDisplay(ExtraGenBlocks.EXTRA_GEN_BLOCK, output);
             CreativeTabDeferredRegister.addToDisplay(ExtraGenFluids.EXTRA_GEN_FLUIDS, output);
+        }
+        if (Addons.MEKMM.isLoaded()) {
+            CreativeTabDeferredRegister.addToDisplay(ExtraMoreMachineBlocks.BLOCKS, output);
+            CreativeTabDeferredRegister.addToDisplay(ExtraAdvancedFactoryBlocks.BLOCKS, output);
         }
     }));
 

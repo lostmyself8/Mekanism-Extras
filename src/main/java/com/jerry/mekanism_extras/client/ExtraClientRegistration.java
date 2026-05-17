@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.client;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.client.gui.*;
 import com.jerry.mekanism_extras.client.gui.machine.GuiAdvancedElectricPump;
+import com.jerry.mekanism_extras.client.gui.machine.GuiExtraAdvancedFactory;
 import com.jerry.mekanism_extras.client.gui.machine.GuiExtraFactory;
 import com.jerry.mekanism_extras.client.gui.machine.GuiExtraMoreMachineFactory;
 import com.jerry.mekanism_extras.client.model.ExtraModelEnergyCore;
@@ -14,6 +15,7 @@ import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderFluidTank;
 import com.jerry.mekanism_extras.client.render.transmitter.*;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineContainerTypes;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockEnergyCube;
 import com.jerry.mekanism_extras.common.item.block.machine.ExtraItemBlockFluidTank;
@@ -116,7 +118,8 @@ public class ExtraClientRegistration {
             ClientRegistrationUtil.registerScreen(ExtraContainerTypes.FACTORY, GuiExtraFactory::new);
 
             if (Addons.MEKMM.isLoaded()) {
-                ClientRegistrationUtil.registerScreen(ExtraMoreMachineContainerTypes.FACTORY, GuiExtraMoreMachineFactory::new);
+                ClientRegistrationUtil.registerScreen(ExtraMoreMachineContainerTypes.MORE_MACHINE_FACTORY, GuiExtraMoreMachineFactory::new);
+                ClientRegistrationUtil.registerScreen(ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY, GuiExtraAdvancedFactory::new);
             }
         });
     }

@@ -16,7 +16,7 @@ public class ExtraMoreMachineContainerTypes {
 
     public static final ContainerTypeDeferredRegister CONTAINER_TYPES = new ContainerTypeDeferredRegister(MekanismExtras.MOD_ID);
 
-    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityExtraMoreMachineFactory<?>>> FACTORY = CONTAINER_TYPES.register("more_machine_factory", factoryClass(), ExtraMoreMachineFactoryContainer::new);
+    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityExtraMoreMachineFactory<?>>> MORE_MACHINE_FACTORY = CONTAINER_TYPES.register("more_machine_factory", factoryClass(), ExtraMoreMachineFactoryContainer::new);
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private static Class<TileEntityExtraMoreMachineFactory<?>> factoryClass() {

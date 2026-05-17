@@ -8,6 +8,9 @@ import com.jerry.mekanism_extras.common.config.LoadConfig;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixValidator;
 import com.jerry.mekanism_extras.common.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
+import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryContainerTypes;
+import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryTileEntityTypes;
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineContainerTypes;
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineTileEntityTypes;
@@ -141,6 +144,9 @@ public class MekanismExtras implements IModModule {
             ExtraMoreMachineBlocks.register(modEventBus);
             ExtraMoreMachineContainerTypes.register(modEventBus);
             ExtraMoreMachineTileEntityTypes.register(modEventBus);
+            ExtraAdvancedFactoryBlocks.register(modEventBus);
+            ExtraAdvancedFactoryContainerTypes.register(modEventBus);
+            ExtraAdvancedFactoryTileEntityTypes.register(modEventBus);
         }
     }
 

@@ -129,7 +129,7 @@ public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItem
     }
 
     @Override
-    public boolean isValidInputItem(ItemStack stack) {
+    public boolean isValidInputItem(@NotNull ItemStack stack) {
         Item item = stack.getItem();
         if (customRecipeMap != null) {
             return customRecipeMap.containsKey(Objects.requireNonNull(RegistryUtils.getName(item)).toString());

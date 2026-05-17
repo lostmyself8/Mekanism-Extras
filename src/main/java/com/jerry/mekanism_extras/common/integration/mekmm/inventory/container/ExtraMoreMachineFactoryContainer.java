@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class ExtraMoreMachineFactoryContainer extends MekanismTileContainer<TileEntityExtraMoreMachineFactory<?>> {
 
     public ExtraMoreMachineFactoryContainer(int id, Inventory inv, @NotNull TileEntityExtraMoreMachineFactory<?> tile) {
-        super(ExtraMoreMachineContainerTypes.FACTORY, id, inv, tile);
+        super(ExtraMoreMachineContainerTypes.MORE_MACHINE_FACTORY, id, inv, tile);
     }
 
     @Override

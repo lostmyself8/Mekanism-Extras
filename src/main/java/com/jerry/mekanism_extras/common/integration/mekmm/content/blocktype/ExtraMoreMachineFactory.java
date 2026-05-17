@@ -74,7 +74,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
 
     private static <TILE extends TileEntityExtraMoreMachineFactory<?>> @NotNull ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> getExtraMoreMachineFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, MoreMachineFactoryType type, ExtraFactoryTier tier) {
         ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> builder = new ExtraMoreMachineFactoryBuilder<>(new ExtraMoreMachineFactory<>(tileEntityRegistrar,
-                () -> ExtraMoreMachineContainerTypes.FACTORY,
+                () -> ExtraMoreMachineContainerTypes.MORE_MACHINE_FACTORY,
                 switch (type) {
                     case RECYCLING -> ExtraMoreMachineBlockTypes.RECYCLER;
                     case PLANTING -> ExtraMoreMachineBlockTypes.PLANTING_STATION;
