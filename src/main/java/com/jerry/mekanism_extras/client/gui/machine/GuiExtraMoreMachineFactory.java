@@ -32,9 +32,10 @@ public class GuiExtraMoreMachineFactory extends GuiConfigurableTile<TileEntityEx
         if (tile.hasSecondaryResourceBar()) {
             imageHeight += 11;
             inventoryLabelY = 85;
-        } else if (tile instanceof TileEntityExtraPlantingFactory) {
-            imageHeight += 21;
-            inventoryLabelY = 95;
+            if (tile instanceof TileEntityExtraPlantingFactory) {
+                imageHeight += 20;
+                inventoryLabelY = 105;
+            }
         } else {
             inventoryLabelY = 75;
         }

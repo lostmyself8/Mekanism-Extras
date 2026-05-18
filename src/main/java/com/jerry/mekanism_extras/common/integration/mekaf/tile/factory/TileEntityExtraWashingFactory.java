@@ -179,14 +179,6 @@ public class TileEntityExtraWashingFactory extends TileEntityExtraSlurryToSlurry
                 .setOnFinish(this::markForSave);
     }
 
-    @Override
-    public void recalculateUpgrades(Upgrade upgrade) {
-        super.recalculateUpgrades(upgrade);
-        if (upgrade == Upgrade.SPEED) {
-            baselineMaxOperations = (int) Math.pow(2.0, upgradeComponent.getUpgrades(Upgrade.SPEED));
-        }
-    }
-
     @NotNull
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {

@@ -111,7 +111,8 @@ public class TileEntityExtraRecyclingFactory extends TileEntityExtraMoreMachineF
                 .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
                 .setRequiredTicks(this::getTicksRequired)
                 .setOnFinish(this::markForSave)
-                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
+                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks)
+                .setBaselineMaxOperations(this::getBaselineMaxOperations);
     }
 
     @NotNull

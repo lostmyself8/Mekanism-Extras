@@ -95,7 +95,8 @@ public class TileEntityExtraLiquifyingFactory extends TileEntityExtraItemToFluid
                 .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
                 .setRequiredTicks(this::getTicksRequired)
                 .setOnFinish(this::markForSave)
-                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
+                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks)
+                .setBaselineMaxOperations(this::getBaselineMaxOperations);
     }
 
     @Nullable

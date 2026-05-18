@@ -1,10 +1,14 @@
 package com.jerry.mekanism_extras.common.integration.mekaf.tile.factory.base;
 
+import com.jerry.mekanism_extras.api.ExtraUpgrade;
+import com.jerry.mekanism_extras.api.IMixinMachineEnergyContainer;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.integration.mekaf.capabilities.energy.ExtraAdvancedFactoryEnergyContainer;
+import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlockTypes;
 import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryTileEntityTypes;
 import com.jerry.mekanism_extras.common.tier.ExtraFactoryTier;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
+import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
 
 import mekanism.api.IContentsListener;
 import mekanism.api.Upgrade;
@@ -384,7 +388,7 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
 
     @ComputerMethod(methodDescription = "Total number of ticks it takes currently for the recipe to complete")
     public int getTicksRequired() {
-        return ticksRequired;
+        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 1 : ticksRequired;
     }
 
     public void load(@NotNull CompoundTag nbt) {
@@ -420,16 +424,23 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
     }
 
     public void recalculateUpgrades(Upgrade upgrade) {
-        super.recalculateUpgrades(upgrade);
+        if (getEnergyContainer() instanceof IMixinMachineEnergyContainer mixMach) {
+            mixMach.mekanism_Extras$extraRecalculateUpgrades(upgrade);
+            mixMach.mekanism_Extras$extraUpdateMaxEnergy();
+        }
         if (upgrade == Upgrade.SPEED) {
-            ticksRequired = MekanismUtils.getTicks(this, 200);
-            baselineMaxOperations = (int) Math.pow(2.0, upgradeComponent.getUpgrades(Upgrade.SPEED));
+            ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
+        } else if (upgrade == ExtraUpgrade.STACK) {
+            // 实际上一直是整数所以强制转化为int也不会损失什么
+            baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
         }
     }
 
     @NotNull
+    @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {
-        return UpgradeUtils.getMultScaledInfo(this, upgrade);
+        List<Component> ret = UpgradeUtils.getMultScaledInfo(this, upgrade);
+        return ExtraUpgradeUtils.getMultScaledInfo(ret, this, upgrade);
     }
 
     public boolean isConfigurationDataCompatible(BlockEntityType<?> tileType) {
@@ -446,7 +457,17 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
             // And finally check if it is the non factory version (it will be missing sorting data, but we can
             // gracefully
             // ignore that)
-            return type.getBaseMachine().getTileType().get() == tileType;
+            return switch (type) {
+                case OXIDIZING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_OXIDIZER.getTileType().get();
+                case DISSOLVING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_DISSOLUTION_CHAMBER.getTileType().get();
+                case WASHING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_WASHER.getTileType().get();
+                case CRYSTALLIZING -> ExtraAdvancedFactoryBlockTypes.CHEMICAL_CRYSTALLIZER.getTileType().get();
+                case PRESSURISED_REACTING -> ExtraAdvancedFactoryBlockTypes.PRESSURIZED_REACTION_CHAMBER.getTileType().get();
+                case CENTRIFUGING -> ExtraAdvancedFactoryBlockTypes.ISOTOPIC_CENTRIFUGE.getTileType().get();
+                case LIQUIFYING -> ExtraAdvancedFactoryBlockTypes.NUTRITIONAL_LIQUIFIER.getTileType().get();
+                case PIGMENT_EXTRACTING -> ExtraAdvancedFactoryBlockTypes.PIGMENT_EXTRACTOR.getTileType().get();
+                case PAINTING -> ExtraAdvancedFactoryBlockTypes.PAINTING_MACHINE.getTileType().get();
+            } == tileType;
         }
     }
 

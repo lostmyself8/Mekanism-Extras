@@ -64,6 +64,9 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
                                                                                                                                                                                ExtraFactoryTier tier) {
             ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> builder = getExtraMoreMachineFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(MoreMachineBlockShapes.getShape(type));
+            if (type == MoreMachineFactoryType.PLANTING) {
+                builder.withBounding((pos, state, builderPos) -> builderPos.add(pos.above()));
+            }
             builder.replace(new AttributeParticleFX().addDense(ParticleTypes.SMOKE, 5, rand -> new Pos3D(
                     rand.nextFloat() * 0.7F - 0.3F,
                     rand.nextFloat() * 0.1F + 0.7F,

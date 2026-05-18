@@ -1,0 +1,34 @@
+﻿{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekmm"
+    }
+  ],
+  "type": "mekanism:mek_data",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/spectrum"
+    },
+    "C": {
+      "tag": "forge:circuits/infinite"
+    },
+    "I": {
+      "tag": "forge:pellets/plutonium"
+    },
+    "J": {
+      "tag": "forge:pellets/polonium"
+    },
+    "P": {
+      "item": "mekanism_extras:cosmic_pigment_extracting_factory"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IPJ",
+    "ACA"
+  ],
+  "result": {
+    "item": "mekanism_extras:infinite_pigment_extracting_factory"
+  }
+}

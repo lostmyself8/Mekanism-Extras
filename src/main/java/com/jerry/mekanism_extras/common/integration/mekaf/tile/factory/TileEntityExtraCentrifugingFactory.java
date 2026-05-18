@@ -116,14 +116,6 @@ public class TileEntityExtraCentrifugingFactory extends TileEntityExtraGasToGasF
                 .setBaselineMaxOperations(this::getBaselineMaxOperations);
     }
 
-    @Override
-    public void recalculateUpgrades(Upgrade upgrade) {
-        super.recalculateUpgrades(upgrade);
-        if (upgrade == Upgrade.SPEED) {
-            baselineMaxOperations = (int) Math.pow(2.0, upgradeComponent.getUpgrades(Upgrade.SPEED));
-        }
-    }
-
     @NotNull
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {

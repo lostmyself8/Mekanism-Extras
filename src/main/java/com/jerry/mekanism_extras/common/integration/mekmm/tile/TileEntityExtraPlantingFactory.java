@@ -6,6 +6,7 @@ import com.jerry.mekanism_extras.common.integration.mekmm.inventory.slot.ExtraMo
 import mekanism.api.IContentsListener;
 import mekanism.api.NBTConstants;
 import mekanism.api.RelativeSide;
+import mekanism.api.Upgrade;
 import mekanism.api.chemical.ChemicalTankBuilder;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
@@ -83,7 +84,7 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
     @Getter
     IGasTank gasTank;
 
-    private final ChemicalUsageMultiplier chemicalUsageMultiplier;
+    private final ChemicalUsageMultiplier gasUsageMultiplier;
     private long baseTotalUsage;
     private final long[] usedSoFar;
 
@@ -95,7 +96,7 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
 
         baseTotalUsage = BASE_TICKS_REQUIRED;
         usedSoFar = new long[tier.processes];
-        chemicalUsageMultiplier = (usedSoFar, operatingTicks) -> {
+        gasUsageMultiplier = (usedSoFar, operatingTicks) -> {
             long baseRemaining = baseTotalUsage - usedSoFar;
             int remainingTicks = getTicksRequired() - operatingTicks;
             if (baseRemaining < remainingTicks) {
@@ -163,14 +164,15 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
     @Override
     public @NotNull CachedRecipe<PlantingRecipe> createNewCachedRecipe(@NotNull PlantingRecipe recipe, int cacheIndex) {
         return PlantingCacheRecipe.create(recipe, recheckAllRecipeErrors[cacheIndex], inputHandlers[cacheIndex], gasInputHandler,
-                chemicalUsageMultiplier, used -> usedSoFar[cacheIndex] = used, outputHandlers[cacheIndex])
+                gasUsageMultiplier, used -> usedSoFar[cacheIndex] = used, outputHandlers[cacheIndex])
                 .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
                 .setCanHolderFunction(() -> MekanismUtils.canFunction(this))
                 .setActive(active -> setActiveState(active, cacheIndex))
                 .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
                 .setRequiredTicks(this::getTicksRequired)
                 .setOnFinish(this::markForSave)
-                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
+                .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks)
+                .setBaselineMaxOperations(this::getBaselineMaxOperations);
     }
 
     @Override
@@ -245,6 +247,13 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
     @Override
     public long getSavedUsedSoFar(int cacheIndex) {
         return usedSoFar[cacheIndex];
+    }
+
+    public void recalculateUpgrades(Upgrade upgrade) {
+        super.recalculateUpgrades(upgrade);
+        if (upgrade == Upgrade.SPEED || upgrade == Upgrade.GAS && this.supportsUpgrade(Upgrade.GAS)) {
+            baseTotalUsage = MekanismUtils.getBaseUsage(this, 200);
+        }
     }
 
     @Override

@@ -61,7 +61,7 @@ public class MekanismExtras implements IModModule {
 
     public static final String MOD_ID = "mekanism_extras";
     public static final String MOD_NAME = "MekanismExtras";
-    private static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
+    private static final Logger LOGGER = LogManager.getLogger();
     /**
      * Mekanism Extras version number
      */

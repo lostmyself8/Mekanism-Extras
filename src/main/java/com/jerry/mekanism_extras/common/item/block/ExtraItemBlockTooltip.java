@@ -21,7 +21,6 @@ import mekanism.common.util.text.TextUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -38,12 +37,12 @@ public class ExtraItemBlockTooltip<BLOCK extends Block & IHasDescription> extend
 
     private final boolean hasDetails;
 
-    public ExtraItemBlockTooltip(BLOCK block, Item.Properties properties) {
+    public ExtraItemBlockTooltip(BLOCK block, Properties properties) {
         this(block, false, properties);
     }
 
     public ExtraItemBlockTooltip(BLOCK block) {
-        this(block, true, new Item.Properties().stacksTo(1));
+        this(block, true, new Properties().stacksTo(1));
     }
 
     protected ExtraItemBlockTooltip(BLOCK block, boolean hasDetails, Properties properties) {

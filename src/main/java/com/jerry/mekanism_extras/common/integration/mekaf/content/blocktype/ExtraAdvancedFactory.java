@@ -67,18 +67,9 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBas
                                                                                                                                                                   AdvancedFactoryType type, ExtraFactoryTier tier) {
             ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> builder = getExtraAdvancedFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(AdvancedFactoryBlockShapes.getShape(type));
-            // builder.with(switch (type) {
-            // case OXIDIZING, DISSOLVING, CRYSTALLIZING, PIGMENT_EXTRACTING, PAINTING ->
-            // AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE;
-            // case CENTRIFUGING -> AttributeSideConfig.create(TransmissionType.GAS, TransmissionType.ITEM,
-            // TransmissionType.ENERGY);
-            // case WASHING -> AttributeSideConfig.create(TransmissionType.GAS, TransmissionType.FLUID,
-            // TransmissionType.ITEM, TransmissionType.ENERGY);
-            // case PRESSURISED_REACTING -> AttributeSideConfig.create(TransmissionType.ITEM, TransmissionType.GAS,
-            // TransmissionType.FLUID, TransmissionType.ENERGY);
-            // case LIQUIFYING -> AttributeSideConfig.create(TransmissionType.FLUID, TransmissionType.ITEM,
-            // TransmissionType.ENERGY);
-            // });
+            if (type == AdvancedFactoryType.CENTRIFUGING) {
+                builder.withBounding((pos, state, builderPos) -> builderPos.add(pos.above()));
+            }
             builder.replace(new AttributeParticleFX().addDense(ParticleTypes.SMOKE, 5, rand -> new Pos3D(
                     rand.nextFloat() * 0.7F - 0.3F,
                     rand.nextFloat() * 0.1F + 0.7F,

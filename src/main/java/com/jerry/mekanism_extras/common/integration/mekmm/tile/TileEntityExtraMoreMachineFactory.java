@@ -1,11 +1,14 @@
 package com.jerry.mekanism_extras.common.integration.mekmm.tile;
 
+import com.jerry.mekanism_extras.api.ExtraUpgrade;
+import com.jerry.mekanism_extras.api.IMixinMachineEnergyContainer;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.integration.mekmm.inventory.slot.ExtraMoreMachineFactoryInputInventorySlot;
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineBlockTypes;
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineTileEntityTypes;
 import com.jerry.mekanism_extras.common.tier.ExtraFactoryTier;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
+import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
 
 import mekanism.api.Action;
 import mekanism.api.IContentsListener;
@@ -67,6 +70,7 @@ import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import lombok.Generated;
 import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -103,6 +107,7 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
      * How many ticks it takes, with upgrades, to run an operation
      */
     private int ticksRequired = BASE_TICKS_REQUIRED;
+    protected int baselineMaxOperations = 1;
     private boolean sorting;
     private boolean sortingNeeded = true;
     private FloatingLong lastUsage = FloatingLong.ZERO;
@@ -382,7 +387,12 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
 
     @ComputerMethod(methodDescription = "Total number of ticks it takes currently for the recipe to complete")
     public int getTicksRequired() {
-        return ticksRequired;
+        return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 1 : ticksRequired;
+    }
+
+    @Generated
+    public int getBaselineMaxOperations() {
+        return baselineMaxOperations;
     }
 
     @Override
@@ -424,16 +434,23 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        super.recalculateUpgrades(upgrade);
+        if (getEnergyContainer() instanceof IMixinMachineEnergyContainer mixMach) {
+            mixMach.mekanism_Extras$extraRecalculateUpgrades(upgrade);
+            mixMach.mekanism_Extras$extraUpdateMaxEnergy();
+        }
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
+        } else if (upgrade == ExtraUpgrade.STACK) {
+            // 实际上一直是整数所以强制转化为int也不会损失什么
+            baselineMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
         }
     }
 
     @NotNull
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {
-        return UpgradeUtils.getMultScaledInfo(this, upgrade);
+        List<Component> ret = UpgradeUtils.getMultScaledInfo(this, upgrade);
+        return ExtraUpgradeUtils.getMultScaledInfo(ret, this, upgrade);
     }
 
     @Override

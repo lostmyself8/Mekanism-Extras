@@ -426,7 +426,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        CompoundTag upgradesTag = this.serializeNBT().getCompound(NBTConstants.UPGRADES);
+        CompoundTag upgradesTag = serializeNBT().getCompound(NBTConstants.UPGRADES);
         if (getEnergyContainer() instanceof IMixinMachineEnergyContainer mixMach)
             mixMach.mekanism_Extras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
