@@ -3,11 +3,13 @@ package com.jerry.mekanism_extras.mixin.integration.mekmm;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 import com.jerry.mekanism_extras.common.tier.ExtraFactoryTier;
-import com.jerry.mekmm.common.content.blocktype.MoreMachineFactory;
-import com.jerry.mekmm.common.content.blocktype.MoreMachineMachine.MoreMachineFactoryMachine;
+
 import mekanism.api.text.ILangEntry;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.tier.FactoryTier;
+
+import com.jerry.mekmm.common.content.blocktype.MoreMachineFactory;
+import com.jerry.mekmm.common.content.blocktype.MoreMachineMachine.MoreMachineFactoryMachine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
