@@ -46,9 +46,7 @@
   "block.mekanism_extras.block_naquadah": "Bloque de naquadah",
   "block.mekanism_extras.block_raw_naquadah": "Bloque de naquadah en bruto",
   "block.mekanism_extras.naquadah_ore": "Mena de naquadah",
-  "description.mekanism_extras.naquadah_ore": "Un tipo de naquadah que la Tierra no tiene, pero puedes encontrar uno o dos cerca de la capa de piedra base en el Supramundo",
   "block.mekanism_extras.end_naquadah_ore": "Mena de naquadah del End",
-  "description.mekanism_extras.end_naquadah_ore": "En comparación con el Supramundo, las menas de naquadah son más comunes en el End, y puedes encontrarla cerca del vacío.",
   "block.mekanism_extras.absolute_smelting_factory": "Fábrica de fundición absoluta",
   "block.mekanism_extras.supreme_smelting_factory": "Fábrica de fundición suprema",
   "block.mekanism_extras.cosmic_smelting_factory": "Fábrica de fundición cósmica",
@@ -155,6 +153,7 @@
   "gas.mekanism_extras.polonium-208": "Polonio-208",
   "gas.mekanism_extras.polonium_containing_steam": "Vapor que contiene polonio",
   "gas.mekanism_extras.spectrum_pigments": "Pigmentos de espectro",
+
   "infuse_type.mekanism_extras.radiance": "Resplandor",
   "infuse_type.mekanism_extras.thermonuclear": "Termonuclear",
   "infuse_type.mekanism_extras.shining": "Brillante",
@@ -220,6 +219,9 @@
 
   "reactor.mekanism_extras.naquadah_reactor": "Reactor de naquadah",
   "reactor.mekanism_extras.stats.pcs_production": "Producción de PCS: %1$s mB/t",
+
+  "description.mekanism_extras.naquadah_ore": "Un tipo de naquadah que la Tierra no tiene, pero puedes encontrar uno o dos cerca de la capa de piedra base en el Supramundo",
+  "description.mekanism_extras.end_naquadah_ore": "En comparación con el Supramundo, las menas de naquadah son más comunes en el End, y puedes encontrarla cerca del vacío.",
   "description.mekanism_extras.naquadah_reactor_casing": "Estructura a prueba de radiación que se puede usar en el reactor multibloque de naquadah.",
   "description.mekanism_extras.naquadah_reactor_port": "Un bloque de estructura a prueba de radiación que es capaz de gestionar tanto la transferencia de gas como de energía del reactor de naquadah.",
   "description.mekanism_extras.naquadah_reactor_controller": "El bloque de control para toda la estructura del reactor de naquadah.",
@@ -261,8 +263,6 @@
   "info.mekanism_extras.jei.rich_naquadah_fuel": "Rich Naquadah Fuel can be extracted from a Naquadah Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
   "info.mekanism_extras.jei.rich_uranium_fuel": "Rich Uranium Fuel can be extracted from a Uranium Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
   "info.mekanism_extras.jei.polonium_containing_solution": "Cuando se inyecta refrigerante en un reactor de naquadah, el vapor generado capturará polonio-208 que no se descompone en el reactor, lo que resulta en vapor que contiene polonio.",
-
-  "chemical.mekanism_extras.attribute.heatant": " - Heat Per 10,000 mB: %1$s",
 
   "block.mekanism_extras.absolute_oxidizing_factory": "Absolute Oxidizing Factory",
   "block.mekanism_extras.supreme_oxidizing_factory": "Supreme Oxidizing Factory",

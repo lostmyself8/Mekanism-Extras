@@ -14,7 +14,7 @@ import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.ItemCapabilityWrapper;
 import mekanism.common.capabilities.chemical.item.RateLimitGasHandler;
 import mekanism.common.item.CapabilityItem;
-import mekanism.common.registration.impl.CreativeTabDeferredRegister;
+import mekanism.common.registration.impl.CreativeTabDeferredRegister.ICustomCreativeTabContents;
 import mekanism.common.util.ChemicalUtil;
 import mekanism.common.util.StorageUtils;
 import mekanism.generators.common.GeneratorsLang;
@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class ItemNquadahHohlraum extends CapabilityItem implements CreativeTabDeferredRegister.ICustomCreativeTabContents {
+public class ItemNquadahHohlraum extends CapabilityItem implements ICustomCreativeTabContents {
 
     public ItemNquadahHohlraum(Properties properties) {
         super(properties.stacksTo(1));

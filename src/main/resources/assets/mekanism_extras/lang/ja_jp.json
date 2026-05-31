@@ -46,9 +46,7 @@
   "block.mekanism_extras.block_naquadah": "ナクアダのブロック",
   "block.mekanism_extras.block_raw_naquadah": "ナクアダの原石ブロック",
   "block.mekanism_extras.naquadah_ore": "ナクアダ鉱石",
-  "description.mekanism_extras.naquadah_ore": "地球には存在しうるはずのないナクアダの一種です。オーバーワールドの岩盤層で1～2つの塊を見つけることができます。",
   "block.mekanism_extras.end_naquadah_ore": "エンドナクアダ鉱石",
-  "description.mekanism_extras.end_naquadah_ore": "エンドに存在するナクアダ鉱石は、オーバーワールドより多く含有しており、奈落により近い場所で見つけることができます。",
   "block.mekanism_extras.absolute_smelting_factory": "絶対精錬ファクトリー",
   "block.mekanism_extras.supreme_smelting_factory": "至高精錬ファクトリー",
   "block.mekanism_extras.cosmic_smelting_factory": "宇宙精錬ファクトリー",
@@ -155,6 +153,7 @@
   "gas.mekanism_extras.polonium-208": "ポロニウム208",
   "gas.mekanism_extras.polonium_containing_steam": "ポロニウム含有蒸気",
   "gas.mekanism_extras.spectrum_pigments": "分光顔料",
+
   "infuse_type.mekanism_extras.radiance": "放射",
   "infuse_type.mekanism_extras.thermonuclear": "熱核",
   "infuse_type.mekanism_extras.shining": "光輝",
@@ -220,6 +219,9 @@
 
   "reactor.mekanism_extras.naquadah_reactor": "ナクアダリアクター",
   "reactor.mekanism_extras.stats.pcs_production": "PCS生産量: %1$s mB/t",
+
+  "description.mekanism_extras.naquadah_ore": "地球には存在しうるはずのないナクアダの一種です。オーバーワールドの岩盤層で1～2つの塊を見つけることができます。",
+  "description.mekanism_extras.end_naquadah_ore": "エンドに存在するナクアダ鉱石は、オーバーワールドより多く含有しており、奈落により近い場所で見つけることができます。",
   "description.mekanism_extras.naquadah_reactor_casing": "ナクアダリアクター構築に使用できる、耐放射線筐体です。",
   "description.mekanism_extras.naquadah_reactor_port": "ナクアダリアクターにおいてガスとエネルギーの搬入出を担う、耐放射線筐体製のブロックです。",
   "description.mekanism_extras.naquadah_reactor_controller": "ナクアダリアクター全体の制御を担うブロックです。",
@@ -261,8 +263,6 @@
   "info.mekanism_extras.jei.rich_naquadah_fuel": "Rich Naquadah Fuel can be extracted from a Naquadah Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
   "info.mekanism_extras.jei.rich_uranium_fuel": "Rich Uranium Fuel can be extracted from a Uranium Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
   "info.mekanism_extras.jei.polonium_containing_solution": "冷媒がナクアダリアクターに搬入されると生成された蒸気は、リアクター内で崩壊を起こしにくいポロニウム208を捕捉し、ポロニウムを含有する蒸気を生産します。",
-
-  "chemical.mekanism_extras.attribute.heatant": " - Heat Per 10,000 mB: %1$s",
 
   "block.mekanism_extras.absolute_oxidizing_factory": "Absolute Oxidizing Factory",
   "block.mekanism_extras.supreme_oxidizing_factory": "Supreme Oxidizing Factory",

@@ -43,6 +43,7 @@ import mekanism.common.capabilities.holder.fluid.FluidTankHelper;
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder;
 import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
 import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
@@ -495,6 +496,29 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
     public int getBaselineMaxOperations() {
         return baselineMaxOperations;
     }
+
+    // Methods relating to IComputerTile
+    protected void validateValidProcess(int process) throws ComputerException {
+        if (process < 0 || process >= progress.length) {
+            throw new ComputerException("Process: '%d' is out of bounds, as this factory only has '%d' processes (zero indexed).", process, progress.length);
+        }
+    }
+
+    @ComputerMethod(requiresPublicSecurity = true)
+    void setAutoSort(boolean enabled) throws ComputerException {
+        validateSecurityIsPublic();
+        if (sorting != enabled) {
+            sorting = enabled;
+            markForSave();
+        }
+    }
+
+    @ComputerMethod
+    int getRecipeProgress(int process) throws ComputerException {
+        validateValidProcess(process);
+        return getProgress(process);
+    }
+    // End methods IComputerTile
 
     protected static class ErrorTracker {
 

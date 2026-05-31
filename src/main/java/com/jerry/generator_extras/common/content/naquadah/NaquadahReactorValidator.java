@@ -1,6 +1,6 @@
 package com.jerry.generator_extras.common.content.naquadah;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
+import com.jerry.generator_extras.common.genregistries.ExtraGenBlockTypes;
 import com.jerry.generator_extras.common.tile.TileEntityLeadCoatedGlass;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 

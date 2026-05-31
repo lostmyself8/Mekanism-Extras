@@ -2,7 +2,7 @@ package com.jerry.mekanism_extras.common.command;
 
 import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+import com.jerry.generator_extras.common.genregistries.ExtraGenBlocks;
 
 import mekanism.common.command.builders.StructureBuilder;
 
@@ -68,32 +68,6 @@ public class ExtraBuilders {
         @Override
         protected Block getCasing() {
             return ExtraBlocks.REINFORCED_INDUCTION_CASING.getBlock();
-        }
-    }
-
-    public static class PlasmaEvaporationPlantBuilder extends StructureBuilder {
-
-        public PlasmaEvaporationPlantBuilder() {
-            super(6, 36, 6);
-        }
-
-        @Override
-        protected void build(Level world, BlockPos start, boolean empty) {
-            buildFrame(world, start);
-            buildWalls(world, start);
-            buildInteriorLayers(world, start, 1, 34, Blocks.AIR);
-            buildInteriorLayer(world, start, 18, ExtraGenBlocks.PLASMA_INSULATION_LAYER.getBlock());
-            world.setBlockAndUpdate(start.offset(1, 1, 0), ExtraGenBlocks.PLASMA_EVAPORATION_CONTROLLER.getBlock().defaultBlockState());
-        }
-
-        @Override
-        protected Block getCasing() {
-            return ExtraGenBlocks.PLASMA_EVAPORATION_BLOCK.getBlock();
-        }
-
-        @Override
-        protected Block getRoofBlock(BlockPos pos) {
-            return ExtraGenBlocks.PLASMA_EVAPORATION_VENT.getBlock();
         }
     }
 }

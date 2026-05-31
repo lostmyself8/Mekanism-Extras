@@ -4,7 +4,7 @@ import com.jerry.mekanism_extras.common.ExtraTags;
 import com.jerry.mekanism_extras.common.registries.ExtraGases;
 
 import com.jerry.generator_extras.common.config.GenLoadConfig;
-import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
+import com.jerry.generator_extras.common.genregistries.ExtraGenGases;
 import com.jerry.generator_extras.common.item.ItemNquadahHohlraum;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorCasing;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorPort;

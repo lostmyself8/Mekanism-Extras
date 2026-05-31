@@ -46,9 +46,7 @@
   "block.mekanism_extras.block_naquadah": "Наквадовый блок",
   "block.mekanism_extras.block_raw_naquadah": "Блок рудного наквада",
   "block.mekanism_extras.naquadah_ore": "Наквадовая руда",
-  "description.mekanism_extras.naquadah_ore": "Тип наквада, которого нет на Земле, но вы можете найти один или два возле слоя бедрока Верхнего мира.",
   "block.mekanism_extras.end_naquadah_ore": "Наквадоносный эндерняк",
-  "description.mekanism_extras.end_naquadah_ore": "По сравнению с Верхним миром, руды наквады более распространены в Крае, и их можно найти рядом с пустотой.",
   "block.mekanism_extras.absolute_smelting_factory": "Абсолютный плавящий механизм",
   "block.mekanism_extras.supreme_smelting_factory": "Высший плавящий механизм",
   "block.mekanism_extras.cosmic_smelting_factory": "Космический плавящий механизм",
@@ -155,6 +153,7 @@
   "gas.mekanism_extras.polonium-208": "Полоний-208",
   "gas.mekanism_extras.polonium_containing_steam": "Полоний-содержащий пар",
   "gas.mekanism_extras.spectrum_pigments": "Спектральные пигменты",
+
   "infuse_type.mekanism_extras.radiance": "Сияние",
   "infuse_type.mekanism_extras.thermonuclear": "Натринезерит",
   "infuse_type.mekanism_extras.shining": "Сияющий натринезерит",
@@ -220,6 +219,9 @@
 
   "reactor.mekanism_extras.naquadah_reactor": "Наквадовый реактор",
   "reactor.mekanism_extras.stats.pcs_production": "Производится ПСП: %1$s мВ/т",
+
+  "description.mekanism_extras.naquadah_ore": "Тип наквада, которого нет на Земле, но вы можете найти один или два возле слоя бедрока Верхнего мира.",
+  "description.mekanism_extras.end_naquadah_ore": "По сравнению с Верхним миром, руды наквады более распространены в Крае, и их можно найти рядом с пустотой.",
   "description.mekanism_extras.naquadah_reactor_casing": "Радиационно-стойкий каркас, может быть использован при строительстве наквадового реактора.",
   "description.mekanism_extras.naquadah_reactor_port": "Блок радиационно-стойкого каркаса, который способен управлять передачей газа и энергии наквадового реактора.",
   "description.mekanism_extras.naquadah_reactor_controller": "Блок управления всего наквадового реактора.",
@@ -261,8 +263,6 @@
   "info.mekanism_extras.jei.rich_naquadah_fuel": "Rich Naquadah Fuel can be extracted from a Naquadah Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
   "info.mekanism_extras.jei.rich_uranium_fuel": "Rich Uranium Fuel can be extracted from a Uranium Hexafluoride source block via an advance electric pump with a ionic membrane upgrade installed.",
   "info.mekanism_extras.jei.polonium_containing_solution": "При впрыске охлаждающей жидкости в наквадовый реактор, образующийся пар будет захватывать полоний-208, который не распадается в реакторе, в результате чего образуется пар, содержащий полоний (ПСП).",
-
-  "chemical.mekanism_extras.attribute.heatant": " - Heat Per 10,000 mB: %1$s",
 
   "block.mekanism_extras.absolute_oxidizing_factory": "Absolute Oxidizing Factory",
   "block.mekanism_extras.supreme_oxidizing_factory": "Supreme Oxidizing Factory",

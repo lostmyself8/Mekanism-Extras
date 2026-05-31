@@ -21,9 +21,7 @@ import com.jerry.generator_extras.common.ExtraGenLang;
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorCache;
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorValidator;
-import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationMultiblockData;
-import com.jerry.generator_extras.common.content.plasma.PlasmaEvaporationValidator;
-import com.jerry.generator_extras.common.genregistry.*;
+import com.jerry.generator_extras.common.genregistries.*;
 
 import mekanism.common.base.IModModule;
 import mekanism.common.command.CommandMek;
@@ -79,7 +77,6 @@ public class MekanismExtras implements IModModule {
 
     public static final MultiblockManager<ExtraMatrixMultiblockData> extraMatrixManager = new MultiblockManager<>("extraInductionMatrix", MultiblockCache::new, ExtraMatrixValidator::new);
     public static final MultiblockManager<NaquadahReactorMultiblockData> naquadahReactorManager = new MultiblockManager<>("naquadahReactor", NaquadahReactorCache::new, NaquadahReactorValidator::new);
-    public static final MultiblockManager<PlasmaEvaporationMultiblockData> plasmaEvaporationPlantManager = new MultiblockManager<>("plasmaEvaporationPlant", MultiblockCache::new, PlasmaEvaporationValidator::new);
 
     public MekanismExtras(FMLJavaModLoadingContext context) {
         instance = this;
@@ -118,7 +115,6 @@ public class MekanismExtras implements IModModule {
         BuildCommand.register("reinforced_matrix", ExtraLang.REINFORCED_MATRIX, new ExtraBuilders.MatrixBuilder());
         if (Addons.MEKANISMGENERATORS.isLoaded()) {
             BuildCommand.register("naquadah", ExtraGenLang.NAQUADAH_REACTOR, new ExtraBuilders.NaquadahReactorBuilder());
-            BuildCommand.register("plasma", ExtraGenLang.PLASMA_EVAPORATION, new ExtraBuilders.PlasmaEvaporationPlantBuilder());
         }
         event.getDispatcher().register(CommandMek.register());
     }
@@ -135,10 +131,7 @@ public class MekanismExtras implements IModModule {
             ExtraGenFluids.register(modEventBus);
             ExtraGenContainerTypes.register(modEventBus);
             ExtraGenGases.register(modEventBus);
-            ExtraGenInfuseTypes.register(modEventBus);
             ExtraGenTileEntityTypes.register(modEventBus);
-            // ExtraGenRecipeType.EXTRA_GEN_RECIPE_TYPES.register(modEventBus);
-            // ExtraGenRecipeSerializers.GEN_RECIPE_SERIALIZERS.register(modEventBus);
         }
         if (Addons.MEKMM.isLoaded()) {
             ExtraMoreMachineBlocks.register(modEventBus);

@@ -49,7 +49,6 @@ import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import mekanism.api.tier.ITier;
 import mekanism.common.block.attribute.AttributeTier;
 import mekanism.common.block.interfaces.IHasDescription;
-import mekanism.common.block.prefab.BlockBase;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockType;
@@ -130,8 +129,6 @@ public class ExtraBlocks {
     // Resource Blocks
     public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> NAQUADAH_BLOCK = registerResourceBlock(ExtraBlockResourceInfo.NAQUADAH);
     public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> RAW_NAQUADAH_BLOCK = registerResourceBlock(ExtraBlockResourceInfo.RAW_NAQUADAH);
-    public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> TUNGSTEN_BLOCK = registerResourceBlock(ExtraBlockResourceInfo.TUNGSTEN);
-    public static final BlockRegistryObject<ExtraBlockResource, ExtraItemBlockResource> REFINED_NETHERITE = registerResourceBlock(ExtraBlockResourceInfo.REFINED_NETHERITE);
     // Bins
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> ABSOLUTE_BIN = registerBin("absolute", ExtraBlockTypes.ABSOLUTE_BIN);
     public static final BlockRegistryObject<ExtraBlockBin, ExtraItemBlockBin> SUPREME_BIN = registerBin("supreme", ExtraBlockTypes.SUPREME_BIN);
@@ -193,7 +190,6 @@ public class ExtraBlocks {
     // Others
     public static final BlockRegistryObject<ExtraBlockRadioactiveWasteBarrel, ExtraItemBlockRadioactiveWasteBarrel> EXPAND_RADIOACTIVE_WASTE_BARREL = EXTRA_BLOCKS.registerDefaultProperties("expand_radioactive_waste_barrel", ExtraBlockRadioactiveWasteBarrel::new, ExtraItemBlockRadioactiveWasteBarrel::new);
     public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAdvancedElectricPump, Machine<TileEntityAdvancedElectricPump>>, ItemBlockMachine> ADVANCED_ELECTRIC_PUMP = EXTRA_BLOCKS.register("advance_electric_pump", () -> new BlockTile.BlockTileModel<>(ExtraBlockTypes.ADVANCED_ELECTRIC_PUMP, properties -> properties.mapColor(BlockResourceInfo.STEEL.getMapColor())), ItemBlockMachine::new);
-    public static final BlockRegistryObject<BlockBase<BlockType>, ItemBlockTooltip<BlockBase<BlockType>>> TUNGSTEN_CASING = registerBlock("tungsten_casing", () -> new BlockBase<>(ExtraBlockTypes.TUNGSTEN_CASING, properties -> properties.strength(6, 15).mapColor(ExtraBlockResourceInfo.TUNGSTEN.getMapColor())));
 
     private static ExtraOreBlockType registerOre(ExtraOreType ore) {
         String name = ore.getResource().getRegistrySuffix() + "_ore";

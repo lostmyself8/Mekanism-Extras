@@ -6,9 +6,9 @@ import com.jerry.mekanism_extras.common.integration.Addons;
 import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
-import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
-import com.jerry.generator_extras.common.genregistry.ExtraGenItem;
+import com.jerry.generator_extras.common.genregistries.ExtraGenBlocks;
+import com.jerry.generator_extras.common.genregistries.ExtraGenFluids;
+import com.jerry.generator_extras.common.genregistries.ExtraGenItem;
 
 import mekanism.common.registration.impl.CreativeTabDeferredRegister;
 import mekanism.common.registration.impl.CreativeTabRegistryObject;

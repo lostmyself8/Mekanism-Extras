@@ -19,7 +19,6 @@ public class ExtraGases {
     public static final GasRegistryObject<Gas> NAQUADAH_URANIUM_FUEL = ExtraGases.EXTRA_GASES.register(ExtraChemicalConstants.NAQUADAH_URANIUM_FUEL);
     public static final GasRegistryObject<Gas> RICH_NAQUADAH_FUEL = ExtraGases.EXTRA_GASES.register(ExtraChemicalConstants.RICH_NAQUADAH_FUEL);
     public static final GasRegistryObject<Gas> RICH_URANIUM_FUEL = ExtraGases.EXTRA_GASES.register(ExtraChemicalConstants.RICH_URANIUM_FUEL);
-    public static final GasRegistryObject<Gas> TUNGSTEN_HEXAFLUORIDE = EXTRA_GASES.register(ExtraChemicalConstants.TUNGSTEN_HEXAFLUORIDE);
 
     public static void register(IEventBus eventBus) {
         EXTRA_GASES.register(eventBus);

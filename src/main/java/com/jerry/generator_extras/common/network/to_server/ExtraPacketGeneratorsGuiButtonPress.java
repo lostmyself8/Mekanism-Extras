@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.network.to_server;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
-import com.jerry.generator_extras.common.genregistry.ExtraGenContainerTypes;
+import com.jerry.generator_extras.common.genregistries.ExtraGenContainerTypes;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityNaquadahReactorController;
 
 import mekanism.common.network.IMekanismPacket;

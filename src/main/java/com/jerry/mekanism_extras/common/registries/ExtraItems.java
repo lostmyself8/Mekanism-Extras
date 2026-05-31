@@ -77,16 +77,6 @@ public class ExtraItems {
     public static final ItemRegistryObject<Item> INGOT_NAQUADAH = registerResource(ResourceType.INGOT, ExtraResource.NAQUADAH);
     public static final ItemRegistryObject<Item> RAW_NAQUADAH = registerResource(ResourceType.RAW, ExtraResource.NAQUADAH);
 
-    public static final ItemRegistryObject<Item> CRYSTAL_TUNGSTEN = registerUnburnableResource(ResourceType.CRYSTAL, ExtraResource.TUNGSTEN);
-    public static final ItemRegistryObject<Item> SHARD_TUNGSTEN = registerUnburnableResource(ResourceType.SHARD, ExtraResource.TUNGSTEN);
-    public static final ItemRegistryObject<Item> CLUMP_TUNGSTEN = registerUnburnableResource(ResourceType.CLUMP, ExtraResource.TUNGSTEN);
-    public static final ItemRegistryObject<Item> DIRTY_DUST_TUNGSTEN = registerUnburnableResource(ResourceType.DIRTY_DUST, ExtraResource.TUNGSTEN);
-    public static final ItemRegistryObject<Item> DUST_TUNGSTEN = registerUnburnableResource(ResourceType.DUST, ExtraResource.TUNGSTEN);
-    public static final ItemRegistryObject<Item> INGOT_TUNGSTEN = registerUnburnableResource(ResourceType.INGOT, ExtraResource.TUNGSTEN);
-    public static final ItemRegistryObject<Item> NUGGET_TUNGSTEN = registerUnburnableResource(ResourceType.NUGGET, ExtraResource.TUNGSTEN);
-
-    public static final ItemRegistryObject<Item> REFINED_NETHERITE_INGOT = EXTRA_ITEMS.registerUnburnable("ingot_refined_netherite");
-
     private static ItemRegistryObject<ExtraItemQIODrive> registryQIODrive(ExtraQIODriverTier tier) {
         return EXTRA_ITEMS.register("qio_drive_" + tier.name().toLowerCase(Locale.ROOT), properties -> new ExtraItemQIODrive(tier, properties));
     }
@@ -122,10 +112,6 @@ public class ExtraItems {
 
     private static ItemRegistryObject<Item> registerResource(ResourceType type, IResource resource) {
         return EXTRA_ITEMS.register(type.getRegistryPrefix() + "_" + resource.getRegistrySuffix());
-    }
-
-    private static ItemRegistryObject<Item> registerUnburnableResource(ResourceType type, IResource resource) {
-        return EXTRA_ITEMS.registerUnburnable(type.getRegistryPrefix() + "_" + resource.getRegistrySuffix());
     }
 
     public static void register(IEventBus eventBus) {
