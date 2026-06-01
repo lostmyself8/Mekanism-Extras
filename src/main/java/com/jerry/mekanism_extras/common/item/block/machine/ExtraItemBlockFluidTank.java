@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.item.block.machine;
 
-import com.jerry.mekanism_extras.client.render.ExtraRenderPropertiesProvider;
+import com.jerry.mekanism_extras.client.render.RenderExtraPropertiesProvider;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.block.basic.ExtraBlockFluidTank;
 import com.jerry.mekanism_extras.common.capabilities.fluid.item.ExtraRateLimitFluidHandler;
@@ -73,7 +73,7 @@ public class ExtraItemBlockFluidTank extends ExtraItemBlockMachine implements IM
 
     @Override
     public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(ExtraRenderPropertiesProvider.extraFluidTank());
+        consumer.accept(RenderExtraPropertiesProvider.extraFluidTank());
     }
 
     @NotNull

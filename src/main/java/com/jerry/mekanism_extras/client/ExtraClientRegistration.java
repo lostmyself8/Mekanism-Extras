@@ -8,10 +8,10 @@ import com.jerry.mekanism_extras.client.gui.machine.GuiExtraFactory;
 import com.jerry.mekanism_extras.client.gui.machine.GuiExtraMoreMachineFactory;
 import com.jerry.mekanism_extras.client.model.ExtraModelEnergyCore;
 import com.jerry.mekanism_extras.client.model.energycube.ExtraEnergyCubeModelLoader;
-import com.jerry.mekanism_extras.client.render.item.block.ExtraRenderEnergyCubeItem;
-import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderBin;
-import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderEnergyCube;
-import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderFluidTank;
+import com.jerry.mekanism_extras.client.render.item.block.RenderExtraEnergyCubeItem;
+import com.jerry.mekanism_extras.client.render.tileentity.RenderExtraBin;
+import com.jerry.mekanism_extras.client.render.tileentity.RenderExtraEnergyCube;
+import com.jerry.mekanism_extras.client.render.tileentity.RenderExtraFluidTank;
 import com.jerry.mekanism_extras.client.render.transmitter.*;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.integration.Addons;
@@ -67,42 +67,42 @@ public class ExtraClientRegistration {
     @SubscribeEvent
     public static void registerRenderers(RegisterRenderers event) {
         // universal cable
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderUniversalCable::new, ExtraTileEntityTypes.ABSOLUTE_UNIVERSAL_CABLE,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraUniversalCable::new, ExtraTileEntityTypes.ABSOLUTE_UNIVERSAL_CABLE,
                 ExtraTileEntityTypes.SUPREME_UNIVERSAL_CABLE, ExtraTileEntityTypes.COSMIC_UNIVERSAL_CABLE, ExtraTileEntityTypes.INFINITE_UNIVERSAL_CABLE);
         // logistical transporter
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderLogisticalTransporter::new, ExtraTileEntityTypes.ABSOLUTE_LOGISTICAL_TRANSPORTER,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraLogisticalTransporter::new, ExtraTileEntityTypes.ABSOLUTE_LOGISTICAL_TRANSPORTER,
                 ExtraTileEntityTypes.SUPREME_LOGISTICAL_TRANSPORTER, ExtraTileEntityTypes.COSMIC_LOGISTICAL_TRANSPORTER, ExtraTileEntityTypes.INFINITE_LOGISTICAL_TRANSPORTER);
         // mechanical pipe
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderMechanicalPipe::new, ExtraTileEntityTypes.ABSOLUTE_MECHANICAL_PIPE,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraMechanicalPipe::new, ExtraTileEntityTypes.ABSOLUTE_MECHANICAL_PIPE,
                 ExtraTileEntityTypes.SUPREME_MECHANICAL_PIPE, ExtraTileEntityTypes.COSMIC_MECHANICAL_PIPE, ExtraTileEntityTypes.INFINITE_MECHANICAL_PIPE);
         // pressurized tube
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderPressurizedTube::new, ExtraTileEntityTypes.ABSOLUTE_PRESSURIZED_TUBE,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraPressurizedTube::new, ExtraTileEntityTypes.ABSOLUTE_PRESSURIZED_TUBE,
                 ExtraTileEntityTypes.SUPREME_PRESSURIZED_TUBE, ExtraTileEntityTypes.COSMIC_PRESSURIZED_TUBE, ExtraTileEntityTypes.INFINITE_PRESSURIZED_TUBE);
         // thermodynamic conductor
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderThermodynamicConductor::new, ExtraTileEntityTypes.ABSOLUTE_THERMODYNAMIC_CONDUCTOR,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraThermodynamicConductor::new, ExtraTileEntityTypes.ABSOLUTE_THERMODYNAMIC_CONDUCTOR,
                 ExtraTileEntityTypes.SUPREME_THERMODYNAMIC_CONDUCTOR, ExtraTileEntityTypes.COSMIC_THERMODYNAMIC_CONDUCTOR, ExtraTileEntityTypes.INFINITE_THERMODYNAMIC_CONDUCTOR);
         // bin
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderBin::new, ExtraTileEntityTypes.ABSOLUTE_BIN, ExtraTileEntityTypes.SUPREME_BIN, ExtraTileEntityTypes.COSMIC_BIN,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraBin::new, ExtraTileEntityTypes.ABSOLUTE_BIN, ExtraTileEntityTypes.SUPREME_BIN, ExtraTileEntityTypes.COSMIC_BIN,
                 ExtraTileEntityTypes.INFINITE_BIN);
         // fluid tank
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderFluidTank::new, ExtraTileEntityTypes.ABSOLUTE_FLUID_TANK, ExtraTileEntityTypes.SUPREME_FLUID_TANK,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraFluidTank::new, ExtraTileEntityTypes.ABSOLUTE_FLUID_TANK, ExtraTileEntityTypes.SUPREME_FLUID_TANK,
                 ExtraTileEntityTypes.COSMIC_FLUID_TANK, ExtraTileEntityTypes.INFINITE_FLUID_TANK);
         // energy cube
-        ClientRegistrationUtil.bindTileEntityRenderer(event, ExtraRenderEnergyCube::new, ExtraTileEntityTypes.ABSOLUTE_ENERGY_CUBE, ExtraTileEntityTypes.SUPREME_ENERGY_CUBE,
+        ClientRegistrationUtil.bindTileEntityRenderer(event, RenderExtraEnergyCube::new, ExtraTileEntityTypes.ABSOLUTE_ENERGY_CUBE, ExtraTileEntityTypes.SUPREME_ENERGY_CUBE,
                 ExtraTileEntityTypes.COSMIC_ENERGY_CUBE, ExtraTileEntityTypes.INFINITE_ENERGY_CUBE);
     }
 
     @SubscribeEvent
     public static void onStitch(Post event) {
         TextureAtlas map = event.getAtlas();
-        ExtraRenderLogisticalTransporter.onStitch(map);
-        ExtraRenderFluidTank.resetCachedModels();
-        ExtraRenderMechanicalPipe.onStitch();
+        RenderExtraLogisticalTransporter.onStitch(map);
+        RenderExtraFluidTank.resetCachedModels();
+        RenderExtraMechanicalPipe.onStitch();
     }
 
     @SubscribeEvent
     public static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
-        ClientRegistrationUtil.registerClientReloadListeners(event, ExtraRenderEnergyCubeItem.EXTRA_RENDERER);
+        ClientRegistrationUtil.registerClientReloadListeners(event, RenderExtraEnergyCubeItem.EXTRA_RENDERER);
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)

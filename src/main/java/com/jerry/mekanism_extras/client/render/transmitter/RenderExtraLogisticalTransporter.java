@@ -37,13 +37,13 @@ import java.util.*;
 import javax.annotation.Nullable;
 
 @NothingNullByDefault
-public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<ExtraTileEntityLogisticalTransporterBase> {
+public class RenderExtraLogisticalTransporter extends RenderTransmitterBase<ExtraTileEntityLogisticalTransporterBase> {
 
     private static final Map<Direction, MekanismRenderer.Model3D> cachedOverlays = new EnumMap<>(Direction.class);
     private final ModelTransporterBox modelBox;
     private final LazyItemRenderer itemRenderer = new LazyItemRenderer();
 
-    public ExtraRenderLogisticalTransporter(BlockEntityRendererProvider.Context context) {
+    public RenderExtraLogisticalTransporter(BlockEntityRendererProvider.Context context) {
         super(context);
         modelBox = new ModelTransporterBox(context.getModelSet());
     }
@@ -53,8 +53,8 @@ public class ExtraRenderLogisticalTransporter extends RenderTransmitterBase<Extr
     }
 
     @Override
-    protected void render(ExtraTileEntityLogisticalTransporterBase tile, float partialTick, PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight,
-                          @NotNull ProfilerFiller profiler) {
+    protected void render(ExtraTileEntityLogisticalTransporterBase tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight,
+                          ProfilerFiller profiler) {
         ExtraLogisticalTransporter transporter = (ExtraLogisticalTransporter) tile.getTransmitter();
         Collection<TransporterStack> inTransit = transporter.getTransit();
         BlockPos pos = tile.getBlockPos();

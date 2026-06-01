@@ -17,18 +17,17 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import org.jetbrains.annotations.NotNull;
 
 @NothingNullByDefault
-public class ExtraRenderUniversalCable extends RenderTransmitterBase<ExtraTileEntityUniversalCable> {
+public class RenderExtraUniversalCable extends RenderTransmitterBase<ExtraTileEntityUniversalCable> {
 
-    public ExtraRenderUniversalCable(BlockEntityRendererProvider.Context context) {
+    public RenderExtraUniversalCable(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
     protected void render(ExtraTileEntityUniversalCable tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight,
-                          @NotNull ProfilerFiller profiler) {
+                          ProfilerFiller profiler) {
         EnergyNetwork network = tile.getTransmitter().getTransmitterNetwork();
         if (network == null) {
             return;// race condition perhaps
@@ -41,12 +40,12 @@ public class ExtraRenderUniversalCable extends RenderTransmitterBase<ExtraTileEn
     }
 
     @Override
-    protected @NotNull String getProfilerSection() {
+    protected String getProfilerSection() {
         return ProfilerConstants.UNIVERSAL_CABLE;
     }
 
     @Override
-    protected boolean shouldRenderTransmitter(ExtraTileEntityUniversalCable tile, @NotNull Vec3 camera) {
+    protected boolean shouldRenderTransmitter(ExtraTileEntityUniversalCable tile, Vec3 camera) {
         ExtraUniversalCable cable = tile.getTransmitter();
         if (cable.hasTransmitterNetwork()) {
             EnergyNetwork network = cable.getTransmitterNetwork();

@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.render.item.block;
 
 import com.jerry.mekanism_extras.client.model.ExtraModelEnergyCore;
-import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderEnergyCube;
+import com.jerry.mekanism_extras.client.render.tileentity.RenderExtraEnergyCube;
 import com.jerry.mekanism_extras.common.item.block.ExtraItemBlockEnergyCube;
 import com.jerry.mekanism_extras.common.tier.ECTier;
 import com.jerry.mekanism_extras.common.tier.TierColor;
@@ -33,9 +33,9 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube.SIDE_STATE_PROPERTY;
 
-public class ExtraRenderEnergyCubeItem extends MekanismISTER {
+public class RenderExtraEnergyCubeItem extends MekanismISTER {
 
-    public static final ExtraRenderEnergyCubeItem EXTRA_RENDERER = new ExtraRenderEnergyCubeItem();
+    public static final RenderExtraEnergyCubeItem EXTRA_RENDERER = new RenderExtraEnergyCubeItem();
     private ExtraModelEnergyCore core;
 
     @Override
@@ -77,7 +77,7 @@ public class ExtraRenderEnergyCubeItem extends MekanismISTER {
             matrix.scale(0.4F, 0.4F, 0.4F);
             matrix.translate(0, Math.sin(Math.toRadians(3 * ticks)) / 7, 0);
             matrix.mulPose(Axis.YP.rotationDegrees(scaledTicks));
-            matrix.mulPose(ExtraRenderEnergyCube.coreVec.rotationDegrees(36F + scaledTicks));
+            matrix.mulPose(RenderExtraEnergyCube.coreVec.rotationDegrees(36F + scaledTicks));
             core.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, TierColor.getColor(tier), (float) energyPercentage);
             matrix.popPose();
         }

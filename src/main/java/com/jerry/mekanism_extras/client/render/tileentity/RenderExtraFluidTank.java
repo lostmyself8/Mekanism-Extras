@@ -26,14 +26,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ExtraRenderFluidTank extends MekanismTileEntityRenderer<ExtraTileEntityFluidTank> {
+public class RenderExtraFluidTank extends MekanismTileEntityRenderer<ExtraTileEntityFluidTank> {
 
     private static final Map<FluidStack, Int2ObjectMap<MekanismRenderer.Model3D>> cachedCenterFluids = new HashMap<>();
     private static final Map<FluidStack, Int2ObjectMap<MekanismRenderer.Model3D>> cachedValveFluids = new HashMap<>();
 
     private static final int stages = 1_400;
 
-    public ExtraRenderFluidTank(BlockEntityRendererProvider.Context context) {
+    public RenderExtraFluidTank(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

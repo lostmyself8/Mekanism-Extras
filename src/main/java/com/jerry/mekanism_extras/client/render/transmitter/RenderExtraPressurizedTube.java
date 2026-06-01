@@ -18,18 +18,17 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import org.jetbrains.annotations.NotNull;
 
 @NothingNullByDefault
-public class ExtraRenderPressurizedTube extends RenderTransmitterBase<ExtraTileEntityPressurizedTube> {
+public class RenderExtraPressurizedTube extends RenderTransmitterBase<ExtraTileEntityPressurizedTube> {
 
-    public ExtraRenderPressurizedTube(BlockEntityRendererProvider.Context context) {
+    public RenderExtraPressurizedTube(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
     protected void render(ExtraTileEntityPressurizedTube tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight,
-                          @NotNull ProfilerFiller profiler) {
+                          ProfilerFiller profiler) {
         BoxedChemicalNetwork network = tile.getTransmitter().getTransmitterNetwork();
         if (network == null) {
             return;// race conditions, yay
@@ -43,12 +42,12 @@ public class ExtraRenderPressurizedTube extends RenderTransmitterBase<ExtraTileE
     }
 
     @Override
-    protected @NotNull String getProfilerSection() {
+    protected String getProfilerSection() {
         return ProfilerConstants.PRESSURIZED_TUBE;
     }
 
     @Override
-    protected boolean shouldRenderTransmitter(@NotNull ExtraTileEntityPressurizedTube tile, @NotNull Vec3 camera) {
+    protected boolean shouldRenderTransmitter(ExtraTileEntityPressurizedTube tile, Vec3 camera) {
         if (super.shouldRenderTransmitter(tile, camera)) {
             ExtraBoxedPressurizedTube tube = tile.getTransmitter();
             if (tube.hasTransmitterNetwork()) {

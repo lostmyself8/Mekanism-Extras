@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.client.render.item.block;
 
-import com.jerry.mekanism_extras.client.render.tileentity.ExtraRenderFluidTank;
+import com.jerry.mekanism_extras.client.render.tileentity.RenderExtraFluidTank;
 import com.jerry.mekanism_extras.common.item.block.machine.ExtraItemBlockFluidTank;
 import com.jerry.mekanism_extras.common.tier.FTTier;
 
@@ -20,9 +20,9 @@ import net.minecraftforge.fluids.FluidStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.NotNull;
 
-public class ExtraRenderFluidTankItem extends MekanismISTER {
+public class RenderExtraFluidTankItem extends MekanismISTER {
 
-    public static final ExtraRenderFluidTankItem EXTRA_RENDERER = new ExtraRenderFluidTankItem();
+    public static final RenderExtraFluidTankItem EXTRA_RENDERER = new RenderExtraFluidTankItem();
 
     @Override
     public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
@@ -39,7 +39,7 @@ public class ExtraRenderFluidTankItem extends MekanismISTER {
         if (!fluid.isEmpty()) {
             float fluidScale = (float) fluid.getAmount() / tier.getStorage();
             if (fluidScale > 0) {
-                MekanismRenderer.renderObject(ExtraRenderFluidTank.getFluidModel(fluid, fluidScale), matrix, renderer.getBuffer(Sheets.translucentCullBlockSheet()),
+                MekanismRenderer.renderObject(RenderExtraFluidTank.getFluidModel(fluid, fluidScale), matrix, renderer.getBuffer(Sheets.translucentCullBlockSheet()),
                         MekanismRenderer.getColorARGB(fluid, fluidScale), MekanismRenderer.calculateGlowLight(light, fluid), overlayLight, RenderResizableCuboid.FaceDisplay.FRONT, getCamera());
             }
         }

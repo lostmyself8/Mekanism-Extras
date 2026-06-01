@@ -22,11 +22,11 @@ import com.mojang.math.Axis;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
-public class ExtraRenderEnergyCube extends ModelTileEntityRenderer<ExtraTileEntityEnergyCube, ExtraModelEnergyCore> {
+public class RenderExtraEnergyCube extends ModelTileEntityRenderer<ExtraTileEntityEnergyCube, ExtraModelEnergyCore> {
 
     public static final Axis coreVec = Axis.of(new Vector3f(0.0F, MekanismUtils.ONE_OVER_ROOT_TWO, MekanismUtils.ONE_OVER_ROOT_TWO));
 
-    public ExtraRenderEnergyCube(BlockEntityRendererProvider.Context context) {
+    public RenderExtraEnergyCube(BlockEntityRendererProvider.Context context) {
         super(context, ExtraModelEnergyCore::new);
     }
 

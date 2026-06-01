@@ -32,7 +32,7 @@ import org.joml.Vector3f;
 
 import java.util.Optional;
 
-public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBin> {
+public class RenderExtraBin extends MekanismTileEntityRenderer<ExtraTileEntityBin> {
 
     private static final Matrix3f FAKE_NORMALS;
 
@@ -42,7 +42,7 @@ public class ExtraRenderBin extends MekanismTileEntityRenderer<ExtraTileEntityBi
         FAKE_NORMALS = new Matrix3f().set(new Quaternionf().setAngleAxis(0, NORMAL.x, NORMAL.y, NORMAL.z));
     }
 
-    public ExtraRenderBin(BlockEntityRendererProvider.Context context) {
+    public RenderExtraBin(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 

@@ -16,18 +16,17 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import org.jetbrains.annotations.NotNull;
 
 @NothingNullByDefault
-public class ExtraRenderThermodynamicConductor extends RenderTransmitterBase<ExtraTileEntityThermodynamicConductor> {
+public class RenderExtraThermodynamicConductor extends RenderTransmitterBase<ExtraTileEntityThermodynamicConductor> {
 
-    public ExtraRenderThermodynamicConductor(BlockEntityRendererProvider.Context context) {
+    public RenderExtraThermodynamicConductor(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
     protected void render(ExtraTileEntityThermodynamicConductor tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight,
-                          @NotNull ProfilerFiller profiler) {
+                          ProfilerFiller profiler) {
         matrix.pushPose();
         matrix.translate(0.5, 0.5, 0.5);
         ExtraThermodynamicConductor conductor = tile.getTransmitter();
@@ -38,7 +37,7 @@ public class ExtraRenderThermodynamicConductor extends RenderTransmitterBase<Ext
     }
 
     @Override
-    protected @NotNull String getProfilerSection() {
+    protected String getProfilerSection() {
         return ProfilerConstants.THERMODYNAMIC_CONDUCTOR;
     }
 }

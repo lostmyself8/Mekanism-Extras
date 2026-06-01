@@ -1,6 +1,8 @@
 package com.jerry.mekanism_extras.common.content.network.transmitter;
 
+import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.api.IMixinLogisticalTransporterBase;
+import com.jerry.mekanism_extras.common.network.to_client.ExtraPacketTransporterUpdate;
 import com.jerry.mekanism_extras.common.tier.transmitter.TPTier;
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityTransmitter;
 import com.jerry.mekanism_extras.common.util.ExtraTransporterUtils;
@@ -8,7 +10,6 @@ import com.jerry.mekanism_extras.common.util.ExtraTransporterUtils;
 import mekanism.api.NBTConstants;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.EnumColor;
-import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.content.network.InventoryNetwork;
@@ -18,8 +19,8 @@ import mekanism.common.content.transporter.TransporterManager;
 import mekanism.common.content.transporter.TransporterStack;
 import mekanism.common.lib.inventory.TransitRequest;
 import mekanism.common.lib.transmitter.ConnectionType;
-import mekanism.common.network.to_client.PacketTransporterUpdate;
 import mekanism.common.tier.TransporterTier;
+import mekanism.common.tile.TileEntityLogisticalSorter;
 import mekanism.common.tile.transmitter.TileEntityTransmitter;
 import mekanism.common.upgrade.transmitter.LogisticalTransporterUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
@@ -41,7 +42,9 @@ import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.Contract;
 
+import java.util.function.Function;
 import java.util.function.IntConsumer;
 
 import javax.annotation.Nonnull;
@@ -135,6 +138,54 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
         for (TransporterStack stack : transit.values()) {
             stack.progress = Math.min(100, stack.progress + TPTier.getSpeed(tier));
         }
+    }
+
+    @Override
+    public TransitRequest.TransitResponse insert(BlockEntity outputter, TransitRequest request, @Nullable EnumColor color, boolean doEmit, int min) {
+        return insert(outputter, request, color, doEmit, stack -> stack.recalculatePath(request, this, min, doEmit));
+    }
+
+    @Override
+    public TransitRequest.TransitResponse insertRR(TileEntityLogisticalSorter outputter, TransitRequest request, @Nullable EnumColor color, boolean doEmit, int min) {
+        return insert(outputter, request, color, doEmit, stack -> stack.recalculateRRPath(request, outputter, this, min, doEmit));
+    }
+
+    @Override
+    public TransitRequest.TransitResponse insertUnchecked(BlockPos outputterPos, TransitRequest request, @Nullable EnumColor color, boolean doEmit, int min) {
+        return insertUnchecked(outputterPos, color, doEmit, stack -> stack.recalculatePath(request, this, min, doEmit));
+    }
+
+    private TransitRequest.TransitResponse insert(BlockEntity outputter, TransitRequest request, @Nullable EnumColor color, boolean doEmit,
+                                                  Function<TransporterStack, TransitRequest.TransitResponse> pathCalculator) {
+        BlockPos outputterPos = outputter.getBlockPos();
+        Direction from = WorldUtils.sideDifference(getTilePos(), outputterPos);
+        if (from != null && canReceiveFrom(from.getOpposite())) {
+            TransporterStack stack = createInsertStack(outputterPos, color);
+            if (stack.canInsertToTransporterNN(this, from, outputter)) {
+                return updateTransit(doEmit, stack, pathCalculator.apply(stack));
+            }
+        }
+        return request.getEmptyResponse();
+    }
+
+    private TransitRequest.TransitResponse insertUnchecked(BlockPos outputterPos, @Nullable EnumColor color, boolean doEmit,
+                                                           Function<TransporterStack, TransitRequest.TransitResponse> pathCalculator) {
+        TransporterStack stack = createInsertStack(outputterPos, color);
+        return updateTransit(doEmit, stack, pathCalculator.apply(stack));
+    }
+
+    @Contract("_, _, _ -> param3")
+    private TransitRequest.TransitResponse updateTransit(boolean doEmit, TransporterStack stack, TransitRequest.TransitResponse response) {
+        if (!response.isEmpty()) {
+            stack.itemStack = response.getStack();
+            if (doEmit) {
+                int stackId = nextId++;
+                addStack(stackId, stack);
+                MekanismExtras.packetHandler().sendToAllTracking(new ExtraPacketTransporterUpdate(this, stackId, stack), getTransmitterTile());
+                getTransmitterTile().markForSave();
+            }
+        }
+        return response;
     }
 
     @Override
@@ -281,7 +332,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
 
                 if (!deletes.isEmpty() || !needsSync.isEmpty()) {
                     // Notify clients, so that we send the information before we start clearing our lists
-                    Mekanism.packetHandler().sendToAllTracking(new PacketTransporterUpdate(this, needsSync, deletes), getTransmitterTile());
+                    MekanismExtras.packetHandler().sendToAllTracking(new ExtraPacketTransporterUpdate(this, needsSync, deletes), getTransmitterTile());
                     // Now remove any entries from transit that have been deleted
                     deletes.forEach((IntConsumer) (this::deleteStack));
 

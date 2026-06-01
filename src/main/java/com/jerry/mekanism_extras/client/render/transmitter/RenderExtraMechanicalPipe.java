@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 @NothingNullByDefault
-public class ExtraRenderMechanicalPipe extends RenderTransmitterBase<ExtraTileEntityMechanicalPipe> {
+public class RenderExtraMechanicalPipe extends RenderTransmitterBase<ExtraTileEntityMechanicalPipe> {
 
     private static final int stages = 100;
     private static final float height = 0.45F;
@@ -41,7 +41,7 @@ public class ExtraRenderMechanicalPipe extends RenderTransmitterBase<ExtraTileEn
     // 6 is used for null side, and 7 is used for null side but flowing vertically
     private static final Int2ObjectMap<Map<FluidStack, Int2ObjectMap<MekanismRenderer.Model3D>>> cachedLiquids = new Int2ObjectArrayMap<>(8);
 
-    public ExtraRenderMechanicalPipe(BlockEntityRendererProvider.Context context) {
+    public RenderExtraMechanicalPipe(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
