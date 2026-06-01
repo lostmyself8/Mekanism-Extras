@@ -1,8 +1,5 @@
 package com.jerry.mekextras.client.model;
 
-import com.jerry.mekextras.api.tier.AdvancedTier;
-
-import mekanism.api.SupportsColorMap;
 import mekanism.client.model.MekanismJavaModel;
 import mekanism.client.model.ModelPartData;
 import mekanism.client.render.MekanismRenderType;
@@ -17,7 +14,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -46,36 +42,13 @@ public class ColorModelEnergyCore extends MekanismJavaModel {
         cube = CUBE.getFromRoot(root);
     }
 
-    // public void render(@NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight,
-    // float[] color, float energyPercentage) {
-    // render(matrix, renderer.getBuffer(RENDER_TYPE), light, overlayLight, color, energyPercentage);
-    // }
-    //
-    // public void render(@NotNull PoseStack matrix, @NotNull VertexConsumer buffer, int light, int overlayLight,
-    // float[] color, float energyPercentage) {
-    // renderToBuffer(matrix, buffer, light, overlayLight, color[0], color[1], color[2], energyPercentage);
-    // }
-
-    public void render(@NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight, AdvancedTier advancedTier, float energyPercentage) {
-        render(matrix, renderer.getBuffer(RENDER_TYPE), light, overlayLight, advancedTier, energyPercentage);
+    public void render(@NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight, int color) {
+        render(matrix, renderer.getBuffer(RENDER_TYPE), light, overlayLight, color);
     }
 
-    // public void render(@NotNull PoseStack matrix, @NotNull VertexConsumer buffer, int light, int overlayLight,
-    // SupportsColorMap color, float energyPercentage) {
-    // renderToBuffer(matrix, buffer, light, overlayLight, color.getColor(0), color.getColor(1), color.getColor(2),
-    // energyPercentage);
-    // }
-
-    public void render(@NotNull PoseStack matrix, @NotNull VertexConsumer buffer, int light, int overlayLight, SupportsColorMap color, float energyPercentage) {
-        renderToBuffer(matrix, buffer, light, overlayLight, color.getPackedColor(FastColor.as8BitChannel(energyPercentage)));
+    public void render(@NotNull PoseStack matrix, @NotNull VertexConsumer buffer, int light, int overlayLight, int color) {
+        renderToBuffer(matrix, buffer, light, overlayLight, color);
     }
-
-    // @Override
-    // public void renderToBuffer(@NotNull PoseStack matrix, @NotNull VertexConsumer vertexBuilder, int light, int
-    // overlayLight, float red, float green, float blue,
-    // float alpha) {
-    // cube.render(matrix, vertexBuilder, light, overlayLight, red, green, blue, alpha);
-    // }
 
     @Override
     public void renderToBuffer(@NotNull PoseStack matrix, @NotNull VertexConsumer vertexBuilder, int light, int overlayLight, int color) {
