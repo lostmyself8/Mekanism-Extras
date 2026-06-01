@@ -94,7 +94,7 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
         return true;
     }
 
-    //给创造立方用的，在这里似乎没什么用
+    // 给创造立方用的，在这里似乎没什么用
     private ItemStack withEnergyCubeSideConfig(DataType dataType) {
         CompoundTag sideConfig = new CompoundTag();
         for (RelativeSide side : EnumUtils.SIDES) {

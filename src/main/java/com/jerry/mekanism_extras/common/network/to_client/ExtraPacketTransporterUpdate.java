@@ -2,10 +2,6 @@ package com.jerry.mekanism_extras.common.network.to_client;
 
 import com.jerry.mekanism_extras.common.tile.transmitter.ExtraTileEntityLogisticalTransporterBase;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
 import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.TransporterStack;
 import mekanism.common.network.BasePacketHandler;
@@ -17,6 +13,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
+
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 
 public class ExtraPacketTransporterUpdate implements IMekanismPacket {
 
@@ -90,7 +91,7 @@ public class ExtraPacketTransporterUpdate implements IMekanismPacket {
     private static void writeClientSafeStack(TransporterStack stack, LogisticalTransporterBase transporter, FriendlyByteBuf buffer) {
         ItemStack original = stack.itemStack;
         if (!original.isEmpty() && original.getCount() > original.getMaxStackSize()) {
-            //对超过64数量的物品，采用64物品渲染，不然会不渲染
+            // 对超过64数量的物品，采用64物品渲染，不然会不渲染
             stack.itemStack = original.copyWithCount(Math.min(original.getCount(), original.getMaxStackSize()));
             stack.write(transporter, buffer);
             stack.itemStack = original;
