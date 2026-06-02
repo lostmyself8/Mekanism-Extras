@@ -8,7 +8,6 @@ import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.inventory.container.slot.ContainerSlotType;
 import mekanism.common.inventory.slot.InputInventorySlot;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +39,10 @@ public class StackableInputInventorySlot extends InputInventorySlot {
 
     @Override
     public int getLimit(ItemStack stack) {
-        return Item.MAX_STACK_SIZE * factory.tier.processes;
+        try {
+            return Math.multiplyExact(super.getLimit(stack), 8 << factory.tier.ordinal());
+        } catch (ArithmeticException ignored) {
+            return Integer.MAX_VALUE;
+        }
     }
 }
