@@ -1,6 +1,8 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
 import com.jerry.mekextras.api.mixin.IMixinLogisticalTransporterBase;
+import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterBatch;
+import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterSync;
 import com.jerry.mekextras.common.tier.transmitter.TPTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
@@ -16,10 +18,11 @@ import mekanism.common.content.network.transmitter.LogisticalTransporterBase;
 import mekanism.common.content.transporter.PathfinderCache;
 import mekanism.common.content.transporter.TransporterManager;
 import mekanism.common.content.transporter.TransporterStack;
+import mekanism.common.lib.inventory.IAdvancedTransportEjector;
 import mekanism.common.lib.inventory.TransitRequest;
+import mekanism.common.lib.inventory.TransitRequest.TransitResponse;
 import mekanism.common.lib.transmitter.ConnectionType;
 import mekanism.common.network.PacketUtils;
-import mekanism.common.network.to_client.transmitter.PacketTransporterBatch;
 import mekanism.common.tier.TransporterTier;
 import mekanism.common.upgrade.transmitter.LogisticalTransporterUpgradeData;
 import mekanism.common.upgrade.transmitter.TransmitterUpgradeData;
@@ -30,6 +33,7 @@ import mekanism.common.util.TransporterUtils;
 
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -38,6 +42,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -157,6 +162,59 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
     }
 
     @Override
+    public <BE extends BlockEntity & IAdvancedTransportEjector> TransitResponse insertMaybeRR(@Nullable BE outputter, BlockPos outputterPos,
+                                                                                              TransitRequest request, @Nullable EnumColor color, boolean doEmit, int min) {
+        if (outputter != null && outputter.getRoundRobin()) {
+            return insert(outputter, outputterPos, request, color, min, doEmit, TransporterStack::recalculateRRPath);
+        }
+        return insert(outputter, outputterPos, request, color, doEmit, min);
+    }
+
+    @Override
+    public TransitResponse insert(@Nullable BlockEntity outputter, BlockPos outputterPos, TransitRequest request, @Nullable EnumColor color, boolean doEmit, int min) {
+        return insert(outputter, outputterPos, request, color, min, doEmit, TransporterStack::recalculatePath);
+    }
+
+    private <BE extends BlockEntity> TransitResponse insert(@Nullable BE outputter, BlockPos outputterPos, TransitRequest request, @Nullable EnumColor color,
+                                                            int min, boolean doEmit, PathCalculator<BE> pathCalculator) {
+        Direction from = mekanism.common.util.WorldUtils.sideDifference(getBlockPos(), outputterPos);
+        if (from != null && canReceiveFrom(from.getOpposite())) {
+            TransporterStack stack = createInsertStack(outputterPos.asLong(), color);
+            if (stack.canInsertToTransporterNN(this, from, outputter)) {
+                return updateTransit(doEmit, stack, pathCalculator.calculate(stack, request, outputter, this, min, doEmit));
+            }
+        }
+        return request.getEmptyResponse();
+    }
+
+    @Override
+    public TransitResponse insertUnchecked(long outputterPos, TransitRequest request, @Nullable EnumColor color, boolean doEmit, int min) {
+        TransporterStack stack = createInsertStack(outputterPos, color);
+        return updateTransit(doEmit, stack, stack.recalculatePath(request, this, min, doEmit));
+    }
+
+    @Override
+    public <BE extends BlockEntity> TransitResponse insertUnchecked(BE outputter, TransitRequest request, @Nullable EnumColor color, boolean doEmit, int min,
+                                                                    PathCalculator<BE> pathCalculator) {
+        TransporterStack stack = createInsertStack(outputter.getBlockPos().asLong(), color);
+        return updateTransit(doEmit, stack, pathCalculator.calculate(stack, request, outputter, this, min, doEmit));
+    }
+
+    @NotNull
+    private TransitResponse updateTransit(boolean doEmit, TransporterStack stack, TransitResponse response) {
+        if (!response.isEmpty()) {
+            stack.itemStack = response.getStack();
+            if (doEmit) {
+                int stackId = nextId++;
+                addStack(stackId, stack);
+                PacketUtils.sendToAllTracking(ExtraPacketTransporterSync.create(getWorldPositionLong(), stackId, stack), getTransmitterTile());
+                getTransmitterTile().markForSave();
+            }
+        }
+        return response;
+    }
+
+    @Override
     public void onUpdateServer() {
         if (getTransmitterNetwork() != null) {
             // Pull items into the transporter
@@ -167,7 +225,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                 // Reset delay to 3 ticks; if nothing is available to insert OR inserted, we'll try again in 3 ticks
                 delay = 3;
                 // Attempt to pull
-                BlockPos.MutableBlockPos inventoryPos = new BlockPos.MutableBlockPos();
+                MutableBlockPos inventoryPos = new MutableBlockPos();
                 BlockPos pos = getBlockPos();
                 for (Direction side : EnumUtils.DIRECTIONS) {
                     if (!isConnectionType(side, ConnectionType.PULL)) {
@@ -179,7 +237,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                         TransitRequest request = TransitRequest.anyItem(inventory, TPTier.getPullAmount(tier));
                         // There's a stack available to insert into the network...
                         if (!request.isEmpty()) {
-                            TransitRequest.TransitResponse response = insert(null, inventoryPos, request, getColor(), true, 0);
+                            TransitResponse response = insert(null, inventoryPos, request, getColor(), true, 0);
                             if (response.isEmpty()) {
                                 // Insert failed; increment the backoff and calculate delay. Note that we cap retries
                                 // at a max of 40 ticks (2 seconds), which would be 4 consecutive retries
@@ -250,7 +308,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                                         // won't be able to insert it
                                         acceptor = Capabilities.ITEM.getCapabilityIfLoaded(getLevel(), nextPos, side);
                                     }
-                                    TransitRequest.TransitResponse response = TransitRequest.simple(stack.itemStack).addToInventory(getLevel(), nextPos, acceptor, 0,
+                                    TransitResponse response = TransitRequest.simple(stack.itemStack).addToInventory(getLevel(), nextPos, acceptor, 0,
                                             stack.getPathType().isHome());
                                     if (!response.isEmpty()) {
                                         // We were able to add at least part of the stack to the inventory
@@ -322,7 +380,7 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                     // Notify clients, so that we send the information before we start clearing our lists
                     // Note: We have to copy needsSync so that it still has values when we clear the pending sync
                     // packets
-                    PacketUtils.sendToAllTracking(PacketTransporterBatch.create(pos, deletes, new Int2ObjectOpenHashMap<>(needsSync)), getTransmitterTile());
+                    PacketUtils.sendToAllTracking(ExtraPacketTransporterBatch.create(pos, deletes, new Int2ObjectOpenHashMap<>(needsSync)), getTransmitterTile());
                     // Now remove any entries from transit that have been deleted
                     PrimitiveIterator.OfInt ofInt = deletes.iterator();
                     while (ofInt.hasNext()) {

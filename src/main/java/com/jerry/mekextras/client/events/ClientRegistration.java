@@ -8,7 +8,6 @@ import com.jerry.mekextras.client.gui.machine.GuiExtraFactory;
 import com.jerry.mekextras.client.gui.machine.GuiExtraMoreMachineFactory;
 import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.client.model.energycube.ExtraEnergyCubeModelLoader;
-import com.jerry.mekextras.client.render.ExtraRenderer;
 import com.jerry.mekextras.client.render.item.block.RenderExtraEnergyCubeItem;
 import com.jerry.mekextras.client.render.item.block.RenderExtraFluidTankItem;
 import com.jerry.mekextras.client.render.tileentity.RenderExtraBin;
@@ -149,8 +148,7 @@ public class ClientRegistration {
             if (tintIndex == 1) {
                 FTTier tier = ExtraAttribute.getAdvancedTier(state.getBlock(), FTTier.class);
                 if (tier != null) {
-                    float[] color = TierColor.getColor(tier);
-                    return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                    return TierColor.getPackedColor(tier);
                 }
             }
             return -1;
@@ -160,8 +158,7 @@ public class ClientRegistration {
             if (index == 1) {
                 ECTier tier = ExtraAttribute.getAdvancedTier(state.getBlock(), ECTier.class);
                 if (tier != null) {
-                    float[] color = TierColor.getColor(tier);
-                    return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                    return TierColor.getPackedColor(tier);
                 }
             }
             return -1;
@@ -193,8 +190,7 @@ public class ClientRegistration {
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ItemBlockExtraFluidTank tank) {
-                float[] color = TierColor.getColor(tank.getAdvancedTier());
-                return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                return TierColor.getPackedColor(tank.getAdvancedTier());
             }
             return -1;
         }, ExtraBlocks.ABSOLUTE_FLUID_TANK, ExtraBlocks.SUPREME_FLUID_TANK, ExtraBlocks.COSMIC_FLUID_TANK, ExtraBlocks.INFINITE_FLUID_TANK);
@@ -203,8 +199,7 @@ public class ClientRegistration {
         ClientRegistrationUtil.registerItemColorHandler(event, (stack, tintIndex) -> {
             Item item = stack.getItem();
             if (tintIndex == 1 && item instanceof ItemBlockExtraEnergyCube cube) {
-                float[] color = TierColor.getColor(cube.getAdvancedTier());
-                return ExtraRenderer.getColorARGB(color[0], color[1], color[2], 1);
+                return TierColor.getPackedColor(cube.getAdvancedTier());
             }
             return -1;
         }, ExtraBlocks.ABSOLUTE_ENERGY_CUBE, ExtraBlocks.SUPREME_ENERGY_CUBE, ExtraBlocks.COSMIC_ENERGY_CUBE, ExtraBlocks.INFINITE_ENERGY_CUBE);

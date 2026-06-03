@@ -1,7 +1,7 @@
 package com.jerry.mekextras.client.render.tileentity;
 
-import com.jerry.mekextras.api.tier.AdvancedTier;
 import com.jerry.mekextras.client.model.ColorModelEnergyCore;
+import com.jerry.mekextras.common.tier.TierColor;
 import com.jerry.mekextras.common.tile.TileEntityExtraEnergyCube;
 
 import mekanism.api.annotations.NothingNullByDefault;
@@ -37,7 +37,6 @@ public class RenderExtraEnergyCube extends ModelTileEntityRenderer<TileEntityExt
     protected void render(@NotNull TileEntityExtraEnergyCube tile, float partialTick, @NotNull PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight, ProfilerFiller profiler) {
         float energyScale = tile.getEnergyScale();
         Vec3 renderPos = tile.getBlockPos().getCenter();
-        AdvancedTier advancedTier = tile.getAdvanceTier().getAdvanceTier();
         RenderTickHandler.addTransparentRenderer(new RenderTickHandler.LazyRender() {
 
             @Override
@@ -51,7 +50,7 @@ public class RenderExtraEnergyCube extends ModelTileEntityRenderer<TileEntityExt
                 poseStack.translate(0, Math.sin(Math.toRadians(3 * ticks)) / 7, 0);
                 poseStack.mulPose(Axis.YP.rotationDegrees(scaledTicks));
                 poseStack.mulPose(coreVec.rotationDegrees(36F + scaledTicks));
-                model.render(poseStack, buffer, LightTexture.FULL_BRIGHT, overlayLight, advancedTier, energyScale);
+                model.render(poseStack, buffer, LightTexture.FULL_BRIGHT, overlayLight, TierColor.getPackedColor(tile.getAdvanceTier(), energyScale));
                 poseStack.popPose();
             }
 

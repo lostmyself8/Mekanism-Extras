@@ -1,6 +1,8 @@
 package com.jerry.mekextras.common.network;
 
 import com.jerry.mekextras.MekanismExtras;
+import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterBatch;
+import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterSync;
 import com.jerry.mekextras.common.network.to_server.ExtraPacketGuiInteract;
 import com.jerry.mekextras.common.network.to_server.button.ExtraPacketTileButtonPress;
 
@@ -36,5 +38,8 @@ public class ExtraPacketHandler extends BasePacketHandler {
     }
 
     @Override
-    protected void registerServerToClient(PacketRegistrar registrar) {}
+    protected void registerServerToClient(PacketRegistrar registrar) {
+        registrar.play(ExtraPacketTransporterSync.TYPE, ExtraPacketTransporterSync.STREAM_CODEC);
+        registrar.play(ExtraPacketTransporterBatch.TYPE, ExtraPacketTransporterBatch.STREAM_CODEC);
+    }
 }

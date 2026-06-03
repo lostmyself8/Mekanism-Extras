@@ -4,6 +4,7 @@ import com.jerry.mekextras.client.model.ColorModelEnergyCore;
 import com.jerry.mekextras.client.render.tileentity.RenderExtraEnergyCube;
 import com.jerry.mekextras.common.item.block.ItemBlockExtraEnergyCube;
 import com.jerry.mekextras.common.tier.ECTier;
+import com.jerry.mekextras.common.tier.TierColor;
 import com.jerry.mekextras.common.tile.TileEntityExtraEnergyCube;
 
 import mekanism.api.RelativeSide;
@@ -65,7 +66,7 @@ public class RenderExtraEnergyCubeItem extends MekanismISTER {
             matrix.translate(0, Math.sin(Math.toRadians(3 * ticks)) / 7, 0);
             matrix.mulPose(Axis.YP.rotationDegrees(scaledTicks));
             matrix.mulPose(RenderExtraEnergyCube.coreVec.rotationDegrees(36F + scaledTicks));
-            core.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, tier.getAdvanceTier(), (float) energyPercentage);
+            core.render(matrix, renderer, LightTexture.FULL_BRIGHT, overlayLight, TierColor.getPackedColor(tier, (float) energyPercentage));
             matrix.popPose();
         }
     }
