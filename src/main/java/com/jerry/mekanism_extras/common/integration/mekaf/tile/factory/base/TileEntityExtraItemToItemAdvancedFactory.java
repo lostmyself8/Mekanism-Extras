@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.integration.mekaf.tile.factory.base;
 
+import com.jerry.mekanism_extras.api.recipes.outputs.ExtraOutputHelper;
 import com.jerry.mekanism_extras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryInputInventorySlot;
 import com.jerry.mekanism_extras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryOutputInventorySlot;
 
@@ -13,9 +14,10 @@ import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
 import mekanism.api.recipes.inputs.IInputHandler;
 import mekanism.api.recipes.inputs.InputHelper;
 import mekanism.api.recipes.outputs.IOutputHandler;
-import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.CommonWorldTickHandler;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.inventory.HashedItem;
 import mekanism.common.tile.component.ITileComponent;
@@ -72,13 +74,25 @@ public abstract class TileEntityExtraItemToItemAdvancedFactory<RECIPE extends Me
             builder.addSlot(inputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, index)));
             builder.addSlot(outputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));
             itemInputHandlers[i] = InputHelper.getInputHandler(inputSlot, RecipeError.NOT_ENOUGH_INPUT);
-            itemOutputHandlers[i] = OutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
+            itemOutputHandlers[i] = ExtraOutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE, () -> baselineMaxOperations);
             processInfoSlots[i] = new ItemToItemProcessInfo(i, inputSlot, outputSlot);
         }
     }
 
     public boolean inputProducesOutput(int process, @NotNull ItemStack fallbackInput, @NotNull IInventorySlot outputSlot, boolean updateCache) {
         return outputSlot.isEmpty() || getRecipeForInput(process, fallbackInput, outputSlot, updateCache) != null;
+    }
+
+    @ComputerMethod
+    ItemStack getInput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputSlot().getStack();
+    }
+
+    @ComputerMethod
+    ItemStack getOutput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputSlot().getStack();
     }
 
     @Contract("null, _ -> false")

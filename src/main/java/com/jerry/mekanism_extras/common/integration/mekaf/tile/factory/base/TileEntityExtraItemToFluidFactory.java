@@ -19,6 +19,8 @@ import mekanism.common.CommonWorldTickHandler;
 import mekanism.common.capabilities.fluid.BasicFluidTank;
 import mekanism.common.capabilities.holder.fluid.FluidTankHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.inventory.HashedItem;
 import mekanism.common.lib.transmitter.TransmissionType;
@@ -32,6 +34,7 @@ import mekanism.common.util.MekanismUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fluids.FluidStack;
 
 import com.jerry.mekaf.common.upgrade.ItemToFluidUpgradeData;
 import org.jetbrains.annotations.Contract;
@@ -108,6 +111,23 @@ public abstract class TileEntityExtraItemToFluidFactory<RECIPE extends MekanismR
 
     public boolean inputProducesOutput(int process, @NotNull ItemStack fallbackInput, @NotNull IExtendedFluidTank outputTank, boolean updateCache) {
         return outputTank.getFluid().isEmpty() || getRecipeForInput(process, fallbackInput, outputTank, updateCache) != null;
+    }
+
+    @ComputerMethod
+    ItemStack getInput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputSlot().getStack();
+    }
+
+    @ComputerMethod
+    FluidStack getOutput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputTank().getFluid();
+    }
+
+    IExtendedFluidTank getOutputTank(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputTank();
     }
 
     @Contract("null, _ -> false")

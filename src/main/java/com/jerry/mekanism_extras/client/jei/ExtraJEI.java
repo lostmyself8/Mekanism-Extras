@@ -59,5 +59,10 @@ public class ExtraJEI implements IModPlugin {
 
         ExtraCatalystRegistryHelper.register(registry, MekanismJEIRecipeType.ENERGY_CONVERSION, ExtraBlocks.ABSOLUTE_ENERGY_CUBE, ExtraBlocks.SUPREME_ENERGY_CUBE,
                 ExtraBlocks.COSMIC_ENERGY_CUBE, ExtraBlocks.INFINITE_ENERGY_CUBE);
+
+        if (Addons.MEKMM.isLoaded()) {
+            ExtraAFCatalystRegistryHelper.register(registry);
+            ExtraMMCatalystRegistryHelper.register(registry);
+        }
     }
 }

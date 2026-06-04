@@ -5,6 +5,7 @@ import com.jerry.mekanism_extras.common.integration.mekaf.inventory.slot.ExtraAd
 import mekanism.api.Action;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
+import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.gas.IGasTank;
@@ -26,6 +27,8 @@ import mekanism.api.recipes.outputs.IOutputHandler;
 import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.tile.component.ITileComponent;
@@ -38,6 +41,7 @@ import mekanism.common.tile.component.config.slot.ChemicalSlotInfo.SlurrySlotInf
 import mekanism.common.upgrade.IUpgradeData;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import com.jerry.mekaf.common.upgrade.MergedToItemUpgradeData;
@@ -162,6 +166,19 @@ public abstract class TileEntityExtraMergedToItemFactory<RECIPE extends Mekanism
             builder.addSlot(outputSlot[i]).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT, getWarningCheck(RecipeError.NOT_ENOUGH_OUTPUT_SPACE, index)));
             itemOutputHandlers[i] = OutputHelper.getOutputHandler(outputSlot[i], RecipeError.NOT_ENOUGH_OUTPUT_SPACE);
         }
+    }
+
+    IChemicalTank<?, ?> getInputTank(int process) throws ComputerException {
+        validateValidProcess(process);
+        MergedChemicalTank tank = processInfoSlots[process].inputTank();
+        MergedChemicalTank.Current current = tank.getCurrent();
+        return tank.getTankFromCurrent(current == MergedChemicalTank.Current.EMPTY ? MergedChemicalTank.Current.GAS : current);
+    }
+
+    @ComputerMethod
+    ItemStack getOutput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputSlot().getStack();
     }
 
     public void parseUpgradeData(@NotNull IUpgradeData upgradeData) {

@@ -20,6 +20,9 @@ import mekanism.common.capabilities.fluid.BasicFluidTank;
 import mekanism.common.capabilities.holder.fluid.FluidTankHelper;
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerFluidTankWrapper;
+import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper;
+import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.inventory.container.slot.SlotOverlay;
 import mekanism.common.inventory.slot.FluidInventorySlot;
 import mekanism.common.inventory.slot.OutputInventorySlot;
@@ -65,10 +68,13 @@ public class TileEntityExtraWashingFactory extends TileEntityExtraSlurryToSlurry
 
     private static final int MAX_FLUID = 10_000;
 
+    @WrappingComputerMethod(wrapper = ComputerFluidTankWrapper.class, methodNames = { "getFluid", "getFluidCapacity", "getFluidNeeded", "getFluidFilledPercentage" }, docPlaceholder = "fluid tank")
     public BasicFluidTank fluidTank;
     private final IInputHandler<FluidStack> fluidInputHandler;
 
+    @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = { "getFluidItemInput" }, docPlaceholder = "fluid item input slot")
     FluidInventorySlot fluidInputSlot;
+    @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = { "getFluidItemOutput" }, docPlaceholder = "fluid item output slot")
     OutputInventorySlot fluidOutputSlot;
 
     public TileEntityExtraWashingFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {

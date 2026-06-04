@@ -21,6 +21,8 @@ import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.CommonWorldTickHandler;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.inventory.HashedItem;
 import mekanism.common.lib.transmitter.TransmissionType;
@@ -111,6 +113,23 @@ public abstract class TileEntityExtraItemToPigmentFactory<RECIPE extends Mekanis
 
     public boolean inputProducesOutput(int process, @NotNull ItemStack fallbackInput, @NotNull IPigmentTank outputTank, boolean updateCache) {
         return outputTank.getStack().isEmpty() || getRecipeForInput(process, fallbackInput, outputTank, updateCache) != null;
+    }
+
+    @ComputerMethod
+    ItemStack getInput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputSlot().getStack();
+    }
+
+    @ComputerMethod
+    PigmentStack getOutput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputTank().getStack();
+    }
+
+    IPigmentTank getOutputTank(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputTank();
     }
 
     @Contract("null, _ -> false")

@@ -32,6 +32,11 @@ import mekanism.common.capabilities.fluid.BasicFluidTank;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.fluid.FluidTankHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerChemicalTankWrapper;
+import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerFluidTankWrapper;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
+import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.inventory.HashedItem;
@@ -91,9 +96,14 @@ public class TileEntityExtraPressurizedReactingFactory extends TileEntityExtraAd
     public static final int MAX_FLUID = 10_000;
 
     private PRCProcessInfo[] processInfoSlots;
+
+    @WrappingComputerMethod(wrapper = ComputerFluidTankWrapper.class, methodNames = { "getInputFluid", "getInputFluidCapacity", "getInputFluidNeeded", "getInputFluidFilledPercentage" }, docPlaceholder = "fluid input")
     public BasicFluidTank inputFluidTank;
+    @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = { "getInputGas", "getInputGasCapacity", "getInputGasNeeded", "getInputGasFilledPercentage" }, docPlaceholder = "gas input")
     public IGasTank inputGasTank;
+    @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = { "getOutputGas", "getOutputGasCapacity", "getOutputGasNeeded", "getOutputGasFilledPercentage" }, docPlaceholder = "gas output")
     public IGasTank outputGasTank;
+
     private FloatingLong recipeEnergyRequired = FloatingLong.ZERO;
     private final IInputHandler<FluidStack> fluidInputHandler;
     private final IInputHandler<GasStack> gasInputHandler;
@@ -319,6 +329,18 @@ public class TileEntityExtraPressurizedReactingFactory extends TileEntityExtraAd
         }
 
         inputGasTank.setEmpty();
+    }
+
+    @ComputerMethod
+    ItemStack getInput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputSlot().getStack();
+    }
+
+    @ComputerMethod
+    ItemStack getOutput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputSlot().getStack();
     }
 
     @Override

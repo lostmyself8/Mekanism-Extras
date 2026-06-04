@@ -18,6 +18,8 @@ import mekanism.api.recipes.outputs.IOutputHandler;
 import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.CommonWorldTickHandler;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.tile.component.ITileComponent;
 import mekanism.common.tile.component.config.ConfigInfo;
@@ -102,6 +104,28 @@ public abstract class TileEntityExtraGasToGasFactory<RECIPE extends MekanismReci
 
     public boolean inputProducesOutput(int process, @NotNull GasStack fallbackInput, @NotNull IGasTank outputTank, boolean updateCache) {
         return outputTank.isEmpty() || getRecipeForInput(process, fallbackInput, outputTank, updateCache) != null;
+    }
+
+    @ComputerMethod
+    GasStack getInput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputTank().getStack();
+    }
+
+    IGasTank getInputTank(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputTank();
+    }
+
+    @ComputerMethod
+    GasStack getOutput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputTank().getStack();
+    }
+
+    IGasTank getOutputTank(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].outputTank();
     }
 
     @Contract("null, _ -> false")

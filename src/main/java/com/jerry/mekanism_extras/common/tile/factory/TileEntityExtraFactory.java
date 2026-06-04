@@ -96,6 +96,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
     /**
      * 一次执行的配方数（并行数），默认为1
      */
+    @Getter
     protected int baselineMaxOperations = 1;
     /**
      * This Factory's tier.
@@ -426,7 +427,6 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        CompoundTag upgradesTag = serializeNBT().getCompound(NBTConstants.UPGRADES);
         if (getEnergyContainer() instanceof IMixinMachineEnergyContainer mixMach)
             mixMach.mekanism_Extras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
@@ -661,12 +661,7 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe> exte
             HashedItem item = entry.getKey();
             // Note: This isn't based on any limits the slot may have (but we currently don't have any reduced ones
             // here, so it doesn't matter)
-            int maxStackSize = switch (tier) {
-                case ABSOLUTE -> item.getMaxStackSize() * 8;
-                case SUPREME -> item.getMaxStackSize() * 16;
-                case COSMIC -> item.getMaxStackSize() * 32;
-                case INFINITE -> item.getMaxStackSize() * 64;
-            };
+            int maxStackSize = item.getMaxStackSize() * 8 << tier.ordinal();
             int numberPerSlot = recipeProcessInfo.totalCount / processCount;
             if (numberPerSlot == maxStackSize) {
                 // If all the slots are already maxed out; short-circuit, no balancing is needed

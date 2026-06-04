@@ -168,7 +168,7 @@ public class TileEntityExtraMetallurgicInfuserFactory extends TileEntityExtraIte
                 .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
                 .setRequiredTicks(this::getTicksRequired)
                 .setOnFinish(this::markForSave)
-                .setBaselineMaxOperations(() -> baselineMaxOperations)
+                .setBaselineMaxOperations(this::getBaselineMaxOperations)
                 .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
     }
 

@@ -24,6 +24,9 @@ import mekanism.api.recipes.inputs.InputHelper;
 import mekanism.common.Mekanism;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerChemicalTankWrapper;
+import mekanism.common.integration.computer.SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper;
+import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.inventory.slot.chemical.GasInventorySlot;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
@@ -66,9 +69,13 @@ public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToMerge
             RecipeError.NOT_ENOUGH_SECONDARY_INPUT);
     private static final long MAX_CHEMICAL = 10_000L;
 
+    @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class, methodNames = { "getChemicalInput", "getChemicalInputCapacity", "getChemicalInputNeeded", "getChemicalInputFilledPercentage" }, docPlaceholder = "chemical input tank")
     public IGasTank injectTank;
+
     public double injectUsage = 1.0;
     private final ILongInputHandler<GasStack> gasInputHandler;
+
+    @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = { "getInputChemicalItem" }, docPlaceholder = "chemical input item slot")
     GasInventorySlot gasInputSlot;
 
     public TileEntityExtraDissolvingFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {

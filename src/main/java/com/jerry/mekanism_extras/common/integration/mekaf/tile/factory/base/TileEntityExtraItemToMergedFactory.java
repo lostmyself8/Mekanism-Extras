@@ -6,6 +6,7 @@ import mekanism.api.Action;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.chemical.ChemicalTankBuilder;
+import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.gas.IGasTank;
@@ -30,6 +31,8 @@ import mekanism.api.recipes.outputs.BoxedChemicalOutputHandler;
 import mekanism.common.CommonWorldTickHandler;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
+import mekanism.common.integration.computer.ComputerException;
+import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.inventory.HashedItem;
 import mekanism.common.lib.transmitter.TransmissionType;
@@ -193,6 +196,19 @@ public abstract class TileEntityExtraItemToMergedFactory<RECIPE extends Mekanism
 
     public boolean inputProducesOutput(int process, @NotNull ItemStack fallbackInput, @NotNull MergedChemicalTank outputTank, boolean updateCache) {
         return outputTank.getAllTanks().isEmpty() || getRecipeForInput(process, fallbackInput, outputTank, updateCache) != null;
+    }
+
+    @ComputerMethod
+    ItemStack getInput(int process) throws ComputerException {
+        validateValidProcess(process);
+        return processInfoSlots[process].inputSlot().getStack();
+    }
+
+    IChemicalTank<?, ?> getOutputTank(int process) throws ComputerException {
+        validateValidProcess(process);
+        MergedChemicalTank tank = processInfoSlots[process].outputTank();
+        MergedChemicalTank.Current current = tank.getCurrent();
+        return tank.getTankFromCurrent(current == MergedChemicalTank.Current.EMPTY ? MergedChemicalTank.Current.GAS : current);
     }
 
     @Contract("null, _ -> false")

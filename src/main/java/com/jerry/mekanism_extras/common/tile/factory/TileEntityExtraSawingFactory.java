@@ -1,5 +1,6 @@
 package com.jerry.mekanism_extras.common.tile.factory;
 
+import com.jerry.mekanism_extras.api.recipes.outputs.ExtraOutputHelper;
 import com.jerry.mekanism_extras.common.inventory.slot.ExtraFactoryInputInventorySlot;
 import com.jerry.mekanism_extras.common.inventory.slot.ExtraFactoryOutputInventorySlot;
 
@@ -15,7 +16,6 @@ import mekanism.api.recipes.cache.OneInputCachedRecipe;
 import mekanism.api.recipes.inputs.IInputHandler;
 import mekanism.api.recipes.inputs.InputHelper;
 import mekanism.api.recipes.outputs.IOutputHandler;
-import mekanism.api.recipes.outputs.OutputHelper;
 import mekanism.common.Mekanism;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.integration.computer.ComputerException;
@@ -79,8 +79,8 @@ public class TileEntityExtraSawingFactory extends TileEntityExtraFactory<Sawmill
             builder.addSlot(secondaryOutputSlot).tracksWarnings(slot -> slot.warning(WarningType.NO_SPACE_IN_OUTPUT,
                     getWarningCheck(TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, index)));
             inputHandlers[i] = InputHelper.getInputHandler(inputSlot, RecipeError.NOT_ENOUGH_INPUT);
-            outputHandlers[i] = OutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE, secondaryOutputSlot,
-                    TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR);
+            outputHandlers[i] = ExtraOutputHelper.getOutputHandler(outputSlot, RecipeError.NOT_ENOUGH_OUTPUT_SPACE, secondaryOutputSlot,
+                    TileEntityPrecisionSawmill.NOT_ENOUGH_SPACE_SECONDARY_OUTPUT_ERROR, this::getBaselineMaxOperations);
             processInfoSlots[i] = new ProcessInfo(i, inputSlot, outputSlot, secondaryOutputSlot);
         }
     }
@@ -141,7 +141,7 @@ public class TileEntityExtraSawingFactory extends TileEntityExtraFactory<Sawmill
                 .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
                 .setRequiredTicks(this::getTicksRequired)
                 .setOnFinish(this::markForSave)
-                .setBaselineMaxOperations(() -> baselineMaxOperations)
+                .setBaselineMaxOperations(this::getBaselineMaxOperations)
                 .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks);
     }
 
