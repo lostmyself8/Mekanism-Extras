@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.common.tile.multiblock;
 
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
 
 import mekanism.api.IContentsListener;
 import mekanism.api.text.EnumColor;
@@ -30,7 +30,7 @@ public class TileEntityReinforcedInductionPort extends TileEntityReinforcedInduc
     private Set<Direction> outputDirections = Collections.emptySet();
 
     public TileEntityReinforcedInductionPort(BlockPos pos, BlockState state) {
-        super(ExtraBlock.REINFORCED_INDUCTION_PORT, pos, state);
+        super(ExtraBlocks.REINFORCED_INDUCTION_PORT, pos, state);
         delaySupplier = NO_DELAY;
     }
 

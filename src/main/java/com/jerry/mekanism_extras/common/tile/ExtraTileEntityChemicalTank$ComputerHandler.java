@@ -3,6 +3,7 @@ package com.jerry.mekanism_extras.common.tile;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.common.integration.computer.*;
 import mekanism.common.integration.computer.annotation.MethodFactory;
+import mekanism.common.tile.TileEntityChemicalTank.GasMode;
 
 import net.minecraft.world.item.ItemStack;
 
@@ -12,10 +13,10 @@ public class ExtraTileEntityChemicalTank$ComputerHandler extends ComputerMethodF
 
     private final String[] NAMES_mode = new String[] { "mode" };
 
-    private final Class[] TYPES_ef806282 = new Class[] { ExtraTileEntityChemicalTank.GasMode.class };
+    private final Class[] TYPES_ef806282 = new Class[] { GasMode.class };
 
     public ExtraTileEntityChemicalTank$ComputerHandler() {
-        register(MethodData.builder("getDumpingMode", ExtraTileEntityChemicalTank$ComputerHandler::getDumpingMode_0).returnType(ExtraTileEntityChemicalTank.GasMode.class).methodDescription("Get the current Dumping configuration"));
+        register(MethodData.builder("getDumpingMode", ExtraTileEntityChemicalTank$ComputerHandler::getDumpingMode_0).returnType(GasMode.class).methodDescription("Get the current Dumping configuration"));
         register(MethodData.builder("getDrainItem", ExtraTileEntityChemicalTank$ComputerHandler::drainSlot$getDrainItem).returnType(ItemStack.class).methodDescription("Get the contents of the drain slot."));
         register(MethodData.builder("getFillItem", ExtraTileEntityChemicalTank$ComputerHandler::fillSlot$getFillItem).returnType(ItemStack.class).methodDescription("Get the contents of the fill slot."));
         register(MethodData.builder("getStored", ExtraTileEntityChemicalTank$ComputerHandler::getCurrentTank$getStored).returnType(ChemicalStack.class).methodDescription("Get the contents of the tank."));
@@ -64,7 +65,7 @@ public class ExtraTileEntityChemicalTank$ComputerHandler extends ComputerMethodF
 
     public static Object setDumpingMode_1(ExtraTileEntityChemicalTank subject, BaseComputerHelper helper)
                                                                                                           throws ComputerException {
-        subject.setDumpingMode(helper.getEnum(0, ExtraTileEntityChemicalTank.GasMode.class));
+        subject.setDumpingMode(helper.getEnum(0, GasMode.class));
         return helper.voidResult();
     }
 

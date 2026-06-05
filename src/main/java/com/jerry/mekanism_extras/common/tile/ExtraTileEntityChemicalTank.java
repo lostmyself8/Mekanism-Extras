@@ -6,7 +6,6 @@ import com.jerry.mekanism_extras.common.tier.CTTier;
 import com.jerry.mekanism_extras.common.upgrade.ExtraChemicalTankUpgradeData;
 
 import mekanism.api.*;
-import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
@@ -23,9 +22,6 @@ import mekanism.api.chemical.slurry.Slurry;
 import mekanism.api.chemical.slurry.SlurryStack;
 import mekanism.api.math.MathUtils;
 import mekanism.api.providers.IBlockProvider;
-import mekanism.api.text.IHasTextComponent;
-import mekanism.api.text.ILangEntry;
-import mekanism.common.MekanismLang;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
@@ -42,6 +38,7 @@ import mekanism.common.inventory.container.slot.SlotOverlay;
 import mekanism.common.inventory.container.sync.SyncableEnum;
 import mekanism.common.inventory.slot.chemical.MergedChemicalInventorySlot;
 import mekanism.common.lib.transmitter.TransmissionType;
+import mekanism.common.tile.TileEntityChemicalTank.GasMode;
 import mekanism.common.tile.base.SubstanceType;
 import mekanism.common.tile.component.ITileComponent;
 import mekanism.common.tile.component.TileComponentConfig;
@@ -56,7 +53,6 @@ import mekanism.common.util.NBTUtils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -92,7 +88,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
         configComponent.setupIOConfig(TransmissionType.SLURRY, getSlurryTank(), RelativeSide.FRONT).setEjecting(true);
         ejectorComponent = new TileComponentEjector(this, () -> tier.getOutput());
         ejectorComponent.setOutputData(configComponent, TransmissionType.GAS, TransmissionType.INFUSION, TransmissionType.PIGMENT, TransmissionType.SLURRY)
-                .setCanEject(type -> MekanismUtils.canFunction(this) && dumping != ExtraTileEntityChemicalTank.GasMode.DUMPING);
+                .setCanEject(type -> MekanismUtils.canFunction(this) && dumping != GasMode.DUMPING);
     }
 
     @Override
@@ -152,11 +148,11 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
         super.onUpdateServer();
         drainSlot.drainChemicalTanks();
         fillSlot.fillChemicalTanks();
-        if (dumping != ExtraTileEntityChemicalTank.GasMode.IDLE) {
+        if (dumping != GasMode.IDLE) {
             MergedChemicalTank.Current current = chemicalTank.getCurrent();
             if (current != MergedChemicalTank.Current.EMPTY) {
                 IChemicalTank<?, ?> currentTank = chemicalTank.getTankFromCurrent(current);
-                if (dumping == ExtraTileEntityChemicalTank.GasMode.DUMPING) {
+                if (dumping == GasMode.DUMPING) {
                     currentTank.shrinkStack(tier.getStorage() / 400, Action.EXECUTE);
                 } else {// dumping == GasMode.DUMPING_EXCESS
                     long target = MathUtils.clampToLong(currentTank.getCapacity() * MekanismConfig.general.dumpExcessKeepRatio.get());
@@ -217,6 +213,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
         return chemicalTank.getSlurryTank();
     }
 
+    // TODO:重新评估
     @Override
     public void parseUpgradeData(@NotNull IUpgradeData upgradeData) {
         if (upgradeData instanceof ExtraChemicalTankUpgradeData data) {
@@ -264,7 +261,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
 
     @Override
     public void readSustainedData(CompoundTag dataMap) {
-        NBTUtils.setEnumIfPresent(dataMap, NBTConstants.DUMP_MODE, ExtraTileEntityChemicalTank.GasMode::byIndexStatic, mode -> dumping = mode);
+        NBTUtils.setEnumIfPresent(dataMap, NBTConstants.DUMP_MODE, GasMode::byIndexStatic, mode -> dumping = mode);
     }
 
     @Override
@@ -282,7 +279,7 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
 
     // Methods relating to IComputerTile
     @ComputerMethod(requiresPublicSecurity = true, methodDescription = "Set the Dumping mode of the tank")
-    void setDumpingMode(ExtraTileEntityChemicalTank.GasMode mode) throws ComputerException {
+    void setDumpingMode(GasMode mode) throws ComputerException {
         validateSecurityIsPublic();
         if (dumping != mode) {
             dumping = mode;
@@ -303,33 +300,4 @@ public class ExtraTileEntityChemicalTank extends TileEntityConfigurableMachine i
         markForSave();
     }
     // End methods IComputerTile
-
-    @NothingNullByDefault
-    public enum GasMode implements IIncrementalEnum<ExtraTileEntityChemicalTank.GasMode>, IHasTextComponent {
-
-        IDLE(MekanismLang.IDLE),
-        DUMPING_EXCESS(MekanismLang.DUMPING_EXCESS),
-        DUMPING(MekanismLang.DUMPING);
-
-        private static final ExtraTileEntityChemicalTank.GasMode[] MODES = values();
-        private final ILangEntry langEntry;
-
-        GasMode(ILangEntry langEntry) {
-            this.langEntry = langEntry;
-        }
-
-        @Override
-        public Component getTextComponent() {
-            return langEntry.translate();
-        }
-
-        @Override
-        public ExtraTileEntityChemicalTank.GasMode byIndex(int index) {
-            return byIndexStatic(index);
-        }
-
-        public static ExtraTileEntityChemicalTank.GasMode byIndexStatic(int index) {
-            return MathUtils.getByIndexMod(MODES, index);
-        }
-    }
 }

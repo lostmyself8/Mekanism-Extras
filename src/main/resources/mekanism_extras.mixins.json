@@ -10,19 +10,18 @@
     "MixinAPILang",
     "MixinBinInventorySlot",
     "MixinFactory",
-    "MixinFusionReactorMultiblockData",
-    "MixinFusionReactorValidator",
     "MixinGeneratorsPacketHandler",
     "MixinLogisticalTransporterBase",
     "MixinMachineEnergyContainer",
     "MixinMekanismBlockTypes",
-    "MixinMekanismJEIRecipeType",
     "MixinTileComponentEjector",
     "MixinTileEntityLogisticalSorter",
     "MixinTurbineGasTank",
     "MixinTurbineMultiblockData",
     "MixinUpgrade",
-    "MixinUpgradeUtils"
+    "MixinUpgradeUtils",
+    "integration.mekaf.MixinAdvancedFactory",
+    "integration.mekmm.MixinMoreMachineFactory"
   ],
   "injectors": {
     "defaultRequire": 1

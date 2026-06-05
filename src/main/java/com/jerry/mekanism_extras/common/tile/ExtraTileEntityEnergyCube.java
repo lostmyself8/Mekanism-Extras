@@ -17,6 +17,7 @@ import mekanism.common.integration.computer.annotation.WrappingComputerMethod;
 import mekanism.common.inventory.container.slot.SlotOverlay;
 import mekanism.common.inventory.slot.EnergyInventorySlot;
 import mekanism.common.lib.transmitter.TransmissionType;
+import mekanism.common.tile.TileEntityEnergyCube.CubeSideState;
 import mekanism.common.tile.base.SubstanceType;
 import mekanism.common.tile.component.ITileComponent;
 import mekanism.common.tile.component.TileComponentConfig;
@@ -198,11 +199,5 @@ public class ExtraTileEntityEnergyCube extends TileEntityConfigurableMachine {
             sideStates[side.ordinal()] = state;
         }
         return ModelData.builder().with(SIDE_STATE_PROPERTY, sideStates).build();
-    }
-
-    public enum CubeSideState {
-        ACTIVE_LIT,
-        ACTIVE_UNLIT,
-        INACTIVE
     }
 }

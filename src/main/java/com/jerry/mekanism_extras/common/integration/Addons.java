@@ -10,7 +10,8 @@ import lombok.Getter;
 public enum Addons {
 
     MEKANISMGENERATORS("Mekanism Generators"),
-    EVOLVEDMEKANISM("EvolvedMekanism");
+    EVOLVEDMEKANISM("EvolvedMekanism"),
+    MEKMM("MekanismMoreMachine");
 
     private final String modName;
 

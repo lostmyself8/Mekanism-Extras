@@ -1,0 +1,54 @@
+package com.jerry.mekanism_extras.common.registries;
+
+import mekanism.common.base.IChemicalConstant;
+
+public enum ExtraChemicalConstants implements IChemicalConstant {
+
+    // The alpha value of the color must be added, or JEI won't render the gas
+    MOLTEN_THERMONUCLEAR("molten_thermonuclear", 0xFF810C0C, 15, 6276.3F, 2_300),
+    NAQUADAH_HEXAFLUORIDE("naquadah_hexafluoride", 0xFFC8C8C8, 0, 300F, 4_690),
+    FLUORINATED_NAQUADAH_URANIUM_FUEL("fluorinated_naquadah_uranium_fuel", 0xFFB1B30C, 0, 800F, 6_520),
+    NAQUADAH_URANIUM_FUEL("naquadah_uranium_fuel", 0xFF837906, 0, 1100F, 5_930),
+    RICH_NAQUADAH_FUEL("rich_naquadah_fuel", 0xFFEFEFEF, 0, 3350F, 4_450),
+    RICH_URANIUM_FUEL("rich_uranium_fuel", 0xFF6C864A, 0, 350F, 4_850),
+    POLONIUM208("polonium-208", 0xFF1B9E7B, 0, 8532.8F, 4530);
+
+    private final String name;
+    private final int color;
+    private final int lightLevel;
+    private final float temperature;
+    private final float density;
+
+    ExtraChemicalConstants(String name, int color, int lightLevel, float temperature, float density) {
+        this.name = name;
+        this.color = color;
+        this.lightLevel = lightLevel;
+        this.temperature = temperature;
+        this.density = density;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getColor() {
+        return color;
+    }
+
+    @Override
+    public float getTemperature() {
+        return temperature;
+    }
+
+    @Override
+    public float getDensity() {
+        return density;
+    }
+
+    @Override
+    public int getLightLevel() {
+        return lightLevel;
+    }
+}

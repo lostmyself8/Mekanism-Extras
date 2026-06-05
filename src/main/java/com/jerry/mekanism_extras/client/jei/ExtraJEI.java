@@ -3,12 +3,11 @@ package com.jerry.mekanism_extras.client.jei;
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.ExtraLang;
 import com.jerry.mekanism_extras.common.integration.Addons;
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
-import com.jerry.mekanism_extras.common.registry.ExtraFluids;
+import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
+import com.jerry.mekanism_extras.common.registries.ExtraFluids;
 
 import com.jerry.generator_extras.common.ExtraGenLang;
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
-import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
+import com.jerry.generator_extras.common.genregistries.ExtraGenFluids;
 
 import mekanism.api.annotations.NothingNullByDefault;
 import mekanism.client.jei.MekanismJEIRecipeType;
@@ -23,14 +22,13 @@ import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin
 @NothingNullByDefault
 public class ExtraJEI implements IModPlugin {
 
     @Override
-    public @NotNull ResourceLocation getPluginUid() {
+    public ResourceLocation getPluginUid() {
         return MekanismExtras.rl("jei_plugin");
     }
 
@@ -58,14 +56,13 @@ public class ExtraJEI implements IModPlugin {
         ExtraCatalystRegistryHelper.register(registry, MekanismBlocks.PRECISION_SAWMILL);
         ExtraCatalystRegistryHelper.register(registry, MekanismBlocks.METALLURGIC_INFUSER, MekanismJEIRecipeType.INFUSION_CONVERSION);
         ExtraCatalystRegistryHelper.registerRecipeItem(registry, MekanismBlocks.ENERGIZED_SMELTER, MekanismJEIRecipeType.SMELTING, RecipeTypes.SMELTING);
-        ExtraCatalystRegistryHelper.register(registry, MekanismJEIRecipeType.EVAPORATING,
-                ExtraGenBlocks.PLASMA_EVAPORATION_CONTROLLER,
-                ExtraGenBlocks.PLASMA_EVAPORATION_VALVE,
-                ExtraGenBlocks.PLASMA_EVAPORATION_BLOCK,
-                ExtraGenBlocks.PLASMA_EVAPORATION_VENT,
-                ExtraGenBlocks.PLASMA_INSULATION_LAYER);
 
-        ExtraCatalystRegistryHelper.register(registry, MekanismJEIRecipeType.ENERGY_CONVERSION, ExtraBlock.ABSOLUTE_ENERGY_CUBE, ExtraBlock.SUPREME_ENERGY_CUBE,
-                ExtraBlock.COSMIC_ENERGY_CUBE, ExtraBlock.INFINITE_ENERGY_CUBE);
+        ExtraCatalystRegistryHelper.register(registry, MekanismJEIRecipeType.ENERGY_CONVERSION, ExtraBlocks.ABSOLUTE_ENERGY_CUBE, ExtraBlocks.SUPREME_ENERGY_CUBE,
+                ExtraBlocks.COSMIC_ENERGY_CUBE, ExtraBlocks.INFINITE_ENERGY_CUBE);
+
+        if (Addons.MEKMM.isLoaded()) {
+            ExtraAFCatalystRegistryHelper.register(registry);
+            ExtraMMCatalystRegistryHelper.register(registry);
+        }
     }
 }

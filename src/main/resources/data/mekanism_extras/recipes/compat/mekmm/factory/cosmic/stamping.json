@@ -1,0 +1,31 @@
+﻿{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekmm"
+    }
+  ],
+  "type": "mekanism:mek_data",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/shining"
+    },
+    "C": {
+      "tag": "forge:circuits/cosmic"
+    },
+    "I": {
+      "tag": "forge:ingots/refined_obsidian"
+    },
+    "P": {
+      "item": "mekanism_extras:supreme_stamping_factory"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IPI",
+    "ACA"
+  ],
+  "result": {
+    "item": "mekanism_extras:cosmic_stamping_factory"
+  }
+}

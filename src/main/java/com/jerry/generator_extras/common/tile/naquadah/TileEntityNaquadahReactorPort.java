@@ -1,7 +1,7 @@
 package com.jerry.generator_extras.common.tile.naquadah;
 
 import com.jerry.generator_extras.common.content.naquadah.NaquadahReactorMultiblockData;
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+import com.jerry.generator_extras.common.genregistries.ExtraGenBlocks;
 
 import mekanism.api.IContentsListener;
 import mekanism.api.chemical.gas.Gas;

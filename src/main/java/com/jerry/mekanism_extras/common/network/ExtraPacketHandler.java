@@ -1,6 +1,7 @@
 package com.jerry.mekanism_extras.common.network;
 
 import com.jerry.mekanism_extras.MekanismExtras;
+import com.jerry.mekanism_extras.common.network.to_client.ExtraPacketTransporterUpdate;
 import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiButtonPress;
 import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiInteract;
 
@@ -10,7 +11,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class ExtraPacketHandler extends BasePacketHandler {
 
-    private final SimpleChannel netHandler = createChannel(MekanismExtras.rl(MekanismExtras.MODID), MekanismExtras.instance.versionNumber);
+    private final SimpleChannel netHandler = createChannel(MekanismExtras.rl(MekanismExtras.MOD_ID), MekanismExtras.instance.versionNumber);
 
     @Override
     protected SimpleChannel getChannel() {
@@ -19,6 +20,7 @@ public class ExtraPacketHandler extends BasePacketHandler {
 
     @Override
     public void initialize() {
+        registerServerToClient(ExtraPacketTransporterUpdate.class, ExtraPacketTransporterUpdate::decode);
         registerClientToServer(ExtraPacketGuiInteract.class, ExtraPacketGuiInteract::decode);
         registerClientToServer(ExtraPacketGuiButtonPress.class, ExtraPacketGuiButtonPress::decode);
     }

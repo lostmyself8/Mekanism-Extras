@@ -1,0 +1,31 @@
+﻿{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekmm"
+    }
+  ],
+  "type": "mekanism:mek_data",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/radiance"
+    },
+    "C": {
+      "tag": "forge:circuits/absolute"
+    },
+    "I": {
+      "tag": "forge:gems/emerald"
+    },
+    "P": {
+      "item": "mekmm:ultimate_lathing_factory"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IPI",
+    "ACA"
+  ],
+  "result": {
+    "item": "mekanism_extras:absolute_lathing_factory"
+  }
+}

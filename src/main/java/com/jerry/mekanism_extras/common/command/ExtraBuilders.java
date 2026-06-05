@@ -1,8 +1,8 @@
 package com.jerry.mekanism_extras.common.command;
 
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
+import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+import com.jerry.generator_extras.common.genregistries.ExtraGenBlocks;
 
 import mekanism.common.command.builders.StructureBuilder;
 
@@ -59,41 +59,15 @@ public class ExtraBuilders {
                 buildInteriorLayers(world, start, 1, 16, Blocks.AIR);
             } else {
                 // 数组中[1]-[15]感应元件
-                buildInteriorLayers(world, start, 1, 15, ExtraBlock.INFINITE_INDUCTION_CELL.getBlock());
+                buildInteriorLayers(world, start, 1, 15, ExtraBlocks.INFINITE_INDUCTION_CELL.getBlock());
                 // [16]放置感应供应器
-                buildInteriorLayer(world, start, 16, ExtraBlock.INFINITE_INDUCTION_PROVIDER.getBlock());
+                buildInteriorLayer(world, start, 16, ExtraBlocks.INFINITE_INDUCTION_PROVIDER.getBlock());
             }
         }
 
         @Override
         protected Block getCasing() {
-            return ExtraBlock.REINFORCED_INDUCTION_CASING.getBlock();
-        }
-    }
-
-    public static class PlasmaEvaporationPlantBuilder extends StructureBuilder {
-
-        public PlasmaEvaporationPlantBuilder() {
-            super(6, 36, 6);
-        }
-
-        @Override
-        protected void build(Level world, BlockPos start, boolean empty) {
-            buildFrame(world, start);
-            buildWalls(world, start);
-            buildInteriorLayers(world, start, 1, 34, Blocks.AIR);
-            buildInteriorLayer(world, start, 18, ExtraGenBlocks.PLASMA_INSULATION_LAYER.getBlock());
-            world.setBlockAndUpdate(start.offset(1, 1, 0), ExtraGenBlocks.PLASMA_EVAPORATION_CONTROLLER.getBlock().defaultBlockState());
-        }
-
-        @Override
-        protected Block getCasing() {
-            return ExtraGenBlocks.PLASMA_EVAPORATION_BLOCK.getBlock();
-        }
-
-        @Override
-        protected Block getRoofBlock(BlockPos pos) {
-            return ExtraGenBlocks.PLASMA_EVAPORATION_VENT.getBlock();
+            return ExtraBlocks.REINFORCED_INDUCTION_CASING.getBlock();
         }
     }
 }

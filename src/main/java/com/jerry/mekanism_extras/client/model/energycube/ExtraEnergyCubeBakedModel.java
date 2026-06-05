@@ -1,10 +1,11 @@
 package com.jerry.mekanism_extras.client.model.energycube;
 
-import com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube;
+import com.jerry.mekanism_extras.client.model.energycube.ExtraEnergyCubeGeometry.FaceData;
 
 import mekanism.api.RelativeSide;
 import mekanism.client.model.baked.ExtensionBakedModel;
 import mekanism.client.render.lib.QuadTransformation;
+import mekanism.common.tile.TileEntityEnergyCube.CubeSideState;
 import mekanism.common.util.EnumUtils;
 
 import net.minecraft.Util;
@@ -31,26 +32,28 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.BiPredicate;
 
+import static com.jerry.mekanism_extras.common.tile.ExtraTileEntityEnergyCube.SIDE_STATE_PROPERTY;
+
 public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
 
-    private static final ExtraTileEntityEnergyCube.CubeSideState[] INACTIVE = Util.make(new ExtraTileEntityEnergyCube.CubeSideState[EnumUtils.DIRECTIONS.length], sideStates -> Arrays.fill(sideStates, ExtraTileEntityEnergyCube.CubeSideState.INACTIVE));
+    private static final CubeSideState[] INACTIVE = Util.make(new CubeSideState[EnumUtils.DIRECTIONS.length], sideStates -> Arrays.fill(sideStates, CubeSideState.INACTIVE));
     private static final QuadTransformation LED_TRANSFORMS = QuadTransformation.list(QuadTransformation.fullbright, QuadTransformation.uvShift(-2, 0));
-    private static final BiPredicate<ExtraTileEntityEnergyCube.CubeSideState[], ExtraTileEntityEnergyCube.CubeSideState[]> DATA_EQUALITY_CHECK = Arrays::equals;
+    private static final BiPredicate<CubeSideState[], CubeSideState[]> DATA_EQUALITY_CHECK = Arrays::equals;
 
-    private final LoadingCache<ExtensionBakedModel.QuadsKey<ExtraTileEntityEnergyCube.CubeSideState[]>, List<BakedQuad>> cache = CacheBuilder.newBuilder().build(new CacheLoader<>() {
+    private final LoadingCache<ExtensionBakedModel.QuadsKey<CubeSideState[]>, List<BakedQuad>> cache = CacheBuilder.newBuilder().build(new CacheLoader<>() {
 
         @NotNull
         @Override
-        public List<BakedQuad> load(@NotNull ExtensionBakedModel.QuadsKey<ExtraTileEntityEnergyCube.CubeSideState[]> key) {
+        public List<BakedQuad> load(@NotNull ExtensionBakedModel.QuadsKey<CubeSideState[]> key) {
             return createQuads(key);
         }
     });
 
-    private final ExtraEnergyCubeGeometry.FaceData frame;
-    private final Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> leds;
-    private final Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> activeLEDs;
-    private final Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> ports;
-    private final Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> activePorts;
+    private final FaceData frame;
+    private final Map<RelativeSide, FaceData> leds;
+    private final Map<RelativeSide, FaceData> activeLEDs;
+    private final Map<RelativeSide, FaceData> ports;
+    private final Map<RelativeSide, FaceData> activePorts;
     private final ChunkRenderTypeSet blockRenderTypes;
     private final List<RenderType> itemRenderTypes;
     private final List<RenderType> fabulousItemRenderTypes;
@@ -62,7 +65,7 @@ public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
     private final ItemTransforms transforms;
 
     ExtraEnergyCubeBakedModel(boolean useAmbientOcclusion, boolean usesBlockLight, boolean isGui3d, ItemTransforms transforms, ItemOverrides overrides,
-                              TextureAtlasSprite particle, ExtraEnergyCubeGeometry.FaceData frame, Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> leds, Map<RelativeSide, ExtraEnergyCubeGeometry.FaceData> ports, RenderTypeGroup renderTypes) {
+                              TextureAtlasSprite particle, FaceData frame, Map<RelativeSide, FaceData> leds, Map<RelativeSide, FaceData> ports, RenderTypeGroup renderTypes) {
         this.isAmbientOcclusion = useAmbientOcclusion;
         this.usesBlockLight = usesBlockLight;
         this.isGui3d = isGui3d;
@@ -77,10 +80,10 @@ public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
         // Note: We don't bother having any form of lazy transformations take place here as this should only have a
         // memory
         // impact equivalent to having two models: one with the leds and ports off, and one with all of them active
-        for (Map.Entry<RelativeSide, ExtraEnergyCubeGeometry.FaceData> entry : this.leds.entrySet()) {
+        for (Map.Entry<RelativeSide, FaceData> entry : this.leds.entrySet()) {
             activeLEDs.put(entry.getKey(), entry.getValue().transform(LED_TRANSFORMS));
         }
-        for (Map.Entry<RelativeSide, ExtraEnergyCubeGeometry.FaceData> entry : this.ports.entrySet()) {
+        for (Map.Entry<RelativeSide, FaceData> entry : this.ports.entrySet()) {
             activePorts.put(entry.getKey(), entry.getValue().transform(QuadTransformation.filtered_fullbright));
         }
         if (renderTypes.isEmpty()) {
@@ -98,7 +101,7 @@ public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData data,
                                     @Nullable RenderType renderType) {
-        ExtraTileEntityEnergyCube.CubeSideState[] sideStates = data.get(ExtraTileEntityEnergyCube.SIDE_STATE_PROPERTY);
+        CubeSideState[] sideStates = data.get(SIDE_STATE_PROPERTY);
         if (sideStates == null || sideStates.length != EnumUtils.SIDES.length) {
             // If there is no side data then treat everything as inactive
             sideStates = INACTIVE;
@@ -106,25 +109,25 @@ public class ExtraEnergyCubeBakedModel implements IDynamicBakedModel {
         // Note: We intentionally ignore the state and use null here to minimize cache size as it doesn't actually
         // matter
         // or get used for energy cube models
-        ExtensionBakedModel.QuadsKey<ExtraTileEntityEnergyCube.CubeSideState[]> key = new ExtensionBakedModel.QuadsKey<>(null, side, rand, renderType, frame.getFaces(side));
+        ExtensionBakedModel.QuadsKey<CubeSideState[]> key = new ExtensionBakedModel.QuadsKey<>(null, side, rand, renderType, frame.getFaces(side));
         key.data(sideStates, Arrays.hashCode(sideStates), DATA_EQUALITY_CHECK);
         return cache.getUnchecked(key);
     }
 
-    private List<BakedQuad> createQuads(ExtensionBakedModel.QuadsKey<ExtraTileEntityEnergyCube.CubeSideState[]> key) {
+    private List<BakedQuad> createQuads(ExtensionBakedModel.QuadsKey<CubeSideState[]> key) {
         Direction side = key.getSide();
-        ExtraTileEntityEnergyCube.CubeSideState[] data = Objects.requireNonNull(key.getData());
+        CubeSideState[] data = Objects.requireNonNull(key.getData());
         // Make the list of quads mutable so that we can add the proper extra portions to it
         List<BakedQuad> quads = new ArrayList<>(key.getQuads());
         for (int i = 0; i < EnumUtils.SIDES.length; i++) {
             RelativeSide dir = EnumUtils.SIDES[i];
-            ExtraTileEntityEnergyCube.CubeSideState sideState = data[i];
-            if (sideState == ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_LIT) {
+            CubeSideState sideState = data[i];
+            if (sideState == CubeSideState.ACTIVE_LIT) {
                 quads.addAll(activeLEDs.get(dir).getFaces(side));
                 quads.addAll(activePorts.get(dir).getFaces(side));
             } else {
                 quads.addAll(leds.get(dir).getFaces(side));
-                if (sideState == ExtraTileEntityEnergyCube.CubeSideState.ACTIVE_UNLIT) {
+                if (sideState == CubeSideState.ACTIVE_UNLIT) {
                     quads.addAll(ports.get(dir).getFaces(side));
                 }
             }

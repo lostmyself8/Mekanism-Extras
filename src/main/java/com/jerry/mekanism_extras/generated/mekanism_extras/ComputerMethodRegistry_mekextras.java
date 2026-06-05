@@ -3,6 +3,9 @@ package com.jerry.mekanism_extras.generated.mekanism_extras;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData;
 import com.jerry.mekanism_extras.common.content.matrix.ExtraMatrixMultiblockData$ComputerHandler;
 import com.jerry.mekanism_extras.common.integration.Addons;
+import com.jerry.mekanism_extras.common.integration.mekaf.tile.factory.*;
+import com.jerry.mekanism_extras.common.integration.mekaf.tile.factory.base.*;
+import com.jerry.mekanism_extras.common.integration.mekmm.tile.*;
 import com.jerry.mekanism_extras.common.tile.*;
 import com.jerry.mekanism_extras.common.tile.factory.*;
 import com.jerry.mekanism_extras.common.tile.machine.*;
@@ -31,9 +34,9 @@ public class ComputerMethodRegistry_mekextras implements IComputerMethodRegistry
     public void register() {
         // Normal Tile
         FactoryRegistry.register(TileEntityExtraFactory.class, TileEntityExtraFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
-        FactoryRegistry.register(TileEntityItemStackGasToItemStackExtraFactory.class, TileEntityItemStackGasToItemStackExtraFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
-        FactoryRegistry.register(TileEntityCombiningExtraFactory.class, TileEntityCombiningExtraFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
-        FactoryRegistry.register(TileEntitySawingExtraFactory.class, TileEntitySawingExtraFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
+        FactoryRegistry.register(TileEntityExtraItemStackGasToItemStackFactory.class, TileEntityExtraItemStackGasToItemStackFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
+        FactoryRegistry.register(TileEntityExtraCombiningFactory.class, TileEntityExtraCombiningFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
+        FactoryRegistry.register(TileEntityExtraSawingFactory.class, TileEntityExtraSawingFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
         FactoryRegistry.register(ExtraTileEntityBin.class, ExtraTileEntityBin$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityFactory.class, TileEntityItemToItemFactory.class);
         FactoryRegistry.register(ExtraTileEntityChemicalTank.class, ExtraTileEntityChemicalTank$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
         FactoryRegistry.register(ExtraTileEntityEnergyCube.class, ExtraTileEntityEnergyCube$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
@@ -55,6 +58,28 @@ public class ComputerMethodRegistry_mekextras implements IComputerMethodRegistry
             FactoryRegistry.register(NaquadahReactorMultiblockData.class, NaquadahReactorMultiblockData$ComputerHandler::new, MultiblockData.class);
             FactoryRegistry.register(TileEntityNaquadahReactorPort.class, TileEntityNaquadahReactorPort$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityMultiblock.class, TileEntityNaquadahReactorCasing.class);
             FactoryRegistry.register(TileEntityNaquadahReactorLogicAdapter.class, TileEntityNaquadahReactorLogicAdapter$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityMultiblock.class, TileEntityNaquadahReactorCasing.class);
+        }
+
+        // Mekanism More Machine / Advanced Factory
+        if (Addons.MEKMM.isLoaded()) {
+            FactoryRegistry.register(TileEntityExtraMoreMachineFactory.class, TileEntityExtraMoreMachineFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
+            FactoryRegistry.register(TileEntityExtraStampingFactory.class, TileEntityExtraStampingFactory$ComputerHandler::new, TileEntityExtraMoreMachineFactory.class);
+            FactoryRegistry.register(TileEntityExtraPlantingFactory.class, TileEntityExtraPlantingFactory$ComputerHandler::new, TileEntityExtraMoreMachineFactory.class);
+            FactoryRegistry.register(TileEntityExtraReplicatingFactory.class, TileEntityExtraReplicatingFactory$ComputerHandler::new, TileEntityExtraMoreMachineFactory.class);
+
+            FactoryRegistry.register(TileEntityExtraAdvancedFactoryBase.class, TileEntityExtraAdvancedFactoryBase$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
+            FactoryRegistry.register(TileEntityExtraItemToItemAdvancedFactory.class, TileEntityExtraItemToItemAdvancedFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class);
+            FactoryRegistry.register(TileEntityExtraItemToGasFactory.class, TileEntityExtraItemToGasFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class);
+            FactoryRegistry.register(TileEntityExtraItemToPigmentFactory.class, TileEntityExtraItemToPigmentFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class);
+            FactoryRegistry.register(TileEntityExtraItemToFluidFactory.class, TileEntityExtraItemToFluidFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class);
+            FactoryRegistry.register(TileEntityExtraItemToMergedFactory.class, TileEntityExtraItemToMergedFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class);
+            FactoryRegistry.register(TileEntityExtraMergedToItemFactory.class, TileEntityExtraMergedToItemFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class);
+            FactoryRegistry.register(TileEntityExtraGasToGasFactory.class, TileEntityExtraGasToGasFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class);
+            FactoryRegistry.register(TileEntityExtraSlurryToSlurryFactory.class, TileEntityExtraSlurryToSlurryFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class);
+            FactoryRegistry.register(TileEntityExtraPaintingFactory.class, TileEntityExtraPaintingFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class, TileEntityExtraItemToItemAdvancedFactory.class);
+            FactoryRegistry.register(TileEntityExtraDissolvingFactory.class, TileEntityExtraDissolvingFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class, TileEntityExtraItemToMergedFactory.class);
+            FactoryRegistry.register(TileEntityExtraWashingFactory.class, TileEntityExtraWashingFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class, TileEntityExtraSlurryToSlurryFactory.class);
+            FactoryRegistry.register(TileEntityExtraPressurizedReactingFactory.class, TileEntityExtraPressurizedReactingFactory$ComputerHandler::new, TileEntityExtraAdvancedFactoryBase.class);
         }
     }
 }

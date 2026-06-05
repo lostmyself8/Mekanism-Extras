@@ -2,6 +2,7 @@ package com.jerry.mekanism_extras.client.gui.element.tab;
 
 import com.jerry.mekanism_extras.MekanismExtras;
 import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiInteract;
+import com.jerry.mekanism_extras.common.network.to_server.ExtraPacketGuiInteract.ExtraGuiInteraction;
 import com.jerry.mekanism_extras.common.tile.factory.TileEntityExtraFactory;
 
 import mekanism.client.SpecialColors;
@@ -41,6 +42,6 @@ public class ExtraGuiSortingTab extends GuiInsetElement<TileEntityExtraFactory<?
 
     @Override
     public void onClick(double mouseX, double mouseY, int button) {
-        MekanismExtras.packetHandler().sendToServer(new ExtraPacketGuiInteract(ExtraPacketGuiInteract.ExtraGuiInteraction.AUTO_SORT_BUTTON, dataSource));
+        MekanismExtras.packetHandler().sendToServer(new ExtraPacketGuiInteract(ExtraGuiInteraction.AUTO_SORT_BUTTON, dataSource));
     }
 }

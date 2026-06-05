@@ -1,6 +1,6 @@
 package com.jerry.generator_extras.common.block.reactor;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlockTypes;
+import com.jerry.generator_extras.common.genregistries.ExtraGenBlockTypes;
 import com.jerry.generator_extras.common.tile.naquadah.TileEntityLeadCoatedLaserFocusMatrix;
 
 import mekanism.common.block.basic.BlockStructuralGlass;

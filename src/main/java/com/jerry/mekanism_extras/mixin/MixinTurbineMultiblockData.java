@@ -2,8 +2,8 @@ package com.jerry.mekanism_extras.mixin;
 
 import com.jerry.mekanism_extras.common.ExtraTags;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenFluids;
-import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
+import com.jerry.generator_extras.common.genregistries.ExtraGenFluids;
+import com.jerry.generator_extras.common.genregistries.ExtraGenGases;
 
 import mekanism.api.chemical.gas.IGasTank;
 import mekanism.api.math.FloatingLong;

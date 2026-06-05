@@ -1,7 +1,7 @@
 package com.jerry.mekanism_extras.client.jei;
 
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
-import com.jerry.mekanism_extras.common.tier.AdvancedFactoryTier;
+import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
+import com.jerry.mekanism_extras.common.tier.ExtraFactoryTier;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 
 import mekanism.api.providers.IBlockProvider;
@@ -42,8 +42,8 @@ public class ExtraCatalystRegistryHelper {
         // registry.addRecipeCatalyst(mekanismItem.getItemStack(), categories);
         if (mekanismItem instanceof IBlockProvider mekanismBlock) {
             Attribute.ifPresent(mekanismBlock.getBlock(), AttributeFactoryType.class, attr -> {
-                for (AdvancedFactoryTier tier : ExtraEnumUtils.ADVANCED_FACTORY_TIERS) {
-                    registry.addRecipeCatalyst(ExtraBlock.getAdvancedFactory(tier, attr.getFactoryType()).getItemStack(), categories);
+                for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
+                    registry.addRecipeCatalyst(ExtraBlocks.getAdvancedFactory(tier, attr.getFactoryType()).getItemStack(), categories);
                 }
             });
         }

@@ -1,6 +1,6 @@
 package com.jerry.generator_extras.common.tile;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenBlocks;
+import com.jerry.generator_extras.common.genregistries.ExtraGenBlocks;
 
 import mekanism.common.lib.multiblock.MultiblockManager;
 import mekanism.common.tile.prefab.TileEntityStructuralMultiblock;

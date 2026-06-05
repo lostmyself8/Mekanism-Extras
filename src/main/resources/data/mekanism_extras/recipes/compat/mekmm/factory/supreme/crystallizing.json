@@ -1,0 +1,31 @@
+﻿{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekmm"
+    }
+  ],
+  "type": "mekanism:mek_data",
+  "key": {
+    "A": {
+      "tag": "mekanism_extras:alloys/thermonuclear"
+    },
+    "C": {
+      "tag": "forge:circuits/supreme"
+    },
+    "I": {
+      "tag": "forge:ingots/netherite"
+    },
+    "P": {
+      "item": "mekanism_extras:absolute_crystallizing_factory"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IPI",
+    "ACA"
+  ],
+  "result": {
+    "item": "mekanism_extras:supreme_crystallizing_factory"
+  }
+}

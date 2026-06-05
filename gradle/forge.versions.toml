@@ -19,6 +19,7 @@ modernfix = "5.24.4+mc1.20.1"
 mekanismcovers = "5831281"
 igleelibrary = "6987117"
 evolvedmekanism = "7117024"
+mekmm = "7884538"
 
 ## libs ##
 jech = "4.5.16"
@@ -45,6 +46,7 @@ modernui            = { module = "maven.modrinth:modern-ui", version.ref = "mode
 mekanismcovers      = { module = "curse.maven:mekanism-covers-1119874", version.ref = "mekanismcovers" }
 igleelibrary        = { module = "curse.maven:iglee-library-541199", version.ref = "igleelibrary" }
 evolvedmekanism     = { module = "curse.maven:evolved-mekanism-1230085", version.ref = "evolvedmekanism" }
+mekmm               = { module = "curse.maven:mekanism-more-machine-1275257", version.ref = "mekmm" }
 
 jecharacters        = { module = "dev:jecharacters-1.20.1-forge", version.ref = "jech" }
 [bundles]

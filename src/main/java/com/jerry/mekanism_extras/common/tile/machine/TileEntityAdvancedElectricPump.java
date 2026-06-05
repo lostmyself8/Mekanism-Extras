@@ -2,8 +2,8 @@ package com.jerry.mekanism_extras.common.tile.machine;
 
 import com.jerry.mekanism_extras.api.ExtraUpgrade;
 import com.jerry.mekanism_extras.common.config.LoadConfig;
-import com.jerry.mekanism_extras.common.registry.ExtraBlock;
-import com.jerry.mekanism_extras.common.registry.ExtraFluids;
+import com.jerry.mekanism_extras.common.registries.ExtraBlocks;
+import com.jerry.mekanism_extras.common.registries.ExtraFluids;
 
 import mekanism.api.*;
 import mekanism.api.math.FloatingLong;
@@ -101,7 +101,7 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
     EnergyInventorySlot energySlot;
 
     public TileEntityAdvancedElectricPump(BlockPos pos, BlockState state) {
-        super(ExtraBlock.ADVANCED_ELECTRIC_PUMP, pos, state);
+        super(ExtraBlocks.ADVANCED_ELECTRIC_PUMP, pos, state);
         addCapabilityResolver(BasicCapabilityResolver.constant(Capabilities.CONFIGURABLE, this));
         addCapabilityResolver(BasicCapabilityResolver.constant(Capabilities.CONFIG_CARD, this));
     }

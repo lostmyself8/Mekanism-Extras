@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.mixin;
 
-import com.jerry.generator_extras.common.genregistry.ExtraGenGases;
+import com.jerry.generator_extras.common.genregistries.ExtraGenGases;
 
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;

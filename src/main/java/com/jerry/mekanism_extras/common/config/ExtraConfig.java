@@ -82,7 +82,7 @@ public class ExtraConfig extends BaseMekanismConfig {
 
     public ExtraConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        builder.comment("Config").push(MekanismExtras.MODID);
+        builder.comment("Config").push(MekanismExtras.MOD_ID);
 
         final String noteUC = "Internal buffer in Joules of each 'TIER' universal cable.(long)";
         builder.comment("Universal Cables").push("universal cables");
@@ -249,7 +249,7 @@ public class ExtraConfig extends BaseMekanismConfig {
     }
 
     public String getFileName() {
-        return MekanismExtras.MODID;
+        return MekanismExtras.MOD_ID;
     }
 
     public ModConfig.Type getConfigType() {

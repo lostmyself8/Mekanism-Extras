@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.block;
 
-import com.jerry.mekanism_extras.common.registry.ExtraBlockType;
+import com.jerry.mekanism_extras.common.registries.ExtraBlockTypes;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityRadioactiveWasteBarrel;
 
 import mekanism.api.chemical.gas.GasStack;
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 public class ExtraBlockRadioactiveWasteBarrel extends BlockTile.BlockTileModel<ExtraTileEntityRadioactiveWasteBarrel, BlockTypeTile<ExtraTileEntityRadioactiveWasteBarrel>> {
 
     public ExtraBlockRadioactiveWasteBarrel() {
-        super(ExtraBlockType.EXPAND_RADIOACTIVE_WASTE_BARREL, properties -> properties.mapColor(MapColor.COLOR_BLACK));
+        super(ExtraBlockTypes.EXPAND_RADIOACTIVE_WASTE_BARREL, properties -> properties.mapColor(MapColor.COLOR_BLACK));
     }
 
     @NotNull

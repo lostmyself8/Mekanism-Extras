@@ -1,6 +1,6 @@
 package com.jerry.mekanism_extras.common.item.block;
 
-import com.jerry.mekanism_extras.client.render.ExtraRenderPropertiesProvider;
+import com.jerry.mekanism_extras.client.render.RenderExtraPropertiesProvider;
 import com.jerry.mekanism_extras.common.block.ExtraBlockEnergyCube;
 import com.jerry.mekanism_extras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekanism_extras.common.capabilities.energy.item.ExtraRateLimitEnergyHandler;
@@ -48,7 +48,7 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
 
     @Override
     public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(ExtraRenderPropertiesProvider.extraEnergyCube());
+        consumer.accept(RenderExtraPropertiesProvider.extraEnergyCube());
     }
 
     @Nonnull
@@ -94,6 +94,7 @@ public class ExtraItemBlockEnergyCube extends ExtraItemBlockTooltip<ExtraBlockEn
         return true;
     }
 
+    // 给创造立方用的，在这里似乎没什么用
     private ItemStack withEnergyCubeSideConfig(DataType dataType) {
         CompoundTag sideConfig = new CompoundTag();
         for (RelativeSide side : EnumUtils.SIDES) {

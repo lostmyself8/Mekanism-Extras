@@ -1,0 +1,133 @@
+package com.jerry.mekanism_extras.common.integration.mekaf.tile.factory;
+
+import com.jerry.mekanism_extras.common.integration.mekaf.tile.factory.base.TileEntityExtraGasToGasFactory;
+
+import mekanism.api.RelativeSide;
+import mekanism.api.Upgrade;
+import mekanism.api.chemical.gas.Gas;
+import mekanism.api.chemical.gas.GasStack;
+import mekanism.api.chemical.gas.IGasTank;
+import mekanism.api.math.MathUtils;
+import mekanism.api.providers.IBlockProvider;
+import mekanism.api.recipes.GasToGasRecipe;
+import mekanism.api.recipes.cache.CachedRecipe;
+import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
+import mekanism.api.recipes.cache.OneInputCachedRecipe;
+import mekanism.common.lib.transmitter.TransmissionType;
+import mekanism.common.recipe.IMekanismRecipeTypeProvider;
+import mekanism.common.recipe.MekanismRecipeType;
+import mekanism.common.recipe.lookup.ISingleRecipeLookupHandler.ChemicalRecipeLookupHandler;
+import mekanism.common.recipe.lookup.cache.InputRecipeCache.SingleChemical;
+import mekanism.common.tile.base.SubstanceType;
+import mekanism.common.tile.component.TileComponentEjector;
+import mekanism.common.tile.component.config.ConfigInfo;
+import mekanism.common.tile.component.config.DataType;
+import mekanism.common.tile.component.config.slot.ChemicalSlotInfo.GasSlotInfo;
+import mekanism.common.tile.interfaces.IBoundingBlock;
+import mekanism.common.util.MekanismUtils;
+import mekanism.common.util.UpgradeUtils;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.state.BlockState;
+
+import com.jerry.mekaf.common.upgrade.GasToGasUpgradeData;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Set;
+
+public class TileEntityExtraCentrifugingFactory extends TileEntityExtraGasToGasFactory<GasToGasRecipe> implements IBoundingBlock, ChemicalRecipeLookupHandler<Gas, GasStack, GasToGasRecipe> {
+
+    private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
+            RecipeError.NOT_ENOUGH_ENERGY,
+            RecipeError.NOT_ENOUGH_ENERGY_REDUCED_RATE,
+            RecipeError.NOT_ENOUGH_INPUT,
+            RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
+            RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
+    private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(
+            RecipeError.NOT_ENOUGH_ENERGY);
+
+    public TileEntityExtraCentrifugingFactory(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
+
+        ConfigInfo gasConfig = configComponent.getConfig(TransmissionType.GAS);
+        if (gasConfig != null) {
+            gasConfig.addSlotInfo(DataType.INPUT, new GasSlotInfo(true, false, inputGasTanks));
+            List<IGasTank> ioTank = outputGasTanks;
+            ioTank.addAll(inputGasTanks);
+            gasConfig.addSlotInfo(DataType.INPUT_OUTPUT, new GasSlotInfo(true, true, ioTank));
+            gasConfig.fill(DataType.INPUT);
+            gasConfig.setDataType(DataType.OUTPUT, RelativeSide.FRONT);
+            gasConfig.setEjecting(true);
+        }
+
+        configComponent.addDisabledSides(RelativeSide.TOP);
+        ejectorComponent = new TileComponentEjector(this);
+        ejectorComponent.setOutputData(configComponent, TransmissionType.ITEM, TransmissionType.GAS)
+                .setCanTankEject(tank -> !inputGasTanks.contains(tank));
+    }
+
+    @Override
+    protected boolean isCachedRecipeValid(@Nullable CachedRecipe<GasToGasRecipe> cached, @NotNull GasStack stack) {
+        return cached != null && cached.getRecipe().getInput().testType(stack);
+    }
+
+    @Nullable
+    protected GasToGasRecipe findRecipe(int process, @NotNull GasStack fallbackInput, @NotNull IGasTank outputTanks) {
+        GasStack output = outputTanks.getStack();
+        SingleChemical<Gas, GasStack, GasToGasRecipe> inputCache = getRecipeType().getInputCache();
+        return inputCache.findTypeBasedRecipe(level, fallbackInput, recipe -> output.isTypeEqual(recipe.getOutput(fallbackInput)));
+    }
+
+    @Override
+    public boolean isChemicalValidForTank(@NotNull GasStack stack) {
+        return containsRecipe(stack);
+    }
+
+    @Override
+    public boolean isValidInputChemical(@NotNull GasStack stack) {
+        return containsRecipe(stack);
+    }
+
+    protected int getNeededInput(GasToGasRecipe recipe, GasStack inputStack) {
+        return MathUtils.clampToInt(recipe.getInput().getNeededAmount(inputStack));
+    }
+
+    @NotNull
+    public IMekanismRecipeTypeProvider<GasToGasRecipe, SingleChemical<Gas, GasStack, GasToGasRecipe>> getRecipeType() {
+        return MekanismRecipeType.CENTRIFUGING;
+    }
+
+    @Nullable
+    public GasToGasRecipe getRecipe(int cacheIndex) {
+        return findFirstRecipe(gasInputHandlers[cacheIndex]);
+    }
+
+    @NotNull
+    public CachedRecipe<GasToGasRecipe> createNewCachedRecipe(@NotNull GasToGasRecipe recipe, int cacheIndex) {
+        return OneInputCachedRecipe.chemicalToChemical(recipe, recheckAllRecipeErrors[cacheIndex], gasInputHandlers[cacheIndex], gasOutputHandlers[cacheIndex])
+                .setErrorsChanged(errors -> errorTracker.onErrorsChanged(errors, cacheIndex))
+                .setCanHolderFunction(() -> MekanismUtils.canFunction(this))
+                .setActive(active -> setActiveState(active, cacheIndex))
+                .setOnFinish(this::markForSave)
+                .setEnergyRequirements(energyContainer::getEnergyPerTick, energyContainer)
+                .setBaselineMaxOperations(this::getBaselineMaxOperations);
+    }
+
+    @NotNull
+    @Override
+    public List<Component> getInfo(@NotNull Upgrade upgrade) {
+        return upgrade == Upgrade.SPEED ? UpgradeUtils.getExpScaledInfo(this, upgrade) : super.getInfo(upgrade);
+    }
+
+    protected boolean makesComparatorDirty(@Nullable SubstanceType type) {
+        return type == SubstanceType.GAS;
+    }
+
+    @Nullable
+    public GasToGasUpgradeData getUpgradeData() {
+        return new GasToGasUpgradeData(redstone, getControlType(), getEnergyContainer(), progress, energySlot, inputGasTanks, outputGasTanks, isSorting(), getComponents());
+    }
+}

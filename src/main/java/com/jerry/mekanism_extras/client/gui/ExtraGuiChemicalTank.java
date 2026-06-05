@@ -1,6 +1,5 @@
 package com.jerry.mekanism_extras.client.gui;
 
-import com.jerry.mekanism_extras.client.gui.element.button.ExtraGuiGasMode;
 import com.jerry.mekanism_extras.common.tile.ExtraTileEntityChemicalTank;
 
 import mekanism.api.chemical.IChemicalTank;
@@ -9,6 +8,7 @@ import mekanism.client.gui.GuiConfigurableTile;
 import mekanism.client.gui.element.GuiInnerScreen;
 import mekanism.client.gui.element.GuiSideHolder;
 import mekanism.client.gui.element.bar.GuiMergedChemicalBar;
+import mekanism.client.gui.element.button.GuiGasMode;
 import mekanism.common.MekanismLang;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.util.text.TextUtils;
@@ -50,7 +50,7 @@ public class ExtraGuiChemicalTank extends GuiConfigurableTile<ExtraTileEntityChe
             }
             return ret;
         }));
-        addRenderableWidget(new ExtraGuiGasMode(this, 159, 72, true, () -> tile.dumping, tile.getBlockPos(), 0));
+        addRenderableWidget(new GuiGasMode(this, 159, 72, true, () -> tile.dumping, tile.getBlockPos(), 0));
     }
 
     private void addStored(List<Component> ret, IChemicalTank<?, ?> tank, ILangEntry langKey) {
