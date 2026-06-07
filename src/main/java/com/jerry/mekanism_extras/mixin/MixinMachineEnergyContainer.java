@@ -84,6 +84,8 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
                 updateMaxEnergy();
                 updateEnergyPerTick();
             }
+        } else if (upgrade == Upgrade.SPEED && !getMaxEnergy().equals(FloatingLong.MAX_VALUE)) {
+            updateEnergyPerTick();
         }
     }
 }
