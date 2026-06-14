@@ -7,6 +7,7 @@ import com.jerry.mekanism_extras.common.integration.mekmm.inventory.slot.ExtraMo
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineBlockTypes;
 import com.jerry.mekanism_extras.common.integration.mekmm.registries.ExtraMoreMachineTileEntityTypes;
 import com.jerry.mekanism_extras.common.tier.ExtraFactoryTier;
+import com.jerry.mekanism_extras.common.util.ExtraContainerSyncUtils;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
 
@@ -484,6 +485,7 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
     @Override
     public void addContainerTrackers(MekanismContainer container) {
         super.addContainerTrackers(container);
+        ExtraContainerSyncUtils.trackLargeInventorySlots(container);
         container.trackArray(progress);
         errorTracker.track(container);
         container.track(SyncableFloatingLong.create(this::getLastUsage, value -> lastUsage = value));

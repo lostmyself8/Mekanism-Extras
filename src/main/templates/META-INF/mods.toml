@@ -29,14 +29,14 @@ side = "BOTH"
 [[dependencies.${mod_id}]]
 modId="mekanism"
 mandatory=true
-versionRange="[10.4.16]"
+versionRange="[10.4.16,)"
 ordering="AFTER"
 side="BOTH"
 
 [[dependencies.${mod_id}]]
 modId="mekanismgenerators"
 mandatory=false
-versionRange="[10.4.16]"
+versionRange="[10.4.16,)"
 ordering="AFTER"
 side="BOTH"
 

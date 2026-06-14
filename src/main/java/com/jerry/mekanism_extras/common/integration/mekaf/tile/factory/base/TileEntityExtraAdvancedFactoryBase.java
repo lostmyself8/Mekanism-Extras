@@ -7,6 +7,7 @@ import com.jerry.mekanism_extras.common.integration.mekaf.capabilities.energy.Ex
 import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlockTypes;
 import com.jerry.mekanism_extras.common.integration.mekaf.registries.ExtraAdvancedFactoryTileEntityTypes;
 import com.jerry.mekanism_extras.common.tier.ExtraFactoryTier;
+import com.jerry.mekanism_extras.common.util.ExtraContainerSyncUtils;
 import com.jerry.mekanism_extras.common.util.ExtraEnumUtils;
 import com.jerry.mekanism_extras.common.util.ExtraUpgradeUtils;
 
@@ -478,6 +479,7 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
 
     public void addContainerTrackers(MekanismContainer container) {
         super.addContainerTrackers(container);
+        ExtraContainerSyncUtils.trackLargeInventorySlots(container);
         container.trackArray(progress);
         errorTracker.track(container);
         container.track(SyncableFloatingLong.create(this::getLastUsage, value -> lastUsage = value));
