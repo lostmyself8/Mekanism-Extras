@@ -2,6 +2,7 @@ package com.jerry.mekextras.common.integration.mekaf.tile.factory.base;
 
 import com.jerry.mekextras.api.recipes.outputs.ExtraOutputHelper;
 import com.jerry.mekextras.common.integration.mekaf.inventory.slot.ExtraAdvancedFactoryInputInventorySlot;
+import com.jerry.mekextras.common.util.ExtraUpgradeDataTransfers;
 
 import mekanism.api.Action;
 import mekanism.api.IContentsListener;
@@ -146,14 +147,9 @@ public abstract class TileEntityExtraItemToItemAdvancedFactory<RECIPE extends Me
             getEnergyContainer().setEnergy(data.energyContainer.getEnergy());
             sorting = data.sorting;
             energySlot.deserializeNBT(provider, data.energySlot.serializeNBT(provider));
-            System.arraycopy(data.progress, 0, progress, 0, data.progress.length);
-            for (int i = 0; i < data.inputSlots.size(); i++) {
-                // Copy the stack using NBT so that if it is not actually valid due to a reload we don't crash
-                inputItemSlots.get(i).deserializeNBT(provider, data.inputSlots.get(i).serializeNBT(provider));
-            }
-            for (int i = 0; i < data.outputSlots.size(); i++) {
-                outputItemSlots.get(i).setStack(data.outputSlots.get(i).getStack());
-            }
+            ExtraUpgradeDataTransfers.copyProgress(this, "advanced factory progress", data.progress, progress);
+            ExtraUpgradeDataTransfers.copyInputSlots(provider, this, "advanced factory input slots", data.inputSlots, inputItemSlots);
+            ExtraUpgradeDataTransfers.copyOutputSlots(this, "advanced factory output slots", data.outputSlots, outputItemSlots);
             for (ITileComponent component : getComponents()) {
                 component.read(data.components, provider);
             }

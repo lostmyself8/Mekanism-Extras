@@ -5,6 +5,7 @@ import com.jerry.mekextras.api.mixin.IMixinMachineEnergyContainer;
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
 import com.jerry.mekextras.common.inventory.slot.ExtraFactoryInputInventorySlot;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
+import com.jerry.mekextras.common.util.ExtraUpgradeDataTransfers;
 import com.jerry.mekextras.common.util.ExtraUpgradeUtils;
 
 import mekanism.api.Action;
@@ -494,14 +495,9 @@ public abstract class TileEntityExtraFactory<RECIPE extends MekanismRecipe<?>> e
             getEnergyContainer().setEnergy(data.energyContainer.getEnergy());
             sorting = data.sorting;
             energySlot.deserializeNBT(provider, data.energySlot.serializeNBT(provider));
-            System.arraycopy(data.progress, 0, progress, 0, data.progress.length);
-            for (int i = 0; i < data.inputSlots.size(); i++) {
-                // Copy the stack using NBT so that if it is not actually valid due to a reload we don't crash
-                inputSlots.get(i).deserializeNBT(provider, data.inputSlots.get(i).serializeNBT(provider));
-            }
-            for (int i = 0; i < data.outputSlots.size(); i++) {
-                outputSlots.get(i).setStack(data.outputSlots.get(i).getStack());
-            }
+            ExtraUpgradeDataTransfers.copyProgress(this, "factory progress", data.progress, progress);
+            ExtraUpgradeDataTransfers.copyInputSlots(provider, this, "factory input slots", data.inputSlots, inputSlots);
+            ExtraUpgradeDataTransfers.copyOutputSlots(this, "factory output slots", data.outputSlots, outputSlots);
             for (ITileComponent component : getComponents()) {
                 component.read(data.components, provider);
             }
