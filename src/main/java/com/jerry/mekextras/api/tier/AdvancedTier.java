@@ -1,5 +1,7 @@
 package com.jerry.mekextras.api.tier;
 
+import com.jerry.mekextras.common.tier.TierColor;
+
 import mekanism.api.SupportsColorMap;
 import mekanism.api.math.MathUtils;
 
@@ -12,12 +14,13 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.material.MapColor;
 
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.function.IntFunction;
 
-public enum AdvancedTier implements StringRepresentable, SupportsColorMap {
+public enum AdvancedTier implements IAdvancedTier, StringRepresentable, SupportsColorMap {
 
     ABSOLUTE("Absolute", new int[] { 237, 238, 70 }, MapColor.COLOR_LIGHT_GREEN),
     SUPREME("Supreme", new int[] { 166, 0, 2 }, MapColor.TERRACOTTA_PINK),
@@ -30,6 +33,7 @@ public enum AdvancedTier implements StringRepresentable, SupportsColorMap {
     private static final AdvancedTier[] TIERS = values();
 
     private final String name;
+    @Getter
     private final MapColor mapColor;
     private TextColor textColor;
     private int[] rgbCode;
@@ -49,29 +53,39 @@ public enum AdvancedTier implements StringRepresentable, SupportsColorMap {
         return getSimpleName().toLowerCase(Locale.ROOT);
     }
 
-    public MapColor getMapColor() {
-        return mapColor;
+    @Override
+    public AdvancedTier getAdvanceTier() {
+        return this;
     }
 
     @Override
     public int getPackedColor() {
+        if (this == COSMIC || this == INFINITE) {
+            return TierColor.getPackedColor(this);
+        }
         return argb;
     }
 
     @Override
     public int[] getRgbCode() {
+        if (this == COSMIC || this == INFINITE) {
+            return TierColor.getRgb(this);
+        }
         return rgbCode;
     }
 
     @Override
     public void setColorFromAtlas(int[] color) {
-        this.rgbCode = color;
-        this.argb = FastColor.ARGB32.color(rgbCode[0], rgbCode[1], rgbCode[2]);
-        this.textColor = TextColor.fromRgb(argb);
+        rgbCode = color;
+        argb = FastColor.ARGB32.color(rgbCode[0], rgbCode[1], rgbCode[2]);
+        textColor = TextColor.fromRgb(argb);
     }
 
     public TextColor getColor() {
-        return this.textColor;
+        if (this == COSMIC || this == INFINITE) {
+            return TextColor.fromRgb(getPackedColor());
+        }
+        return textColor;
     }
 
     @NotNull
