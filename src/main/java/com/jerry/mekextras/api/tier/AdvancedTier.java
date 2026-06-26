@@ -82,6 +82,9 @@ public enum AdvancedTier implements IAdvancedTier, StringRepresentable, Supports
     }
 
     public TextColor getColor() {
+        if (this == COSMIC || this == INFINITE) {
+            return TextColor.fromRgb(getPackedColor());
+        }
         return textColor;
     }
 
