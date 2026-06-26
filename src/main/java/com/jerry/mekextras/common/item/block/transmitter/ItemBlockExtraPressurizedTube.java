@@ -34,6 +34,10 @@ public class ItemBlockExtraPressurizedTube extends ItemBlockTooltip<BlockSmallTr
         return Objects.requireNonNull(Attribute.getTier(getBlock(), TubeTier.class));
     }
 
+    public @NotNull Component getName(@NotNull ItemStack stack) {
+        return TextComponentUtil.build(ExtraTransmitterTier.getAdvancedTier(getTier()).getColor(), super.getName(stack));
+    }
+
     @Override
     public @NotNull Component getName(@NotNull ItemStack stack) {
         return TextComponentUtil.build(ExtraTransmitterTier.getAdvancedTier(getTier()).getColor(), super.getName(stack));

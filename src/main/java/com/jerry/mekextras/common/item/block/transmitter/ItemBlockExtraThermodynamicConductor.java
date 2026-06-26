@@ -33,6 +33,10 @@ public class ItemBlockExtraThermodynamicConductor extends ItemBlockTooltip<Block
         return Objects.requireNonNull(Attribute.getTier(getBlock(), ConductorTier.class));
     }
 
+    public @NotNull Component getName(@NotNull ItemStack stack) {
+        return TextComponentUtil.build(ExtraTransmitterTier.getAdvancedTier(getTier()).getColor(), super.getName(stack));
+    }
+
     @Override
     public @NotNull Component getName(@NotNull ItemStack stack) {
         return TextComponentUtil.build(ExtraTransmitterTier.getAdvancedTier(getTier()).getColor(), super.getName(stack));

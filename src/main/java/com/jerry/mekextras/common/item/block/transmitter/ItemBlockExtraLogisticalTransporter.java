@@ -35,6 +35,10 @@ public class ItemBlockExtraLogisticalTransporter extends ItemBlockExtraTransport
         return Objects.requireNonNull(Attribute.getTier(getBlock(), TransporterTier.class));
     }
 
+    public @NotNull Component getName(@NotNull ItemStack stack) {
+        return TextComponentUtil.build(ExtraTransmitterTier.getAdvancedTier(getTier()).getColor(), super.getName(stack));
+    }
+
     @Override
     public @NotNull Component getName(@NotNull ItemStack stack) {
         return TextComponentUtil.build(ExtraTransmitterTier.getAdvancedTier(getTier()).getColor(), super.getName(stack));
