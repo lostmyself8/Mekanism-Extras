@@ -1,9 +1,11 @@
 package com.jerry.mekextras.common.item.block.transmitter;
 
+import com.jerry.mekextras.common.tier.transmitter.ExtraTransmitterTier;
 import com.jerry.mekextras.common.tier.transmitter.PTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraMechanicalPipe;
 
 import mekanism.api.text.EnumColor;
+import mekanism.api.text.TextComponentUtil;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.transmitter.BlockLargeTransmitter;
@@ -30,6 +32,10 @@ public class ItemBlockExtraMechanicalPipe extends ItemBlockTooltip<BlockLargeTra
     @Override
     public PipeTier getTier() {
         return Objects.requireNonNull(Attribute.getTier(getBlock(), PipeTier.class));
+    }
+
+    public @NotNull Component getName(@NotNull ItemStack stack) {
+        return TextComponentUtil.build(ExtraTransmitterTier.getAdvancedTier(getTier()).getColor(), super.getName(stack));
     }
 
     @Override
