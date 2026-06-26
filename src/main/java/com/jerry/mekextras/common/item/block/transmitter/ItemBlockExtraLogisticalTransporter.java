@@ -1,9 +1,11 @@
 package com.jerry.mekextras.common.item.block.transmitter;
 
+import com.jerry.mekextras.common.tier.transmitter.ExtraTransmitterTier;
 import com.jerry.mekextras.common.tier.transmitter.TPTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraLogisticalTransporter;
 
 import mekanism.api.text.EnumColor;
+import mekanism.api.text.TextComponentUtil;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.block.transmitter.BlockLargeTransmitter;
@@ -17,7 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -34,8 +35,12 @@ public class ItemBlockExtraLogisticalTransporter extends ItemBlockExtraTransport
         return Objects.requireNonNull(Attribute.getTier(getBlock(), TransporterTier.class));
     }
 
+    public @NotNull Component getName(@NotNull ItemStack stack) {
+        return TextComponentUtil.build(ExtraTransmitterTier.getAdvancedTier(getTier()).getColor(), super.getName(stack));
+    }
+
     @Override
-    protected void addStats(@NotNull ItemStack stack, @Nullable TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+    protected void addStats(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         super.addStats(stack, context, tooltip, flag);
         TransporterTier tier = getTier();
         float tickRate = Math.max(context.tickRate(), TickRateManager.MIN_TICKRATE);
