@@ -40,6 +40,13 @@ versionRange="[10.4.16,)"
 ordering="AFTER"
 side="BOTH"
 
+[[dependencies.${mod_id}]]
+modId="mekmm"
+mandatory=false
+versionRange="[1.2.1,)"
+ordering="NONE"
+side="BOTH"
+
 #[[dependencies.${mod_id}]]
 #   modId="evolvedmekanism"
 #   mandatory=false
