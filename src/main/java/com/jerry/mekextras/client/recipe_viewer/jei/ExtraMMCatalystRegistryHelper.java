@@ -1,5 +1,6 @@
 package com.jerry.mekextras.client.recipe_viewer.jei;
 
+import com.jerry.mekextras.common.integration.mekmm.MoreMachineIntegrationCompat;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
@@ -33,7 +34,7 @@ public class ExtraMMCatalystRegistryHelper {
             Item item = workstation.asItem();
             if (item instanceof BlockItem blockItem) {
                 MoreMachineAttributeFactoryType factoryType = Attribute.get(blockItem.getBlock(), MoreMachineAttributeFactoryType.class);
-                if (factoryType != null) {
+                if (factoryType != null && MoreMachineIntegrationCompat.isFactoryTypeSupported(factoryType.getMoreMachineFactoryType())) {
                     for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
                         registry.addRecipeCatalyst(ExtraMoreMachineBlocks.getExtraMoreMachineFactory(tier, factoryType.getMoreMachineFactoryType()), recipeType);
                     }

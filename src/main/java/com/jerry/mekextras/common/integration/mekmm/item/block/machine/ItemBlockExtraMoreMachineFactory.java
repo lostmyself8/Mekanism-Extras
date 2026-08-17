@@ -1,6 +1,7 @@
 package com.jerry.mekextras.common.integration.mekmm.item.block.machine;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttribute;
+import com.jerry.mekextras.common.integration.mekmm.MoreMachineIntegrationCompat;
 import com.jerry.mekextras.common.integration.mekmm.block.prefab.ExtraMoreMachineBlockFactoryMachine.BlockExtraMoreMachineFactory;
 import com.jerry.mekextras.common.item.block.ItemBlockExtraTooltip;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
@@ -26,10 +27,12 @@ import java.util.List;
 public class ItemBlockExtraMoreMachineFactory extends ItemBlockExtraTooltip<BlockTile<?, ?>> {
 
     private static AttachedSideConfig getSideConfig(BlockExtraMoreMachineFactory<?> block) {
-        return switch (Attribute.getOrThrow(block.builtInRegistryHolder(), MoreMachineAttributeFactoryType.class).getMoreMachineFactoryType()) {
+        var type = Attribute.getOrThrow(block.builtInRegistryHolder(), MoreMachineAttributeFactoryType.class).getMoreMachineFactoryType();
+        return switch (type) {
             case CNC_STAMPING -> AttachedSideConfig.EXTRA_MACHINE;
             case RECYCLING, CNC_LATHING, CNC_ROLLING_MILL -> AttachedSideConfig.ELECTRIC_MACHINE;
             case PLANTING_STATION, REPLICATING -> AttachedSideConfig.ADVANCED_MACHINE_INPUT_ONLY;
+            default -> throw MoreMachineIntegrationCompat.unsupportedFactoryType(type);
         };
     }
 

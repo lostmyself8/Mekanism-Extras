@@ -4,6 +4,7 @@ import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
+import com.jerry.mekextras.common.integration.mekmm.MoreMachineIntegrationCompat;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlockTypes;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineContainerTypes;
@@ -68,6 +69,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
             builder.with(switch (type) {
                 case RECYCLING, CNC_STAMPING, CNC_LATHING, CNC_ROLLING_MILL -> AttributeSideConfig.ELECTRIC_MACHINE;
                 case PLANTING_STATION, REPLICATING -> AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE;
+                default -> throw MoreMachineIntegrationCompat.unsupportedFactoryType(type);
             });
             // 如果有Bounding属性就添加，但或许会有更复杂的形状
             if (getBaseMachine(type).has(AttributeHasBounding.class)) {
@@ -97,6 +99,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
                 case CNC_LATHING -> ExtraMoreMachineBlockTypes.CNC_LATHE;
                 case CNC_ROLLING_MILL -> ExtraMoreMachineBlockTypes.CNC_ROLLING_MILL;
                 case REPLICATING -> ExtraMoreMachineBlockTypes.REPLICATOR;
+                default -> throw MoreMachineIntegrationCompat.unsupportedFactoryType(type);
             };
         }
     }

@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.integration.mekmm.registries;
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.api.tier.IAdvancedTier;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeTier;
+import com.jerry.mekextras.common.integration.mekmm.MoreMachineIntegrationCompat;
 import com.jerry.mekextras.common.integration.mekmm.block.prefab.ExtraMoreMachineBlockFactoryMachine.BlockExtraMoreMachineFactory;
 import com.jerry.mekextras.common.integration.mekmm.content.blocktype.ExtraMoreMachineFactory;
 import com.jerry.mekextras.common.integration.mekmm.item.block.machine.ItemBlockExtraMoreMachineFactory;
@@ -30,7 +31,6 @@ import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
 import com.jerry.mekmm.common.tile.factory.TileEntityReplicatingFactory;
 import com.jerry.mekmm.common.tile.machine.TileEntityPlantingStation;
 import com.jerry.mekmm.common.tile.machine.TileEntityReplicator;
-import com.jerry.mekmm.common.util.MoreMachineEnumUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -49,7 +49,7 @@ public class ExtraMoreMachineBlocks {
     static {
         // factories
         for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
-            for (MoreMachineFactoryType type : MoreMachineEnumUtils.MM_FACTORY_TYPES) {
+            for (MoreMachineFactoryType type : MoreMachineIntegrationCompat.SUPPORTED_FACTORY_TYPES) {
                 MM_FACTORIES.put(tier, type, registerMoreMachineFactory(ExtraMoreMachineBlockTypes.getExtraMoreMachineFactory(tier, type)));
             }
         }
@@ -67,6 +67,7 @@ public class ExtraMoreMachineBlocks {
                 case CNC_LATHING -> s -> MoreMachineRecipeType.LATHING.getInputCache().containsInput(null, s);
                 case CNC_ROLLING_MILL -> s -> MoreMachineRecipeType.ROLLING_MILL.getInputCache().containsInput(null, s);
                 case REPLICATING -> TileEntityReplicator::isValidItemInput;
+                default -> throw MoreMachineIntegrationCompat.unsupportedFactoryType(type.getMoreMachineFactoryType());
             };
             switch (type.getMoreMachineFactoryType()) {
                 case CNC_STAMPING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()

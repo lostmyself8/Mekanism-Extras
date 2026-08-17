@@ -1,6 +1,7 @@
 package com.jerry.mekextras.mixin.integration.mekmm;
 
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
+import com.jerry.mekextras.common.integration.mekmm.MoreMachineIntegrationCompat;
 import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 
@@ -26,7 +27,7 @@ public abstract class MixinMoreMachineFactory extends BlockType {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void injectFactoryUltimateToAbsolute(Supplier<?> tileEntityRegistrar, Supplier<?> containerRegistrar, MoreMachineFactoryMachine<?> origMachine, FactoryTier tier, CallbackInfo ci) {
-        if (tier == FactoryTier.ULTIMATE) {
+        if (tier == FactoryTier.ULTIMATE && MoreMachineIntegrationCompat.isFactoryTypeSupported(origMachine.getMoreMachineFactoryType())) {
             add(new ExtraAttributeUpgradeable(() -> ExtraMoreMachineBlocks.getExtraMoreMachineFactory(ExtraFactoryTier.ABSOLUTE, origMachine.getMoreMachineFactoryType())));
         }
     }

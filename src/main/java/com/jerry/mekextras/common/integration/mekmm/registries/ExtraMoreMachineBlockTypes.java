@@ -3,6 +3,7 @@ package com.jerry.mekextras.common.integration.mekmm.registries;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeSupport;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraFactoryMachine;
 import com.jerry.mekextras.common.content.blocktype.ExtraMachine.ExtraMachineBuilder;
+import com.jerry.mekextras.common.integration.mekmm.MoreMachineIntegrationCompat;
 import com.jerry.mekextras.common.integration.mekmm.content.blocktype.ExtraMoreMachineFactory;
 import com.jerry.mekextras.common.integration.mekmm.content.blocktype.ExtraMoreMachineFactory.ExtraMoreMachineFactoryBuilder;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
@@ -19,7 +20,6 @@ import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import com.jerry.mekmm.common.registries.MoreMachineContainerTypes;
 import com.jerry.mekmm.common.registries.MoreMachineTileEntityTypes;
 import com.jerry.mekmm.common.tile.machine.*;
-import com.jerry.mekmm.common.util.MoreMachineEnumUtils;
 
 public class ExtraMoreMachineBlockTypes {
 
@@ -84,7 +84,7 @@ public class ExtraMoreMachineBlockTypes {
 
     static {
         for (ExtraFactoryTier tier : ExtraEnumUtils.EXTRA_FACTORY_TIERS) {
-            for (MoreMachineFactoryType type : MoreMachineEnumUtils.MM_FACTORY_TYPES) {
+            for (MoreMachineFactoryType type : MoreMachineIntegrationCompat.SUPPORTED_FACTORY_TYPES) {
                 MM_FACTORIES.put(tier, type, ExtraMoreMachineFactoryBuilder.createMoreMachineFactory(() -> ExtraMoreMachineTileEntityTypes.getExtraMoreMachineFactoryTile(tier, type), type, tier).build());
             }
         }
