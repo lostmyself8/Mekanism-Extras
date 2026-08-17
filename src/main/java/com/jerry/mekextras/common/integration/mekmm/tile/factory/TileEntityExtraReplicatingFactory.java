@@ -29,7 +29,6 @@ import mekanism.common.tile.interfaces.IHasDumpButton;
 import mekanism.common.upgrade.AdvancedMachineUpgradeData;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.InventoryUtils;
-import mekanism.common.util.RegistryUtils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -40,23 +39,21 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidType;
 
+import com.jerry.mekmm.api.datamaps.IMoreMachineDataMapTypes;
+import com.jerry.mekmm.api.datamaps.ItemReplicatorRecipe;
 import com.jerry.mekmm.api.recipes.basic.MMBasicItemStackChemicalToItemStackRecipe;
 import com.jerry.mekmm.api.recipes.cache.ReplicatorCachedRecipe;
-import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
-import com.jerry.mekmm.common.config.MoreMachineConfig;
+import com.jerry.mekmm.client.recipe_viewer.MoreMachineRecipeViewerRecipeType;
 import com.jerry.mekmm.common.recipe.impl.ReplicatorIRecipeSingle;
 import com.jerry.mekmm.common.registries.MoreMachineChemicals;
-import com.jerry.mekmm.common.util.ValidatorUtils;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
-public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItemMoreMachineFactory<MMBasicItemStackChemicalToItemStackRecipe> implements IHasDumpButton,
+public class TileEntityExtraReplicatingFactory extends TileEntityExtraMoreMachineItemToItemFactory<MMBasicItemStackChemicalToItemStackRecipe> implements IHasDumpButton,
                                                ItemChemicalRecipeLookupHandler<MMBasicItemStackChemicalToItemStackRecipe> {
 
     protected static final DoubleInputRecipeCache.CheckRecipeType<ItemStack, ChemicalStack, MMBasicItemStackChemicalToItemStackRecipe, ItemStack> OUTPUT_CHECK = (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
@@ -71,8 +68,6 @@ public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItem
             RecipeError.NOT_ENOUGH_SECONDARY_INPUT);
 
     public static final long MAX_GAS = 10 * FluidType.BUCKET_VOLUME;
-
-    public static HashMap<String, Integer> customRecipeMap = ValidatorUtils.getRecipeFromConfig(MoreMachineConfig.general.itemReplicatorRecipe.get());
 
     private final ILongInputHandler<ChemicalStack> chemicalInputHandler;
     // 化学品存储槽
@@ -142,11 +137,7 @@ public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItem
 
     @Override
     public boolean isValidInputItem(ItemStack stack) {
-        Item item = stack.getItem();
-        if (customRecipeMap != null) {
-            return customRecipeMap.containsKey(Objects.requireNonNull(RegistryUtils.getName(item.builtInRegistryHolder())).toString());
-        }
-        return false;
+        return IMoreMachineDataMapTypes.INSTANCE.getItemReplicatorRecipe(stack.getItemHolder()) != null;
     }
 
     @Override
@@ -174,23 +165,20 @@ public class TileEntityExtraReplicatingFactory extends TileEntityExtraItemToItem
 
     @Override
     public @Nullable IRecipeViewerRecipeType<MMBasicItemStackChemicalToItemStackRecipe> recipeViewerType() {
-        return MMRecipeViewerRecipeType.REPLICATOR;
+        return MoreMachineRecipeViewerRecipeType.REPLICATOR;
     }
 
     public static MMBasicItemStackChemicalToItemStackRecipe getRecipe(ItemStack itemStack, ChemicalStack chemicalStack) {
         if (chemicalStack.isEmpty() || itemStack.isEmpty()) {
             return null;
         }
-        if (customRecipeMap != null) {
-            Item item = itemStack.getItem();
-            // 如果为空则赋值为0
-            int amount = customRecipeMap.getOrDefault(RegistryUtils.getName(itemStack.getItemHolder()).toString(), 0);
-            // 防止null和配置文件中出现0
-            if (amount == 0) return null;
+        Holder<Item> itemHolder = itemStack.getItemHolder();
+        ItemReplicatorRecipe itemReplicatorRecipe = IMoreMachineDataMapTypes.INSTANCE.getItemReplicatorRecipe(itemHolder);
+        if (itemReplicatorRecipe != null) {
             return new ReplicatorIRecipeSingle(
-                    IngredientCreatorAccess.item().from(item, 1),
-                    IngredientCreatorAccess.chemicalStack().fromHolder(MoreMachineChemicals.UU_MATTER, amount),
-                    new ItemStack(item, 1));
+                    IngredientCreatorAccess.item().fromHolder(itemHolder, 1),
+                    IngredientCreatorAccess.chemicalStack().fromHolder(MoreMachineChemicals.UU_MATTER, itemReplicatorRecipe.UUAmount()),
+                    new ItemStack(itemHolder, 1));
         }
         return null;
     }

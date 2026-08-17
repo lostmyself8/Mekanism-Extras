@@ -19,7 +19,6 @@ import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError;
 import mekanism.api.recipes.inputs.IInputHandler;
 import mekanism.api.recipes.outputs.IOutputHandler;
 import mekanism.common.CommonWorldTickHandler;
-import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.holder.chemical.ChemicalTankHelper;
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder;
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper;
@@ -61,8 +60,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 
-import com.jerry.mekaf.common.block.attribute.AttributeAdvancedFactoryType;
-import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
+import com.jerry.mekaf.common.content.blocktype.IAdvancedFactoryType;
 import com.jerry.mekaf.common.tile.IFactoryStyle;
 import com.jerry.mekmm.common.util.MoreMachineUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
@@ -72,10 +70,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 
-public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends MekanismRecipe<?>> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE>, IFactoryStyle {
+public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends MekanismRecipe<?>, TYPE extends IAdvancedFactoryType<?>> extends TileEntityConfigurableMachine implements IRecipeLookupHandler<RECIPE>, IFactoryStyle {
 
     /**
      * How many ticks it takes, by default, to run an operation.
@@ -116,7 +115,7 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
      * This machine's factory type.
      */
     @NotNull
-    protected final AdvancedFactoryType type;
+    protected final TYPE type;
 
     // 为了加压工厂而更改
     protected ExtraAdvancedFactoryEnergyContainer energyContainer;
@@ -130,9 +129,9 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
     protected IInputHandler<@NotNull FluidStack>[] fluidInputHandlers;
     protected IOutputHandler<@NotNull FluidStack>[] fluidOutputHandlers;
 
-    protected TileEntityExtraAdvancedFactoryBase(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
+    protected TileEntityExtraAdvancedFactoryBase(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes, TYPE type) {
         super(blockProvider, pos, state);
-        type = Attribute.getOrThrow(blockProvider, AttributeAdvancedFactoryType.class).getAdvancedFactoryType();
+        this.type = Objects.requireNonNull(type, "IAdvancedFactoryType can not be null.");
 
         configComponent.setupInputConfig(TransmissionType.ENERGY, energyContainer);
 
@@ -237,7 +236,7 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
         return null;
     }
 
-    public AdvancedFactoryType getAdvancedFactoryType() {
+    public TYPE getAdvancedFactoryType() {
         return type;
     }
 

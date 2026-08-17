@@ -68,6 +68,7 @@ import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import com.jerry.mekmm.common.util.MoreMachineUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -108,6 +109,7 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
      * How many ticks it takes, with upgrades, to run an operation
      */
     private int ticksRequired = BASE_TICKS_REQUIRED;
+    @Getter
     private int operationsPerTick = 1;// will increase for modified upgrade multipliers
     private boolean sorting;
     private boolean sortingNeeded = true;
@@ -138,7 +140,9 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
                 outputSlots.add(info.secondaryOutputSlot());
             }
         }
-        configComponent.setupItemIOConfig(inputSlots, outputSlots, energySlot, false);
+        if (defaultsIOConfig()) {
+            configComponent.setupItemIOConfig(inputSlots, outputSlots, energySlot, false);
+        }
         IInventorySlot extraSlot = getExtraSlot();
         if (extraSlot != null) {
             ConfigInfo itemConfig = configComponent.getConfig(TransmissionType.ITEM);
@@ -226,6 +230,10 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
     @Nullable
     protected IInventorySlot getExtraSlot() {
         return null;
+    }
+
+    protected boolean defaultsIOConfig() {
+        return true;
     }
 
     public MoreMachineFactoryType getMMFactoryType() {
@@ -395,10 +403,6 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
     @ComputerMethod(methodDescription = "Total number of ticks it takes currently for the recipe to complete")
     public int getTicksRequired() {
         return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 : ticksRequired;
-    }
-
-    public int getOperationsPerTick() {
-        return this.operationsPerTick;
     }
 
     public int getChemicalTicksRequired() {

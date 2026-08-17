@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.ItemStackMap;
 
+import com.jerry.mekaf.common.content.blocktype.IAdvancedFactoryType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,15 +47,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.ToIntBiFunction;
 
-public abstract class TileEntityExtraItemToItemAdvancedFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityExtraAdvancedFactoryBase<RECIPE> {
+public abstract class TileEntityExtraItemToItemAdvancedFactory<RECIPE extends MekanismRecipe<?>, TYPE extends IAdvancedFactoryType<?>> extends TileEntityExtraAdvancedFactoryBase<RECIPE, TYPE> {
 
     private IIProcessInfo[] processInfoSlots;
 
     protected final List<IInventorySlot> inputItemSlots;
     protected final List<IInventorySlot> outputItemSlots;
 
-    protected TileEntityExtraItemToItemAdvancedFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
-        super(blockProvider, pos, state, errorTypes, globalErrorTypes);
+    protected TileEntityExtraItemToItemAdvancedFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes, TYPE type) {
+        super(blockProvider, pos, state, errorTypes, globalErrorTypes, type);
         inputItemSlots = new ArrayList<>();
         outputItemSlots = new ArrayList<>();
 
@@ -395,13 +396,13 @@ public abstract class TileEntityExtraItemToItemAdvancedFactory<RECIPE extends Me
 
         private final List<IIProcessInfo> processes = new ArrayList<>();
         @Nullable
-        private ToIntBiFunction<IIRecipeProcessInfo<RECIPE>, TileEntityExtraItemToItemAdvancedFactory<RECIPE>> lazyMinPerSlot;
+        private ToIntBiFunction<IIRecipeProcessInfo<RECIPE>, TileEntityExtraItemToItemAdvancedFactory<RECIPE, ?>> lazyMinPerSlot;
         private Object item;
         private RECIPE recipe;
         private int minPerSlot = 1;
         private int totalCount;
 
-        public int getMinPerSlot(TileEntityExtraItemToItemAdvancedFactory<RECIPE> factory) {
+        public int getMinPerSlot(TileEntityExtraItemToItemAdvancedFactory<RECIPE, ?> factory) {
             if (lazyMinPerSlot != null) {
                 // Get the value lazily
                 minPerSlot = Math.max(1, lazyMinPerSlot.applyAsInt(this, factory));

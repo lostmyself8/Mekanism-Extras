@@ -27,6 +27,7 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
+import com.jerry.mekmm.common.recipe.lookup.cache.MoreMachineInputRecipeCache;
 import com.jerry.mekmm.common.tile.factory.TileEntityReplicatingFactory;
 import com.jerry.mekmm.common.tile.machine.TileEntityPlantingStation;
 import com.jerry.mekmm.common.tile.machine.TileEntityReplicator;
@@ -66,6 +67,7 @@ public class ExtraMoreMachineBlocks {
                 case CNC_STAMPING -> s -> MoreMachineRecipeType.STAMPING.getInputCache().containsInputA(null, s);
                 case CNC_LATHING -> s -> MoreMachineRecipeType.LATHING.getInputCache().containsInput(null, s);
                 case CNC_ROLLING_MILL -> s -> MoreMachineRecipeType.ROLLING_MILL.getInputCache().containsInput(null, s);
+                case PRESSING -> s -> MoreMachineRecipeType.PRESSING.getInputCache().containsInputA(null, s);
                 case REPLICATING -> TileEntityReplicator::isValidItemInput;
             };
             switch (type.getMoreMachineFactoryType()) {
@@ -76,6 +78,12 @@ public class ExtraMoreMachineBlocks {
                         .build());
                 case CNC_LATHING, CNC_ROLLING_MILL, RECYCLING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                         .addBasicFactorySlots(processes, recipeInputPredicate)
+                        .addEnergy()
+                        .build());
+                case PRESSING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                        .addBasicFactorySlots(processes, recipeInputPredicate)
+                        .addInput(MoreMachineRecipeType.PRESSING, MoreMachineInputRecipeCache.TripleItem::containsInputB)
+                        .addInput(MoreMachineRecipeType.PRESSING, MoreMachineInputRecipeCache.TripleItem::containsInputC)
                         .addEnergy()
                         .build());
                 case PLANTING_STATION -> holder

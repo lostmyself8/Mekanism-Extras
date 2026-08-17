@@ -55,7 +55,7 @@ public class ExtraAdvancedFactoryBlocks {
         }
     }
 
-    private static <TILE extends TileEntityExtraAdvancedFactoryBase<?>> BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> registerAdvancedFactory(ExtraAdvancedFactory<TILE> type) {
+    private static <TILE extends TileEntityExtraAdvancedFactoryBase<?, ?>> BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> registerAdvancedFactory(ExtraAdvancedFactory<TILE> type) {
         ExtraFactoryTier tier = (ExtraFactoryTier) Objects.requireNonNull(type.get(ExtraAttributeTier.class)).tier();
         BlockRegistryObject<BlockExtraAdvancedFactory<?>, ItemBlockExtraAdvancedFactory> factory = registerTieredBlock(tier, "_" + type.getAdvancedFactoryType().getRegistryNameComponent() + "_factory", () -> new BlockExtraAdvancedFactory<>(type), ItemBlockExtraAdvancedFactory::new);
         factory.forItemHolder(holder -> {

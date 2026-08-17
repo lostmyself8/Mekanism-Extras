@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBase<?>> extends ExtraFactoryMachine<TILE> {
+public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBase<?, ?>> extends ExtraFactoryMachine<TILE> {
 
     private final ExtraFactoryMachine<?> origMachine;
 
@@ -54,7 +54,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBas
         }
     }
 
-    public static class ExtraAdvancedFactoryBuilder<FACTORY extends ExtraAdvancedFactory<TILE>, TILE extends TileEntityExtraAdvancedFactoryBase<?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
+    public static class ExtraAdvancedFactoryBuilder<FACTORY extends ExtraAdvancedFactory<TILE>, TILE extends TileEntityExtraAdvancedFactoryBase<?, ?>, T extends ExtraMachineBuilder<FACTORY, TILE, T>>
                                                    extends BlockTileBuilder<FACTORY, TILE, T> {
 
         protected ExtraAdvancedFactoryBuilder(FACTORY holder) {
@@ -62,8 +62,8 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBas
         }
 
         @SuppressWarnings("unchecked")
-        public static <TILE extends TileEntityExtraAdvancedFactoryBase<?>> ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> createAdvancedFactory(Supplier<?> tileEntityRegistrar, AdvancedFactoryType type,
-                                                                                                                                                                  ExtraFactoryTier tier) {
+        public static <TILE extends TileEntityExtraAdvancedFactoryBase<?, ?>> ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> createAdvancedFactory(Supplier<?> tileEntityRegistrar, AdvancedFactoryType type,
+                                                                                                                                                                     ExtraFactoryTier tier) {
             // this is dirty but unfortunately necessary for things to play right
             ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> builder = getExtraAdvancedFactoryTILEAdvancedFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(AdvancedFactoryBlockShapes.getShape(type));
@@ -86,7 +86,7 @@ public class ExtraAdvancedFactory<TILE extends TileEntityExtraAdvancedFactoryBas
         }
     }
 
-    private static <TILE extends TileEntityExtraAdvancedFactoryBase<?>> @NotNull ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> getExtraAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, AdvancedFactoryType type, ExtraFactoryTier tier) {
+    private static <TILE extends TileEntityExtraAdvancedFactoryBase<?, ?>> @NotNull ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> getExtraAdvancedFactoryTILEAdvancedFactoryBuilder(Supplier<TileEntityTypeRegistryObject<TILE>> tileEntityRegistrar, AdvancedFactoryType type, ExtraFactoryTier tier) {
         ExtraAdvancedFactoryBuilder<ExtraAdvancedFactory<TILE>, TILE, ?> builder = new ExtraAdvancedFactoryBuilder<>(new ExtraAdvancedFactory<>(tileEntityRegistrar,
                 () -> ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY,
                 getBaseMachine(type),

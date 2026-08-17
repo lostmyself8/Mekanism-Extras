@@ -77,8 +77,9 @@ public class ComputerMethodRegistry_mekextras implements IComputerMethodRegistry
 
             FactoryRegistry.register(TileEntityExtraMoreMachineFactory.class, TileEntityExtraMoreMachineFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class);
             FactoryRegistry.register(TileEntityExtraPlantingFactory.class, TileEntityExtraPlantingFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityExtraMoreMachineFactory.class);
-            FactoryRegistry.register(TileEntityExtraReplicatingFactory.class, TileEntityExtraReplicatingFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityExtraMoreMachineFactory.class, TileEntityExtraItemToItemMoreMachineFactory.class);
-            FactoryRegistry.register(TileEntityExtraStampingFactory.class, TileEntityExtraStampingFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityExtraMoreMachineFactory.class, TileEntityExtraItemToItemMoreMachineFactory.class);
+            FactoryRegistry.register(TileEntityExtraPressingFactory.class, TileEntityExtraPressingFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityExtraMoreMachineFactory.class, TileEntityExtraMoreMachineItemToItemFactory.class);
+            FactoryRegistry.register(TileEntityExtraReplicatingFactory.class, TileEntityExtraReplicatingFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityExtraMoreMachineFactory.class, TileEntityExtraMoreMachineItemToItemFactory.class);
+            FactoryRegistry.register(TileEntityExtraStampingFactory.class, TileEntityExtraStampingFactory$ComputerHandler::new, TileEntityUpdateable.class, CapabilityTileEntity.class, TileEntityMekanism.class, TileEntityConfigurableMachine.class, TileEntityExtraMoreMachineFactory.class, TileEntityExtraMoreMachineItemToItemFactory.class);
         }
     }
 }

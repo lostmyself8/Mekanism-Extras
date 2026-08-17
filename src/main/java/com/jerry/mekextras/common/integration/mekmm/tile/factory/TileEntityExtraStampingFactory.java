@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import com.jerry.mekmm.api.recipes.StamperRecipe;
 import com.jerry.mekmm.api.recipes.cache.StamperCachedRecipe;
-import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
+import com.jerry.mekmm.client.recipe_viewer.MoreMachineRecipeViewerRecipeType;
 import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
 import com.jerry.mekmm.common.upgrade.StamperUpgradeData;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Set;
 
-public class TileEntityExtraStampingFactory extends TileEntityExtraItemToItemMoreMachineFactory<StamperRecipe> implements DoubleItemRecipeLookupHandler<StamperRecipe> {
+public class TileEntityExtraStampingFactory extends TileEntityExtraMoreMachineItemToItemFactory<StamperRecipe> implements DoubleItemRecipeLookupHandler<StamperRecipe> {
 
     private static final CheckRecipeType<ItemStack, ItemStack, StamperRecipe, ItemStack> OUTPUT_CHECK = (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
@@ -114,7 +114,7 @@ public class TileEntityExtraStampingFactory extends TileEntityExtraItemToItemMor
 
     @Override
     public IRecipeViewerRecipeType<StamperRecipe> recipeViewerType() {
-        return MMRecipeViewerRecipeType.STAMPING;
+        return MoreMachineRecipeViewerRecipeType.STAMPING;
     }
 
     @Nullable
