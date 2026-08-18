@@ -1,5 +1,23 @@
 # ChangeLog
 
+## Version [v1.4.1](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.4.0-1.21.1...v1.4.1-1.21.1)
+### Added
+
+- 为寰宇支配和悖论无限物品添加变色文字效果 by @lostmyself8 in [#178](https://github.com/lostmyself8/Mekanism-Extras/pull/178)
+- 为寰宇支配和悖论无限物品添加变色文字效果 by @lostmyself8 in [#179](https://github.com/lostmyself8/Mekanism-Extras/pull/179)
+- 适配mekmm-1.4.0并修复战利品表异常加载的问题 by @lostmyself8 in [#185](https://github.com/lostmyself8/Mekanism-Extras/pull/185)
+
+### Fixed
+
+- 修复寰宇和悖论能量立方不会变色的bug by @lostmyself8 in [#168](https://github.com/lostmyself8/Mekanism-Extras/pull/168)
+- fuck by @lostmyself8 in [#177](https://github.com/lostmyself8/Mekanism-Extras/pull/177)
+- 适配mekmm-1.4.0并修复战利品表异常加载的问题 by @lostmyself8 in [#185](https://github.com/lostmyself8/Mekanism-Extras/pull/185)
+
+### Changed
+
+- Feat: PT_BR localization by @PrincessStellar in [#167](https://github.com/lostmyself8/Mekanism-Extras/pull/167)
+
+ 
 ## Version [v1.4.0](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.3.4-1.21.1...v1.4.0-1.21.1)
 ### Added
 
