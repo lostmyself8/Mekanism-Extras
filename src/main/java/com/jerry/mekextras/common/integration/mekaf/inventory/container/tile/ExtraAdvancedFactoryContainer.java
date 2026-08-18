@@ -7,9 +7,9 @@ import mekanism.common.inventory.container.tile.MekanismTileContainer;
 
 import net.minecraft.world.entity.player.Inventory;
 
-public class ExtraAdvancedFactoryContainer extends MekanismTileContainer<TileEntityExtraAdvancedFactoryBase<?>> {
+public class ExtraAdvancedFactoryContainer extends MekanismTileContainer<TileEntityExtraAdvancedFactoryBase<?, ?>> {
 
-    public ExtraAdvancedFactoryContainer(int id, Inventory inv, TileEntityExtraAdvancedFactoryBase<?> tile) {
+    public ExtraAdvancedFactoryContainer(int id, Inventory inv, TileEntityExtraAdvancedFactoryBase<?, ?> tile) {
         super(ExtraAdvancedFactoryContainerTypes.ADVANCED_FACTORY, id, inv, tile);
     }
 

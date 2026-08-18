@@ -33,6 +33,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+import com.jerry.mekaf.common.content.blocktype.IAdvancedFactoryType;
 import com.jerry.mekaf.common.upgrade.ChemicalToChemicalUpgradeData;
 import com.jerry.mekmm.common.util.ChemicalStackMap;
 import org.jetbrains.annotations.Contract;
@@ -45,7 +46,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.ToIntBiFunction;
 
-public abstract class TileEntityExtraChemicalToChemicalFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityExtraAdvancedFactoryBase<RECIPE> {
+public abstract class TileEntityExtraChemicalToChemicalFactory<RECIPE extends MekanismRecipe<?>, TYPE extends IAdvancedFactoryType<?>> extends TileEntityExtraAdvancedFactoryBase<RECIPE, TYPE> {
 
     protected CCProcessInfo[] processInfoSlots;
     protected IChemicalTank[] outputTank;
@@ -56,8 +57,8 @@ public abstract class TileEntityExtraChemicalToChemicalFactory<RECIPE extends Me
     public List<IChemicalTank> inputChemicalTanks;
     public List<IChemicalTank> outputChemicalTanks;
 
-    protected TileEntityExtraChemicalToChemicalFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
-        super(blockProvider, pos, state, errorTypes, globalErrorTypes);
+    protected TileEntityExtraChemicalToChemicalFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes, TYPE type) {
+        super(blockProvider, pos, state, errorTypes, globalErrorTypes, type);
         inputChemicalTanks = new ArrayList<>();
         outputChemicalTanks = new ArrayList<>();
 
@@ -425,13 +426,13 @@ public abstract class TileEntityExtraChemicalToChemicalFactory<RECIPE extends Me
 
         private final List<CCProcessInfo> processes = new ArrayList<>();
         @Nullable
-        private ToIntBiFunction<CCRecipeProcessInfo<RECIPE>, TileEntityExtraChemicalToChemicalFactory<RECIPE>> lazyMinPerTank;
+        private ToIntBiFunction<CCRecipeProcessInfo<RECIPE>, TileEntityExtraChemicalToChemicalFactory<RECIPE, ?>> lazyMinPerTank;
         private Object chemical;
         private RECIPE recipe;
         private long minPerTank = 1;
         private long totalAmount;
 
-        public long getMinPerTank(TileEntityExtraChemicalToChemicalFactory<RECIPE> factory) {
+        public long getMinPerTank(TileEntityExtraChemicalToChemicalFactory<RECIPE, ?> factory) {
             if (lazyMinPerTank != null) {
                 // Get the value lazily
                 minPerTank = Math.max(1, lazyMinPerTank.applyAsInt(this, factory));

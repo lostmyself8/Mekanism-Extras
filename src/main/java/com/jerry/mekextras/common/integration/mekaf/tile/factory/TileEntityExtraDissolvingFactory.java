@@ -49,6 +49,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekaf.common.upgrade.ItemChemicalToChemicalUpgradeData;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -59,10 +60,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemicalFactory<ChemicalDissolutionRecipe> implements IHasDumpButton, ConstantUsageRecipeLookupHandler,
+public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemicalFactory<ChemicalDissolutionRecipe, AdvancedFactoryType> implements IHasDumpButton, ConstantUsageRecipeLookupHandler,
                                               ItemChemicalRecipeLookupHandler<ChemicalDissolutionRecipe> {
 
-    private static final DoubleInputRecipeCache.CheckRecipeType<ItemStack, ChemicalStack, ChemicalDissolutionRecipe, ChemicalStack> OUTPUT_CHECK = (recipe, input, extra, output) -> ChemicalStack.isSameChemical(recipe.getOutput(input, extra), output);
+    private static final DoubleInputRecipeCache.CheckRecipeType<ItemStack, ChemicalStack, ChemicalDissolutionRecipe, ChemicalStack> OUTPUT_CHECK = (recipe, input, extra, output) -> output.isEmpty() || ChemicalStack.isSameChemical(recipe.getOutput(input, extra), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
             RecipeError.NOT_ENOUGH_ENERGY_REDUCED_RATE,
@@ -84,8 +85,8 @@ public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemi
 
     ChemicalInventorySlot chemicalInputSlot;
 
-    public TileEntityExtraDissolvingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
-        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
+    public TileEntityExtraDissolvingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, AdvancedFactoryType type) {
+        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES, type);
 
         ConfigInfo itemConfig = configComponent.getConfig(TransmissionType.ITEM);
         if (itemConfig != null) {

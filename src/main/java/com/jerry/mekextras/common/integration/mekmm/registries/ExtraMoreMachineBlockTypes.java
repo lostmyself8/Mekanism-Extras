@@ -73,6 +73,15 @@ public class ExtraMoreMachineBlockTypes {
             .withSound(MekanismSounds.COMBINER)
             .build();
 
+    // Presser
+    public static final ExtraFactoryMachine<TileEntityPresser> PRESSER = ExtraMachineBuilder
+            .createExtraMoreMachineFactoryMachine(() -> MoreMachineTileEntityTypes.PRESSER, MoreMachineLang.DESCRIPTION_PRESSER, MoreMachineFactoryType.PRESSING)
+            .withGui(() -> MoreMachineContainerTypes.PRESSER)
+            .withSound(MekanismSounds.COMBINER)
+            .withEnergyConfig(MoreMachineConfig.usage.presser, MoreMachineConfig.storage.presser)
+            .with(ExtraAttributeUpgradeSupport.EXTRA_MACHINE_UPGRADES)
+            .build();
+
     // Replicator
     public static final ExtraFactoryMachine<TileEntityReplicator> REPLICATOR = ExtraMachineBuilder
             .createExtraMoreMachineFactoryMachine(() -> MoreMachineTileEntityTypes.REPLICATOR, MoreMachineLang.DESCRIPTION_REPLICATOR, MoreMachineFactoryType.REPLICATING)

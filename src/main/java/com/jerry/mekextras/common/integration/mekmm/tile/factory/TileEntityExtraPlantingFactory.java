@@ -57,7 +57,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import com.jerry.mekmm.api.recipes.PlantingRecipe;
 import com.jerry.mekmm.api.recipes.cache.PlantingNoPerTickUsageCacheRecipe;
-import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
+import com.jerry.mekmm.client.recipe_viewer.MoreMachineRecipeViewerRecipeType;
 import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
 import com.jerry.mekmm.common.tile.machine.TileEntityPlantingStation;
 import com.jerry.mekmm.common.upgrade.PlantingUpgradeData;
@@ -181,7 +181,7 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
 
     @Override
     public @Nullable IRecipeViewerRecipeType<PlantingRecipe> recipeViewerType() {
-        return MMRecipeViewerRecipeType.PLANTING_STATION;
+        return MoreMachineRecipeViewerRecipeType.PLANTING_STATION;
     }
 
     @Override

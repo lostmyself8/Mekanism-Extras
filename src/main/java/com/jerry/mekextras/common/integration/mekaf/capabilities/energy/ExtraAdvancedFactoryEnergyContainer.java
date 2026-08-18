@@ -13,14 +13,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class ExtraAdvancedFactoryEnergyContainer extends MachineEnergyContainer<TileEntityExtraAdvancedFactoryBase<?>> {
+public class ExtraAdvancedFactoryEnergyContainer extends MachineEnergyContainer<TileEntityExtraAdvancedFactoryBase<?, ?>> {
 
-    public static ExtraAdvancedFactoryEnergyContainer input(TileEntityExtraAdvancedFactoryBase<?> tile, @Nullable IContentsListener listener) {
+    public static ExtraAdvancedFactoryEnergyContainer input(TileEntityExtraAdvancedFactoryBase<?, ?> tile, @Nullable IContentsListener listener) {
         AttributeEnergy electricBlock = validateBlock(tile);
         return new ExtraAdvancedFactoryEnergyContainer(electricBlock.getStorage(), electricBlock.getUsage(), notExternal, ConstantPredicates.alwaysTrue(), tile, listener);
     }
 
-    private ExtraAdvancedFactoryEnergyContainer(long maxEnergy, long energyPerTick, Predicate<@NotNull AutomationType> canExtract, Predicate<@NotNull AutomationType> canInsert, TileEntityExtraAdvancedFactoryBase<?> tile, @Nullable IContentsListener listener) {
+    private ExtraAdvancedFactoryEnergyContainer(long maxEnergy, long energyPerTick, Predicate<@NotNull AutomationType> canExtract, Predicate<@NotNull AutomationType> canInsert, TileEntityExtraAdvancedFactoryBase<?, ?> tile, @Nullable IContentsListener listener) {
         super(maxEnergy, energyPerTick, canExtract, canInsert, tile, listener);
     }
 

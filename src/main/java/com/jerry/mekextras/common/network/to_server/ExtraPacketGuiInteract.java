@@ -156,7 +156,7 @@ public class ExtraPacketGuiInteract implements IMekanismPacket {
             if (tile instanceof TileEntityExtraFactory<?> factory) {
                 factory.toggleSorting();
             } else if (MekanismExtras.hooks.mekmm.isLoaded()) {
-                if (tile instanceof TileEntityExtraAdvancedFactoryBase<?> factory) factory.toggleSorting();
+                if (tile instanceof TileEntityExtraAdvancedFactoryBase<?, ?> factory) factory.toggleSorting();
                 if (tile instanceof TileEntityExtraMoreMachineFactory<?> factory) factory.toggleSorting();
             }
         }),

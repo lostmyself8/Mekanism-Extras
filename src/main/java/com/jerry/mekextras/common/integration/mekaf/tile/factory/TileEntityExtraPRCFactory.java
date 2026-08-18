@@ -59,6 +59,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.ItemStackMap;
 import net.neoforged.neoforge.fluids.FluidStack;
 
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekaf.common.upgrade.PRCUpgradeData;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -70,7 +71,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.ToIntBiFunction;
 
-public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBase<PressurizedReactionRecipe> implements IHasDumpButton,
+public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBase<PressurizedReactionRecipe, AdvancedFactoryType> implements IHasDumpButton,
                                        ItemFluidChemicalRecipeLookupHandler<PressurizedReactionRecipe> {
 
     public static final RecipeError NOT_ENOUGH_ITEM_INPUT_ERROR = RecipeError.create();
@@ -110,8 +111,8 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBas
     protected final List<IInventorySlot> inputItemSlots;
     protected final List<IInventorySlot> outputItemSlots;
 
-    public TileEntityExtraPRCFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
-        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
+    public TileEntityExtraPRCFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, AdvancedFactoryType type) {
+        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES, type);
         inputItemSlots = new ArrayList<>();
         outputItemSlots = new ArrayList<>();
 

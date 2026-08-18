@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.TriPredicate;
 
-import com.jerry.mekmm.client.recipe_viewer.MMRecipeViewerRecipeType;
+import com.jerry.mekmm.client.recipe_viewer.MoreMachineRecipeViewerRecipeType;
 import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Set;
 
 // Lathe, Rolling Mill
-public class TileEntityExtraItemStackToItemStackMoreMachineFactory extends TileEntityExtraItemToItemMoreMachineFactory<ItemStackToItemStackRecipe> implements
+public class TileEntityExtraMoreMachineItemStackToItemStackFactory extends TileEntityExtraMoreMachineItemToItemFactory<ItemStackToItemStackRecipe> implements
                                                                    ISingleRecipeLookupHandler.ItemRecipeLookupHandler<ItemStackToItemStackRecipe> {
 
     private static final TriPredicate<ItemStackToItemStackRecipe, ItemStack, ItemStack> OUTPUT_CHECK = (recipe, input, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input), output);
@@ -42,7 +42,7 @@ public class TileEntityExtraItemStackToItemStackMoreMachineFactory extends TileE
             RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(RecipeError.NOT_ENOUGH_ENERGY);
 
-    public TileEntityExtraItemStackToItemStackMoreMachineFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
+    public TileEntityExtraMoreMachineItemStackToItemStackFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
     }
 
@@ -78,17 +78,17 @@ public class TileEntityExtraItemStackToItemStackMoreMachineFactory extends TileE
     public IMekanismRecipeTypeProvider<SingleRecipeInput, ItemStackToItemStackRecipe, InputRecipeCache.SingleItem<ItemStackToItemStackRecipe>> getRecipeType() {
         return switch (type) {
             case CNC_LATHING -> MoreMachineRecipeType.LATHING;
-            // TODO: Make it so that it throws an error if it is not one of the three types
-            default -> MoreMachineRecipeType.ROLLING_MILL;
+            case CNC_ROLLING_MILL -> MoreMachineRecipeType.ROLLING_MILL;
+            default -> throw new IllegalStateException("Unexpected more machine factory type: " + type);
         };
     }
 
     @Override
     public IRecipeViewerRecipeType<ItemStackToItemStackRecipe> recipeViewerType() {
         return switch (type) {
-            case CNC_LATHING -> MMRecipeViewerRecipeType.LATHE;
-            // TODO: Make it so that it throws an error if it is not one of the three types
-            default -> MMRecipeViewerRecipeType.ROLLING_MILL;
+            case CNC_LATHING -> MoreMachineRecipeViewerRecipeType.LATHE;
+            case CNC_ROLLING_MILL -> MoreMachineRecipeViewerRecipeType.ROLLING_MILL;
+            default -> throw new IllegalStateException("Unexpected more machine factory type: " + type);
         };
     }
 

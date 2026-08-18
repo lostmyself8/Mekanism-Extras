@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.TriPredicate;
 
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekaf.common.upgrade.ChemicalToChemicalUpgradeData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -43,9 +44,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Set;
 
-public class TileEntityExtraCentrifugingFactory extends TileEntityExtraChemicalToChemicalFactory<ChemicalToChemicalRecipe> implements IBoundingBlock, ChemicalRecipeLookupHandler<ChemicalToChemicalRecipe> {
+public class TileEntityExtraCentrifugingFactory extends TileEntityExtraChemicalToChemicalFactory<ChemicalToChemicalRecipe, AdvancedFactoryType> implements IBoundingBlock, ChemicalRecipeLookupHandler<ChemicalToChemicalRecipe> {
 
-    protected static final TriPredicate<ChemicalToChemicalRecipe, ChemicalStack, ChemicalStack> OUTPUT_CHECK = (recipe, input, output) -> ChemicalStack.isSameChemical(recipe.getOutput(input), output);
+    protected static final TriPredicate<ChemicalToChemicalRecipe, ChemicalStack, ChemicalStack> OUTPUT_CHECK = (recipe, input, output) -> output.isEmpty() || ChemicalStack.isSameChemical(recipe.getOutput(input), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
             RecipeError.NOT_ENOUGH_ENERGY,
             RecipeError.NOT_ENOUGH_ENERGY_REDUCED_RATE,
@@ -54,8 +55,8 @@ public class TileEntityExtraCentrifugingFactory extends TileEntityExtraChemicalT
             RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(RecipeError.NOT_ENOUGH_ENERGY);
 
-    public TileEntityExtraCentrifugingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
-        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
+    public TileEntityExtraCentrifugingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, AdvancedFactoryType type) {
+        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES, type);
         ConfigInfo config = configComponent.getConfig(TransmissionType.CHEMICAL);
         if (config != null) {
             config.addSlotInfo(DataType.INPUT, new ChemicalSlotInfo(true, false, inputChemicalTanks));

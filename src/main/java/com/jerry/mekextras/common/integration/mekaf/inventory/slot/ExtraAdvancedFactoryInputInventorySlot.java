@@ -21,27 +21,27 @@ import java.util.Objects;
 
 public class ExtraAdvancedFactoryInputInventorySlot extends InputInventorySlot {
 
-    private final TileEntityExtraAdvancedFactoryBase<?> factory;
+    private final TileEntityExtraAdvancedFactoryBase<?, ?> factory;
 
-    public static ExtraAdvancedFactoryInputInventorySlot create(TileEntityExtraItemToItemAdvancedFactory<?> factory, int process, IInventorySlot outputSlot, @Nullable IContentsListener listener, int x, int y) {
+    public static ExtraAdvancedFactoryInputInventorySlot create(TileEntityExtraItemToItemAdvancedFactory<?, ?> factory, int process, IInventorySlot outputSlot, @Nullable IContentsListener listener, int x, int y) {
         Objects.requireNonNull(factory, "Factory cannot be null");
         Objects.requireNonNull(outputSlot, "Item output tank cannot be null");
         return new ExtraAdvancedFactoryInputInventorySlot(factory, process, outputSlot, listener, x, y);
     }
 
-    private ExtraAdvancedFactoryInputInventorySlot(TileEntityExtraItemToItemAdvancedFactory<?> factory, int process, IInventorySlot outputSlot, @Nullable IContentsListener listener, int x, int y) {
+    private ExtraAdvancedFactoryInputInventorySlot(TileEntityExtraItemToItemAdvancedFactory<?, ?> factory, int process, IInventorySlot outputSlot, @Nullable IContentsListener listener, int x, int y) {
         super(stack -> factory.isItemValidForSlot(stack) && factory.inputProducesOutput(process, stack, outputSlot, false),
                 factory::isValidInputItem, listener, x, y);
         this.factory = factory;
     }
 
-    public static ExtraAdvancedFactoryInputInventorySlot create(TileEntityExtraItemToChemicalFactory<?> factory, int process, IChemicalTank outputTank, @Nullable IContentsListener listener, int x, int y) {
+    public static ExtraAdvancedFactoryInputInventorySlot create(TileEntityExtraItemToChemicalFactory<?, ?> factory, int process, IChemicalTank outputTank, @Nullable IContentsListener listener, int x, int y) {
         Objects.requireNonNull(factory, "Factory cannot be null");
         Objects.requireNonNull(outputTank, "Chemical output tank cannot be null");
         return new ExtraAdvancedFactoryInputInventorySlot(factory, process, outputTank, listener, x, y);
     }
 
-    private ExtraAdvancedFactoryInputInventorySlot(TileEntityExtraItemToChemicalFactory<?> factory, int process, IChemicalTank outputTank, @Nullable IContentsListener listener, int x, int y) {
+    private ExtraAdvancedFactoryInputInventorySlot(TileEntityExtraItemToChemicalFactory<?, ?> factory, int process, IChemicalTank outputTank, @Nullable IContentsListener listener, int x, int y) {
         super(stack -> factory.isItemValidForSlot(stack) && factory.inputProducesOutput(process, stack, outputTank, false),
                 factory::isValidInputItem, listener, x, y);
         this.factory = factory;

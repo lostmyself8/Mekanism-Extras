@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.TriPredicate;
 
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekaf.common.upgrade.ItemToChemicalUpgradeData;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Set;
 
-public class TileEntityExtraItemStackToChemicalStackFactory extends TileEntityExtraItemToChemicalFactory<ItemStackToChemicalRecipe> implements ItemRecipeLookupHandler<ItemStackToChemicalRecipe> {
+public class TileEntityExtraItemStackToChemicalStackFactory extends TileEntityExtraItemToChemicalFactory<ItemStackToChemicalRecipe, AdvancedFactoryType> implements ItemRecipeLookupHandler<ItemStackToChemicalRecipe> {
 
     private static final TriPredicate<ItemStackToChemicalRecipe, ItemStack, ChemicalStack> OUTPUT_CHECK = (recipe, input, output) -> ChemicalStack.isSameChemical(recipe.getOutput(input), output);
     private static final List<RecipeError> TRACKED_ERROR_TYPES = List.of(
@@ -46,8 +47,8 @@ public class TileEntityExtraItemStackToChemicalStackFactory extends TileEntityEx
             RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT);
     private static final Set<RecipeError> GLOBAL_ERROR_TYPES = Set.of(RecipeError.NOT_ENOUGH_ENERGY);
 
-    public TileEntityExtraItemStackToChemicalStackFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
-        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
+    public TileEntityExtraItemStackToChemicalStackFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, AdvancedFactoryType type) {
+        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES, type);
 
         ejectorComponent = new TileComponentEjector(this);
         ejectorComponent.setOutputData(configComponent, TransmissionType.ITEM, TransmissionType.CHEMICAL);

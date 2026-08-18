@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.ItemStackMap;
 
+import com.jerry.mekaf.common.content.blocktype.IAdvancedFactoryType;
 import com.jerry.mekaf.common.upgrade.ItemToChemicalUpgradeData;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +47,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.ToIntBiFunction;
 
-public abstract class TileEntityExtraItemToChemicalFactory<RECIPE extends MekanismRecipe<?>> extends TileEntityExtraAdvancedFactoryBase<RECIPE> {
+public abstract class TileEntityExtraItemToChemicalFactory<RECIPE extends MekanismRecipe<?>, TYPE extends IAdvancedFactoryType<?>> extends TileEntityExtraAdvancedFactoryBase<RECIPE, TYPE> {
 
     protected ICProcessInfo[] processInfoSlots;
     public IChemicalTank[] outputTank;
@@ -55,8 +56,8 @@ public abstract class TileEntityExtraItemToChemicalFactory<RECIPE extends Mekani
     protected final List<IInventorySlot> inputItemSlots;
     public final List<IChemicalTank> outputChemicalTanks;
 
-    protected TileEntityExtraItemToChemicalFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes) {
-        super(blockProvider, pos, state, errorTypes, globalErrorTypes);
+    protected TileEntityExtraItemToChemicalFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, List<RecipeError> errorTypes, Set<RecipeError> globalErrorTypes, TYPE type) {
+        super(blockProvider, pos, state, errorTypes, globalErrorTypes, type);
         inputItemSlots = new ArrayList<>();
         outputChemicalTanks = new ArrayList<>();
 
@@ -417,13 +418,13 @@ public abstract class TileEntityExtraItemToChemicalFactory<RECIPE extends Mekani
 
         private final List<ICProcessInfo> processes = new ArrayList<>();
         @Nullable
-        private ToIntBiFunction<ICRecipeProcessInfo<RECIPE>, TileEntityExtraItemToChemicalFactory<RECIPE>> lazyMinPerSlot;
+        private ToIntBiFunction<ICRecipeProcessInfo<RECIPE>, TileEntityExtraItemToChemicalFactory<RECIPE, ?>> lazyMinPerSlot;
         private Object item;
         private RECIPE recipe;
         private int minPerSlot = 1;
         private int totalCount;
 
-        public int getMinPerSlot(TileEntityExtraItemToChemicalFactory<RECIPE> factory) {
+        public int getMinPerSlot(TileEntityExtraItemToChemicalFactory<RECIPE, ?> factory) {
             if (lazyMinPerSlot != null) {
                 // Get the value lazily
                 minPerSlot = Math.max(1, lazyMinPerSlot.applyAsInt(this, factory));

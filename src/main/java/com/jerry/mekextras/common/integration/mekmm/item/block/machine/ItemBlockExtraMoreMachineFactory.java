@@ -18,6 +18,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
+import com.jerry.mekmm.common.attachments.component.MoreMachineAttachedSideConfig;
 import com.jerry.mekmm.common.block.attribute.MoreMachineAttributeFactoryType;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,6 +31,7 @@ public class ItemBlockExtraMoreMachineFactory extends ItemBlockExtraTooltip<Bloc
             case CNC_STAMPING -> AttachedSideConfig.EXTRA_MACHINE;
             case RECYCLING, CNC_LATHING, CNC_ROLLING_MILL -> AttachedSideConfig.ELECTRIC_MACHINE;
             case PLANTING_STATION, REPLICATING -> AttachedSideConfig.ADVANCED_MACHINE_INPUT_ONLY;
+            case PRESSING -> MoreMachineAttachedSideConfig.PRESSER;
         };
     }
 

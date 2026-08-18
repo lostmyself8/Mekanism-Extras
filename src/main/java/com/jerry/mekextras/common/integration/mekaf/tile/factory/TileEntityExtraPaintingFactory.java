@@ -49,6 +49,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,7 +57,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-public class TileEntityExtraPaintingFactory extends TileEntityExtraItemToItemAdvancedFactory<ItemStackChemicalToItemStackRecipe> implements ConstantUsageRecipeLookupHandler,
+public class TileEntityExtraPaintingFactory extends TileEntityExtraItemToItemAdvancedFactory<ItemStackChemicalToItemStackRecipe, AdvancedFactoryType> implements ConstantUsageRecipeLookupHandler,
                                             ItemChemicalRecipeLookupHandler<ItemStackChemicalToItemStackRecipe>, IHasDumpButton {
 
     private static final CheckRecipeType<ItemStack, ChemicalStack, ItemStackChemicalToItemStackRecipe, ItemStack> OUTPUT_CHECK = (recipe, input, extra, output) -> InventoryUtils.areItemsStackable(recipe.getOutput(input, extra), output);
@@ -85,8 +86,8 @@ public class TileEntityExtraPaintingFactory extends TileEntityExtraItemToItemAdv
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getInputChemicalItem", docPlaceholder = "chemical slot")
     ChemicalInventorySlot chemicalInputSlot;
 
-    public TileEntityExtraPaintingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
-        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
+    public TileEntityExtraPaintingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, AdvancedFactoryType type) {
+        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES, type);
 
         configComponent.setupInputConfig(TransmissionType.CHEMICAL, chemicalTank);
 

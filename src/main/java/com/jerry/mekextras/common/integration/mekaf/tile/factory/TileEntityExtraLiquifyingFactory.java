@@ -50,6 +50,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.ItemStackMap;
 
+import com.jerry.mekaf.common.content.blocktype.AdvancedFactoryType;
 import com.jerry.mekaf.common.upgrade.NutritionLiquifyingUpgradeData;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -61,7 +62,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.ToIntBiFunction;
 
-public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedFactoryBase<BasicItemStackToFluidOptionalItemRecipe> implements ItemRecipeLookupHandler<BasicItemStackToFluidOptionalItemRecipe> {
+public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedFactoryBase<BasicItemStackToFluidOptionalItemRecipe, AdvancedFactoryType> implements ItemRecipeLookupHandler<BasicItemStackToFluidOptionalItemRecipe> {
 
     public static final RecipeError NOT_ENOUGH_SPACE_ITEM_OUTPUT_ERROR = RecipeError.create();
     // 单个槽位报错，例如输入槽和输出槽
@@ -85,8 +86,8 @@ public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedFac
     protected final List<IInventorySlot> inputItemSlots;
     protected final List<IInventorySlot> outputItemSlots;
 
-    public TileEntityExtraLiquifyingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
-        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES);
+    public TileEntityExtraLiquifyingFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, AdvancedFactoryType type) {
+        super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES, type);
         inputItemSlots = new ArrayList<>();
         outputItemSlots = new ArrayList<>();
 

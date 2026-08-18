@@ -66,7 +66,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
             ExtraMoreMachineFactoryBuilder<ExtraMoreMachineFactory<TILE>, TILE, ?> builder = getExtraMoreMachineFactoryTILEMoreMachineFactoryBuilder((Supplier<TileEntityTypeRegistryObject<TILE>>) tileEntityRegistrar, type, tier);
             builder.withCustomShape(MoreMachineBlockShapes.getShape(type));
             builder.with(switch (type) {
-                case RECYCLING, CNC_STAMPING, CNC_LATHING, CNC_ROLLING_MILL -> AttributeSideConfig.ELECTRIC_MACHINE;
+                case RECYCLING, CNC_STAMPING, CNC_LATHING, CNC_ROLLING_MILL, PRESSING -> AttributeSideConfig.ELECTRIC_MACHINE;
                 case PLANTING_STATION, REPLICATING -> AttributeSideConfig.ADVANCED_ELECTRIC_MACHINE;
             });
             // 如果有Bounding属性就添加，但或许会有更复杂的形状
@@ -96,6 +96,7 @@ public class ExtraMoreMachineFactory<TILE extends TileEntityExtraMoreMachineFact
                 case CNC_STAMPING -> ExtraMoreMachineBlockTypes.CNC_STAMPER;
                 case CNC_LATHING -> ExtraMoreMachineBlockTypes.CNC_LATHE;
                 case CNC_ROLLING_MILL -> ExtraMoreMachineBlockTypes.CNC_ROLLING_MILL;
+                case PRESSING -> ExtraMoreMachineBlockTypes.PRESSER;
                 case REPLICATING -> ExtraMoreMachineBlockTypes.REPLICATOR;
             };
         }
