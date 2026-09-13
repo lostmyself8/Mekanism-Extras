@@ -19,6 +19,8 @@ dependencies {
 
     compileOnly(forge.mekmm)
 
+    compileOnly(forge.ae2)
+    compileOnly(forge.guideme)
     // Crt
     compileOnly(forge.crt)
 
@@ -48,6 +50,10 @@ dependencies {
     localRuntime(forge.evolvedmekanism)
 
     localRuntime(forge.mekmm)
+
+
+    localRuntime(forge.guideme)
+    localRuntime(forge.ae2)
 
     // Crt
     localRuntime(forge.crt)
