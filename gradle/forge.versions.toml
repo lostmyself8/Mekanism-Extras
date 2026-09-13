@@ -2,6 +2,8 @@
 jei = "19.21.0.247"
 emi = "1.1.22+1.21.1"
 crt = "21.0.35"
+guideme = "21.1.17"
+ae2 = "19.2.17"
 mekanism = "1.21.1-10.7.19.85"
 shimmer = "1.20.1-0.2.4"
 ccTweaked = "1.113.1"
@@ -34,6 +36,9 @@ jei-neoforge-api       = { module = "mezz.jei:jei-1.21.1-neoforge-api", version.
 jei-neoforge-impl      = { module = "mezz.jei:jei-1.21.1-neoforge", version.ref = "jei" }
 emi                 = { module = "dev.emi:emi-neoforge", version.ref = "emi" }
 jer                 = { module = "maven.modrinth:just-enough-resources-jer", version.ref = "jer" }
+
+guideme             = { module = "org.appliedenergistics:guideme", version.ref = "guideme" }
+ae2                 = { module = "org.appliedenergistics:appliedenergistics2", version.ref = "ae2" }
 
 cc-tweaked-core-api   = { module = "cc.tweaked:cc-tweaked-1.21.1-core-api", version.ref = "ccTweaked" }
 cc-tweaked-forge-api  = { module = "cc.tweaked:cc-tweaked-1.21.1-forge-api", version.ref = "ccTweaked" }
