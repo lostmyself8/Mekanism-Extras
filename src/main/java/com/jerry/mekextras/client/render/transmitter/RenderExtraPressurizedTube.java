@@ -18,7 +18,6 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import org.jetbrains.annotations.NotNull;
 
 @NothingNullByDefault
 public class RenderExtraPressurizedTube extends RenderTransmitterBase<TileEntityExtraPressurizedTube> {
@@ -28,8 +27,11 @@ public class RenderExtraPressurizedTube extends RenderTransmitterBase<TileEntity
     }
 
     @Override
-    protected void render(@NotNull TileEntityExtraPressurizedTube tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight, ProfilerFiller profiler) {
+    protected void render(TileEntityExtraPressurizedTube tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight, ProfilerFiller profiler) {
         ChemicalNetwork network = tile.getTransmitter().getTransmitterNetwork();
+        if (network == null) {
+            return;
+        }
         matrix.pushPose();
         matrix.translate(0.5, 0.5, 0.5);
         renderModel(tile, matrix, renderer.getBuffer(Sheets.translucentCullBlockSheet()), MekanismRenderer.getTint(network.lastChemical), Math.max(0.2F, network.currentScale),
@@ -38,12 +40,12 @@ public class RenderExtraPressurizedTube extends RenderTransmitterBase<TileEntity
     }
 
     @Override
-    protected @NotNull String getProfilerSection() {
+    protected String getProfilerSection() {
         return ProfilerConstants.PRESSURIZED_TUBE;
     }
 
     @Override
-    protected boolean shouldRenderTransmitter(@NotNull TileEntityExtraPressurizedTube tile, @NotNull Vec3 camera) {
+    protected boolean shouldRenderTransmitter(TileEntityExtraPressurizedTube tile, Vec3 camera) {
         if (super.shouldRenderTransmitter(tile, camera)) {
             ExtraPressurizedTube tube = tile.getTransmitter();
             if (tube.hasTransmitterNetwork()) {

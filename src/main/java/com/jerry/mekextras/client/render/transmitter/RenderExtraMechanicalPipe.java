@@ -27,7 +27,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -51,10 +50,13 @@ public class RenderExtraMechanicalPipe extends RenderTransmitterBase<TileEntityE
     }
 
     @Override
-    protected void render(TileEntityExtraMechanicalPipe tile, float partialTick, @NotNull PoseStack matrix, @NotNull MultiBufferSource renderer, int light, int overlayLight,
-                          @NotNull ProfilerFiller profiler) {
+    protected void render(TileEntityExtraMechanicalPipe tile, float partialTick, PoseStack matrix, MultiBufferSource renderer, int light, int overlayLight,
+                          ProfilerFiller profiler) {
         ExtraMechanicalPipe pipe = tile.getTransmitter();
         FluidNetwork network = pipe.getTransmitterNetwork();
+        if (network == null) {
+            return;
+        }
         FluidStack fluidStack = network.lastFluid;
         if (fluidStack.isEmpty()) {
             // Shouldn't be the case but validate it
@@ -109,7 +111,7 @@ public class RenderExtraMechanicalPipe extends RenderTransmitterBase<TileEntityE
     }
 
     @Override
-    protected @NotNull String getProfilerSection() {
+    protected String getProfilerSection() {
         return ProfilerConstants.MECHANICAL_PIPE;
     }
 
