@@ -1,7 +1,5 @@
 package com.jerry.mekextras.api.tier;
 
-import com.jerry.mekextras.common.tier.TierColor;
-
 import mekanism.api.SupportsColorMap;
 
 import net.minecraft.network.chat.TextColor;
@@ -57,17 +55,11 @@ public enum AdvancedTier implements IAdvancedTier, StringRepresentable, Supports
 
     @Override
     public int getPackedColor() {
-        if (this == COSMIC || this == INFINITE) {
-            return TierColor.getPackedColor(this);
-        }
         return argb;
     }
 
     @Override
     public int[] getRgbCode() {
-        if (this == COSMIC || this == INFINITE) {
-            return TierColor.getRgb(this);
-        }
         return rgbCode;
     }
 
