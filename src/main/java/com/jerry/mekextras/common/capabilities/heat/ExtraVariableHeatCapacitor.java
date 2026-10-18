@@ -12,8 +12,8 @@ import java.util.function.DoubleSupplier;
 @NothingNullByDefault
 public class ExtraVariableHeatCapacitor extends BasicHeatCapacitor {
 
-    private final double conductionCoefficientSupplier;
-    private final double insulationCoefficientSupplier;
+    private final DoubleSupplier conductionCoefficientSupplier;
+    private final DoubleSupplier insulationCoefficientSupplier;
 
     public static ExtraVariableHeatCapacitor create(double heatCapacity, @Nullable DoubleSupplier ambientTempSupplier, @Nullable IContentsListener listener) {
         return create(heatCapacity, () -> HeatAPI.DEFAULT_INVERSE_CONDUCTION, () -> HeatAPI.DEFAULT_INVERSE_INSULATION, ambientTempSupplier, listener);
@@ -32,24 +32,24 @@ public class ExtraVariableHeatCapacitor extends BasicHeatCapacitor {
     protected ExtraVariableHeatCapacitor(double heatCapacity, DoubleSupplier conductionCoefficient, DoubleSupplier insulationCoefficient,
                                          @Nullable DoubleSupplier ambientTempSupplier, @Nullable IContentsListener listener) {
         super(heatCapacity, conductionCoefficient.getAsDouble(), insulationCoefficient.getAsDouble(), ambientTempSupplier, listener);
-        this.conductionCoefficientSupplier = conductionCoefficient.getAsDouble();
-        this.insulationCoefficientSupplier = insulationCoefficient.getAsDouble();
+        this.conductionCoefficientSupplier = conductionCoefficient;
+        this.insulationCoefficientSupplier = insulationCoefficient;
     }
 
     protected ExtraVariableHeatCapacitor(double heatCapacity, double conductionCoefficient, double insulationCoefficient,
                                          @Nullable DoubleSupplier ambientTempSupplier, @Nullable IContentsListener listener) {
         super(heatCapacity, conductionCoefficient, insulationCoefficient, ambientTempSupplier, listener);
-        this.conductionCoefficientSupplier = conductionCoefficient;
-        this.insulationCoefficientSupplier = insulationCoefficient;
+        this.conductionCoefficientSupplier = () -> conductionCoefficient;
+        this.insulationCoefficientSupplier = () -> insulationCoefficient;
     }
 
     @Override
     public double getInverseConduction() {
-        return Math.max(1, conductionCoefficientSupplier);
+        return Math.max(1, conductionCoefficientSupplier.getAsDouble());
     }
 
     @Override
     public double getInverseInsulation() {
-        return insulationCoefficientSupplier;
+        return insulationCoefficientSupplier.getAsDouble();
     }
 }

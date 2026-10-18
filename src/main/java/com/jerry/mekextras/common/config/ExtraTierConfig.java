@@ -101,6 +101,7 @@ public class ExtraTierConfig extends BaseMekanismConfig {
         this.infinitePressurizedTubePullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.INFINITE_PRESSURIZED_TUBE_PULL_AMOUNT, "infinitePullAmount", 1_048_576_000L, 1, Long.MAX_VALUE);
         builder.pop();
 
+        //TODO: 重新评估是否需要改成CachedIntValue
         MekanismConfigTranslations.TIER_TRANSMITTERS_ITEM.applyToBuilder(builder).push("item");
         this.absoluteLogisticalTransporterSpeed = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_LOGISTICAL_TRANSPORTER_SPEED, "absoluteSpeed", 55, 1, Integer.MAX_VALUE);
         this.absoluteLogisticalTransporterPullAmount = CachedLongValue.define(this, builder, ExtraConfigTranslations.ABSOLUTE_LOGISTICAL_TRANSPORTER_PULL_AMOUNT, "absolutePullAmount", 128, 1, Integer.MAX_VALUE);

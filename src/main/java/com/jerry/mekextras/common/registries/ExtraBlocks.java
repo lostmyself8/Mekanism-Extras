@@ -55,7 +55,8 @@ import mekanism.common.content.blocktype.Machine;
 import mekanism.common.item.block.ItemBlockMekanism;
 import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.recipe.MekanismRecipeType;
-import mekanism.common.recipe.lookup.cache.InputRecipeCache;
+import mekanism.common.recipe.lookup.cache.InputRecipeCache.DoubleItem;
+import mekanism.common.recipe.lookup.cache.InputRecipeCache.ItemChemical;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.resource.BlockResourceInfo;
@@ -348,12 +349,12 @@ public class ExtraBlocks {
                         .build());
                 case COMPRESSING, INJECTING, PURIFYING -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                                .addBasic(TileEntityAdvancedElectricMachine.MAX_GAS * processes * processes, switch (type.getFactoryType()) {
+                                .addBasic(256 * TileEntityAdvancedElectricMachine.MAX_GAS * processes, switch (type.getFactoryType()) {
                                     case COMPRESSING -> MekanismRecipeType.COMPRESSING;
                                     case INJECTING -> MekanismRecipeType.INJECTING;
                                     case PURIFYING -> MekanismRecipeType.PURIFYING;
                                     default -> throw new IllegalStateException("Factory type doesn't have a known gas recipe");
-                                }, InputRecipeCache.ItemChemical::containsInputB)
+                                }, ItemChemical::containsInputB)
                                 .build())
                         .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeInputPredicate)
@@ -362,12 +363,12 @@ public class ExtraBlocks {
                                 .build());
                 case COMBINING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                         .addBasicFactorySlots(processes, recipeInputPredicate)
-                        .addInput(MekanismRecipeType.COMBINING, InputRecipeCache.DoubleItem::containsInputB)
+                        .addInput(MekanismRecipeType.COMBINING, DoubleItem::containsInputB)
                         .addEnergy()
                         .build());
                 case INFUSING -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                                .addBasic(TileEntityMetallurgicInfuser.MAX_INFUSE * processes * processes, MekanismRecipeType.METALLURGIC_INFUSING, InputRecipeCache.ItemChemical::containsInputB)
+                                .addBasic(256 * TileEntityMetallurgicInfuser.MAX_INFUSE * processes, MekanismRecipeType.METALLURGIC_INFUSING, ItemChemical::containsInputB)
                                 .build())
                         .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeInputPredicate)

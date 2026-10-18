@@ -5,6 +5,7 @@ import com.jerry.mekextras.common.config.ExtraConfig;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.registries.ExtraFluids;
 
+import lombok.Getter;
 import mekanism.api.*;
 import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
@@ -86,6 +87,7 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
     private final Set<BlockPos> recurringNodes = new ObjectOpenHashSet<>();
     private List<BlockCapabilityCache<IFluidHandler, @Nullable Direction>> fluidHandlerAbove = Collections.emptyList();
 
+    @Getter
     private MachineEnergyContainer<TileEntityAdvancedElectricPump> energyContainer;
     @WrappingComputerMethod(wrapper = SpecialComputerMethodWrapper.ComputerIInventorySlotWrapper.class, methodNames = "getInputItem", docPlaceholder = "input slot")
     FluidInventorySlot inputSlot;
@@ -338,6 +340,13 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
     }
 
     @Override
+    @Deprecated
+    public void removeComponentsFromTag(@NotNull CompoundTag tag) {
+        super.removeComponentsFromTag(tag);
+        tag.remove(SerializationConstants.RECURRING_NODES);
+    }
+
+    @Override
     public InteractionResult onSneakRightClick(Player player) {
         reset();
         player.displayClientMessage(MekanismLang.PUMP_RESET.translate(), true);
@@ -377,10 +386,6 @@ public class TileEntityAdvancedElectricPump extends TileEntityMekanism implement
     @Override
     public List<Component> getInfo(@NotNull Upgrade upgrade) {
         return UpgradeUtils.getMultScaledInfo(this, upgrade);
-    }
-
-    public MachineEnergyContainer<TileEntityAdvancedElectricPump> getEnergyContainer() {
-        return energyContainer;
     }
 
     public boolean usedEnergy() {

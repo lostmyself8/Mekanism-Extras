@@ -162,6 +162,15 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
     }
 
     @Override
+    public double getCost() {
+        int speed = TPTier.getSpeed(tier);
+        if (speed <= 0) {
+            throw new IllegalStateException("Logistical transporter speeds must be positive");
+        }
+        return TransporterTier.ULTIMATE.getSpeed() / (double) speed;
+    }
+
+    @Override
     public <BE extends BlockEntity & IAdvancedTransportEjector> TransitResponse insertMaybeRR(@Nullable BE outputter, BlockPos outputterPos,
                                                                                               TransitRequest request, @Nullable EnumColor color, boolean doEmit, int min) {
         if (outputter != null && outputter.getRoundRobin()) {

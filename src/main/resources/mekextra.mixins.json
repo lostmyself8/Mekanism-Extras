@@ -9,6 +9,7 @@
     "MixinBlockTileBuilder",
     "MixinFactory",
     "MixinLogisticalTransporterBase",
+    "MixinTransporterPathfinder",
     "MixinMachineEnergyContainer",
     "MixinMekanismBlocks",
     "MixinMekanismBlockTypes",
