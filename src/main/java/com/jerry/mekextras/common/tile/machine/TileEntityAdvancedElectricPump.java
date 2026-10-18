@@ -5,7 +5,6 @@ import com.jerry.mekextras.common.config.ExtraConfig;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.registries.ExtraFluids;
 
-import lombok.Getter;
 import mekanism.api.*;
 import mekanism.common.Mekanism;
 import mekanism.common.MekanismLang;
@@ -59,6 +58,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -2,6 +2,8 @@ package com.jerry.mekextras.client.recipe_viewer.emi;
 
 import com.jerry.mekextras.MekanismExtras;
 import com.jerry.mekextras.common.ExtraLang;
+import com.jerry.mekextras.common.integration.mekaf.registries.ExtraAdvancedFactoryBlocks;
+import com.jerry.mekextras.common.integration.mekmm.registries.ExtraMoreMachineBlocks;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.registries.ExtraFluids;
 import com.jerry.mekextras.common.registries.ExtraItems;
@@ -28,6 +30,10 @@ public class ExtrasEmi implements EmiPlugin {
 
         MekanismEmi.registerItemSubtypes(registry, ExtraItems.EXTRA_ITEMS.getEntries());
         MekanismEmi.registerItemSubtypes(registry, ExtraBlocks.EXTRA_BLOCKS.getSecondaryEntries());
+        if (MekanismExtras.hooks.mekmm.isLoaded()) {
+            MekanismEmi.registerItemSubtypes(registry, ExtraMoreMachineBlocks.MM_BLOCKS.getSecondaryEntries());
+            MekanismEmi.registerItemSubtypes(registry, ExtraAdvancedFactoryBlocks.AF_BLOCKS.getSecondaryEntries());
+        }
     }
 
     private void addCategories(EmiRegistry registry) {

@@ -1,5 +1,8 @@
 package com.jerry.mekextras.mixin.client.recipe_viewer.emi;
 
+import com.jerry.mekextras.MekanismExtras;
+import com.jerry.mekextras.client.recipe_viewer.emi.ExtraEmiWorkstations;
+import com.jerry.mekextras.client.recipe_viewer.emi.ExtraEmiWorkstationsImpl;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
@@ -28,6 +31,10 @@ public abstract class MixinMekanismEmi implements EmiPlugin {
 
     @Inject(method = "addWorkstations", at = @At(value = "TAIL"))
     private static void mixinAddWorkstations(EmiRegistry registry, EmiRecipeCategory category, List<ItemLike> workstations, CallbackInfo ci) {
+        if (MekanismExtras.hooks.mekmm.isLoaded()) {
+            ExtraEmiWorkstations extraWorkstations = new ExtraEmiWorkstationsImpl();
+            extraWorkstations.register(registry, category, workstations);
+        }
         for (ItemLike workstation : workstations) {
             Item item = workstation.asItem();
             if (item instanceof BlockItem blockItem) {
