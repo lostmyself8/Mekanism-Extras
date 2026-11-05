@@ -6,7 +6,6 @@
   "mixins": [
     "MixinBinInventorySlot",
     "MixinBlockEnergyCube",
-    "MixinBlockTileBuilder",
     "MixinFactory",
     "MixinLogisticalTransporterBase",
     "MixinTransporterPathfinder",

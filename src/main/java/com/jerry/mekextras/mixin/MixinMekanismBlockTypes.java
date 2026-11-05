@@ -1,8 +1,10 @@
 package com.jerry.mekextras.mixin;
 
+import com.jerry.mekextras.api.ExtraUpgrade;
 import com.jerry.mekextras.common.block.attribute.ExtraAttributeUpgradeable;
 import com.jerry.mekextras.common.registries.ExtraBlocks;
 
+import mekanism.api.Upgrade;
 import mekanism.api.tier.BaseTier;
 import mekanism.api.tier.ITier;
 import mekanism.common.content.blocktype.BlockType;
@@ -18,6 +20,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Supplier;
@@ -43,6 +46,11 @@ public abstract class MixinMekanismBlockTypes {
     @Inject(method = "createChemicalTank", at = @At("RETURN"))
     private static void injectChemicalTankUltimateToAbsolute(ChemicalTankTier tier, Supplier<?> tile, Supplier<?> upgradeBlock, CallbackInfoReturnable<Machine<?>> cir) {
         mekanism_extras$addUltimateToAbsolute(tier, cir.getReturnValue(), () -> ExtraBlocks.ABSOLUTE_CHEMICAL_TANK);
+    }
+
+    @ModifyArg(method = "<clinit>", at = @At(value = "INVOKE", target = "Lmekanism/common/content/blocktype/Machine$MachineBuilder;withSupportedUpgrades([Lmekanism/api/Upgrade;)Lmekanism/common/content/blocktype/BlockTypeTile$BlockTileBuilder;", ordinal = 0))
+    private static Upgrade[] mixinWithSupportedUpgrades(Upgrade[] upgrade) {
+        return new Upgrade[] { Upgrade.SPEED, Upgrade.ENERGY, Upgrade.ANCHOR, Upgrade.STONE_GENERATOR, ExtraUpgrade.CREATIVE };
     }
 
     @Unique
