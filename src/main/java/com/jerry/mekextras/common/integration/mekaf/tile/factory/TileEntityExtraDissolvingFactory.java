@@ -40,6 +40,7 @@ import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.StatUtils;
 
+import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -115,7 +116,7 @@ public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemi
     @Override
     protected void addTanks(ChemicalTankHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         super.addTanks(builder, listener, updateSortingListener);
-        builder.addTank(chemicalTank = BasicChemicalTank.inputModern(MAX_CHEMICAL * tier.processes * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener)));
+        builder.addTank(chemicalTank = BasicChemicalTank.inputModern(256L * MAX_CHEMICAL * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener)));
     }
 
     @Override
@@ -201,6 +202,11 @@ public class TileEntityExtraDissolvingFactory extends TileEntityExtraItemToChemi
                 .setOnFinish(this::markForSave)
                 .setOperatingTicksChanged(operatingTicks -> progress[cacheIndex] = operatingTicks)
                 .setBaselineMaxOperations(this::getOperationsPerTick);
+    }
+
+    @Override
+    public int getBaseTicksRequired() {
+        return 5 * SharedConstants.TICKS_PER_SECOND;
     }
 
     @Override

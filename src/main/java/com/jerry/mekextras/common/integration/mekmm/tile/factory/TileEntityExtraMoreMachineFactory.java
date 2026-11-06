@@ -121,6 +121,7 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
     @NotNull
     protected final MoreMachineFactoryType type;
 
+    @Getter
     protected MachineEnergyContainer<TileEntityExtraMoreMachineFactory<?>> energyContainer;
     protected final List<IInventorySlot> inputSlots;
     protected final List<IInventorySlot> outputSlots;
@@ -455,7 +456,7 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        ((IMixinMachineEnergyContainer) getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
+        ((IMixinMachineEnergyContainer) getEnergyContainer()).mekextras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
             ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
             operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
@@ -481,10 +482,6 @@ public abstract class TileEntityExtraMoreMachineFactory<RECIPE extends MekanismR
 
     public boolean hasSecondaryResourceBar() {
         return false;
-    }
-
-    public MachineEnergyContainer<TileEntityExtraMoreMachineFactory<?>> getEnergyContainer() {
-        return energyContainer;
     }
 
     @Override

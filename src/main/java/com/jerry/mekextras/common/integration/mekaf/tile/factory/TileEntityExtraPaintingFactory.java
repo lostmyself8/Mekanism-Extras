@@ -100,7 +100,7 @@ public class TileEntityExtraPaintingFactory extends TileEntityExtraItemToItemAdv
 
     @Override
     protected void addTanks(ChemicalTankHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
-        builder.addTank(chemicalTank = BasicChemicalTank.inputModern(MAX_CHEMICAL * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener)));
+        builder.addTank(chemicalTank = BasicChemicalTank.inputModern(256L * MAX_CHEMICAL * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener)));
     }
 
     @Override

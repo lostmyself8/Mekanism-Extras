@@ -19,6 +19,7 @@ import mekanism.common.recipe.lookup.cache.InputRecipeCache.SingleItem;
 import mekanism.common.tile.component.TileComponentEjector;
 import mekanism.common.upgrade.IUpgradeData;
 
+import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -52,6 +53,14 @@ public class TileEntityExtraItemStackToChemicalStackFactory extends TileEntityEx
 
         ejectorComponent = new TileComponentEjector(this);
         ejectorComponent.setOutputData(configComponent, TransmissionType.ITEM, TransmissionType.CHEMICAL);
+    }
+
+    @Override
+    public int getBaseTicksRequired() {
+        return switch (getAdvancedFactoryType()) {
+            case OXIDIZING, PIGMENT_EXTRACTING -> 5 * SharedConstants.TICKS_PER_SECOND;
+            default -> super.getBaseTicksRequired();
+        };
     }
 
     @Override

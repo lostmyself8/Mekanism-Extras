@@ -97,6 +97,9 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBas
 
     private static final int BASE_DURATION = 5 * SharedConstants.TICKS_PER_SECOND;
 
+    /** The current recipe duration, used as the base for speed upgrade calculations. */
+    private int baseTicksRequired = BASE_DURATION;
+
     private PRCProcessInfo[] processInfoSlots;
 
     public BasicFluidTank inputFluidTank;
@@ -113,6 +116,8 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBas
 
     public TileEntityExtraPRCFactory(Holder<Block> blockProvider, BlockPos pos, BlockState state, AdvancedFactoryType type) {
         super(blockProvider, pos, state, TRACKED_ERROR_TYPES, GLOBAL_ERROR_TYPES, type);
+        // The base constructor runs before baseTicksRequired is initialized.
+        setTicksRequired(baseTicksRequired);
         inputItemSlots = new ArrayList<>();
         outputItemSlots = new ArrayList<>();
 
@@ -139,8 +144,13 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBas
     }
 
     @Override
+    public int getBaseTicksRequired() {
+        return baseTicksRequired;
+    }
+
+    @Override
     protected void addTanks(ChemicalTankHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
-        builder.addTank(inputChemicalTank = BasicChemicalTank.createModern(MAX_CHEMICAL * tier.processes * tier.processes, ChemicalTankHelper.radioactiveInputTankPredicate(() -> outputChemicalTank),
+        builder.addTank(inputChemicalTank = BasicChemicalTank.createModern(256L * MAX_CHEMICAL * tier.processes, ChemicalTankHelper.radioactiveInputTankPredicate(() -> outputChemicalTank),
                 ConstantPredicates.alwaysTrueBi(), this::containsRecipeC, ChemicalAttributeValidator.ALWAYS_ALLOW, markAllMonitorsChanged(listener)));
         builder.addTank(outputChemicalTank = BasicChemicalTank.output(MAX_CHEMICAL * tier.processes * tier.processes, markAllMonitorsChanged(listener)));
     }
@@ -148,7 +158,7 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBas
     @Override
     protected @Nullable IFluidTankHolder getInitialFluidTanks(IContentsListener listener) {
         FluidTankHelper builder = FluidTankHelper.forSideWithConfig(this);
-        builder.addTank(inputFluidTank = BasicFluidTank.input(MAX_FLUID * tier.processes * tier.processes, ConstantPredicates.alwaysTrue(),
+        builder.addTank(inputFluidTank = BasicFluidTank.input(256 * MAX_FLUID * tier.processes, ConstantPredicates.alwaysTrue(),
                 this::containsRecipeB, markAllMonitorsChanged(listener)));
         return builder.build();
     }
@@ -177,6 +187,10 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBas
         }
     }
 
+    public int getBarCount() {
+        return 2;
+    }
+
     @Override
     public void onCachedRecipeChanged(@Nullable CachedRecipe<PressurizedReactionRecipe> cachedRecipe, int cacheIndex) {
         super.onCachedRecipeChanged(cachedRecipe, cacheIndex);
@@ -189,8 +203,8 @@ public class TileEntityExtraPRCFactory extends TileEntityExtraAdvancedFactoryBas
             recipeDuration = recipe.getDuration();
             recipeEnergyRequired = recipe.getEnergyRequired();
         }
-        boolean update = getTicksRequired() != recipeDuration;
-        setTicksRequired(recipeDuration);
+        boolean update = baseTicksRequired != recipeDuration;
+        baseTicksRequired = recipeDuration;
         if (update) {
             recalculateUpgrades(Upgrade.SPEED);
         }
