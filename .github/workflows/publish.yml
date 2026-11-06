@@ -131,10 +131,11 @@ jobs:
           LOADER: ${{ inputs.branch == '1.21.1' && 'neoforge' || 'forge' }}
           JAVA: ${{ inputs.branch == '1.21.1' && '21' || '17' }}
           VERSION_TYPE: 'release'
-        uses: Kir-Antipov/mc-publish@v3.3.0
+        uses: Kira-NT/mc-publish@v3.3.1
         with:
           curseforge-id: 1026040
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          environment: 'client | server'
           files: |
             ./mekanism_extras-${{ env.MC_VERSION }}-${{ needs.build.outputs.ver }}.jar
             ./!(mekanism_extras-${{ env.MC_VERSION }}-${{ needs.build.outputs.ver }}.jar)
