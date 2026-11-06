@@ -1,11 +1,11 @@
 package com.jerry.mekextras.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import mekanism.common.content.network.InventoryNetwork;
 import mekanism.common.content.transporter.TransporterPathfinder.Pathfinder;
 
 import net.minecraft.world.level.chunk.ChunkAccess;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

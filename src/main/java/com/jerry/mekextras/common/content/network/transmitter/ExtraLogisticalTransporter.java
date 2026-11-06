@@ -1,11 +1,11 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
-import com.jerry.mekextras.mixin.LogisticalTransporterBaseAccessor;
 import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterBatch;
 import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterSync;
 import com.jerry.mekextras.common.tier.transmitter.TPTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
+import com.jerry.mekextras.mixin.LogisticalTransporterBaseAccessor;
 
 import mekanism.api.SerializationConstants;
 import mekanism.api.text.EnumColor;
