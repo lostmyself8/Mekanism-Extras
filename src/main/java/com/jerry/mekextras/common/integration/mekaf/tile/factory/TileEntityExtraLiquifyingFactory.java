@@ -28,6 +28,8 @@ import mekanism.common.capabilities.holder.fluid.IFluidTankHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
 import mekanism.common.integration.computer.ComputerException;
 import mekanism.common.integration.computer.annotation.ComputerMethod;
+import mekanism.common.inventory.slot.FluidInventorySlot;
+import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.inventory.warning.WarningTracker.WarningType;
 import mekanism.common.lib.transmitter.TransmissionType;
 import mekanism.common.recipe.IMekanismRecipeTypeProvider;
@@ -41,6 +43,7 @@ import mekanism.common.tile.component.TileComponentEjector;
 import mekanism.common.upgrade.IUpgradeData;
 import mekanism.common.util.MekanismUtils;
 
+import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -81,6 +84,9 @@ public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedFac
 
     public IExtendedFluidTank fluidTank;
 
+    private FluidInventorySlot fluidDrainSlot;
+    private OutputInventorySlot fluidOutputSlot;
+
     protected IOutputHandler<ItemStackToFluidOptionalItemRecipe.@NotNull FluidOptionalItemOutput>[] liquifiesOutputHandler;
 
     protected final List<IInventorySlot> inputItemSlots;
@@ -96,12 +102,19 @@ public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedFac
             outputItemSlots.add(info.outputSlot());
         }
 
+        inputItemSlots.addFirst(fluidDrainSlot);
+        outputItemSlots.addFirst(fluidOutputSlot);
         configComponent.setupItemIOConfig(inputItemSlots, outputItemSlots, energySlot, false);
         configComponent.setupOutputConfig(TransmissionType.FLUID, fluidTank, RelativeSide.RIGHT);
 
         ejectorComponent = new TileComponentEjector(this);
         ejectorComponent.setOutputData(configComponent, TransmissionType.ITEM, TransmissionType.FLUID)
                 .setCanTankEject(tank -> tank == fluidTank);
+    }
+
+    @Override
+    public int getBaseTicksRequired() {
+        return 5 * SharedConstants.TICKS_PER_SECOND;
     }
 
     @Override
@@ -115,10 +128,18 @@ public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedFac
     protected void addTanks(ChemicalTankHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {}
 
     @Override
+    protected void handleSecondaryFuel() {
+        fluidDrainSlot.drainTank(fluidOutputSlot);
+    }
+
+    @Override
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
         itemInputHandlers = new IInputHandler[tier.processes];
         liquifiesOutputHandler = new IOutputHandler[tier.processes];
         processInfoSlots = new NLProcessInfo[tier.processes];
+        int containerSlotX = 214 + 38 * (tier.ordinal() + 1);
+        builder.addSlot(fluidDrainSlot = FluidInventorySlot.drain(fluidTank, listener, containerSlotX, 71));
+        builder.addSlot(fluidOutputSlot = OutputInventorySlot.at(listener, containerSlotX, 102));
         for (int i = 0; i < tier.processes; i++) {
             FactoryRecipeCacheLookupMonitor<BasicItemStackToFluidOptionalItemRecipe> lookupMonitor = recipeCacheLookupMonitors[i];
             IContentsListener updateSortingAndUnpause = () -> {
@@ -254,6 +275,8 @@ public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedFac
                 component.read(data.components, provider);
             }
             fluidTank.deserializeNBT(provider, data.fluidTank.serializeNBT(provider));
+            fluidDrainSlot.deserializeNBT(provider, data.fluidInputSlot.serializeNBT(provider));
+            fluidOutputSlot.deserializeNBT(provider, data.fluidOutputSlot.serializeNBT(provider));
         } else {
             super.parseUpgradeData(provider, upgradeData);
         }
@@ -262,7 +285,7 @@ public class TileEntityExtraLiquifyingFactory extends TileEntityExtraAdvancedFac
     @Override
     public @Nullable NutritionLiquifyingUpgradeData getUpgradeData(HolderLookup.Provider provider) {
         return new NutritionLiquifyingUpgradeData(provider, redstone, getControlType(), getEnergyContainer(), progress,
-                energySlot, inputItemSlots, outputItemSlots, fluidTank, isSorting(), getComponents());
+                energySlot, fluidDrainSlot, fluidOutputSlot, inputItemSlots, outputItemSlots, fluidTank, isSorting(), getComponents());
     }
 
     // Methods relating to IComputerTile

@@ -8,8 +8,10 @@ import mekanism.client.gui.element.GuiInnerScreen;
 import mekanism.client.gui.element.GuiSideHolder;
 import mekanism.client.gui.element.bar.GuiChemicalBar;
 import mekanism.client.gui.element.button.GuiGasMode;
+import mekanism.client.gui.element.tab.GuiWarningTab;
 import mekanism.common.MekanismLang;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
+import mekanism.common.inventory.warning.IWarningTracker;
 import mekanism.common.util.text.TextUtils;
 
 import net.minecraft.client.gui.GuiGraphics;
@@ -50,9 +52,14 @@ public class GuiExtraChemicalTank extends GuiConfigurableTile<TileEntityExtraChe
     }
 
     @Override
+    protected void addWarningTab(IWarningTracker warningTracker) {
+        addRenderableWidget(new GuiWarningTab(this, warningTracker, false));
+    }
+
+    @Override
     protected void drawForegroundText(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
         renderTitleText(guiGraphics);
-        renderInventoryText(guiGraphics);
+        renderInventoryText(guiGraphics, 85);
         super.drawForegroundText(guiGraphics, mouseX, mouseY);
     }
 }

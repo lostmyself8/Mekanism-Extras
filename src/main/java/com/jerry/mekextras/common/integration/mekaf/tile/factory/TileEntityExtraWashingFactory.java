@@ -104,14 +104,15 @@ public class TileEntityExtraWashingFactory extends TileEntityExtraChemicalToChem
     @Override
     protected IFluidTankHolder getInitialFluidTanks(IContentsListener listener) {
         FluidTankHelper builder = FluidTankHelper.forSideWithConfig(this);
-        builder.addTank(fluidTank = BasicFluidTank.input(MAX_FLUID * tier.processes, this::containsRecipeA, markAllMonitorsChanged(listener)));
+        builder.addTank(fluidTank = BasicFluidTank.input(256 * MAX_FLUID * tier.processes, this::containsRecipeA, markAllMonitorsChanged(listener)));
         return builder.build();
     }
 
     @Override
     protected void addSlots(InventorySlotHelper builder, IContentsListener listener, IContentsListener updateSortingListener) {
-        builder.addSlot(fluidSlot = FluidInventorySlot.fill(fluidTank, listener, 214 + 38 * (tier.ordinal() + 1), 71));
-        builder.addSlot(fluidOutputSlot = OutputInventorySlot.at(listener, 214 + 38 * (tier.ordinal() + 1), 102));
+        int containerSlotX = 214 + 38 * (tier.ordinal() + 1);
+        builder.addSlot(fluidSlot = FluidInventorySlot.fill(fluidTank, listener, containerSlotX, 71));
+        builder.addSlot(fluidOutputSlot = OutputInventorySlot.at(listener, containerSlotX, 102));
         fluidSlot.setSlotOverlay(SlotOverlay.MINUS);
     }
 

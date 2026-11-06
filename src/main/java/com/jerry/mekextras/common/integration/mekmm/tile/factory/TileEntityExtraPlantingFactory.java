@@ -130,7 +130,7 @@ public class TileEntityExtraPlantingFactory extends TileEntityExtraMoreMachineFa
     @Override
     public @Nullable IChemicalTankHolder getInitialChemicalTanks(IContentsListener listener) {
         ChemicalTankHelper builder = ChemicalTankHelper.forSideWithConfig(this);
-        chemicalTank = BasicChemicalTank.inputModern(TileEntityPlantingStation.MAX_GAS * tier.processes * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
+        chemicalTank = BasicChemicalTank.inputModern(256L * TileEntityPlantingStation.MAX_GAS * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
         builder.addTank(chemicalTank);
         return builder.build();
     }

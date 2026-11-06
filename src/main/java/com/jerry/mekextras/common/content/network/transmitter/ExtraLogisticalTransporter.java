@@ -1,11 +1,11 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
-import com.jerry.mekextras.api.mixin.IMixinLogisticalTransporterBase;
 import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterBatch;
 import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterSync;
 import com.jerry.mekextras.common.tier.transmitter.TPTier;
 import com.jerry.mekextras.common.tile.transmitter.TileEntityExtraTransmitter;
 import com.jerry.mekextras.common.util.IExtraUpgradeableTransmitter;
+import com.jerry.mekextras.mixin.LogisticalTransporterBaseAccessor;
 
 import mekanism.api.SerializationConstants;
 import mekanism.api.text.EnumColor;
@@ -162,6 +162,15 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
     }
 
     @Override
+    public double getCost() {
+        int speed = TPTier.getSpeed(tier);
+        if (speed <= 0) {
+            throw new IllegalStateException("Logistical transporter speeds must be positive");
+        }
+        return TransporterTier.ULTIMATE.getSpeed() / (double) speed;
+    }
+
+    @Override
     public <BE extends BlockEntity & IAdvancedTransportEjector> TransitResponse insertMaybeRR(@Nullable BE outputter, BlockPos outputterPos,
                                                                                               TransitRequest request, @Nullable EnumColor color, boolean doEmit, int min) {
         if (outputter != null && outputter.getRoundRobin()) {
@@ -289,8 +298,8 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                                     // If this is not the final transporter try transferring it to the next one
                                     LogisticalTransporterBase transmitter = network.getTransmitter(next);
                                     if (stack.canInsertToTransporter(transmitter, stack.getSide(this), this)) {
-                                        if (transmitter instanceof IMixinLogisticalTransporterBase mixTransmitter) {
-                                            mixTransmitter.mekanismExtras$getEntity(stack, stack.progress % 100);
+                                        if (transmitter instanceof LogisticalTransporterBaseAccessor mixTransmitter) {
+                                            mixTransmitter.mekextras$entityEntering(stack, stack.progress % 100);
                                         }
                                         deletes.add(stackId);
                                         continue;

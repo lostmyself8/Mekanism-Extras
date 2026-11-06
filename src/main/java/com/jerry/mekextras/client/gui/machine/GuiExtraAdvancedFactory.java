@@ -63,11 +63,11 @@ public class GuiExtraAdvancedFactory extends GuiConfigurableTile<TileEntityExtra
 
     @Override
     protected void addGuiElements() {
-        if (tile instanceof TileEntityExtraWashingFactory) {
+        if (tile instanceof TileEntityExtraWashingFactory || tile instanceof TileEntityExtraLiquifyingFactory) {
             addRenderableWidget(GuiSideHolder.create(this, imageWidth, 66, 57, false, true, SpecialColors.TAB_CHEMICAL_WASHER));
         }
         super.addGuiElements();
-        if (tile instanceof TileEntityExtraWashingFactory) {
+        if (tile instanceof TileEntityExtraWashingFactory || tile instanceof TileEntityExtraLiquifyingFactory) {
             addRenderableWidget(new GuiDownArrow(this, imageWidth + 8, 90));
         }
         addRenderableWidget(new ExtraAdvancedFactoryGuiSortingTab(this, tile));

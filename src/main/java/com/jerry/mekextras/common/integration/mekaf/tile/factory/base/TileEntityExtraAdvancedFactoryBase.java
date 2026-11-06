@@ -65,6 +65,8 @@ import com.jerry.mekaf.common.tile.IFactoryStyle;
 import com.jerry.mekmm.common.util.MoreMachineUtils;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -105,7 +107,10 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
     /**
      * How many ticks it takes, with upgrades, to run an operation
      */
+    @Setter
     private int ticksRequired = BASE_TICKS_REQUIRED;
+    @Setter
+    @Getter
     private int operationsPerTick = 1;// will increase for modified upgrade multipliers
     protected boolean sorting;
     private boolean sortingNeeded = true;
@@ -118,6 +123,7 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
     protected final TYPE type;
 
     // 为了加压工厂而更改
+    @Getter
     protected ExtraAdvancedFactoryEnergyContainer energyContainer;
 
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getEnergyItem", docPlaceholder = "energy slot")
@@ -144,6 +150,17 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
             recheckAllRecipeErrors[i] = TileEntityRecipeMachine.shouldRecheckAllErrors(this);
         }
         errorTracker = new ErrorTracker(errorTypes, globalErrorTypes, tier.processes);
+        ticksRequired = getBaseTicksRequired();
+    }
+
+    /**
+     * Returns this factory's operation duration before speed upgrades are applied.
+     * <p>
+     * Called from this class's constructor after the factory type is assigned, but before subclass fields are
+     * initialized.
+     */
+    public int getBaseTicksRequired() {
+        return BASE_TICKS_REQUIRED;
     }
 
     /**
@@ -351,20 +368,8 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
         return upgradeComponent.isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 : ticksRequired;
     }
 
-    public int getOperationsPerTick() {
-        return operationsPerTick;
-    }
-
-    public void setOperationsPerTick(int value) {
-        operationsPerTick = value;
-    }
-
     public int getChemicalTicksRequired() {
         return ticksRequired;
-    }
-
-    public void setTicksRequired(int value) {
-        ticksRequired = value;
     }
 
     @Override
@@ -413,14 +418,15 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
 
     @Override
     public void recalculateUpgrades(Upgrade upgrade) {
-        ((IMixinMachineEnergyContainer) getEnergyContainer()).mekanism_Extras$extraRecalculateUpgrades(upgrade);
+        ((IMixinMachineEnergyContainer) getEnergyContainer()).mekextras$extraRecalculateUpgrades(upgrade);
         if (upgrade == Upgrade.SPEED) {
-            ticksRequired = MekanismUtils.getTicks(this, BASE_TICKS_REQUIRED);
-            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
+            int baseTicks = getBaseTicksRequired();
+            ticksRequired = MekanismUtils.getTicks(this, baseTicks);
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, baseTicks, upgradeMaxOperations);
         } else if (upgrade == ExtraUpgrade.STACK) {
             // 实际上一直是整数所以强制转化为int也不会损失什么
             upgradeMaxOperations = (int) Math.pow(2, upgradeComponent.getUpgrades(ExtraUpgrade.STACK));
-            operationsPerTick = MekanismUtils.getOperationsPerTick(this, BASE_TICKS_REQUIRED, upgradeMaxOperations);
+            operationsPerTick = MekanismUtils.getOperationsPerTick(this, getBaseTicksRequired(), upgradeMaxOperations);
         }
     }
 
@@ -439,10 +445,6 @@ public abstract class TileEntityExtraAdvancedFactoryBase<RECIPE extends Mekanism
 
     public boolean hasExtraResourceBar() {
         return false;
-    }
-
-    public ExtraAdvancedFactoryEnergyContainer getEnergyContainer() {
-        return energyContainer;
     }
 
     @Override

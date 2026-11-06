@@ -52,16 +52,16 @@ public class MixinOreType {
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void oreTypeClinit(CallbackInfo ci) {
-        ExtraOreType.NAQUADAH = mekanismExtras$addVariant("NAQUADAH", ExtraResource.NAQUADAH,
+        ExtraOreType.NAQUADAH = mekextras$addVariant("NAQUADAH", ExtraResource.NAQUADAH,
                 new BaseOreConfig("small", 8, 0, 4, HeightShape.TRAPEZOID, OreAnchor.absolute(-62), OreAnchor.absolute(-59)),
                 new BaseOreConfig("middle", 24, 0, 6, HeightShape.TRAPEZOID, OreAnchor.absolute(10), OreAnchor.absolute(30)));
 
         // 重新初始化静态参数，这非常重要
-        mekanismExtras$reinitializeByIdMap();
+        mekextras$reinitializeByIdMap();
     }
 
     @Unique
-    private static OreType mekanismExtras$addVariant(String internalName, IResource resource, BaseOreConfig... configs) {
+    private static OreType mekextras$addVariant(String internalName, IResource resource, BaseOreConfig... configs) {
         ArrayList<OreType> variants = new ArrayList<>(Arrays.asList($VALUES));
         OreType upgrade = oreType$initInvoker(internalName,
                 variants.getLast().ordinal() + 1,
@@ -73,7 +73,7 @@ public class MixinOreType {
     }
 
     @Unique
-    private static void mekanismExtras$reinitializeByIdMap() {
+    private static void mekextras$reinitializeByIdMap() {
         CODEC = StringRepresentable.fromEnum(OreType::values);
     }
 }

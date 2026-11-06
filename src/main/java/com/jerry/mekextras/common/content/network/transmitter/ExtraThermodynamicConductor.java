@@ -47,7 +47,8 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
     public ExtraThermodynamicConductor(Holder<Block> blockProvider, TileEntityExtraTransmitter tile) {
         super(blockProvider, tile);
         this.tier = Attribute.getTier(blockProvider, ConductorTier.class);
-        buffer = ExtraVariableHeatCapacitor.create(TCTier.getHeatCapacity(tier), TCTier.getConduction(tier), TCTier.getConductionInsulation(tier), ambientTemperature, this);
+        buffer = ExtraVariableHeatCapacitor.create(TCTier.getHeatCapacity(tier), () -> TCTier.getConduction(tier),
+                () -> TCTier.getConductionInsulation(tier), ambientTemperature, this);
         capacitors = Collections.singletonList(buffer);
     }
 
@@ -155,7 +156,7 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
     @Nullable
     @Override
     public ThermodynamicConductorUpgradeData getUpgradeData() {
-        return super.getUpgradeData();
+        return new ThermodynamicConductorUpgradeData(redstoneReactive, getConnectionTypesRaw(), buffer.getHeat());
     }
 
     @Override
@@ -165,6 +166,8 @@ public class ExtraThermodynamicConductor extends ThermodynamicConductor implemen
 
     @Override
     public void parseUpgradeData(@NotNull ThermodynamicConductorUpgradeData data) {
-        super.parseUpgradeData(data);
+        redstoneReactive = data.redstoneReactive;
+        setConnectionTypesRaw(data.connectionTypes);
+        buffer.setHeat(data.heat);
     }
 }

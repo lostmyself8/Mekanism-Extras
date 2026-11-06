@@ -4,17 +4,19 @@
   "package": "com.jerry.mekextras.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "LogisticalTransporterBaseAccessor",
     "MixinBinInventorySlot",
     "MixinBlockEnergyCube",
-    "MixinBlockTileBuilder",
     "MixinFactory",
-    "MixinLogisticalTransporterBase",
     "MixinMachineEnergyContainer",
     "MixinMekanismBlocks",
     "MixinMekanismBlockTypes",
     "MixinRecipeCacheLookupMonitor",
     "MixinTileComponentEjector",
     "MixinTileEntityDigitalMiner",
+    "MixinTurbineChemicalTank",
+    "MixinTurbineMultiblockData",
+    "MixinTransporterPathfinder",
     "MixinUpgrade",
     "MixinUpgradeUtils",
     "integration.mekaf.MixinAdvancedFactory",
@@ -24,7 +26,8 @@
   "client": [
     "client.MixinMekanismRenderer",
     "client.MixinRecipeViewerRecipeType",
-    "client.recipe_viewer.emi.MixinMekanismEmi"
+    "client.recipe_viewer.emi.MixinMekanismEmi",
+    "client.recipe_viewer.emi.MixinMoreMachineEmi"
   ],
   "injectors": {
     "defaultRequire": 1,

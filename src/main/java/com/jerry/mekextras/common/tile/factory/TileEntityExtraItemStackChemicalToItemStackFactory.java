@@ -60,6 +60,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -85,6 +86,7 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
     private final ILongInputHandler<@NotNull ChemicalStack> chemicalInputHandler;
     @WrappingComputerMethod(wrapper = ComputerIInventorySlotWrapper.class, methodNames = "getChemicalItem", docPlaceholder = "chemical item (extra) slot")
     ExtraFactoryChemicalInventorySlot extraSlot;
+    @Getter
     @WrappingComputerMethod(wrapper = ComputerChemicalTankWrapper.class,
                             methodNames = { "getChemical", "getChemicalCapacity", "getChemicalNeeded",
                                     "getChemicalFilledPercentage" },
@@ -125,11 +127,11 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
         // as maybe the valid recipes have changed, and we need to sort again and have all recipes know they may need to
         // be rechecked
         // if they are not still valid
-        long capacity = Attribute.getOrThrow(getBlockHolder(), AttributeFactoryType.class).getFactoryType() == FactoryType.INFUSING ? TileEntityMetallurgicInfuser.MAX_INFUSE : TileEntityAdvancedElectricMachine.MAX_GAS;
+        long capacity = 256 * (Attribute.getOrThrow(getBlockHolder(), AttributeFactoryType.class).getFactoryType() == FactoryType.INFUSING ? TileEntityMetallurgicInfuser.MAX_INFUSE : TileEntityAdvancedElectricMachine.MAX_GAS);
         if (allowExtractingChemical()) {
-            chemicalTank = BasicChemicalTank.createModern(capacity * tier.processes * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
+            chemicalTank = BasicChemicalTank.createModern(capacity * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
         } else {
-            chemicalTank = BasicChemicalTank.inputModern(capacity * tier.processes * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
+            chemicalTank = BasicChemicalTank.inputModern(capacity * tier.processes, this::containsRecipeB, markAllMonitorsChanged(listener));
         }
         builder.addTank(chemicalTank);
         return builder.build();
@@ -140,10 +142,6 @@ public class TileEntityExtraItemStackChemicalToItemStackFactory extends TileEnti
         super.addSlots(builder, listener, updateSortingListener);
         // Note: We care about the gas tank not the slot when it comes to recipes and updating sorting
         builder.addSlot(extraSlot = ExtraFactoryChemicalInventorySlot.fillOrConverts(this, chemicalTank, this::getLevel, listener, 7, 57));
-    }
-
-    public IChemicalTank getChemicalTank() {
-        return chemicalTank;
     }
 
     @Nullable

@@ -59,16 +59,16 @@ public class MixinUpgrade {
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void upgradeClinit(CallbackInfo ci) {
-        ExtraUpgrade.STACK = mekanismExtras$addVariant("STACK", APIExtraLang.UPGRADE_STACK, APIExtraLang.UPGRADE_STACK_DESCRIPTION, 8, EnumColor.BRIGHT_PINK);
-        ExtraUpgrade.IONIC_MEMBRANE = mekanismExtras$addVariant("IONIC_MEMBRANE", APIExtraLang.UPGRADE_IONIC_MEMBRANE, APIExtraLang.UPGRADE_IONIC_MEMBRANE_DESCRIPTION, 1, EnumColor.WHITE);
-        ExtraUpgrade.CREATIVE = mekanismExtras$addVariant("CREATIVE", APIExtraLang.UPGRADE_CREATIVE, APIExtraLang.UPGRADE_CREATIVE_DESCRIPTION, 1, EnumColor.PURPLE);
+        ExtraUpgrade.STACK = mekextras$addVariant("STACK", APIExtraLang.UPGRADE_STACK, APIExtraLang.UPGRADE_STACK_DESCRIPTION, 8, EnumColor.BRIGHT_PINK);
+        ExtraUpgrade.IONIC_MEMBRANE = mekextras$addVariant("IONIC_MEMBRANE", APIExtraLang.UPGRADE_IONIC_MEMBRANE, APIExtraLang.UPGRADE_IONIC_MEMBRANE_DESCRIPTION, 1, EnumColor.WHITE);
+        ExtraUpgrade.CREATIVE = mekextras$addVariant("CREATIVE", APIExtraLang.UPGRADE_CREATIVE, APIExtraLang.UPGRADE_CREATIVE_DESCRIPTION, 1, EnumColor.PURPLE);
 
         // 重新初始化静态参数，这非常重要
-        mekanismExtras$reinitializeByIdMap();
+        mekextras$reinitializeByIdMap();
     }
 
     @Unique
-    private static Upgrade mekanismExtras$addVariant(String internalName, ILangEntry langKey, ILangEntry descLangKey, int maxStack, EnumColor color) {
+    private static Upgrade mekextras$addVariant(String internalName, ILangEntry langKey, ILangEntry descLangKey, int maxStack, EnumColor color) {
         ArrayList<Upgrade> variants = new ArrayList<>(Arrays.asList($VALUES));
         Upgrade upgrade = upgrade$initInvoker(internalName,
                 variants.getLast().ordinal() + 1,
@@ -83,7 +83,7 @@ public class MixinUpgrade {
     }
 
     @Unique
-    private static void mekanismExtras$reinitializeByIdMap() {
+    private static void mekextras$reinitializeByIdMap() {
         Upgrade[] values = $VALUES;
         Function<String, Upgrade> nameLookup = StringRepresentable.createNameLookup(values, Function.identity());
         Function<String, Upgrade> remapper = it -> "gas".equals(it) ? CHEMICAL : nameLookup.apply(it);

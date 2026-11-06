@@ -7,6 +7,7 @@ import com.jerry.mekextras.common.integration.mekmm.block.prefab.ExtraMoreMachin
 import com.jerry.mekextras.common.integration.mekmm.content.blocktype.ExtraMoreMachineFactory;
 import com.jerry.mekextras.common.integration.mekmm.item.block.machine.ItemBlockExtraMoreMachineFactory;
 import com.jerry.mekextras.common.integration.mekmm.tile.factory.TileEntityExtraMoreMachineFactory;
+import com.jerry.mekextras.common.integration.mekmm.tile.factory.TileEntityExtraReplicatingFactory;
 import com.jerry.mekextras.common.tier.ExtraFactoryTier;
 import com.jerry.mekextras.common.util.ExtraEnumUtils;
 
@@ -14,7 +15,8 @@ import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.chemical.ChemicalTanksBuilder;
 import mekanism.common.attachments.containers.item.ItemSlotsBuilder;
 import mekanism.common.recipe.MekanismRecipeType;
-import mekanism.common.recipe.lookup.cache.InputRecipeCache;
+import mekanism.common.recipe.lookup.cache.InputRecipeCache.DoubleItem;
+import mekanism.common.recipe.lookup.cache.InputRecipeCache.ItemChemical;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 
@@ -27,7 +29,7 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.jerry.mekmm.common.content.blocktype.MoreMachineFactoryType;
 import com.jerry.mekmm.common.recipe.MoreMachineRecipeType;
-import com.jerry.mekmm.common.recipe.lookup.cache.MoreMachineInputRecipeCache;
+import com.jerry.mekmm.common.recipe.lookup.cache.MoreMachineInputRecipeCache.TripleItem;
 import com.jerry.mekmm.common.tile.factory.TileEntityReplicatingFactory;
 import com.jerry.mekmm.common.tile.machine.TileEntityPlantingStation;
 import com.jerry.mekmm.common.tile.machine.TileEntityReplicator;
@@ -73,7 +75,7 @@ public class ExtraMoreMachineBlocks {
             switch (type.getMoreMachineFactoryType()) {
                 case CNC_STAMPING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                         .addBasicFactorySlots(processes, recipeInputPredicate)
-                        .addInput(MekanismRecipeType.COMBINING, InputRecipeCache.DoubleItem::containsInputB)
+                        .addInput(MekanismRecipeType.COMBINING, DoubleItem::containsInputB)
                         .addEnergy()
                         .build());
                 case CNC_LATHING, CNC_ROLLING_MILL, RECYCLING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
@@ -82,16 +84,16 @@ public class ExtraMoreMachineBlocks {
                         .build());
                 case PRESSING -> holder.addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                         .addBasicFactorySlots(processes, recipeInputPredicate)
-                        .addInput(MoreMachineRecipeType.PRESSING, MoreMachineInputRecipeCache.TripleItem::containsInputB)
-                        .addInput(MoreMachineRecipeType.PRESSING, MoreMachineInputRecipeCache.TripleItem::containsInputC)
+                        .addInput(MoreMachineRecipeType.PRESSING, TripleItem::containsInputB)
+                        .addInput(MoreMachineRecipeType.PRESSING, TripleItem::containsInputC)
                         .addEnergy()
                         .build());
                 case PLANTING_STATION -> holder
                         .addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                                .addBasic(TileEntityPlantingStation.MAX_GAS * processes * processes, switch (type.getMoreMachineFactoryType()) {
+                                .addBasic(256L * TileEntityPlantingStation.MAX_GAS * processes, switch (type.getMoreMachineFactoryType()) {
                                     case PLANTING_STATION -> MoreMachineRecipeType.PLANTING_STATION;
                                     default -> throw new IllegalStateException("Factory type doesn't have a known gas recipe.");
-                                }, InputRecipeCache.ItemChemical::containsInputB)
+                                }, ItemChemical::containsInputB)
                                 .build())
                         .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeInputPredicate, true)
@@ -99,7 +101,7 @@ public class ExtraMoreMachineBlocks {
                                 .addEnergy()
                                 .build());
                 case REPLICATING -> holder.addAttachmentOnlyContainers(ContainerType.CHEMICAL, () -> ChemicalTanksBuilder.builder()
-                        .addBasic(TileEntityReplicatingFactory.MAX_GAS * processes * processes, TileEntityReplicatingFactory::isValidChemicalInput)
+                        .addBasic(256L * TileEntityExtraReplicatingFactory.MAX_GAS * processes, TileEntityReplicatingFactory::isValidChemicalInput)
                         .build()).addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                                 .addBasicFactorySlots(processes, recipeInputPredicate)
                                 .addChemicalFillOrConvertSlot(0)

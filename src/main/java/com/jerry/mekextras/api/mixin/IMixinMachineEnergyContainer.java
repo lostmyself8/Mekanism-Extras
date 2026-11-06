@@ -4,7 +4,7 @@ import mekanism.api.Upgrade;
 
 public interface IMixinMachineEnergyContainer {
 
-    void mekanism_Extras$extraUpdateMaxEnergy();
+    void mekextras$extraUpdateMaxEnergy();
 
-    void mekanism_Extras$extraRecalculateUpgrades(Upgrade upgrade);
+    void mekextras$extraRecalculateUpgrades(Upgrade upgrade);
 }
