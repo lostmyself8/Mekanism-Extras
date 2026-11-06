@@ -1,5 +1,15 @@
 # ChangeLog
 
+## Version [v1.4.2](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.4.1-1.21.1...v1.4.2-1.21.1)
+### Fixed
+
+- 防止其他有锚升级的机器也被mixin，我们只想mixin矿机的升级，并适配新版的mekmm by @lostmyself8 in [#193](https://github.com/lostmyself8/Mekanism-Extras/pull/193)
+
+### Changed
+
+- 防止其他有锚升级的机器也被mixin，我们只想mixin矿机的升级，并适配新版的mekmm by @lostmyself8 in [#193](https://github.com/lostmyself8/Mekanism-Extras/pull/193)
+
+ 
 ## Version [v1.4.1](https://github.com/lostmyself8/Mekanism-Extras/compare/v1.4.0-1.21.1...v1.4.1-1.21.1)
 ### Added
 
