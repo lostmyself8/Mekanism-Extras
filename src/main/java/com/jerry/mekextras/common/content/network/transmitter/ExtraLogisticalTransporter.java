@@ -1,6 +1,6 @@
 package com.jerry.mekextras.common.content.network.transmitter;
 
-import com.jerry.mekextras.api.mixin.IMixinLogisticalTransporterBase;
+import com.jerry.mekextras.mixin.LogisticalTransporterBaseAccessor;
 import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterBatch;
 import com.jerry.mekextras.common.network.to_client.transmitter.ExtraPacketTransporterSync;
 import com.jerry.mekextras.common.tier.transmitter.TPTier;
@@ -298,8 +298,8 @@ public class ExtraLogisticalTransporter extends LogisticalTransporterBase implem
                                     // If this is not the final transporter try transferring it to the next one
                                     LogisticalTransporterBase transmitter = network.getTransmitter(next);
                                     if (stack.canInsertToTransporter(transmitter, stack.getSide(this), this)) {
-                                        if (transmitter instanceof IMixinLogisticalTransporterBase mixTransmitter) {
-                                            mixTransmitter.mekanismExtras$getEntity(stack, stack.progress % 100);
+                                        if (transmitter instanceof LogisticalTransporterBaseAccessor mixTransmitter) {
+                                            mixTransmitter.mekextras$entityEntering(stack, stack.progress % 100);
                                         }
                                         deletes.add(stackId);
                                         continue;

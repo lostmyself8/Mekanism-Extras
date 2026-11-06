@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinUpgradeUtils {
 
     @Inject(method = "getItem", at = @At(value = "HEAD"), cancellable = true)
-    private static void getItem(Upgrade upgrade, CallbackInfoReturnable<Holder<Item>> cir) {
+    private static void mekextras$getItem(Upgrade upgrade, CallbackInfoReturnable<Holder<Item>> cir) {
         switch (upgrade.toString()) {
             case "STACK" -> cir.setReturnValue(ExtraItems.STACK);
             case "IONIC_MEMBRANE" -> cir.setReturnValue(ExtraItems.IONIC_MEMBRANE);

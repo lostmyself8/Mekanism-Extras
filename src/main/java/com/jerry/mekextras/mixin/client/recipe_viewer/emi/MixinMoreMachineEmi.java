@@ -20,7 +20,7 @@ import java.util.List;
 public abstract class MixinMoreMachineEmi {
 
     @Inject(method = "addWorkstations", at = @At("TAIL"))
-    private static void mekanism_extras$addWorkstations(EmiRegistry registry, EmiRecipeCategory category, List<ItemLike> workstations, CallbackInfo ci) {
+    private static void mekextras$addWorkstations(EmiRegistry registry, EmiRecipeCategory category, List<ItemLike> workstations, CallbackInfo ci) {
         ExtraEmiWorkstations extraWorkstations = new ExtraEmiWorkstationsImpl();
         extraWorkstations.register(registry, category, workstations);
     }

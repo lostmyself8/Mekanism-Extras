@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinMekanismBlocks {
 
     @Inject(method = "registerOre", at = @At(value = "HEAD"), cancellable = true)
-    private static void mixinRegisterOre(OreType ore, CallbackInfoReturnable<OreBlockType> cir) {
+    private static void mekextras$registerOre(OreType ore, CallbackInfoReturnable<OreBlockType> cir) {
         if (ore == ExtraOreType.NAQUADAH) {
             // 不能直接返回null，但事实上mekanism在注册方块时ExtraBlocks.ORES为空，但不知道为什么可以运行
             cir.setReturnValue(ExtraBlocks.ORES.get(ore));

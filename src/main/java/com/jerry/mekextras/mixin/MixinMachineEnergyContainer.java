@@ -11,14 +11,13 @@ import mekanism.common.capabilities.energy.MachineEnergyContainer;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.MekanismUtils;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
 
@@ -28,9 +27,6 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
     @Shadow
     @Final
     protected TILE tile;
-
-    @Shadow
-    protected long currentEnergyPerTick;
 
     @Shadow
     public abstract void setMaxEnergy(long maxEnergy);
@@ -48,15 +44,13 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
         super(maxEnergy, canExtract, canInsert, listener);
     }
 
-    @Inject(method = "getEnergyPerTick", at = @At(value = "RETURN"), cancellable = true)
-    public void mixinGetEnergyPerTick(CallbackInfoReturnable<Long> cir) {
-        if (tile.supportsUpgrade(ExtraUpgrade.CREATIVE)) {
-            cir.setReturnValue(tile.getComponent().isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0 : currentEnergyPerTick);
-        }
+    @ModifyReturnValue(method = "getEnergyPerTick", at = @At(value = "RETURN"))
+    public long mekextras$getEnergyPerTick(long currentEnergyPerTick) {
+        return tile.supportsUpgrade(ExtraUpgrade.CREATIVE) && tile.getComponent().isUpgradeInstalled(ExtraUpgrade.CREATIVE) ? 0L : currentEnergyPerTick;
     }
 
     @Override
-    public void mekanism_Extras$extraUpdateMaxEnergy() {
+    public void mekextras$extraUpdateMaxEnergy() {
         if (tile.supportsUpgrade(Upgrade.ENERGY) || tile.supportsUpgrade(ExtraUpgrade.CREATIVE)) {
             if (tile.getComponent().isUpgradeInstalled(ExtraUpgrade.CREATIVE)) {
                 setMaxEnergy(Long.MAX_VALUE);
@@ -67,9 +61,9 @@ public abstract class MixinMachineEnergyContainer<TILE extends TileEntityMekanis
     }
 
     @Override
-    public void mekanism_Extras$extraRecalculateUpgrades(Upgrade upgrade) {
+    public void mekextras$extraRecalculateUpgrades(Upgrade upgrade) {
         if (upgrade == ExtraUpgrade.CREATIVE) {
-            mekanism_Extras$extraUpdateMaxEnergy();
+            mekextras$extraUpdateMaxEnergy();
             if (getMaxEnergy() == Long.MAX_VALUE) {
                 setEnergy(Long.MAX_VALUE);
             }

@@ -26,7 +26,7 @@ public abstract class MixinRecipeCacheLookupMonitor<RECIPE extends MekanismRecip
     private IRecipeLookupHandler<RECIPE> handler;
 
     @Inject(method = "loadSavedData", at = @At(value = "INVOKE", target = "Lmekanism/api/recipes/cache/ICachedRecipeHolder;loadSavedData(Lmekanism/api/recipes/cache/CachedRecipe;I)V", shift = At.Shift.AFTER, by = 1))
-    public void mixinLoadSavedData(@NotNull CachedRecipe<RECIPE> cached, int cacheIndex, CallbackInfo ci) {
+    public void mekextras$loadSavedData(@NotNull CachedRecipe<RECIPE> cached, int cacheIndex, CallbackInfo ci) {
         if (cached instanceof StackableItemStackConstantChemicalToObjectCachedRecipe<?, ?> c &&
                 handler instanceof ConstantUsageRecipeLookupHandler lookupHandler) {
             c.loadSavedUsageSoFar(lookupHandler.getSavedUsedSoFar(cacheIndex));
